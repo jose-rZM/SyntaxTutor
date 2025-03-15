@@ -10,6 +10,8 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     ll1.CreateLL1Table();
     ll1.PrintTable();
     ui->setupUi(this);
+    ui->gr->setFont(QFont("Courier New", 14));
+    ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
     currentState = State::A;
@@ -33,12 +35,10 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
 
     // **Cabecera con el nombre (Usuario / Sistema)**
-    QLabel* header = new QLabel(isUser ? "Usuario" : "Sistema");
-    header->setAlignment(Qt::AlignLeft);
-    header->setStyleSheet(isUser
-                              ? "font-weight: bold; color: #007AFF; font-size: 12px;"  // Azul para usuario
-                              : "font-weight: bold; color: #8E8E93; font-size: 12px;"  // Gris para sistema
-                          );
+    QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
+    header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
+    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px;"
+                                 : "font-weight: bold; color: #8E8E93; font-size: 12px;");
 
     // **Contenedor del mensaje**
     QHBoxLayout* messageLayout = new QHBoxLayout;
@@ -56,23 +56,28 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
+    int maxWidth = ui->listWidget->width() * 0.8; // 75% del ancho del QListWidget
+    label->setMaximumWidth(maxWidth);
+    label->setMinimumWidth(200);  // Mínimo para evitar mensajes ultra estrechos
+
+
     // **Estilo de la burbuja**
     if (isUser) {
         label->setStyleSheet(R"(
-            background-color: #0084FF;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 18px;
-            font-size: 14px;
-        )");
+        background-color: #00ADB5;  /* Azul tipo iMessage */
+        color: white;
+        padding: 12px 16px;
+        border-radius: 18px;
+        font-size: 14px;
+    )");
     } else {
         label->setStyleSheet(R"(
-            background-color: #E5E5EA;
-            color: black;
-            padding: 12px 18px;
-            border-radius: 18px;
-            font-size: 14px;
-        )");
+        background-color: #222831;  /* Gris oscuro */
+        color: #E0E0E0;  /* Gris claro */
+        padding: 12px 16px;
+        border-radius: 18px;
+        font-size: 14px;
+    )");
     }
 
     // **Agregar los widgets al layout interno**
@@ -101,7 +106,26 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     // **Agregar al QListWidget**
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
+
+    ui->listWidget->update();
+    ui->listWidget->verticalScrollBar()->setSingleStep(5);
+    ui->listWidget->scrollToBottom();
+
 }
+
+void LLTutorWindow::scrollToBottomSmooth() {
+    QScrollBar* scrollbar = ui->listWidget->verticalScrollBar();
+    if (!scrollbar) return;
+
+    QPropertyAnimation* animation = new QPropertyAnimation(scrollbar, "value");
+    animation->setDuration(300);  // Duración de la animación en milisegundos
+    animation->setStartValue(scrollbar->value());  // Valor inicial
+    animation->setEndValue(scrollbar->maximum());  // Valor final (abajo del todo)
+    animation->setEasingCurve(QEasingCurve::InOutQuad);  // Suavizado
+
+    animation->start(QAbstractAnimation::DeleteWhenStopped);  // Borra la animación al terminar
+}
+
 
 void LLTutorWindow::on_confirmButton_clicked()
 {
