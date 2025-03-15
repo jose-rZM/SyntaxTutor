@@ -9,6 +9,7 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QTime>
 #include "dialogtablell.h"
 
 namespace Ui {
@@ -26,6 +27,9 @@ public:
     explicit LLTutorWindow(const Grammar& grammar, QWidget *parent = nullptr);
     ~LLTutorWindow();
     QString FormatGrammar(const Grammar& grammar);
+
+    void addMessage(const QString& text, bool isUser);
+
 
     // VERIFY RESPONSE ---------------------------------------
     bool verifyResponse(const QString& userResponse);

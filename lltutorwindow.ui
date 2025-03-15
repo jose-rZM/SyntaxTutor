@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>359</height>
+    <width>1003</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,19 +16,6 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Grammar:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QLabel" name="grammarLabel">
       <property name="text">
        <string>TextLabel</string>
@@ -36,27 +23,21 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="questionLabel">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>ola</string>
-      </property>
-     </widget>
+     <widget class="QListWidget" name="listWidget"/>
     </item>
     <item>
-     <widget class="QLineEdit" name="userResponse"/>
-    </item>
-    <item>
-     <widget class="QPushButton" name="confirmButton">
-      <property name="text">
-       <string>Confirmar</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="userResponse"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="confirmButton">
+        <property name="text">
+         <string>Enviar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -65,7 +46,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1003</width>
      <height>23</height>
     </rect>
    </property>

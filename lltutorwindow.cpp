@@ -10,21 +10,97 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     ll1.CreateLL1Table();
     ll1.PrintTable();
     ui->setupUi(this);
-    ui->grammarLabel->setText(FormatGrammar(grammar));
-    QString antecedente = sortedGrammar[currentRule].first;
-    QString consecuente = sortedGrammar[currentRule].second.join(" ");
-    QSet<QString> simbolosDirectores = stdUnorderedSetToQSet(
-        ll1.PredictionSymbols(antecedente.toStdString(), qvectorToStdVector(sortedGrammar[currentRule].second))
-        );
+    addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = State::C;
-    ui->questionLabel->setText(generateQuestion());
+    currentState = State::A;
+    addMessage(generateQuestion(), false);
     ui->userResponse->clear();
+
+    QFont chatFont("Arial", 12);
+    ui->listWidget->setFont(chatFont);
+    connect(ui->userResponse, &QLineEdit::returnPressed, this, &LLTutorWindow::on_confirmButton_clicked);
+
 }
 
 LLTutorWindow::~LLTutorWindow()
 {
     delete ui;
+}
+
+void LLTutorWindow::addMessage(const QString& text, bool isUser) {
+    // Widget contenedor del mensaje
+    QWidget* messageWidget = new QWidget;
+    QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
+
+    // **Cabecera con el nombre (Usuario / Sistema)**
+    QLabel* header = new QLabel(isUser ? "Usuario" : "Sistema");
+    header->setAlignment(Qt::AlignLeft);
+    header->setStyleSheet(isUser
+                              ? "font-weight: bold; color: #007AFF; font-size: 12px;"  // Azul para usuario
+                              : "font-weight: bold; color: #8E8E93; font-size: 12px;"  // Gris para sistema
+                          );
+
+    // **Contenedor del mensaje**
+    QHBoxLayout* messageLayout = new QHBoxLayout;
+    QVBoxLayout* innerLayout = new QVBoxLayout;
+
+    QLabel* label = new QLabel(text);
+    label->setWordWrap(true);
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    label->setMaximumWidth(ui->listWidget->width());
+    label->setMinimumWidth(100);
+
+    // **Hora del mensaje**
+    QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px;");
+    timestamp->setAlignment(Qt::AlignRight);
+
+    // **Estilo de la burbuja**
+    if (isUser) {
+        label->setStyleSheet(R"(
+            background-color: #0084FF;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 14px;
+        )");
+    } else {
+        label->setStyleSheet(R"(
+            background-color: #E5E5EA;
+            color: black;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 14px;
+        )");
+    }
+
+    // **Agregar los widgets al layout interno**
+    innerLayout->addWidget(label);
+    innerLayout->addWidget(timestamp);
+
+    // **Alinear mensaje**
+    if (isUser) {
+        messageLayout->addStretch();
+        messageLayout->addLayout(innerLayout);
+    } else {
+        messageLayout->addLayout(innerLayout);
+        messageLayout->addStretch();
+    }
+
+    // **Añadir cabecera y mensaje al layout principal**
+    mainLayout->addWidget(header);
+    mainLayout->addLayout(messageLayout);
+    mainLayout->setContentsMargins(10, 5, 10, 5);
+    messageWidget->setLayout(mainLayout);
+
+    // **Crear item en QListWidget**
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    item->setSizeHint(messageWidget->sizeHint());
+
+    // **Agregar al QListWidget**
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, messageWidget);
 }
 
 void LLTutorWindow::on_confirmButton_clicked()
@@ -33,6 +109,7 @@ void LLTutorWindow::on_confirmButton_clicked()
     bool isCorrect;
     if (currentState != State::C) {
         userResponse = ui->userResponse->text().trimmed();
+        addMessage(userResponse, true);
         isCorrect = verifyResponse(userResponse);
     } else {
         isCorrect = verifyResponseForC();
@@ -40,7 +117,7 @@ void LLTutorWindow::on_confirmButton_clicked()
 
 
     if (!isCorrect) {
-            QMessageBox::information(this, "Retroalimentación", feedback());
+        addMessage(feedback(), false);
     }
     updateState(isCorrect);
 
@@ -49,7 +126,7 @@ void LLTutorWindow::on_confirmButton_clicked()
         close();
     }
 
-    ui->questionLabel->setText(generateQuestion());
+    addMessage(generateQuestion(), false);
     ui->userResponse->clear();
 }
 
