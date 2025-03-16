@@ -27,6 +27,7 @@ Grammar::Grammar(
         g_[axiom_] = {{*st_.non_terminals_.begin(), st_.EOL_}};
         st_.PutSymbol(axiom_, false);
     }
+
 }
 
 void Grammar::SetAxiom(const std::string& axiom) {

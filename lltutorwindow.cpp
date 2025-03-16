@@ -9,6 +9,10 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
 {
     ll1.CreateLL1Table();
     ll1.PrintTable();
+    for (const auto& symbol : grammar.st_.terminals_) {
+        std::cout << symbol << " ";
+    }
+    std::cout << std::endl;
     ui->setupUi(this);
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
