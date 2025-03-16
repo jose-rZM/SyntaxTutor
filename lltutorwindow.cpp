@@ -1,7 +1,8 @@
 #include "lltutorwindow.h"
 #include "ui_lltutorwindow.h"
 
-
+#include <QRandomGenerator>
+#include <iostream>
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
@@ -10,13 +11,18 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
 {
     ll1.CreateLL1Table();
     ll1.PrintTable();
+    for (const auto& symbol : grammar.st_.terminals_) {
+        std::cout << symbol << " ";
+    }
+    std::cout << std::endl;
     ui->setupUi(this);
 
+    int videoIndex = QRandomGenerator::global()->bounded(1, 7);
+    QString videoPath = QString("/home/jose/SyntaxTutor1/media/subwaysurfers_%1.mp4").arg(videoIndex);
     QVideoWidget *videoWidget = ui->videoWidget;
-
     QMediaPlayer *player = new QMediaPlayer(this);
     player->setVideoOutput(videoWidget);
-    player->setSource(QUrl::fromLocalFile("/home/jose/SyntaxTutor1/media/subwaysurfers.mp4"));
+    player->setSource(QUrl::fromLocalFile(videoPath));
     player->setLoops(-1);
     player->play();
     videoWidget->setAspectRatioMode(Qt::IgnoreAspectRatio);

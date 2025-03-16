@@ -937,6 +937,7 @@ void GrammarFactory::LeftFactorize(Grammar& grammar) {
                                 prod.end());
                             if (remaining_part.empty()) {
                                 remaining_part.push_back(grammar.st_.EPSILON_);
+                                grammar.st_.PutSymbol(grammar.st_.EPSILON_, true);
                             }
                             new_remaining_productions.push_back(remaining_part);
                         } else {
