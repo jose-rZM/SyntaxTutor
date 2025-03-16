@@ -1,6 +1,7 @@
 #include "lltutorwindow.h"
 #include "ui_lltutorwindow.h"
 
+
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
@@ -10,6 +11,16 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     ll1.CreateLL1Table();
     ll1.PrintTable();
     ui->setupUi(this);
+
+    QVideoWidget *videoWidget = ui->videoWidget;
+
+    QMediaPlayer *player = new QMediaPlayer(this);
+    player->setVideoOutput(videoWidget);
+    player->setSource(QUrl::fromLocalFile("/home/jose/SyntaxTutor1/media/subwaysurfers.mp4"));
+    player->setLoops(-1);
+    player->play();
+    videoWidget->setAspectRatioMode(Qt::IgnoreAspectRatio);
+
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);

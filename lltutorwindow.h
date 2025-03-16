@@ -13,6 +13,11 @@
 #include <QPropertyAnimation>
 #include <QScrollBar>
 #include <QAbstractItemView>
+#include <QMediaPlayer>
+#include <QVideoWidget>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsProxyWidget>
 #include "dialogtablell.h"
 
 namespace Ui {
