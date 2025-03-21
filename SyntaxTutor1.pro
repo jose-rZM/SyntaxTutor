@@ -17,7 +17,8 @@ SOURCES += \
     dialogtablell.cpp \
     lltutorwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    slrtutorwindow.cpp
 
 HEADERS += \
     backend/grammar.hpp \
@@ -30,12 +31,14 @@ HEADERS += \
     backend/tabulate.hpp \
     dialogtablell.h \
     lltutorwindow.h \
-    mainwindow.h
+    mainwindow.h \
+    slrtutorwindow.h
 
 FORMS += \
     dialogtablell.ui \
     lltutorwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    slrtutorwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
