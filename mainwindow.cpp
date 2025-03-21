@@ -43,6 +43,9 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    factory.GenSLR1Grammar(level);
+    Grammar grammar = factory.GenSLR1Grammar(level);
+    grammar.Debug();
+    SLRTutorWindow *tutor = new SLRTutorWindow(grammar, this);
+    tutor->show();
 }
 
