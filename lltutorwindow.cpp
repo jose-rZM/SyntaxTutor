@@ -14,6 +14,19 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     }
     std::cout << std::endl;
     ui->setupUi(this);
+<<<<<<< HEAD
+=======
+
+    currentVideoIndex = QRandomGenerator::global()->bounded(1, totalVideos + 1);
+    QString videoPath = QString("/home/jose/SyntaxTutor1/media/subwaysurfers_%1.mp4").arg(currentVideoIndex);
+    QVideoWidget *videoWidget = ui->videoWidget;
+    player = new QMediaPlayer(this);
+    player->setVideoOutput(videoWidget);
+    player->setSource(QUrl::fromLocalFile(videoPath));
+    player->setLoops(-1);
+    player->play();
+    videoWidget->setAspectRatioMode(Qt::IgnoreAspectRatio);
+>>>>>>> ae65b29 (slr)
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
@@ -130,7 +143,7 @@ void LLTutorWindow::scrollToBottomSmooth() {
     animation->start(QAbstractAnimation::DeleteWhenStopped);  // Borra la animación al terminar
 }
 
-
+#include <QTimer>
 void LLTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
@@ -149,6 +162,80 @@ void LLTutorWindow::on_confirmButton_clicked()
     }
     updateState(isCorrect);
 
+    if (isCorrect) {
+        // START BRAINROT ----
+        int shakeAmount = 10; // Intensidad del temblor
+        int duration = 100; // Duración total en ms
+        int interval = 10; // Frecuencia de cambio
+        int elapsed = 0;
+
+        QPoint originalPos = this->pos();
+        QTimer* timer = new QTimer(this);
+
+        QObject::connect(timer, &QTimer::timeout, [this, timer, originalPos, &elapsed, shakeAmount, interval, duration]() mutable {
+            if (elapsed >= duration) {
+                this->move(originalPos);  // Restaurar posición original
+                timer->stop();
+                timer->deleteLater();
+                return;
+            }
+
+            int offsetX = (rand() % (shakeAmount * 2 + 1)) - shakeAmount;
+            int offsetY = (rand() % (shakeAmount * 2 + 1)) - shakeAmount;
+            this->move(originalPos.x() + offsetX, originalPos.y() + offsetY);
+
+            elapsed += interval;
+        });
+
+        timer->start(interval);
+
+        int newIndex;
+        do {
+            newIndex = QRandomGenerator::global()->bounded(1, totalVideos + 1);
+        } while (newIndex == currentVideoIndex);
+        currentVideoIndex = newIndex;
+        QString videoPath = QString("/home/jose/SyntaxTutor1/media/subwaysurfers_%1.mp4").arg(currentVideoIndex);
+
+        player->setSource(QUrl::fromLocalFile(videoPath));
+        player->setLoops(-1);
+        player->play();
+        // Obtener el centro del widget original
+        QRect originalGeometry = ui->videoWidget->geometry();
+        QPoint center = originalGeometry.center();
+
+        // Crear la animación de Zoom
+        QPropertyAnimation *zoom = new QPropertyAnimation(ui->videoWidget, "geometry");
+        zoom->setDuration(500);
+        zoom->setEasingCurve(QEasingCurve::OutBounce);
+
+        // Definir el tamaño aumentado
+        int zoomFactor = 150; // Puedes cambiar este valor
+        QRect zoomedRect = QRect(center.x() - (originalGeometry.width() + zoomFactor) / 2,
+                                 center.y() - (originalGeometry.height() + zoomFactor) / 2,
+                                 originalGeometry.width() + zoomFactor,
+                                 originalGeometry.height() + zoomFactor);
+
+        // Ajustar los valores de la animación
+        zoom->setStartValue(originalGeometry);
+        zoom->setEndValue(zoomedRect);
+
+        // Volver al tamaño normal después del zoom
+        connect(zoom, &QPropertyAnimation::finished, [this, originalGeometry]() {
+            QPropertyAnimation *zoomBack = new QPropertyAnimation(ui->videoWidget, "geometry");
+            zoomBack->setDuration(200);
+            zoomBack->setEasingCurve(QEasingCurve::InOutQuad);
+            zoomBack->setStartValue(ui->videoWidget->geometry());
+            zoomBack->setEndValue(originalGeometry);
+            zoomBack->start();
+        });
+
+        zoom->start();
+
+
+
+        // END BRAINROT ------
+    }
+
     if (currentState == State::fin) {
         QMessageBox::information(this, "fin", "fin");
         close();
@@ -157,7 +244,49 @@ void LLTutorWindow::on_confirmButton_clicked()
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
 }
+void LLTutorWindow::shakeWindow(QWidget* window) {
+    int shakeAmount = 10; // Intensidad del temblor
+    int duration = 100; // Duración total en ms
+    int interval = 50; // Frecuencia de cambio
+    int elapsed = 0;
 
+    QPoint originalPos = window->pos();
+    QTimer* timer = new QTimer(window);
+
+    QObject::connect(timer, &QTimer::timeout, [window, timer, originalPos, &elapsed, shakeAmount, interval, duration]() mutable {
+        if (elapsed >= duration) {
+            window->move(originalPos);  // Restaurar posición original
+            timer->stop();
+            timer->deleteLater();
+            return;
+        }
+
+        int offsetX = (rand() % (shakeAmount * 2 + 1)) - shakeAmount;
+        int offsetY = (rand() % (shakeAmount * 2 + 1)) - shakeAmount;
+        window->move(originalPos.x() + offsetX, originalPos.y() + offsetY);
+
+        elapsed += interval;
+    });
+
+    timer->start(interval);
+}
+
+void LLTutorWindow::showPopupMessage(QWidget* parent, const QString& message) {
+    QLabel* label = new QLabel(message, parent);
+    label->setStyleSheet("color: white; font-size: 24px; font-weight: bold; background: rgba(0, 0, 0, 100); padding: 5px;");
+    label->setAlignment(Qt::AlignCenter);
+    label->setGeometry(parent->width()/2 - 50, parent->height()/2, 100, 50);
+    label->show();
+
+    QPropertyAnimation* animation = new QPropertyAnimation(label, "pos");
+    animation->setDuration(1000);
+    animation->setStartValue(label->pos());
+    animation->setEndValue(QPoint(label->x(), label->y() - 50));
+    animation->setEasingCurve(QEasingCurve::OutQuad);
+
+    QObject::connect(animation, &QPropertyAnimation::finished, label, &QLabel::deleteLater);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
 void LLTutorWindow::updateState(bool isCorrect) {
     switch (currentState) {
     case State::A:
