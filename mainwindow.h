@@ -5,6 +5,7 @@
 #include "backend/grammar_factory.hpp"
 #include "backend/grammar.hpp"
 #include "lltutorwindow.h"
+#include "slrtutorwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

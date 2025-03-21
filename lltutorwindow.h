@@ -32,7 +32,6 @@ public:
     QString FormatGrammar(const Grammar& grammar);
 
     void addMessage(const QString& text, bool isUser);
-    void scrollToBottomSmooth();
 
     // VERIFY RESPONSE ---------------------------------------
     bool verifyResponse(const QString& userResponse);
