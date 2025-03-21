@@ -9,15 +9,10 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QTime>
 #include <QPropertyAnimation>
 #include <QScrollBar>
 #include <QAbstractItemView>
-#include <QMediaPlayer>
-#include <QVideoWidget>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsProxyWidget>
+#include <QTime>
 #include "dialogtablell.h"
 
 namespace Ui {
@@ -97,13 +92,6 @@ private:
     QMap<QString, QMap<QString, QVector<QVector<QString>>>> lltable;
     QSet<QString> solutionSet;
     size_t currentRule = 0;
-
-    QMediaPlayer *player;
-    int currentVideoIndex = -1;
-    const int totalVideos = 7;
-
-    void shakeWindow(QWidget* window);
-    void showPopupMessage(QWidget* parent, const QString& message);
 };
 
 #endif // LLTUTORWINDOW_H
