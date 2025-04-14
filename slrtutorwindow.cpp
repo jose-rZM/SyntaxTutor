@@ -15,6 +15,9 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
+    currentState = StateSlr::A;
+    addMessage(generateQuestion(), false);
+
     QFont chatFont("Arial", 12);
     ui->listWidget->setFont(chatFont);
     connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
@@ -103,6 +106,27 @@ void SLRTutorWindow::on_confirmButton_clicked()
 {
 
 }
+
+QString SLRTutorWindow::generateQuestion() {
+    switch(currentState) {
+    case StateSlr::A:
+        return "¿Cuál es el estado inicial? Formato: X -> a·b,X -> ·b,X -> EPSILON";
+    case StateSlr::A1:
+        return "¿Cuál es el axioma de la gramática?";
+    case StateSlr::A2:
+        return "¿Cuál es el símbolo que sigue al ·?";
+    case StateSlr::A3:
+        return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo que sigue al ·?";
+    case StateSlr::A4:
+        return "¿Cuál es el cierre del axioma?";
+    case StateSlr::A_prime:
+        return "Entonces, ¿cuál es el estado inicial?";
+    default:
+        return "";
+    }
+}
+
+
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString result;
