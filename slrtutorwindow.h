@@ -18,6 +18,10 @@ namespace Ui {
 class SLRTutorWindow;
 }
 
+enum class StateSlr {
+    A, A1, A2, A3, A4, A_prime, B, C, CA, CB, fin
+};
+
 class SLRTutorWindow : public QMainWindow
 {
     Q_OBJECT
@@ -28,6 +32,59 @@ public:
     QString FormatGrammar(const Grammar& grammar);
 
     void addMessage(const QString& text, bool isUser);
+
+    // ------------------------------------------------------
+    // ------------------------------------------------------
+    // VERIFY RESPONSE ---------------------------------------
+    bool verifyResponse(const QString& userResponse);
+    bool verifyResponseForA(const QString& userResponse);
+    bool verifyResponseForA1(const QString& userResponse);
+    bool verifyResponseForA2(const QString& userResponse);
+    bool verifyResponseForA3(const QString& userResponse);
+    bool verifyResponseForA4(const QString& userResponse);
+
+    bool verifyResponseForB(const QString& userResponse);
+    bool verifyResponseForC(const QString& userResponse);
+    bool verifyResponseForCA(const QString& userResponse);
+
+    // END VERIFY RESPONSE ----------------------------------
+    // ------------------------------------------------------
+    // ------------------------------------------------------
+
+
+    // ------------------------------------------------------
+    // ------------------------------------------------------
+    // SOLUTIONS --------------------------------------------
+    QString solution(const std::string& state);
+    QString solutionForA();
+    QString solutionForA1();
+    QString solutionForA2();
+    QSet<QString> solutionForB();
+    QSet<QString> solutionForB1();
+    QSet<QString> solutionForB2();
+    // END SOLUTIONS -----------------------------------------
+    // ------------------------------------------------------
+    // ------------------------------------------------------
+
+
+    // ------------------------------------------------------
+    // ------------------------------------------------------
+    // FEEDBACK ----------------------------------------------
+    QString feedback();
+    QString feedbackForA();
+    QString feedbackForA1();
+    QString feedbackForA2();
+    QString feedbackForAPrime();
+    QString feedbackForB();
+    QString feedbackForB1();
+    QString feedbackForB2();
+    QString feedbackForBPrime();
+    // END FEEDBACK ------------------------------------------
+    // ------------------------------------------------------
+    // ------------------------------------------------------
+
+    void updateState(bool isCorrect);
+    QString generateQuestion();
 
 private slots:
     void on_confirmButton_clicked();
@@ -44,6 +101,7 @@ private:
     Grammar grammar;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     SLR1Parser slr1;
+    StateSlr currentState;
 };
 
 #endif // SLRTUTORWINDOW_H
