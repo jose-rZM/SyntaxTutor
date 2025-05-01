@@ -15,7 +15,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = StateSlr::A;
+    currentState = StateSlr::A4;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Arial", 12);
