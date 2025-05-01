@@ -376,14 +376,14 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
 std::string SLR1Parser::TeachClosure(std::unordered_set<Lr0Item>& items) {
     std::ostringstream output;
     output << "Process of computing Closure for the following items:\n";
-    PrintItems(items);
+    output << PrintItems(items);
 
     std::unordered_set<std::string> visited;
     TeachClosureUtil(items, items.size(), visited, 0, output);
     output << "Closure:\n";
     for (const Lr0Item& item : items) {
         output << "  - ";
-        item.PrintItem();
+        output << item.ToString();
         output << "\n";
     }
     return output.str();
@@ -408,7 +408,7 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
         }
 
         output << indent << "  - Item: ";
-        item.PrintItem();
+        output << item.ToString();
         output << "\n";
 
         if (!gr_.st_.IsTerminal(next) &&
@@ -426,7 +426,7 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
                 newItems.insert(newItem);
 
                 output << indent << "      - Added: ";
-                newItem.PrintItem();
+                output << newItem.ToString();
                 output << "\n";
             }
 
@@ -508,7 +508,7 @@ SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
     }
 }
 
-std::string SLR1Parser::TeachCanonicalCollection() {
+void SLR1Parser::TeachCanonicalCollection() {
     std::cout << "=== Process of Constructing the Canonical Collection of "
                  "LR(0) Items ===\n\n";
 
@@ -620,11 +620,13 @@ std::string SLR1Parser::TeachCanonicalCollection() {
 }
 
 std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) {
+    std::ostringstream output;
     for (const auto& item : items) {
-        std::cout << "  - ";
+        output << "  - ";
         item.PrintItem();
-        std::cout << "\n";
+        output << "\n";
     }
+    return output.str();
 }
 
 void SLR1Parser::First(std::span<const std::string>     rule,

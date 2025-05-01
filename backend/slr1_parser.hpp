@@ -271,7 +271,7 @@ class SLR1Parser {
                           std::unordered_set<std::string>& visited, int depth, std::ostringstream &output);
     std::string TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                             const std::string&                 symbol);
-    std::string TeachCanonicalCollection();
+    void TeachCanonicalCollection();
     std::string PrintItems(const std::unordered_set<Lr0Item>& items);
 
     /// @brief The grammar being processed by the parser.
