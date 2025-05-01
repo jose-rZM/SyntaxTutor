@@ -56,11 +56,11 @@ public:
     // ------------------------------------------------------
     // SOLUTIONS --------------------------------------------
     QString solution(const std::string& state);
-    QString solutionForA();
+    std::unordered_set<Lr0Item> solutionForA();
     QString solutionForA1();
     QString solutionForA2();
-    QString solutionForA3();
-    QString solutionForA4();
+    std::vector<std::pair<std::string, std::vector<std::string>>> solutionForA3();
+    std::unordered_set<Lr0Item> solutionForA4();
     QSet<QString> solutionForB();
     QSet<QString> solutionForB1();
     QSet<QString> solutionForB2();
@@ -100,6 +100,7 @@ private:
     QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string>& uset);
     std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString>& qset);
     std::unordered_set<Lr0Item> ingestUserItems(const QString& userResponse);
+    std::vector<std::pair<std::string, std::vector<std::string>>> ingestUserRules(const QString& userResponse);
     // END HELPER FUNCTIONS ----------------
 
     Ui::SLRTutorWindow *ui;
