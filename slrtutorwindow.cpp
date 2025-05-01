@@ -165,7 +165,8 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForA(const QString& userResponse) {
-
+    std::unordered_set<Lr0Item> response = ingestUserItems(userResponse);
+    return response == solutionForA();
 }
 
 bool SLRTutorWindow::verifyResponseForA1(const QString& userResponse) {
@@ -177,11 +178,48 @@ bool SLRTutorWindow::verifyResponseForA2(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForA3(const QString& userResponse) {
-    return userResponse == solutionForA3();
+    const auto response = ingestUserRules(userResponse);
+    return response == solutionForA3();
 }
 
 bool SLRTutorWindow::verifyResponseForA4(const QString& userResponse) {
+    std::unordered_set<Lr0Item> response = ingestUserItems(userResponse);
+    return response == solutionForA4();
+}
 
+std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA() {
+    const auto expected = std::ranges::find_if(slr1.states_, [](const state& st) {
+        return st.id_ == 0;
+    });
+    return expected->items_;
+}
+
+QString SLRTutorWindow::solutionForA1() {
+    return QString::fromStdString(grammar.axiom_);
+}
+
+QString SLRTutorWindow::solutionForA2() {
+    return QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0));
+}
+
+std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::solutionForA3() {
+    std::string next = grammar.g_.at(grammar.axiom_).at(0).at(0);
+    std::vector<std::pair<std::string, std::vector<std::string>>> result;
+
+    const auto& rules = grammar.g_.at(next);
+    for (const auto& rhs : rules) {
+        result.emplace_back(next, rhs);
+    }
+
+    return result;
+}
+
+
+std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA4() {
+    std::unordered_set<Lr0Item> items;
+    items.emplace(grammar.axiom_, grammar.g_.at(grammar.axiom_).at(0), grammar.st_.EPSILON_, grammar.st_.EOL_);
+    slr1.Closure(items);
+    return items;
 }
 
 QString SLRTutorWindow::generateQuestion() {
@@ -204,6 +242,22 @@ QString SLRTutorWindow::generateQuestion() {
 }
 
 QString SLRTutorWindow::feedback() {
+    switch(currentState) {
+    case StateSlr::A:
+        return feedbackForA();
+    case StateSlr::A1:
+        return feedbackForA1();
+    case StateSlr::A2:
+        return feedbackForA2();
+    case StateSlr::A3:
+        return feedbackForA3();
+    case StateSlr::A4:
+        return feedbackForA4();
+    case StateSlr::A_prime:
+        return feedbackForAPrime();
+    default:
+        return "sa liao, no tendria que haber llegado aquí";
+    }
 }
 
 QString SLRTutorWindow::feedbackForA() {
@@ -313,9 +367,36 @@ std::unordered_set<Lr0Item> SLRTutorWindow::ingestUserItems(const QString& userR
         std::string before_dot = consequent.substr(0, dotpos);
         std::string after_dot = consequent.substr(dotpos + 1);
 
+        std::vector<std::string> splitted_before_dot{grammar.Split(before_dot)};
+        std::vector<std::string> splitted_after_dot{grammar.Split(after_dot)};
 
-
+        std::vector<std::string> splitted{splitted_before_dot.begin(), splitted_before_dot.end()};
+        splitted.insert(splitted.end(), splitted_after_dot.begin(), splitted_after_dot.end());
+        size_t dot_idx = splitted_before_dot.size();
+        items.emplace(antecedent, splitted, static_cast<unsigned int>(dot_idx), grammar.st_.EPSILON_, grammar.st_.EOL_);
     }
+    return items;
+}
+
+std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::ingestUserRules(const QString& userResponse) {
+    std::stringstream ss(userResponse.toStdString());
+    char del = ',';
+    std::string token;
+    std::vector<std::pair<std::string, std::vector<std::string>>> rules;
+
+    while (std::getline(ss, token, del)) {
+        size_t arrowpos = token.find("->");
+        if (arrowpos == std::string::npos) {
+            return {};
+        }
+        std::string antecedent = token.substr(0, arrowpos);
+        std::string consequent = token.substr(arrowpos + 2);
+
+        std::vector<std::string> splitted{grammar.Split(consequent)};
+
+        rules.emplace_back(antecedent, splitted);
+    }
+    return rules;
 }
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
