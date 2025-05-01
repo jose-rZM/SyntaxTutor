@@ -99,6 +99,7 @@ private:
     QVector<QString> stdVectorToQVector(const std::vector<std::string>& vec);
     QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string>& uset);
     std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString>& qset);
+    std::unordered_set<Lr0Item> ingestUserItems(const QString& userResponse);
     // END HELPER FUNCTIONS ----------------
 
     Ui::SLRTutorWindow *ui;

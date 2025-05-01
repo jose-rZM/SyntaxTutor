@@ -292,6 +292,32 @@ std::unordered_set<std::string> SLRTutorWindow::qsetToStdUnorderedSet(const QSet
     return result;
 }
 
+std::unordered_set<Lr0Item> SLRTutorWindow::ingestUserItems(const QString& userResponse) {
+    std::stringstream ss(userResponse.toStdString());
+    char del = ',';
+    std::string token;
+    std::unordered_set<Lr0Item> items;
+
+    while (std::getline(ss, token, del)) {
+        size_t arrowpos = token.find("->");
+        if (arrowpos == std::string::npos) {
+            return {};
+        }
+        std::string antecedent = token.substr(0, arrowpos);
+        std::string consequent = token.substr(arrowpos + 2);
+
+        size_t dotpos = consequent.find('.');
+        if (dotpos == std::string::npos) {
+            return {};
+        }
+        std::string before_dot = consequent.substr(0, dotpos);
+        std::string after_dot = consequent.substr(dotpos + 1);
+
+
+
+    }
+}
+
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString result;
 

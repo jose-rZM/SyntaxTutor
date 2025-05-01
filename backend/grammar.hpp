@@ -77,6 +77,8 @@ struct Grammar {
     void AddProduction(const std::string&              antecedent,
                        const std::vector<std::string>& consequent);
 
+    std::vector<std::string> Split(const std::string& s);
+
     /**
      * @brief Stores the grammar rules with each antecedent mapped to a list of
      * productions.

@@ -88,3 +88,38 @@ void Grammar::AddProduction(const std::string&              antecedent,
                             const std::vector<std::string>& consequent) {
     g_[antecedent].push_back(std::move(consequent));
 }
+
+std::vector<std::string> Grammar::Split(const std::string& s) {
+    if (s == st_.EPSILON_) {
+        return {st_.EPSILON_};
+    }
+    std::vector<std::string> splitted;
+    std::string str;
+    unsigned start{0};
+    unsigned end{1};
+
+    while (end <= s.size()) {
+        str = s.substr(start, end - start);
+
+        if (st_.In(str)) {
+            unsigned lookahead = end + 1;
+            while (lookahead <= s.size()) {
+                std::string extended = s.substr(start, lookahead - start);
+                if (st_.In(extended)) {
+                    end = lookahead;
+                }
+                ++lookahead;
+            }
+            splitted.push_back(s.substr(start, end - start));
+            start = end;
+            end = start + 1;
+        } else {
+            ++end;
+        }
+    }
+
+    if (start < end - 1) {
+        return {};
+    }
+    return splitted;
+}
