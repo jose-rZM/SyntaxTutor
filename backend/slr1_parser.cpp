@@ -373,30 +373,33 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
         ClosureUtil(items, items.size(), visited);
 }
 
-void SLR1Parser::TeachClosure(std::unordered_set<Lr0Item>& items) {
-    std::cout << "Process of computing Closure for the following items:\n";
+std::string SLR1Parser::TeachClosure(std::unordered_set<Lr0Item>& items) {
+    std::ostringstream output;
+    output << "Process of computing Closure for the following items:\n";
     PrintItems(items);
 
     std::unordered_set<std::string> visited;
-    TeachClosureUtil(items, items.size(), visited, 0);
-    std::cout << "Closure:\n";
+    TeachClosureUtil(items, items.size(), visited, 0, output);
+    output << "Closure:\n";
     for (const Lr0Item& item : items) {
-        std::cout << "  - ";
+        output << "  - ";
         item.PrintItem();
-        std::cout << "\n";
+        output << "\n";
     }
+    return output.str();
 }
 
 void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
                                   unsigned int                     size,
                                   std::unordered_set<std::string>& visited,
-                                  int                              depth) {
+                                  int                              depth,
+                                std::ostringstream &output) {
     // Indent based on depth for better readability
     std::string indent(depth * 2, ' ');
 
     std::unordered_set<Lr0Item> newItems;
 
-    std::cout << indent
+    output << indent
               << "- Checking items for non-terminals after the dot:\n";
     for (const auto& item : items) {
         std::string next = item.NextToDot();
@@ -404,17 +407,17 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
             continue;
         }
 
-        std::cout << indent << "  - Item: ";
+        output << indent << "  - Item: ";
         item.PrintItem();
-        std::cout << "\n";
+        output << "\n";
 
         if (!gr_.st_.IsTerminal(next) &&
             std::find(visited.cbegin(), visited.cend(), next) ==
                 visited.cend()) {
-            std::cout << indent
+            output << indent
                       << "    - Found non-terminal after the dot: " << next
                       << "\n";
-            std::cout << indent << "    - Adding all productions of " << next
+            output << indent << "    - Adding all productions of " << next
                       << " with the dot at the beginning:\n";
 
             const std::vector<production>& rules = gr_.g_.at(next);
@@ -422,9 +425,9 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
                 Lr0Item newItem(next, rule, 0, gr_.st_.EPSILON_, gr_.st_.EOL_);
                 newItems.insert(newItem);
 
-                std::cout << indent << "      - Added: ";
+                output << indent << "      - Added: ";
                 newItem.PrintItem();
-                std::cout << "\n";
+                output << "\n";
             }
 
             visited.insert(next);
@@ -434,21 +437,22 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
     items.insert(newItems.begin(), newItems.end());
 
     if (size != items.size()) {
-        std::cout << indent
+        output << indent
                   << "- New items were added. Repeating the process...\n";
-        TeachClosureUtil(items, items.size(), visited, depth + 1);
+        TeachClosureUtil(items, items.size(), visited, depth + 1, output);
     } else {
-        std::cout << indent
+        output << indent
                   << "- No new items were added. Closure is complete.\n";
     }
 }
 
-void SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
+std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                                     const std::string&                 symbol) {
-    std::cout << "Let I be:\n";
+    std::ostringstream output;
+    output << "Let I be:\n";
     PrintItems(items);
-    std::cout << "Process of finding δ(I, " << symbol << "):\n";
-    std::cout << "1. Search for rules with " << symbol
+    output << "Process of finding δ(I, " << symbol << "):\n";
+    output << "1. Search for rules with " << symbol
               << " next to the dot. That is, items of the form α·" << symbol
               << "β\n";
     std::unordered_set<Lr0Item> filtered;
@@ -459,12 +463,12 @@ void SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
         }
     });
     if (items.empty()) {
-        std::cout << "2. No items found. Therefore δ(I, " << symbol
+        output << "2. No items found. Therefore δ(I, " << symbol
                   << ") = ∅\n";
     } else {
-        std::cout << "2. Items found. Let J be:\n";
+        output << "2. Items found. Let J be:\n";
         PrintItems(filtered);
-        std::cout << "3. Advance the dot one position:\n";
+        output << "3. Advance the dot one position:\n";
         std::unordered_set<Lr0Item> advanced;
         for (const Lr0Item& item : filtered) {
             Lr0Item new_item = item;
@@ -472,11 +476,12 @@ void SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
             advanced.insert(new_item);
         }
         PrintItems(advanced);
-        std::cout << "4. δ(I, " << symbol << ") = CLOSURE(J)\n";
-        std::cout << "5. Closure of J:\n";
+        output << "4. δ(I, " << symbol << ") = CLOSURE(J)\n";
+        output << "5. Closure of J:\n";
         Closure(advanced);
         PrintItems(advanced);
     }
+    return output.str();
 }
 
 std::unordered_set<Lr0Item>
@@ -503,7 +508,7 @@ SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
     }
 }
 
-void SLR1Parser::TeachCanonicalCollection() {
+std::string SLR1Parser::TeachCanonicalCollection() {
     std::cout << "=== Process of Constructing the Canonical Collection of "
                  "LR(0) Items ===\n\n";
 
@@ -614,7 +619,7 @@ void SLR1Parser::TeachCanonicalCollection() {
     }
 }
 
-void SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) {
+std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) {
     for (const auto& item : items) {
         std::cout << "  - ";
         item.PrintItem();

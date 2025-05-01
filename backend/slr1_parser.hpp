@@ -266,13 +266,13 @@ class SLR1Parser {
     bool MakeParser();
 
     void TeachAllItems();
-    void TeachClosure(std::unordered_set<Lr0Item>& items);
+    std::string TeachClosure(std::unordered_set<Lr0Item>& items);
     void TeachClosureUtil(std::unordered_set<Lr0Item>& items, unsigned int size,
-                          std::unordered_set<std::string>& visited, int depth);
-    void TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
+                          std::unordered_set<std::string>& visited, int depth, std::ostringstream &output);
+    std::string TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                             const std::string&                 symbol);
-    void TeachCanonicalCollection();
-    void PrintItems(const std::unordered_set<Lr0Item>& items);
+    std::string TeachCanonicalCollection();
+    std::string PrintItems(const std::unordered_set<Lr0Item>& items);
 
     /// @brief The grammar being processed by the parser.
     Grammar gr_;

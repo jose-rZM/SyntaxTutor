@@ -59,6 +59,8 @@ public:
     QString solutionForA();
     QString solutionForA1();
     QString solutionForA2();
+    QString solutionForA3();
+    QString solutionForA4();
     QSet<QString> solutionForB();
     QSet<QString> solutionForB1();
     QSet<QString> solutionForB2();
@@ -74,6 +76,8 @@ public:
     QString feedbackForA();
     QString feedbackForA1();
     QString feedbackForA2();
+    QString feedbackForA3();
+    QString feedbackForA4();
     QString feedbackForAPrime();
     QString feedbackForB();
     QString feedbackForB1();
