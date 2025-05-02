@@ -15,7 +15,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
     
-    currentState = StateSlr::A4;
+    currentState = StateSlr::B;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Arial", 12);
@@ -122,6 +122,10 @@ void SLRTutorWindow::on_confirmButton_clicked()
     ui->userResponse->clear();
 }
 
+/************************************************************
+ *                      QUESTIONS                           *
+ ************************************************************/
+
 QString SLRTutorWindow::generateQuestion() {
     switch(currentState) {
     case StateSlr::A:
@@ -138,10 +142,22 @@ QString SLRTutorWindow::generateQuestion() {
         return "Entonces, ¿cuál es el estado inicial?";
     case StateSlr::B:
         return "¿Cuántos estados tiene el analizador ahora?";
+    case StateSlr::C: {
+        auto currState = std::ranges::find_if(slr1.states_, [&](const state& st)
+                { return st.id_ == currentStateId; });
+        currentSlrState = *currState;
+        return QString("¿Cuántos ítems tiene el estado %1?\n%2")
+            .arg(currentStateId)
+            .arg(QString::fromStdString(slr1.PrintItems(currentSlrState.items_)));
+    }
     default:
         return "";
     }
 }
+
+/************************************************************
+ *                      UPDATE STATE                        *
+ ************************************************************/
 
 void SLRTutorWindow::updateState(bool isCorrect) {
     switch(currentState) {
@@ -162,6 +178,9 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         break;
     case StateSlr::A_prime:
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
+        break;
+    case StateSlr::B:
+        currentState = isCorrect ? StateSlr::C : StateSlr::C;
         break;
     }
 }
@@ -186,6 +205,8 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForA(userResponse);
     case StateSlr::B:
         return verifyResponseForB(userResponse);
+    case StateSlr::C:
+        return verifyResponseForC(userResponse);
     default:
         return "";
     }
@@ -215,8 +236,13 @@ bool SLRTutorWindow::verifyResponseForA4(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForB(const QString& userResponse) {
-    unsigned response = userResponse.toInt();
+    unsigned response = userResponse.toUInt();
     return response == solutionForB();
+}
+
+bool SLRTutorWindow::verifyResponseForC(const QString& userResponse) {
+    unsigned response = userResponse.toUInt();
+    return response == solutionForC();
 }
 
 /************************************************************
@@ -261,6 +287,10 @@ unsigned SLRTutorWindow::solutionForB() {
     return currentTotalStates;
 }
 
+unsigned SLRTutorWindow::solutionForC() {
+    return currentSlrState.items_.size();
+}
+
 /************************************************************
  *                         FEEDBACK                         *
  ************************************************************/
@@ -281,6 +311,8 @@ QString SLRTutorWindow::feedback() {
         return feedbackForAPrime();
     case StateSlr::B:
         return feedbackForB();
+    case StateSlr::C:
+        return feedbackForC();
     default:
         return "sa liao, no tendria que haber llegado aquí";
     }
@@ -338,6 +370,11 @@ QString SLRTutorWindow::feedbackForB() {
     }
 }
 
+QString SLRTutorWindow::feedbackForC() {
+    return QString("Hay %1 ítems en el estado %2")
+        .arg(currentSlrState.items_.size())
+        .arg(currentStateId);
+}
 
 /************************************************************
  *                         HELPERS                          *

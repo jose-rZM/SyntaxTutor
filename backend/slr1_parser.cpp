@@ -450,7 +450,7 @@ std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& it
                                     const std::string&                 symbol) {
     std::ostringstream output;
     output << "Let I be:\n";
-    PrintItems(items);
+    output << PrintItems(items);
     output << "Process of finding δ(I, " << symbol << "):\n";
     output << "1. Search for rules with " << symbol
               << " next to the dot. That is, items of the form α·" << symbol
@@ -623,7 +623,7 @@ std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) {
     std::ostringstream output;
     for (const auto& item : items) {
         output << "  - ";
-        item.PrintItem();
+        output << item.ToString();
         output << "\n";
     }
     return output.str();
