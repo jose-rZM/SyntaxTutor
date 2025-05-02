@@ -42,7 +42,6 @@ public:
     bool verifyResponseForA2(const QString& userResponse);
     bool verifyResponseForA3(const QString& userResponse);
     bool verifyResponseForA4(const QString& userResponse);
-
     bool verifyResponseForB(const QString& userResponse);
     bool verifyResponseForC(const QString& userResponse);
     bool verifyResponseForCA(const QString& userResponse);
@@ -62,8 +61,7 @@ public:
     std::vector<std::pair<std::string, std::vector<std::string>>> solutionForA3();
     std::unordered_set<Lr0Item> solutionForA4();
     unsigned solutionForB();
-    QSet<QString> solutionForB1();
-    QSet<QString> solutionForB2();
+    unsigned solutionForC();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -83,6 +81,7 @@ public:
     QString feedbackForB1();
     QString feedbackForB2();
     QString feedbackForBPrime();
+    QString feedbackForC();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -110,6 +109,7 @@ private:
     StateSlr currentState;
     unsigned currentStateId = 0;
     unsigned currentTotalStates = 1;
+    state currentSlrState;
 };
 
 #endif // SLRTUTORWINDOW_H
