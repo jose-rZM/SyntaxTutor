@@ -14,7 +14,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
-
+    
     currentState = StateSlr::A4;
     addMessage(generateQuestion(), false);
 
@@ -122,10 +122,31 @@ void SLRTutorWindow::on_confirmButton_clicked()
     ui->userResponse->clear();
 }
 
+QString SLRTutorWindow::generateQuestion() {
+    switch(currentState) {
+    case StateSlr::A:
+        return "¿Cuál es el estado inicial? Formato: X -> a·b,X -> ·b,X -> EPSILON";
+    case StateSlr::A1:
+        return "¿Cuál es el axioma de la gramática?";
+    case StateSlr::A2:
+        return "¿Cuál es el símbolo que sigue al ·?";
+    case StateSlr::A3:
+        return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo que sigue al ·?";
+    case StateSlr::A4:
+        return "¿Cuál es el cierre del axioma?";
+    case StateSlr::A_prime:
+        return "Entonces, ¿cuál es el estado inicial?";
+    case StateSlr::B:
+        return "¿Cuántos estados tiene el analizador ahora?";
+    default:
+        return "";
+    }
+}
+
 void SLRTutorWindow::updateState(bool isCorrect) {
     switch(currentState) {
     case StateSlr::A:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::A1;
+        currentState = isCorrect ? StateSlr::B : StateSlr::A1;
         break;
     case StateSlr::A1:
         currentState = isCorrect ? StateSlr::A2 : StateSlr::A1;
@@ -140,10 +161,14 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         currentState = isCorrect ? StateSlr::A_prime : StateSlr::A4;
         break;
     case StateSlr::A_prime:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::fin;
+        currentState = isCorrect ? StateSlr::B : StateSlr::B;
         break;
     }
 }
+
+/************************************************************
+ *                      VERIFY RESPONSES                    *
+ ************************************************************/
 
 bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
     switch(currentState) {
@@ -159,6 +184,8 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForA4(userResponse);
     case StateSlr::A_prime:
         return verifyResponseForA(userResponse);
+    case StateSlr::B:
+        return verifyResponseForB(userResponse);
     default:
         return "";
     }
@@ -187,6 +214,15 @@ bool SLRTutorWindow::verifyResponseForA4(const QString& userResponse) {
     return response == solutionForA4();
 }
 
+bool SLRTutorWindow::verifyResponseForB(const QString& userResponse) {
+    unsigned response = userResponse.toInt();
+    return response == solutionForB();
+}
+
+/************************************************************
+ *                         SOLUTIONS                        *
+ ************************************************************/
+
 std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA() {
     const auto expected = std::ranges::find_if(slr1.states_, [](const state& st) {
         return st.id_ == 0;
@@ -214,7 +250,6 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::so
     return result;
 }
 
-
 std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA4() {
     std::unordered_set<Lr0Item> items;
     items.emplace(grammar.axiom_, grammar.g_.at(grammar.axiom_).at(0), grammar.st_.EPSILON_, grammar.st_.EOL_);
@@ -222,24 +257,13 @@ std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA4() {
     return items;
 }
 
-QString SLRTutorWindow::generateQuestion() {
-    switch(currentState) {
-    case StateSlr::A:
-        return "¿Cuál es el estado inicial? Formato: X -> a·b,X -> ·b,X -> EPSILON";
-    case StateSlr::A1:
-        return "¿Cuál es el axioma de la gramática?";
-    case StateSlr::A2:
-        return "¿Cuál es el símbolo que sigue al ·?";
-    case StateSlr::A3:
-        return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo que sigue al ·?";
-    case StateSlr::A4:
-        return "¿Cuál es el cierre del axioma?";
-    case StateSlr::A_prime:
-        return "Entonces, ¿cuál es el estado inicial?";
-    default:
-        return "";
-    }
+unsigned SLRTutorWindow::solutionForB() {
+    return currentTotalStates;
 }
+
+/************************************************************
+ *                         FEEDBACK                         *
+ ************************************************************/
 
 QString SLRTutorWindow::feedback() {
     switch(currentState) {
@@ -255,6 +279,8 @@ QString SLRTutorWindow::feedback() {
         return feedbackForA4();
     case StateSlr::A_prime:
         return feedbackForAPrime();
+    case StateSlr::B:
+        return feedbackForB();
     default:
         return "sa liao, no tendria que haber llegado aquí";
     }
@@ -289,14 +315,11 @@ QString SLRTutorWindow::feedbackForA3() {
     return result;
 }
 
-
 QString SLRTutorWindow::feedbackForA4() {
     Lr0Item init {grammar.axiom_, grammar.g_.at(grammar.axiom_).at(0), grammar.st_.EPSILON_, grammar.st_.EOL_};
     std::unordered_set<Lr0Item> item{init};
     return QString::fromStdString(slr1.TeachClosure(item));
 }
-
-
 
 QString SLRTutorWindow::feedbackForAPrime() {
     const auto& st = std::ranges::find_if(slr1.states_, [](const state& st) {
@@ -307,6 +330,18 @@ QString SLRTutorWindow::feedbackForAPrime() {
         .arg(items);
 }
 
+QString SLRTutorWindow::feedbackForB() {
+    if (currentTotalStates == 1) {
+        return "Actualmente se ha generado un solo estado";
+    } else {
+        return QString("Se han generado %1 estados").arg(currentTotalStates);
+    }
+}
+
+
+/************************************************************
+ *                         HELPERS                          *
+ ************************************************************/
 
 // HELPER FUNCTIONS ----------------------------------------------------------------------
 std::vector<std::string> SLRTutorWindow::qvectorToStdVector(const QVector<QString>& qvec) {

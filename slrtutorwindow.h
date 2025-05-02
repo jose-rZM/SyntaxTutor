@@ -61,7 +61,7 @@ public:
     QString solutionForA2();
     std::vector<std::pair<std::string, std::vector<std::string>>> solutionForA3();
     std::unordered_set<Lr0Item> solutionForA4();
-    QSet<QString> solutionForB();
+    unsigned solutionForB();
     QSet<QString> solutionForB1();
     QSet<QString> solutionForB2();
     // END SOLUTIONS -----------------------------------------
@@ -108,6 +108,8 @@ private:
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     SLR1Parser slr1;
     StateSlr currentState;
+    unsigned currentStateId = 0;
+    unsigned currentTotalStates = 1;
 };
 
 #endif // SLRTUTORWINDOW_H
