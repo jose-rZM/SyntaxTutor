@@ -45,7 +45,6 @@ public:
     bool verifyResponseForB(const QString& userResponse);
     bool verifyResponseForC(const QString& userResponse);
     bool verifyResponseForCA(const QString& userResponse);
-
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -62,6 +61,7 @@ public:
     std::unordered_set<Lr0Item> solutionForA4();
     unsigned solutionForB();
     unsigned solutionForC();
+    QSet<QString> solutionForCA();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -82,6 +82,7 @@ public:
     QString feedbackForB2();
     QString feedbackForBPrime();
     QString feedbackForC();
+    QString feedbackForCA();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
