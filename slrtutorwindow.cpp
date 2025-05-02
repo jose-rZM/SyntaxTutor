@@ -150,6 +150,8 @@ QString SLRTutorWindow::generateQuestion() {
             .arg(currentStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentSlrState.items_)));
     }
+    case StateSlr::CA:
+        return QString("¿Cuáles son los símbolos que aparecen después del ·? Formato: X,Y,Z");
     default:
         return "";
     }
@@ -182,6 +184,9 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     case StateSlr::B:
         currentState = isCorrect ? StateSlr::C : StateSlr::C;
         break;
+    case StateSlr::C:
+        currentState = isCorrect ? StateSlr::CA : StateSlr::CA;
+        break;
     }
 }
 
@@ -207,6 +212,8 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForB(userResponse);
     case StateSlr::C:
         return verifyResponseForC(userResponse);
+    case StateSlr::CA:
+        return verifyResponseForCA(userResponse);
     default:
         return "";
     }
@@ -243,6 +250,11 @@ bool SLRTutorWindow::verifyResponseForB(const QString& userResponse) {
 bool SLRTutorWindow::verifyResponseForC(const QString& userResponse) {
     unsigned response = userResponse.toUInt();
     return response == solutionForC();
+}
+
+bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
+    QStringList response = userResponse.split(",");
+    return response == solutionForCA().values();
 }
 
 /************************************************************
@@ -291,6 +303,14 @@ unsigned SLRTutorWindow::solutionForC() {
     return currentSlrState.items_.size();
 }
 
+QSet<QString> SLRTutorWindow::solutionForCA() {
+    QSet<QString> following_symbols;
+    std::ranges::for_each(currentSlrState.items_, [&following_symbols](const Lr0Item& item) {
+        following_symbols.insert(QString::fromStdString(item.NextToDot()));
+    });
+    return following_symbols;
+}
+
 /************************************************************
  *                         FEEDBACK                         *
  ************************************************************/
@@ -313,6 +333,8 @@ QString SLRTutorWindow::feedback() {
         return feedbackForB();
     case StateSlr::C:
         return feedbackForC();
+    case StateSlr::CA:
+        return feedbackForCA();
     default:
         return "sa liao, no tendria que haber llegado aquí";
     }
@@ -374,6 +396,12 @@ QString SLRTutorWindow::feedbackForC() {
     return QString("Hay %1 ítems en el estado %2")
         .arg(currentSlrState.items_.size())
         .arg(currentStateId);
+}
+
+QString SLRTutorWindow::feedbackForCA() {
+    QSet<QString> following = solutionForCA();
+    QStringList list = following.values();
+    return QString("Los símbolos son: %1").arg(list.join(", "));
 }
 
 /************************************************************
