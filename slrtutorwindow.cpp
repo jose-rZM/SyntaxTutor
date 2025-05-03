@@ -152,6 +152,15 @@ QString SLRTutorWindow::generateQuestion() {
     }
     case StateSlr::CA:
         return QString("¿Cuáles son los símbolos que aparecen después del ·? Formato: X,Y,Z");
+    case StateSlr::CB: {
+        nextStateId = slr1.transitions_
+                             .at(static_cast<unsigned int>(currentFollowSymbolsIdx))
+                             .at(followSymbols.at(currentFollowSymbolsIdx).toStdString());
+        return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
+            .arg(currentStateId)
+            .arg(followSymbols.at(currentFollowSymbolsIdx))
+            .arg(nextStateId);
+    }
     default:
         return "";
     }
@@ -187,6 +196,23 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     case StateSlr::C:
         currentState = isCorrect ? StateSlr::CA : StateSlr::CA;
         break;
+    case StateSlr::CA: {
+        if (!followSymbols.empty() && currentFollowSymbolsIdx < followSymbols.size()) {
+            currentState = isCorrect ? StateSlr::CB : StateSlr::CB;
+        } else {
+            currentState = isCorrect ? StateSlr::CA : StateSlr::CA;
+        }
+        break;
+    }
+    case StateSlr::CB: {
+        if (currentFollowSymbolsIdx < followSymbols.size()) {
+            currentFollowSymbolsIdx++;
+            currentState = isCorrect ? StateSlr::CB : StateSlr::CB;
+        } else {
+            currentState = isCorrect ? StateSlr::B : StateSlr::B;
+        }
+        break;
+    }
     }
 }
 
@@ -254,7 +280,12 @@ bool SLRTutorWindow::verifyResponseForC(const QString& userResponse) {
 
 bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
     QStringList response = userResponse.split(",");
-    return response == solutionForCA().values();
+    return response == solutionForCA();
+}
+
+bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
+    const auto response = ingestUserItems(userResponse);
+    return response == solutionForCB();
 }
 
 /************************************************************
@@ -303,12 +334,23 @@ unsigned SLRTutorWindow::solutionForC() {
     return currentSlrState.items_.size();
 }
 
-QSet<QString> SLRTutorWindow::solutionForCA() {
+QStringList SLRTutorWindow::solutionForCA() {
     QSet<QString> following_symbols;
     std::ranges::for_each(currentSlrState.items_, [&following_symbols](const Lr0Item& item) {
         following_symbols.insert(QString::fromStdString(item.NextToDot()));
     });
-    return following_symbols;
+
+    // FILL FOLLOW SYMBOLS FOR CB QUESTION
+    followSymbols = following_symbols.values();
+    currentFollowSymbolsIdx = 0;
+
+    return followSymbols;
+}
+
+std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
+    return std::ranges::find_if(slr1.states_, [this](const state& st) {
+        return st.id_ == nextStateId;
+        })->items_;
 }
 
 /************************************************************
