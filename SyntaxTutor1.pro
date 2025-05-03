@@ -21,6 +21,7 @@ SOURCES += \
     slrtutorwindow.cpp
 
 HEADERS += \
+    UniqueQueue.h \
     backend/grammar.hpp \
     backend/grammar_factory.hpp \
     backend/ll1_parser.hpp \

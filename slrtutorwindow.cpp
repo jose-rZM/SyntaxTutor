@@ -26,6 +26,8 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
         return st.id_ == 0;
     }));
 
+    statesIdQueue.push(0);
+
 
 }
 
@@ -148,6 +150,8 @@ QString SLRTutorWindow::generateQuestion() {
     case StateSlr::B:
         return "¿Cuántos estados tiene el analizador ahora?";
     case StateSlr::C: {
+        currentStateId = statesIdQueue.front();
+        statesIdQueue.pop();
         auto currState = std::ranges::find_if(slr1.states_, [&](const state& st)
                 { return st.id_ == currentStateId; });
         currentSlrState = *currState;
@@ -170,6 +174,7 @@ QString SLRTutorWindow::generateQuestion() {
             userMadeStates.insert(*std::ranges::find_if(slr1.states_, [this](const state& st) {
                 return st.id_ == nextStateId;
             }));
+            statesIdQueue.push(nextStateId);
             return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
                 .arg(currentStateId)
                 .arg(currentSymbol)
