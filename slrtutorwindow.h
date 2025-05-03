@@ -113,6 +113,7 @@ private:
     StateSlr currentState;
 
     // VARIABLES
+    std::unordered_set<state> userMadeStates;
     unsigned currentStateId = 0; // Track current state during questions
     unsigned currentTotalStates = 1; // Track total number of states during questions
     state currentSlrState; // Track current state for validation purposes
