@@ -114,13 +114,13 @@ private:
     StateSlr currentState;
 
     // VARIABLES
-    std::unordered_set<state> userMadeStates;
+    std::unordered_set<state> userMadeStates; // Track states made by the user
     unsigned currentStateId; // Track current state during questions
-    UniqueQueue<unsigned> statesIdQueue;
+    UniqueQueue<unsigned> statesIdQueue; // Stores all pending states. B-C loop will end when this queue becomes empty
     state currentSlrState; // Track current state for validation purposes
     QStringList followSymbols; // Track following symbols after the dot for CB question, filled in CA
-    qsizetype currentFollowSymbolsIdx = 0;
-    unsigned int nextStateId; // Filled in generateQuestion
+    qsizetype currentFollowSymbolsIdx = 0; // Track current following symbol, used in CB-CB loop
+    unsigned int nextStateId; // Filled in generateQuestion, next state used in C-CA-CB questions
     // END VARIABLES
 };
 
