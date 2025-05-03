@@ -13,6 +13,7 @@
 #include <QScrollBar>
 #include <QAbstractItemView>
 #include <QTime>
+#include <QTextEdit>
 #include "UniqueQueue.h"
 
 namespace Ui {
@@ -96,6 +97,7 @@ public:
 
 private slots:
     void on_confirmButton_clicked();
+    void showUserStates();
 
 private:
     // HELPER FUNCTIONS --------------------
