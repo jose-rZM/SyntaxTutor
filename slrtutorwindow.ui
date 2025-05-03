@@ -25,15 +25,28 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QListWidget" name="listWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>4</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="gr">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>2</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>JetBrainsMonoNL Nerd Font Propo</family>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Gramática</string>
@@ -49,6 +62,16 @@
       </item>
       <item>
        <widget class="QPushButton" name="confirmButton">
+        <property name="styleSheet">
+         <string notr="true"> background-color: #00ADB5;
+border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+font-size: 13px
+</string>
+        </property>
         <property name="text">
          <string>Enviar</string>
         </property>

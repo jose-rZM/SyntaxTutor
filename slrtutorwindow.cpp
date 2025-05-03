@@ -28,7 +28,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     statesIdQueue.push(0);
 
-
 }
 
 SLRTutorWindow::~SLRTutorWindow()
@@ -40,10 +39,10 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     QWidget* messageWidget = new QWidget;
     QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
 
-    QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
+    QLabel* header = new QLabel(isUser ? "Usuario" : "Conejo");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px;"
-                                 : "font-weight: bold; color: #8E8E93; font-size: 12px;");
+    header->setStyleSheet(isUser ? "font-weight: bold; color: #00FFC6; font-size: 12px; font-family: 'Segoe UI';"
+                                 : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Segoe UI';");
 
     QHBoxLayout* messageLayout = new QHBoxLayout;
     QVBoxLayout* innerLayout = new QVBoxLayout;
@@ -56,7 +55,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     label->setMinimumWidth(100);
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px;");
+    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px; font-family: 'Segoe UI';");
     timestamp->setAlignment(Qt::AlignRight);
 
     int maxWidth = ui->listWidget->width() * 0.8;
@@ -65,20 +64,30 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     if (isUser) {
         label->setStyleSheet(R"(
-        background-color: #00ADB5;  /* Azul tipo iMessage */
-        color: white;
-        padding: 12px 16px;
-        border-radius: 18px;
-        font-size: 14px;
-    )");
+            background-color: #00ADB5;
+            color: white;
+            padding: 12px 16px;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            font-family: 'Segoe UI';
+        )");
     } else {
         label->setStyleSheet(R"(
-        background-color: #222831;  /* Gris oscuro */
-        color: #E0E0E0;  /* Gris claro */
-        padding: 12px 16px;
-        border-radius: 18px;
-        font-size: 14px;
-    )");
+            background-color: #2F3542;
+            color: #F1F1F1;
+            padding: 12px 16px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            font-family: 'Segoe UI';
+        )");
     }
 
     innerLayout->addWidget(label);
@@ -87,9 +96,25 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     if (isUser) {
         messageLayout->addStretch();
         messageLayout->addLayout(innerLayout);
+        mainLayout->setContentsMargins(40, 5, 10, 5);
     } else {
+        QLabel* avatar = new QLabel;
+        avatar->setFixedSize(32, 32);
+        avatar->setAlignment(Qt::AlignCenter);
+        avatar->setText("C");
+        avatar->setStyleSheet(R"(
+            background-color: #393E46;
+            color: white;
+            border-radius: 16px;
+            font-size: 18px;
+            font-family: 'Segoe UI';
+        )");
+
+        messageLayout->addWidget(avatar);
+        messageLayout->addSpacing(6);
         messageLayout->addLayout(innerLayout);
         messageLayout->addStretch();
+        mainLayout->setContentsMargins(10, 5, 40, 5);  // Desplaza burbuja a la izquierda
     }
 
     mainLayout->addWidget(header);
@@ -238,6 +263,8 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         }
         break;
     }
+    case StateSlr::fin:
+        break;
     }
 }
 
@@ -318,7 +345,6 @@ bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
         return userResponse.isEmpty();
     } else {
         const auto response = ingestUserItems(userResponse);
-        bool aux = response == solutionForCB();
         return response == solutionForCB();
     }
 }
@@ -601,7 +627,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString result;
 
-    result += QString::fromStdString(grammar.axiom_) + "-> ";
+    result += QString::fromStdString(grammar.axiom_) + " -> ";
 
     auto it = grammar.g_.find(grammar.axiom_);
     QVector<QPair<QString, QVector<QString>>> rules;
