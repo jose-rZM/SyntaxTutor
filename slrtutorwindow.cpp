@@ -153,13 +153,20 @@ QString SLRTutorWindow::generateQuestion() {
     case StateSlr::CA:
         return QString("¿Cuáles son los símbolos que aparecen después del ·? Formato: X,Y,Z");
     case StateSlr::CB: {
-        nextStateId = slr1.transitions_
-                             .at(static_cast<unsigned int>(currentFollowSymbolsIdx))
-                             .at(followSymbols.at(currentFollowSymbolsIdx).toStdString());
-        return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
-            .arg(currentStateId)
-            .arg(followSymbols.at(currentFollowSymbolsIdx))
-            .arg(nextStateId);
+        QString currentSymbol = followSymbols.at(currentFollowSymbolsIdx);
+        if (currentSymbol.toStdString() == slr1.gr_.st_.EPSILON_) {
+            return QString("Calcula DELTA(I%1, %2). Deja la entrada vacía si no se genera un estado.")
+                    .arg(currentStateId)
+                    .arg(currentSymbol);
+        } else {
+            nextStateId = slr1.transitions_
+                             .at(static_cast<unsigned int>(currentStateId))
+                             .at(currentSymbol.toStdString());
+            return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
+                .arg(currentStateId)
+                .arg(currentSymbol)
+                .arg(nextStateId);
+        }
     }
     default:
         return "";
@@ -205,10 +212,11 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         break;
     }
     case StateSlr::CB: {
-        if (currentFollowSymbolsIdx < followSymbols.size()) {
-            currentFollowSymbolsIdx++;
+        if (++currentFollowSymbolsIdx < followSymbols.size()) {
             currentState = isCorrect ? StateSlr::CB : StateSlr::CB;
         } else {
+            followSymbols.clear();
+            currentFollowSymbolsIdx = 0;
             currentState = isCorrect ? StateSlr::B : StateSlr::B;
         }
         break;
@@ -240,6 +248,8 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForC(userResponse);
     case StateSlr::CA:
         return verifyResponseForCA(userResponse);
+    case StateSlr::CB:
+        return verifyResponseForCB(userResponse);
     default:
         return "";
     }
@@ -280,12 +290,20 @@ bool SLRTutorWindow::verifyResponseForC(const QString& userResponse) {
 
 bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
     QStringList response = userResponse.split(",");
-    return response == solutionForCA();
+    QStringList expected = solutionForCA();
+    QSet<QString> responseSet(response.begin(), response.end());
+    QSet<QString> expectedSet(expected.begin(), expected.end());
+    return responseSet == expectedSet;
 }
 
 bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
-    const auto response = ingestUserItems(userResponse);
-    return response == solutionForCB();
+    if (followSymbols.at(currentFollowSymbolsIdx).toStdString() == slr1.gr_.st_.EPSILON_) {
+        return userResponse.isEmpty();
+    } else {
+        const auto response = ingestUserItems(userResponse);
+        bool aux = response == solutionForCB();
+        return response == solutionForCB();
+    }
 }
 
 /************************************************************
@@ -348,9 +366,10 @@ QStringList SLRTutorWindow::solutionForCA() {
 }
 
 std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
-    return std::ranges::find_if(slr1.states_, [this](const state& st) {
+    auto st =  std::ranges::find_if(slr1.states_, [this](const state& st) {
         return st.id_ == nextStateId;
         })->items_;
+    return st;
 }
 
 /************************************************************
@@ -377,6 +396,8 @@ QString SLRTutorWindow::feedback() {
         return feedbackForC();
     case StateSlr::CA:
         return feedbackForCA();
+    case StateSlr::CB:
+        return feedbackForCB();
     default:
         return "sa liao, no tendria que haber llegado aquí";
     }
@@ -441,10 +462,14 @@ QString SLRTutorWindow::feedbackForC() {
 }
 
 QString SLRTutorWindow::feedbackForCA() {
-    QSet<QString> following = solutionForCA();
-    QStringList list = following.values();
-    return QString("Los símbolos son: %1").arg(list.join(", "));
+    QStringList following = solutionForCA();
+    return QString("Los símbolos son: %1").arg(following.join(", "));
 }
+
+QString SLRTutorWindow::feedbackForCB() {
+    return QString::fromStdString(slr1.TeachDeltaFunction(currentSlrState.items_, followSymbols[currentFollowSymbolsIdx].toStdString()));
+}
+
 
 /************************************************************
  *                         HELPERS                          *
