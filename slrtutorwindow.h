@@ -13,6 +13,7 @@
 #include <QScrollBar>
 #include <QAbstractItemView>
 #include <QTime>
+#include "UniqueQueue.h"
 
 namespace Ui {
 class SLRTutorWindow;
@@ -114,7 +115,8 @@ private:
 
     // VARIABLES
     std::unordered_set<state> userMadeStates;
-    unsigned currentStateId = 0; // Track current state during questions
+    unsigned currentStateId; // Track current state during questions
+    UniqueQueue<unsigned> statesIdQueue;
     unsigned currentTotalStates = 1; // Track total number of states during questions
     state currentSlrState; // Track current state for validation purposes
     QStringList followSymbols; // Track following symbols after the dot for CB question, filled in CA
