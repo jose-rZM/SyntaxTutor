@@ -111,6 +111,12 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
 
     html += R"(
     <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
         h2 {
             text-align: center;
             font-size: 16pt;
@@ -119,12 +125,13 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
             color: #393E46;
         }
         table {
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0, auto;
             border-collapse: collapse;
             font-family: 'Noto Sans', sans-serif;
             font-size: 12pt;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: auto;
+            display: inline-block;
         }
         th, td {
             border: 1px solid #ccc;
@@ -155,7 +162,8 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     }
     html += R"(<div style='page-break-before: always;'></div>)";
 
-    html += "<h2>Tabla de análisis SLR</h2><br><table border='1' cellspacing='0' cellpadding='5'>";
+    html += R"(<h2>Tabla de análisis SLR</h2><br>)";
+    html += R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
     html += "<tr><th>Estado</th>";
     std::vector<std::string> columns;
     columns.reserve(slr1.gr_.st_.terminals_.size() + slr1.gr_.st_.non_terminals_.size());
@@ -218,9 +226,12 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         }
         html += "</tr>";
     }
-    html += "</table>";
+    html += "</table></div>";
 
-    html += "<h2>Acciones Reduce</h2><br><table border='1' cellspacing='0' cellpadding='5'>";
+    html += R"(<div style='page-break-before: always;'></div>)";
+    html += "<h2>Acciones Reduce</h2><br>";
+    html += R"(<div class="container">)";
+    html += "<table border='1' cellspacing='0' cellpadding='5'>";
     html += "<tr><th>Estado</th><th>Símbolo</th><th>Regla</th>";
     for (const auto& [state, actions] : slr1.actions_) {
         for (const auto& [symbol, action] : actions) {
@@ -239,13 +250,14 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         }
     }
 
-    html += "</table>";
+    html += "</table></div>";
     doc.setHtml(html);
 
     QPrinter printer(QPrinter::HighResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName(filePath);
-    printer.setPageMargins(QMarginsF(20, 20, 20, 20));
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
     doc.print(&printer);
 }
