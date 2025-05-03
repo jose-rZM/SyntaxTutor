@@ -491,7 +491,7 @@ QString SLRTutorWindow::feedbackForCA() {
     if (std::ranges::any_of(currentSlrState.items_, [](const Lr0Item& item) {
             return item.IsComplete();
         })) {
-        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a· (completo), el símbolo siguiente es siempre EPSILON.")
+        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a· o X -> a·$ (completo), el símbolo siguiente es siempre EPSILON.")
             .arg(following.join(", "));
     } else {
         return QString("Los símbolos son: %1").arg(following.join(", "));
