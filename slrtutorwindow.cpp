@@ -438,13 +438,21 @@ QString SLRTutorWindow::feedbackForA3() {
     QString antecedent = QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0));
     QString result = QString("Las reglas cuyo antecedente es '%1' son:\n").arg(antecedent);
 
-    for (const auto& rule : sortedGrammar) {
+    for (auto it = sortedGrammar.constBegin(); it != sortedGrammar.constEnd(); ++it) {
+        if (it->first == antecedent) {
+            QStringList symbols = it->second.toList();
+            QString ruleStr = QString("%1 -> %2").arg(it->first, symbols.join(" "));
+            result += ruleStr + "\n";
+        }
+    }
+
+   /* for (const auto& rule : sortedGrammar) {
         if (rule.first == antecedent) {
             QStringList symbols = rule.second.toList();
             QString ruleStr = QString("%1 → %2").arg(rule.first, symbols.join(" "));
             result += ruleStr + "\n";
         }
-    }
+    }*/
 
     return result;
 }
