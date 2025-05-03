@@ -45,6 +45,7 @@ public:
     bool verifyResponseForB(const QString& userResponse);
     bool verifyResponseForC(const QString& userResponse);
     bool verifyResponseForCA(const QString& userResponse);
+    bool verifyResponseForCB(const QString& userResponse);
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -61,7 +62,8 @@ public:
     std::unordered_set<Lr0Item> solutionForA4();
     unsigned solutionForB();
     unsigned solutionForC();
-    QSet<QString> solutionForCA();
+    QStringList solutionForCA();
+    std::unordered_set<Lr0Item> solutionForCB();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -108,9 +110,15 @@ private:
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     SLR1Parser slr1;
     StateSlr currentState;
-    unsigned currentStateId = 0;
-    unsigned currentTotalStates = 1;
-    state currentSlrState;
+
+    // VARIABLES
+    unsigned currentStateId = 0; // Track current state during questions
+    unsigned currentTotalStates = 1; // Track total number of states during questions
+    state currentSlrState; // Track current state for validation purposes
+    QStringList followSymbols; // Track following symbols after the dot for CB question, filled in CA
+    qsizetype currentFollowSymbolsIdx = 0;
+    unsigned int nextStateId; // Filled in generateQuestion
+    // END VARIABLES
 };
 
 #endif // SLRTUTORWINDOW_H
