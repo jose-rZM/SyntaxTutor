@@ -28,6 +28,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     statesIdQueue.push(0);
 
+    connect(ui->showButton, &QPushButton::clicked, this, &SLRTutorWindow::showUserStates);
 }
 
 SLRTutorWindow::~SLRTutorWindow()
@@ -35,13 +36,45 @@ SLRTutorWindow::~SLRTutorWindow()
     delete ui;
 }
 
+void SLRTutorWindow::showUserStates() {
+    QDialog* dialog = new QDialog(this);
+    dialog->setWindowTitle("Estados construidos");
+    dialog->resize(500, 400);
+
+    QVBoxLayout* layout = new QVBoxLayout(dialog);
+
+    QTextEdit* textEdit = new QTextEdit(dialog);
+    textEdit->setReadOnly(true);
+    textEdit->setStyleSheet("font-family: monospace; font-size: 13px; background-color: #1E1E1E; color: #E0E0E0;");
+
+    QString text;
+    for (const auto& st : userMadeStates) {
+        text += QString("Estado I%1\n").arg(st.id_);
+        for (const Lr0Item& item : st.items_) {
+            text += QString::fromStdString(item.ToString()) + "\n";
+        }
+        text += "\n";
+    }
+
+    if (userMadeStates.empty()) {
+        text = "No se han construido estados aún.";
+    }
+
+    textEdit->setText(text);
+
+    layout->addWidget(textEdit);
+    dialog->setLayout(layout);
+    dialog->exec();
+}
+
+
 void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     QWidget* messageWidget = new QWidget;
     QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
 
-    QLabel* header = new QLabel(isUser ? "Usuario" : "Conejo");
+    QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(isUser ? "font-weight: bold; color: #00FFC6; font-size: 12px; font-family: 'Segoe UI';"
+    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Segoe UI';"
                                  : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Segoe UI';");
 
     QHBoxLayout* messageLayout = new QHBoxLayout;
@@ -98,20 +131,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
         messageLayout->addLayout(innerLayout);
         mainLayout->setContentsMargins(40, 5, 10, 5);
     } else {
-        QLabel* avatar = new QLabel;
-        avatar->setFixedSize(32, 32);
-        avatar->setAlignment(Qt::AlignCenter);
-        avatar->setText("C");
-        avatar->setStyleSheet(R"(
-            background-color: #393E46;
-            color: white;
-            border-radius: 16px;
-            font-size: 18px;
-            font-family: 'Segoe UI';
-        )");
-
-        messageLayout->addWidget(avatar);
-        messageLayout->addSpacing(6);
         messageLayout->addLayout(innerLayout);
         messageLayout->addStretch();
         mainLayout->setContentsMargins(10, 5, 40, 5);  // Desplaza burbuja a la izquierda
@@ -196,9 +215,7 @@ QString SLRTutorWindow::generateQuestion() {
             nextStateId = slr1.transitions_
                              .at(static_cast<unsigned int>(currentStateId))
                              .at(currentSymbol.toStdString());
-            userMadeStates.insert(*std::ranges::find_if(slr1.states_, [this](const state& st) {
-                return st.id_ == nextStateId;
-            }));
+
             statesIdQueue.push(nextStateId);
             return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
                 .arg(currentStateId)
@@ -261,6 +278,9 @@ void SLRTutorWindow::updateState(bool isCorrect) {
             currentFollowSymbolsIdx = 0;
             currentState = isCorrect ? StateSlr::B : StateSlr::B;
         }
+        userMadeStates.insert(*std::ranges::find_if(slr1.states_, [this](const state& st) {
+            return st.id_ == nextStateId;
+        }));
         break;
     }
     case StateSlr::fin:

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">  background-color: #1F1F1F;
+    color: #E0E0E0;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -56,9 +60,34 @@
      </layout>
     </item>
     <item>
+     <widget class="QPushButton" name="showButton">
+      <property name="styleSheet">
+       <string notr="true">  background-color: #393E46;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: semi-bold;
+    font-size: 13px;</string>
+      </property>
+      <property name="text">
+       <string>Mostrar progreso</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="userResponse"/>
+       <widget class="QLineEdit" name="userResponse">
+        <property name="styleSheet">
+         <string notr="true">    background-color: #2E2E2E;
+    color: #E0E0E0;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="confirmButton">
