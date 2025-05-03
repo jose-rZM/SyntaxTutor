@@ -13,7 +13,10 @@
 #include <QScrollBar>
 #include <QAbstractItemView>
 #include <QTime>
+#include <QFileDialog>
 #include <QTextEdit>
+#include <QtPrintSupport/QPrinter>
+#include <QTextDocument>
 #include "UniqueQueue.h"
 
 namespace Ui {
@@ -34,6 +37,7 @@ public:
     QString FormatGrammar(const Grammar& grammar);
 
     void addMessage(const QString& text, bool isUser);
+    void exportConversationToPdf(const QString& filePath);
 
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -124,6 +128,8 @@ private:
     qsizetype currentFollowSymbolsIdx = 0; // Track current following symbol, used in CB-CB loop
     unsigned int nextStateId; // Filled in generateQuestion, next state used in C-CA-CB questions
     // END VARIABLES
+
+    QVector<QString> conversationLog;
 };
 
 #endif // SLRTUTORWINDOW_H

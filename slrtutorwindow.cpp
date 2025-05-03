@@ -83,8 +83,181 @@ void SLRTutorWindow::showUserStates() {
     dialog->exec();
 }
 
+void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
+    QTextDocument doc;
+    QString html;
+
+    html += R"(
+        <html>
+        <head>
+            <style>
+                body { font-family: 'Noto Sans', sans-serif; font-size: 12pt; }
+                .user { background-color: #00ADB5; color: white; padding: 10px; border-radius: 10px; margin: 8px 0; width: fit-content; }
+                .tutor { background-color: #393E46; color: #E0E0E0; padding: 10px; border-radius: 10px; margin: 8px 0; width: fit-content; }
+                .entry { margin-bottom: 15px; }
+            </style>
+        </head>
+        <body>
+    )";
+
+    for (auto it = conversationLog.constBegin(); it != conversationLog.constEnd(); ++it) {
+        QString safeText = (*it).toHtmlEscaped().replace("\n", "<br>");
+        html += "<p style='margin:10px 0; font-family: Noto Sans; font-size: 12pt;'>"
+                       + safeText + "</p>";
+    }
+
+    html += "</body></html>";
+    html += R"(<div style='page-break-before: always;'></div>)";
+
+    html += R"(
+    <style>
+        h2 {
+            text-align: center;
+            font-size: 16pt;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #393E46;
+        }
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 12pt;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+        }
+        th {
+            background-color: #eeeeee;
+            color: #222;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(even) td {
+            background-color: #f0f0f0;
+        }
+    </style>
+)";
+
+    for (size_t i = 0; i < userMadeStates.size(); ++i) {
+        const state& st = *std::ranges::find_if(userMadeStates, [i](const state& st) {
+            return st.id_ == i;
+        });
+        html += QString("<h3>Estado %1</h3><ul>").arg(st.id_);
+        for (const Lr0Item& item : st.items_) {
+            html += "<li>" + QString::fromStdString(item.ToString()).toHtmlEscaped() + "</li>";
+        }
+        html += "</ul><br>";
+    }
+    html += R"(<div style='page-break-before: always;'></div>)";
+
+    html += "<h2>Tabla de análisis SLR</h2><br><table border='1' cellspacing='0' cellpadding='5'>";
+    html += "<tr><th>Estado</th>";
+    std::vector<std::string> columns;
+    columns.reserve(slr1.gr_.st_.terminals_.size() + slr1.gr_.st_.non_terminals_.size());
+    for (const auto& s : slr1.gr_.st_.terminals_) {
+        if (s == slr1.gr_.st_.EPSILON_) {
+            continue;
+        }
+        columns.push_back(s);
+    }
+    columns.insert(columns.end(), slr1.gr_.st_.non_terminals_.begin(),
+                   slr1.gr_.st_.non_terminals_.end());
+
+    for (const auto& symbol : columns) {
+        html += "<th>" + QString::fromStdString(symbol) + "</th>";
+    }
+    html += "</tr>";
+
+    for (unsigned state = 0; state < slr1.states_.size(); ++state) {
+        html += "<tr><td align='center'>" + QString::number(state) + "</td>";
+        const auto  action_entry = slr1.actions_.find(state);
+        const auto  trans_entry  = slr1.transitions_.find(state);
+        const auto& transitions  = trans_entry->second;
+        for (const auto& symbol : columns) {
+            QString cell = "-";
+            const bool isTerminal = slr1.gr_.st_.IsTerminal(symbol);
+            if (!isTerminal) {
+                if (trans_entry != slr1.transitions_.end()) {
+                    const auto it = transitions.find(symbol);
+                    if (it != transitions.end()) {
+                        cell = QString::fromStdString(std::to_string(it->second));
+                    }
+                }
+            } else {
+                if (action_entry != slr1.actions_.end()) {
+                    const auto action_it = action_entry->second.find(symbol);
+                    if (action_it != action_entry->second.end()) {
+                        switch (action_it->second.action) {
+                        case SLR1Parser::Action::Accept:
+                            cell = "A";
+                            break;
+                        case SLR1Parser::Action::Reduce:
+                            cell = "R";
+                            break;
+                        case SLR1Parser::Action::Shift:
+                            if (trans_entry != slr1.transitions_.end()) {
+                                const auto shift_it = transitions.find(symbol);
+                                if (shift_it != transitions.end()) {
+                                    cell =
+                                        QString::fromStdString("S" + std::to_string(shift_it->second));
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                }
+            }
+                html += "<td align='center'>" + cell + "</td>";
+        }
+        html += "</tr>";
+    }
+    html += "</table>";
+
+    html += "<h2>Acciones Reduce</h2><br><table border='1' cellspacing='0' cellpadding='5'>";
+    html += "<tr><th>Estado</th><th>Símbolo</th><th>Regla</th>";
+    for (const auto& [state, actions] : slr1.actions_) {
+        for (const auto& [symbol, action] : actions) {
+            if (action.action == SLR1Parser::Action::Reduce) {
+                std::string rule = action.item->antecedent_ + " → ";
+                for (const auto& sym : action.item->consequent_) {
+                    rule += sym + " ";
+                }
+
+                html += "<tr>";
+                html += "<td align='center'>" + QString::number(state) + "</td>";
+                html += "<td align='center'>" + QString::fromStdString(symbol) + "</td>";
+                html += "<td>" + QString::fromStdString(rule) + "</td>";
+                html += "</tr>";
+            }
+        }
+    }
+
+    html += "</table>";
+    doc.setHtml(html);
+
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(filePath);
+    printer.setPageMargins(QMarginsF(20, 20, 20, 20));
+
+    doc.print(&printer);
+}
 
 void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
+    // LOG
+    if (isUser) {
+        conversationLog.push_back(QString("Usuario: %1").arg(text.isEmpty() ? "No se dio respuesta." : text));
+    } else {
+        conversationLog.push_back(QString("Tutor: %1").arg(text));
+    }
+
     QWidget* messageWidget = new QWidget;
     QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
 
@@ -182,7 +355,25 @@ void SLRTutorWindow::on_confirmButton_clicked()
     }
     updateState(isCorrect);
     if (currentState == StateSlr::fin) {
-        QMessageBox::information(this, "fin", "fin");
+        auto reply = QMessageBox::question(
+            this,
+            "Fin del análisis",
+            "¿Deseas exportar la conversación?",
+            QMessageBox::Yes | QMessageBox::No
+            );
+
+        if (reply == QMessageBox::Yes) {
+            QString filePath = QFileDialog::getSaveFileName(
+                this,
+                "Guardar conversación",
+                "conversacion.pdf",
+                "Archivo PDF (*.pdf)"
+                );
+
+            if (!filePath.isEmpty()) {
+                exportConversationToPdf(filePath);
+            }
+        }
         close();
     }
     addMessage(generateQuestion(), false);
