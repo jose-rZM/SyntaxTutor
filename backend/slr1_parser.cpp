@@ -449,9 +449,9 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
 std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                                     const std::string&                 symbol) {
     std::ostringstream output;
-    output << "Sea I:\n";
+    output << "Sea I:\n\n";
     output << PrintItems(items);
-    output << "Para encontrar δ(I, " << symbol << "):\n";
+    output << "\nPara encontrar δ(I, " << symbol << "):\n";
     output << "1. Busca las reglas con " << symbol
               << " después del ·. Es decir, items de la forma α·" << symbol
               << "β\n";
@@ -466,9 +466,9 @@ std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& it
         output << "2. No hay items. Por tanto δ(I, " << symbol
                   << ") = ∅\n";
     } else {
-        output << "2. Sea J:\n";
+        output << "2. Sea J:\n\n";
         output << PrintItems(filtered);
-        output << "3. Avanza el · una posición:\n";
+        output << "\n3. Avanza el · una posición:\n\n";
         std::unordered_set<Lr0Item> advanced;
         for (const Lr0Item& item : filtered) {
             Lr0Item new_item = item;
@@ -476,8 +476,8 @@ std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& it
             advanced.insert(new_item);
         }
         output << PrintItems(advanced);
-        output << "4. δ(I, " << symbol << ") = CLOSURE(J)\n";
-        output << "5. Cierre de J:\n";
+        output << "\n4. δ(I, " << symbol << ") = CLOSURE(J)\n";
+        output << "5. Cierre de J:\n\n";
         Closure(advanced);
         output << PrintItems(advanced);
     }

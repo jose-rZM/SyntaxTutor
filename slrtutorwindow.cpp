@@ -46,10 +46,25 @@ void SLRTutorWindow::showUserStates() {
 
     QTextEdit* textEdit = new QTextEdit(dialog);
     textEdit->setReadOnly(true);
-    textEdit->setStyleSheet("font-family: monospace; font-size: 13px; background-color: #1E1E1E; color: #E0E0E0;");
+    //textEdit->setStyleSheet("font-family: monospace; font-size: 13px; background-color: #1E1E1E; color: #E0E0E0;");
+    textEdit->setStyleSheet(R"(
+        background-color: #1e1e1e;
+        color: #ffffff;
+        font-family: 'JetBrains Mono', 'Noto Sans Mono', 'Courier New', monospace;
+        font-size: 15px;
+        font-weight: 500;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        padding: 12px;
+        selection-background-color: #44475a;
+        selection-color: #ffffff;
+    )");
 
     QString text;
-    for (const auto& st : userMadeStates) {
+    for (size_t i = 0; i < userMadeStates.size(); ++i) {
+        const state& st = *std::ranges::find_if(userMadeStates, [i](const state& st) {
+            return st.id_ == i;
+        });
         text += QString("Estado I%1\n").arg(st.id_);
         for (const Lr0Item& item : st.items_) {
             text += QString::fromStdString(item.ToString()) + "\n";
