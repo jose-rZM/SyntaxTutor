@@ -449,11 +449,11 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
 std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                                     const std::string&                 symbol) {
     std::ostringstream output;
-    output << "Let I be:\n";
+    output << "Sea I:\n";
     output << PrintItems(items);
-    output << "Process of finding δ(I, " << symbol << "):\n";
-    output << "1. Search for rules with " << symbol
-              << " next to the dot. That is, items of the form α·" << symbol
+    output << "Para encontrar δ(I, " << symbol << "):\n";
+    output << "1. Busca las reglas con " << symbol
+              << " después del ·. Es decir, items de la forma α·" << symbol
               << "β\n";
     std::unordered_set<Lr0Item> filtered;
     std::for_each(items.begin(), items.end(), [&](const Lr0Item& item) -> void {
@@ -463,23 +463,23 @@ std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& it
         }
     });
     if (items.empty()) {
-        output << "2. No items found. Therefore δ(I, " << symbol
+        output << "2. No hay items. Por tanto δ(I, " << symbol
                   << ") = ∅\n";
     } else {
-        output << "2. Items found. Let J be:\n";
-        PrintItems(filtered);
-        output << "3. Advance the dot one position:\n";
+        output << "2. Sea J:\n";
+        output << PrintItems(filtered);
+        output << "3. Avanza el · una posición:\n";
         std::unordered_set<Lr0Item> advanced;
         for (const Lr0Item& item : filtered) {
             Lr0Item new_item = item;
             new_item.AdvanceDot();
             advanced.insert(new_item);
         }
-        PrintItems(advanced);
+        output << PrintItems(advanced);
         output << "4. δ(I, " << symbol << ") = CLOSURE(J)\n";
-        output << "5. Closure of J:\n";
+        output << "5. Cierre de J:\n";
         Closure(advanced);
-        PrintItems(advanced);
+        output << PrintItems(advanced);
     }
     return output.str();
 }
