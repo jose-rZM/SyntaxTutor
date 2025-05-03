@@ -211,7 +211,11 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
         break;
     case StateSlr::B:
-        currentState = isCorrect ? StateSlr::C : StateSlr::C;
+        if (statesIdQueue.empty()) {
+            currentState = StateSlr::fin;
+        } else {
+            currentState = isCorrect ? StateSlr::C : StateSlr::C;
+        }
         break;
     case StateSlr::C:
         currentState = isCorrect ? StateSlr::CA : StateSlr::CA;
@@ -461,10 +465,10 @@ QString SLRTutorWindow::feedbackForAPrime() {
 }
 
 QString SLRTutorWindow::feedbackForB() {
-    if (currentTotalStates == 1) {
+    if (userMadeStates.size() == 1) {
         return "Actualmente se ha generado un solo estado";
     } else {
-        return QString("Se han generado %1 estados").arg(currentTotalStates);
+        return QString("Se han generado %1 estados").arg(userMadeStates.size());
     }
 }
 
