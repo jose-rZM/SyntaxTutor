@@ -85,6 +85,7 @@ public:
     QString feedbackForBPrime();
     QString feedbackForC();
     QString feedbackForCA();
+    QString feedbackForCB();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
