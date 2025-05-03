@@ -11,6 +11,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     slr1.DebugStates();
     slr1.DebugActions();
     ui->setupUi(this);
+    ui->userResponse->setFont(QFont("Noto Sans", 14));
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
@@ -18,7 +19,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     currentState = StateSlr::B;
     addMessage(generateQuestion(), false);
 
-    QFont chatFont("Arial", 12);
+    QFont chatFont("Noto Sans", 12);
     ui->listWidget->setFont(chatFont);
     connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
 
@@ -74,8 +75,8 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Segoe UI';"
-                                 : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Segoe UI';");
+    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
+                                 : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
 
     QHBoxLayout* messageLayout = new QHBoxLayout;
     QVBoxLayout* innerLayout = new QVBoxLayout;
@@ -88,7 +89,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     label->setMinimumWidth(100);
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px; font-family: 'Segoe UI';");
+    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
     timestamp->setAlignment(Qt::AlignRight);
 
     int maxWidth = ui->listWidget->width() * 0.8;
@@ -106,7 +107,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
             font-size: 14px;
-            font-family: 'Segoe UI';
+            font-family: 'Noto Sans';
         )");
     } else {
         label->setStyleSheet(R"(
@@ -119,7 +120,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 14px;
-            font-family: 'Segoe UI';
+            font-family: 'Noto Sans';
         )");
     }
 
