@@ -22,6 +22,11 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->listWidget->setFont(chatFont);
     connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
 
+    userMadeStates.insert(*std::ranges::find_if(slr1.states_, [](const state& st) {
+        return st.id_ == 0;
+    }));
+
+
 }
 
 SLRTutorWindow::~SLRTutorWindow()
@@ -162,6 +167,9 @@ QString SLRTutorWindow::generateQuestion() {
             nextStateId = slr1.transitions_
                              .at(static_cast<unsigned int>(currentStateId))
                              .at(currentSymbol.toStdString());
+            userMadeStates.insert(*std::ranges::find_if(slr1.states_, [this](const state& st) {
+                return st.id_ == nextStateId;
+            }));
             return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
                 .arg(currentStateId)
                 .arg(currentSymbol)
@@ -345,7 +353,7 @@ std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA4() {
 }
 
 unsigned SLRTutorWindow::solutionForB() {
-    return currentTotalStates;
+    return userMadeStates.size();
 }
 
 unsigned SLRTutorWindow::solutionForC() {
