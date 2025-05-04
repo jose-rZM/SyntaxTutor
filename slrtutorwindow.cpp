@@ -91,7 +91,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         <html>
         <head>
             <style>
-                body { font-family: 'Noto Sans', sans-serif; font-size: 12pt; }
+                body { font-family: 'Noto Sans', sans-serif; font-size: 12pt; line-height: 1.5; color: #222; }
                 .user { background-color: #00ADB5; color: white; padding: 10px; border-radius: 10px; margin: 8px 0; width: fit-content; }
                 .tutor { background-color: #393E46; color: #E0E0E0; padding: 10px; border-radius: 10px; margin: 8px 0; width: fit-content; }
                 .entry { margin-bottom: 15px; }
@@ -100,10 +100,14 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         <body>
     )";
 
+    html += "<h2>Conversación</h2>";
+
     for (auto it = conversationLog.constBegin(); it != conversationLog.constEnd(); ++it) {
-        QString safeText = (*it).toHtmlEscaped().replace("\n", "<br>");
-        html += "<p style='margin:10px 0; font-family: Noto Sans; font-size: 12pt;'>"
-                       + safeText + "</p>";
+        const MessageLog& message = *it;
+        QString roleClass = message.isUser ? "user" : "tutor";
+        QString safeText = message.message.toHtmlEscaped().replace("\n", "<br>");
+        html += "<div class='entry " + roleClass + "'>" + safeText + "</div>";
+
     }
 
     html += "</body></html>";
@@ -150,6 +154,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     </style>
 )";
 
+    html += "<h2>Estados del Autómata</h2>";
     for (size_t i = 0; i < userMadeStates.size(); ++i) {
         const state& st = *std::ranges::find_if(userMadeStates, [i](const state& st) {
             return st.id_ == i;
@@ -171,6 +176,11 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         if (s == slr1.gr_.st_.EPSILON_) {
             continue;
         }
+
+
+
+
+
         columns.push_back(s);
     }
     columns.insert(columns.end(), slr1.gr_.st_.non_terminals_.begin(),
@@ -264,11 +274,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
 
 void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     // LOG
-    if (isUser) {
-        conversationLog.push_back(QString("Usuario: %1").arg(text.isEmpty() ? "No se dio respuesta." : text));
-    } else {
-        conversationLog.push_back(QString("Tutor: %1").arg(text));
-    }
+    conversationLog.emplaceBack(text, isUser);
 
     QWidget* messageWidget = new QWidget;
     QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);

@@ -35,7 +35,9 @@ std::string Lr0Item::NextToDot() const {
 }
 
 void Lr0Item::AdvanceDot() {
-    dot_++;
+    if (dot_ < consequent_.size()) {
+        dot_++;
+    }
 }
 
 bool Lr0Item::IsComplete() const {
