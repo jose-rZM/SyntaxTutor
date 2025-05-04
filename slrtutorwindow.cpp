@@ -90,69 +90,119 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
         <html>
         <head>
-            <style>
-                body { font-family: 'Noto Sans', sans-serif; font-size: 12pt; line-height: 1.5; color: #222; }
-                .user { background-color: #00ADB5; color: white; padding: 10px; border-radius: 10px; margin: 8px 0; width: fit-content; }
-                .tutor { background-color: #393E46; color: #E0E0E0; padding: 10px; border-radius: 10px; margin: 8px 0; width: fit-content; }
-                .entry { margin-bottom: 15px; }
-            </style>
         </head>
         <body>
+    )";
+    html += R"(
+    <style>
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 11pt;
+        line-height: 1.6;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 16pt;
+        color: #393E46;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 5px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 13pt;
+        color: #007B8A;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .entry {
+        border-left: 4px solid #007B8A;
+        background-color: #f9f9f9;
+        padding: 10px 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+    }
+
+    .entry .role {
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #2c3e50;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin-bottom: 20px;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 11pt;
+    }
+    li {
+        margin-bottom: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto 20px auto;
+        width: auto;
+        font-size: 10.5pt;
+    }
+
+    th, td {
+        border: 1px solid #999;
+        padding: 6px 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    td {
+        background-color: #fafafa;
+    }
+
+    tr:nth-child(even) td {
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+    </style>
+    )";
+    html += R"(
+    <div style="text-align: center; font-size: 8pt; color: #888; margin-top: 60px;">
+        Generado automáticamente por SyntaxTutor el )" + QDate::currentDate().toString("dd/MM/yyyy") + R"(</div>
     )";
 
     html += "<h2>Conversación</h2>";
 
     for (auto it = conversationLog.constBegin(); it != conversationLog.constEnd(); ++it) {
         const MessageLog& message = *it;
-        QString roleClass = message.isUser ? "user" : "tutor";
         QString safeText = message.message.toHtmlEscaped().replace("\n", "<br>");
-        html += "<div class='entry " + roleClass + "'>" + safeText + "</div>";
+        html += "<div class='entry'>";
+        html += "<div class='role'>";
+        html += (message.isUser ? "Usuario: " : "Tutor: ");
+        html += "</div>";
+        html += safeText;
+        html += "</div>";
+
 
     }
 
     html += "</body></html>";
-    html += R"(<div style='page-break-before: always;'></div>)";
+    html += R"(<div class='page-break'></div>)";
 
-    html += R"(
-    <style>
-        .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        h2 {
-            text-align: center;
-            font-size: 16pt;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            color: #393E46;
-        }
-        table {
-            margin: 0, auto;
-            border-collapse: collapse;
-            font-family: 'Noto Sans', sans-serif;
-            font-size: 12pt;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: auto;
-            display: inline-block;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px 12px;
-        }
-        th {
-            background-color: #eeeeee;
-            color: #222;
-        }
-        td {
-            background-color: #f9f9f9;
-        }
-        tr:nth-child(even) td {
-            background-color: #f0f0f0;
-        }
-    </style>
-)";
+
 
     html += "<h2>Estados del Autómata</h2>";
     for (size_t i = 0; i < userMadeStates.size(); ++i) {
@@ -165,7 +215,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         }
         html += "</ul><br>";
     }
-    html += R"(<div style='page-break-before: always;'></div>)";
+    html += R"(<div class='page-break'></div>)";
 
     html += R"(<h2>Tabla de análisis SLR</h2><br>)";
     html += R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
@@ -176,11 +226,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         if (s == slr1.gr_.st_.EPSILON_) {
             continue;
         }
-
-
-
-
-
         columns.push_back(s);
     }
     columns.insert(columns.end(), slr1.gr_.st_.non_terminals_.begin(),
@@ -238,7 +283,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     }
     html += "</table></div>";
 
-    html += R"(<div style='page-break-before: always;'></div>)";
+    html += R"(<div class='page-break'></div>)";
     html += "<h2>Acciones Reduce</h2><br>";
     html += R"(<div class="container">)";
     html += "<table border='1' cellspacing='0' cellpadding='5'>";
@@ -503,9 +548,12 @@ void SLRTutorWindow::updateState(bool isCorrect) {
             currentFollowSymbolsIdx = 0;
             currentState = isCorrect ? StateSlr::B : StateSlr::B;
         }
-        userMadeStates.insert(*std::ranges::find_if(slr1.states_, [this](const state& st) {
+        auto st = std::ranges::find_if(slr1.states_, [this](const state& st) {
             return st.id_ == nextStateId;
-        }));
+        });
+        if (st != slr1.states_.end()) {
+            userMadeStates.insert(*st);
+        }
         break;
     }
     case StateSlr::fin:

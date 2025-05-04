@@ -134,7 +134,7 @@ private:
         bool isUser;
 
         MessageLog(const QString& message, bool isUser)
-            : message(isUser ? "Usuario: " + message : "Tutor: " + message), isUser(isUser)
+            : message(message.isEmpty() ? "No se proporcionó respuesta." : message), isUser(isUser)
         {}
     };
 
