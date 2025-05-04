@@ -24,7 +24,7 @@ class SLRTutorWindow;
 }
 
 enum class StateSlr {
-    A, A1, A2, A3, A4, A_prime, B, C, CA, CB, fin
+    A, A1, A2, A3, A4, A_prime, B, C, CA, CB, D, D1, D2, D_prime, fin
 };
 
 class SLRTutorWindow : public QMainWindow
@@ -52,6 +52,9 @@ public:
     bool verifyResponseForC(const QString& userResponse);
     bool verifyResponseForCA(const QString& userResponse);
     bool verifyResponseForCB(const QString& userResponse);
+    bool verifyResponseForD(const QString& userResponse);
+    bool verifyResponseForD1(const QString& userResponse);
+    bool verifyResponseForD2(const QString& userResponse);
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -70,6 +73,9 @@ public:
     unsigned solutionForC();
     QStringList solutionForCA();
     std::unordered_set<Lr0Item> solutionForCB();
+    QString solutionForD();
+    QString solutionForD1();
+    QString solutionForD2();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -92,6 +98,10 @@ public:
     QString feedbackForC();
     QString feedbackForCA();
     QString feedbackForCB();
+    QString feedbackForD();
+    QString feedbackForD1();
+    QString feedbackForD2();
+    QString feedbackForDPrime();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------

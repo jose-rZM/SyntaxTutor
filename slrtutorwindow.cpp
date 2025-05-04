@@ -16,9 +16,12 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->userResponse->setFont(QFont("Open Sans", 14));
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
+    ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->listWidget->verticalScrollBar()->setSingleStep(10);
+
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
-    
-    currentState = StateSlr::A;
+
+    currentState = StateSlr::D;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
@@ -316,25 +319,25 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QWidget* messageWidget = new QWidget;
     QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
+    mainLayout->setSpacing(2);  // Espaciado compacto
+    mainLayout->setContentsMargins(10, 4, 10, 4);  // Márgenes exteriores reducidos
 
     QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
-                                 : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
+    header->setStyleSheet(isUser
+                              ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
+                              : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
 
     QHBoxLayout* messageLayout = new QHBoxLayout;
+    messageLayout->setSpacing(0);  // Sin espacio lateral adicional
+
     QVBoxLayout* innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(0);  // Compacta label y timestamp
 
     QLabel* label = new QLabel(text);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    label->setMaximumWidth(ui->listWidget->width());
-    label->setMinimumWidth(100);
-
-    QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
-    timestamp->setAlignment(Qt::AlignRight);
 
     int maxWidth = ui->listWidget->width() * 0.8;
     label->setMaximumWidth(maxWidth);
@@ -367,24 +370,26 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             font-family: 'Noto Sans';
         )");
     }
-
+    QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
+    timestamp->setAlignment(Qt::AlignRight);
     innerLayout->addWidget(label);
     innerLayout->addWidget(timestamp);
 
     if (isUser) {
         messageLayout->addStretch();
         messageLayout->addLayout(innerLayout);
-        mainLayout->setContentsMargins(40, 5, 10, 5);
     } else {
         messageLayout->addLayout(innerLayout);
         messageLayout->addStretch();
-        mainLayout->setContentsMargins(10, 5, 40, 5);
     }
 
     mainLayout->addWidget(header);
     mainLayout->addLayout(messageLayout);
     mainLayout->setContentsMargins(10, 5, 10, 5);
     messageWidget->setLayout(mainLayout);
+    messageWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    messageWidget->updateGeometry();
 
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
     item->setSizeHint(messageWidget->sizeHint());
@@ -393,7 +398,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     ui->listWidget->setItemWidget(item, messageWidget);
 
     ui->listWidget->update();
-    ui->listWidget->verticalScrollBar()->setSingleStep(5);
     ui->listWidget->scrollToBottom();
 
 }
@@ -488,6 +492,14 @@ QString SLRTutorWindow::generateQuestion() {
                 .arg(nextStateId);
         }
     }
+    case StateSlr::D:
+        return "¿Cuántas filas y columnas tiene la tabla SLR(1)? Formato: %,%";
+    case StateSlr::D1:
+        return "¿Cuántos estados se han generado?";
+    case StateSlr::D2:
+        return "¿Cuántos símbolos terminales y no terminales, excluyendo epsilon, hay?";
+    case StateSlr::D_prime:
+        return "Entonces, ¿cuántas filas y columnas tiene la tabla SLR(1)?";
     default:
         return "";
     }
@@ -564,6 +576,18 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         }
         break;
     }
+    case StateSlr::D:
+        currentState = isCorrect ? StateSlr::fin : StateSlr::D1;
+        break;
+    case StateSlr::D1:
+        currentState = isCorrect ? StateSlr::D2 : StateSlr::D1;
+        break;
+    case StateSlr::D2:
+        currentState = isCorrect ? StateSlr::D_prime : StateSlr::D2;
+        break;
+    case StateSlr::D_prime:
+        currentState = isCorrect ? StateSlr::fin : StateSlr::fin;
+        break;
     case StateSlr::fin:
         break;
     }
@@ -595,6 +619,14 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForCA(userResponse);
     case StateSlr::CB:
         return verifyResponseForCB(userResponse);
+    case StateSlr::D:
+        return verifyResponseForD(userResponse);
+    case StateSlr::D1:
+        return verifyResponseForD1(userResponse);
+    case StateSlr::D2:
+        return verifyResponseForD2(userResponse);
+    case StateSlr::D_prime:
+        return verifyResponseForD(userResponse);
     default:
         return "";
     }
@@ -648,6 +680,20 @@ bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
         const auto response = ingestUserItems(userResponse);
         return response == solutionForCB();
     }
+}
+
+bool SLRTutorWindow::verifyResponseForD(const QString& userResponse) {
+    return userResponse == solutionForD();
+}
+
+
+bool SLRTutorWindow::verifyResponseForD1(const QString& userResponse) {
+    return userResponse == solutionForD1();
+}
+
+
+bool SLRTutorWindow::verifyResponseForD2(const QString& userResponse) {
+    return userResponse == solutionForD2();
 }
 
 /************************************************************
@@ -716,6 +762,24 @@ std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
     return st;
 }
 
+QString SLRTutorWindow::solutionForD() {
+    return QString("%1,%2")
+        .arg(solutionForD1())
+        .arg(solutionForD2());
+}
+
+QString SLRTutorWindow::solutionForD1() {
+    return QString::number(slr1.states_.size());
+}
+
+QString SLRTutorWindow::solutionForD2() {
+    unsigned terminals = slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
+                             ? slr1.gr_.st_.terminals_.size() - 1
+                             : slr1.gr_.st_.terminals_.size();
+    unsigned non_terminals = slr1.gr_.st_.non_terminals_.size();
+    return QString::number(terminals + non_terminals);
+}
+
 /************************************************************
  *                         FEEDBACK                         *
  ************************************************************/
@@ -740,8 +804,14 @@ QString SLRTutorWindow::feedback() {
         return feedbackForC();
     case StateSlr::CA:
         return feedbackForCA();
-    case StateSlr::CB:
-        return feedbackForCB();
+    case StateSlr::D:
+        return feedbackForD();
+    case StateSlr::D1:
+        return feedbackForD1();
+    case StateSlr::D2:
+        return feedbackForD2();
+    case StateSlr::D_prime:
+        return feedbackForDPrime();
     default:
         return "sa liao, no tendria que haber llegado aquí";
     }
@@ -821,6 +891,30 @@ QString SLRTutorWindow::feedbackForCB() {
     return QString::fromStdString(slr1.TeachDeltaFunction(currentSlrState.items_, followSymbols[currentFollowSymbolsIdx].toStdString()));
 }
 
+QString SLRTutorWindow::feedbackForD()
+{
+    return QString(
+        "El número de filas y columnas tiene relación con los estados y símbolos de la gramática.");
+}
+
+QString SLRTutorWindow::feedbackForD1()
+{
+    return QString("Hay %1 estados").arg(slr1.states_.size());
+}
+
+QString SLRTutorWindow::feedbackForD2()
+{
+    return QString("Hay un total de %1 de símbolos gramáticas, excluyendo la cadena vacía.")
+        .arg(solutionForD2());
+}
+
+QString SLRTutorWindow::feedbackForDPrime()
+{
+    return QString("La tabla SLR(1) tiene tantas filas como estados haya, y tantas columnas como "
+                   "símbolos gramáticas, excepto la cadena vacía, haya.")
+        .arg(solutionForD1())
+        .arg(solutionForD2());
+}
 
 /************************************************************
  *                         HELPERS                          *
