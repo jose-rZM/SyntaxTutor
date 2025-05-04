@@ -21,7 +21,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = StateSlr::D;
+    currentState = StateSlr::A4;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
@@ -313,31 +313,32 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     doc.print(&printer);
 }
 
-void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
+void SLRTutorWindow::addMessage(const QString &text, bool isUser)
+{
     // LOG
     conversationLog.emplaceBack(text, isUser);
 
-    QWidget* messageWidget = new QWidget;
-    QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
-    mainLayout->setSpacing(2);  // Espaciado compacto
-    mainLayout->setContentsMargins(10, 4, 10, 4);  // Márgenes exteriores reducidos
+    QWidget *messageWidget = new QWidget;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setSpacing(2);                    // Espaciado compacto
+    mainLayout->setContentsMargins(10, 5, 10, 5); // Márgenes exteriores reducidos
 
-    QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
+    QLabel *header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(isUser
-                              ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
-                              : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
+    header->setStyleSheet(
+        isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
+               : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
 
-    QHBoxLayout* messageLayout = new QHBoxLayout;
-    messageLayout->setSpacing(0);  // Sin espacio lateral adicional
+    QHBoxLayout *messageLayout = new QHBoxLayout;
+    messageLayout->setSpacing(0); // Sin espacio lateral adicional
 
-    QVBoxLayout* innerLayout = new QVBoxLayout;
-    innerLayout->setSpacing(0);  // Compacta label y timestamp
+    QVBoxLayout *innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(0); // Compacta label y timestamp
 
-    QLabel* label = new QLabel(text);
+    QLabel *label = new QLabel(text);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
     int maxWidth = ui->listWidget->width() * 0.8;
     label->setMaximumWidth(maxWidth);
@@ -370,9 +371,14 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             font-family: 'Noto Sans';
         )");
     }
-    QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
+
+    label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
+
+    QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet(
+        "font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
     timestamp->setAlignment(Qt::AlignRight);
+
     innerLayout->addWidget(label);
     innerLayout->addWidget(timestamp);
 
@@ -386,20 +392,19 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     mainLayout->addWidget(header);
     mainLayout->addLayout(messageLayout);
-    mainLayout->setContentsMargins(10, 5, 10, 5);
+
     messageWidget->setLayout(mainLayout);
-    messageWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    messageWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+    messageWidget->adjustSize();
     messageWidget->updateGeometry();
 
-    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     item->setSizeHint(messageWidget->sizeHint());
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
-
     ui->listWidget->update();
     ui->listWidget->scrollToBottom();
-
 }
 
 void SLRTutorWindow::on_confirmButton_clicked()
