@@ -129,7 +129,16 @@ private:
     unsigned int nextStateId; // Filled in generateQuestion, next state used in C-CA-CB questions
     // END VARIABLES
 
-    QVector<QString> conversationLog;
+    struct MessageLog {
+        QString message;
+        bool isUser;
+
+        MessageLog(const QString& message, bool isUser)
+            : message(isUser ? "Usuario: " + message : "Tutor: " + message), isUser(isUser)
+        {}
+    };
+
+    QVector<MessageLog> conversationLog;
 };
 
 #endif // SLRTUTORWINDOW_H

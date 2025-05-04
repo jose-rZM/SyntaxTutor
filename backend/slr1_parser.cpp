@@ -487,6 +487,9 @@ std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& it
 std::unordered_set<Lr0Item>
 SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
                   const std::string&                 str) {
+    if (str == gr_.st_.EPSILON_) {
+        return {};
+    }
     std::vector<Lr0Item> filtered;
     std::for_each(items.begin(), items.end(), [&](const Lr0Item& item) -> void {
         std::string next = item.NextToDot();
