@@ -87,6 +87,9 @@
     padding: 6px 10px;
     font-size: 14px;</string>
         </property>
+        <property name="placeholderText">
+         <string>Introduce aquí tu respuesta.</string>
+        </property>
        </widget>
       </item>
       <item>
