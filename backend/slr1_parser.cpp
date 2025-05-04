@@ -448,6 +448,9 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
 
 std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                                     const std::string&                 symbol) {
+    if (symbol == gr_.st_.EPSILON_) {
+        return "Sin importar el estado, δ(I,EPSILON) = ∅ siempre.\n";
+    }
     std::ostringstream output;
     output << "Sea I:\n\n";
     output << PrintItems(items);
