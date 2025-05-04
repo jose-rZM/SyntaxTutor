@@ -424,7 +424,6 @@ void SLRTutorWindow::on_confirmButton_clicked()
             "¿Deseas exportar la conversación?",
             QMessageBox::Yes | QMessageBox::No
             );
-
         if (reply == QMessageBox::Yes) {
             QString filePath = QFileDialog::getSaveFileName(
                 this,
@@ -764,14 +763,6 @@ QString SLRTutorWindow::feedbackForA3() {
             result += ruleStr + "\n";
         }
     }
-
-   /* for (const auto& rule : sortedGrammar) {
-        if (rule.first == antecedent) {
-            QStringList symbols = rule.second.toList();
-            QString ruleStr = QString("%1 → %2").arg(rule.first, symbols.join(" "));
-            result += ruleStr + "\n";
-        }
-    }*/
 
     return result;
 }
