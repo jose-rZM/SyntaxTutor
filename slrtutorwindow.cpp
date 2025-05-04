@@ -25,12 +25,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->listWidget->setFont(chatFont);
     connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
 
-    userMadeStates.insert(*std::ranges::find_if(slr1.states_, [](const state& st) {
-        return st.id_ == 0;
-    }));
-
-    statesIdQueue.push(0);
-
     connect(ui->showButton, &QPushButton::clicked, this, &SLRTutorWindow::showUserStates);
 }
 
@@ -505,9 +499,15 @@ QString SLRTutorWindow::generateQuestion() {
 
 void SLRTutorWindow::updateState(bool isCorrect) {
     switch(currentState) {
-    case StateSlr::A:
+    case StateSlr::A: {
+        userMadeStates.insert(*std::ranges::find_if(slr1.states_, [](const state& st) {
+            return st.id_ == 0;
+        }));
+
+        statesIdQueue.push(0);
         currentState = isCorrect ? StateSlr::B : StateSlr::A1;
         break;
+    }
     case StateSlr::A1:
         currentState = isCorrect ? StateSlr::A2 : StateSlr::A1;
         break;
@@ -520,9 +520,16 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     case StateSlr::A4:
         currentState = isCorrect ? StateSlr::A_prime : StateSlr::A4;
         break;
-    case StateSlr::A_prime:
+    case StateSlr::A_prime: {
+
+        userMadeStates.insert(*std::ranges::find_if(slr1.states_, [](const state& st) {
+            return st.id_ == 0;
+        }));
+
+        statesIdQueue.push(0);
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
         break;
+    }
     case StateSlr::B:
         if (statesIdQueue.empty()) {
             currentState = StateSlr::fin;
