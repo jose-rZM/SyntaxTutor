@@ -13,7 +13,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->setupUi(this);
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
-    ui->userResponse->setFont(QFont("Noto Sans", 14));
+    ui->userResponse->setFont(QFont("Open Sans", 14));
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
@@ -382,7 +382,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     } else {
         messageLayout->addLayout(innerLayout);
         messageLayout->addStretch();
-        mainLayout->setContentsMargins(10, 5, 40, 5);  // Desplaza burbuja a la izquierda
+        mainLayout->setContentsMargins(10, 5, 40, 5);
     }
 
     mainLayout->addWidget(header);
@@ -911,7 +911,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString result;
 
-    result += QString::fromStdString(grammar.axiom_) + " -> ";
+    result += QString::fromStdString(grammar.axiom_) + " → ";
 
     auto it = grammar.g_.find(grammar.axiom_);
     QVector<QPair<QString, QVector<QString>>> rules;
@@ -932,7 +932,7 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     for (const auto& [lhs, productions] : sortedRules) {
         if (lhs == grammar.axiom_) continue;
         rule = {QString::fromStdString(lhs), {}};
-        result += QString::fromStdString(lhs) + " -> ";
+        result += QString::fromStdString(lhs) + " → ";
         for (const auto& prod : productions) {
             for (const auto& symbol : prod) {
                 rule.second.push_back(QString::fromStdString(symbol));
@@ -943,7 +943,6 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
             result += "| ";
         }
         result.chop(3);
-        result += "\n";
     }
     sortedGrammar = rules;
     return result;
