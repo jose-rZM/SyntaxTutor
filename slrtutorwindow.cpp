@@ -11,6 +11,8 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     slr1.DebugStates();
     slr1.DebugActions();
     ui->setupUi(this);
+    ui->cntRight->setText(QString::number(cntRightAnswers));
+    ui->cntWrong->setText(QString::number(cntWrongAnswers));
     ui->userResponse->setFont(QFont("Noto Sans", 14));
     ui->gr->setFont(QFont("Courier New", 14));
     ui->gr->setText(FormatGrammar(grammar));
@@ -46,7 +48,6 @@ void SLRTutorWindow::showUserStates() {
 
     QTextEdit* textEdit = new QTextEdit(dialog);
     textEdit->setReadOnly(true);
-    //textEdit->setStyleSheet("font-family: monospace; font-size: 13px; background-color: #1E1E1E; color: #E0E0E0;");
     textEdit->setStyleSheet(R"(
         background-color: #1e1e1e;
         color: #ffffff;
@@ -120,7 +121,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
 
     .entry {
         border-left: 4px solid #007B8A;
-        background-color: #f9f9f9;
         padding: 10px 15px;
         margin: 15px 0;
         border-radius: 4px;
@@ -195,13 +195,10 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         html += "</div>";
         html += safeText;
         html += "</div>";
-
-
     }
 
     html += "</body></html>";
     html += R"(<div class='page-break'></div>)";
-
 
 
     html += "<h2>Estados del Autómata</h2>";
@@ -414,7 +411,10 @@ void SLRTutorWindow::on_confirmButton_clicked()
 
     isCorrect = verifyResponse(userResponse);
     if (!isCorrect) {
+        ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         addMessage(feedback(), false);
+    } else {
+        ui->cntRight->setText(QString::number(++cntRightAnswers));
     }
     updateState(isCorrect);
     if (currentState == StateSlr::fin) {
