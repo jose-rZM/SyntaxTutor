@@ -119,6 +119,8 @@ private:
     SLR1Parser slr1;
     StateSlr currentState;
 
+    unsigned cntRightAnswers = 0, cntWrongAnswers = 0;
+
     // VARIABLES
     std::unordered_set<state> userMadeStates; // Track states made by the user
     unsigned currentStateId; // Track current state during questions
