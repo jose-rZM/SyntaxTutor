@@ -18,7 +18,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setText(FormatGrammar(grammar));
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
     
-    currentState = StateSlr::B;
+    currentState = StateSlr::A;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
@@ -62,15 +62,17 @@ void SLRTutorWindow::showUserStates() {
     )");
 
     QString text;
-    for (size_t i = 0; i < userMadeStates.size(); ++i) {
-        const state& st = *std::ranges::find_if(userMadeStates, [i](const state& st) {
+    for (size_t i = 0; i < slr1.states_.size(); ++i) {
+        auto st = std::ranges::find_if(userMadeStates, [i](const state& st) {
             return st.id_ == i;
         });
-        text += QString("Estado I%1\n").arg(st.id_);
-        for (const Lr0Item& item : st.items_) {
-            text += QString::fromStdString(item.ToString()) + "\n";
+        if (st != userMadeStates.end()) {
+            text += QString("Estado I%1\n").arg((*st).id_);
+            for (const Lr0Item& item : (*st).items_) {
+                text += QString::fromStdString(item.ToString()) + "\n";
+            }
+            text += "\n";
         }
-        text += "\n";
     }
 
     if (userMadeStates.empty()) {
@@ -943,6 +945,7 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
             result += "| ";
         }
         result.chop(3);
+        result += "\n";
     }
     sortedGrammar = rules;
     return result;
