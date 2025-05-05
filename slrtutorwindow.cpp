@@ -11,6 +11,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     slr1.DebugStates();
     slr1.DebugActions();
     ui->setupUi(this);
+    ui->confirmButton->setIcon(QIcon("://resources/send.svg"));
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
     ui->userResponse->setFont(QFont("Open Sans", 14));

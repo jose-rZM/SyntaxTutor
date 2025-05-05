@@ -139,13 +139,25 @@
        <string>Muestra los estados construidos</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: #393E46;
-color: white;
-border: none;
-padding: 8px 20px;
-border-radius: 8px;
-font-weight: semi-bold;
-font-size: 13px;</string>
+       <string notr="true">QPushButton {
+    background-color: #393E46;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: 'Noto Sans';
+}
+
+QPushButton:hover {
+    background-color: #50575F;
+}
+
+QPushButton:pressed {
+    background-color: #222831;
+}
+</string>
       </property>
       <property name="text">
        <string>Mostrar progreso</string>
@@ -172,17 +184,29 @@ font-size: 13px;</string>
       <item>
        <widget class="QPushButton" name="confirmButton">
         <property name="styleSheet">
-         <string notr="true"> background-color: #00ADB5;
-border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-font-size: 13px
+         <string notr="true">QPushButton {
+    background-color: #00ADB5;
+    border: none;
+    border-radius: 20px; /* La mitad de width/height para que sea redondo */
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    padding: 0px;
+    icon-size: 24px 24px; /* Asegúrate de ajustar esto en C++ también si no reacciona */
+}
+
+QPushButton:hover {
+    background-color: #00C8D6;
+}
+
+QPushButton:pressed {
+    background-color: #009AA3;
+}
 </string>
         </property>
         <property name="text">
-         <string>Enviar</string>
+         <string/>
         </property>
        </widget>
       </item>
