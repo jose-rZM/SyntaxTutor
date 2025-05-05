@@ -73,6 +73,9 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>17</number>
+      </property>
       <item alignment="Qt::AlignmentFlag::AlignHCenter">
        <widget class="QRadioButton" name="lv1Button">
         <property name="sizePolicy">
