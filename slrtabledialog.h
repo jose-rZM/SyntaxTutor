@@ -2,7 +2,10 @@
 #define SLRTABLEDIALOG_H
 
 #include <QDialog>
+#include <QGuiApplication>
+#include <QHeaderView>
 #include <QPushButton>
+#include <QScreen>
 #include <QTableWidget>
 #include <QVBoxLayout>
 

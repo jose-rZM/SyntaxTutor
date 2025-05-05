@@ -1,23 +1,24 @@
 #ifndef SLRTUTORWINDOW_H
 #define SLRTUTORWINDOW_H
 
+#include <QAbstractItemView>
+#include <QDialog>
+#include <QFileDialog>
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QPropertyAnimation>
+#include <QPushButton>
+#include <QScrollBar>
+#include <QTableWidget>
+#include <QTextDocument>
+#include <QTextEdit>
+#include <QTime>
+#include <QVBoxLayout>
+#include <QtPrintSupport/QPrinter>
+#include "UniqueQueue.h"
 #include "backend/grammar.hpp"
 #include "backend/slr1_parser.hpp"
-#include <QMessageBox>
-#include <QDialog>
-#include <QTableWidget>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QPropertyAnimation>
-#include <QScrollBar>
-#include <QAbstractItemView>
-#include <QTime>
-#include <QFileDialog>
-#include <QTextEdit>
-#include <QtPrintSupport/QPrinter>
-#include <QTextDocument>
-#include "UniqueQueue.h"
+#include "slrtabledialog.h"
 
 namespace Ui {
 class SLRTutorWindow;

@@ -313,7 +313,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     doc.print(&printer);
 }
 
-#include "slrtabledialog.h"
 void SLRTutorWindow::showTable()
 {
     QStringList headers;
