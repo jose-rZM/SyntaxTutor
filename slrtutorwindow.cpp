@@ -340,9 +340,13 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
+    QFontMetrics fm(label->font());
+    int textWidth = fm.boundingRect(0, 0, ui->listWidget->width(), 0, Qt::TextWordWrap, text).width();
+
     int maxWidth = ui->listWidget->width() * 0.8;
-    label->setMaximumWidth(maxWidth);
-    label->setMinimumWidth(200);
+    int adjustedWidth = qMin(textWidth + 32, maxWidth);
+    label->setMaximumWidth(adjustedWidth);
+    label->setMinimumWidth(300);
 
     if (isUser) {
         label->setStyleSheet(R"(
