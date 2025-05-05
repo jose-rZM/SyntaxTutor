@@ -375,12 +375,12 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
 
 std::string SLR1Parser::TeachClosure(std::unordered_set<Lr0Item>& items) {
     std::ostringstream output;
-    output << "Process of computing Closure for the following items:\n";
+    output << "Para el estado:\n";
     output << PrintItems(items);
 
     std::unordered_set<std::string> visited;
     TeachClosureUtil(items, items.size(), visited, 0, output);
-    output << "Closure:\n";
+    output << "Cierre:\n";
     for (const Lr0Item& item : items) {
         output << "  - ";
         output << item.ToString();
@@ -399,8 +399,7 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
 
     std::unordered_set<Lr0Item> newItems;
 
-    output << indent
-              << "- Checking items for non-terminals after the dot:\n";
+    output << indent << "- Coge los ítems con un no terminal después del ·:\n";
     for (const auto& item : items) {
         std::string next = item.NextToDot();
         if (next == gr_.st_.EPSILON_) {
@@ -414,18 +413,16 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
         if (!gr_.st_.IsTerminal(next) &&
             std::find(visited.cbegin(), visited.cend(), next) ==
                 visited.cend()) {
-            output << indent
-                      << "    - Found non-terminal after the dot: " << next
-                      << "\n";
-            output << indent << "    - Adding all productions of " << next
-                      << " with the dot at the beginning:\n";
+            output << indent << "    - Encontrado un no terminal: " << next << "\n";
+            output << indent << "    - Añade todas las producciones de " << next
+                   << " con el · al inicio:\n";
 
             const std::vector<production>& rules = gr_.g_.at(next);
             for (const auto& rule : rules) {
                 Lr0Item newItem(next, rule, 0, gr_.st_.EPSILON_, gr_.st_.EOL_);
                 newItems.insert(newItem);
 
-                output << indent << "      - Added: ";
+                output << indent << "      - Añadido: ";
                 output << newItem.ToString();
                 output << "\n";
             }
@@ -437,19 +434,17 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
     items.insert(newItems.begin(), newItems.end());
 
     if (size != items.size()) {
-        output << indent
-                  << "- New items were added. Repeating the process...\n";
+        output << indent << "- Se han añadido nuevos items. Repite el proceso.\n";
         TeachClosureUtil(items, items.size(), visited, depth + 1, output);
     } else {
-        output << indent
-                  << "- No new items were added. Closure is complete.\n";
+        output << indent << "- No se han añadido nuevos items. El cierre está completo.\n";
     }
 }
 
 std::string SLR1Parser::TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
                                     const std::string&                 symbol) {
     if (symbol == gr_.st_.EPSILON_) {
-        return "Sin importar el estado, δ(I,EPSILON) = ∅ siempre.\n";
+        return "Sin importar el estado, δ(I,EPSILON) = ∅.\n";
     }
     std::ostringstream output;
     output << "Sea I:\n\n";
