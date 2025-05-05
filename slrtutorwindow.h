@@ -23,9 +23,7 @@ namespace Ui {
 class SLRTutorWindow;
 }
 
-enum class StateSlr {
-    A, A1, A2, A3, A4, A_prime, B, C, CA, CB, D, D1, D2, D_prime, fin
-};
+enum class StateSlr { A, A1, A2, A3, A4, A_prime, B, C, CA, CB, D, D1, D2, D_prime, E, fin };
 
 class SLRTutorWindow : public QMainWindow
 {
@@ -38,6 +36,7 @@ public:
 
     void addMessage(const QString& text, bool isUser);
     void exportConversationToPdf(const QString& filePath);
+    void showTable();
 
     // ------------------------------------------------------
     // ------------------------------------------------------
