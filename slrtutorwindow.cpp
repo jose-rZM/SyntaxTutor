@@ -21,7 +21,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = StateSlr::D_prime;
+    currentState = StateSlr::A;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
@@ -617,7 +617,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         break;
     }
     case StateSlr::D:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::D1;
+        currentState = isCorrect ? StateSlr::E : StateSlr::D1;
         break;
     case StateSlr::D1:
         currentState = isCorrect ? StateSlr::D2 : StateSlr::D1;
@@ -842,6 +842,8 @@ QString SLRTutorWindow::feedback() {
         return feedbackForC();
     case StateSlr::CA:
         return feedbackForCA();
+    case StateSlr::CB:
+        return feedbackForCB();
     case StateSlr::D:
         return feedbackForD();
     case StateSlr::D1:
@@ -851,7 +853,7 @@ QString SLRTutorWindow::feedback() {
     case StateSlr::D_prime:
         return feedbackForDPrime();
     default:
-        return "sa liao, no tendria que haber llegado aquí";
+        return "Error en feedback.";
     }
 }
 
