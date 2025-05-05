@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->pushButton->setStyleSheet(R"(
     QPushButton {
-        background-color: #222831;
-        color: #EEEEEE;
+        background-color: #00ADB5;
+        color: #FFFFFF;
         border: none;
         padding: 12px 24px;
         border-radius: 10px;
@@ -20,19 +20,18 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     QPushButton:hover {
-        background-color: #393E46;
+        background-color: #00CED1;
     }
 
     QPushButton:pressed {
-        background-color: #00ADB5;
-        color: #FFFFFF;
+        background-color: #007F86;
     }
 )");
 
     ui->pushButton_2->setStyleSheet(R"(
     QPushButton {
-        background-color: #222831;
-        color: #EEEEEE;
+        background-color: #00ADB5;
+        color: #FFFFFF;
         border: none;
         padding: 12px 24px;
         border-radius: 10px;
@@ -42,12 +41,11 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     QPushButton:hover {
-        background-color: #393E46;
+        background-color: #00CED1;
     }
 
     QPushButton:pressed {
-        background-color: #00ADB5;
-        color: #FFFFFF;
+        background-color: #007F86;
     }
 )");
 
@@ -140,21 +138,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_lv1Button_clicked(bool checked)
 {
-    if (checked) level = 1;
+    if (checked)
+        level = 1;
 }
-
 
 void MainWindow::on_lv2Button_clicked(bool checked)
 {
-    if (checked) level = 2;
+    if (checked)
+        level = 2;
 }
-
 
 void MainWindow::on_lv3Button_clicked(bool checked)
 {
-    if (checked) level = 3;
+    if (checked)
+        level = 3;
 }
-
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -164,7 +162,6 @@ void MainWindow::on_pushButton_clicked()
     tutor->show();
 }
 
-
 void MainWindow::on_pushButton_2_clicked()
 {
     Grammar grammar = factory.GenSLR1Grammar(level);
@@ -172,4 +169,3 @@ void MainWindow::on_pushButton_2_clicked()
     SLRTutorWindow *tutor = new SLRTutorWindow(grammar, this);
     tutor->show();
 }
-
