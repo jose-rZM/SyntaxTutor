@@ -553,7 +553,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     }
     case StateSlr::B:
         if (statesIdQueue.empty()) {
-            currentState = StateSlr::fin;
+            currentState = StateSlr::D;
         } else {
             currentState = isCorrect ? StateSlr::C : StateSlr::C;
         }
