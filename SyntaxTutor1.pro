@@ -18,6 +18,7 @@ SOURCES += \
     lltutorwindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    slrtabledialog.cpp \
     slrtutorwindow.cpp
 
 HEADERS += \
@@ -33,6 +34,7 @@ HEADERS += \
     dialogtablell.h \
     lltutorwindow.h \
     mainwindow.h \
+    slrtabledialog.h \
     slrtutorwindow.h
 
 FORMS += \

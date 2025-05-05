@@ -21,7 +21,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = StateSlr::A4;
+    currentState = StateSlr::D_prime;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
@@ -313,6 +313,34 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     doc.print(&printer);
 }
 
+#include "slrtabledialog.h"
+void SLRTutorWindow::showTable()
+{
+    QStringList headers;
+    for (const auto &symbol : slr1.gr_.st_.terminals_) {
+        if (symbol == slr1.gr_.st_.EPSILON_) {
+            continue;
+        }
+        headers << QString::fromStdString(symbol);
+    }
+
+    for (const auto &symbol : slr1.gr_.st_.non_terminals_) {
+        headers << QString::fromStdString(symbol);
+    }
+
+    SLRTableDialog dialog(slr1.states_.size(), headers.size(), headers, this);
+    if (dialog.exec() == QDialog::Accepted) {
+        auto tabla = dialog.getTableData();
+
+        // Acá podés usar `tabla` como quieras
+        for (int i = 0; i < tabla.size(); ++i) {
+            qDebug() << "Fila" << i << ":" << tabla[i];
+        }
+
+        addMessage("¡Tabla enviada correctamente!", false);
+    }
+}
+
 void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 {
     // LOG
@@ -509,6 +537,10 @@ QString SLRTutorWindow::generateQuestion() {
         return "¿Cuántos símbolos terminales y no terminales, excluyendo epsilon, hay?";
     case StateSlr::D_prime:
         return "Entonces, ¿cuántas filas y columnas tiene la tabla SLR(1)?";
+    case StateSlr::E: {
+        showTable();
+        return "Rellena la tabla.";
+    }
     default:
         return "";
     }
@@ -595,7 +627,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         currentState = isCorrect ? StateSlr::D_prime : StateSlr::D2;
         break;
     case StateSlr::D_prime:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::fin;
+        currentState = isCorrect ? StateSlr::E : StateSlr::E;
         break;
     case StateSlr::fin:
         break;
@@ -920,7 +952,8 @@ QString SLRTutorWindow::feedbackForD2()
 QString SLRTutorWindow::feedbackForDPrime()
 {
     return QString("La tabla SLR(1) tiene tantas filas como estados haya, y tantas columnas como "
-                   "símbolos gramáticas, excepto la cadena vacía, haya.")
+                   "símbolos gramáticas, excepto la cadena vacía. Es decir, tiene %1 filas y %2 "
+                   "columnas.")
         .arg(solutionForD1())
         .arg(solutionForD2());
 }
