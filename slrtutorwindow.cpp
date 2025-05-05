@@ -22,7 +22,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = StateSlr::A;
+    currentState = StateSlr::D_prime;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
