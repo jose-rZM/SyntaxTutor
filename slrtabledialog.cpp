@@ -1,8 +1,5 @@
 #include "slrtabledialog.h"
 
-#include <QGuiApplication>
-#include <QHeaderView>
-#include <QScreen>
 SLRTableDialog::SLRTableDialog(int rowCount,
                                int colCount,
                                const QStringList &colHeaders,
