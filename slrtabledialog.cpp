@@ -20,6 +20,15 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton("Finalizar", this);
+    submitButton->setStyleSheet(R"(
+        background-color: #393E46;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: semi-bold;
+        font-size: 13px;
+)");
     connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
 
     QVBoxLayout *layout = new QVBoxLayout;

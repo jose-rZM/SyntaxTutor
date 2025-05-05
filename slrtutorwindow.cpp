@@ -803,9 +803,7 @@ std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
 }
 
 QString SLRTutorWindow::solutionForD() {
-    return QString("%1,%2")
-        .arg(solutionForD1())
-        .arg(solutionForD2());
+    return QString("%1,%2").arg(solutionForD1()).arg(solutionForD2());
 }
 
 QString SLRTutorWindow::solutionForD1() {

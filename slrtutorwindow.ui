@@ -139,13 +139,13 @@
        <string>Muestra los estados construidos</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">  background-color: #393E46;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-weight: semi-bold;
-    font-size: 13px;</string>
+       <string notr="true">background-color: #393E46;
+color: white;
+border: none;
+padding: 8px 20px;
+border-radius: 8px;
+font-weight: semi-bold;
+font-size: 13px;</string>
       </property>
       <property name="text">
        <string>Mostrar progreso</string>
