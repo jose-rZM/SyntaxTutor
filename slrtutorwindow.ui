@@ -135,6 +135,9 @@
     </item>
     <item>
      <widget class="QPushButton" name="showButton">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="toolTip">
        <string>Muestra los estados construidos</string>
       </property>
@@ -183,6 +186,9 @@ QPushButton:pressed {
       </item>
       <item>
        <widget class="QPushButton" name="confirmButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
     background-color: #00ADB5;

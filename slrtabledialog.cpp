@@ -21,14 +21,26 @@ SLRTableDialog::SLRTableDialog(int rowCount,
 
     submitButton = new QPushButton("Finalizar", this);
     submitButton->setStyleSheet(R"(
+    QPushButton {
         background-color: #393E46;
         color: white;
         border: none;
         padding: 8px 20px;
         border-radius: 8px;
-        font-weight: semi-bold;
+        font-weight: bold;
         font-size: 13px;
+        font-family: 'Noto Sans';
+    }
+
+    QPushButton:hover {
+        background-color: #50575F;
+    }
+
+    QPushButton:pressed {
+        background-color: #222831;
+    }        
 )");
+    submitButton->setCursor(Qt::PointingHandCursor);
     connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
 
     QVBoxLayout *layout = new QVBoxLayout;
