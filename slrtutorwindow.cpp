@@ -611,10 +611,8 @@ void SLRTutorWindow::updateState(bool isCorrect)
         break;
     case StateSlr::A_prime: {
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
-        if (isCorrect) {
-            addUserState(0);
-            statesIdQueue.push(0);
-        }
+        addUserState(0);
+        statesIdQueue.push(0);
         break;
     }
     case StateSlr::B:
