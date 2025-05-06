@@ -402,7 +402,7 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
     output << indent << "- Coge los ítems con un no terminal después del ·:\n";
     for (const auto& item : items) {
         std::string next = item.NextToDot();
-        if (next == gr_.st_.EPSILON_) {
+        if (next == gr_.st_.EPSILON_ || gr_.st_.IsTerminal(next)) {
             continue;
         }
 
@@ -410,9 +410,7 @@ void SLR1Parser::TeachClosureUtil(std::unordered_set<Lr0Item>&     items,
         output << item.ToString();
         output << "\n";
 
-        if (!gr_.st_.IsTerminal(next) &&
-            std::find(visited.cbegin(), visited.cend(), next) ==
-                visited.cend()) {
+        if (!gr_.st_.IsTerminal(next) && !visited.contains(next)) {
             output << indent << "    - Encontrado un no terminal: " << next << "\n";
             output << indent << "    - Añade todas las producciones de " << next
                    << " con el · al inicio:\n";

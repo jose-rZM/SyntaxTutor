@@ -38,6 +38,8 @@ public:
     void addMessage(const QString& text, bool isUser);
     void exportConversationToPdf(const QString& filePath);
     void showTable();
+    void updateProgressPanel();
+    void addUserState(unsigned id);
 
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -111,7 +113,6 @@ public:
 
 private slots:
     void on_confirmButton_clicked();
-    void showUserStates();
 
 private:
     // HELPER FUNCTIONS --------------------
