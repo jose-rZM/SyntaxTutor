@@ -534,10 +534,11 @@ QString SLRTutorWindow::generateQuestion() {
 void SLRTutorWindow::updateState(bool isCorrect) {
     switch(currentState) {
     case StateSlr::A: {
-        addUserState(0);
-
-        statesIdQueue.push(0);
         currentState = isCorrect ? StateSlr::B : StateSlr::A1;
+        if (isCorrect) {
+            addUserState(0);
+            statesIdQueue.push(0);
+        }
         break;
     }
     case StateSlr::A1:
@@ -553,10 +554,11 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         currentState = isCorrect ? StateSlr::A_prime : StateSlr::A4;
         break;
     case StateSlr::A_prime: {
-        addUserState(0);
-
-        statesIdQueue.push(0);
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
+        if (isCorrect) {
+            addUserState(0);
+            statesIdQueue.push(0);
+        }
         break;
     }
     case StateSlr::B:
