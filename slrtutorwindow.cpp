@@ -434,10 +434,45 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     item->setSizeHint(messageWidget->sizeHint());
 
+    if (isUser) {
+        lastUserMessage = messageWidget;
+    }
+
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
     ui->listWidget->update();
     ui->listWidget->scrollToBottom();
+}
+
+void SLRTutorWindow::wrongAnimation()
+{
+    if (lastUserMessage == nullptr) {
+        return;
+    }
+    QList<QLabel *> labels = lastUserMessage->findChildren<QLabel *>();
+    if (labels.size() > 1) {
+        QLabel *label = labels[1];
+
+        auto *effect = new QGraphicsColorizeEffect(label);
+        effect->setColor(Qt::red);
+        label->setGraphicsEffect(effect);
+
+        auto *animation = new QPropertyAnimation(effect, "strength");
+        animation->setDuration(1000);
+        animation->setKeyValueAt(0, 0.0);
+        animation->setKeyValueAt(0.5, 1.0);
+        animation->setKeyValueAt(1, 0.0);
+
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+
+        QObject::connect(animation, &QPropertyAnimation::finished, [label]() {
+            if (label && label->graphicsEffect()) {
+                label->graphicsEffect()->deleteLater();
+                label->setGraphicsEffect(nullptr);
+            }
+        });
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+    }
 }
 
 void SLRTutorWindow::on_confirmButton_clicked()
@@ -451,24 +486,21 @@ void SLRTutorWindow::on_confirmButton_clicked()
     if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         addMessage(feedback(), false);
+        wrongAnimation();
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
     }
     updateState(isCorrect);
     if (currentState == StateSlr::fin) {
-        auto reply = QMessageBox::question(
-            this,
-            "Fin del análisis",
-            "¿Deseas exportar la conversación?",
-            QMessageBox::Yes | QMessageBox::No
-            );
+        auto reply = QMessageBox::question(this,
+                                           "Fin del análisis",
+                                           "¿Deseas exportar la conversación?",
+                                           QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes) {
-            QString filePath = QFileDialog::getSaveFileName(
-                this,
-                "Guardar conversación",
-                "conversacion.pdf",
-                "Archivo PDF (*.pdf)"
-                );
+            QString filePath = QFileDialog::getSaveFileName(this,
+                                                            "Guardar conversación",
+                                                            "conversacion.pdf",
+                                                            "Archivo PDF (*.pdf)");
 
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
@@ -484,8 +516,9 @@ void SLRTutorWindow::on_confirmButton_clicked()
  *                      QUESTIONS                           *
  ************************************************************/
 
-QString SLRTutorWindow::generateQuestion() {
-    switch(currentState) {
+QString SLRTutorWindow::generateQuestion()
+{
+    switch (currentState) {
     case StateSlr::A:
         return "¿Cuál es el estado inicial? Formato: X -> a·b,X -> ·b,X -> EPSILON";
     case StateSlr::A1:
@@ -493,7 +526,8 @@ QString SLRTutorWindow::generateQuestion() {
     case StateSlr::A2:
         return "¿Cuál es el símbolo que sigue al ·?";
     case StateSlr::A3:
-        return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo que sigue al ·?";
+        return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo "
+               "que sigue al ·?";
     case StateSlr::A4:
         return "¿Cuál es el cierre del axioma?";
     case StateSlr::A_prime:
@@ -503,8 +537,9 @@ QString SLRTutorWindow::generateQuestion() {
     case StateSlr::C: {
         currentStateId = statesIdQueue.front();
         statesIdQueue.pop();
-        auto currState = std::ranges::find_if(slr1.states_, [&](const state& st)
-                { return st.id_ == currentStateId; });
+        auto currState = std::ranges::find_if(slr1.states_, [&](const state &st) {
+            return st.id_ == currentStateId;
+        });
         currentSlrState = *currState;
         return QString("¿Cuántos ítems tiene el estado %1?\n%2")
             .arg(currentStateId)
@@ -515,13 +550,13 @@ QString SLRTutorWindow::generateQuestion() {
     case StateSlr::CB: {
         QString currentSymbol = followSymbols.at(currentFollowSymbolsIdx);
         if (currentSymbol.toStdString() == slr1.gr_.st_.EPSILON_) {
-            return QString("Calcula DELTA(I%1, %2). Deja la entrada vacía si no se genera un estado.")
-                    .arg(currentStateId)
-                    .arg(currentSymbol);
+            return QString(
+                       "Calcula DELTA(I%1, %2). Deja la entrada vacía si no se genera un estado.")
+                .arg(currentStateId)
+                .arg(currentSymbol);
         } else {
-            nextStateId = slr1.transitions_
-                             .at(static_cast<unsigned int>(currentStateId))
-                             .at(currentSymbol.toStdString());
+            nextStateId = slr1.transitions_.at(static_cast<unsigned int>(currentStateId))
+                              .at(currentSymbol.toStdString());
 
             statesIdQueue.push(nextStateId);
             return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
@@ -551,8 +586,9 @@ QString SLRTutorWindow::generateQuestion() {
  *                      UPDATE STATE                        *
  ************************************************************/
 
-void SLRTutorWindow::updateState(bool isCorrect) {
-    switch(currentState) {
+void SLRTutorWindow::updateState(bool isCorrect)
+{
+    switch (currentState) {
     case StateSlr::A: {
         currentState = isCorrect ? StateSlr::B : StateSlr::A1;
         if (isCorrect) {
@@ -631,8 +667,9 @@ void SLRTutorWindow::updateState(bool isCorrect) {
  *                      VERIFY RESPONSES                    *
  ************************************************************/
 
-bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
-    switch(currentState) {
+bool SLRTutorWindow::verifyResponse(const QString &userResponse)
+{
+    switch (currentState) {
     case StateSlr::A:
         return verifyResponseForA(userResponse);
     case StateSlr::A1:
@@ -666,40 +703,48 @@ bool SLRTutorWindow::verifyResponse(const QString& userResponse) {
     }
 }
 
-bool SLRTutorWindow::verifyResponseForA(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForA(const QString &userResponse)
+{
     std::unordered_set<Lr0Item> response = ingestUserItems(userResponse);
     return response == solutionForA();
 }
 
-bool SLRTutorWindow::verifyResponseForA1(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForA1(const QString &userResponse)
+{
     return userResponse == solutionForA1();
 }
 
-bool SLRTutorWindow::verifyResponseForA2(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForA2(const QString &userResponse)
+{
     return userResponse == solutionForA2();
 }
 
-bool SLRTutorWindow::verifyResponseForA3(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForA3(const QString &userResponse)
+{
     const auto response = ingestUserRules(userResponse);
     return response == solutionForA3();
 }
 
-bool SLRTutorWindow::verifyResponseForA4(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForA4(const QString &userResponse)
+{
     std::unordered_set<Lr0Item> response = ingestUserItems(userResponse);
     return response == solutionForA4();
 }
 
-bool SLRTutorWindow::verifyResponseForB(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForB(const QString &userResponse)
+{
     unsigned response = userResponse.toUInt();
     return response == solutionForB();
 }
 
-bool SLRTutorWindow::verifyResponseForC(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForC(const QString &userResponse)
+{
     unsigned response = userResponse.toUInt();
     return response == solutionForC();
 }
 
-bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForCA(const QString &userResponse)
+{
     QStringList response = userResponse.split(",");
     QStringList expected = solutionForCA();
     QSet<QString> responseSet(response.begin(), response.end());
@@ -707,7 +752,8 @@ bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
     return responseSet == expectedSet;
 }
 
-bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForCB(const QString &userResponse)
+{
     if (followSymbols.at(currentFollowSymbolsIdx).toStdString() == slr1.gr_.st_.EPSILON_) {
         return userResponse.isEmpty();
     } else {
@@ -716,17 +762,18 @@ bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
     }
 }
 
-bool SLRTutorWindow::verifyResponseForD(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForD(const QString &userResponse)
+{
     return userResponse == solutionForD();
 }
 
-
-bool SLRTutorWindow::verifyResponseForD1(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForD1(const QString &userResponse)
+{
     return userResponse == solutionForD1();
 }
 
-
-bool SLRTutorWindow::verifyResponseForD2(const QString& userResponse) {
+bool SLRTutorWindow::verifyResponseForD2(const QString &userResponse)
+{
     return userResponse == solutionForD2();
 }
 
@@ -734,51 +781,61 @@ bool SLRTutorWindow::verifyResponseForD2(const QString& userResponse) {
  *                         SOLUTIONS                        *
  ************************************************************/
 
-std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA() {
-    const auto expected = std::ranges::find_if(slr1.states_, [](const state& st) {
-        return st.id_ == 0;
-    });
+std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA()
+{
+    const auto expected = std::ranges::find_if(slr1.states_,
+                                               [](const state &st) { return st.id_ == 0; });
     return expected->items_;
 }
 
-QString SLRTutorWindow::solutionForA1() {
+QString SLRTutorWindow::solutionForA1()
+{
     return QString::fromStdString(grammar.axiom_);
 }
 
-QString SLRTutorWindow::solutionForA2() {
+QString SLRTutorWindow::solutionForA2()
+{
     return QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0));
 }
 
-std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::solutionForA3() {
+std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::solutionForA3()
+{
     std::string next = grammar.g_.at(grammar.axiom_).at(0).at(0);
     std::vector<std::pair<std::string, std::vector<std::string>>> result;
 
-    const auto& rules = grammar.g_.at(next);
-    for (const auto& rhs : rules) {
+    const auto &rules = grammar.g_.at(next);
+    for (const auto &rhs : rules) {
         result.emplace_back(next, rhs);
     }
 
     return result;
 }
 
-std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA4() {
+std::unordered_set<Lr0Item> SLRTutorWindow::solutionForA4()
+{
     std::unordered_set<Lr0Item> items;
-    items.emplace(grammar.axiom_, grammar.g_.at(grammar.axiom_).at(0), grammar.st_.EPSILON_, grammar.st_.EOL_);
+    items.emplace(grammar.axiom_,
+                  grammar.g_.at(grammar.axiom_).at(0),
+                  grammar.st_.EPSILON_,
+                  grammar.st_.EOL_);
     slr1.Closure(items);
     return items;
 }
 
-unsigned SLRTutorWindow::solutionForB() {
+unsigned SLRTutorWindow::solutionForB()
+{
     return userMadeStates.size();
 }
 
-unsigned SLRTutorWindow::solutionForC() {
+unsigned SLRTutorWindow::solutionForC()
+{
     return currentSlrState.items_.size();
 }
 
-QStringList SLRTutorWindow::solutionForCA() {
+QStringList SLRTutorWindow::solutionForCA()
+{
     QSet<QString> following_symbols;
-    std::ranges::for_each(currentSlrState.items_, [&following_symbols](const Lr0Item& item) {
+    std::ranges::for_each(currentSlrState.items_, [&following_symbols](const Lr0Item &item) {
         following_symbols.insert(QString::fromStdString(item.NextToDot()));
     });
 
@@ -789,22 +846,26 @@ QStringList SLRTutorWindow::solutionForCA() {
     return followSymbols;
 }
 
-std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
-    auto st =  std::ranges::find_if(slr1.states_, [this](const state& st) {
-        return st.id_ == nextStateId;
-        })->items_;
+std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB()
+{
+    auto st = std::ranges::find_if(slr1.states_, [this](const state &st) {
+                  return st.id_ == nextStateId;
+              })->items_;
     return st;
 }
 
-QString SLRTutorWindow::solutionForD() {
+QString SLRTutorWindow::solutionForD()
+{
     return QString("%1,%2").arg(solutionForD1()).arg(solutionForD2());
 }
 
-QString SLRTutorWindow::solutionForD1() {
+QString SLRTutorWindow::solutionForD1()
+{
     return QString::number(slr1.states_.size());
 }
 
-QString SLRTutorWindow::solutionForD2() {
+QString SLRTutorWindow::solutionForD2()
+{
     unsigned terminals = slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
                              ? slr1.gr_.st_.terminals_.size() - 1
                              : slr1.gr_.st_.terminals_.size();
@@ -816,8 +877,9 @@ QString SLRTutorWindow::solutionForD2() {
  *                         FEEDBACK                         *
  ************************************************************/
 
-QString SLRTutorWindow::feedback() {
-    switch(currentState) {
+QString SLRTutorWindow::feedback()
+{
+    switch (currentState) {
     case StateSlr::A:
         return feedbackForA();
     case StateSlr::A1:
@@ -851,21 +913,24 @@ QString SLRTutorWindow::feedback() {
     }
 }
 
-QString SLRTutorWindow::feedbackForA() {
+QString SLRTutorWindow::feedbackForA()
+{
     return "El estado inicial se construye con el axioma";
 }
 
-QString SLRTutorWindow::feedbackForA1() {
-    return QString("El axioma de la gramática es %1")
-        .arg(QString::fromStdString(grammar.axiom_));
+QString SLRTutorWindow::feedbackForA1()
+{
+    return QString("El axioma de la gramática es %1").arg(QString::fromStdString(grammar.axiom_));
 }
 
-QString SLRTutorWindow::feedbackForA2() {
+QString SLRTutorWindow::feedbackForA2()
+{
     return QString("El símbolo que sigue al · es %1")
         .arg(QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0)));
 }
 
-QString SLRTutorWindow::feedbackForA3() {
+QString SLRTutorWindow::feedbackForA3()
+{
     QString antecedent = QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0));
     QString result = QString("Las reglas cuyo antecedente es '%1' son:\n").arg(antecedent);
 
@@ -880,22 +945,25 @@ QString SLRTutorWindow::feedbackForA3() {
     return result;
 }
 
-QString SLRTutorWindow::feedbackForA4() {
-    Lr0Item init {grammar.axiom_, grammar.g_.at(grammar.axiom_).at(0), grammar.st_.EPSILON_, grammar.st_.EOL_};
+QString SLRTutorWindow::feedbackForA4()
+{
+    Lr0Item init{grammar.axiom_,
+                 grammar.g_.at(grammar.axiom_).at(0),
+                 grammar.st_.EPSILON_,
+                 grammar.st_.EOL_};
     std::unordered_set<Lr0Item> item{init};
     return QString::fromStdString(slr1.TeachClosure(item));
 }
 
-QString SLRTutorWindow::feedbackForAPrime() {
-    const auto& st = std::ranges::find_if(slr1.states_, [](const state& st) {
-        return st.id_ == 0;
-    });
+QString SLRTutorWindow::feedbackForAPrime()
+{
+    const auto &st = std::ranges::find_if(slr1.states_, [](const state &st) { return st.id_ == 0; });
     QString items = QString::fromStdString(slr1.PrintItems(st->items_));
-    return QString("El estado inicial es el cierre del cierre del axioma:\n%1")
-        .arg(items);
+    return QString("El estado inicial es el cierre del cierre del axioma:\n%1").arg(items);
 }
 
-QString SLRTutorWindow::feedbackForB() {
+QString SLRTutorWindow::feedbackForB()
+{
     if (userMadeStates.size() == 1) {
         return "Actualmente se ha generado un solo estado";
     } else {
@@ -903,26 +971,31 @@ QString SLRTutorWindow::feedbackForB() {
     }
 }
 
-QString SLRTutorWindow::feedbackForC() {
+QString SLRTutorWindow::feedbackForC()
+{
     return QString("Hay %1 ítems en el estado %2")
         .arg(currentSlrState.items_.size())
         .arg(currentStateId);
 }
 
-QString SLRTutorWindow::feedbackForCA() {
+QString SLRTutorWindow::feedbackForCA()
+{
     QStringList following = solutionForCA();
-    if (std::ranges::any_of(currentSlrState.items_, [](const Lr0Item& item) {
-            return item.IsComplete();
-        })) {
-        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a· o X -> a·$ (completo), el símbolo siguiente es siempre EPSILON.")
+    if (std::ranges::any_of(currentSlrState.items_,
+                            [](const Lr0Item &item) { return item.IsComplete(); })) {
+        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a· o X -> a·$ "
+                       "(completo), el símbolo siguiente es siempre EPSILON.")
             .arg(following.join(", "));
     } else {
         return QString("Los símbolos son: %1").arg(following.join(", "));
     }
 }
 
-QString SLRTutorWindow::feedbackForCB() {
-    return QString::fromStdString(slr1.TeachDeltaFunction(currentSlrState.items_, followSymbols[currentFollowSymbolsIdx].toStdString()));
+QString SLRTutorWindow::feedbackForCB()
+{
+    return QString::fromStdString(
+        slr1.TeachDeltaFunction(currentSlrState.items_,
+                                followSymbols[currentFollowSymbolsIdx].toStdString()));
 }
 
 QString SLRTutorWindow::feedbackForD()
@@ -956,44 +1029,49 @@ QString SLRTutorWindow::feedbackForDPrime()
  ************************************************************/
 
 // HELPER FUNCTIONS ----------------------------------------------------------------------
-std::vector<std::string> SLRTutorWindow::qvectorToStdVector(const QVector<QString>& qvec) {
+std::vector<std::string> SLRTutorWindow::qvectorToStdVector(const QVector<QString> &qvec)
+{
     std::vector<std::string> result;
     result.reserve(qvec.size());
-    for (const auto& qstr : qvec) {
+    for (const auto &qstr : qvec) {
         result.push_back(qstr.toStdString());
     }
     return result;
 }
 
 // Convierte std::vector<std::string> a QVector<QString>
-QVector<QString> SLRTutorWindow::stdVectorToQVector(const std::vector<std::string>& vec) {
+QVector<QString> SLRTutorWindow::stdVectorToQVector(const std::vector<std::string> &vec)
+{
     QVector<QString> result;
     result.reserve(vec.size());
-    for (const auto& str : vec) {
+    for (const auto &str : vec) {
         result.push_back(QString::fromStdString(str));
     }
     return result;
 }
 
 // Convierte std::unordered_set<std::string> a QSet<QString>
-QSet<QString> SLRTutorWindow::stdUnorderedSetToQSet(const std::unordered_set<std::string>& uset) {
+QSet<QString> SLRTutorWindow::stdUnorderedSetToQSet(const std::unordered_set<std::string> &uset)
+{
     QSet<QString> result;
-    for (const auto& str : uset) {
+    for (const auto &str : uset) {
         result.insert(QString::fromStdString(str));
     }
     return result;
 }
 
 // Convierte QSet<QString> a std::unordered_set<std::string>
-std::unordered_set<std::string> SLRTutorWindow::qsetToStdUnorderedSet(const QSet<QString>& qset) {
+std::unordered_set<std::string> SLRTutorWindow::qsetToStdUnorderedSet(const QSet<QString> &qset)
+{
     std::unordered_set<std::string> result;
-    for (const auto& qstr : qset) {
+    for (const auto &qstr : qset) {
         result.insert(qstr.toStdString());
     }
     return result;
 }
 
-std::unordered_set<Lr0Item> SLRTutorWindow::ingestUserItems(const QString& userResponse) {
+std::unordered_set<Lr0Item> SLRTutorWindow::ingestUserItems(const QString &userResponse)
+{
     std::stringstream ss(userResponse.toStdString());
     char del = ',';
     std::string token;
@@ -1020,12 +1098,18 @@ std::unordered_set<Lr0Item> SLRTutorWindow::ingestUserItems(const QString& userR
         std::vector<std::string> splitted{splitted_before_dot.begin(), splitted_before_dot.end()};
         splitted.insert(splitted.end(), splitted_after_dot.begin(), splitted_after_dot.end());
         size_t dot_idx = splitted_before_dot.size();
-        items.emplace(antecedent, splitted, static_cast<unsigned int>(dot_idx), grammar.st_.EPSILON_, grammar.st_.EOL_);
+        items.emplace(antecedent,
+                      splitted,
+                      static_cast<unsigned int>(dot_idx),
+                      grammar.st_.EPSILON_,
+                      grammar.st_.EOL_);
     }
     return items;
 }
 
-std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::ingestUserRules(const QString& userResponse) {
+std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::ingestUserRules(
+    const QString &userResponse)
+{
     std::stringstream ss(userResponse.toStdString());
     char del = ',';
     std::string token;
@@ -1046,7 +1130,8 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
     return rules;
 }
 
-QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
+QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
+{
     QString result;
 
     result += QString::fromStdString(grammar.axiom_) + " → ";
@@ -1055,8 +1140,8 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     QVector<QPair<QString, QVector<QString>>> rules;
     QPair<QString, QVector<QString>> rule({QString::fromStdString(grammar.axiom_), {}});
     if (it != grammar.g_.end()) {
-        for (const auto& prod : it->second) {
-            for (const auto& symbol : prod) {
+        for (const auto &prod : it->second) {
+            for (const auto &symbol : prod) {
                 rule.second.push_back(QString::fromStdString(symbol));
                 result += QString::fromStdString(symbol) + " ";
             }
@@ -1067,12 +1152,13 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     rules.push_back(rule);
     result += "\n";
     std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(), grammar.g_.end());
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == grammar.axiom_) continue;
+    for (const auto &[lhs, productions] : sortedRules) {
+        if (lhs == grammar.axiom_)
+            continue;
         rule = {QString::fromStdString(lhs), {}};
         result += QString::fromStdString(lhs) + " → ";
-        for (const auto& prod : productions) {
-            for (const auto& symbol : prod) {
+        for (const auto &prod : productions) {
+            for (const auto &symbol : prod) {
                 rule.second.push_back(QString::fromStdString(symbol));
                 result += QString::fromStdString(symbol) + " ";
             }

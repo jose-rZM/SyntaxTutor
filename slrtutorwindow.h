@@ -4,6 +4,8 @@
 #include <QAbstractItemView>
 #include <QDialog>
 #include <QFileDialog>
+#include <QGraphicsColorizeEffect>
+#include <QListWidgetItem>
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QPropertyAnimation>
@@ -13,6 +15,7 @@
 #include <QTextDocument>
 #include <QTextEdit>
 #include <QTime>
+#include <QTimer>
 #include <QVBoxLayout>
 #include <QtPrintSupport/QPrinter>
 #include "UniqueQueue.h"
@@ -40,6 +43,7 @@ public:
     void showTable();
     void updateProgressPanel();
     void addUserState(unsigned id);
+    void wrongAnimation();
 
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -153,6 +157,8 @@ private:
     };
 
     QVector<MessageLog> conversationLog;
+
+    QWidget *lastUserMessage = nullptr;
 };
 
 #endif // SLRTUTORWINDOW_H
