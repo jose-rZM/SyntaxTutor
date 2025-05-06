@@ -146,8 +146,9 @@ private:
         QString message;
         bool isUser;
 
-        MessageLog(const QString& message, bool isUser)
-            : message(message.isEmpty() ? "No se proporcionó respuesta." : message), isUser(isUser)
+        MessageLog(const QString &message, bool isUser)
+            : message(message)
+            , isUser(isUser)
         {}
     };
 
