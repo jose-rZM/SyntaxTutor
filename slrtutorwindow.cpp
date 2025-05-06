@@ -19,69 +19,20 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setText(FormatGrammar(grammar));
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
-
+    updateProgressPanel();
     addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
 
-    currentState = StateSlr::D_prime;
+    currentState = StateSlr::A;
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
     ui->listWidget->setFont(chatFont);
     connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
-
-    connect(ui->showButton, &QPushButton::clicked, this, &SLRTutorWindow::showUserStates);
 }
 
 SLRTutorWindow::~SLRTutorWindow()
 {
     delete ui;
-}
-
-void SLRTutorWindow::showUserStates() {
-    QDialog* dialog = new QDialog(this);
-    dialog->setWindowTitle("Estados construidos");
-    dialog->resize(500, 400);
-
-    QVBoxLayout* layout = new QVBoxLayout(dialog);
-
-    QTextEdit* textEdit = new QTextEdit(dialog);
-    textEdit->setReadOnly(true);
-    textEdit->setStyleSheet(R"(
-        background-color: #1e1e1e;
-        color: #ffffff;
-        font-family: 'JetBrains Mono', 'Noto Sans Mono', 'Courier New', monospace;
-        font-size: 15px;
-        font-weight: 500;
-        border: 1px solid #3a3a3a;
-        border-radius: 6px;
-        padding: 12px;
-        selection-background-color: #44475a;
-        selection-color: #ffffff;
-    )");
-
-    QString text;
-    for (size_t i = 0; i < slr1.states_.size(); ++i) {
-        auto st = std::ranges::find_if(userMadeStates, [i](const state& st) {
-            return st.id_ == i;
-        });
-        if (st != userMadeStates.end()) {
-            text += QString("Estado I%1\n").arg((*st).id_);
-            for (const Lr0Item& item : (*st).items_) {
-                text += QString::fromStdString(item.ToString()) + "\n";
-            }
-            text += "\n";
-        }
-    }
-
-    if (userMadeStates.empty()) {
-        text = "No se han construido estados aún.";
-    }
-
-    textEdit->setText(text);
-
-    layout->addWidget(textEdit);
-    dialog->setLayout(layout);
-    dialog->exec();
 }
 
 void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
@@ -341,6 +292,36 @@ void SLRTutorWindow::showTable()
     }
 }
 
+void SLRTutorWindow::updateProgressPanel()
+{
+    QString text;
+    if (userMadeStates.empty()) {
+        text = "No se han construido estados aún.";
+    } else {
+        for (size_t i = 0; i < slr1.states_.size(); ++i) {
+            auto st = std::ranges::find_if(userMadeStates,
+                                           [i](const state &st) { return st.id_ == i; });
+            if (st != userMadeStates.end()) {
+                text += QString("Estado I%1\n").arg((*st).id_);
+                for (const Lr0Item &item : (*st).items_) {
+                    text += QString::fromStdString(item.ToString()) + "\n";
+                }
+            }
+        }
+    }
+
+    ui->textEdit->setText(text);
+}
+
+void SLRTutorWindow::addUserState(unsigned id)
+{
+    auto st = std::ranges::find_if(slr1.states_, [id](const state &st) { return st.id_ == id; });
+    if (st != slr1.states_.end()) {
+        userMadeStates.insert(*st);
+        updateProgressPanel();
+    }
+}
+
 void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 {
     // LOG
@@ -553,9 +534,7 @@ QString SLRTutorWindow::generateQuestion() {
 void SLRTutorWindow::updateState(bool isCorrect) {
     switch(currentState) {
     case StateSlr::A: {
-        userMadeStates.insert(*std::ranges::find_if(slr1.states_, [](const state& st) {
-            return st.id_ == 0;
-        }));
+        addUserState(0);
 
         statesIdQueue.push(0);
         currentState = isCorrect ? StateSlr::B : StateSlr::A1;
@@ -574,10 +553,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         currentState = isCorrect ? StateSlr::A_prime : StateSlr::A4;
         break;
     case StateSlr::A_prime: {
-
-        userMadeStates.insert(*std::ranges::find_if(slr1.states_, [](const state& st) {
-            return st.id_ == 0;
-        }));
+        addUserState(0);
 
         statesIdQueue.push(0);
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
@@ -609,12 +585,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
             currentFollowSymbolsIdx = 0;
             currentState = isCorrect ? StateSlr::B : StateSlr::B;
         }
-        auto st = std::ranges::find_if(slr1.states_, [this](const state& st) {
-            return st.id_ == nextStateId;
-        });
-        if (st != slr1.states_.end()) {
-            userMadeStates.insert(*st);
-        }
+        addUserState(nextStateId);
         break;
     }
     case StateSlr::D:
