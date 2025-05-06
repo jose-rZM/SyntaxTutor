@@ -324,8 +324,12 @@ void SLRTutorWindow::addUserState(unsigned id)
 
 void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 {
+    QString messageText = text;
     // LOG
-    conversationLog.emplaceBack(text, isUser);
+    if (messageText.isEmpty()) {
+        messageText = QString("No se proporcionó respuesta.");
+    }
+    conversationLog.emplaceBack(messageText, isUser);
 
     QWidget *messageWidget = new QWidget;
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -344,7 +348,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     QVBoxLayout *innerLayout = new QVBoxLayout;
     innerLayout->setSpacing(0); // Compacta label y timestamp
 
-    QLabel *label = new QLabel(text);
+    QLabel *label = new QLabel(messageText);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
@@ -358,7 +362,22 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     label->setMinimumWidth(300);
 
     if (isUser) {
-        label->setStyleSheet(R"(
+        if (text.isEmpty()) {
+            label->setStyleSheet(R"(
+            background-color: #00ADB5;
+            color: white;
+            padding: 12px 16px;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            font-family: 'Noto Sans';
+            font-style: italic;
+        )");
+        } else {
+            label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
             padding: 12px 16px;
@@ -370,6 +389,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             font-size: 14px;
             font-family: 'Noto Sans';
         )");
+        }
     } else {
         label->setStyleSheet(R"(
             background-color: #2F3542;
