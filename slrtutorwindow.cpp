@@ -17,16 +17,18 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
-    ui->userResponse->setFont(QFont("Open Sans", 14));
+    ui->userResponse->setFont(QFont("Noto Sans", 15));
+
+    formattedGrammar = FormatGrammar(grammar);
 
     ui->gr->setFont(QFont("Noto Sans", 14));
-    ui->gr->setText(FormatGrammar(grammar));
+    ui->gr->setText(formattedGrammar);
 
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
     updateProgressPanel();
-    addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
+    addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
     currentState = StateSlr::A;
     addMessage(generateQuestion(), false);
@@ -526,7 +528,7 @@ QString SLRTutorWindow::generateQuestion()
 {
     switch (currentState) {
     case StateSlr::A:
-        return "¿Cuál es el estado inicial? Formato: X -> a·b,X -> ·b,X -> EPSILON";
+        return "¿Cuál es el estado inicial? Formato:\nX -> a.b,\nX -> .b,\nX -> EPSILON.";
     case StateSlr::A1:
         return "¿Cuál es el axioma de la gramática?";
     case StateSlr::A2:
@@ -1144,7 +1146,7 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
         QString out;
         QString header = lhs + " → ";
         int indentSize = header.length();
-        QString indent(indentSize, ' '); // espacios para alinear el |
+        QString indent(indentSize, ' ');
 
         bool first = true;
         for (const auto &prod : prods) {
@@ -1164,13 +1166,11 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
         return out;
     };
 
-    // Primero el axioma
     auto axIt = grammar.g_.find(axiom);
     if (axIt != grammar.g_.end()) {
         result += formatProductions(QString::fromStdString(axiom), axIt->second);
     }
 
-    // Luego el resto
     for (const auto &[lhs, productions] : sortedRules) {
         if (lhs == axiom)
             continue;

@@ -131,6 +131,7 @@ private:
     Ui::SLRTutorWindow *ui;
     Grammar grammar;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
+    QString formattedGrammar;
     SLR1Parser slr1;
     StateSlr currentState;
 

@@ -193,12 +193,12 @@ selection-color: #ffffff;</string>
       <item>
        <widget class="QLineEdit" name="userResponse">
         <property name="styleSheet">
-         <string notr="true">    background-color: #2E2E2E;
-    color: #E0E0E0;
-    border: 1px solid #444;
-    border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 14px;</string>
+         <string notr="true">background-color: #2E2E2E;
+color: #E0E0E0;
+border: 1px solid #444;
+border-radius: 6px;
+padding: 6px 10px;
+font-size: 16px;</string>
         </property>
         <property name="placeholderText">
          <string>Introduce aquí tu respuesta.</string>
