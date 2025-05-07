@@ -14,6 +14,11 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon("://resources/send.svg"));
+    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
+    shadow->setBlurRadius(10);
+    shadow->setOffset(0);
+    shadow->setColor(QColor("#00C8D6"));
+    ui->confirmButton->setGraphicsEffect(shadow);
 
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
