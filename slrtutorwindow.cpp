@@ -542,7 +542,7 @@ QString SLRTutorWindow::generateQuestion()
     case StateSlr::A1:
         return "¿Cuál es el axioma de la gramática?";
     case StateSlr::A2:
-        return "¿Cuál es el símbolo que sigue al ·?";
+        return "Siendo el item asociado: S -> · A $, ¿cuál es el símbolo que sigue al ·?";
     case StateSlr::A3:
         return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo "
                "que sigue al ·?";
