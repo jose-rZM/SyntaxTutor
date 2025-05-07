@@ -42,8 +42,10 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     QFont chatFont("Noto Sans", 12);
     ui->listWidget->setFont(chatFont);
 
-    QShortcut *altEnter = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_Return), ui->userResponse);
-    connect(altEnter, &QShortcut::activated, this, &SLRTutorWindow::on_confirmButton_clicked);
+    connect(ui->userResponse,
+            &CustomTextEdit::sendRequested,
+            this,
+            &SLRTutorWindow::on_confirmButton_clicked);
 }
 
 SLRTutorWindow::~SLRTutorWindow()
