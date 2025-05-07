@@ -24,6 +24,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     ui->userResponse->setFont(QFont("Noto Sans", 15));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     formattedGrammar = FormatGrammar(grammar);
 
