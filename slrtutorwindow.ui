@@ -211,12 +211,18 @@ selection-color: #ffffff;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: #2E2E2E;
-color: #E0E0E0;
-border: 1px solid #444;
-border-radius: 6px;
-padding: 6px 10px;
-font-size: 16px;</string>
+         <string notr="true">QTextEdit {
+	background-color: #2E2E2E;
+	color: #E0E0E0;
+	border: 1px solid #444;
+	border-radius: 6px;
+	padding: 6px 10px;
+	font-size: 16px;
+}
+
+QTextEdit:focus {
+		border-bottom: 2px solid #00ADB5;
+}</string>
         </property>
        </widget>
       </item>
