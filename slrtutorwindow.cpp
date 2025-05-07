@@ -1117,17 +1117,33 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
     const QString &userResponse)
 {
     std::stringstream ss(userResponse.toStdString());
-    char del = ',';
     std::string token;
     std::vector<std::pair<std::string, std::vector<std::string>>> rules;
 
-    while (std::getline(ss, token, del)) {
+    QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
+
+    for (QString line : lines) {
+        std::string token = line.trimmed().toStdString();
+
         size_t arrowpos = token.find("->");
         if (arrowpos == std::string::npos) {
             return {};
         }
         std::string antecedent = token.substr(0, arrowpos);
         std::string consequent = token.substr(arrowpos + 2);
+
+        auto trim = [](std::string &s) {
+            size_t start = s.find_first_not_of(" \t");
+            size_t end = s.find_last_not_of(" \t");
+            if (start == std::string::npos) {
+                s.clear();
+            } else {
+                s = s.substr(start, end - start + 1);
+            }
+        };
+
+        trim(antecedent);
+        trim(consequent);
 
         std::vector<std::string> splitted{grammar.Split(consequent)};
 
