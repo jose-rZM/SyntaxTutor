@@ -118,6 +118,8 @@ public:
 private slots:
     void on_confirmButton_clicked();
 
+    void on_userResponse_textChanged();
+
 private:
     // HELPER FUNCTIONS --------------------
     std::vector<std::string> qvectorToStdVector(const QVector<QString>& qvec);

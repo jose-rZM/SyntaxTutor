@@ -18,6 +18,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     ui->userResponse->setFont(QFont("Noto Sans", 15));
+    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     formattedGrammar = FormatGrammar(grammar);
 
@@ -1121,7 +1122,6 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
     std::vector<std::pair<std::string, std::vector<std::string>>> rules;
 
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
-
     for (QString line : lines) {
         std::string token = line.trimmed().toStdString();
 
@@ -1194,4 +1194,34 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
     }
 
     return result;
+}
+
+void SLRTutorWindow::on_userResponse_textChanged()
+{
+    QTextDocument *doc = ui->userResponse->document();
+    QFontMetrics fm(ui->userResponse->font());
+
+    const int lineHeight = fm.lineSpacing();
+    const int maxLines = 4;
+    const int minLines = 1;
+
+    int lineCount = doc->blockCount();
+    lineCount = std::clamp(lineCount, minLines, maxLines);
+
+    int padding = 20;
+    int desiredHeight = lineCount * lineHeight + padding;
+
+    // Establecer mínimo fijo (respetado por el layout)
+    const int minHeight = 45;
+    ui->userResponse->setMinimumHeight(minHeight);
+
+    // Animar el cambio de altura real
+    QPropertyAnimation *animation = new QPropertyAnimation(ui->userResponse, "minimumHeight");
+    animation->setDuration(120);
+    animation->setStartValue(ui->userResponse->height());
+    animation->setEndValue(std::max(minHeight, desiredHeight)); // nunca menos de minHeight
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+
+    // Establece también el máximo para limitar el crecimiento
+    ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
 }
