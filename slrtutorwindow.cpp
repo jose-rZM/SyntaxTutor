@@ -528,7 +528,7 @@ QString SLRTutorWindow::generateQuestion()
 {
     switch (currentState) {
     case StateSlr::A:
-        return "¿Cuál es el estado inicial? Formato:\nX -> a.b,\nX -> .b,\nX -> EPSILON.";
+        return "¿Cuál es el estado inicial? Formato:\nX -> a.b\nX -> .b\nX -> EPSILON.";
     case StateSlr::A1:
         return "¿Cuál es el axioma de la gramática?";
     case StateSlr::A2:
