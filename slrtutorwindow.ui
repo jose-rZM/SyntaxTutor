@@ -193,7 +193,7 @@ selection-color: #ffffff;</string>
       <item>
        <widget class="QTextEdit" name="userResponse">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -201,7 +201,7 @@ selection-color: #ffffff;</string>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>0</height>
+          <height>45</height>
          </size>
         </property>
         <property name="maximumSize">
