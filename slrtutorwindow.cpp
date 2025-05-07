@@ -35,7 +35,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
     QFont chatFont("Noto Sans", 12);
     ui->listWidget->setFont(chatFont);
-    connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
+    //connect(ui->userResponse, &QLineEdit::returnPressed, this, &SLRTutorWindow::on_confirmButton_clicked);
 }
 
 SLRTutorWindow::~SLRTutorWindow()
@@ -487,7 +487,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
     bool isCorrect;
-    userResponse = ui->userResponse->text().trimmed();
+    userResponse = ui->userResponse->toPlainText().trimmed();
     addMessage(userResponse, true);
 
     isCorrect = verifyResponse(userResponse);
