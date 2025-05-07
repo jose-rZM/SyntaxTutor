@@ -1,7 +1,6 @@
 #include "slrtutorwindow.h"
 #include "ui_slrtutorwindow.h"
 
-#include <QShortcut>
 SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::SLRTutorWindow)
@@ -13,7 +12,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     slr1.DebugActions();
 
     ui->setupUi(this);
-    ui->confirmButton->setIcon(QIcon("://resources/send.svg"));
+    ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
     shadow->setBlurRadius(10);
     shadow->setOffset(0);
@@ -1152,6 +1151,11 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
 
         trim(antecedent);
         trim(consequent);
+
+        consequent.erase(std::remove_if(consequent.begin(),
+                                        consequent.end(),
+                                        [](char c) { return c == ' ' || c == '\t'; }),
+                         consequent.end());
 
         std::vector<std::string> splitted{grammar.Split(consequent)};
 

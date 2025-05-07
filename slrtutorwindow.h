@@ -11,6 +11,7 @@
 #include <QPropertyAnimation>
 #include <QPushButton>
 #include <QScrollBar>
+#include <QShortcut>
 #include <QTableWidget>
 #include <QTextDocument>
 #include <QTextEdit>
