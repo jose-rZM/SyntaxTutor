@@ -2,3 +2,4 @@ build/
 media/
 .vscode/
 *.o
+SyntaxTutor.pro.user
