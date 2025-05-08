@@ -1,3 +1,4 @@
 build/
 media/
+.vscode/
 *.o
