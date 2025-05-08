@@ -14,7 +14,8 @@
    <string>SLR1</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="QIcon::ThemeIcon::DocumentProperties"/>
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">  background-color: #1F1F1F;
@@ -281,6 +282,8 @@ QPushButton:pressed {
    <header>customtextedit.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/send.svg</file>
+        <file>resources/syntaxtutor.png</file>
     </qresource>
 </RCC>
