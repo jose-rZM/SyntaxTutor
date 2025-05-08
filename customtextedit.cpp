@@ -1,6 +1,6 @@
 #include "customtextedit.h"
 #include <QKeyEvent>
-
+#include <QScrollBar>
 CustomTextEdit::CustomTextEdit(QWidget *parent)
     : QTextEdit(parent)
 {}
@@ -17,6 +17,8 @@ void CustomTextEdit::keyPressEvent(QKeyEvent *event)
             return;
         } else if (mods.testFlag(Qt::ControlModifier) || mods.testFlag(Qt::ShiftModifier)) {
             insertPlainText("\n");
+            emit textChanged();
+            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
             return;
         }
     }
