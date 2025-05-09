@@ -40,6 +40,7 @@ public:
     QString FormatGrammar(const Grammar& grammar);
 
     void addMessage(const QString& text, bool isUser);
+    void addDivisorLine(const QString &stateName);
     void exportConversationToPdf(const QString& filePath);
     void showTable();
     void updateProgressPanel();
