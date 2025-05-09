@@ -39,6 +39,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
     currentState = StateSlr::A;
+    addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
     QFont chatFont("Noto Sans", 12);
@@ -464,6 +465,47 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     ui->listWidget->scrollToBottom();
 }
 
+void SLRTutorWindow::addDivisorLine(const QString &stateName)
+{
+    QWidget *dividerWidget = new QWidget;
+    QHBoxLayout *layout = new QHBoxLayout(dividerWidget);
+    layout->setContentsMargins(10, 5, 10, 5);
+    layout->setSpacing(10); // espacio entre líneas y texto
+
+    QFrame *lineLeft = new QFrame;
+    lineLeft->setFrameShape(QFrame::HLine);
+    lineLeft->setStyleSheet("color: #CCCCCC;");
+    lineLeft->setMinimumWidth(20);
+    lineLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    QLabel *label = new QLabel(stateName);
+    label->setStyleSheet(R"(
+        color: #888888;
+        font-size: 11px;
+        font-family: 'Noto Sans';
+        background: transparent;
+        font-style: italic;
+    )");
+
+    QFrame *lineRight = new QFrame;
+    lineRight->setFrameShape(QFrame::HLine);
+    lineRight->setStyleSheet("color: #CCCCCC;");
+    lineRight->setMinimumWidth(20);
+    lineRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    layout->addWidget(lineLeft);
+    layout->addWidget(label);
+    layout->addWidget(lineRight);
+
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
+    dividerWidget->setLayout(layout);
+    item->setSizeHint(dividerWidget->sizeHint());
+
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, dividerWidget);
+    ui->listWidget->scrollToBottom();
+}
+
 void SLRTutorWindow::wrongAnimation()
 {
     if (lastUserMessage == nullptr) {
@@ -649,6 +691,7 @@ void SLRTutorWindow::updateState(bool isCorrect)
         if (isCorrect) {
             addUserState(0);
             statesIdQueue.push(0);
+            addDivisorLine("Construcción de la colección LR(0)");
         }
         break;
     }
@@ -668,11 +711,13 @@ void SLRTutorWindow::updateState(bool isCorrect)
         currentState = isCorrect ? StateSlr::B : StateSlr::B;
         addUserState(0);
         statesIdQueue.push(0);
+        addDivisorLine("Construcción de la colección LR(0)");
         break;
     }
     case StateSlr::B:
         if (statesIdQueue.empty()) {
             currentState = StateSlr::D;
+            addDivisorLine("Tabla SLR(1)");
         } else {
             currentState = isCorrect ? StateSlr::C : StateSlr::C;
         }
