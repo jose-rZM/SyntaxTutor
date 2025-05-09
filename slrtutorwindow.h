@@ -47,6 +47,8 @@ public:
     void addUserState(unsigned id);
     void wrongAnimation();
     void wrongUserResponseAnimation();
+    void animateLabelPop(QLabel *label);
+    void animateLabelColor(QLabel *label, const QColor &flashColor);
 
     // ------------------------------------------------------
     // ------------------------------------------------------
