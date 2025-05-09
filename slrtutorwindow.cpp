@@ -568,6 +568,34 @@ void SLRTutorWindow::wrongUserResponseAnimation()
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
+void SLRTutorWindow::animateLabelPop(QLabel *label)
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(label, "geometry");
+    QRect startRect = label->geometry();
+    QRect expandedRect = QRect(startRect.x() - 3,
+                               startRect.y() - 2,
+                               startRect.width() + 5,
+                               startRect.height() + 4);
+
+    animation->setDuration(200);
+    animation->setKeyValueAt(0, startRect);
+    animation->setKeyValueAt(0.5, expandedRect);
+    animation->setKeyValueAt(1, startRect);
+    animation->setEasingCurve(QEasingCurve::OutCubic);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void SLRTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
+{
+    int durationMs = 400;
+    QString originalStyle = label->styleSheet();
+    label->setStyleSheet(QString("color: %1;").arg(flashColor.name()));
+
+    QTimer::singleShot(durationMs, label, [label, originalStyle]() {
+        label->setStyleSheet(originalStyle);
+    });
+}
+
 void SLRTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
@@ -578,6 +606,8 @@ void SLRTutorWindow::on_confirmButton_clicked()
     isCorrect = verifyResponse(userResponse);
     if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
+        animateLabelPop(ui->cross);
+        animateLabelColor(ui->cross, QColor("#cc3333"));
         QTimer::singleShot(250, this, [this]() {
             addMessage(feedback(), false);
             wrongAnimation();
@@ -586,6 +616,8 @@ void SLRTutorWindow::on_confirmButton_clicked()
 
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
+        animateLabelPop(ui->tick);
+        animateLabelColor(ui->tick, QColor("#00cc66"));
     }
     updateState(isCorrect);
     if (currentState == StateSlr::fin) {
