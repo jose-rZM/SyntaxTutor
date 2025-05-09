@@ -234,8 +234,8 @@ QTextEdit:focus {
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    background-color: #00ADB5;
-    border: none;
+background-color: rgba(0, 173, 181, 0.85);    
+border: none;
     border-radius: 20px; /* La mitad de width/height para que sea redondo */
     min-width: 40px;
     min-height: 40px;

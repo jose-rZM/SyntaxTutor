@@ -45,6 +45,7 @@ public:
     void updateProgressPanel();
     void addUserState(unsigned id);
     void wrongAnimation();
+    void wrongUserResponseAnimation();
 
     // ------------------------------------------------------
     // ------------------------------------------------------
