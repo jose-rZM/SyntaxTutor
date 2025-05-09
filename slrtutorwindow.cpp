@@ -536,9 +536,12 @@ void SLRTutorWindow::on_confirmButton_clicked()
     isCorrect = verifyResponse(userResponse);
     if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
-        addMessage(feedback(), false);
-        wrongAnimation();
-        wrongUserResponseAnimation();
+        QTimer::singleShot(250, this, [this]() {
+            addMessage(feedback(), false);
+            wrongAnimation();
+            wrongUserResponseAnimation();
+        });
+
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
     }
@@ -560,7 +563,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
         }
         close();
     }
-    addMessage(generateQuestion(), false);
+    QTimer::singleShot(500, this, [this]() { addMessage(generateQuestion(), false); });
     ui->userResponse->clear();
 }
 
