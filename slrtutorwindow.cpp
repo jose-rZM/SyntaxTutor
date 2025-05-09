@@ -1,4 +1,5 @@
 #include "slrtutorwindow.h"
+#include <QEasingCurve>
 #include "ui_slrtutorwindow.h"
 
 SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
@@ -494,6 +495,25 @@ void SLRTutorWindow::wrongAnimation()
     }
 }
 
+void SLRTutorWindow::wrongUserResponseAnimation()
+{
+    QPoint originalPos = ui->userResponse->pos();
+
+    QPropertyAnimation *animation = new QPropertyAnimation(ui->userResponse, "pos");
+    animation->setDuration(200);
+    animation->setLoopCount(1);
+
+    animation->setKeyValueAt(0, originalPos);
+    animation->setKeyValueAt(0.2, originalPos + QPoint(4, 0));
+    animation->setKeyValueAt(0.4, originalPos - QPoint(4, 0));
+    animation->setKeyValueAt(0.6, originalPos + QPoint(3, 0));
+    animation->setKeyValueAt(0.8, originalPos - QPoint(3, 0));
+    animation->setKeyValueAt(1, originalPos);
+
+    animation->setEasingCurve(QEasingCurve::OutBounce);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
 void SLRTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
@@ -506,6 +526,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         addMessage(feedback(), false);
         wrongAnimation();
+        wrongUserResponseAnimation();
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
     }
