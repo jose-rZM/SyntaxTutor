@@ -225,7 +225,6 @@ void LLTutorWindow::showTable()
                 }
             }
         }
-        addMessage("¡Tabla enviada correctamente!", false);
         on_confirmButton_clicked();
     }
 }
@@ -371,6 +370,8 @@ void LLTutorWindow::on_confirmButton_clicked()
         isCorrect = verifyResponse(userResponse);
     } else {
         isCorrect = verifyResponseForC();
+        if (!isCorrect)
+            ++lltries;
     }
 
 
@@ -638,7 +639,11 @@ QString LLTutorWindow::feedbackForBPrime() {
 
 QString LLTutorWindow::feedbackForC()
 {
-    return "La tabla no es correcta";
+    if (lltries >= 3) {
+        return QString::fromStdString(ll1.TeachLL1Table());
+    }
+    return "La tabla no es correcta. Cada celda se define de la siguiente forma: Tabla[A,β] = α si "
+           "β ∈ SD(A -> α).";
 }
 
 QString LLTutorWindow::generateQuestion() {
