@@ -96,6 +96,7 @@ private:
     QVector<QString> stdVectorToQVector(const std::vector<std::string>& vec);
     QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string>& uset);
     std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString>& qset);
+    void fillSortedGrammar();
     // END HELPER FUNCTIONS ----------------
 
     Ui::LLTutorWindow *ui;
