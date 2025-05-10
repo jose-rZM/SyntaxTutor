@@ -88,6 +88,7 @@ public:
     void llTable();
 private slots:
     void on_confirmButton_clicked();
+    void on_userResponse_textChanged();
 
 private:
     // HELPER FUNCTIONS --------------------
