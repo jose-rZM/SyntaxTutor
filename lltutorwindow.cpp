@@ -455,6 +455,8 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForB1(userResponse);
     case State::B2:
         return verifyResponseForB2(userResponse);
+    case State::B_prime:
+        return verifyResponseForB(userResponse);
     default:
         return false;
     }
