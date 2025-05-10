@@ -80,12 +80,11 @@ public:
     QString feedbackForB1();
     QString feedbackForB2();
     QString feedbackForBPrime();
+    QString feedbackForC();
     // END FEEDBACK ------------------------------------------
-
 
     void updateState(bool isCorrect);
     QString generateQuestion();
-    void llTable();
 private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();

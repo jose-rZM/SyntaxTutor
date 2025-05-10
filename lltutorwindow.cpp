@@ -34,7 +34,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     updateProgressPanel();
     addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
-    currentState = State::C;
+    currentState = State::A;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
@@ -199,7 +199,7 @@ void LLTutorWindow::showTable()
         rowHeaders << QString::fromStdString(symbol);
     }
 
-    LLTableDialog dialog(rowHeaders, colHeaders, this);
+    LLTableDialog dialog(rowHeaders, colHeaders, this, &rawTable);
     if (dialog.exec() == QDialog::Accepted) {
         rawTable.clear();
         rawTable = dialog.getTableData();
@@ -223,6 +223,7 @@ void LLTutorWindow::showTable()
             }
         }
         addMessage("¡Tabla enviada correctamente!", false);
+        on_confirmButton_clicked();
     }
 }
 
@@ -473,6 +474,8 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForB2(userResponse);
     case State::B_prime:
         return verifyResponseForB(userResponse);
+    case State::C:
+        return verifyResponseForC();
     default:
         return false;
     }
@@ -509,6 +512,19 @@ bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForC() {
+    for (const auto &[nonTerminal, columns] : lltable.asKeyValueRange()) {
+        for (const auto &[terminal, production] : columns.asKeyValueRange()) {
+            qDebug() << "Cell [" << nonTerminal << "][" << terminal
+                     << "]: " << production.join(' ');
+            const auto &entry = ll1.ll1_t_[nonTerminal.toStdString()][terminal.toStdString()];
+            if (production.isEmpty() && entry.empty()) {
+                continue;
+            }
+            if (production != stdVectorToQVector(entry[0])) {
+                return false;
+            }
+        }
+    }
     return true;
 }
 
@@ -571,6 +587,8 @@ QString LLTutorWindow::feedback() {
         return feedbackForB2();
     case State::B_prime:
         return feedbackForBPrime();
+    case State::C:
+        return feedbackForC();
     default:
         return "No feedback provided.";
     }
@@ -615,6 +633,10 @@ QString LLTutorWindow::feedbackForBPrime() {
     return QString::fromStdString(ll1.TeachPredictionSymbols(rule.first.toStdString(), qvectorToStdVector(rule.second)));
 }
 
+QString LLTutorWindow::feedbackForC()
+{
+    return "La tabla no es correcta";
+}
 
 QString LLTutorWindow::generateQuestion() {
     QPair<QString, QVector<QString>> rule;
@@ -641,37 +663,13 @@ QString LLTutorWindow::generateQuestion() {
         return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?").arg(rule.first).arg(rule.second.join(" "));
     case State::C:
         showTable();
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true); // verify delegated to showTable
         return "";
         break;
     default:
         return "";
     }
-}
-
-void LLTutorWindow::llTable()
-{
-    /*QSet<QString> terminals = stdUnorderedSetToQSet(grammar.st_.terminals_);
-    QSet<QString> nonterminals = stdUnorderedSetToQSet(grammar.st_.non_terminals_);
-
-    QStringList hd_terminals (terminals.begin(), terminals.end());
-    QStringList hd_non_terminals(nonterminals.begin(), nonterminals.end());
-
-    int rows = hd_non_terminals.size();
-    int cols = hd_terminals.size();
-    DialogTableLL dialog(hd_non_terminals, hd_terminals, rows, cols, this);
-    if (dialog.exec() == QDialog::Accepted) {
-        QTableWidget *tabla = dialog.getTableWidget();
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                QTableWidgetItem *item = tabla->item(i, j);
-                QString cell = item ? item->text() : "";
-                if (cell != "") {
-                    lltable[hd_non_terminals[i]][hd_terminals[j]].push_back(cell.split(" "));
-                }
-            }
-        }
-    }*/
-    addMessage("No implementado", false);
 }
 
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
