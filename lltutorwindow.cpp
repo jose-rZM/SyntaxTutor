@@ -2,7 +2,7 @@
 #include "ui_lltutorwindow.h"
 
 #include <QRandomGenerator>
-#include <iostream>
+
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
@@ -697,6 +697,36 @@ QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
     }
 
     return result;
+}
+
+void LLTutorWindow::fillSortedGrammar()
+{
+    auto it = grammar.g_.find(grammar.axiom_);
+    QVector<QPair<QString, QVector<QString>>> rules;
+    QPair<QString, QVector<QString>> rule({QString::fromStdString(grammar.axiom_), {}});
+
+    if (it != grammar.g_.end()) {
+        for (const auto &prod : it->second) {
+            for (const auto &symbol : prod) {
+                rule.second.push_back(QString::fromStdString(symbol));
+            }
+        }
+    }
+    rules.push_back(rule);
+    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(), grammar.g_.end());
+    for (const auto &[lhs, productions] : sortedRules) {
+        if (lhs == grammar.axiom_)
+            continue;
+        rule = {QString::fromStdString(lhs), {}};
+        for (const auto &prod : productions) {
+            for (const auto &symbol : prod) {
+                rule.second.push_back(QString::fromStdString(symbol));
+            }
+            rules.push_back(rule);
+            rule = {QString::fromStdString(lhs), {}};
+        }
+    }
+    sortedGrammar = rules;
 }
 
 // HELPER FUNCTIONS ----------------------------------------------------------------------
