@@ -11,6 +11,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
 {
     ll1.CreateLL1Table();
     ll1.PrintTable();
+    fillSortedGrammar();
 
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
