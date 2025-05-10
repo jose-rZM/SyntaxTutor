@@ -203,27 +203,30 @@ void LLTutorWindow::showTable()
     }
 
     LLTableDialog dialog(rowHeaders, colHeaders, this, &rawTable);
-    dialog.exec();
-    rawTable.clear();
-    rawTable = dialog.getTableData();
+    if (dialog.exec() == QDialog::Accepted) {
+        rawTable.clear();
+        rawTable = dialog.getTableData();
 
-    lltable.clear();
+        lltable.clear();
 
-    for (int i = 0; i < rawTable.size(); ++i) {
-        qDebug() << "Fila" << i << ":" << rawTable[i];
+        for (int i = 0; i < rawTable.size(); ++i) {
+            qDebug() << "Fila" << i << ":" << rawTable[i];
 
-        const QString &rowHeader = rowHeaders[i];
+            const QString &rowHeader = rowHeaders[i];
 
-        for (int j = 0; j < rawTable[i].size(); ++j) {
-            const QString &colHeader = colHeaders[j];
-            const QString &cellContent = rawTable[i][j];
+            for (int j = 0; j < rawTable[i].size(); ++j) {
+                const QString &colHeader = colHeaders[j];
+                const QString &cellContent = rawTable[i][j];
 
-            if (!cellContent.isEmpty()) {
-                QStringList production = stdVectorToQVector(
-                    ll1.gr_.Split(cellContent.toStdString()));
-                lltable[rowHeader][colHeader] = production;
+                if (!cellContent.isEmpty()) {
+                    QStringList production = stdVectorToQVector(
+                        ll1.gr_.Split(cellContent.toStdString()));
+                    lltable[rowHeader][colHeader] = production;
+                }
             }
         }
+    } else {
+        rawTable.clear();
     }
     on_confirmButton_clicked();
 }
@@ -515,6 +518,9 @@ bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForC() {
+    if (lltable.empty()) {
+        return false;
+    }
     for (const auto &[nonTerminal, columns] : lltable.asKeyValueRange()) {
         for (const auto &[terminal, production] : columns.asKeyValueRange()) {
             qDebug() << "Cell [" << nonTerminal << "][" << terminal
@@ -523,6 +529,7 @@ bool LLTutorWindow::verifyResponseForC() {
             if (production.isEmpty() && entry.empty()) {
                 continue;
             }
+
             if (production != stdVectorToQVector(entry[0])) {
                 return false;
             }
@@ -638,7 +645,7 @@ QString LLTutorWindow::feedbackForBPrime() {
 
 QString LLTutorWindow::feedbackForC()
 {
-    if (lltries >= 3) {
+    if (lltries > 2) {
         return QString::fromStdString(ll1.TeachLL1Table());
     }
     return "La tabla no es correcta. Cada celda se define de la siguiente forma: Tabla[A,β] = α si "
