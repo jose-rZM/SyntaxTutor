@@ -243,6 +243,12 @@ selection-color: #ffffff;</string>
 
 QTextEdit:focus {
 		border-bottom: 2px solid #00ADB5;
+}
+
+QTextEdit:disabled {
+    background-color: #f0f0f0;
+    color: #888;
+    border: 1px solid #ccc;
 }</string>
         </property>
        </widget>
@@ -272,7 +278,11 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #009AA3;
 }
-</string>
+
+QPushButton:disabled {
+    background-color: #888888;
+    color: #dddddd;
+}</string>
         </property>
         <property name="text">
          <string/>
