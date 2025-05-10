@@ -12,6 +12,16 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     table->resizeColumnsToContents();
     table->resizeRowsToContents();
 
+    // Wider columns
+    for (int i = 0; i < table->columnCount(); ++i) {
+        table->setColumnWidth(i, table->columnWidth(i) + 40);
+    }
+
+    // Taller rows
+    for (int i = 0; i < table->rowCount(); ++i) {
+        table->setRowHeight(i, table->rowHeight(i) + 5);
+    }
+
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton("Finalizar", this);
@@ -46,17 +56,18 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
 
     setWindowTitle("Completar tabla LL(1)");
 
+    // Total width = columns + vertical header
     int width = table->verticalHeader()->width();
-
     for (int i = 0; i < table->columnCount(); ++i)
         width += table->columnWidth(i);
 
+    // Total height = rows + horizontal header
     int height = table->horizontalHeader()->height();
     for (int i = 0; i < table->rowCount(); ++i)
         height += table->rowHeight(i);
 
-    width += 60;   // extra
-    height += 100; // extra
+    width += 60;
+    height += 100;
 
     QSize screenSize = QGuiApplication::primaryScreen()->availableSize();
     width = qMin(width, screenSize.width() - 100);
