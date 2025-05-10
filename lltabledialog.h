@@ -13,8 +13,12 @@ class LLTableDialog : public QDialog
 {
     Q_OBJECT
 public:
-    LLTableDialog(const QStringList &rowHeaders, const QStringList &colHeaders, QWidget *parent);
+    LLTableDialog(const QStringList &rowHeaders,
+                  const QStringList &colHeaders,
+                  QWidget *parent,
+                  QVector<QVector<QString>> *initialData = nullptr);
     QVector<QVector<QString>> getTableData() const;
+    void setInitialData(const QVector<QVector<QString>> &data);
 
 private:
     QTableWidget *table;
