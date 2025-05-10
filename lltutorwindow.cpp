@@ -658,42 +658,44 @@ void LLTutorWindow::llTable()
 
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString result;
-
-    result += QString::fromStdString(grammar.axiom_) + "-> ";
-
-    auto it = grammar.g_.find(grammar.axiom_);
-    QVector<QPair<QString, QVector<QString>>> rules;
-    QPair<QString, QVector<QString>> rule({QString::fromStdString(grammar.axiom_), {}});
-    if (it != grammar.g_.end()) {
-        for (const auto& prod : it->second) {
-            for (const auto& symbol : prod) {
-                rule.second.push_back(QString::fromStdString(symbol));
-                result += QString::fromStdString(symbol) + " ";
-            }
-            result += "| ";
-        }
-        result.chop(3);
-    }
-    rules.push_back(rule);
-    result += "\n";
+    const std::string &axiom = grammar.axiom_;
     std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(), grammar.g_.end());
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == grammar.axiom_) continue;
-        rule = {QString::fromStdString(lhs), {}};
-        result += QString::fromStdString(lhs) + " -> ";
-        for (const auto& prod : productions) {
-            for (const auto& symbol : prod) {
-                rule.second.push_back(QString::fromStdString(symbol));
-                result += QString::fromStdString(symbol) + " ";
+
+    auto formatProductions = [](const QString &lhs, const std::vector<production> &prods) {
+        QString out;
+        QString header = lhs + " → ";
+        int indentSize = header.length();
+        QString indent(indentSize, ' ');
+
+        bool first = true;
+        for (const auto &prod : prods) {
+            if (first) {
+                out += header;
+                first = false;
+            } else {
+                out += indent + "| ";
             }
-            rules.push_back(rule);
-            rule = {QString::fromStdString(lhs), {}};
-            result += "| ";
+
+            for (const auto &symbol : prod) {
+                out += QString::fromStdString(symbol) + " ";
+            }
+            out = out.trimmed();
+            out += "\n";
         }
-        result.chop(3);
-        result += "\n";
+        return out;
+    };
+
+    auto axIt = grammar.g_.find(axiom);
+    if (axIt != grammar.g_.end()) {
+        result += formatProductions(QString::fromStdString(axiom), axIt->second);
     }
-    sortedGrammar = rules;
+
+    for (const auto &[lhs, productions] : sortedRules) {
+        if (lhs == axiom)
+            continue;
+        result += formatProductions(QString::fromStdString(lhs), productions);
+    }
+
     return result;
 }
 
