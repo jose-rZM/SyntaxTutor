@@ -205,30 +205,29 @@ void LLTutorWindow::showTable()
     }
 
     LLTableDialog dialog(rowHeaders, colHeaders, this, &rawTable);
-    if (dialog.exec() == QDialog::Accepted) {
-        rawTable.clear();
-        rawTable = dialog.getTableData();
+    dialog.exec();
+    rawTable.clear();
+    rawTable = dialog.getTableData();
 
-        lltable.clear();
+    lltable.clear();
 
-        for (int i = 0; i < rawTable.size(); ++i) {
-            qDebug() << "Fila" << i << ":" << rawTable[i];
+    for (int i = 0; i < rawTable.size(); ++i) {
+        qDebug() << "Fila" << i << ":" << rawTable[i];
 
-            const QString &rowHeader = rowHeaders[i];
+        const QString &rowHeader = rowHeaders[i];
 
-            for (int j = 0; j < rawTable[i].size(); ++j) {
-                const QString &colHeader = colHeaders[j];
-                const QString &cellContent = rawTable[i][j];
+        for (int j = 0; j < rawTable[i].size(); ++j) {
+            const QString &colHeader = colHeaders[j];
+            const QString &cellContent = rawTable[i][j];
 
-                if (!cellContent.isEmpty()) {
-                    QStringList production = stdVectorToQVector(
-                        ll1.gr_.Split(cellContent.toStdString()));
-                    lltable[rowHeader][colHeader] = production;
-                }
+            if (!cellContent.isEmpty()) {
+                QStringList production = stdVectorToQVector(
+                    ll1.gr_.Split(cellContent.toStdString()));
+                lltable[rowHeader][colHeader] = production;
             }
         }
-        on_confirmButton_clicked();
     }
+    on_confirmButton_clicked();
 }
 
 void LLTutorWindow::addDivisorLine(const QString &stateName)
