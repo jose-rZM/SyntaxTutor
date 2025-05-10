@@ -108,7 +108,8 @@ private:
     State currentState;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString formattedGrammar;
-    QMap<QString, QMap<QString, QVector<QVector<QString>>>> lltable;
+    QMap<QString, QMap<QString, QVector<QString>>> lltable;
+    QVector<QVector<QString>> rawTable;
     QSet<QString> solutionSet;
     size_t currentRule = 0;
 
