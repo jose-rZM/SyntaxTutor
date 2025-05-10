@@ -2,7 +2,8 @@
 
 LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
                              const QStringList &colHeaders,
-                             QWidget *parent)
+                             QWidget *parent,
+                             QVector<QVector<QString>> *initialData)
     : QDialog(parent)
 {
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
@@ -73,6 +74,10 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     width = qMin(width, screenSize.width() - 100);
     height = qMin(height, screenSize.height() - 100);
 
+    if (initialData != nullptr) {
+        setInitialData(*initialData);
+    }
+
     resize(width, height);
 }
 
@@ -88,4 +93,24 @@ QVector<QVector<QString>> LLTableDialog::getTableData() const
         data.append(row);
     }
     return data;
+}
+
+void LLTableDialog::setInitialData(const QVector<QVector<QString>> &data)
+{
+    const int rows = qMin(data.size(), table->rowCount());
+    const int cols = (rows > 0) ? qMin(data[0].size(), table->columnCount()) : 0;
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            QTableWidgetItem *item = table->item(i, j);
+
+            if (!item) {
+                item = new QTableWidgetItem();
+                item->setTextAlignment(Qt::AlignCenter);
+                table->setItem(i, j, item);
+            }
+
+            item->setText(data[i][j]);
+        }
+    }
 }
