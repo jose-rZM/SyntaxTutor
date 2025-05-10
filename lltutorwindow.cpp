@@ -9,23 +9,41 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
 {
     ll1.CreateLL1Table();
     ll1.PrintTable();
-    for (const auto& symbol : grammar.st_.terminals_) {
-        std::cout << symbol << " ";
-    }
-    std::cout << std::endl;
+
     ui->setupUi(this);
-    ui->gr->setFont(QFont("Courier New", 14));
-    ui->gr->setText(FormatGrammar(grammar));
-    addMessage(QString("La gramática es:\n" + FormatGrammar(grammar)), false);
+    ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
+    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
+    shadow->setBlurRadius(10);
+    shadow->setOffset(0);
+    shadow->setColor(QColor("#00C8D6"));
+    ui->confirmButton->setGraphicsEffect(shadow);
+
+    ui->cntRight->setText(QString::number(cntRightAnswers));
+    ui->cntWrong->setText(QString::number(cntWrongAnswers));
+
+    ui->userResponse->setFont(QFont("Noto Sans", 15));
+    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
+
+    formattedGrammar = FormatGrammar(grammar);
+
+    ui->gr->setFont(QFont("Noto Sans", 14));
+    ui->gr->setText(formattedGrammar);
+
+    updateProgressPanel();
+    addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
     currentState = State::A;
+    addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
 
-    QFont chatFont("Arial", 12);
+    QFont chatFont("Noto Sans", 12);
     ui->listWidget->setFont(chatFont);
-    connect(ui->userResponse, &QLineEdit::returnPressed, this, &LLTutorWindow::on_confirmButton_clicked);
-
+    connect(ui->userResponse,
+            &CustomTextEdit::sendRequested,
+            this,
+            &LLTutorWindow::on_confirmButton_clicked);
 }
 
 LLTutorWindow::~LLTutorWindow()
@@ -33,50 +51,101 @@ LLTutorWindow::~LLTutorWindow()
     delete ui;
 }
 
+void LLTutorWindow::updateProgressPanel()
+{
+    QString text;
+    text = "Nada que mostrar.";
+    ui->textEdit->setText(text);
+}
+
 void LLTutorWindow::addMessage(const QString& text, bool isUser) {
-    QWidget* messageWidget = new QWidget;
-    QVBoxLayout* mainLayout = new QVBoxLayout(messageWidget);
+    QString messageText = text;
+    // LOG
+    if (messageText.isEmpty()) {
+        messageText = QString("No se proporcionó respuesta.");
+    }
+    conversationLog.emplaceBack(messageText, isUser);
 
-    QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
+    QWidget *messageWidget = new QWidget;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setSpacing(2);                    // Espaciado compacto
+    mainLayout->setContentsMargins(10, 5, 10, 5); // Márgenes exteriores reducidos
+
+    QLabel *header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px;"
-                                 : "font-weight: bold; color: #8E8E93; font-size: 12px;");
+    header->setStyleSheet(
+        isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
+               : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
 
-    QHBoxLayout* messageLayout = new QHBoxLayout;
-    QVBoxLayout* innerLayout = new QVBoxLayout;
+    QHBoxLayout *messageLayout = new QHBoxLayout;
+    messageLayout->setSpacing(0); // Sin espacio lateral adicional
 
-    QLabel* label = new QLabel(text);
+    QVBoxLayout *innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(0); // Compacta label y timestamp
+
+    QLabel *label = new QLabel(messageText);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    label->setMaximumWidth(ui->listWidget->width());
-    label->setMinimumWidth(100);
+    label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-    QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet("font-size: 10px; color: gray; margin-left: 5px;");
-    timestamp->setAlignment(Qt::AlignRight);
+    QFontMetrics fm(label->font());
+    int textWidth = fm.boundingRect(0, 0, ui->listWidget->width(), 0, Qt::TextWordWrap, text).width();
 
     int maxWidth = ui->listWidget->width() * 0.8;
-    label->setMaximumWidth(maxWidth);
-    label->setMinimumWidth(200);
+    int adjustedWidth = qMin(textWidth + 32, maxWidth);
+    label->setMaximumWidth(adjustedWidth);
+    label->setMinimumWidth(300);
 
     if (isUser) {
-        label->setStyleSheet(R"(
-        background-color: #00ADB5;  /* Azul tipo iMessage */
-        color: white;
-        padding: 12px 16px;
-        border-radius: 18px;
-        font-size: 14px;
-    )");
+        if (text.isEmpty()) {
+            label->setStyleSheet(R"(
+            background-color: #00ADB5;
+            color: white;
+            padding: 12px 16px;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            font-family: 'Noto Sans';
+            font-style: italic;
+        )");
+        } else {
+            label->setStyleSheet(R"(
+            background-color: #00ADB5;
+            color: white;
+            padding: 12px 16px;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            font-family: 'Noto Sans';
+        )");
+        }
     } else {
         label->setStyleSheet(R"(
-        background-color: #222831;  /* Gris oscuro */
-        color: #E0E0E0;  /* Gris claro */
-        padding: 12px 16px;
-        border-radius: 18px;
-        font-size: 14px;
-    )");
+            background-color: #2F3542;
+            color: #F1F1F1;
+            padding: 12px 16px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            font-family: 'Noto Sans';
+        )");
     }
+
+    label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
+
+    QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet(
+        "font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
+    timestamp->setAlignment(Qt::AlignRight);
 
     innerLayout->addWidget(label);
     innerLayout->addWidget(timestamp);
@@ -91,26 +160,162 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     mainLayout->addWidget(header);
     mainLayout->addLayout(messageLayout);
-    mainLayout->setContentsMargins(10, 5, 10, 5);
-    messageWidget->setLayout(mainLayout);
 
-    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    messageWidget->setLayout(mainLayout);
+    messageWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+    messageWidget->adjustSize();
+    messageWidget->updateGeometry();
+
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     item->setSizeHint(messageWidget->sizeHint());
+
+    if (isUser) {
+        lastUserMessage = messageWidget;
+    }
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
-
     ui->listWidget->update();
-    ui->listWidget->verticalScrollBar()->setSingleStep(5);
     ui->listWidget->scrollToBottom();
-
 }
+
+void LLTutorWindow::addDivisorLine(const QString &stateName)
+{
+    QWidget *dividerWidget = new QWidget;
+    QHBoxLayout *layout = new QHBoxLayout(dividerWidget);
+    layout->setContentsMargins(10, 5, 10, 5);
+    layout->setSpacing(10); // espacio entre líneas y texto
+
+    QFrame *lineLeft = new QFrame;
+    lineLeft->setFrameShape(QFrame::HLine);
+    lineLeft->setStyleSheet("color: #CCCCCC;");
+    lineLeft->setMinimumWidth(20);
+    lineLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    QLabel *label = new QLabel(stateName);
+    label->setStyleSheet(R"(
+        color: #888888;
+        font-size: 11px;
+        font-family: 'Noto Sans';
+        background: transparent;
+        font-style: italic;
+    )");
+
+    QFrame *lineRight = new QFrame;
+    lineRight->setFrameShape(QFrame::HLine);
+    lineRight->setStyleSheet("color: #CCCCCC;");
+    lineRight->setMinimumWidth(20);
+    lineRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    layout->addWidget(lineLeft);
+    layout->addWidget(label);
+    layout->addWidget(lineRight);
+
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
+    dividerWidget->setLayout(layout);
+    item->setSizeHint(dividerWidget->sizeHint());
+
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, dividerWidget);
+    ui->listWidget->scrollToBottom();
+}
+
+void LLTutorWindow::wrongAnimation()
+{
+    if (lastUserMessage == nullptr) {
+        return;
+    }
+    QList<QLabel *> labels = lastUserMessage->findChildren<QLabel *>();
+    if (labels.size() > 1) {
+        QLabel *label = labels[1];
+
+        auto *effect = new QGraphicsColorizeEffect(label);
+        effect->setColor(Qt::red);
+        label->setGraphicsEffect(effect);
+
+        auto *animation = new QPropertyAnimation(effect, "strength");
+        animation->setDuration(1000);
+        animation->setKeyValueAt(0, 0.0);
+        animation->setKeyValueAt(0.5, 1.0);
+        animation->setKeyValueAt(1, 0.0);
+
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+
+        QObject::connect(animation, &QPropertyAnimation::finished, [label]() {
+            if (label && label->graphicsEffect()) {
+                label->graphicsEffect()->deleteLater();
+                label->setGraphicsEffect(nullptr);
+                label->setStyleSheet(R"(
+                    background-color: #00ADB5;
+                    color: white;
+                    padding: 12px 16px;
+                    border-top-left-radius: 18px;
+                    border-top-right-radius: 0px;
+                    border-bottom-left-radius: 18px;
+                    border-bottom-right-radius: 18px;
+                    border-right: 1.5px solid red;
+                    font-size: 14px;
+                    font-family: 'Noto Sans';
+                )");
+            }
+        });
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+    }
+}
+
+void LLTutorWindow::wrongUserResponseAnimation()
+{
+    QPoint originalPos = ui->userResponse->pos();
+
+    QPropertyAnimation *animation = new QPropertyAnimation(ui->userResponse, "pos");
+    animation->setDuration(200);
+    animation->setLoopCount(1);
+
+    animation->setKeyValueAt(0, originalPos);
+    animation->setKeyValueAt(0.2, originalPos + QPoint(4, 0));
+    animation->setKeyValueAt(0.4, originalPos - QPoint(4, 0));
+    animation->setKeyValueAt(0.6, originalPos + QPoint(3, 0));
+    animation->setKeyValueAt(0.8, originalPos - QPoint(3, 0));
+    animation->setKeyValueAt(1, originalPos);
+
+    animation->setEasingCurve(QEasingCurve::OutBounce);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void LLTutorWindow::animateLabelPop(QLabel *label)
+{
+    QPropertyAnimation *animation = new QPropertyAnimation(label, "geometry");
+    QRect startRect = label->geometry();
+    QRect expandedRect = QRect(startRect.x() - 3,
+                               startRect.y() - 2,
+                               startRect.width() + 5,
+                               startRect.height() + 4);
+
+    animation->setDuration(200);
+    animation->setKeyValueAt(0, startRect);
+    animation->setKeyValueAt(0.5, expandedRect);
+    animation->setKeyValueAt(1, startRect);
+    animation->setEasingCurve(QEasingCurve::OutCubic);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void LLTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
+{
+    int durationMs = 400;
+    QString originalStyle = label->styleSheet();
+    label->setStyleSheet(QString("color: %1;").arg(flashColor.name()));
+
+    QTimer::singleShot(durationMs, label, [label, originalStyle]() {
+        label->setStyleSheet(originalStyle);
+    });
+}
+
 void LLTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
     bool isCorrect;
     if (currentState != State::C) {
-        userResponse = ui->userResponse->text().trimmed();
+        userResponse = ui->userResponse->toPlainText().trimmed();
         addMessage(userResponse, true);
         isCorrect = verifyResponse(userResponse);
     } else {
