@@ -21,7 +21,7 @@
 #include <QtPrintSupport/QPrinter>
 #include "backend/grammar.hpp"
 #include "backend/ll1_parser.hpp"
-#include "dialogtablell.h"
+#include "lltabledialog.h"
 
 namespace Ui {
 class LLTutorWindow;

@@ -179,6 +179,34 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     ui->listWidget->scrollToBottom();
 }
 
+void LLTutorWindow::showTable()
+{
+    QStringList colHeaders;
+    QStringList rowHeaders;
+
+    for (const auto &symbol : ll1.gr_.st_.terminals_) {
+        if (symbol == ll1.gr_.st_.EPSILON_) {
+            continue;
+        }
+        colHeaders << QString::fromStdString(symbol);
+    }
+
+    for (const auto &symbol : ll1.gr_.st_.non_terminals_) {
+        rowHeaders << QString::fromStdString(symbol);
+    }
+
+    LLTableDialog dialog(rowHeaders, colHeaders, this);
+    if (dialog.exec() == QDialog::Accepted) {
+        auto tabla = dialog.getTableData();
+
+        for (int i = 0; i < tabla.size(); ++i) {
+            qDebug() << "Fila" << i << ":" << tabla[i];
+        }
+
+        addMessage("¡Tabla enviada correctamente!", false);
+    }
+}
+
 void LLTutorWindow::addDivisorLine(const QString &stateName)
 {
     QWidget *dividerWidget = new QWidget;
@@ -327,11 +355,9 @@ void LLTutorWindow::on_confirmButton_clicked()
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
         animateLabelColor(ui->cross, QColor("#cc3333"));
-        QTimer::singleShot(250, this, [this]() {
-            addMessage(feedback(), false);
-            wrongAnimation();
-            wrongUserResponseAnimation();
-        });
+        addMessage(feedback(), false);
+        wrongAnimation();
+        wrongUserResponseAnimation();
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);
@@ -351,12 +377,12 @@ void LLTutorWindow::on_confirmButton_clicked()
                                                             "Archivo PDF (*.pdf)");
 
             if (!filePath.isEmpty()) {
-                exportConversationToPdf(filePath);
+                //exportConversationToPdf(filePath);
             }
         }
         close();
     }
-    QTimer::singleShot(500, this, [this]() { addMessage(generateQuestion(), false); });
+    addMessage(generateQuestion(), false);
     ui->userResponse->clear();
 }
 
@@ -462,14 +488,6 @@ bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForC() {
-
-    for (const auto& [nt, col] : ll1.ll1_t_) {
-        for (const auto & [terminal, prods] : col) {
-            if (!lltable[QString::fromStdString(nt)][QString::fromStdString(terminal)].contains(stdVectorToQVector(prods[0]))) {
-                return false;
-            }
-        }
-    }
     return true;
 }
 
@@ -601,7 +619,7 @@ QString LLTutorWindow::generateQuestion() {
         rule = sortedGrammar.at(currentRule);
         return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?").arg(rule.first).arg(rule.second.join(" "));
     case State::C:
-        llTable();
+        showTable();
         ui->userResponse->setDisabled(true);
         return "Rellena la tabla LL(1). Cuando acabes dale a confirmar en esta ventana.";
         break;
@@ -610,8 +628,9 @@ QString LLTutorWindow::generateQuestion() {
     }
 }
 
-void LLTutorWindow::llTable() {
-    QSet<QString> terminals = stdUnorderedSetToQSet(grammar.st_.terminals_);
+void LLTutorWindow::llTable()
+{
+    /*QSet<QString> terminals = stdUnorderedSetToQSet(grammar.st_.terminals_);
     QSet<QString> nonterminals = stdUnorderedSetToQSet(grammar.st_.non_terminals_);
 
     QStringList hd_terminals (terminals.begin(), terminals.end());
@@ -631,7 +650,8 @@ void LLTutorWindow::llTable() {
                 }
             }
         }
-    }
+    }*/
+    addMessage("No implementado", false);
 }
 
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {

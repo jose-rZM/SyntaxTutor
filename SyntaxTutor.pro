@@ -15,7 +15,7 @@ SOURCES += \
     backend/slr1_parser.cpp \
     backend/symbol_table.cpp \
     customtextedit.cpp \
-    dialogtablell.cpp \
+    lltabledialog.cpp \
     lltutorwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -33,14 +33,13 @@ HEADERS += \
     backend/symbol_table.hpp \
     backend/tabulate.hpp \
     customtextedit.h \
-    dialogtablell.h \
+    lltabledialog.h \
     lltutorwindow.h \
     mainwindow.h \
     slrtabledialog.h \
     slrtutorwindow.h
 
 FORMS += \
-    dialogtablell.ui \
     lltutorwindow.ui \
     mainwindow.ui \
     slrtutorwindow.ui
