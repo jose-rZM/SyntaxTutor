@@ -111,6 +111,7 @@ private:
     QVector<QVector<QString>> rawTable;
     QSet<QString> solutionSet;
     size_t currentRule = 0;
+    unsigned lltries = 0;
 
     struct MessageLog
     {
