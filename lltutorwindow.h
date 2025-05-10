@@ -1,18 +1,26 @@
 #ifndef LLTUTORWINDOW_H
 #define LLTUTORWINDOW_H
 
+#include <QAbstractItemView>
+#include <QDialog>
+#include <QFileDialog>
+#include <QGraphicsColorizeEffect>
+#include <QListWidgetItem>
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QPropertyAnimation>
+#include <QPushButton>
+#include <QScrollBar>
+#include <QShortcut>
+#include <QTableWidget>
+#include <QTextDocument>
+#include <QTextEdit>
+#include <QTime>
+#include <QTimer>
+#include <QVBoxLayout>
+#include <QtPrintSupport/QPrinter>
 #include "backend/grammar.hpp"
 #include "backend/ll1_parser.hpp"
-#include <QMessageBox>
-#include <QDialog>
-#include <QTableWidget>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QPropertyAnimation>
-#include <QScrollBar>
-#include <QAbstractItemView>
-#include <QTime>
 #include "dialogtablell.h"
 
 namespace Ui {
@@ -32,6 +40,14 @@ public:
     QString FormatGrammar(const Grammar& grammar);
 
     void addMessage(const QString& text, bool isUser);
+    void addDivisorLine(const QString &stateName);
+    void exportConversationToPdf(const QString &filePath);
+    void showTable();
+    void updateProgressPanel();
+    void wrongAnimation();
+    void wrongUserResponseAnimation();
+    void animateLabelPop(QLabel *label);
+    void animateLabelColor(QLabel *label, const QColor &flashColor);
 
     // VERIFY RESPONSE ---------------------------------------
     bool verifyResponse(const QString& userResponse);
@@ -85,12 +101,29 @@ private:
     Grammar grammar;
     LL1Parser ll1;
 
+    unsigned cntRightAnswers = 0, cntWrongAnswers = 0;
 
     State currentState;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
+    QString formattedGrammar;
     QMap<QString, QMap<QString, QVector<QVector<QString>>>> lltable;
     QSet<QString> solutionSet;
     size_t currentRule = 0;
+
+    struct MessageLog
+    {
+        QString message;
+        bool isUser;
+
+        MessageLog(const QString &message, bool isUser)
+            : message(message)
+            , isUser(isUser)
+        {}
+    };
+
+    QVector<MessageLog> conversationLog;
+
+    QWidget *lastUserMessage = nullptr;
 };
 
 #endif // LLTUTORWINDOW_H

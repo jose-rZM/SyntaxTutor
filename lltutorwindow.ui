@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1003</width>
-    <height>665</height>
+    <width>856</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,43 +17,193 @@
    <iconset resource="resources.qrc">
     <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #1F1F1F;
+color: #E0E0E0;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="grammarLabel">
-      <property name="text">
-       <string>LL1</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="tick">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>✔</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="cntRight">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Respuestas correctas</string>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="cross">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>✘</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="cntWrong">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>Respuestas incorrectas</string>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QListWidget" name="listWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
+          <horstretch>4</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"> QListWidget {
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        background-color: transparent;
+    }
+
+    QListWidget::viewport {
+        background-color: transparent;
+    }
+   QScrollBar:vertical {
+        background: #1e1e1e;
+        width: 10px;
+        margin: 2px 0 2px 0;
+        border-radius: 5px;
+    }
+
+    QScrollBar::handle:vertical {
+        background: #5c5c5c;
+        min-height: 20px;
+        border-radius: 5px;
+    }
+
+    QScrollBar::handle:vertical:hover {
+        background: #777;
+    }
+
+    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+        height: 0px;
+        background: none;
+    }
+
+    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        background: none;
+    }</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="gr">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>2</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
+        <property name="font">
+         <font>
+          <family>JetBrainsMonoNL Nerd Font Propo</family>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Gramática</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit">
+        <property name="styleSheet">
+         <string notr="true">background-color: #1e1e1e;
+color: #ffffff;
+font-family: 'JetBrains Mono', 'Noto Sans Mono', 'Courier New', monospace;
+font-size: 15px;
+font-weight: 500;
+border: 1px solid #3a3a3a;
+border-radius: 6px;
+padding: 12px;
+selection-background-color: #44475a;
+selection-color: #ffffff;</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -62,12 +212,70 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="userResponse"/>
+       <widget class="CustomTextEdit" name="userResponse">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTextEdit {
+	background-color: #2E2E2E;
+	color: #E0E0E0;
+	border: 1px solid #444;
+	border-radius: 6px;
+	padding: 6px 10px;
+	font-size: 16px;
+}
+
+QTextEdit:focus {
+		border-bottom: 2px solid #00ADB5;
+}</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="confirmButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+background-color: rgba(0, 173, 181, 0.85);    
+border: none;
+    border-radius: 20px; /* La mitad de width/height para que sea redondo */
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    padding: 0px;
+    icon-size: 24px 24px; /* Asegúrate de ajustar esto en C++ también si no reacciona */
+}
+
+QPushButton:hover {
+    background-color: #00C8D6;
+}
+
+QPushButton:pressed {
+    background-color: #009AA3;
+}
+</string>
+        </property>
         <property name="text">
-         <string>Enviar</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -80,13 +288,20 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1003</width>
+     <width>856</width>
      <height>23</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>customtextedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>
