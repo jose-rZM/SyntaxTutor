@@ -326,16 +326,39 @@ void LLTutorWindow::on_confirmButton_clicked()
 
 
     if (!isCorrect) {
-        addMessage(feedback(), false);
+        ui->cntWrong->setText(QString::number(++cntWrongAnswers));
+        animateLabelPop(ui->cross);
+        animateLabelColor(ui->cross, QColor("#cc3333"));
+        QTimer::singleShot(250, this, [this]() {
+            addMessage(feedback(), false);
+            wrongAnimation();
+            wrongUserResponseAnimation();
+        });
+    } else {
+        ui->cntRight->setText(QString::number(++cntRightAnswers));
+        animateLabelPop(ui->tick);
+        animateLabelColor(ui->tick, QColor("#00cc66"));
     }
     updateState(isCorrect);
 
     if (currentState == State::fin) {
-        QMessageBox::information(this, "fin", "fin");
+        auto reply = QMessageBox::question(this,
+                                           "Fin del análisis",
+                                           "¿Deseas exportar la conversación?",
+                                           QMessageBox::Yes | QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            QString filePath = QFileDialog::getSaveFileName(this,
+                                                            "Guardar conversación",
+                                                            "conversacion.pdf",
+                                                            "Archivo PDF (*.pdf)");
+
+            if (!filePath.isEmpty()) {
+                exportConversationToPdf(filePath);
+            }
+        }
         close();
     }
-
-    addMessage(generateQuestion(), false);
+    QTimer::singleShot(500, this, [this]() { addMessage(generateQuestion(), false); });
     ui->userResponse->clear();
 }
 
