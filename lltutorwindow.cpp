@@ -31,6 +31,9 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setFont(QFont("Noto Sans", 14));
     ui->gr->setText(formattedGrammar);
 
+    ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->listWidget->verticalScrollBar()->setSingleStep(10);
+
     updateProgressPanel();
     addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
