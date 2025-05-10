@@ -36,7 +36,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     updateProgressPanel();
     addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
-    currentState = State::A;
+    currentState = State::C;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
@@ -62,6 +62,9 @@ void LLTutorWindow::updateProgressPanel()
 }
 
 void LLTutorWindow::addMessage(const QString& text, bool isUser) {
+    if (text.isEmpty() && !isUser) {
+        return; // Because State C
+    }
     QString messageText = text;
     // LOG
     if (messageText.isEmpty()) {
@@ -625,8 +628,7 @@ QString LLTutorWindow::generateQuestion() {
         return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?").arg(rule.first).arg(rule.second.join(" "));
     case State::C:
         showTable();
-        ui->userResponse->setDisabled(true);
-        return "Rellena la tabla LL(1). Cuando acabes dale a confirmar en esta ventana.";
+        return "";
         break;
     default:
         return "";
