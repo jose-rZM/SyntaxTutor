@@ -852,16 +852,24 @@ QString LLTutorWindow::generateQuestion() {
         return QString("¿Cuántas filas y columnas tiene la tabla LL(1)? Formato: #,#");
     case State::B:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuáles son los símbolos directores de %1 -> %2?").arg(rule.first).arg(rule.second.join(" "));
+        return QString("¿Cuáles son los símbolos directores de %1 -> %2? Formato: #,#")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
     case State::B1:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es la cabecera del consecuente? %1 -> %2").arg(rule.first).arg(rule.second.join(" "));
+        return QString("¿Cuál es la cabecera del consecuente? %1 -> %2. Formato: #,#")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
     case State::B2:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es el símbolo siguiente al antecedente? %1 -> %2").arg(rule.first).arg(rule.second.join(" "));
+        return QString("¿Cuál es el símbolo siguiente al antecedente? %1 -> %2. Formato: #,#")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
     case State::B_prime:
         rule = sortedGrammar.at(currentRule);
-        return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?").arg(rule.first).arg(rule.second.join(" "));
+        return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?. Formato: #,#")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
     case State::C:
         lastUserMessage = nullptr;
         ui->userResponse->setDisabled(true);
