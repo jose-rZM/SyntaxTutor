@@ -203,7 +203,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
         html += "<th>" + QString::fromStdString(s) + "</th>";
     }
     html += "</tr>";
-    for (const auto &[nt, _] : sortedGrammar) {
+    for (const auto &[nt, _] : lltable.asKeyValueRange()) {
         html += "<tr><td align='center'>" + nt + "</td>";
         for (const auto &s : ll1.gr_.st_.terminals_) {
             html += "<td align='center'>";
