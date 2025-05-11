@@ -246,9 +246,9 @@ QTextEdit:focus {
 }
 
 QTextEdit:disabled {
-    background-color: #f0f0f0;
-    color: #888;
-    border: 1px solid #ccc;
+    background-color: #3A3A3A; 
+    color: #777;    
+    border: 1px solid #555;   
 }</string>
         </property>
        </widget>
