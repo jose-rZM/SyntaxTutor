@@ -9,9 +9,10 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     , slr1(grammar)
 {
     slr1.MakeParser();
+#ifdef QT_DEBUG
     slr1.DebugStates();
     slr1.DebugActions();
-
+#endif
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
