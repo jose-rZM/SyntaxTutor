@@ -847,7 +847,7 @@ QString LLTutorWindow::feedbackForB1() {
 
     addWidgetMessage(treeWidgetFeedback);
 
-    return ""; // No hace falta texto si ya estás añadiendo el widget
+    return "";
 }
 
 QString LLTutorWindow::feedbackForB2() {
@@ -1052,8 +1052,6 @@ void LLTutorWindow::on_userResponse_textChanged()
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
 }
 
-// ME VUELVO LOCO
-
 void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
                                    std::unordered_set<std::string> &first_set,
                                    int depth,
@@ -1068,13 +1066,20 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
 
     auto *node = new QTreeWidgetItem();
     node->setText(0,
-                  QString::fromStdString("Paso " + std::to_string(depth + 1) + ": '"
-                                         + current_symbol + "'"));
+                  QString::fromStdString("Paso " + std::to_string(depth + 1) + ": "
+                                         + current_symbol));
     parent->addChild(node);
 
     if (ll1.gr_.st_.IsTerminal(current_symbol)) {
-        node->addChild(new QTreeWidgetItem({QString::fromStdString("Terminal → Añadir a CAB")}));
-        // Igual que antes: calcular y agregar a first_set
+        if (current_symbol == ll1.gr_.st_.EPSILON_ && !remaining_symbols.empty()) {
+            return;
+        }
+        if (current_symbol == ll1.gr_.st_.EOL_) {
+            node->addChild(new QTreeWidgetItem({"Añadir ε, se ha llegado al final de la cadena"}));
+        } else {
+            node->addChild(
+                new QTreeWidgetItem({QString::fromStdString("Terminal → Añadir a CAB")}));
+        }
         return;
     }
 
@@ -1100,7 +1105,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
 
         if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
             auto *eps_node = new QTreeWidgetItem(
-                {QString::fromStdString("Contiene ε → seguir con resto")});
+                {QString("Contiene ε → seguir con resto: "
+                         + stdVectorToQVector(remaining_symbols).join(' '))});
             prod_node->addChild(eps_node);
             TeachFirstTree(remaining_symbols, first_set, depth + 1, processing, eps_node);
         }
