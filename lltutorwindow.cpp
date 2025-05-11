@@ -391,8 +391,6 @@ void LLTutorWindow::showTable()
         lltable.clear();
 
         for (int i = 0; i < rawTable.size(); ++i) {
-            qDebug() << "Fila" << i << ":" << rawTable[i];
-
             const QString &rowHeader = sortedNonTerminals[i];
 
             for (int j = 0; j < rawTable[i].size(); ++j) {
@@ -863,9 +861,10 @@ QString LLTutorWindow::generateQuestion() {
         rule = sortedGrammar.at(currentRule);
         return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?").arg(rule.first).arg(rule.second.join(" "));
     case State::C:
-        showTable();
+        lastUserMessage = nullptr;
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true); // verify delegated to showTable
+        showTable();
         return "";
         break;
     default:
