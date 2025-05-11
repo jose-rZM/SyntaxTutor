@@ -17,6 +17,7 @@
 #include <QTextEdit>
 #include <QTime>
 #include <QTimer>
+#include <QTreeWidgetItem>
 #include <QVBoxLayout>
 #include <QtPrintSupport/QPrinter>
 #include "backend/grammar.hpp"
@@ -49,8 +50,15 @@ public:
     void animateLabelPop(QLabel *label);
     void animateLabelColor(QLabel *label, const QColor &flashColor);
 
+    void TeachFirstTree(const std::vector<std::string> &symbols,
+                        std::unordered_set<std::string> &first_set,
+                        int depth,
+                        std::unordered_set<std::string> &processing,
+                        QTreeWidgetItem *parent);
+    void addWidgetMessage(QWidget *widget);
+
     // VERIFY RESPONSE ---------------------------------------
-    bool verifyResponse(const QString& userResponse);
+    bool verifyResponse(const QString &userResponse);
     bool verifyResponseForA(const QString& userResponse);
     bool verifyResponseForA1(const QString& userResponse);
     bool verifyResponseForA2(const QString& userResponse);

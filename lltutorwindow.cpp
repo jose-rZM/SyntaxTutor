@@ -815,8 +815,37 @@ QString LLTutorWindow::feedbackForB() {
     return QString("El conjunto de símbolos directores para una regla se define como SD(X -> Y) = CAB(Y) - { epsilon } U SIG(X)");
 }
 
+void LLTutorWindow::addWidgetMessage(QWidget *widget)
+{
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
+    item->setSizeHint(widget->sizeHint());
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, widget);
+}
+
 QString LLTutorWindow::feedbackForB1() {
-    return QString::fromStdString(ll1.TeachFirst(qvectorToStdVector(sortedGrammar.at(currentRule).second)));
+    QTreeWidget *treeWidgetFeedback = new QTreeWidget();
+    treeWidgetFeedback->setHeaderLabel("Derivación de CABECERA");
+
+    QTreeWidgetItem *root = new QTreeWidgetItem({QString::fromStdString(
+        "CAB(" + sortedGrammar.at(currentRule).second.join(' ').toStdString() + ")")});
+
+    treeWidgetFeedback->addTopLevelItem(root);
+
+    std::unordered_set<std::string> first_set;
+    std::unordered_set<std::string> processing;
+    TeachFirstTree(qvectorToStdVector(sortedGrammar.at(currentRule).second),
+                   first_set,
+                   0,
+                   processing,
+                   root);
+
+    treeWidgetFeedback->expandAll();
+    treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
+
+    addWidgetMessage(treeWidgetFeedback);
+
+    return ""; // No hace falta texto si ya estás añadiendo el widget
 }
 
 QString LLTutorWindow::feedbackForB2() {
@@ -1019,4 +1048,61 @@ void LLTutorWindow::on_userResponse_textChanged()
 
     // Establece también el máximo para limitar el crecimiento
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+}
+
+// ME VUELVO LOCO
+
+void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
+                                   std::unordered_set<std::string> &first_set,
+                                   int depth,
+                                   std::unordered_set<std::string> &processing,
+                                   QTreeWidgetItem *parent)
+{
+    if (symbols.empty())
+        return;
+
+    std::string current_symbol = symbols[0];
+    std::vector<std::string> remaining_symbols(symbols.begin() + 1, symbols.end());
+
+    auto *node = new QTreeWidgetItem();
+    node->setText(0,
+                  QString::fromStdString("Paso " + std::to_string(depth + 1) + ": '"
+                                         + current_symbol + "'"));
+    parent->addChild(node);
+
+    if (ll1.gr_.st_.IsTerminal(current_symbol)) {
+        node->addChild(new QTreeWidgetItem({QString::fromStdString("Terminal → Añadir a CAB")}));
+        // Igual que antes: calcular y agregar a first_set
+        return;
+    }
+
+    if (processing.contains(current_symbol)) {
+        node->addChild(
+            new QTreeWidgetItem({QString::fromStdString("Evitando ciclo en " + current_symbol)}));
+        return;
+    }
+
+    processing.insert(current_symbol);
+    const auto &productions = ll1.gr_.g_.at(current_symbol);
+    for (const auto &prod : productions) {
+        std::string prod_str = current_symbol + " → ";
+        for (const auto &s : prod)
+            prod_str += s + " ";
+
+        auto *prod_node = new QTreeWidgetItem({QString::fromStdString(prod_str)});
+        node->addChild(prod_node);
+
+        std::vector<std::string> new_symbols = prod;
+        new_symbols.insert(new_symbols.end(), remaining_symbols.begin(), remaining_symbols.end());
+        TeachFirstTree(new_symbols, first_set, depth + 1, processing, prod_node);
+
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
+            auto *eps_node = new QTreeWidgetItem(
+                {QString::fromStdString("Contiene ε → seguir con resto")});
+            prod_node->addChild(eps_node);
+            TeachFirstTree(remaining_symbols, first_set, depth + 1, processing, eps_node);
+        }
+    }
+
+    processing.erase(current_symbol);
 }
