@@ -188,6 +188,16 @@ LL1Parser::PredictionSymbols(const std::string&              antecedent,
 
 std::string LL1Parser::TeachFirst(const std::vector<std::string>& symbols) {
     std::ostringstream output;
+
+    output << "El conjunto CABECERA de una cadena de símbolos es el conjunto\n";
+    output << "de terminales que pueden aparecer como primer símbolo en\n";
+    output << "alguna derivación desde esa cadena.\n\n";
+    output << "Reglas generales:\n";
+    output << "  1. Si el primer símbolo es terminal, CABECERA es ese símbolo.\n";
+    output << "  2. Si es no terminal, explora sus producciones.\n";
+    output << "  3. Si alguna producción contiene ε (cadena vacía),\n";
+    output << "     se sigue con el siguiente símbolo.\n";
+
     output << "Calcular CAB(";
     for (const std::string& symbol : symbols) {
         output << symbol;
@@ -199,103 +209,90 @@ std::string LL1Parser::TeachFirst(const std::vector<std::string>& symbols) {
         processing; // Track non-terminals being processed
     TeachFirstUtil(symbols, first_set, 0, processing, output);
 
-    // Display the final First set
-    output << "CAB: { ";
-    for (const std::string& symbol : first_set) {
+    output << "\n======== RESULTADO FINAL ========\n";
+    output << "FIRST(";
+    for (const auto &symbol : symbols)
+        output << symbol;
+    output << ") = { ";
+    for (const auto &symbol : first_set)
         output << symbol << " ";
-    }
     output << "}\n";
+    return output.str();
     return output.str();
 }
 
-void LL1Parser::TeachFirstUtil(const std::vector<std::string>&  symbols,
-                               std::unordered_set<std::string>& first_set,
-                               int                              depth,
-                               std::unordered_set<std::string>& processing,
-                                std::ostringstream& output) {
-    // Base case: If all symbols are processed, return
-    if (symbols.empty()) {
+void LL1Parser::TeachFirstUtil(const std::vector<std::string> &symbols,
+                               std::unordered_set<std::string> &first_set,
+                               int depth,
+                               std::unordered_set<std::string> &processing,
+                               std::ostringstream &output)
+{
+    if (symbols.empty())
         return;
-    }
 
-    std::string              current_symbol = symbols[0];
-    std::vector<std::string> remaining_symbols(symbols.begin() + 1,
-                                               symbols.end());
-
-    // Indent based on depth for better readability
     std::string indent(depth * 2, ' ');
+    std::string current_symbol = symbols[0];
+    std::vector<std::string> remaining_symbols(symbols.begin() + 1, symbols.end());
 
-    // Case 1: Current symbol is a terminal
+    output << indent << "Paso " << depth + 1 << ": Analizando símbolo '" << current_symbol << "'\n";
+
+    // Caso 1: Terminal
     if (gr_.st_.IsTerminal(current_symbol)) {
-        output << indent << "- Cadena: " << current_symbol << " ";
-        for (const std::string& symbol : remaining_symbols) {
-            output << symbol << " ";
-        }
-        output << "\n";
-        output << indent << "- Terminal encontrado: " << current_symbol << "\n";
-        std::vector<std::string>        all{current_symbol};
-        std::unordered_set<std::string> fii;
-        all.insert(all.end(), remaining_symbols.begin(),
-                   remaining_symbols.end());
-        First(std::span<const std::string>(all.begin(), all.end()), fii);
-        first_set.insert(fii.begin(), fii.end());
+        output << indent << "  - Es un terminal.\n";
+        output << indent << "  - Se agrega directamente al conjunto CABECERA.\n";
+
+        std::vector<std::string> full_chain{current_symbol};
+        full_chain.insert(full_chain.end(), remaining_symbols.begin(), remaining_symbols.end());
+        std::unordered_set<std::string> partial_first;
+        First(std::span<const std::string>(full_chain.begin(), full_chain.end()), partial_first);
+        first_set.insert(partial_first.begin(), partial_first.end());
+
         return;
     }
 
-    // Case 2: Current symbol is a non-terminal
-    output << indent << "- Deriva el no terminal: " << current_symbol
-              << "\n";
+    // Caso 2: No terminal
+    output << indent << "  - Es un no terminal. Explorando sus producciones.\n";
 
-    // Check if the non-terminal is already being processed (to avoid cycles)
+    // Evitar ciclos
     if (processing.find(current_symbol) != processing.end()) {
-        output << indent << "  - Ignorando " << current_symbol
-                  << " (ya fue procesado)\n";
+        output << indent << "  - Ya estamos procesando '" << current_symbol
+               << "'. Evitamos ciclo.\n";
         return;
     }
-
-    // Mark the non-terminal as being processed
     processing.insert(current_symbol);
 
-    const auto& productions = gr_.g_.at(current_symbol);
-    for (const auto& prod : productions) {
-        output << indent << "  Aplicamos producción: " << current_symbol
-                  << " -> ";
-        for (const std::string& symbol : prod) {
-            output << symbol << " ";
-        }
+    const auto &productions = gr_.g_.at(current_symbol);
+    for (const auto &prod : productions) {
+        output << indent << "  - Aplicando producción: " << current_symbol << " → ";
+        for (const auto &s : prod)
+            output << s << " ";
         output << "\n";
 
-        // Recursively derive the production
+        // Derivación recursiva
         std::vector<std::string> new_symbols = prod;
-        new_symbols.insert(new_symbols.end(), remaining_symbols.begin(),
-                           remaining_symbols.end());
+        new_symbols.insert(new_symbols.end(), remaining_symbols.begin(), remaining_symbols.end());
         TeachFirstUtil(new_symbols, first_set, depth + 1, processing, output);
 
-        // Check if ε is in First(prod)
-        bool has_epsilon =
-            std::find(prod.begin(), prod.end(), gr_.st_.EPSILON_) != prod.end();
-
-        // If ε is in First(prod), continue deriving the remaining symbols
+        // Verificar si hay ε en la producción
+        bool has_epsilon = std::find(prod.begin(), prod.end(), gr_.st_.EPSILON_) != prod.end();
         if (has_epsilon) {
-            output
-                << indent
-                << "  - ε en una producción. Deriva el resto de símbolos: ";
-            for (const std::string& symbol : remaining_symbols) {
-                output << symbol << " ";
-            }
+            output << indent << "  - Esta producción contiene ε (cadena vacía).\n";
+            output << indent << "    → Continua con los símbolos restantes: ";
+            for (const auto &s : remaining_symbols)
+                output << s << " ";
             output << "\n";
             TeachFirstUtil(remaining_symbols, first_set, depth + 1, processing, output);
         }
     }
 
-    // Unmark the non-terminal as it is no longer being processed
+    // Desmarcar el símbolo como procesado
     processing.erase(current_symbol);
 
-    // Display the current First set
-    output << indent << "Cabecera actual: { ";
-    for (const std::string& symbol : first_set) {
-        output << symbol << " ";
-    }
+    // Mostrar FIRST parcial
+    output << indent << "  - Conjunto CABECERA parcial tras procesar '" << current_symbol
+           << "': { ";
+    for (const auto &s : first_set)
+        output << s << " ";
     output << "}\n";
 }
 
