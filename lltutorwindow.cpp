@@ -487,6 +487,7 @@ void LLTutorWindow::wrongAnimation()
         });
         animation->start(QAbstractAnimation::DeleteWhenStopped);
     }
+    lastUserMessage = nullptr;
 }
 
 void LLTutorWindow::wrongUserResponseAnimation()
