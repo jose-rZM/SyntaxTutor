@@ -402,6 +402,10 @@ void LLTutorWindow::showTable()
                 if (!cellContent.isEmpty()) {
                     QStringList production = stdVectorToQVector(
                         ll1.gr_.Split(cellContent.toStdString()));
+                    if (production.empty() && !cellContent.isEmpty()) {
+                        // Split could not process the string
+                        production = {cellContent};
+                    }
                     lltable[rowHeader][colHeader] = production;
                 }
             }
