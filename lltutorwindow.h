@@ -105,6 +105,7 @@ private:
     unsigned cntRightAnswers = 0, cntWrongAnswers = 0;
 
     State currentState;
+    QVector<QString> sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString formattedGrammar;
     QMap<QString, QMap<QString, QVector<QString>>> lltable;

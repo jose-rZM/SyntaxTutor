@@ -27,6 +27,16 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     formattedGrammar = FormatGrammar(grammar);
+    sortedNonTerminals = stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
+    std::sort(sortedNonTerminals.begin(),
+              sortedNonTerminals.end(),
+              [&grammar](const QString &a, const QString &b) {
+                  if (a == grammar.axiom_)
+                      return true;
+                  if (b == grammar.axiom_)
+                      return false;
+                  return a < b;
+              });
 
     ui->gr->setFont(QFont("Noto Sans", 14));
     ui->gr->setText(formattedGrammar);
