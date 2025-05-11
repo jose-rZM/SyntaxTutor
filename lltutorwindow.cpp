@@ -55,6 +55,180 @@ LLTutorWindow::~LLTutorWindow()
     delete ui;
 }
 
+void LLTutorWindow::exportConversationToPdf(const QString &filePath)
+{
+    QTextDocument doc;
+    QString html;
+
+    html += R"(
+        <html>
+        <head>
+        </head>
+        <body>
+    )";
+    html += R"(
+    <style>
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 11pt;
+        line-height: 1.6;
+        margin: 20px;
+    }
+
+    h2 {
+        font-size: 16pt;
+        color: #393E46;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 5px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 13pt;
+        color: #007B8A;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .entry {
+        border-left: 4px solid #007B8A;
+        padding: 10px 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+    }
+
+    .entry .role {
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #2c3e50;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin-bottom: 20px;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 11pt;
+    }
+    li {
+        margin-bottom: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto 20px auto;
+        width: auto;
+        font-size: 10.5pt;
+    }
+
+    th, td {
+        border: 1px solid #999;
+        padding: 6px 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    td {
+        background-color: #fafafa;
+    }
+
+    tr:nth-child(even) td {
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+    </style>
+    )";
+    html += R"(
+    <div style="text-align: center; font-size: 8pt; color: #888; margin-top: 60px;">
+        Generado automáticamente por SyntaxTutor el )"
+            + QDate::currentDate().toString("dd/MM/yyyy") + R"(</div>
+    )";
+
+    html += "<h2>Conversación</h2>";
+
+    for (auto it = conversationLog.constBegin(); it != conversationLog.constEnd(); ++it) {
+        const MessageLog &message = *it;
+        QString safeText = message.message.toHtmlEscaped().replace("\n", "<br>");
+        html += "<div class='entry'>";
+        html += "<div class='role'>";
+        html += (message.isUser ? "Usuario: " : "Tutor: ");
+        html += "</div>";
+        html += safeText;
+        html += "</div>";
+    }
+
+    html += "</body></html>";
+    html += R"(<div class='page-break'></div>)";
+
+    html += "<h2>Cabeceras</h2>";
+    for (const auto &[nt, _] : sortedGrammar) {
+        const auto &first = stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
+        html += "CAB(" + nt + ") = {";
+        html += first.join(",");
+        html += "}<br>";
+    }
+
+    html += "<h2>Siguientes</h2>";
+    for (const auto &[nt, _] : sortedGrammar) {
+        const auto &follow = stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
+        html += "SIG(" + nt + ") = {" + follow.join(',') + "}<br>";
+    }
+
+    html += "<h2>Símbolos directores</h2>";
+    for (const auto &[nt, production] : sortedGrammar) {
+        const auto predSymbols = stdUnorderedSetToQSet(
+                                     ll1.PredictionSymbols(nt.toStdString(),
+                                                           qvectorToStdVector(production)))
+                                     .values();
+        html += "SD(" + nt + " → " + production.join(' ') + ") = {" + predSymbols.join(',')
+                + "}<br>";
+    }
+    html += R"(<div class='page-break'></div>)";
+    html += R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
+    html += "<tr><th>No terminal / Símbolo</th>";
+    for (const auto &s : ll1.gr_.st_.terminals_) {
+        html += "<th>" + QString::fromStdString(s) + "</th>";
+    }
+    html += "</tr>";
+    for (const auto &[nt, _] : sortedGrammar) {
+        html += "<tr><td align='center'>" + nt + "</td>";
+        for (const auto &s : ll1.gr_.st_.terminals_) {
+            html += "<td align='center'>";
+            if (ll1.ll1_t_[nt.toStdString()].contains(s)) {
+                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0]).join(' ');
+            } else {
+                html += "-";
+            }
+            html += "</td>";
+        }
+        html += "</tr>";
+    }
+    html += "</table></div>";
+
+    doc.setHtml(html);
+
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(filePath);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+
+    doc.print(&printer);
+}
+
 void LLTutorWindow::updateProgressPanel()
 {
     QString text;
@@ -403,7 +577,7 @@ void LLTutorWindow::on_confirmButton_clicked()
                                                             "Archivo PDF (*.pdf)");
 
             if (!filePath.isEmpty()) {
-                //exportConversationToPdf(filePath);
+                exportConversationToPdf(filePath);
             }
         }
         close();
