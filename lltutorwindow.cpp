@@ -184,7 +184,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     html += R"(<div class='page-break'></div>)";
 
     html += "<h2>Cabeceras</h2>";
-    for (const auto &[nt, _] : sortedGrammar) {
+    for (const auto &nt : sortedNonTerminals) {
         const auto &first = stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
         html += "CAB(" + nt + ") = {";
         html += first.join(",");
@@ -192,7 +192,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     }
 
     html += "<h2>Siguientes</h2>";
-    for (const auto &[nt, _] : sortedGrammar) {
+    for (const auto &nt : sortedNonTerminals) {
         const auto &follow = stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
         html += "SIG(" + nt + ") = {" + follow.join(',') + "}<br>";
     }
@@ -213,7 +213,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
         html += "<th>" + QString::fromStdString(s) + "</th>";
     }
     html += "</tr>";
-    for (const auto &[nt, _] : lltable.asKeyValueRange()) {
+    for (const auto &nt : sortedNonTerminals) {
         html += "<tr><td align='center'>" + nt + "</td>";
         for (const auto &s : ll1.gr_.st_.terminals_) {
             html += "<td align='center'>";
@@ -373,7 +373,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 void LLTutorWindow::showTable()
 {
     QStringList colHeaders;
-    QStringList rowHeaders;
 
     for (const auto &symbol : ll1.gr_.st_.terminals_) {
         if (symbol == ll1.gr_.st_.EPSILON_) {
@@ -382,11 +381,7 @@ void LLTutorWindow::showTable()
         colHeaders << QString::fromStdString(symbol);
     }
 
-    for (const auto &symbol : ll1.gr_.st_.non_terminals_) {
-        rowHeaders << QString::fromStdString(symbol);
-    }
-
-    LLTableDialog dialog(rowHeaders, colHeaders, this, &rawTable);
+    LLTableDialog dialog(sortedNonTerminals, colHeaders, this, &rawTable);
     if (dialog.exec() == QDialog::Accepted) {
         rawTable.clear();
         rawTable = dialog.getTableData();
@@ -396,7 +391,7 @@ void LLTutorWindow::showTable()
         for (int i = 0; i < rawTable.size(); ++i) {
             qDebug() << "Fila" << i << ":" << rawTable[i];
 
-            const QString &rowHeader = rowHeaders[i];
+            const QString &rowHeader = sortedNonTerminals[i];
 
             for (int j = 0; j < rawTable[i].size(); ++j) {
                 const QString &colHeader = colHeaders[j];
