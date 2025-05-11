@@ -695,16 +695,17 @@ bool LLTutorWindow::verifyResponseForC() {
     if (lltable.empty()) {
         return false;
     }
-    for (const auto &[nonTerminal, columns] : lltable.asKeyValueRange()) {
-        for (const auto &[terminal, production] : columns.asKeyValueRange()) {
-            qDebug() << "Cell [" << nonTerminal << "][" << terminal
-                     << "]: " << production.join(' ');
-            const auto &entry = ll1.ll1_t_[nonTerminal.toStdString()][terminal.toStdString()];
-            if (production.isEmpty() && entry.empty()) {
+
+    for (const auto &[nonTerminal, columns] : ll1.ll1_t_) {
+        for (const auto &[terminal, productions] : columns) {
+            const auto &production = productions[0];
+            const auto &entry
+                = lltable[QString::fromStdString(nonTerminal)][QString::fromStdString(terminal)];
+            if (production.empty() && entry.isEmpty()) {
                 continue;
             }
 
-            if (production != stdVectorToQVector(entry[0])) {
+            if (production != qvectorToStdVector(entry)) {
                 return false;
             }
         }
