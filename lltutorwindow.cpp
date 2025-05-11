@@ -10,7 +10,9 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     , ll1(grammar)
 {
     ll1.CreateLL1Table();
+#ifdef QT_DEBUG
     ll1.PrintTable();
+#endif
     fillSortedGrammar();
 
     ui->setupUi(this);

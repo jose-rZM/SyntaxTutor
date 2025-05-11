@@ -157,7 +157,9 @@ void MainWindow::on_lv3Button_clicked(bool checked)
 void MainWindow::on_pushButton_clicked()
 {
     Grammar grammar = factory.GenLL1Grammar(level);
+#ifdef QT_DEBUG
     grammar.Debug();
+#endif
     this->setEnabled(false);
     LLTutorWindow *tutor = new LLTutorWindow(grammar, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
@@ -170,7 +172,9 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     Grammar grammar = factory.GenSLR1Grammar(level);
+#ifdef QT_DEBUG
     grammar.Debug();
+#endif
     this->setEnabled(false);
     SLRTutorWindow *tutor = new SLRTutorWindow(grammar, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
