@@ -582,8 +582,8 @@ void LLTutorWindow::on_confirmButton_clicked()
         }
         close();
     }
-    addMessage(generateQuestion(), false);
     ui->userResponse->clear();
+    addMessage(generateQuestion(), false);
 }
 
 void LLTutorWindow::updateState(bool isCorrect) {
