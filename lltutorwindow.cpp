@@ -1,11 +1,17 @@
 #include "lltutorwindow.h"
 #include "ui_lltutorwindow.h"
 
+#include <QRandomGenerator>
+
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
-    , grammar(grammar)
-    , ll1(grammar)
+    , grammar({{"S", {{"A", "$"}}},
+               {"A", {{"B", "A", "B"}, {"e"}}},
+               {"B", {{"C", "B", "c"}, {"k"}}},
+               {"C", {{"C'", "d"}}},
+               {"C'", {{"a", "C'"}, {"EPSILON"}}}})
+    , ll1(this->grammar)
 {
     ll1.CreateLL1Table();
 #ifdef QT_DEBUG
@@ -28,7 +34,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
-    formattedGrammar = FormatGrammar(grammar);
+    formattedGrammar = FormatGrammar(this->grammar);
     sortedNonTerminals = stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(),
               sortedNonTerminals.end(),
@@ -1154,11 +1160,13 @@ LLTutorWindow::TreeNode *LLTutorWindow::buildTreeNode(const std::vector<std::str
     std::vector<std::string> rest(symbols.begin() + 1, symbols.end());
 
     TreeNode *node = new TreeNode;
-    node->label = QString::fromStdString(current);
+    node->label = QString::fromStdString(current) + ' ' + stdVectorToQVector(rest).join(' ');
 
     if (ll1.gr_.st_.IsTerminal(current)) {
-        if (current == ll1.gr_.st_.EPSILON_ && !rest.empty())
+        if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
+            delete node;
             return nullptr;
+        }
         auto *child = new TreeNode;
         child->label = (current == ll1.gr_.st_.EOL_) ? "ε → Fin" : "Añadir a CAB";
         node->children.append(child);
@@ -1207,9 +1215,8 @@ void LLTutorWindow::drawTree(
     // Crear el texto del nodo
     QGraphicsTextItem *textItem = scene->addText(root->label);
 
-    // Ajustar tamaño de fuente si es necesario
-    QFont font = textItem->font();
-    font.setPointSize(10); // Ajusta esto según necesidad
+    QFont font("Noto Sans", 10);
+    font.setBold(true);
     textItem->setFont(font);
 
     // Centrar el texto horizontalmente en la posición
@@ -1223,11 +1230,12 @@ void LLTutorWindow::drawTree(
     int xOffset = -totalWidth / 2;
 
     // Dibujar las conexiones y los hijos
+    QPen pen(Qt::white);
     for (LLTutorWindow::TreeNode *child : root->children) {
         QPointF childPos = pos + QPointF(xOffset, vSpacing);
 
         // Línea desde el centro inferior del nodo padre al centro superior del hijo
-        scene->addLine(pos.x(), pos.y() + textRect.height(), childPos.x(), childPos.y());
+        scene->addLine(pos.x(), pos.y() + textRect.height(), childPos.x(), childPos.y(), pen);
 
         drawTree(child, scene, childPos, hSpacing, vSpacing);
         xOffset += hSpacing;
@@ -1241,7 +1249,6 @@ void LLTutorWindow::showTreeGraphics(LLTutorWindow::TreeNode *root)
 
     QGraphicsScene *scene = new QGraphicsScene(dialog);
 
-    // Aumentar el espaciado inicial
     drawTree(root, scene, QPointF(0, 0), 220, 100);
 
     QGraphicsView *view = new QGraphicsView(scene);
