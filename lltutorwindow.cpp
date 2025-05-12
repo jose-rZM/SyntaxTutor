@@ -865,8 +865,39 @@ void LLTutorWindow::feedbackForB1TreeWidget()
                    0,
                    processing,
                    root);
+    treeWidgetFeedback->setStyleSheet(R"(
+   QTreeWidget {
+        background-color: #1F1F1F;
+        color: #E0E0E0;
+        font: 10pt "Noto Sans";
+        border: none;
+        outline: 0;
+    }
 
-    treeWidgetFeedback->expandAll(); // treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
+    QTreeView::item {
+        padding: 6px 10px;
+        margin: 2px;
+        border-radius: 6px;
+    }
+
+    QTreeView::item:hover {
+        background-color: #333333;
+    }
+
+    QTreeView::item:selected {
+        background-color: #0078D7;
+        color: white;
+    }
+
+    QHeaderView::section {
+        background-color: #2A2A2A;
+        color: #CCCCCC;
+        padding: 4px;
+        border: none;
+        font-weight: bold;
+    }
+    )");
+    treeWidgetFeedback->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     // treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
 
     addWidgetMessage(treeWidgetFeedback);
