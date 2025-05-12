@@ -860,10 +860,20 @@ QString LLTutorWindow::feedbackForB1() {
                    root);
 
     treeWidgetFeedback->expandAll();
-    treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
+    // treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
 
     addWidgetMessage(treeWidgetFeedback);
 
+    std::unordered_set<std::string> first_set2;
+    std::unordered_set<std::string> processing2;
+
+    LLTutorWindow::TreeNode *treeroot = buildTreeNode(qvectorToStdVector(
+                                                          sortedGrammar.at(currentRule).second),
+                                                      first_set2,
+                                                      0,
+                                                      processing2);
+
+    showTreeGraphics(treeroot);
     return "";
 }
 
@@ -1130,4 +1140,133 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
     }
 
     processing.erase(current_symbol);
+}
+
+LLTutorWindow::TreeNode *LLTutorWindow::buildTreeNode(const std::vector<std::string> &symbols,
+                                                      std::unordered_set<std::string> &first_set,
+                                                      int depth,
+                                                      std::unordered_set<std::string> &processing)
+{
+    if (symbols.empty())
+        return nullptr;
+
+    std::string current = symbols[0];
+    std::vector<std::string> rest(symbols.begin() + 1, symbols.end());
+
+    TreeNode *node = new TreeNode;
+    node->label = QString::fromStdString(current);
+
+    if (ll1.gr_.st_.IsTerminal(current)) {
+        if (current == ll1.gr_.st_.EPSILON_ && !rest.empty())
+            return nullptr;
+        auto *child = new TreeNode;
+        child->label = (current == ll1.gr_.st_.EOL_) ? "ε → Fin" : "Añadir a CAB";
+        node->children.append(child);
+        return node;
+    }
+
+    if (processing.contains(current)) {
+        auto *cycle = new TreeNode;
+        cycle->label = "Evitar ciclo " + QString::fromStdString(current);
+        node->children.append(cycle);
+        return node;
+    }
+
+    processing.insert(current);
+    for (const auto &prod : ll1.gr_.g_.at(current)) {
+        QString prodStr = QString::fromStdString(current) + " → "
+                          + stdVectorToQVector(prod).join(' ');
+        TreeNode *prodNode = new TreeNode{prodStr};
+
+        std::vector<std::string> new_syms = prod;
+        new_syms.insert(new_syms.end(), rest.begin(), rest.end());
+
+        if (TreeNode *sub = buildTreeNode(new_syms, first_set, depth + 1, processing))
+            prodNode->children.append(sub);
+
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
+            TreeNode *epsNode = new TreeNode;
+            epsNode->label = "ε → continuar con: " + stdVectorToQVector(rest).join(' ');
+            if (TreeNode *sub = buildTreeNode(rest, first_set, depth + 1, processing))
+                epsNode->children.append(sub);
+            prodNode->children.append(epsNode);
+        }
+
+        node->children.append(prodNode);
+    }
+    processing.erase(current);
+    return node;
+}
+
+void LLTutorWindow::drawTree(
+    LLTutorWindow::TreeNode *root, QGraphicsScene *scene, QPointF pos, int hSpacing, int vSpacing)
+{
+    if (!root)
+        return;
+
+    // Crear el texto del nodo
+    QGraphicsTextItem *textItem = scene->addText(root->label);
+
+    // Ajustar tamaño de fuente si es necesario
+    QFont font = textItem->font();
+    font.setPointSize(10); // Ajusta esto según necesidad
+    textItem->setFont(font);
+
+    // Centrar el texto horizontalmente en la posición
+    QRectF textRect = textItem->boundingRect();
+    QPointF centeredPos = pos - QPointF(textRect.width() / 2, 0);
+    textItem->setPos(centeredPos);
+
+    // Calcular el total del ancho que ocupan los hijos
+    int numChildren = root->children.size();
+    int totalWidth = (numChildren - 1) * hSpacing;
+    int xOffset = -totalWidth / 2;
+
+    // Dibujar las conexiones y los hijos
+    for (LLTutorWindow::TreeNode *child : root->children) {
+        QPointF childPos = pos + QPointF(xOffset, vSpacing);
+
+        // Línea desde el centro inferior del nodo padre al centro superior del hijo
+        scene->addLine(pos.x(), pos.y() + textRect.height(), childPos.x(), childPos.y());
+
+        drawTree(child, scene, childPos, hSpacing, vSpacing);
+        xOffset += hSpacing;
+    }
+}
+
+void LLTutorWindow::showTreeGraphics(LLTutorWindow::TreeNode *root)
+{
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Árbol de derivación CABECERA");
+
+    QGraphicsScene *scene = new QGraphicsScene(dialog);
+
+    // Aumentar el espaciado inicial
+    drawTree(root, scene, QPointF(0, 0), 220, 100);
+
+    QGraphicsView *view = new QGraphicsView(scene);
+    view->setRenderHint(QPainter::Antialiasing);
+    view->setMinimumSize(1000, 700);
+    view->setAlignment(Qt::AlignCenter);
+
+    QVBoxLayout *layout = new QVBoxLayout(dialog);
+    layout->addWidget(view);
+    dialog->setLayout(layout);
+
+    connect(dialog, &QDialog::finished, this, [=, this](int) {
+        deleteTree(root);
+        dialog->deleteLater();
+    });
+
+    dialog->show();
+}
+
+void LLTutorWindow::deleteTree(TreeNode *node)
+{
+    if (!node)
+        return;
+    for (TreeNode *child : node->children) {
+        deleteTree(child);
+    }
+    delete node;
 }
