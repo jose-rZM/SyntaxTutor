@@ -25,6 +25,7 @@
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
 #include <QtPrintSupport/QPrinter>
+
 #include "backend/grammar.hpp"
 #include "backend/ll1_parser.hpp"
 #include "lltabledialog.h"
@@ -43,7 +44,7 @@ public:
     struct TreeNode
     {
         QString label;
-        QList<TreeNode *> children;
+        std::vector<std::unique_ptr<TreeNode>> children;
     };
     explicit LLTutorWindow(const Grammar& grammar, QWidget *parent = nullptr);
     ~LLTutorWindow();
@@ -66,13 +67,16 @@ public:
                         QTreeWidgetItem *parent);
     void addWidgetMessage(QWidget *widget);
 
-    TreeNode *buildTreeNode(const std::vector<std::string> &symbols,
-                            std::unordered_set<std::string> &first_set,
-                            int depth,
-                            std::unordered_set<std::string> &processing);
-    void drawTree(TreeNode *root, QGraphicsScene *scene, QPointF pos, int hSpacing, int vSpacing);
-    void showTreeGraphics(TreeNode *root);
-    void deleteTree(TreeNode *node);
+    std::unique_ptr<TreeNode> buildTreeNode(const std::vector<std::string> &symbols,
+                                            std::unordered_set<std::string> &first_set,
+                                            int depth,
+                                            std::unordered_set<std::string> &processing);
+    void drawTree(const std::unique_ptr<TreeNode> &root,
+                  QGraphicsScene *scene,
+                  QPointF pos,
+                  int hSpacing,
+                  int vSpacing);
+    void showTreeGraphics(std::unique_ptr<TreeNode> root);
 
     // VERIFY RESPONSE ---------------------------------------
     bool verifyResponse(const QString &userResponse);

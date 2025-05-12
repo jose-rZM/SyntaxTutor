@@ -873,13 +873,12 @@ QString LLTutorWindow::feedbackForB1() {
     std::unordered_set<std::string> first_set2;
     std::unordered_set<std::string> processing2;
 
-    LLTutorWindow::TreeNode *treeroot = buildTreeNode(qvectorToStdVector(
-                                                          sortedGrammar.at(currentRule).second),
-                                                      first_set2,
-                                                      0,
-                                                      processing2);
+    auto treeroot = buildTreeNode(qvectorToStdVector(sortedGrammar.at(currentRule).second),
+                                  first_set2,
+                                  0,
+                                  processing2);
 
-    showTreeGraphics(treeroot);
+    showTreeGraphics(std::move(treeroot));
     return "";
 }
 
@@ -1148,10 +1147,11 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
     processing.erase(current_symbol);
 }
 
-LLTutorWindow::TreeNode *LLTutorWindow::buildTreeNode(const std::vector<std::string> &symbols,
-                                                      std::unordered_set<std::string> &first_set,
-                                                      int depth,
-                                                      std::unordered_set<std::string> &processing)
+std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
+    const std::vector<std::string> &symbols,
+    std::unordered_set<std::string> &first_set,
+    int depth,
+    std::unordered_set<std::string> &processing)
 {
     if (symbols.empty())
         return nullptr;
@@ -1159,24 +1159,23 @@ LLTutorWindow::TreeNode *LLTutorWindow::buildTreeNode(const std::vector<std::str
     std::string current = symbols[0];
     std::vector<std::string> rest(symbols.begin() + 1, symbols.end());
 
-    TreeNode *node = new TreeNode;
+    auto node = std::make_unique<TreeNode>();
     node->label = QString::fromStdString(current) + ' ' + stdVectorToQVector(rest).join(' ');
 
     if (ll1.gr_.st_.IsTerminal(current)) {
         if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
-            delete node;
             return nullptr;
         }
-        auto *child = new TreeNode;
+        auto child = std::make_unique<TreeNode>();
         child->label = (current == ll1.gr_.st_.EOL_) ? "ε → Fin" : "Añadir a CAB";
-        node->children.append(child);
+        node->children.push_back(std::move(child));
         return node;
     }
 
     if (processing.contains(current)) {
-        auto *cycle = new TreeNode;
+        auto cycle = std::make_unique<TreeNode>();
         cycle->label = "Evitar ciclo " + QString::fromStdString(current);
-        node->children.append(cycle);
+        node->children.push_back(std::move(cycle));
         return node;
     }
 
@@ -1184,30 +1183,33 @@ LLTutorWindow::TreeNode *LLTutorWindow::buildTreeNode(const std::vector<std::str
     for (const auto &prod : ll1.gr_.g_.at(current)) {
         QString prodStr = QString::fromStdString(current) + " → "
                           + stdVectorToQVector(prod).join(' ');
-        TreeNode *prodNode = new TreeNode{prodStr};
-
+        auto prodNode = std::make_unique<TreeNode>();
+        prodNode->label = prodStr;
         std::vector<std::string> new_syms = prod;
         new_syms.insert(new_syms.end(), rest.begin(), rest.end());
 
-        if (TreeNode *sub = buildTreeNode(new_syms, first_set, depth + 1, processing))
-            prodNode->children.append(sub);
+        if (auto sub = buildTreeNode(new_syms, first_set, depth + 1, processing))
+            prodNode->children.push_back(std::move(sub));
 
         if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
-            TreeNode *epsNode = new TreeNode;
+            auto epsNode = std::make_unique<TreeNode>();
             epsNode->label = "ε → continuar con: " + stdVectorToQVector(rest).join(' ');
-            if (TreeNode *sub = buildTreeNode(rest, first_set, depth + 1, processing))
-                epsNode->children.append(sub);
-            prodNode->children.append(epsNode);
+            if (auto sub = buildTreeNode(rest, first_set, depth + 1, processing))
+                epsNode->children.push_back(std::move(sub));
+            prodNode->children.push_back(std::move(epsNode));
         }
 
-        node->children.append(prodNode);
+        node->children.push_back(std::move(prodNode));
     }
     processing.erase(current);
     return node;
 }
 
-void LLTutorWindow::drawTree(
-    LLTutorWindow::TreeNode *root, QGraphicsScene *scene, QPointF pos, int hSpacing, int vSpacing)
+void LLTutorWindow::drawTree(const std::unique_ptr<LLTutorWindow::TreeNode> &root,
+                             QGraphicsScene *scene,
+                             QPointF pos,
+                             int hSpacing,
+                             int vSpacing)
 {
     if (!root)
         return;
@@ -1231,7 +1233,7 @@ void LLTutorWindow::drawTree(
 
     // Dibujar las conexiones y los hijos
     QPen pen(Qt::white);
-    for (LLTutorWindow::TreeNode *child : root->children) {
+    for (const auto &child : root->children) {
         QPointF childPos = pos + QPointF(xOffset, vSpacing);
 
         // Línea desde el centro inferior del nodo padre al centro superior del hijo
@@ -1242,7 +1244,7 @@ void LLTutorWindow::drawTree(
     }
 }
 
-void LLTutorWindow::showTreeGraphics(LLTutorWindow::TreeNode *root)
+void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> root)
 {
     QDialog *dialog = new QDialog(this);
     dialog->setWindowTitle("Árbol de derivación CABECERA");
@@ -1260,20 +1262,5 @@ void LLTutorWindow::showTreeGraphics(LLTutorWindow::TreeNode *root)
     layout->addWidget(view);
     dialog->setLayout(layout);
 
-    connect(dialog, &QDialog::finished, this, [=, this](int) {
-        deleteTree(root);
-        dialog->deleteLater();
-    });
-
     dialog->show();
-}
-
-void LLTutorWindow::deleteTree(TreeNode *node)
-{
-    if (!node)
-        return;
-    for (TreeNode *child : node->children) {
-        deleteTree(child);
-    }
-    delete node;
 }
