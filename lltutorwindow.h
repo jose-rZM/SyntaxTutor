@@ -17,7 +17,6 @@
 #include <QScrollBar>
 #include <QShortcut>
 #include <QTableWidget>
-
 #include <QTextDocument>
 #include <QTextEdit>
 #include <QTime>
@@ -41,65 +40,76 @@ class LLTutorWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    // ====== STRUCTS ==========================================
     struct TreeNode
     {
         QString label;
         std::vector<std::unique_ptr<TreeNode>> children;
     };
-    explicit LLTutorWindow(const Grammar& grammar, QWidget *parent = nullptr);
-    ~LLTutorWindow();
-    QString FormatGrammar(const Grammar& grammar);
 
-    void addMessage(const QString& text, bool isUser);
+    // ====== CONSTRUCTOR / DESTRUCTOR ==========================
+    explicit LLTutorWindow(const Grammar &grammar, QWidget *parent = nullptr);
+    ~LLTutorWindow();
+
+    // ====== CORE FUNCTIONALITY ================================
+    QString generateQuestion();
+    void updateState(bool isCorrect);
+    QString FormatGrammar(const Grammar &grammar);
+
+    // ====== UI INTERACTION ====================================
+    void addMessage(const QString &text, bool isUser);
+    void addWidgetMessage(QWidget *widget);
     void addDivisorLine(const QString &stateName);
     void exportConversationToPdf(const QString &filePath);
     void showTable();
     void updateProgressPanel();
-    void wrongAnimation();
-    void wrongUserResponseAnimation();
+
+    // ====== ANIMATIONS ========================================
     void animateLabelPop(QLabel *label);
     void animateLabelColor(QLabel *label, const QColor &flashColor);
+    void wrongAnimation();
+    void wrongUserResponseAnimation();
 
+    // ====== FIRST SET TREE (TEACH MODE) =======================
     void TeachFirstTree(const std::vector<std::string> &symbols,
                         std::unordered_set<std::string> &first_set,
                         int depth,
                         std::unordered_set<std::string> &processing,
                         QTreeWidgetItem *parent);
-    void addWidgetMessage(QWidget *widget);
 
     std::unique_ptr<TreeNode> buildTreeNode(const std::vector<std::string> &symbols,
                                             std::unordered_set<std::string> &first_set,
                                             int depth,
                                             std::unordered_set<std::string> &processing);
+
     void drawTree(const std::unique_ptr<TreeNode> &root,
                   QGraphicsScene *scene,
                   QPointF pos,
                   int hSpacing,
                   int vSpacing);
+
     void showTreeGraphics(std::unique_ptr<TreeNode> root);
 
-    // VERIFY RESPONSE ---------------------------------------
+    // ====== USER RESPONSE VERIFICATION ========================
     bool verifyResponse(const QString &userResponse);
-    bool verifyResponseForA(const QString& userResponse);
-    bool verifyResponseForA1(const QString& userResponse);
-    bool verifyResponseForA2(const QString& userResponse);
-    bool verifyResponseForB(const QString& userResponse);
-    bool verifyResponseForB1(const QString& userResponse);
-    bool verifyResponseForB2(const QString& userResponse);
+    bool verifyResponseForA(const QString &userResponse);
+    bool verifyResponseForA1(const QString &userResponse);
+    bool verifyResponseForA2(const QString &userResponse);
+    bool verifyResponseForB(const QString &userResponse);
+    bool verifyResponseForB1(const QString &userResponse);
+    bool verifyResponseForB2(const QString &userResponse);
     bool verifyResponseForC();
-    // END VERIFY RESPONSE ----------------------------------
 
-    // SOLUTIONS --------------------------------------------
-    QString solution(const std::string& state);
+    // ====== SOLUTIONS =========================================
+    QString solution(const std::string &state);
     QString solutionForA();
     QString solutionForA1();
     QString solutionForA2();
     QSet<QString> solutionForB();
     QSet<QString> solutionForB1();
     QSet<QString> solutionForB2();
-    // END SOLUTIONS -----------------------------------------
 
-    // FEEDBACK ----------------------------------------------
+    // ====== FEEDBACK ==========================================
     QString feedback();
     QString feedbackForA();
     QString feedbackForA1();
@@ -110,39 +120,34 @@ public:
     QString feedbackForB2();
     QString feedbackForBPrime();
     QString feedbackForC();
-    // END FEEDBACK ------------------------------------------
 
-    void updateState(bool isCorrect);
-    QString generateQuestion();
 private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
 
 private:
-    // HELPER FUNCTIONS --------------------
-    std::vector<std::string> qvectorToStdVector(const QVector<QString>& qvec);
-    QVector<QString> stdVectorToQVector(const std::vector<std::string>& vec);
-    QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string>& uset);
-    std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString>& qset);
-    void fillSortedGrammar();
-    // END HELPER FUNCTIONS ----------------
-
+    // ====== UI & CORE OBJECTS =================================
     Ui::LLTutorWindow *ui;
     Grammar grammar;
     LL1Parser ll1;
 
-    unsigned cntRightAnswers = 0, cntWrongAnswers = 0;
-
+    // ====== STATE TRACKING ====================================
     State currentState;
+    size_t currentRule = 0;
+    unsigned lltries = 0;
+    unsigned cntRightAnswers = 0;
+    unsigned cntWrongAnswers = 0;
+
+    // ====== GRAMMAR DATA ======================================
     QVector<QString> sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString formattedGrammar;
+
     QMap<QString, QMap<QString, QVector<QString>>> lltable;
     QVector<QVector<QString>> rawTable;
     QSet<QString> solutionSet;
-    size_t currentRule = 0;
-    unsigned lltries = 0;
 
+    // ====== CONVERSATION LOGGING ==============================
     struct MessageLog
     {
         QString message;
@@ -155,8 +160,14 @@ private:
     };
 
     QVector<MessageLog> conversationLog;
-
     QWidget *lastUserMessage = nullptr;
-};
 
+    // ====== HELPER FUNCTIONS ==================================
+    std::vector<std::string> qvectorToStdVector(const QVector<QString> &qvec);
+    QVector<QString> stdVectorToQVector(const std::vector<std::string> &vec);
+    QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string> &uset);
+    std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString> &qset);
+
+    void fillSortedGrammar();
+};
 #endif // LLTUTORWINDOW_H
