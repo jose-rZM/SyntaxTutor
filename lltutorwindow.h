@@ -5,14 +5,19 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QGraphicsColorizeEffect>
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QGraphicsView>
 #include <QListWidgetItem>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QPainter>
 #include <QPropertyAnimation>
 #include <QPushButton>
 #include <QScrollBar>
 #include <QShortcut>
 #include <QTableWidget>
+
 #include <QTextDocument>
 #include <QTextEdit>
 #include <QTime>
@@ -35,7 +40,11 @@ class LLTutorWindow : public QMainWindow
     Q_OBJECT
 
 public:
-
+    struct TreeNode
+    {
+        QString label;
+        QList<TreeNode *> children;
+    };
     explicit LLTutorWindow(const Grammar& grammar, QWidget *parent = nullptr);
     ~LLTutorWindow();
     QString FormatGrammar(const Grammar& grammar);
@@ -56,6 +65,14 @@ public:
                         std::unordered_set<std::string> &processing,
                         QTreeWidgetItem *parent);
     void addWidgetMessage(QWidget *widget);
+
+    TreeNode *buildTreeNode(const std::vector<std::string> &symbols,
+                            std::unordered_set<std::string> &first_set,
+                            int depth,
+                            std::unordered_set<std::string> &processing);
+    void drawTree(TreeNode *root, QGraphicsScene *scene, QPointF pos, int hSpacing, int vSpacing);
+    void showTreeGraphics(TreeNode *root);
+    void deleteTree(TreeNode *node);
 
     // VERIFY RESPONSE ---------------------------------------
     bool verifyResponse(const QString &userResponse);
