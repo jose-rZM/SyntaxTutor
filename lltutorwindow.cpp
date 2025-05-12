@@ -1232,6 +1232,7 @@ void LLTutorWindow::drawTree(const std::unique_ptr<LLTutorWindow::TreeNode> &roo
     QFont font("Noto Sans", 10);
     font.setBold(true);
     textItem->setFont(font);
+    textItem->setDefaultTextColor(Qt::white);
 
     // Centrar el texto horizontalmente en la posición
     QRectF textRect = textItem->boundingRect();
