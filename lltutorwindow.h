@@ -117,6 +117,8 @@ public:
     QString feedbackForAPrime();
     QString feedbackForB();
     QString feedbackForB1();
+    void feedbackForB1TreeWidget();
+    void feedbackForB1TreeGraphics();
     QString feedbackForB2();
     QString feedbackForBPrime();
     QString feedbackForC();

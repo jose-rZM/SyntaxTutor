@@ -848,7 +848,8 @@ void LLTutorWindow::addWidgetMessage(QWidget *widget)
     ui->listWidget->setItemWidget(item, widget);
 }
 
-QString LLTutorWindow::feedbackForB1() {
+void LLTutorWindow::feedbackForB1TreeWidget()
+{
     QTreeWidget *treeWidgetFeedback = new QTreeWidget();
     treeWidgetFeedback->setHeaderLabel("Derivación de CABECERA");
 
@@ -865,21 +866,32 @@ QString LLTutorWindow::feedbackForB1() {
                    processing,
                    root);
 
-    treeWidgetFeedback->expandAll();
+    treeWidgetFeedback->expandAll(); // treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
     // treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
 
     addWidgetMessage(treeWidgetFeedback);
+}
 
-    std::unordered_set<std::string> first_set2;
-    std::unordered_set<std::string> processing2;
+void LLTutorWindow::feedbackForB1TreeGraphics()
+{
+    std::unordered_set<std::string> first_set;
+    std::unordered_set<std::string> processing;
 
     auto treeroot = buildTreeNode(qvectorToStdVector(sortedGrammar.at(currentRule).second),
-                                  first_set2,
+                                  first_set,
                                   0,
-                                  processing2);
+                                  processing);
 
     showTreeGraphics(std::move(treeroot));
-    return "";
+}
+
+QString LLTutorWindow::feedbackForB1() {
+    feedbackForB1TreeWidget();
+    feedbackForB1TreeGraphics();
+    std::unordered_set<std::string> result;
+    ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
+    return "CAB(" + sortedGrammar.at(currentRule).second.join(' ') + ") = {"
+           + stdUnorderedSetToQSet(result).values().join(',') + "}";
 }
 
 QString LLTutorWindow::feedbackForB2() {
