@@ -192,7 +192,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     html += R"(<div class='page-break'></div>)";
 
     html += "<h2>Cabeceras</h2>";
-    for (const auto &nt : sortedNonTerminals) {
+    for (const auto &nt : std::as_const(sortedNonTerminals)) {
         const auto &first = stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
         html += "CAB(" + nt + ") = {";
         html += first.join(",");
@@ -200,13 +200,13 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     }
 
     html += "<h2>Siguientes</h2>";
-    for (const auto &nt : sortedNonTerminals) {
+    for (const auto &nt : std::as_const(sortedNonTerminals)) {
         const auto &follow = stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
         html += "SIG(" + nt + ") = {" + follow.join(',') + "}<br>";
     }
 
     html += "<h2>Símbolos directores</h2>";
-    for (const auto &[nt, production] : sortedGrammar) {
+    for (const auto &[nt, production] : std::as_const(sortedGrammar)) {
         const auto predSymbols = stdUnorderedSetToQSet(
                                      ll1.PredictionSymbols(nt.toStdString(),
                                                            qvectorToStdVector(production)))
@@ -221,7 +221,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
         html += "<th>" + QString::fromStdString(s) + "</th>";
     }
     html += "</tr>";
-    for (const auto &nt : sortedNonTerminals) {
+    for (const auto &nt : std::as_const(sortedNonTerminals)) {
         html += "<tr><td align='center'>" + nt + "</td>";
         for (const auto &s : ll1.gr_.st_.terminals_) {
             html += "<td align='center'>";
