@@ -1320,6 +1320,25 @@ bool LLTutorWindow::eventFilter(QObject *obj, QEvent *event)
                 return true; // Se maneja el evento
             }
         }
+
+        if (event->type() == QEvent::KeyPress) {
+            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+            double scaleFactor = 1.15;
+
+            if (keyEvent->modifiers() & Qt::ControlModifier) {
+                if (keyEvent->key() == Qt::Key_Plus || keyEvent->key() == Qt::Key_Equal) {
+                    view->scale(scaleFactor, scaleFactor);
+                    return true;
+                } else if (keyEvent->key() == Qt::Key_Minus) {
+                    view->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+                    return true;
+                } else if (keyEvent->key() == Qt::Key_0) {
+                    view->resetTransform();
+                    view->fitInView(view->scene()->itemsBoundingRect(), Qt::KeepAspectRatio);
+                    return true;
+                }
+            }
+        }
     }
 
     return QWidget::eventFilter(obj, event); // por defecto
