@@ -466,6 +466,7 @@ void LLTutorWindow::wrongAnimation()
     if (lastUserMessage == nullptr) {
         return;
     }
+
     QList<QLabel *> labels = lastUserMessage->findChildren<QLabel *>();
     if (labels.size() > 1) {
         QLabel *label = labels[1];
@@ -486,18 +487,6 @@ void LLTutorWindow::wrongAnimation()
             if (label && label->graphicsEffect()) {
                 label->graphicsEffect()->deleteLater();
                 label->setGraphicsEffect(nullptr);
-                label->setStyleSheet(R"(
-                    background-color: #00ADB5;
-                    color: white;
-                    padding: 12px 16px;
-                    border-top-left-radius: 18px;
-                    border-top-right-radius: 0px;
-                    border-bottom-left-radius: 18px;
-                    border-bottom-right-radius: 18px;
-                    border-right: 1.5px solid red;
-                    font-size: 14px;
-                    font-family: 'Noto Sans';
-                )");
             }
         });
         animation->start(QAbstractAnimation::DeleteWhenStopped);
