@@ -3,3 +3,6 @@ media/
 .vscode/
 *.o
 SyntaxTutor.pro.user
+AppDir/
+Dockerfile
+Makefile
