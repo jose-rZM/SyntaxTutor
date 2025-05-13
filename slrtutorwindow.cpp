@@ -18,7 +18,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
     shadow->setBlurRadius(10);
     shadow->setOffset(0);
-    shadow->setColor(QColor("#00C8D6"));
+    shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
     ui->cntRight->setText(QString::number(cntRightAnswers));
@@ -608,7 +608,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
     if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
-        animateLabelColor(ui->cross, QColor("#cc3333"));
+        animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
         QTimer::singleShot(250, this, [this]() {
             addMessage(feedback(), false);
             wrongAnimation();
@@ -618,7 +618,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);
-        animateLabelColor(ui->tick, QColor("#00cc66"));
+        animateLabelColor(ui->tick, QColor::fromRgb(0, 204, 102));
     }
     updateState(isCorrect);
     if (currentState == StateSlr::fin) {
@@ -1263,7 +1263,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
     std::vector<std::pair<std::string, std::vector<std::string>>> rules;
 
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
-    for (QString line : std::as_const(lines)) {
+    for (const QString &line : std::as_const(lines)) {
         std::string token = line.trimmed().toStdString();
 
         size_t arrowpos = token.find("->");
