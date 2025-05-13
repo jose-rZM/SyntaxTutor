@@ -24,7 +24,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, QWidget *parent)
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
     shadow->setBlurRadius(10);
     shadow->setOffset(0);
-    shadow->setColor(QColor("#00C8D6"));
+    shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
     ui->cntRight->setText(QString::number(cntRightAnswers));
@@ -589,14 +589,14 @@ void LLTutorWindow::on_confirmButton_clicked()
     if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
-        animateLabelColor(ui->cross, QColor("#cc3333"));
+        animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
         addMessage(feedback(), false);
         wrongAnimation();
         wrongUserResponseAnimation();
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);
-        animateLabelColor(ui->tick, QColor("#00cc66"));
+        animateLabelColor(ui->tick, QColor::fromRgb(0, 204, 102));
     }
     updateState(isCorrect);
 
