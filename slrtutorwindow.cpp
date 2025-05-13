@@ -597,11 +597,9 @@ void SLRTutorWindow::on_confirmButton_clicked()
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
         animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
-        QTimer::singleShot(250, this, [this]() {
-            addMessage(feedback(), false);
-            wrongAnimation();
-            wrongUserResponseAnimation();
-        });
+        addMessage(feedback(), false);
+        wrongAnimation();
+        wrongUserResponseAnimation();
 
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
@@ -626,7 +624,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
         }
         close();
     }
-    QTimer::singleShot(500, this, [this]() { addMessage(generateQuestion(), false); });
+    addMessage(generateQuestion(), false);
     ui->userResponse->clear();
 }
 
