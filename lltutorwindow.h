@@ -77,10 +77,11 @@ public:
                         std::unordered_set<std::string> &processing,
                         QTreeWidgetItem *parent);
 
-    std::unique_ptr<TreeNode> buildTreeNode(const std::vector<std::string> &symbols,
-                                            std::unordered_set<std::string> &first_set,
-                                            int depth,
-                                            std::unordered_set<std::string> &processing);
+    std::unique_ptr<TreeNode> buildTreeNode(
+        const std::vector<std::string> &symbols,
+        std::unordered_set<std::string> &first_set,
+        int depth,
+        std::vector<std::pair<std::string, std::vector<std::string>>> &active_derivations);
 
     void drawTree(const std::unique_ptr<TreeNode> &root,
                   QGraphicsScene *scene,
