@@ -7,10 +7,11 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
     , grammar({{"S", {{"A", "$"}}},
-               {"A", {{"B", "A", "B"}, {"e"}}},
-               {"B", {{"C", "B", "c"}, {"k"}}},
-               {"C", {{"C'", "d"}}},
-               {"C'", {{"a", "C'"}, {"EPSILON"}}}})
+               {"A", {{"B", "A'"}}},
+               {"A'", {{"d", "A'"}, {"EPSILON"}}},
+               {"B", {{"C", "j", "B'"}}},
+               {"B'", {{"B"}, {"EPSILON"}}},
+               {"C", {{"C", "c"}, {"EPSILON"}}}})
     , ll1(this->grammar)
 {
     ll1.CreateLL1Table();
@@ -895,12 +896,12 @@ void LLTutorWindow::feedbackForB1TreeWidget()
 void LLTutorWindow::feedbackForB1TreeGraphics()
 {
     std::unordered_set<std::string> first_set;
-    std::unordered_set<std::string> processing;
+    std::vector<std::pair<std::string, std::vector<std::string>>> active_derivations;
 
     auto treeroot = buildTreeNode(qvectorToStdVector(sortedGrammar.at(currentRule).second),
                                   first_set,
                                   0,
-                                  processing);
+                                  active_derivations);
 
     showTreeGraphics(std::move(treeroot));
 }
@@ -1183,7 +1184,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
     const std::vector<std::string> &symbols,
     std::unordered_set<std::string> &first_set,
     int depth,
-    std::unordered_set<std::string> &processing)
+    std::vector<std::pair<std::string, std::vector<std::string>>> &active_derivations)
 {
     if (symbols.empty())
         return nullptr;
@@ -1204,15 +1205,19 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
         return node;
     }
 
-    if (processing.contains(current)) {
-        auto cycle = std::make_unique<TreeNode>();
-        cycle->label = "Evitar ciclo " + QString::fromStdString(current);
-        node->children.push_back(std::move(cycle));
-        return node;
-    }
-
-    processing.insert(current);
     for (const auto &prod : ll1.gr_.g_.at(current)) {
+        auto derivation_key = std::make_pair(current, prod);
+
+        if (std::count(active_derivations.begin(), active_derivations.end(), derivation_key) > 1) {
+            auto cycle = std::make_unique<TreeNode>();
+            cycle->label = "Evitar ciclo: " + QString::fromStdString(current) + " → "
+                           + stdVectorToQVector(prod).join(' ');
+            node->children.push_back(std::move(cycle));
+            continue;
+        }
+
+        active_derivations.push_back(derivation_key);
+
         QString prodStr = QString::fromStdString(current) + " → "
                           + stdVectorToQVector(prod).join(' ');
         auto prodNode = std::make_unique<TreeNode>();
@@ -1220,20 +1225,20 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
         std::vector<std::string> new_syms = prod;
         new_syms.insert(new_syms.end(), rest.begin(), rest.end());
 
-        if (auto sub = buildTreeNode(new_syms, first_set, depth + 1, processing))
+        if (auto sub = buildTreeNode(new_syms, first_set, depth + 1, active_derivations))
             prodNode->children.push_back(std::move(sub));
 
         if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
             auto epsNode = std::make_unique<TreeNode>();
-            epsNode->label = "ε → continuar con: " + stdVectorToQVector(rest).join(' ');
-            if (auto sub = buildTreeNode(rest, first_set, depth + 1, processing))
+            epsNode->label = "ε → continuar con:\n" + stdVectorToQVector(rest).join(' ');
+            if (auto sub = buildTreeNode(rest, first_set, depth + 1, active_derivations))
                 epsNode->children.push_back(std::move(sub));
             prodNode->children.push_back(std::move(epsNode));
         }
 
         node->children.push_back(std::move(prodNode));
+        active_derivations.pop_back();
     }
-    processing.erase(current);
     return node;
 }
 
