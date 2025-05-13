@@ -7,11 +7,12 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
     , grammar({{"S", {{"A", "$"}}},
-               {"A", {{"B", "A'"}}},
-               {"A'", {{"d", "A'"}, {"EPSILON"}}},
-               {"B", {{"C", "j", "B'"}}},
-               {"B'", {{"B"}, {"EPSILON"}}},
-               {"C", {{"C", "c"}, {"EPSILON"}}}})
+               {"A", {{"C", "F"}}},
+               {"B", {{"D", "B", "D"}, {"EPSILON"}}},
+               {"C", {{"d", "C", "b"}, {"EPSILON"}}},
+               {"D", {{"E"}}},
+               {"E", {{"a", "E"}, {"EPSILON"}}},
+               {"F", {{"A", "B"}, {"B"}}}})
     , ll1(this->grammar)
 {
     ll1.CreateLL1Table();
@@ -1193,14 +1194,17 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
     std::vector<std::string> rest(symbols.begin() + 1, symbols.end());
 
     auto node = std::make_unique<TreeNode>();
-    node->label = QString::fromStdString(current) + ' ' + stdVectorToQVector(rest).join(' ');
+    node->label = "CAB(" + QString::fromStdString(current);
+    node->label += rest.empty() ? ")" : ' ' + stdVectorToQVector(rest).join(' ') + ")";
 
     if (ll1.gr_.st_.IsTerminal(current)) {
         if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
             return nullptr;
         }
         auto child = std::make_unique<TreeNode>();
-        child->label = (current == ll1.gr_.st_.EOL_) ? "ε → Fin" : "Añadir a CAB";
+        child->label = (current == ll1.gr_.st_.EOL_)
+                           ? "Añadir ε a CAB"
+                           : "Añadir " + QString::fromStdString(current) + " a CAB";
         node->children.push_back(std::move(child));
         return node;
     }
@@ -1208,7 +1212,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
     for (const auto &prod : ll1.gr_.g_.at(current)) {
         auto derivation_key = std::make_pair(current, prod);
 
-        if (std::count(active_derivations.begin(), active_derivations.end(), derivation_key) > 1) {
+        if (std::count(active_derivations.begin(), active_derivations.end(), derivation_key) > 0) {
             auto cycle = std::make_unique<TreeNode>();
             cycle->label = "Evitar ciclo: " + QString::fromStdString(current) + " → "
                            + stdVectorToQVector(prod).join(' ');
@@ -1230,7 +1234,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
 
         if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
             auto epsNode = std::make_unique<TreeNode>();
-            epsNode->label = "ε → continuar con:\n" + stdVectorToQVector(rest).join(' ');
+            epsNode->label = "ε → continuar con: " + stdVectorToQVector(rest).join(' ');
             if (auto sub = buildTreeNode(rest, first_set, depth + 1, active_derivations))
                 epsNode->children.push_back(std::move(sub));
             prodNode->children.push_back(std::move(epsNode));
@@ -1242,7 +1246,19 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
     return node;
 }
 
-void LLTutorWindow::drawTree(const std::unique_ptr<LLTutorWindow::TreeNode> &root,
+int LLTutorWindow::computeSubtreeWidth(const std::unique_ptr<TreeNode> &node, int hSpacing)
+{
+    if (!node || node->children.empty())
+        return hSpacing; // nodo hoja ocupa al menos hSpacing
+
+    int width = 0;
+    for (const auto &child : node->children) {
+        width += computeSubtreeWidth(child, hSpacing);
+    }
+    return std::max(width, hSpacing);
+}
+
+void LLTutorWindow::drawTree(const std::unique_ptr<TreeNode> &root,
                              QGraphicsScene *scene,
                              QPointF pos,
                              int hSpacing,
@@ -1251,35 +1267,62 @@ void LLTutorWindow::drawTree(const std::unique_ptr<LLTutorWindow::TreeNode> &roo
     if (!root)
         return;
 
-    // Crear el texto del nodo
     QGraphicsTextItem *textItem = scene->addText(root->label);
-
     QFont font("Noto Sans", 10);
     font.setBold(true);
     textItem->setFont(font);
     textItem->setDefaultTextColor(Qt::white);
 
-    // Centrar el texto horizontalmente en la posición
     QRectF textRect = textItem->boundingRect();
     QPointF centeredPos = pos - QPointF(textRect.width() / 2, 0);
     textItem->setPos(centeredPos);
 
-    // Calcular el total del ancho que ocupan los hijos
-    int numChildren = root->children.size();
-    int totalWidth = (numChildren - 1) * hSpacing;
-    int xOffset = -totalWidth / 2;
+    if (root->children.empty())
+        return;
 
-    // Dibujar las conexiones y los hijos
-    QPen pen(Qt::white);
+    // Calcular el ancho total del subárbol para distribuir los hijos correctamente
+    int totalWidth = 0;
+    std::vector<int> subtreeWidths;
     for (const auto &child : root->children) {
-        QPointF childPos = pos + QPointF(xOffset, vSpacing);
-
-        // Línea desde el centro inferior del nodo padre al centro superior del hijo
-        scene->addLine(pos.x(), pos.y() + textRect.height(), childPos.x(), childPos.y(), pen);
-
-        drawTree(child, scene, childPos, hSpacing, vSpacing);
-        xOffset += hSpacing;
+        int w = computeSubtreeWidth(child, hSpacing);
+        subtreeWidths.push_back(w);
+        totalWidth += w;
     }
+
+    int xOffset = pos.x() - totalWidth / 2;
+    int yChild = pos.y() + vSpacing;
+    QPen pen(Qt::white);
+
+    for (size_t i = 0; i < root->children.size(); ++i) {
+        int childWidth = subtreeWidths[i];
+        int childCenterX = xOffset + childWidth / 2;
+        QPointF childPos(childCenterX, yChild);
+
+        scene->addLine(pos.x(), pos.y() + textRect.height(), childPos.x(), childPos.y(), pen);
+        drawTree(root->children[i], scene, childPos, hSpacing, vSpacing);
+
+        xOffset += childWidth;
+    }
+}
+
+#include <QWheelEvent>
+bool LLTutorWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if (auto *view = qobject_cast<QGraphicsView *>(obj)) {
+        if (event->type() == QEvent::Wheel) {
+            QWheelEvent *wheelEvent = static_cast<QWheelEvent *>(event);
+            if (QApplication::keyboardModifiers() & Qt::ControlModifier) {
+                double scaleFactor = 1.15;
+                if (wheelEvent->angleDelta().y() > 0)
+                    view->scale(scaleFactor, scaleFactor);
+                else
+                    view->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+                return true; // Se maneja el evento
+            }
+        }
+    }
+
+    return QWidget::eventFilter(obj, event); // por defecto
 }
 
 void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> root)
@@ -1295,7 +1338,7 @@ void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> ro
     view->setRenderHint(QPainter::Antialiasing);
     view->setMinimumSize(1000, 700);
     view->setAlignment(Qt::AlignCenter);
-
+    view->installEventFilter(this);
     QVBoxLayout *layout = new QVBoxLayout(dialog);
     layout->addWidget(view);
     dialog->setLayout(layout);
