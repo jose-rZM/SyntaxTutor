@@ -83,6 +83,7 @@ public:
         int depth,
         std::vector<std::pair<std::string, std::vector<std::string>>> &active_derivations);
 
+    int computeSubtreeWidth(const std::unique_ptr<TreeNode> &node, int hSpacing);
     void drawTree(const std::unique_ptr<TreeNode> &root,
                   QGraphicsScene *scene,
                   QPointF pos,
@@ -127,6 +128,9 @@ public:
 private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     // ====== UI & CORE OBJECTS =================================
