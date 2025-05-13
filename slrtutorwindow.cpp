@@ -1206,7 +1206,7 @@ std::unordered_set<Lr0Item> SLRTutorWindow::ingestUserItems(const QString &userR
     std::unordered_set<Lr0Item> items;
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
 
-    for (const QString &line : lines) {
+    for (const QString &line : std::as_const(lines)) {
         std::string token = line.trimmed().toStdString();
         size_t arrowpos = token.find("->");
         if (arrowpos == std::string::npos) {
@@ -1263,7 +1263,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
     std::vector<std::pair<std::string, std::vector<std::string>>> rules;
 
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
-    for (QString line : lines) {
+    for (QString line : std::as_const(lines)) {
         std::string token = line.trimmed().toStdString();
 
         size_t arrowpos = token.find("->");
