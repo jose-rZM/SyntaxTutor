@@ -66,6 +66,7 @@ public:
     bool verifyResponseForD(const QString& userResponse);
     bool verifyResponseForD1(const QString& userResponse);
     bool verifyResponseForD2(const QString& userResponse);
+    bool verifyResponseForE(const QString &userResponse);
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -87,6 +88,7 @@ public:
     QString solutionForD();
     QString solutionForD1();
     QString solutionForD2();
+    QSet<unsigned> solutionForE();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -113,6 +115,7 @@ public:
     QString feedbackForD1();
     QString feedbackForD2();
     QString feedbackForDPrime();
+    QString feedbackForE();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -153,6 +156,7 @@ private:
     QStringList followSymbols; // Track following symbols after the dot for CB question, filled in CA
     qsizetype currentFollowSymbolsIdx = 0; // Track current following symbol, used in CB-CB loop
     unsigned int nextStateId; // Filled in generateQuestion, next state used in C-CA-CB questions
+    QVector<const state *> statesWithLr0Conflict;
     // END VARIABLES
 
     struct MessageLog {
