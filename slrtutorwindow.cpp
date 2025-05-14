@@ -13,6 +13,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     slr1.DebugStates();
     slr1.DebugActions();
 #endif
+    fillSortedGrammar();
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
@@ -29,6 +30,17 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     formattedGrammar = FormatGrammar(grammar);
+
+    sortedNonTerminals = stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
+    std::sort(sortedNonTerminals.begin(),
+              sortedNonTerminals.end(),
+              [&grammar](const QString &a, const QString &b) {
+                  if (a == grammar.axiom_)
+                      return true;
+                  if (b == grammar.axiom_)
+                      return false;
+                  return a < b;
+              });
 
     ui->gr->setFont(QFont("Noto Sans", 14));
     ui->gr->setText(formattedGrammar);
@@ -1326,6 +1338,36 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
     }
 
     return result;
+}
+
+void SLRTutorWindow::fillSortedGrammar()
+{
+    auto it = grammar.g_.find(grammar.axiom_);
+    QVector<QPair<QString, QVector<QString>>> rules;
+    QPair<QString, QVector<QString>> rule({QString::fromStdString(grammar.axiom_), {}});
+
+    if (it != grammar.g_.end()) {
+        for (const auto &prod : it->second) {
+            for (const auto &symbol : prod) {
+                rule.second.push_back(QString::fromStdString(symbol));
+            }
+        }
+    }
+    rules.push_back(rule);
+    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(), grammar.g_.end());
+    for (const auto &[lhs, productions] : sortedRules) {
+        if (lhs == grammar.axiom_)
+            continue;
+        rule = {QString::fromStdString(lhs), {}};
+        for (const auto &prod : productions) {
+            for (const auto &symbol : prod) {
+                rule.second.push_back(QString::fromStdString(symbol));
+            }
+            rules.push_back(rule);
+            rule = {QString::fromStdString(lhs), {}};
+        }
+    }
+    sortedGrammar = rules;
 }
 
 void SLRTutorWindow::on_userResponse_textChanged()

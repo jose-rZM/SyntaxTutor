@@ -38,7 +38,7 @@ public:
     explicit SLRTutorWindow(const Grammar& grammar, QWidget *parent = nullptr);
     ~SLRTutorWindow();
     QString FormatGrammar(const Grammar& grammar);
-
+    void fillSortedGrammar();
     void addMessage(const QString& text, bool isUser);
     void addDivisorLine(const QString &stateName);
     void exportConversationToPdf(const QString& filePath);
@@ -137,6 +137,7 @@ private:
 
     Ui::SLRTutorWindow *ui;
     Grammar grammar;
+    QVector<QString> sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString formattedGrammar;
     SLR1Parser slr1;
