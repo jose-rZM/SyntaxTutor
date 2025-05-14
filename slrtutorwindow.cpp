@@ -13,6 +13,24 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     slr1.DebugStates();
     slr1.DebugActions();
 #endif
+    std::ranges::for_each(slr1.states_, [this](const state &st) {
+        bool hasComplete = false;
+        bool hasIncomplete = false;
+
+        for (const Lr0Item &it : st.items_) {
+            if (it.IsComplete()) {
+                hasComplete = true;
+            } else {
+                hasIncomplete = true;
+            }
+
+            if (hasComplete && hasIncomplete) {
+                statesWithLr0Conflict.append(&st);
+                break;
+            }
+        }
+    });
+
     fillSortedGrammar();
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
@@ -51,7 +69,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     updateProgressPanel();
     addMessage(QString("La gramática es:\n" + formattedGrammar), false);
 
-    currentState = StateSlr::A;
+    currentState = StateSlr::E;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
@@ -702,8 +720,8 @@ QString SLRTutorWindow::generateQuestion()
     case StateSlr::D_prime:
         return "Entonces, ¿cuántas filas y columnas tiene la tabla SLR(1)?";
     case StateSlr::E: {
-        showTable();
-        return "Rellena la tabla.";
+        return "¿Hay estados con algún conflicto LR(0)? Si es así, indica los id separados "
+               "por ',': 1,2,... En caso contrario, deja la respuesta vacía.";
     }
     default:
         return "";
@@ -787,6 +805,8 @@ void SLRTutorWindow::updateState(bool isCorrect)
     case StateSlr::D_prime:
         currentState = isCorrect ? StateSlr::E : StateSlr::E;
         break;
+    case StateSlr::E:
+        currentState = isCorrect ? StateSlr::fin : StateSlr::E;
     case StateSlr::fin:
         break;
     }
@@ -827,6 +847,8 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
         return verifyResponseForD2(userResponse);
     case StateSlr::D_prime:
         return verifyResponseForD(userResponse);
+    case StateSlr::E:
+        return verifyResponseForE(userResponse);
     default:
         return "";
     }
@@ -904,6 +926,11 @@ bool SLRTutorWindow::verifyResponseForD1(const QString &userResponse)
 bool SLRTutorWindow::verifyResponseForD2(const QString &userResponse)
 {
     return userResponse == solutionForD2();
+}
+
+bool SLRTutorWindow::verifyResponseForE(const QString &userResponse)
+{
+    return false;
 }
 
 /************************************************************
@@ -1002,6 +1029,15 @@ QString SLRTutorWindow::solutionForD2()
     return QString::number(terminals + non_terminals);
 }
 
+QSet<unsigned> SLRTutorWindow::solutionForE()
+{
+    QSet<unsigned> ids;
+    for (const state *st : statesWithLr0Conflict) {
+        ids.insert(st->id_);
+    }
+    return ids;
+}
+
 /************************************************************
  *                         FEEDBACK                         *
  ************************************************************/
@@ -1037,6 +1073,8 @@ QString SLRTutorWindow::feedback()
         return feedbackForD2();
     case StateSlr::D_prime:
         return feedbackForDPrime();
+    case StateSlr::E:
+        return feedbackForE();
     default:
         return "Error en feedback.";
     }
@@ -1151,6 +1189,24 @@ QString SLRTutorWindow::feedbackForDPrime()
                    "columnas.")
         .arg(solutionForD1())
         .arg(solutionForD2());
+}
+
+QString SLRTutorWindow::feedbackForE()
+{
+    QString feedback = QString(
+        "Un estado tiene un conflicto LR(0) si se puede aplicar tanto una acción shift, "
+        "como una acción reduce. Es decir, estados con items completos y no completos. A los "
+        "completos se les aplica reduce y a los no completos, shift.");
+    if (statesWithLr0Conflict.isEmpty()) {
+        return feedback + " En este caso, no hay estados con conflicto LR(0).";
+    } else {
+        QStringList ids;
+        for (const state *st : std::as_const(statesWithLr0Conflict)) {
+            ids.append(QString::number(st->id_));
+        }
+        return feedback + QString(" En este caso, los estados con conflicto LR(0) son ")
+               + ids.join(", ");
+    }
 }
 
 /************************************************************
