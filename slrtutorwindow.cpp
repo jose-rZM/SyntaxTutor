@@ -1005,7 +1005,7 @@ bool SLRTutorWindow::verifyResponseForC(const QString &userResponse)
 
 bool SLRTutorWindow::verifyResponseForCA(const QString &userResponse)
 {
-    QStringList response = userResponse.split(",");
+    QStringList response = userResponse.split(",", Qt::SkipEmptyParts);
     QStringList expected = solutionForCA();
     QSet<QString> responseSet(response.begin(), response.end());
     QSet<QString> expectedSet(expected.begin(), expected.end());
@@ -1242,7 +1242,7 @@ QMap<unsigned, unsigned> SLRTutorWindow::solutionForE2()
 QSet<unsigned> SLRTutorWindow::solutionForF()
 {
     QSet<unsigned> ids;
-    for (const state *st : statesWithLr0Conflict)
+    for (const state *st : std::as_const(statesWithLr0Conflict))
         ids.insert(st->id_);
     return ids;
 }
@@ -1332,24 +1332,31 @@ QString SLRTutorWindow::feedback()
 
 QString SLRTutorWindow::feedbackForA()
 {
-    return "El estado inicial se construye con el axioma";
+    return "El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -> · "
+           "A$. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo "
+           "inicial.";
 }
 
 QString SLRTutorWindow::feedbackForA1()
 {
-    return QString("El axioma de la gramática es %1").arg(QString::fromStdString(grammar.axiom_));
+    return QString("El axioma es el símbolo desde el que comienza toda la derivación. En esta "
+                   "gramática, el axioma es: %1.")
+        .arg(QString::fromStdString(grammar.axiom_));
 }
 
 QString SLRTutorWindow::feedbackForA2()
 {
-    return QString("El símbolo que sigue al · es %1")
+    return QString("El símbolo que sigue al (·) indica cuál es el siguiente símbolo que debe ser "
+                   "procesado. En este ítem, ese símbolo es: %1.")
         .arg(QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0)));
 }
 
 QString SLRTutorWindow::feedbackForA3()
 {
     QString antecedent = QString::fromStdString(grammar.g_.at(grammar.axiom_).at(0).at(0));
-    QString result = QString("Las reglas cuyo antecedente es '%1' son:\n").arg(antecedent);
+    QString result = QString("Como el símbolo tras el · es %1, se debe expandir sus producciones "
+                             "en el cierre. Las reglas cuyo antecedente es %1 son:\n")
+                         .arg(antecedent);
 
     for (auto it = sortedGrammar.constBegin(); it != sortedGrammar.constEnd(); ++it) {
         if (it->first == antecedent) {
@@ -1369,28 +1376,30 @@ QString SLRTutorWindow::feedbackForA4()
                  grammar.st_.EPSILON_,
                  grammar.st_.EOL_};
     std::unordered_set<Lr0Item> item{init};
-    return QString::fromStdString(slr1.TeachClosure(item));
+    return "El cierre incluye todas las producciones de los no terminales que aparecen tras el ·, "
+           "añadidas recursivamente.\n"
+           + QString::fromStdString(slr1.TeachClosure(item));
 }
 
 QString SLRTutorWindow::feedbackForAPrime()
 {
     const auto &st = std::ranges::find_if(slr1.states_, [](const state &st) { return st.id_ == 0; });
     QString items = QString::fromStdString(slr1.PrintItems(st->items_));
-    return QString("El estado inicial es el cierre del cierre del axioma:\n%1").arg(items);
+    return QString("El estado inicial (I0) es el cierre del ítem con el axioma. Contiene todos los "
+                   "ítems posibles a partir de ese punto.\n%1")
+        .arg(items);
 }
 
 QString SLRTutorWindow::feedbackForB()
 {
-    if (userMadeStates.size() == 1) {
-        return "Actualmente se ha generado un solo estado";
-    } else {
-        return QString("Se han generado %1 estados").arg(userMadeStates.size());
-    }
+    return QString("Se ha(n) generado %1 estado(s) hasta ahora. Cada transición sobre un símbolo "
+                   "genera un nuevo estado si lleva a un conjunto distinto de ítems.")
+        .arg(userMadeStates.size());
 }
 
 QString SLRTutorWindow::feedbackForC()
 {
-    return QString("Hay %1 ítems en el estado %2")
+    return QString("El estado I%2 contiene %1 ítem(s).")
         .arg(currentSlrState.items_.size())
         .arg(currentStateId);
 }
@@ -1400,11 +1409,15 @@ QString SLRTutorWindow::feedbackForCA()
     QStringList following = solutionForCA();
     if (std::ranges::any_of(currentSlrState.items_,
                             [](const Lr0Item &item) { return item.IsComplete(); })) {
-        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a· o X -> a·$ "
-                       "(completo), el símbolo siguiente es siempre EPSILON.")
+        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a ·, X -> a·$ o X "
+                       "-> EPSILON · "
+                       "(completo), el símbolo siguiente es siempre EPSILON. En estas condiciones, "
+                       "se puede aplicar un reduce.")
             .arg(following.join(", "));
     } else {
-        return QString("Los símbolos son: %1").arg(following.join(", "));
+        return QString("Los símbolos que aparecen tras el punto (·) en los ítems determinan "
+                       "posibles transiciones. En este estado, esos símbolos son: %1.")
+            .arg(following.join(", "));
     }
 }
 
@@ -1417,18 +1430,19 @@ QString SLRTutorWindow::feedbackForCB()
 
 QString SLRTutorWindow::feedbackForD()
 {
-    return QString(
-        "El número de filas y columnas tiene relación con los estados y símbolos de la gramática.");
+    return QString("La tabla SLR(1) tiene una fila por cada estado y columnas por cada símbolo "
+                   "terminal y no terminal (sin ε).");
 }
 
 QString SLRTutorWindow::feedbackForD1()
 {
-    return QString("Hay %1 estados").arg(slr1.states_.size());
+    return QString("Se han generado %1 estados").arg(slr1.states_.size());
 }
 
 QString SLRTutorWindow::feedbackForD2()
 {
-    return QString("Hay un total de %1 de símbolos gramáticas, excluyendo la cadena vacía.")
+    return QString(
+               "Hay un total de %1 de símbolos gramáticas, excluyendo la cadena vacía (EPSILON).")
         .arg(solutionForD2());
 }
 
@@ -1443,8 +1457,8 @@ QString SLRTutorWindow::feedbackForDPrime()
 
 QString SLRTutorWindow::feedbackForE()
 {
-    return "Un estado cuenta para la acción reduce si posee al menos un ítem "
-           "completo (el punto al final).";
+    return "Un estado es candidato para una acción REDUCE si contiene algún ítem de la forma X -> "
+           "α ·, es decir, con el punto al final.";
 }
 
 QString SLRTutorWindow::feedbackForE1()
@@ -1453,7 +1467,8 @@ QString SLRTutorWindow::feedbackForE1()
     QSet<unsigned> sol = solutionForE1();
     for (unsigned id : sol)
         ids << QString::number(id);
-    return "Los estados con ítem completo son: " + ids.join(", ");
+    return "Los estados con ítems completos son: " + ids.join(", ")
+           + ". Estos son los únicos estados donde puede haber acciones REDUCE en la tabla.";
 }
 
 QString SLRTutorWindow::feedbackForE2()
@@ -1467,8 +1482,9 @@ QString SLRTutorWindow::feedbackForE2()
 
 QString SLRTutorWindow::feedbackForF()
 {
-    QString txt = "Hay conflicto LR(0) cuando un mismo estado contiene ítems completos (→ reduce) "
-                  "y no completos (→ shift).";
+    QString txt = "Un conflicto LR(0) ocurre cuando un mismo estado contiene tanto: ítems "
+                  "completos (REDUCE) como ítems con algún símbolo tras el · (SHIFT). En estos "
+                  "casos, la acción no es única, aparece un conflicto que debe resolverse.";
     if (statesWithLr0Conflict.isEmpty())
         return txt + " En esta colección no aparece ningún conflicto.";
     QStringList ids;
@@ -1481,8 +1497,8 @@ QString SLRTutorWindow::feedbackForF()
 QString SLRTutorWindow::feedbackForFA()
 {
     QStringList list = solutionForFA().values();
-    return QString("Para resolver el conflicto en I%1 se coloca acción reduce "
-                   "solo con los siguientes terminales (FOLLOW del antecedente): %2")
+    return QString("Para resolver el conflicto en I%1, se usan los símbolos SIG del antecedente. "
+                   "Solo se aplica REDUCE en los terminales: %2.")
         .arg(currentConflictStateId)
         .arg(list.join(", "));
 }
@@ -1490,7 +1506,7 @@ QString SLRTutorWindow::feedbackForFA()
 QString SLRTutorWindow::feedbackForG()
 {
     QStringList list = solutionForG().values();
-    return QString("En I%1 la reducción se sitúa únicamente bajo los terminales: %2")
+    return QString("En el estado %1, se aplica REDUCE en los terminales: %2.")
         .arg(currentReduceStateId)
         .arg(list.join(", "));
 }
