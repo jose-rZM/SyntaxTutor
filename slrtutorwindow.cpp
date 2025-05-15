@@ -679,20 +679,22 @@ QString SLRTutorWindow::generateQuestion()
 {
     switch (currentState) {
     case StateSlr::A:
-        return "¿Cuál es el estado inicial? Formato:\nX -> a.b\nX -> .b\nX -> EPSILON.";
+        return "¿Cuál es el estado inicial del analizador?\nFormato:\nX -> a.b\nX -> .b\nX -> "
+               "EPSILON.";
     case StateSlr::A1:
         return "¿Cuál es el axioma de la gramática?";
     case StateSlr::A2:
-        return "Siendo el item asociado: S -> · A $, ¿cuál es el símbolo que sigue al ·?";
+        return "Dado el ítem: S → · A$\n"
+               "¿Qué símbolo aparece justo después del punto (·)?";
     case StateSlr::A3:
-        return "En caso de ser no terminal, ¿cualés son las reglas cuyo antecedente es el símbolo "
-               "que sigue al ·?";
+        return "Si el símbolo tras el punto (·) es un no terminal,\n"
+               "¿cuáles son las reglas cuyo antecedente es ese símbolo?";
     case StateSlr::A4:
-        return "¿Cuál es el cierre del axioma?";
+        return "¿Cuál es el cierre del ítem inicial?";
     case StateSlr::A_prime:
         return "Entonces, ¿cuál es el estado inicial?";
     case StateSlr::B:
-        return "¿Cuántos estados tiene el analizador ahora?";
+        return "¿Cuántos estados se han generado en la colección LR(0) hasta ahora?";
     case StateSlr::C: {
         currentStateId = statesIdQueue.front();
         statesIdQueue.pop();
@@ -700,48 +702,53 @@ QString SLRTutorWindow::generateQuestion()
             return st.id_ == currentStateId;
         });
         currentSlrState = *currState;
-        return QString("¿Cuántos ítems tiene el estado %1?\n%2")
+        return QString("Estado I%1:\n%2\n"
+                       "¿Cuántos ítems contiene este estado?")
             .arg(currentStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentSlrState.items_)));
     }
     case StateSlr::CA:
-        return QString("¿Cuáles son los símbolos que aparecen después del ·? Formato: X,Y,Z");
+        return "¿Qué símbolos aparecen después del punto (·) en los ítems de este estado?\n"
+               "Formato: a,b,c";
     case StateSlr::CB: {
         QString currentSymbol = followSymbols.at(currentFollowSymbolsIdx);
         if (currentSymbol.toStdString() == slr1.gr_.st_.EPSILON_) {
-            return QString(
-                       "Calcula DELTA(I%1, %2). Deja la entrada vacía si no se genera un estado.")
+            return QString("Calcula δ(I%1, %2):\n"
+                           "Deja la entrada vacía si el resultado es vacío.")
                 .arg(currentStateId)
                 .arg(currentSymbol);
         } else {
-            nextStateId = slr1.transitions_.at(static_cast<unsigned int>(currentStateId))
-                              .at(currentSymbol.toStdString());
-
-            statesIdQueue.push(nextStateId);
-            return QString("Calcula DELTA(I%1, %2), este será el estado número %3")
+            return QString("Calcula δ(I%1, %2):\n"
+                           "¿Qué estado se genera al hacer transición con %2?\n"
+                           "Este será el estado número %3")
                 .arg(currentStateId)
                 .arg(currentSymbol)
                 .arg(nextStateId);
         }
     }
     case StateSlr::D:
-        return "¿Cuántas filas y columnas tiene la tabla SLR(1)? Formato: %,%";
+        return "¿Cuántas filas y columnas tiene la tabla SLR(1)?\n"
+               "Formato: filas,columnas";
     case StateSlr::D1:
-        return "¿Cuántos estados se han generado?";
+        return "¿Cuántos estados contiene la colección LR(0)?";
     case StateSlr::D2:
-        return "¿Cuántos símbolos terminales y no terminales, excluyendo epsilon, hay?";
+        return "¿Cuántos símbolos terminales y no terminales hay en la gramática?\n"
+               "(Excluye ε. Incluye $)";
     case StateSlr::D_prime:
-        return "Entonces, ¿cuántas filas y columnas tiene la tabla SLR(1)?";
+        return "Con los datos anteriores,\n"
+               "¿cuál es el tamaño total (filas,columnas) de la tabla SLR(1)?";
     case StateSlr::E:
-        return "¿Cuántos estados contienen al menos un ítem completo (X -> α·)?";
+        return "¿Cuántos estados contienen al menos un ítem completo?";
     case StateSlr::E1:
-        return "Indica los id de esos estados separados por comas. Ej.: 2,5,7";
+        return "Indica los ID de los estados con ítems completos, separados por comas.\n"
+               "Ejemplo: 2,5,7";
     case StateSlr::E2:
-        return "Para cada uno de esos estados indica cuántos ítems completos contiene.\n"
-               "Formato: id1:n1,id2:n2,…";
+        return "Indica cuántos ítems completos tiene cada estado.\n"
+               "Formato: id1:n1, id2:n2, ...";
     case StateSlr::F:
-        return "¿Qué estados presentan un conflicto LR(0)? "
-               "Si no hay ninguno, deja la respuesta vacía.";
+        return "¿Qué estados presentan un CONFLICTO LR(0)?\n"
+               "Deja la respuesta vacía si no hay conflictos.\n"
+               "Formato: 1,3,7";
     case StateSlr::FA: {
         // cola de estados con conflicto: conflictStatesIdQueue
         currentConflictStateId = conflictStatesIdQueue.front();
@@ -753,8 +760,8 @@ QString SLRTutorWindow::generateQuestion()
 
         // mostramos los ítems para que el alumno se oriente
         return QString("Estado I%1 con conflicto LR(0):\n%2\n"
-                       "Indica los símbolos TERMINALES sobre los que debe aplicarse reducción "
-                       "según los símbolos SIG del antecedente. Formato: a,b,c (vacío si ninguno).")
+                       "Indica los símbolos terminales sobre los que debe aplicarse reducción.\n"
+                       "Formato: a,b,c (vacío si ninguno).")
             .arg(currentConflictStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentConflictState.items_)));
     }
@@ -767,8 +774,8 @@ QString SLRTutorWindow::generateQuestion()
         currentReduceState = *it;
 
         return QString("Estado I%1:\n%2\n"
-                       "Indica los TERMINALES sobre los que se aplicará la reducción.\n"
-                       "Formato: a,b,c — deja vacío si no corresponde ninguno.")
+                       "Indica los TERMINALES sobre los que se aplicará REDUCCIÓN.\n"
+                       "Formato: a,b,c — vacío si no se aplica en ninguno.")
             .arg(currentReduceStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentReduceState.items_)));
     }
