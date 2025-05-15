@@ -26,11 +26,11 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
 
             if (hasComplete && hasIncomplete) {
                 statesWithLr0Conflict.append(&st);
+                conflictStatesIdQueue.push(st.id_);
                 break;
             }
         }
     });
-
     fillSortedGrammar();
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
@@ -720,17 +720,32 @@ QString SLRTutorWindow::generateQuestion()
     case StateSlr::D_prime:
         return "Entonces, ¿cuántas filas y columnas tiene la tabla SLR(1)?";
     case StateSlr::E:
-        return "¿Hay estados con algún conflicto LR(0)? Si es así, indica los id separados "
-               "por ',': 1,2,... En caso contrario, deja la respuesta vacía.";
+        return "¿Cuántos estados contienen al menos un ítem completo (X -> α·)?";
+    case StateSlr::E1:
+        return "Indica los id de esos estados separados por comas. Ej.: 2,5,7";
+    case StateSlr::E2:
+        return "Para cada uno de esos estados indica cuántos ítems completos contiene.\n"
+               "Formato: id1:n1,id2:n2,…";
     case StateSlr::F:
-        return "¿Cuántas celdas reduce (tipo 'r') habrá en la tabla SLR(1)? Responde con un número "
-               "entero.";
-    case StateSlr::F1:
-        return "¿Cuántos estados contienen al menos un ítem completo?";
-    case StateSlr::F2:
-        return "¿Cuáles son esos estados?";
-    case StateSlr::F_prime:
-        return "Entonces, ¿cuántas celdas reduce habrá finalmente?";
+        return "¿Qué estados presentan un conflicto LR(0)? "
+               "Si no hay ninguno, deja la respuesta vacía.";
+    case StateSlr::FA: {
+        // cola de estados con conflicto: conflictStatesIdQueue
+        currentConflictStateId = conflictStatesIdQueue.front();
+        conflictStatesIdQueue.pop();
+
+        auto it = std::ranges::find_if(slr1.states_, [&](const state &st) {
+            return st.id_ == currentConflictStateId;
+        });
+        currentConflictState = *it;
+
+        // mostramos los ítems para que el alumno se oriente
+        return QString("Estado I%1 con conflicto LR(0):\n%2\n"
+                       "Indica los símbolos TERMINALES sobre los que debe aplicarse reducción "
+                       "según los símbolos SIG del antecedente. Formato: a,b,c (vacío si ninguno).")
+            .arg(currentConflictStateId)
+            .arg(QString::fromStdString(slr1.PrintItems(currentConflictState.items_)));
+    }
     default:
         return "";
     }
@@ -814,20 +829,42 @@ void SLRTutorWindow::updateState(bool isCorrect)
         currentState = isCorrect ? StateSlr::E : StateSlr::E;
         break;
     case StateSlr::E:
-        currentState = isCorrect ? StateSlr::F : StateSlr::E;
+        currentState = isCorrect ? StateSlr::F : StateSlr::E1;
         break;
-    case StateSlr::F:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::F1;
+
+    case StateSlr::E1:
+        currentState = isCorrect ? StateSlr::E2 : StateSlr::E1;
         break;
-    case StateSlr::F1:
-        currentState = isCorrect ? StateSlr::F2 : StateSlr::F1;
+
+    case StateSlr::E2:
+        currentState = isCorrect ? StateSlr::F : StateSlr::F;
         break;
-    case StateSlr::F2:
-        currentState = isCorrect ? StateSlr::F_prime : StateSlr::F2;
+    case StateSlr::F: {
+        if (!isCorrect) { // vuelve a preguntar
+            currentState = StateSlr::F;
+            break;
+        }
+        // cola de conflictos para GA
+        conflictStatesIdQueue = {};
+        for (const state *st : std::as_const(statesWithLr0Conflict))
+            conflictStatesIdQueue.push(st->id_);
+
+        currentState = conflictStatesIdQueue.empty() ? StateSlr::fin // no hay conflictos
+                                                     : StateSlr::FA; // hay que resolverlos
         break;
-    case StateSlr::F_prime:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::F1;
+    }
+
+    /* ---------- GA – resolver cada conflicto con FOLLOW -------------- */
+    case StateSlr::FA:
+        if (!isCorrect) { // repetir misma pregunta
+            currentState = StateSlr::FA;
+        } else if (!conflictStatesIdQueue.empty()) {
+            currentState = StateSlr::FA; // siguiente estado conflictivo
+        } else {
+            currentState = StateSlr::fin; // hechos todos → fase de reducciones
+        }
         break;
+
     case StateSlr::fin:
         break;
     }
@@ -870,6 +907,14 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
         return verifyResponseForD(userResponse);
     case StateSlr::E:
         return verifyResponseForE(userResponse);
+    case StateSlr::E1:
+        return verifyResponseForE1(userResponse);
+    case StateSlr::E2:
+        return verifyResponseForE2(userResponse);
+    case StateSlr::F:
+        return verifyResponseForF(userResponse);
+    case StateSlr::FA:
+        return verifyResponseForFA(userResponse);
     default:
         return "";
     }
@@ -951,38 +996,69 @@ bool SLRTutorWindow::verifyResponseForD2(const QString &userResponse)
 
 bool SLRTutorWindow::verifyResponseForE(const QString &userResponse)
 {
-    return false;
+    bool ok = false;
+    int value = userResponse.toInt(&ok);
+    return ok && value == static_cast<int>(solutionForE());
+}
+
+bool SLRTutorWindow::verifyResponseForE1(const QString &userResponse)
+{
+    QSet<unsigned> expected = solutionForE1();
+    QStringList parts = userResponse.split(',', Qt::SkipEmptyParts);
+    QSet<unsigned> given;
+
+    for (const QString &s : std::as_const(parts)) {
+        bool ok;
+        unsigned id = s.trimmed().toUInt(&ok);
+        if (!ok)
+            return false;
+        given.insert(id);
+    }
+    return given == expected;
+}
+
+bool SLRTutorWindow::verifyResponseForE2(const QString &userResponse)
+{
+    QMap<unsigned, unsigned> expected = solutionForE2(); // id -> nº ítems completos
+    QMap<unsigned, unsigned> given;
+
+    for (QString pair : userResponse.split(',', Qt::SkipEmptyParts)) {
+        auto kv = pair.split(':', Qt::SkipEmptyParts);
+        if (kv.size() != 2)
+            return false;
+
+        bool ok1, ok2;
+        unsigned id = kv[0].trimmed().toUInt(&ok1);
+        unsigned num = kv[1].trimmed().toUInt(&ok2);
+        if (!ok1 || !ok2)
+            return false;
+
+        given[id] = num;
+    }
+    return given == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForF(const QString &userResponse)
 {
-    bool ok = false;
-    int userValue = userResponse.toInt(&ok);
-
-    if (!ok) {
-        return false;
+    QSet<unsigned> expected = solutionForF(); // ids con conflicto
+    QStringList parts = userResponse.split(',', Qt::SkipEmptyParts);
+    QSet<unsigned> given;
+    for (const QString &s : std::as_const(parts)) {
+        bool ok;
+        unsigned id = s.trimmed().toUInt(&ok);
+        if (!ok)
+            return false;
+        given.insert(id);
     }
-
-    return static_cast<int>(solutionForF()) == userValue;
+    return given == expected;
 }
 
-bool SLRTutorWindow::verifyResponseForF1(const QString &userResponse)
+bool SLRTutorWindow::verifyResponseForFA(const QString &userResponse)
 {
-    bool ok = false;
-    int userValue = userResponse.toInt(&ok);
-
-    if (!ok) {
-        return false;
-    }
-
-    return static_cast<int>(solutionForF()) == userValue;
-}
-
-bool SLRTutorWindow::verifyResponseForF2(const QString &userResponse)
-{
-    QStringList splitted = userResponse.split(',');
-    QSet<unsigned> userSet(splitted.begin(), splitted.end());
-    return userSet == solutionForF2();
+    QStringList resp = userResponse.split(',', Qt::SkipEmptyParts);
+    QSet<QString> given(resp.begin(), resp.end());
+    QSet<QString> expected = solutionForFA();
+    return given == expected;
 }
 
 /************************************************************
@@ -1081,34 +1157,60 @@ QString SLRTutorWindow::solutionForD2()
     return QString::number(terminals + non_terminals);
 }
 
-QSet<unsigned> SLRTutorWindow::solutionForE()
-{
-    QSet<unsigned> ids;
-    for (const state *st : statesWithLr0Conflict) {
-        ids.insert(st->id_);
-    }
-    return ids;
-}
-
-std::ptrdiff_t SLRTutorWindow::solutionForF()
+std::ptrdiff_t SLRTutorWindow::solutionForE()
 {
     return std::ranges::count_if(slr1.states_, [](const state &st) {
         return std::ranges::any_of(st.items_, [](const Lr0Item &item) { return item.IsComplete(); });
     });
 }
 
-QSet<unsigned> SLRTutorWindow::solutionForF2()
+QSet<unsigned> SLRTutorWindow::solutionForE1()
 {
     QSet<unsigned> ids;
     for (const state &st : slr1.states_) {
-        for (const Lr0Item &item : st.items_) {
-            if (item.IsComplete()) {
-                ids.insert(st.id_);
-                break;
-            }
-        }
+        if (std::ranges::any_of(st.items_, [](const Lr0Item &it) { return it.IsComplete(); }))
+            ids.insert(st.id_);
     }
     return ids;
+}
+
+QMap<unsigned, unsigned> SLRTutorWindow::solutionForE2()
+{
+    QMap<unsigned, unsigned> result;
+    for (const state &st : slr1.states_) {
+        unsigned count = 0;
+        for (const Lr0Item &it : st.items_)
+            if (it.IsComplete())
+                ++count;
+        if (count)
+            result[st.id_] = count;
+    }
+    return result;
+}
+
+QSet<unsigned> SLRTutorWindow::solutionForF()
+{
+    QSet<unsigned> ids;
+    for (const state *st : statesWithLr0Conflict)
+        ids.insert(st->id_);
+    return ids;
+}
+
+QSet<QString> SLRTutorWindow::solutionForFA()
+{
+    QSet<QString> symbols;
+
+    for (const Lr0Item &it : currentConflictState.items_) {
+        if (!it.IsComplete())
+            continue;
+
+        // FOLLOW del antecedente
+        std::unordered_set<std::string> fol = slr1.Follow(it.antecedent_);
+
+        for (const std::string &s : fol)
+            symbols.insert(QString::fromStdString(s));
+    }
+    return symbols;
 }
 
 /************************************************************
@@ -1148,6 +1250,14 @@ QString SLRTutorWindow::feedback()
         return feedbackForDPrime();
     case StateSlr::E:
         return feedbackForE();
+    case StateSlr::E1:
+        return feedbackForE1();
+    case StateSlr::E2:
+        return feedbackForE2();
+    case StateSlr::F:
+        return feedbackForF();
+    case StateSlr::FA:
+        return feedbackForFA();
     default:
         return "Error en feedback.";
     }
@@ -1266,20 +1376,48 @@ QString SLRTutorWindow::feedbackForDPrime()
 
 QString SLRTutorWindow::feedbackForE()
 {
-    QString feedback = QString(
-        "Un estado tiene un conflicto LR(0) si se puede aplicar tanto una acción shift, "
-        "como una acción reduce. Es decir, estados con items completos y no completos. A los "
-        "completos se les aplica reduce y a los no completos, shift.");
-    if (statesWithLr0Conflict.isEmpty()) {
-        return feedback + " En este caso, no hay estados con conflicto LR(0).";
-    } else {
-        QStringList ids;
-        for (const state *st : std::as_const(statesWithLr0Conflict)) {
-            ids.append(QString::number(st->id_));
-        }
-        return feedback + QString(" En este caso, los estados con conflicto LR(0) son ")
-               + ids.join(", ");
-    }
+    return "Un estado cuenta para la acción reduce si posee al menos un ítem "
+           "completo (el punto al final).";
+}
+
+QString SLRTutorWindow::feedbackForE1()
+{
+    QStringList ids;
+    QSet<unsigned> sol = solutionForE1();
+    for (unsigned id : sol)
+        ids << QString::number(id);
+    return "Los estados con ítem completo son: " + ids.join(", ");
+}
+
+QString SLRTutorWindow::feedbackForE2()
+{
+    QMap<unsigned int, unsigned int> sol = solutionForE2();
+    QStringList pairs;
+    for (auto it = sol.cbegin(); it != sol.cend(); ++it)
+        pairs << QString("%1:%2").arg(it.key()).arg(it.value());
+    return "Detalle de ítems completos por estado → " + pairs.join(", ");
+}
+
+QString SLRTutorWindow::feedbackForF()
+{
+    QString txt = "Hay conflicto LR(0) cuando un mismo estado contiene ítems completos (→ reduce) "
+                  "y no completos (→ shift).";
+    if (statesWithLr0Conflict.isEmpty())
+        return txt + " En esta colección no aparece ningún conflicto.";
+    QStringList ids;
+    QSet<unsigned> sol = solutionForF();
+    for (unsigned id : std::as_const(sol))
+        ids << QString::number(id);
+    return txt + " Los estados conflictivos son: " + ids.join(", ");
+}
+
+QString SLRTutorWindow::feedbackForFA()
+{
+    QStringList list = solutionForFA().values();
+    return QString("Para resolver el conflicto en I%1 se coloca acción reduce "
+                   "solo con los siguientes terminales (FOLLOW del antecedente): %2")
+        .arg(currentConflictStateId)
+        .arg(list.join(", "));
 }
 
 /************************************************************

@@ -44,12 +44,10 @@ enum class StateSlr {
     D2,
     D_prime,
     E,
+    E1,
+    E2,
     F,
-    F1,
-    F2,
-    F_prime,
-    G,
-    G_prime,
+    FA,
     fin
 };
 
@@ -90,9 +88,10 @@ public:
     bool verifyResponseForD1(const QString& userResponse);
     bool verifyResponseForD2(const QString& userResponse);
     bool verifyResponseForE(const QString &userResponse);
+    bool verifyResponseForE1(const QString &userResponse);
+    bool verifyResponseForE2(const QString &userResponse);
     bool verifyResponseForF(const QString &userResponse);
-    bool verifyResponseForF1(const QString &userResponse);
-    bool verifyResponseForF2(const QString &userResponse);
+    bool verifyResponseForFA(const QString &userResponse);
 
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
@@ -114,9 +113,11 @@ public:
     QString solutionForD();
     QString solutionForD1();
     QString solutionForD2();
-    QSet<unsigned> solutionForE();
-    std::ptrdiff_t solutionForF();
-    QSet<unsigned> solutionForF2();
+    std::ptrdiff_t solutionForE();
+    QSet<unsigned> solutionForE1();
+    QMap<unsigned, unsigned> solutionForE2();
+    QSet<unsigned> solutionForF();
+    QSet<QString> solutionForFA();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -143,6 +144,10 @@ public:
     QString feedbackForD2();
     QString feedbackForDPrime();
     QString feedbackForE();
+    QString feedbackForE1();
+    QString feedbackForE2();
+    QString feedbackForF();
+    QString feedbackForFA();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -184,6 +189,9 @@ private:
     qsizetype currentFollowSymbolsIdx = 0; // Track current following symbol, used in CB-CB loop
     unsigned int nextStateId; // Filled in generateQuestion, next state used in C-CA-CB questions
     QVector<const state *> statesWithLr0Conflict;
+    std::queue<unsigned> conflictStatesIdQueue; // For processing all states with lr0conflict
+    unsigned currentConflictStateId{};          // current state id
+    state currentConflictState{};               // current conflict state
     // END VARIABLES
 
     struct MessageLog {
