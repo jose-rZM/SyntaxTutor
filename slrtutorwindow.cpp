@@ -31,6 +31,19 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
             }
         }
     });
+
+    std::ranges::for_each(slr1.states_, [this](const state &st) {
+        if (statesWithLr0Conflict.contains(&st)) {
+            return;
+        }
+        for (const Lr0Item &it : st.items_) {
+            if (it.IsComplete()) {
+                reduceStatesIdQueue.push(st.id_);
+                break;
+            }
+        }
+    });
+
     fillSortedGrammar();
     ui->setupUi(this);
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
@@ -732,7 +745,6 @@ QString SLRTutorWindow::generateQuestion()
     case StateSlr::FA: {
         // cola de estados con conflicto: conflictStatesIdQueue
         currentConflictStateId = conflictStatesIdQueue.front();
-        conflictStatesIdQueue.pop();
 
         auto it = std::ranges::find_if(slr1.states_, [&](const state &st) {
             return st.id_ == currentConflictStateId;
@@ -748,7 +760,6 @@ QString SLRTutorWindow::generateQuestion()
     }
     case StateSlr::G: {
         currentReduceStateId = reduceStatesIdQueue.front();
-        reduceStatesIdQueue.pop();
 
         auto it = std::ranges::find_if(slr1.states_, [&](const state &st) {
             return st.id_ == currentReduceStateId;
@@ -865,7 +876,7 @@ void SLRTutorWindow::updateState(bool isCorrect)
         for (const state *st : std::as_const(statesWithLr0Conflict))
             conflictStatesIdQueue.push(st->id_);
 
-        currentState = conflictStatesIdQueue.empty() ? StateSlr::fin // no hay conflictos
+        currentState = conflictStatesIdQueue.empty() ? StateSlr::G   // no hay conflictos
                                                      : StateSlr::FA; // hay que resolverlos
         break;
     }
@@ -875,9 +886,12 @@ void SLRTutorWindow::updateState(bool isCorrect)
         if (!isCorrect) { // repetir misma pregunta
             currentState = StateSlr::FA;
         } else if (!conflictStatesIdQueue.empty()) {
-            currentState = StateSlr::FA; // siguiente estado conflictivo
+            conflictStatesIdQueue.pop();
+            currentState = conflictStatesIdQueue.empty()
+                               ? StateSlr::G
+                               : StateSlr::FA; // siguiente estado conflictivo
         } else {
-            currentState = StateSlr::fin; // hechos todos → fase de reducciones
+            currentState = StateSlr::G; // hechos todos → fase de reducciones
         }
         break;
     /* ---------- G – reducciones normales ---------------------------- */
@@ -885,7 +899,9 @@ void SLRTutorWindow::updateState(bool isCorrect)
         if (!isCorrect) {
             currentState = StateSlr::G; // repetir misma pregunta
         } else if (!reduceStatesIdQueue.empty()) {
-            currentState = StateSlr::G; // siguiente estado
+            reduceStatesIdQueue.pop();
+            currentState = reduceStatesIdQueue.empty() ? StateSlr::fin
+                                                       : StateSlr::G; // siguiente estado
         } else {
             currentState = StateSlr::fin; // todo listo, pasa a tabla / fin
         }
@@ -1088,12 +1104,11 @@ bool SLRTutorWindow::verifyResponseForFA(const QString &userResponse)
     return given == expected;
 }
 
-bool SLRTutorWindow::verifyResponseForH(const QString &userResponse)
+bool SLRTutorWindow::verifyResponseForG(const QString &userResponse)
 {
-    /* SOLUCIÓN esperada = unión de FOLLOW de todos los ítems completos del estado */
     QSet<QString> expected = solutionForG();
-    QSet<QString> given = QSet<QString>(userResponse.split(',', Qt::SkipEmptyParts).begin(),
-                                        userResponse.split(',', Qt::SkipEmptyParts).end());
+    QStringList resp = userResponse.split(',', Qt::SkipEmptyParts);
+    QSet<QString> given = QSet<QString>(resp.begin(), resp.end());
     return given == expected;
 }
 
