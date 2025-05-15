@@ -968,12 +968,21 @@ bool SLRTutorWindow::verifyResponseForF(const QString &userResponse)
 
 bool SLRTutorWindow::verifyResponseForF1(const QString &userResponse)
 {
-    return false;
+    bool ok = false;
+    int userValue = userResponse.toInt(&ok);
+
+    if (!ok) {
+        return false;
+    }
+
+    return static_cast<int>(solutionForF()) == userValue;
 }
 
 bool SLRTutorWindow::verifyResponseForF2(const QString &userResponse)
 {
-    return false;
+    QStringList splitted = userResponse.split(',');
+    QSet<unsigned> userSet(splitted.begin(), splitted.end());
+    return userSet == solutionForF2();
 }
 
 /************************************************************
@@ -1086,6 +1095,20 @@ std::ptrdiff_t SLRTutorWindow::solutionForF()
     return std::ranges::count_if(slr1.states_, [](const state &st) {
         return std::ranges::any_of(st.items_, [](const Lr0Item &item) { return item.IsComplete(); });
     });
+}
+
+QSet<unsigned> SLRTutorWindow::solutionForF2()
+{
+    QSet<unsigned> ids;
+    for (const state &st : slr1.states_) {
+        for (const Lr0Item &item : st.items_) {
+            if (item.IsComplete()) {
+                ids.insert(st.id_);
+                break;
+            }
+        }
+    }
+    return ids;
 }
 
 /************************************************************
