@@ -746,6 +746,22 @@ QString SLRTutorWindow::generateQuestion()
             .arg(currentConflictStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentConflictState.items_)));
     }
+    case StateSlr::G: {
+        currentReduceStateId = reduceStatesIdQueue.front();
+        reduceStatesIdQueue.pop();
+
+        auto it = std::ranges::find_if(slr1.states_, [&](const state &st) {
+            return st.id_ == currentReduceStateId;
+        });
+        currentReduceState = *it;
+
+        return QString("Estado I%1:\n%2\n"
+                       "Indica los TERMINALES sobre los que se aplicará la reducción.\n"
+                       "Formato: a,b,c — deja vacío si no corresponde ninguno.")
+            .arg(currentReduceStateId)
+            .arg(QString::fromStdString(slr1.PrintItems(currentReduceState.items_)));
+    }
+
     default:
         return "";
     }
@@ -854,7 +870,7 @@ void SLRTutorWindow::updateState(bool isCorrect)
         break;
     }
 
-    /* ---------- GA – resolver cada conflicto con FOLLOW -------------- */
+    /* ---------- FA – resolver cada conflicto con FOLLOW -------------- */
     case StateSlr::FA:
         if (!isCorrect) { // repetir misma pregunta
             currentState = StateSlr::FA;
@@ -864,7 +880,16 @@ void SLRTutorWindow::updateState(bool isCorrect)
             currentState = StateSlr::fin; // hechos todos → fase de reducciones
         }
         break;
-
+    /* ---------- G – reducciones normales ---------------------------- */
+    case StateSlr::G:
+        if (!isCorrect) {
+            currentState = StateSlr::G; // repetir misma pregunta
+        } else if (!reduceStatesIdQueue.empty()) {
+            currentState = StateSlr::G; // siguiente estado
+        } else {
+            currentState = StateSlr::fin; // todo listo, pasa a tabla / fin
+        }
+        break;
     case StateSlr::fin:
         break;
     }
@@ -915,6 +940,8 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
         return verifyResponseForF(userResponse);
     case StateSlr::FA:
         return verifyResponseForFA(userResponse);
+    case StateSlr::G:
+        return verifyResponseForG(userResponse);
     default:
         return "";
     }
@@ -1058,6 +1085,15 @@ bool SLRTutorWindow::verifyResponseForFA(const QString &userResponse)
     QStringList resp = userResponse.split(',', Qt::SkipEmptyParts);
     QSet<QString> given(resp.begin(), resp.end());
     QSet<QString> expected = solutionForFA();
+    return given == expected;
+}
+
+bool SLRTutorWindow::verifyResponseForH(const QString &userResponse)
+{
+    /* SOLUCIÓN esperada = unión de FOLLOW de todos los ítems completos del estado */
+    QSet<QString> expected = solutionForG();
+    QSet<QString> given = QSet<QString>(userResponse.split(',', Qt::SkipEmptyParts).begin(),
+                                        userResponse.split(',', Qt::SkipEmptyParts).end());
     return given == expected;
 }
 
@@ -1213,6 +1249,20 @@ QSet<QString> SLRTutorWindow::solutionForFA()
     return symbols;
 }
 
+QSet<QString> SLRTutorWindow::solutionForG()
+{
+    QSet<QString> symbols;
+    for (const Lr0Item &it : currentReduceState.items_) {
+        if (!it.IsComplete())
+            continue;
+        std::unordered_set<std::string> fol = slr1.Follow(it.antecedent_);
+        for (const std::string &s : fol)
+            symbols.insert(QString::fromStdString(s));
+    }
+    symbols.remove(QString::fromStdString(slr1.gr_.st_.EPSILON_));
+    return symbols;
+}
+
 /************************************************************
  *                         FEEDBACK                         *
  ************************************************************/
@@ -1258,6 +1308,8 @@ QString SLRTutorWindow::feedback()
         return feedbackForF();
     case StateSlr::FA:
         return feedbackForFA();
+    case StateSlr::G:
+        return feedbackForG();
     default:
         return "Error en feedback.";
     }
@@ -1417,6 +1469,14 @@ QString SLRTutorWindow::feedbackForFA()
     return QString("Para resolver el conflicto en I%1 se coloca acción reduce "
                    "solo con los siguientes terminales (FOLLOW del antecedente): %2")
         .arg(currentConflictStateId)
+        .arg(list.join(", "));
+}
+
+QString SLRTutorWindow::feedbackForG()
+{
+    QStringList list = solutionForG().values();
+    return QString("En I%1 la reducción se sitúa únicamente bajo los terminales: %2")
+        .arg(currentReduceStateId)
         .arg(list.join(", "));
 }
 

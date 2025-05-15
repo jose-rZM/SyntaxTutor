@@ -48,6 +48,7 @@ enum class StateSlr {
     E2,
     F,
     FA,
+    G,
     fin
 };
 
@@ -92,7 +93,7 @@ public:
     bool verifyResponseForE2(const QString &userResponse);
     bool verifyResponseForF(const QString &userResponse);
     bool verifyResponseForFA(const QString &userResponse);
-
+    bool verifyResponseForG(const QString &userResponse);
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -118,6 +119,7 @@ public:
     QMap<unsigned, unsigned> solutionForE2();
     QSet<unsigned> solutionForF();
     QSet<QString> solutionForFA();
+    QSet<QString> solutionForG();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -148,6 +150,7 @@ public:
     QString feedbackForE2();
     QString feedbackForF();
     QString feedbackForFA();
+    QString feedbackForG();
     // END FEEDBACK ------------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -192,6 +195,9 @@ private:
     std::queue<unsigned> conflictStatesIdQueue; // For processing all states with lr0conflict
     unsigned currentConflictStateId{};          // current state id
     state currentConflictState{};               // current conflict state
+    std::queue<unsigned> reduceStatesIdQueue;   // cola de estados con ítem completo SIN conflicto
+    unsigned currentReduceStateId{};
+    state currentReduceState{};
     // END VARIABLES
 
     struct MessageLog {
