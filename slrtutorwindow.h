@@ -28,7 +28,30 @@ namespace Ui {
 class SLRTutorWindow;
 }
 
-enum class StateSlr { A, A1, A2, A3, A4, A_prime, B, C, CA, CB, D, D1, D2, D_prime, E, fin };
+enum class StateSlr {
+    A,
+    A1,
+    A2,
+    A3,
+    A4,
+    A_prime,
+    B,
+    C,
+    CA,
+    CB,
+    D,
+    D1,
+    D2,
+    D_prime,
+    E,
+    F,
+    F1,
+    F2,
+    F_prime,
+    G,
+    G_prime,
+    fin
+};
 
 class SLRTutorWindow : public QMainWindow
 {
@@ -67,10 +90,13 @@ public:
     bool verifyResponseForD1(const QString& userResponse);
     bool verifyResponseForD2(const QString& userResponse);
     bool verifyResponseForE(const QString &userResponse);
+    bool verifyResponseForF(const QString &userResponse);
+    bool verifyResponseForF1(const QString &userResponse);
+    bool verifyResponseForF2(const QString &userResponse);
+
     // END VERIFY RESPONSE ----------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------
-
 
     // ------------------------------------------------------
     // ------------------------------------------------------
@@ -89,6 +115,7 @@ public:
     QString solutionForD1();
     QString solutionForD2();
     QSet<unsigned> solutionForE();
+    std::ptrdiff_t solutionForF();
     // END SOLUTIONS -----------------------------------------
     // ------------------------------------------------------
     // ------------------------------------------------------

@@ -719,10 +719,18 @@ QString SLRTutorWindow::generateQuestion()
         return "¿Cuántos símbolos terminales y no terminales, excluyendo epsilon, hay?";
     case StateSlr::D_prime:
         return "Entonces, ¿cuántas filas y columnas tiene la tabla SLR(1)?";
-    case StateSlr::E: {
+    case StateSlr::E:
         return "¿Hay estados con algún conflicto LR(0)? Si es así, indica los id separados "
                "por ',': 1,2,... En caso contrario, deja la respuesta vacía.";
-    }
+    case StateSlr::F:
+        return "¿Cuántas celdas reduce (tipo 'r') habrá en la tabla SLR(1)? Responde con un número "
+               "entero.";
+    case StateSlr::F1:
+        return "¿Cuántos estados contienen al menos un ítem completo?";
+    case StateSlr::F2:
+        return "¿Cuáles son esos estados?";
+    case StateSlr::F_prime:
+        return "Entonces, ¿cuántas celdas reduce habrá finalmente?";
     default:
         return "";
     }
@@ -806,7 +814,20 @@ void SLRTutorWindow::updateState(bool isCorrect)
         currentState = isCorrect ? StateSlr::E : StateSlr::E;
         break;
     case StateSlr::E:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::E;
+        currentState = isCorrect ? StateSlr::F : StateSlr::E;
+        break;
+    case StateSlr::F:
+        currentState = isCorrect ? StateSlr::fin : StateSlr::F1;
+        break;
+    case StateSlr::F1:
+        currentState = isCorrect ? StateSlr::F2 : StateSlr::F1;
+        break;
+    case StateSlr::F2:
+        currentState = isCorrect ? StateSlr::F_prime : StateSlr::F2;
+        break;
+    case StateSlr::F_prime:
+        currentState = isCorrect ? StateSlr::fin : StateSlr::F1;
+        break;
     case StateSlr::fin:
         break;
     }
@@ -933,6 +954,28 @@ bool SLRTutorWindow::verifyResponseForE(const QString &userResponse)
     return false;
 }
 
+bool SLRTutorWindow::verifyResponseForF(const QString &userResponse)
+{
+    bool ok = false;
+    int userValue = userResponse.toInt(&ok);
+
+    if (!ok) {
+        return false;
+    }
+
+    return static_cast<int>(solutionForF()) == userValue;
+}
+
+bool SLRTutorWindow::verifyResponseForF1(const QString &userResponse)
+{
+    return false;
+}
+
+bool SLRTutorWindow::verifyResponseForF2(const QString &userResponse)
+{
+    return false;
+}
+
 /************************************************************
  *                         SOLUTIONS                        *
  ************************************************************/
@@ -1036,6 +1079,13 @@ QSet<unsigned> SLRTutorWindow::solutionForE()
         ids.insert(st->id_);
     }
     return ids;
+}
+
+std::ptrdiff_t SLRTutorWindow::solutionForF()
+{
+    return std::ranges::count_if(slr1.states_, [](const state &st) {
+        return std::ranges::any_of(st.items_, [](const Lr0Item &item) { return item.IsComplete(); });
+    });
 }
 
 /************************************************************
