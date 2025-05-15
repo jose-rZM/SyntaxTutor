@@ -806,29 +806,41 @@ QString LLTutorWindow::feedback() {
 }
 
 QString LLTutorWindow::feedbackForA() {
-    return "La cantidad de filas y columnas a usar depende del número de símbolos terminales y no terminales";
+    return "La tabla LL(1) tiene:\n"
+           " - Una fila por cada símbolo NO TERMINAL\n"
+           " - Una columna por cada TERMINAL (incluyendo $)\n"
+           "Esto define el tamaño de la tabla como filas × columnas.";
 }
 
 QString LLTutorWindow::feedbackForA1() {
     QSet<QString> non_terminals = stdUnorderedSetToQSet(grammar.st_.non_terminals_);
     QList<QString> l(non_terminals.begin(), non_terminals.end());
-    return QString("Los símbolos no terminales son: %1").arg(l.join(" "));
+    return QString("Los NO TERMINALES son los que aparecen como antecedente en alguna regla.\n"
+                   "En esta gramática: %1")
+        .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForA2() {
     QSet<QString> terminals = stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
-    return QString("Los símbolos terminales son: %1").arg(l.join(" "));
+    return QString("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
+                   "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($).\n"
+                   "En esta gramática: %1")
+        .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
-    return QString("Al haber %1 símbolos no terminales y %2 terminales incluyendo el $, la tabla LL(1) tendrá %1 filas y %2 columnas.")
+    return QString("Como hay %1 símbolos no terminales (filas) y %2 terminales (columnas, "
+                   "incluyendo $),\n"
+                   "el tamaño de la tabla LL(1) será: %1 × %2.")
         .arg(grammar.st_.non_terminals_.size())
         .arg(grammar.st_.terminals_.size());
 }
 
 QString LLTutorWindow::feedbackForB() {
-    return QString("El conjunto de símbolos directores para una regla se define como SD(X -> Y) = CAB(Y) - { epsilon } U SIG(X)");
+    return "Para una regla X → Y, sus símbolos directores (SD) indican "
+           "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
+           "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)";
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget *widget)
@@ -912,17 +924,28 @@ QString LLTutorWindow::feedbackForB1() {
     feedbackForB1TreeGraphics();
     std::unordered_set<std::string> result;
     ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
-    return "CAB(" + sortedGrammar.at(currentRule).second.join(' ') + ") = {"
-           + stdUnorderedSetToQSet(result).values().join(',') + "}";
+    QString cab = sortedGrammar.at(currentRule).second.join(' ');
+    QString resultSet = stdUnorderedSetToQSet(result).values().join(", ");
+    return QString(
+               "Se calcula CABECERA del consecuente: CAB(%1)\n"
+               "Con esto se obtienen los terminales que pueden aparecer al comenzar a derivar %1.\n"
+               "Resultado: { %2 }")
+        .arg(cab, resultSet);
 }
 
 QString LLTutorWindow::feedbackForB2() {
-    return QString::fromStdString(ll1.TeachFollow(sortedGrammar.at(currentRule).first.toStdString()));
+    const QString nt = sortedGrammar.at(currentRule).first;
+    return "Cuando CAB(α) contiene ε, se necesita SIG(" + nt
+           + ") para completar los símbolos directores.\n"
+           + QString::fromStdString(ll1.TeachFollow(nt.toStdString()));
 }
 
 QString LLTutorWindow::feedbackForBPrime() {
     const auto& rule = sortedGrammar.at(currentRule);
-    return QString::fromStdString(ll1.TeachPredictionSymbols(rule.first.toStdString(), qvectorToStdVector(rule.second)));
+    return "Un símbolo director indica cuándo se puede aplicar una producción durante el "
+           "análisis.\n"
+           + QString::fromStdString(ll1.TeachPredictionSymbols(rule.first.toStdString(),
+                                                               qvectorToStdVector(rule.second)));
 }
 
 QString LLTutorWindow::feedbackForC()
@@ -930,8 +953,9 @@ QString LLTutorWindow::feedbackForC()
     if (lltries > 2) {
         return QString::fromStdString(ll1.TeachLL1Table());
     }
-    return "La tabla no es correcta. Cada celda se define de la siguiente forma: Tabla[A,β] = α si "
-           "β ∈ SD(A -> α).";
+    return "La tabla tiene errores.\n"
+           "Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).\n"
+           "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A).";
 }
 
 QString LLTutorWindow::generateQuestion() {
