@@ -962,31 +962,38 @@ QString LLTutorWindow::generateQuestion() {
     QPair<QString, QVector<QString>> rule;
     switch (currentState) {
     case State::A:
-        return QString("¿Cuántas filas y columnas tiene la tabla LL(1)? Formato: #,#");
+        return "¿Cuántas filas y columnas tiene la tabla LL(1)?\n"
+               "Formato de respuesta: filas,columnas";
     case State::A1:
         return QString("¿Cuántos símbolos no terminales tiene la gramática?");
     case State::A2:
         return QString("¿Cuántos símbolos terminales tiene la gramática?");
     case State::A_prime:
-        return QString("¿Cuántas filas y columnas tiene la tabla LL(1)? Formato: #,#");
+        return "Entonces, basándote en los símbolos identificados,\n"
+               "¿cuántas filas y columnas tiene la tabla LL(1)? Formato: filas,columnas";
     case State::B:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuáles son los símbolos directores de %1 -> %2? Formato: #,#")
+        return QString("¿Cuáles son los símbolos directores (SD) de esta regla?\n%1 → %2\nFormato: "
+                       "a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
+
     case State::B1:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es la cabecera del consecuente? %1 -> %2. Formato: #,#")
+        return QString(
+                   "¿Cuál es el conjunto cabecera (CAB) del consecuente?\n%1 → %2\nFormato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
     case State::B2:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es el símbolo siguiente al antecedente? %1 -> %2. Formato: #,#")
+        return QString("¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?\n"
+                       "%1 → %2\nFormato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
     case State::B_prime:
         rule = sortedGrammar.at(currentRule);
-        return QString("Entonces, ¿cuáles son los símbolos directores de %1 -> %2?. Formato: #,#")
+        return QString("Entonces, ¿cuáles son los símbolos directores (SD) de la regla?\n%1 → %2\n"
+                       "Formato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
     case State::C:
