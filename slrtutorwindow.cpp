@@ -60,14 +60,14 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     // -- User Input Setup
     QFont userFont = QApplication::font();
     userFont.setPointSize(15);
-    ui->userResponse->setFont(userFont);
+    ui->userResponse->setFont(scaledFont(15, false));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     // -- Chat Appearance
     QFont chatFont = QApplication::font();
     chatFont.setPointSize(12);
-    ui->listWidget->setFont(chatFont);
+    ui->listWidget->setFont(scaledFont(12, false));
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
@@ -86,7 +86,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
 
     QFont grammarFont = QApplication::font();
     grammarFont.setPointSize(14);
-    ui->gr->setFont(grammarFont);
+    ui->gr->setFont(scaledFont(14, false));
     ui->gr->setText(formattedGrammar);
 
     // ====== Status, Progress & First Message ===================
@@ -443,6 +443,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 
     if (isUser) {
         if (text.isEmpty()) {
+            label->setFont(scaledFont(10, true));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -452,11 +453,10 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
-            font-size: 14px;
-            font-family: 'Noto Sans';
             font-style: italic;
         )");
         } else {
+            label->setFont(scaledFont(10, false));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -466,11 +466,10 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
-            font-size: 14px;
-            font-family: 'Noto Sans';
         )");
         }
     } else {
+        label->setFont(scaledFont(10, false));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -480,16 +479,14 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 14px;
-            font-family: 'Noto Sans';
         )");
     }
 
     label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
 
     QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet(
-        "font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
+    timestamp->setFont(scaledFont(7, false));
+    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
     innerLayout->addWidget(label);
@@ -1862,4 +1859,12 @@ void SLRTutorWindow::on_userResponse_textChanged()
 
     // Establece también el máximo para limitar el crecimiento
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+}
+
+QFont SLRTutorWindow::scaledFont(int basePointSize, bool italic)
+{
+    QFont font = QGuiApplication::font();
+    font.setPointSize(basePointSize);
+    font.setItalic(italic);
+    return font;
 }
