@@ -9,28 +9,40 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
     , grammar(grammar)
     , ll1(this->grammar)
 {
+    // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
 #ifdef QT_DEBUG
     ll1.PrintTable();
 #endif
     fillSortedGrammar();
 
+    // ====== UI Setup ==========================================
     ui->setupUi(this);
+
+    // -- Confirm Button Icon & Shadow
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
-    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
+    auto *shadow = new QGraphicsDropShadowEffect;
     shadow->setBlurRadius(10);
     shadow->setOffset(0);
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
-    ui->cntRight->setText(QString::number(cntRightAnswers));
-    ui->cntWrong->setText(QString::number(cntWrongAnswers));
-
+    // -- User Response Box
     ui->userResponse->setFont(QFont("Noto Sans", 15));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
+    // -- Chat Font
+    QFont chatFont("Noto Sans", 12);
+    ui->listWidget->setFont(chatFont);
+    ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->listWidget->verticalScrollBar()->setSingleStep(10);
+
+    // ====== Grammar Display & Formatting ======================
     formattedGrammar = FormatGrammar(this->grammar);
+    ui->gr->setFont(QFont("Noto Sans", 14));
+    ui->gr->setText(formattedGrammar);
+
     sortedNonTerminals = stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(),
               sortedNonTerminals.end(),
@@ -42,22 +54,20 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
                   return a < b;
               });
 
-    ui->gr->setFont(QFont("Noto Sans", 14));
-    ui->gr->setText(formattedGrammar);
-
-    ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    ui->listWidget->verticalScrollBar()->setSingleStep(10);
+    // ====== Progress / State Setup ============================
+    ui->cntRight->setText(QString::number(cntRightAnswers));
+    ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage(QString("La gramática es:\n" + formattedGrammar), false);
+    addMessage("La gramática es:\n" + formattedGrammar, false);
 
     currentState = State::A;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
+
     ui->userResponse->clear();
 
-    QFont chatFont("Noto Sans", 12);
-    ui->listWidget->setFont(chatFont);
+    // ====== Signal Connections ================================
     connect(ui->userResponse,
             &CustomTextEdit::sendRequested,
             this,

@@ -2,28 +2,29 @@
 #include <QEasingCurve>
 #include "ui_slrtutorwindow.h"
 
-SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
+SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::SLRTutorWindow)
     , grammar(grammar)
     , slr1(grammar)
 {
+    // ====== Parser Initialization ============================
     slr1.MakeParser();
+
 #ifdef QT_DEBUG
     slr1.DebugStates();
     slr1.DebugActions();
 #endif
+
+    // ====== Conflict & Reduction State Identification =========
     std::ranges::for_each(slr1.states_, [this](const state &st) {
         bool hasComplete = false;
         bool hasIncomplete = false;
-
         for (const Lr0Item &it : st.items_) {
-            if (it.IsComplete()) {
+            if (it.IsComplete())
                 hasComplete = true;
-            } else {
+            else
                 hasIncomplete = true;
-            }
-
             if (hasComplete && hasIncomplete) {
                 statesWithLr0Conflict.append(&st);
                 conflictStatesIdQueue.push(st.id_);
@@ -33,9 +34,8 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     });
 
     std::ranges::for_each(slr1.states_, [this](const state &st) {
-        if (statesWithLr0Conflict.contains(&st)) {
+        if (statesWithLr0Conflict.contains(&st))
             return;
-        }
         for (const Lr0Item &it : st.items_) {
             if (it.IsComplete()) {
                 reduceStatesIdQueue.push(st.id_);
@@ -45,23 +45,31 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     });
 
     fillSortedGrammar();
+
+    // ====== UI Setup ==========================================
     ui->setupUi(this);
+
+    // -- Confirm Button: Icon + Shadow
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
-    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
+    auto *shadow = new QGraphicsDropShadowEffect;
     shadow->setBlurRadius(10);
     shadow->setOffset(0);
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
-    ui->cntRight->setText(QString::number(cntRightAnswers));
-    ui->cntWrong->setText(QString::number(cntWrongAnswers));
-
+    // -- User Input Setup
     ui->userResponse->setFont(QFont("Noto Sans", 15));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
-    formattedGrammar = FormatGrammar(grammar);
+    // -- Chat Appearance
+    QFont chatFont("Noto Sans", 12);
+    ui->listWidget->setFont(chatFont);
+    ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
+    // ====== Grammar Formatting =================================
+    formattedGrammar = FormatGrammar(grammar);
     sortedNonTerminals = stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(),
               sortedNonTerminals.end(),
@@ -76,19 +84,18 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& grammar, QWidget *parent)
     ui->gr->setFont(QFont("Noto Sans", 14));
     ui->gr->setText(formattedGrammar);
 
-    ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    ui->listWidget->verticalScrollBar()->setSingleStep(10);
+    // ====== Status, Progress & First Message ===================
+    ui->cntRight->setText(QString::number(cntRightAnswers));
+    ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage(QString("La gramática es:\n" + formattedGrammar), false);
+    addMessage("La gramática es:\n" + formattedGrammar, false);
 
     currentState = StateSlr::E;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
-    QFont chatFont("Noto Sans", 12);
-    ui->listWidget->setFont(chatFont);
-
+    // ====== Signal Connections ==================================
     connect(ui->userResponse,
             &CustomTextEdit::sendRequested,
             this,
