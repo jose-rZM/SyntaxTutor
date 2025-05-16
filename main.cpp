@@ -20,11 +20,14 @@ QString loadFonts()
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QString fontFamily = loadFonts();
     if (!fontFamily.isEmpty()) {
         QFont defaultFont(fontFamily);
+        defaultFont.setPointSizeF(10);
+
         QApplication::setFont(defaultFont);
+
     }
     MainWindow w;
     w.show();
