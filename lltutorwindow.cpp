@@ -616,49 +616,130 @@ void LLTutorWindow::on_confirmButton_clicked()
     addMessage(generateQuestion(), false);
 }
 
-void LLTutorWindow::updateState(bool isCorrect) {
+/************************************************************
+ *                    GENERATE QUESTION                     *
+ * Returns the current question string to be shown to the
+ * student based on the internal teaching state.
+ ************************************************************/
+QString LLTutorWindow::generateQuestion()
+{
+    QPair<QString, QVector<QString>> rule;
+
     switch (currentState) {
+    // ====== A: Estructura de la tabla LL(1) ==================
+    case State::A:
+        return "¿Cuántas filas y columnas tiene la tabla LL(1)?\n"
+               "Formato de respuesta: filas,columnas";
+
+    case State::A1:
+        return "¿Cuántos símbolos no terminales tiene la gramática?";
+
+    case State::A2:
+        return "¿Cuántos símbolos terminales tiene la gramática?";
+
+    case State::A_prime:
+        return "Entonces, basándote en los símbolos identificados,\n"
+               "¿cuántas filas y columnas tiene la tabla LL(1)? Formato: filas,columnas";
+
+        // ====== B: Análisis de símbolos directores ===============
+    case State::B:
+        rule = sortedGrammar.at(currentRule);
+        return QString("¿Cuáles son los símbolos directores (SD) de esta regla?\n%1 → %2\n"
+                       "Formato: a,b,c")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
+
+    case State::B1:
+        rule = sortedGrammar.at(currentRule);
+        return QString("¿Cuál es el conjunto cabecera (CAB) del consecuente?\n%1 → %2\n"
+                       "Formato: a,b,c")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
+
+    case State::B2:
+        rule = sortedGrammar.at(currentRule);
+        return QString("¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?\n%1 → %2\n"
+                       "Formato: a,b,c")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
+
+    case State::B_prime:
+        rule = sortedGrammar.at(currentRule);
+        return QString("Entonces, ¿cuáles son los símbolos directores (SD) de la regla?\n%1 → %2\n"
+                       "Formato: a,b,c")
+            .arg(rule.first)
+            .arg(rule.second.join(" "));
+
+        // ====== C: Mostrar tabla final al alumno =================
+    case State::C:
+        lastUserMessage = nullptr;
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true); // handled externally
+        showTable();
+        return "";
+
+        // ====== Fallback case ====================================
+    default:
+        return "";
+    }
+}
+
+/************************************************************
+ *                     UPDATE STATE                         *
+ * Updates the tutor's current state based on whether the
+ * user's response was correct. Controls the progression
+ * through the LL(1) pedagogical flow.
+ ************************************************************/
+void LLTutorWindow::updateState(bool isCorrect)
+{
+    switch (currentState) {
+    // ====== A: Structure-related questions (table size) ======
     case State::A:
         currentState = isCorrect ? State::B : State::A1;
         break;
+
     case State::A1:
         currentState = isCorrect ? State::A2 : State::A1;
         break;
+
     case State::A2:
         currentState = isCorrect ? State::A_prime : State::A2;
         break;
+
     case State::A_prime:
-        currentState = isCorrect ? State::B : State::B;
+        currentState = State::B;
         break;
+
+    // ====== B: Questions about prediction set (SD), FIRST, FOLLOW ======
     case State::B:
         if (isCorrect) {
             currentRule++;
-            if (static_cast<qsizetype>(currentRule) >= sortedGrammar.size()) {
-                currentState = State::C;
-            } else {
-                currentState = State::B;
-            }
+            currentState = static_cast<qsizetype>(currentRule) >= sortedGrammar.size() ? State::C
+                                                                                       : State::B;
         } else {
             currentState = State::B1;
         }
         break;
+
     case State::B1:
         currentState = isCorrect ? State::B2 : State::B1;
         break;
+
     case State::B2:
         currentState = isCorrect ? State::B_prime : State::B2;
         break;
+
     case State::B_prime:
         currentRule++;
-        if (static_cast<qsizetype>(currentRule) >= sortedGrammar.size()) {
-            currentState = State::C;
-        } else {
-            currentState = State::B;
-        }
+        currentState = static_cast<qsizetype>(currentRule) >= sortedGrammar.size() ? State::C
+                                                                                   : State::B;
         break;
+
     case State::C:
         currentState = isCorrect ? State::fin : State::C;
         break;
+
+    // ====== Final state: ends the tutor ======
     case State::fin:
         QMessageBox::information(this, "Fin", "fin");
         close();
@@ -666,8 +747,15 @@ void LLTutorWindow::updateState(bool isCorrect) {
     }
 }
 
-bool LLTutorWindow::verifyResponse(const QString& userResponse) {
+/************************************************************
+ *                  VERIFY USER RESPONSE                    *
+ * Dispatches validation to the appropriate method based on
+ * the current tutor state. Each state has its own logic.
+ ************************************************************/
+bool LLTutorWindow::verifyResponse(const QString &userResponse)
+{
     switch (currentState) {
+    // ====== A: Table structure questions ======
     case State::A:
         return verifyResponseForA(userResponse);
     case State::A1:
@@ -676,6 +764,8 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForA2(userResponse);
     case State::A_prime:
         return verifyResponseForA(userResponse);
+
+    // ====== B: Rule prediction and set calculations ======
     case State::B:
         return verifyResponseForB(userResponse);
     case State::B1:
@@ -684,8 +774,12 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
         return verifyResponseForB2(userResponse);
     case State::B_prime:
         return verifyResponseForB(userResponse);
+
+    // ====== C: Final LL(1) table ======
     case State::C:
         return verifyResponseForC();
+
+    // ====== Fallback ======
     default:
         return false;
     }
@@ -793,16 +887,26 @@ QSet<QString> LLTutorWindow::solutionForB2() {
     return solution;
 }
 
-QString LLTutorWindow::feedback() {
-    switch(currentState) {
+/************************************************************
+ *                          FEEDBACK                        *
+ * Returns appropriate explanatory feedback based on the
+ * current state of the LL(1) tutor. Shown when the user's
+ * answer is incorrect or guidance is requested.
+ ************************************************************/
+QString LLTutorWindow::feedback()
+{
+    switch (currentState) {
+    // ====== A: Table structure questions ======
     case State::A:
         return feedbackForA();
     case State::A1:
         return feedbackForA1();
     case State::A2:
-       return feedbackForA2();
+        return feedbackForA2();
     case State::A_prime:
-       return feedbackForAPrime();
+        return feedbackForAPrime();
+
+    // ====== B: Rule-wise set analysis and prediction =========
     case State::B:
         return feedbackForB();
     case State::B1:
@@ -811,8 +915,12 @@ QString LLTutorWindow::feedback() {
         return feedbackForB2();
     case State::B_prime:
         return feedbackForBPrime();
+
+    // ====== C: LL(1) table validation ======
     case State::C:
         return feedbackForC();
+
+    // ====== Fallback case ======
     default:
         return "No feedback provided.";
     }
@@ -854,6 +962,61 @@ QString LLTutorWindow::feedbackForB() {
     return "Para una regla X → Y, sus símbolos directores (SD) indican "
            "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
            "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)";
+}
+
+void LLTutorWindow::feedbackForB1TreeGraphics()
+{
+    std::unordered_set<std::string> first_set;
+    std::vector<std::pair<std::string, std::vector<std::string>>> active_derivations;
+
+    auto treeroot = buildTreeNode(qvectorToStdVector(sortedGrammar.at(currentRule).second),
+                                  first_set,
+                                  0,
+                                  active_derivations);
+
+    showTreeGraphics(std::move(treeroot));
+}
+
+QString LLTutorWindow::feedbackForB1()
+{
+    feedbackForB1TreeWidget();
+    feedbackForB1TreeGraphics();
+    std::unordered_set<std::string> result;
+    ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
+    QString cab = sortedGrammar.at(currentRule).second.join(' ');
+    QString resultSet = stdUnorderedSetToQSet(result).values().join(", ");
+    return QString(
+               "Se calcula CABECERA del consecuente: CAB(%1)\n"
+               "Con esto se obtienen los terminales que pueden aparecer al comenzar a derivar %1.\n"
+               "Resultado: { %2 }")
+        .arg(cab, resultSet);
+}
+
+QString LLTutorWindow::feedbackForB2()
+{
+    const QString nt = sortedGrammar.at(currentRule).first;
+    return "Cuando CAB(α) contiene ε, se necesita SIG(" + nt
+           + ") para completar los símbolos directores.\n"
+           + QString::fromStdString(ll1.TeachFollow(nt.toStdString()));
+}
+
+QString LLTutorWindow::feedbackForBPrime()
+{
+    const auto &rule = sortedGrammar.at(currentRule);
+    return "Un símbolo director indica cuándo se puede aplicar una producción durante el "
+           "análisis.\n"
+           + QString::fromStdString(ll1.TeachPredictionSymbols(rule.first.toStdString(),
+                                                               qvectorToStdVector(rule.second)));
+}
+
+QString LLTutorWindow::feedbackForC()
+{
+    if (lltries > 2) {
+        return QString::fromStdString(ll1.TeachLL1Table());
+    }
+    return "La tabla tiene errores.\n"
+           "Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).\n"
+           "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A).";
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget *widget)
@@ -917,108 +1080,6 @@ void LLTutorWindow::feedbackForB1TreeWidget()
     // treeWidgetFeedback->resize(500, 300); // Opcional: tamaño fijo
 
     addWidgetMessage(treeWidgetFeedback);
-}
-
-void LLTutorWindow::feedbackForB1TreeGraphics()
-{
-    std::unordered_set<std::string> first_set;
-    std::vector<std::pair<std::string, std::vector<std::string>>> active_derivations;
-
-    auto treeroot = buildTreeNode(qvectorToStdVector(sortedGrammar.at(currentRule).second),
-                                  first_set,
-                                  0,
-                                  active_derivations);
-
-    showTreeGraphics(std::move(treeroot));
-}
-
-QString LLTutorWindow::feedbackForB1() {
-    feedbackForB1TreeWidget();
-    feedbackForB1TreeGraphics();
-    std::unordered_set<std::string> result;
-    ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
-    QString cab = sortedGrammar.at(currentRule).second.join(' ');
-    QString resultSet = stdUnorderedSetToQSet(result).values().join(", ");
-    return QString(
-               "Se calcula CABECERA del consecuente: CAB(%1)\n"
-               "Con esto se obtienen los terminales que pueden aparecer al comenzar a derivar %1.\n"
-               "Resultado: { %2 }")
-        .arg(cab, resultSet);
-}
-
-QString LLTutorWindow::feedbackForB2() {
-    const QString nt = sortedGrammar.at(currentRule).first;
-    return "Cuando CAB(α) contiene ε, se necesita SIG(" + nt
-           + ") para completar los símbolos directores.\n"
-           + QString::fromStdString(ll1.TeachFollow(nt.toStdString()));
-}
-
-QString LLTutorWindow::feedbackForBPrime() {
-    const auto& rule = sortedGrammar.at(currentRule);
-    return "Un símbolo director indica cuándo se puede aplicar una producción durante el "
-           "análisis.\n"
-           + QString::fromStdString(ll1.TeachPredictionSymbols(rule.first.toStdString(),
-                                                               qvectorToStdVector(rule.second)));
-}
-
-QString LLTutorWindow::feedbackForC()
-{
-    if (lltries > 2) {
-        return QString::fromStdString(ll1.TeachLL1Table());
-    }
-    return "La tabla tiene errores.\n"
-           "Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).\n"
-           "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A).";
-}
-
-QString LLTutorWindow::generateQuestion() {
-    QPair<QString, QVector<QString>> rule;
-    switch (currentState) {
-    case State::A:
-        return "¿Cuántas filas y columnas tiene la tabla LL(1)?\n"
-               "Formato de respuesta: filas,columnas";
-    case State::A1:
-        return QString("¿Cuántos símbolos no terminales tiene la gramática?");
-    case State::A2:
-        return QString("¿Cuántos símbolos terminales tiene la gramática?");
-    case State::A_prime:
-        return "Entonces, basándote en los símbolos identificados,\n"
-               "¿cuántas filas y columnas tiene la tabla LL(1)? Formato: filas,columnas";
-    case State::B:
-        rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuáles son los símbolos directores (SD) de esta regla?\n%1 → %2\nFormato: "
-                       "a,b,c")
-            .arg(rule.first)
-            .arg(rule.second.join(" "));
-
-    case State::B1:
-        rule = sortedGrammar.at(currentRule);
-        return QString(
-                   "¿Cuál es el conjunto cabecera (CAB) del consecuente?\n%1 → %2\nFormato: a,b,c")
-            .arg(rule.first)
-            .arg(rule.second.join(" "));
-    case State::B2:
-        rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?\n"
-                       "%1 → %2\nFormato: a,b,c")
-            .arg(rule.first)
-            .arg(rule.second.join(" "));
-    case State::B_prime:
-        rule = sortedGrammar.at(currentRule);
-        return QString("Entonces, ¿cuáles son los símbolos directores (SD) de la regla?\n%1 → %2\n"
-                       "Formato: a,b,c")
-            .arg(rule.first)
-            .arg(rule.second.join(" "));
-    case State::C:
-        lastUserMessage = nullptr;
-        ui->userResponse->setDisabled(true);
-        ui->confirmButton->setDisabled(true); // verify delegated to showTable
-        showTable();
-        return "";
-        break;
-    default:
-        return "";
-    }
 }
 
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
