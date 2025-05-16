@@ -6,13 +6,7 @@
 LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
-    , grammar({{"S", {{"A", "$"}}},
-               {"A", {{"C", "F"}}},
-               {"B", {{"D", "B", "D"}, {"EPSILON"}}},
-               {"C", {{"d", "C", "b"}, {"EPSILON"}}},
-               {"D", {{"E"}}},
-               {"E", {{"a", "E"}, {"EPSILON"}}},
-               {"F", {{"A", "B"}, {"B"}}}})
+    , grammar(grammar)
     , ll1(this->grammar)
 {
     ll1.CreateLL1Table();
