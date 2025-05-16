@@ -679,44 +679,62 @@ void SLRTutorWindow::on_confirmButton_clicked()
 }
 
 /************************************************************
- *                      QUESTIONS                           *
+ *                 QUESTION GENERATION (SLR)                *
+ * Returns a context-sensitive question string based on
+ * the currentState of the tutor.
  ************************************************************/
-
 QString SLRTutorWindow::generateQuestion()
 {
     switch (currentState) {
+    // ======= A: Initial Item and Closure ========================
     case StateSlr::A:
-        return "¿Cuál es el estado inicial del analizador?\nFormato:\nX -> a.b\nX -> .b\nX -> "
-               "EPSILON.";
+        return "¿Cuál es el estado inicial del analizador LR(0)?\n"
+               "Formato:\n  X → a·b\n  X → ·b\n  X → ε";
+
     case StateSlr::A1:
         return "¿Cuál es el axioma de la gramática?";
+
     case StateSlr::A2:
-        return "Dado el ítem: S → · A$\n"
+        return "Dado el ítem:  S → · A $\n"
                "¿Qué símbolo aparece justo después del punto (·)?";
+
     case StateSlr::A3:
-        return "Si el símbolo tras el punto (·) es un no terminal,\n"
+        return "Si ese símbolo es un no terminal,\n"
                "¿cuáles son las reglas cuyo antecedente es ese símbolo?";
+
     case StateSlr::A4:
         return "¿Cuál es el cierre del ítem inicial?";
+
     case StateSlr::A_prime:
-        return "Entonces, ¿cuál es el estado inicial?";
+        return "Entonces, ¿cuál es el estado inicial generado?";
+
+        // ======= B: State Counting ================================
     case StateSlr::B:
         return "¿Cuántos estados se han generado en la colección LR(0) hasta ahora?";
+
+        // ======= C: State Analysis ================================
     case StateSlr::C: {
+        // Load current state to be inspected
         currentStateId = statesIdQueue.front();
         statesIdQueue.pop();
+
         auto currState = std::ranges::find_if(slr1.states_, [&](const state &st) {
             return st.id_ == currentStateId;
         });
         currentSlrState = *currState;
+
         return QString("Estado I%1:\n%2\n"
                        "¿Cuántos ítems contiene este estado?")
             .arg(currentStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentSlrState.items_)));
     }
+
+        // ======= CA: Symbols after dot ============================
     case StateSlr::CA:
         return "¿Qué símbolos aparecen después del punto (·) en los ítems de este estado?\n"
                "Formato: a,b,c";
+
+        // ======= CB: Transition generation (δ) ====================
     case StateSlr::CB: {
         QString currentSymbol = followSymbols.at(currentFollowSymbolsIdx);
         if (currentSymbol.toStdString() == slr1.gr_.st_.EPSILON_) {
@@ -726,38 +744,49 @@ QString SLRTutorWindow::generateQuestion()
                 .arg(currentSymbol);
         } else {
             return QString("Calcula δ(I%1, %2):\n"
-                           "¿Qué estado se genera al hacer transición con %2?\n"
-                           "Este será el estado número %3")
+                           "¿Qué estado se genera al hacer transición con '%2'?\n"
+                           "Este será el estado número %3.")
                 .arg(currentStateId)
                 .arg(currentSymbol)
                 .arg(nextStateId);
         }
     }
+
+        // ======= D: Table Structure ===============================
     case StateSlr::D:
         return "¿Cuántas filas y columnas tiene la tabla SLR(1)?\n"
                "Formato: filas,columnas";
+
     case StateSlr::D1:
         return "¿Cuántos estados contiene la colección LR(0)?";
+
     case StateSlr::D2:
         return "¿Cuántos símbolos terminales y no terminales hay en la gramática?\n"
                "(Excluye ε. Incluye $)";
+
     case StateSlr::D_prime:
         return "Con los datos anteriores,\n"
                "¿cuál es el tamaño total (filas,columnas) de la tabla SLR(1)?";
+
+        // ======= E: Completed Items ===============================
     case StateSlr::E:
         return "¿Cuántos estados contienen al menos un ítem completo?";
+
     case StateSlr::E1:
         return "Indica los ID de los estados con ítems completos, separados por comas.\n"
                "Ejemplo: 2,5,7";
+
     case StateSlr::E2:
         return "Indica cuántos ítems completos tiene cada estado.\n"
                "Formato: id1:n1, id2:n2, ...";
+
+        // ======= F: LR(0) Conflicts ===============================
     case StateSlr::F:
         return "¿Qué estados presentan un CONFLICTO LR(0)?\n"
                "Deja la respuesta vacía si no hay conflictos.\n"
                "Formato: 1,3,7";
+
     case StateSlr::FA: {
-        // cola de estados con conflicto: conflictStatesIdQueue
         currentConflictStateId = conflictStatesIdQueue.front();
 
         auto it = std::ranges::find_if(slr1.states_, [&](const state &st) {
@@ -765,13 +794,14 @@ QString SLRTutorWindow::generateQuestion()
         });
         currentConflictState = *it;
 
-        // mostramos los ítems para que el alumno se oriente
         return QString("Estado I%1 con conflicto LR(0):\n%2\n"
                        "Indica los símbolos terminales sobre los que debe aplicarse reducción.\n"
                        "Formato: a,b,c (vacío si ninguno).")
             .arg(currentConflictStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentConflictState.items_)));
     }
+
+        // ======= G: Reduction States ==============================
     case StateSlr::G: {
         currentReduceStateId = reduceStatesIdQueue.front();
 
@@ -793,12 +823,14 @@ QString SLRTutorWindow::generateQuestion()
 }
 
 /************************************************************
- *                      UPDATE STATE                        *
+ *                     STATE TRANSITION                    *
+ * Advances the tutor's finite state machine based on the
+ * currentState and whether the user's response was correct.
  ************************************************************/
-
 void SLRTutorWindow::updateState(bool isCorrect)
 {
     switch (currentState) {
+    // ====== A: Initial item and closure construction ========
     case StateSlr::A: {
         currentState = isCorrect ? StateSlr::B : StateSlr::A1;
         if (isCorrect) {
@@ -808,67 +840,84 @@ void SLRTutorWindow::updateState(bool isCorrect)
         }
         break;
     }
+
     case StateSlr::A1:
         currentState = isCorrect ? StateSlr::A2 : StateSlr::A1;
         break;
+
     case StateSlr::A2:
         currentState = isCorrect ? StateSlr::A3 : StateSlr::A2;
         break;
+
     case StateSlr::A3:
         currentState = isCorrect ? StateSlr::A4 : StateSlr::A3;
         break;
+
     case StateSlr::A4:
         currentState = isCorrect ? StateSlr::A_prime : StateSlr::A4;
         break;
+
     case StateSlr::A_prime: {
-        currentState = isCorrect ? StateSlr::B : StateSlr::B;
+        currentState = StateSlr::B;
         addUserState(0);
         statesIdQueue.push(0);
-        addDivisorLine("Construcción de la colección LR(0)");
+        addDivisorLine("Building the LR(0) state collection");
         break;
     }
+
+        // ====== B: State loop (C → CA → CB per state) ===========
     case StateSlr::B:
         if (statesIdQueue.empty()) {
             currentState = StateSlr::D;
-            addDivisorLine("Tabla SLR(1)");
+            addDivisorLine("Building the SLR(1) table");
         } else {
-            currentState = isCorrect ? StateSlr::C : StateSlr::C;
+            currentState = StateSlr::C;
         }
         break;
+
     case StateSlr::C:
-        currentState = isCorrect ? StateSlr::CA : StateSlr::CA;
+        currentState = StateSlr::CA;
         break;
-    case StateSlr::CA: {
+
+    case StateSlr::CA:
         if (!followSymbols.empty() && currentFollowSymbolsIdx < followSymbols.size()) {
-            currentState = isCorrect ? StateSlr::CB : StateSlr::CB;
+            currentState = StateSlr::CB;
         } else {
-            currentState = isCorrect ? StateSlr::CA : StateSlr::CA;
+            currentState = StateSlr::CA;
         }
         break;
-    }
+
     case StateSlr::CB: {
-        if (++currentFollowSymbolsIdx < followSymbols.size()) {
-            currentState = isCorrect ? StateSlr::CB : StateSlr::CB;
+        ++currentFollowSymbolsIdx;
+        if (currentFollowSymbolsIdx < followSymbols.size()) {
+            currentState = StateSlr::CB;
         } else {
             followSymbols.clear();
             currentFollowSymbolsIdx = 0;
-            currentState = isCorrect ? StateSlr::B : StateSlr::B;
+            currentState = StateSlr::B;
         }
         addUserState(nextStateId);
         break;
     }
+
+        // ====== D: Table structure questions =====================
     case StateSlr::D:
         currentState = isCorrect ? StateSlr::E : StateSlr::D1;
         break;
+
     case StateSlr::D1:
         currentState = isCorrect ? StateSlr::D2 : StateSlr::D1;
         break;
+
     case StateSlr::D2:
         currentState = isCorrect ? StateSlr::D_prime : StateSlr::D2;
         break;
+
     case StateSlr::D_prime:
-        currentState = isCorrect ? StateSlr::E : StateSlr::E;
+        currentState = StateSlr::E;
         break;
+
+        // ====== E: Completed item states =========================
     case StateSlr::E:
         currentState = isCorrect ? StateSlr::F : StateSlr::E1;
         break;
@@ -878,60 +927,64 @@ void SLRTutorWindow::updateState(bool isCorrect)
         break;
 
     case StateSlr::E2:
-        currentState = isCorrect ? StateSlr::F : StateSlr::F;
+        currentState = StateSlr::F;
         break;
+
+        // ====== F: LR(0) conflict detection ======================
     case StateSlr::F: {
-        if (!isCorrect) { // vuelve a preguntar
-            currentState = StateSlr::F;
+        if (!isCorrect) {
+            currentState = StateSlr::F; // Retry
             break;
         }
-        // cola de conflictos para GA
+
+        // Initialize conflict resolution queue
         conflictStatesIdQueue = {};
         for (const state *st : std::as_const(statesWithLr0Conflict))
             conflictStatesIdQueue.push(st->id_);
 
-        currentState = conflictStatesIdQueue.empty() ? StateSlr::G   // no hay conflictos
-                                                     : StateSlr::FA; // hay que resolverlos
+        currentState = conflictStatesIdQueue.empty() ? StateSlr::G : StateSlr::FA;
         break;
     }
 
-    /* ---------- FA – resolver cada conflicto con FOLLOW -------------- */
+        // ====== FA: Resolve conflicts via FOLLOW ================
     case StateSlr::FA:
-        if (!isCorrect) { // repetir misma pregunta
+        if (!isCorrect) {
             currentState = StateSlr::FA;
-        } else if (!conflictStatesIdQueue.empty()) {
-            conflictStatesIdQueue.pop();
-            currentState = conflictStatesIdQueue.empty()
-                               ? StateSlr::G
-                               : StateSlr::FA; // siguiente estado conflictivo
         } else {
-            currentState = StateSlr::G; // hechos todos → fase de reducciones
+            if (!conflictStatesIdQueue.empty())
+                conflictStatesIdQueue.pop();
+
+            currentState = conflictStatesIdQueue.empty() ? StateSlr::G : StateSlr::FA;
         }
         break;
-    /* ---------- G – reducciones normales ---------------------------- */
+
+        // ====== G: Apply REDUCE for completed states ============
     case StateSlr::G:
         if (!isCorrect) {
-            currentState = StateSlr::G; // repetir misma pregunta
-        } else if (!reduceStatesIdQueue.empty()) {
-            reduceStatesIdQueue.pop();
-            currentState = reduceStatesIdQueue.empty() ? StateSlr::fin
-                                                       : StateSlr::G; // siguiente estado
+            currentState = StateSlr::G;
         } else {
-            currentState = StateSlr::fin; // todo listo, pasa a tabla / fin
+            if (!reduceStatesIdQueue.empty())
+                reduceStatesIdQueue.pop();
+
+            currentState = reduceStatesIdQueue.empty() ? StateSlr::fin : StateSlr::G;
         }
         break;
+
+        // ====== Final state ======================================
     case StateSlr::fin:
         break;
     }
 }
 
 /************************************************************
- *                      VERIFY RESPONSES                    *
+ *                  VERIFY USER RESPONSES                   *
+ * Dispatches the current user input to the appropriate
+ * response verification handler based on the tutor's state.
  ************************************************************/
-
 bool SLRTutorWindow::verifyResponse(const QString &userResponse)
 {
     switch (currentState) {
+    // ====== A: Initial item and closure steps ===============
     case StateSlr::A:
         return verifyResponseForA(userResponse);
     case StateSlr::A1:
@@ -944,14 +997,20 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
         return verifyResponseForA4(userResponse);
     case StateSlr::A_prime:
         return verifyResponseForA(userResponse);
+
+        // ====== B: State count ==================================
     case StateSlr::B:
         return verifyResponseForB(userResponse);
+
+        // ====== C: Item analysis ================================
     case StateSlr::C:
         return verifyResponseForC(userResponse);
     case StateSlr::CA:
         return verifyResponseForCA(userResponse);
     case StateSlr::CB:
         return verifyResponseForCB(userResponse);
+
+        // ====== D: Table size / symbols =========================
     case StateSlr::D:
         return verifyResponseForD(userResponse);
     case StateSlr::D1:
@@ -960,20 +1019,28 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
         return verifyResponseForD2(userResponse);
     case StateSlr::D_prime:
         return verifyResponseForD(userResponse);
+
+        // ====== E: Completed item tracking ======================
     case StateSlr::E:
         return verifyResponseForE(userResponse);
     case StateSlr::E1:
         return verifyResponseForE1(userResponse);
     case StateSlr::E2:
         return verifyResponseForE2(userResponse);
+
+        // ====== F: Conflict resolution ==========================
     case StateSlr::F:
         return verifyResponseForF(userResponse);
     case StateSlr::FA:
         return verifyResponseForFA(userResponse);
+
+        // ====== G: Reduction action =============================
     case StateSlr::G:
         return verifyResponseForG(userResponse);
+
+        // ====== Final / undefined state =========================
     default:
-        return "";
+        return false;
     }
 }
 
@@ -1293,12 +1360,15 @@ QSet<QString> SLRTutorWindow::solutionForG()
 }
 
 /************************************************************
- *                         FEEDBACK                         *
+ *                          FEEDBACK                        *
+ * Returns pedagogical feedback based on the current state.
+ * This is shown to the user when their answer is incorrect,
+ * or optionally when help is requested.
  ************************************************************/
-
 QString SLRTutorWindow::feedback()
 {
     switch (currentState) {
+    // ====== A: Initial item and closure ======================
     case StateSlr::A:
         return feedbackForA();
     case StateSlr::A1:
@@ -1311,14 +1381,20 @@ QString SLRTutorWindow::feedback()
         return feedbackForA4();
     case StateSlr::A_prime:
         return feedbackForAPrime();
+
+        // ====== B: Number of LR(0) states ========================
     case StateSlr::B:
         return feedbackForB();
+
+        // ====== C: State analysis (items and transitions) ========
     case StateSlr::C:
         return feedbackForC();
     case StateSlr::CA:
         return feedbackForCA();
     case StateSlr::CB:
         return feedbackForCB();
+
+        // ====== D: Table structure ===============================
     case StateSlr::D:
         return feedbackForD();
     case StateSlr::D1:
@@ -1327,20 +1403,28 @@ QString SLRTutorWindow::feedback()
         return feedbackForD2();
     case StateSlr::D_prime:
         return feedbackForDPrime();
+
+        // ====== E: Completed items per state =====================
     case StateSlr::E:
         return feedbackForE();
     case StateSlr::E1:
         return feedbackForE1();
     case StateSlr::E2:
         return feedbackForE2();
+
+        // ====== F: Conflict detection and resolution =============
     case StateSlr::F:
         return feedbackForF();
     case StateSlr::FA:
         return feedbackForFA();
+
+        // ====== G: Apply REDUCE actions ==========================
     case StateSlr::G:
         return feedbackForG();
+
+        // ====== Undefined state fallback =========================
     default:
-        return "Error en feedback.";
+        return "Error interno. Estado actual desconocido a la hora de dar retroalimentación.";
     }
 }
 
