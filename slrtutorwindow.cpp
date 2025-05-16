@@ -58,12 +58,15 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     ui->confirmButton->setGraphicsEffect(shadow);
 
     // -- User Input Setup
-    ui->userResponse->setFont(QFont("Noto Sans", 15));
+    QFont userFont = QApplication::font();
+    userFont.setPointSize(15);
+    ui->userResponse->setFont(userFont);
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     // -- Chat Appearance
-    QFont chatFont("Noto Sans", 12);
+    QFont chatFont = QApplication::font();
+    chatFont.setPointSize(12);
     ui->listWidget->setFont(chatFont);
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
@@ -81,8 +84,9 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
                   return a < b;
               });
 
-    ui->gr->setFont(QFont("Noto Sans", 14));
-    ui->gr->setText(formattedGrammar);
+    QFont grammarFont = QApplication::font();
+    grammarFont.setPointSize(14);
+    ui->gr->setFont(grammarFont);
 
     // ====== Status, Progress & First Message ===================
     ui->cntRight->setText(QString::number(cntRightAnswers));
@@ -110,6 +114,9 @@ SLRTutorWindow::~SLRTutorWindow()
 void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     QTextDocument doc;
     QString html;
+
+    QFont baseFont = QApplication::font();
+    doc.setDefaultFont(baseFont);
 
     html += R"(
         <html>
