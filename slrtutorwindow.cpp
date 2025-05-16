@@ -87,6 +87,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     QFont grammarFont = QApplication::font();
     grammarFont.setPointSize(14);
     ui->gr->setFont(grammarFont);
+    ui->gr->setText(formattedGrammar);
 
     // ====== Status, Progress & First Message ===================
     ui->cntRight->setText(QString::number(cntRightAnswers));
