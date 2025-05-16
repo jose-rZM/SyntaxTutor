@@ -489,7 +489,7 @@ void LLTutorWindow::wrongAnimation()
 
         animation->start(QAbstractAnimation::DeleteWhenStopped);
 
-        QObject::connect(animation, &QPropertyAnimation::finished, [label]() {
+        QObject::connect(animation, &QPropertyAnimation::finished, this, [label]() {
             if (label && label->graphicsEffect()) {
                 label->graphicsEffect()->deleteLater();
                 label->setGraphicsEffect(nullptr);
