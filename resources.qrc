@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>resources/send.svg</file>
         <file>resources/syntaxtutor.png</file>
+        <file>resources/NotoSans-Bold.ttf</file>
+        <file>resources/NotoSans-Italic.ttf</file>
+        <file>resources/NotoSans-Regular.ttf</file>
     </qresource>
 </RCC>
