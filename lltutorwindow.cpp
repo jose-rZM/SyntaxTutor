@@ -695,19 +695,28 @@ bool LLTutorWindow::verifyResponseForA2(const QString& userResponse) {
 
 bool LLTutorWindow::verifyResponseForB(const QString& userResponse) {
     QStringList userResponseSplitted = userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet (userResponseSplitted.begin(), userResponseSplitted.end());
+    QSet<QString> userSet;
+    for (const auto &s : std::as_const(userResponseSplitted)) {
+        userSet.insert(s.trimmed());
+    }
     return userSet == solutionForB();
 }
 
 bool LLTutorWindow::verifyResponseForB1(const QString& userResponse) {
     QStringList userResponseSplitted = userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet (userResponseSplitted.begin(), userResponseSplitted.end());
+    QSet<QString> userSet;
+    for (const auto &s : std::as_const(userResponseSplitted)) {
+        userSet.insert(s.trimmed());
+    }
     return userSet == solutionForB1();
 }
 
 bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
     QStringList userResponseSplitted = userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet (userResponseSplitted.begin(), userResponseSplitted.end());
+    QSet<QString> userSet;
+    for (const auto &s : std::as_const(userResponseSplitted)) {
+        userSet.insert(s.trimmed());
+    }
     return userSet == solutionForB2();
 }
 
