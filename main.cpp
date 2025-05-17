@@ -6,9 +6,9 @@
 
 void loadFonts()
 {
-    int id1 = QFontDatabase::addApplicationFont(":/resources/NotoSans-Regular.ttf");
-    int id2 = QFontDatabase::addApplicationFont(":/resources/NotoSans-Italic.ttf");
-    int id3 = QFontDatabase::addApplicationFont(":/resources/NotoSans-Bold.ttf");
+    QFontDatabase::addApplicationFont(":/resources/NotoSans-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/resources/NotoSans-Italic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/NotoSans-Bold.ttf");
 }
 
 int main(int argc, char *argv[])
