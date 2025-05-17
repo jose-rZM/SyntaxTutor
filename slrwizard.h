@@ -22,53 +22,6 @@ public:
     {
         setWindowTitle("Ayuda interactiva: Tabla SLR(1)");
 
-        static const char *darkQss = R"(
-QWizard, QWizardPage {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-}
-
-QWizard::title {
-    color: #ffffff;
-    font-size: 18px;
-}
-
-QWizard::subTitle {
-    color: #cccccc;
-    font-size: 14px;
-    margin-bottom: 12px;
-}
-
-QLabel {
-    color: #e0e0e0;
-}
-
-QLineEdit {
-    background-color: #3c3f41;
-    color: #e0e0e0;
-    border: 1px solid #555555;
-    border-radius: 4px;
-    padding: 4px;
-}
-
-QWizard::WizardButton {
-    background-color: #444444;
-    color: #ffffff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-}
-
-QWizard::WizardButton:hover {
-    background-color: #555555;
-}
-
-QWizard::WizardButton:pressed {
-    background-color: #333333;
-}
-)";
-        this->setStyleSheet(darkQss);
-
         const int nTerm = parser.gr_.st_.terminals_.contains(parser.gr_.st_.EPSILON_)
                               ? parser.gr_.st_.terminals_.size() - 1
                               : parser.gr_.st_.terminals_.size();

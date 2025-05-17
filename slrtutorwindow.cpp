@@ -971,10 +971,71 @@ QString SLRTutorWindow::generateQuestion()
             colHeaders << QString::fromStdString(symbol);
         }
         SLRWizard wizard(slr1, rawTable, colHeaders, sortedGrammar, this);
+        wizard.setStyleSheet(R"(
+    * {
+        background-color: #2b2b2b;
+        color: #e0e0e0;
+    }
+    QWizard, QWizardPage {
+
+            background-color: #1F1F1F;
+            color: #E0E0E0;
+
+    }
+
+    QWizard::title {
+        color: #ffffff;
+        font-size: 18px;
+    }
+
+    QWizard::subTitle {
+        color: #cccccc;
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    QLabel {
+        color: #e0e0e0;
+    }
+
+    QLineEdit {
+        background-color: #3c3f41;
+        color: #e0e0e0;
+        border: 1px solid #555555;
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    QWizard::WizardButton {
+        background-color: #444444;
+        color: #ffffff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+    }
+
+    QWizard::WizardButton:hover {
+        background-color: #555555;
+    }
+
+    QWizard::WizardButton:pressed {
+            background-color: #333333;
+    }
+    )");
         if (wizard.exec() == QWizard::Accepted) {
             on_confirmButton_clicked();
+        } else {
+            auto r = QMessageBox::question(this,
+                                           "Cancelar tabla SLR(1)",
+                                           "Has cancelado la edición de la tabla. ¿Quieres salir del tutor?",
+                                           QMessageBox::Yes|QMessageBox::No);
+            if (r == QMessageBox::Yes) {
+                this->close();
+            } else {
+                on_confirmButton_clicked();
+                return "";
+            }
         }
-        return "";
     }
 
     default:
