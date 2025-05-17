@@ -94,7 +94,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     updateProgressPanel();
     addMessage("La gramática es:\n" + formattedGrammar, false);
 
-    currentState = StateSlr::G;
+    currentState = StateSlr::A;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
