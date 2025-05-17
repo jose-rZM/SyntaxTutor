@@ -94,7 +94,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     updateProgressPanel();
     addMessage("La gramática es:\n" + formattedGrammar, false);
 
-    currentState = StateSlr::A;
+    currentState = StateSlr::H;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
@@ -356,7 +356,7 @@ void SLRTutorWindow::showTable()
     }
 
     // 2) Lanzamos el diálogo (igual que con LL, pero sin initialData por ahora)
-    SLRTableDialog dialog(slr1.states_.size(), colHeaders.size(), colHeaders, this);
+    SLRTableDialog dialog(slr1.states_.size(), colHeaders.size(), colHeaders, this, &rawTable);
     if (dialog.exec() == QDialog::Accepted) {
         // 3) Recogemos todo lo que ha escrito el usuario
         rawTable = dialog.getTableData();
@@ -900,6 +900,13 @@ QString SLRTutorWindow::generateQuestion()
             .arg(QString::fromStdString(slr1.PrintItems(currentReduceState.items_)));
     }
 
+    case StateSlr::H: {
+        lastUserMessage = nullptr;
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true); // handled externally
+        showTable();
+    }
+
     default:
         return "";
     }
@@ -1058,6 +1065,9 @@ void SLRTutorWindow::updateState(bool isCorrect)
         }
         break;
 
+    case StateSlr::H:
+        currentState = isCorrect ? StateSlr::fin : StateSlr::H;
+
         // ====== Final state ======================================
     case StateSlr::fin:
         break;
@@ -1125,6 +1135,9 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
         // ====== G: Reduction action =============================
     case StateSlr::G:
         return verifyResponseForG(userResponse);
+
+    case StateSlr::H:
+        return verifyResponseForH();
 
         // ====== Final / undefined state =========================
     default:
@@ -1282,6 +1295,120 @@ bool SLRTutorWindow::verifyResponseForG(const QString &userResponse)
     QStringList resp = userResponse.split(',', Qt::SkipEmptyParts);
     QSet<QString> given = QSet<QString>(resp.begin(), resp.end());
     return given == expected;
+}
+
+bool SLRTutorWindow::verifyResponseForH()
+{
+    // Si no hay nada, error
+    if (slrtable.empty()) {
+        return false;
+    }
+
+    // Recorremos cada estado definido en el parser
+    for (const state &slrState : slr1.states_) {
+        unsigned int state = slrState.id_;
+        // 1) VALIDACIÓN DE ACCIONES SOBRE TERMINALES
+        for (const auto &terminal : slr1.gr_.st_.terminals_) {
+            if (terminal == slr1.gr_.st_.EPSILON_)
+                continue;
+            QString sym = QString::fromStdString(terminal);
+
+            // Acción interna esperada para este (state, terminal)
+            const auto &actMap = slr1.actions_.at(state);
+            auto itAct = actMap.find(terminal);
+            SLR1Parser::s_action expectedAct
+                = (itAct != actMap.end()
+                       ? itAct->second
+                       : SLR1Parser::s_action{nullptr, SLR1Parser::Action::Empty});
+
+            // Lo que ha escrito el usuario
+            auto userIt = slrtable[state].find(sym);
+            bool userEmpty = (userIt == slrtable[state].end());
+
+            // Si internamente no hay acción y el usuario dejó vacío ⇒ OK
+            if (expectedAct.action == SLR1Parser::Action::Empty && userEmpty) {
+                continue;
+            }
+            // Si uno está vacío y el otro no ⇒ fallo
+            if (expectedAct.action == SLR1Parser::Action::Empty || userEmpty) {
+                return false;
+            }
+
+            const ActionEntry &entry = userIt.value();
+            switch (expectedAct.action) {
+            case SLR1Parser::Action::Shift: {
+                // El destino de shift viene de transitions_
+                const auto &transMap = slr1.transitions_.at(state);
+                auto itTrans = transMap.find(terminal);
+                if (itTrans == transMap.end() || entry.type != ActionEntry::Shift
+                    || entry.target != static_cast<int>(itTrans->second)) {
+                    return false;
+                }
+                break;
+            }
+            case SLR1Parser::Action::Reduce: {
+                // Hay que convertir el Lr0Item* en índice de producción
+                const Lr0Item *itItem = expectedAct.item;
+                // Buscamos en sortedGrammar la misma regla
+                int prodIdx = -1;
+                for (int k = 0; k < sortedGrammar.size(); ++k) {
+                    const auto &rule = sortedGrammar[k];
+                    if (rule.first.toStdString() == itItem->antecedent_
+                        && stdVectorToQVector(itItem->consequent_) == rule.second) {
+                        prodIdx = k;
+                        break;
+                    }
+                }
+                if (prodIdx < 0 || entry.type != ActionEntry::Reduce || entry.target != prodIdx) {
+                    return false;
+                }
+                break;
+            }
+            case SLR1Parser::Action::Accept: {
+                if (entry.type != ActionEntry::Accept) {
+                    return false;
+                }
+                break;
+            }
+            default:
+                return false;
+            }
+        }
+
+        // 2) VALIDACIÓN DE GOTOS SOBRE NO TERMINALES
+        for (const auto &nonTerm : slr1.gr_.st_.non_terminals_) {
+            QString sym = QString::fromStdString(nonTerm);
+
+            // Transición interna esperada para este (state, nonTerm)
+            const auto itTransMap = slr1.transitions_.find(state);
+            auto itTrans = itTransMap != slr1.transitions_.end() ? itTransMap->second.find(nonTerm)
+                                                                 : slr1.transitions_.end();
+            bool hasGoto = (itTrans != transMap.end());
+            unsigned int expectedState = hasGoto ? itTrans->second : 0;
+
+            // Lo que ha escrito el usuario
+            auto userIt = slrtable[state].find(sym);
+            bool userEmpty = (userIt == slrtable[state].end());
+
+            // Si no hay goto y el usuario dejó vacío ⇒ OK
+            if (!hasGoto && userEmpty) {
+                continue;
+            }
+            // Si uno está vacío y el otro no ⇒ fallo
+            if (!hasGoto || userEmpty) {
+                return false;
+            }
+
+            const ActionEntry &entry = userIt.value();
+            if (entry.type != ActionEntry::Goto
+                || static_cast<unsigned int>(entry.target) != expectedState) {
+                return false;
+            }
+        }
+    }
+
+    // Si todo coincide
+    return true;
 }
 
 /************************************************************

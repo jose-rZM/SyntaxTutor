@@ -50,6 +50,7 @@ enum class StateSlr {
     F,
     FA,
     G,
+    H,
     fin
 };
 
@@ -106,6 +107,7 @@ public:
     bool verifyResponseForF(const QString &userResponse);
     bool verifyResponseForFA(const QString &userResponse);
     bool verifyResponseForG(const QString &userResponse);
+    bool verifyResponseForH();
 
     // ====== Correct Solutions (Auto-generated) ====================
     QString solution(const std::string &state);
