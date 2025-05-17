@@ -37,7 +37,9 @@ HEADERS += \
     lltutorwindow.h \
     mainwindow.h \
     slrtabledialog.h \
-    slrtutorwindow.h
+    slrtutorwindow.h \
+    slrwizard.h \
+    slrwizardpage.h
 
 FORMS += \
     lltutorwindow.ui \

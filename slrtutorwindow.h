@@ -51,6 +51,7 @@ enum class StateSlr {
     FA,
     G,
     H,
+    H_prime,
     fin
 };
 
@@ -75,6 +76,7 @@ public:
     void addDivisorLine(const QString &stateName);         // Insert a visual divider
     void exportConversationToPdf(const QString &filePath); // Export full interaction
     void showTable();                                      // Render SLR(1) table
+    void launchSLRWizard();
     void updateProgressPanel();                            // Refresh visual progress
     void addUserState(unsigned id);                        // Register a user-created state
     void addUserTransition(unsigned fromId,
