@@ -8,13 +8,10 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     : QDialog(parent)
 {
     table = new QTableWidget(rowCount, colCount, this);
+    table->horizontalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
+    table->verticalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
     table->setHorizontalHeaderLabels(colHeaders);
-    this->setStyleSheet(R"(
-    QTableWidget {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-    }
-    )");
+
     QStringList rowLabels;
     for (int i = 0; i < rowCount; ++i)
         rowLabels << QString("State %1").arg(i);
@@ -27,23 +24,6 @@ SLRTableDialog::SLRTableDialog(int rowCount,
 
     submitButton = new QPushButton("Finalizar", this);
     submitButton->setFont(QFontDatabase::font("Noto Sans", "Bold", 12));
-    submitButton->setStyleSheet(R"(
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-
-    QPushButton:pressed {
-        background-color: #222831;
-    }        
-)");
     submitButton->setCursor(Qt::PointingHandCursor);
     connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
 
