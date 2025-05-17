@@ -16,9 +16,11 @@ public:
     SLRTableDialog(int rowCount,
                    int colCount,
                    const QStringList &colHeaders,
-                   QWidget *parent = nullptr);
+                   QWidget *parent = nullptr,
+                   QVector<QVector<QString>> *initialData = nullptr);
 
     QVector<QVector<QString>> getTableData() const;
+    void setInitialData(const QVector<QVector<QString>> &data);
 
 private:
     QTableWidget *table;

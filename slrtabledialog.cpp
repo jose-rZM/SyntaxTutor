@@ -1,9 +1,10 @@
 #include "slrtabledialog.h"
-
+#include <QFontDatabase>
 SLRTableDialog::SLRTableDialog(int rowCount,
                                int colCount,
                                const QStringList &colHeaders,
-                               QWidget *parent)
+                               QWidget *parent,
+                               QVector<QVector<QString>> *initialData)
     : QDialog(parent)
 {
     table = new QTableWidget(rowCount, colCount, this);
@@ -20,6 +21,7 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton("Finalizar", this);
+    submitButton->setFont(QFontDatabase::font("Noto Sans", "Bold", 12));
     submitButton->setStyleSheet(R"(
     QPushButton {
         background-color: #393E46;
@@ -27,9 +29,6 @@ SLRTableDialog::SLRTableDialog(int rowCount,
         border: none;
         padding: 8px 20px;
         border-radius: 8px;
-        font-weight: bold;
-        font-size: 13px;
-        font-family: 'Noto Sans';
     }
 
     QPushButton:hover {
@@ -67,6 +66,10 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     width = qMin(width, screenSize.width() - 100);
     height = qMin(height, screenSize.height() - 100);
 
+    if (initialData != nullptr) {
+        setInitialData(*initialData);
+    }
+
     resize(width, height);
 }
 
@@ -82,4 +85,24 @@ QVector<QVector<QString>> SLRTableDialog::getTableData() const
         data.append(row);
     }
     return data;
+}
+
+void SLRTableDialog::setInitialData(const QVector<QVector<QString>> &data)
+{
+    const int rows = qMin(data.size(), table->rowCount());
+    const int cols = (rows > 0) ? qMin(data[0].size(), table->columnCount()) : 0;
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            QTableWidgetItem *item = table->item(i, j);
+
+            if (!item) {
+                item = new QTableWidgetItem();
+                item->setTextAlignment(Qt::AlignCenter);
+                table->setItem(i, j, item);
+            }
+
+            item->setText(data[i][j]);
+        }
+    }
 }
