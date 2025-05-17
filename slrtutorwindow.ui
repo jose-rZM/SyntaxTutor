@@ -194,8 +194,11 @@
          <string notr="true">background-color: #1e1e1e;
 color: #ffffff;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 font-family: 'JetBrains Mono', 'Noto Sans', 'Courier New';
 font-size: 15px;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 font-weight: 500;

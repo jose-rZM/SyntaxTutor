@@ -61,9 +61,13 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
 
     // -- User Input Setup
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     QFont userFont = QApplication::font();
     userFont.setPointSize(15);
     ui->userResponse->setFont(scaledFont(15, false));
+=======
+    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 15));
+>>>>>>> Stashed changes
 =======
     ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 15));
 >>>>>>> Stashed changes
@@ -72,10 +76,13 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
 
     // -- Chat Appearance
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     QFont chatFont = QApplication::font();
     chatFont.setPointSize(12);
     ui->listWidget->setFont(scaledFont(12, false));
 =======
+=======
+>>>>>>> Stashed changes
     QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     ui->listWidget->setFont(chatFont);
 >>>>>>> Stashed changes
@@ -96,9 +103,13 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
               });
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     QFont grammarFont = QApplication::font();
     grammarFont.setPointSize(14);
     ui->gr->setFont(scaledFont(14, false));
+=======
+    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
+>>>>>>> Stashed changes
 =======
     ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
 >>>>>>> Stashed changes
@@ -456,7 +467,11 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     if (isUser) {
         if (text.isEmpty()) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             label->setFont(scaledFont(10, true));
+=======
+            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 14));
+>>>>>>> Stashed changes
 =======
             label->setFont(QFontDatabase::font("Noto Sans", "Italic", 14));
 >>>>>>> Stashed changes
@@ -470,10 +485,16 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             font-style: italic;
         )");
         } else {
             label->setFont(scaledFont(10, false));
+=======
+        )");
+        } else {
+            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
+>>>>>>> Stashed changes
 =======
         )");
         } else {
@@ -492,7 +513,11 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
         }
     } else {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         label->setFont(scaledFont(10, false));
+=======
+        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
+>>>>>>> Stashed changes
 =======
         label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
 >>>>>>> Stashed changes
@@ -512,8 +537,14 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 
     QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     timestamp->setFont(scaledFont(7, false));
     timestamp->setStyleSheet("color: gray; margin-left: 5px;");
+=======
+    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
+    timestamp->setStyleSheet(
+        "color: gray; margin-left: 5px;");
+>>>>>>> Stashed changes
 =======
     timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     timestamp->setStyleSheet(

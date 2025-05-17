@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QString fontFamily = loadFonts();
     if (!fontFamily.isEmpty()) {
@@ -24,6 +25,10 @@ int main(int argc, char *argv[])
         QApplication::setFont(defaultFont);
 
     }
+=======
+
+    loadFonts();
+>>>>>>> Stashed changes
 =======
 
     loadFonts();
