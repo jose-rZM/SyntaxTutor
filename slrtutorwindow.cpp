@@ -561,12 +561,13 @@ void SLRTutorWindow::addDivisorLine(const QString &stateName)
     lineLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     QLabel *label = new QLabel(stateName);
+    QFont labelFont = QFontDatabase::font("Noto Sans", "Regular", 11);
+    labelFont.setItalic(true);
+    label->setFont(labelFont);
     label->setStyleSheet(R"(
         color: #888888;
         font-size: 11px;
-        font-family: 'Noto Sans';
         background: transparent;
-        font-style: italic;
     )");
 
     QFrame *lineRight = new QFrame;
