@@ -70,9 +70,8 @@ public:
                         QStringList followList;
                         for (auto &t : F)
                             followList << QString::fromStdString(t);
-                        explanation = QString(
-                                          "Estado %1: contiene el ítem [%2 → ...·] y '%3' ∈ "
-                                          "FOLLOW(%2). ¿Qué regla usas para reducir (0, 1, ...)?")
+                        explanation = QString("Estado %1: contiene el ítem [%2 → ...·] y '%3' ∈ "
+                                              "SIG(%2). ¿Qué regla usas para reducir (0, 1, ...)?")
                                           .arg(i)
                                           .arg(QString::fromStdString(act.item->antecedent_))
                                           .arg(colHeaders[j]);
