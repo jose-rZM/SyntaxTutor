@@ -164,7 +164,6 @@ private:
     std::unordered_set<Lr0Item> ingestUserItems(const QString &userResponse);
     std::vector<std::pair<std::string, std::vector<std::string>>> ingestUserRules(
         const QString &userResponse);
-    QFont scaledFont(int basePointSize, bool italic);
 
     // ====== Core Components ========================================
     Ui::SLRTutorWindow *ui;
