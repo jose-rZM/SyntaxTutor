@@ -38,7 +38,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
         if (statesWithLr0Conflict.contains(&st))
             return;
         for (const Lr0Item &it : st.items_) {
-            if (it.IsComplete()) {
+            if (it.IsComplete() && it.antecedent_ != slr1.gr_.axiom_) {
                 reduceStatesIdQueue.push(st.id_);
                 break;
             }
@@ -94,7 +94,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     updateProgressPanel();
     addMessage("La gramática es:\n" + formattedGrammar, false);
 
-    currentState = StateSlr::H;
+    currentState = StateSlr::G;
     addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
@@ -722,10 +722,15 @@ void SLRTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
     bool isCorrect;
-    userResponse = ui->userResponse->toPlainText().trimmed();
-    addMessage(userResponse, true);
 
-    isCorrect = verifyResponse(userResponse);
+    if (currentState != StateSlr::H && currentState != StateSlr::H_prime) {
+        userResponse = ui->userResponse->toPlainText().trimmed();
+        addMessage(userResponse, true);
+        isCorrect = verifyResponse(userResponse);
+    } else {
+        isCorrect = verifyResponse("");
+    }
+
     if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
@@ -733,7 +738,6 @@ void SLRTutorWindow::on_confirmButton_clicked()
         addMessage(feedback(), false);
         wrongAnimation();
         wrongUserResponseAnimation();
-
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);
@@ -756,6 +760,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
             }
         }
         close();
+        return;
     }
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
@@ -766,6 +771,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
  * Returns a context-sensitive question string based on
  * the currentState of the tutor.
  ************************************************************/
+#include "slrwizard.h"
 QString SLRTutorWindow::generateQuestion()
 {
     switch (currentState) {
@@ -908,6 +914,24 @@ QString SLRTutorWindow::generateQuestion()
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true); // handled externally
         showTable();
+    }
+
+    case StateSlr::H_prime: {
+        QStringList colHeaders;
+
+        for (const auto &symbol : slr1.gr_.st_.terminals_) {
+            if (symbol == slr1.gr_.st_.EPSILON_)
+                continue;
+            colHeaders << QString::fromStdString(symbol);
+        }
+
+        for (const auto &symbol : slr1.gr_.st_.non_terminals_) {
+            colHeaders << QString::fromStdString(symbol);
+        }
+        SLRWizard wizard(slr1, rawTable, colHeaders, sortedGrammar, this);
+        if (wizard.exec() == QWizard::Accepted) {
+            on_confirmButton_clicked();
+        }
     }
 
     default:
@@ -1064,12 +1088,17 @@ void SLRTutorWindow::updateState(bool isCorrect)
             if (!reduceStatesIdQueue.empty())
                 reduceStatesIdQueue.pop();
 
-            currentState = reduceStatesIdQueue.empty() ? StateSlr::fin : StateSlr::G;
+            currentState = reduceStatesIdQueue.empty() ? StateSlr::H : StateSlr::G;
         }
         break;
 
     case StateSlr::H:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::H;
+        currentState = isCorrect ? StateSlr::fin : StateSlr::H_prime;
+        break;
+
+    case StateSlr::H_prime:
+        currentState = StateSlr::H;
+        break;
 
         // ====== Final state ======================================
     case StateSlr::fin:
@@ -1141,6 +1170,9 @@ bool SLRTutorWindow::verifyResponse(const QString &userResponse)
 
     case StateSlr::H:
         return verifyResponseForH();
+
+    case StateSlr::H_prime:
+        return true;
 
         // ====== Final / undefined state =========================
     default:
@@ -1645,6 +1677,9 @@ QString SLRTutorWindow::feedback()
         // ====== G: Apply REDUCE actions ==========================
     case StateSlr::G:
         return feedbackForG();
+
+    case StateSlr::H:
+        return "La tabla no es correcta.";
 
         // ====== Undefined state fallback =========================
     default:
