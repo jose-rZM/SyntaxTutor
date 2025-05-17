@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QFontDatabase>
 #include <QImageReader>
+#include <QFont>
 
 void loadFonts()
 {
@@ -15,6 +16,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     loadFonts();
+#ifdef Q_OS_WIN
+    QFont notoSans("Noto Sans");
+    notoSans.setHintingPreference(QFont::HintingPreference::PreferNoHinting);
+    QApplication::setFont(notoSans);
+#endif
     MainWindow w;
     w.show();
     return a.exec();
