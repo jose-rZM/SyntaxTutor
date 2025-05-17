@@ -1,4 +1,5 @@
 #include "lltabledialog.h"
+#include <QFontDatabase>
 
 LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
                              const QStringList &colHeaders,
@@ -26,6 +27,9 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton("Finalizar", this);
+    QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
+    submitButtonFont.setBold(true);
+    submitButton->setFont(submitButtonFont);
     submitButton->setStyleSheet(R"(
     QPushButton {
         background-color: #393E46;
@@ -33,9 +37,6 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
         border: none;
         padding: 8px 20px;
         border-radius: 8px;
-        font-weight: bold;
-        font-size: 13px;
-        font-family: 'Noto Sans';
     }
 
     QPushButton:hover {

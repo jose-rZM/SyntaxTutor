@@ -1,7 +1,7 @@
 #include "lltutorwindow.h"
-#include "ui_lltutorwindow.h"
-
+#include <QFontDatabase>
 #include <QRandomGenerator>
+#include "ui_lltutorwindow.h"
 
 LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
     : QMainWindow(parent)
@@ -27,20 +27,22 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
+    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
+
     // -- User Response Box
-    ui->userResponse->setFont(QFont("Noto Sans", 15));
+    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     // -- Chat Font
-    QFont chatFont("Noto Sans", 12);
+    QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     ui->listWidget->setFont(chatFont);
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
     // ====== Grammar Display & Formatting ======================
     formattedGrammar = FormatGrammar(this->grammar);
-    ui->gr->setFont(QFont("Noto Sans", 14));
+    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
     ui->gr->setText(formattedGrammar);
 
     sortedNonTerminals = stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
@@ -83,7 +85,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
 {
     QTextDocument doc;
     QString html;
-
+    doc.setDefaultFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     html += R"(
         <html>
         <head>
@@ -278,9 +280,9 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QLabel *header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(
-        isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
-               : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
+    header->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
+    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
+                                 : "font-weight: bold; color: #BBBBBB;");
 
     QHBoxLayout *messageLayout = new QHBoxLayout;
     messageLayout->setSpacing(0); // Sin espacio lateral adicional
@@ -303,6 +305,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     if (isUser) {
         if (text.isEmpty()) {
+            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -312,11 +315,9 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
-            font-size: 14px;
-            font-family: 'Noto Sans';
-            font-style: italic;
         )");
         } else {
+            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -326,11 +327,10 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
-            font-size: 14px;
-            font-family: 'Noto Sans';
         )");
         }
     } else {
+        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -340,16 +340,13 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 14px;
-            font-family: 'Noto Sans';
         )");
     }
-
     label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
 
     QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setStyleSheet(
-        "font-size: 10px; color: gray; margin-left: 5px; font-family: 'Noto Sans';");
+    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
+    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
     innerLayout->addWidget(label);
