@@ -29,7 +29,6 @@ public:
 
         m_edit = new QLineEdit(this);
         m_edit->setPlaceholderText("Escribe tu respuesta (p.ej. s3, r2, acc, 5)");
-        registerField("entry*", m_edit);
 
         QVBoxLayout *layout = new QVBoxLayout(this);
         layout->addWidget(lbl);

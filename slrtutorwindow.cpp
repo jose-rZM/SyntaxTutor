@@ -778,7 +778,7 @@ QString SLRTutorWindow::generateQuestion()
     // ======= A: Initial Item and Closure ========================
     case StateSlr::A:
         return "¿Cuál es el estado inicial del analizador LR(0)?\n"
-               "Formato:\n  X → a·b\n  X → ·b\n  X → ε";
+               "Formato:\n  X → a·b\n  X → ·b\n  X → EPSILON·";
 
     case StateSlr::A1:
         return "¿Cuál es el axioma de la gramática?";
@@ -887,7 +887,7 @@ QString SLRTutorWindow::generateQuestion()
         currentConflictState = *it;
 
         return QString("Estado I%1 con conflicto LR(0):\n%2\n"
-                       "Indica los símbolos terminales sobre los que debe aplicarse reducción.\n"
+                       "Indica los símbolos terminales sobre los que debe aplicarse REDUCCIÓN.\n"
                        "Formato: a,b,c (vacío si ninguno).")
             .arg(currentConflictStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentConflictState.items_)));
@@ -903,7 +903,7 @@ QString SLRTutorWindow::generateQuestion()
         currentReduceState = *it;
 
         return QString("Estado I%1:\n%2\n"
-                       "Indica los TERMINALES sobre los que se aplicará REDUCCIÓN.\n"
+                       "Indica los terminales sobre los que se aplicará REDUCCIÓN.\n"
                        "Formato: a,b,c — vacío si no se aplica en ninguno.")
             .arg(currentReduceStateId)
             .arg(QString::fromStdString(slr1.PrintItems(currentReduceState.items_)));
@@ -955,7 +955,7 @@ void SLRTutorWindow::updateState(bool isCorrect)
         if (isCorrect) {
             addUserState(0);
             statesIdQueue.push(0);
-            addDivisorLine("Construcción de la colección LR(0)");
+            addDivisorLine("Construcción del estado inicial");
         }
         break;
     }
@@ -980,7 +980,7 @@ void SLRTutorWindow::updateState(bool isCorrect)
         currentState = StateSlr::B;
         addUserState(0);
         statesIdQueue.push(0);
-        addDivisorLine("Building the LR(0) state collection");
+        addDivisorLine("Construcción de la colección LR(0)");
         break;
     }
 
@@ -988,7 +988,7 @@ void SLRTutorWindow::updateState(bool isCorrect)
     case StateSlr::B:
         if (statesIdQueue.empty()) {
             currentState = StateSlr::D;
-            addDivisorLine("Building the SLR(1) table");
+            addDivisorLine("Tabla SLR(1)");
         } else {
             currentState = StateSlr::C;
         }
@@ -1768,10 +1768,12 @@ QString SLRTutorWindow::feedbackForCA()
     QStringList following = solutionForCA();
     if (std::ranges::any_of(currentSlrState.items_,
                             [](const Lr0Item &item) { return item.IsComplete(); })) {
-        return QString("Los símbolos son: %1. Cuando un ítem es de la forma X -> a ·, X -> a·$ o X "
-                       "-> EPSILON · "
-                       "(completo), el símbolo siguiente es siempre EPSILON. En estas condiciones, "
-                       "se puede aplicar un reduce.")
+        return QString(
+                   "Los símbolos son: %1.\nCuando un ítem es de la forma X -> a ·, X -> a·$ o X "
+                   "-> EPSILON · "
+                   "(ítem completo), el símbolo siguiente es siempre EPSILON. En estas "
+                   "condiciones, "
+                   "se puede aplicar un reduce.")
             .arg(following.join(", "));
     } else {
         return QString("Los símbolos que aparecen tras el punto (·) en los ítems determinan "
@@ -1801,14 +1803,14 @@ QString SLRTutorWindow::feedbackForD1()
 QString SLRTutorWindow::feedbackForD2()
 {
     return QString(
-               "Hay un total de %1 de símbolos gramáticas, excluyendo la cadena vacía (EPSILON).")
+               "Hay un total de %1 de símbolos gramaticales, excluyendo la cadena vacía (EPSILON).")
         .arg(solutionForD2());
 }
 
 QString SLRTutorWindow::feedbackForDPrime()
 {
     return QString("La tabla SLR(1) tiene tantas filas como estados haya, y tantas columnas como "
-                   "símbolos gramáticas, excepto la cadena vacía. Es decir, tiene %1 filas y %2 "
+                   "símbolos gramaticales, excepto la cadena vacía. Es decir, tiene %1 filas y %2 "
                    "columnas.")
         .arg(solutionForD1())
         .arg(solutionForD2());
@@ -1817,7 +1819,7 @@ QString SLRTutorWindow::feedbackForDPrime()
 QString SLRTutorWindow::feedbackForE()
 {
     return "Un estado es candidato para una acción REDUCE si contiene algún ítem de la forma X -> "
-           "α ·, es decir, con el punto al final.";
+           "α ·, es decir, con el punto al final (ítem completo).";
 }
 
 QString SLRTutorWindow::feedbackForE1()
