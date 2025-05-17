@@ -478,6 +478,9 @@ void SLRTutorWindow::addUserTransition(unsigned fromId, const std::string &symbo
 
 void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 {
+    if (!isUser && text.isEmpty()) {
+        return;
+    }
     QString messageText = text;
     // LOG
     if (messageText.isEmpty()) {
@@ -1379,16 +1382,19 @@ bool SLRTutorWindow::verifyResponseForH()
         for (const auto &nonTerm : slr1.gr_.st_.non_terminals_) {
             QString sym = QString::fromStdString(nonTerm);
 
-            // Transición interna esperada para este (state, nonTerm)
-            const auto itTransMap = slr1.transitions_.find(state);
-            auto itTrans = itTransMap != slr1.transitions_.end() ? itTransMap->second.find(nonTerm)
-                                                                 : slr1.transitions_.end();
-            bool hasGoto = (itTrans != transMap.end());
-            unsigned int expectedState = hasGoto ? itTrans->second : 0;
-
             // Lo que ha escrito el usuario
             auto userIt = slrtable[state].find(sym);
             bool userEmpty = (userIt == slrtable[state].end());
+
+            if (!slr1.transitions_.contains(state) && userEmpty) {
+                continue;
+            }
+
+            // Transición interna esperada para este (state, nonTerm)
+            const auto transMap = slr1.transitions_.at(state);
+            auto itTrans = transMap.find(nonTerm);
+            bool hasGoto = (itTrans != transMap.end());
+            unsigned int expectedState = hasGoto ? itTrans->second : 0;
 
             // Si no hay goto y el usuario dejó vacío ⇒ OK
             if (!hasGoto && userEmpty) {
