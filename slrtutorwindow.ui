@@ -193,8 +193,11 @@
         <property name="styleSheet">
          <string notr="true">background-color: #1e1e1e;
 color: #ffffff;
+<<<<<<< Updated upstream
 font-family: 'JetBrains Mono', 'Noto Sans', 'Courier New';
 font-size: 15px;
+=======
+>>>>>>> Stashed changes
 font-weight: 500;
 border: 1px solid #3a3a3a;
 border-radius: 6px;
