@@ -364,45 +364,58 @@ void SLRTutorWindow::showTable()
         addMessage("¡Tabla enviada correctamente!", false);
     }
 }
+
 void SLRTutorWindow::updateProgressPanel()
 {
     QString text;
 
+    text += R"(
+        <html>
+        <body style="font-family: 'Noto Sans'; color: #f0f0f0; background-color: #1e1e1e;">
+    )";
+
     if (userMadeStates.empty()) {
-        text = "No se han construido estados aún.";
+        text += "<div style='color:#aaaaaa;'>No se han construido estados aún.</div>";
     } else {
         for (size_t i = 0; i < slr1.states_.size(); ++i) {
             auto st = std::ranges::find_if(userMadeStates,
                                            [i](const state &st) { return st.id_ == i; });
 
             if (st != userMadeStates.end()) {
-                text += QString("Estado I%1:\n").arg((*st).id_);
+                // Encabezado del estado
+                text += QString("<div style='color:#00ADB5; font-weight:bold; "
+                                "margin-top:12px;'>Estado I%1:</div>")
+                            .arg((*st).id_);
 
+                // Ítems como bloque monoespaciado
+                text += "<pre style='margin-left:12px; margin-top:4px;'>";
                 for (const Lr0Item &item : (*st).items_) {
-                    text += "  " + QString::fromStdString(item.ToString()) + "\n";
+                    text += QString::fromStdString(item.ToString()) + "\n";
                 }
+                text += "</pre>";
 
+                // Transiciones si hay
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {
-                    text += "  ------------------------\n";
-                    text += "  Transiciones:\n";
-
+                    text += "<div style='margin-left:12px; color:#BBBBBB; "
+                            "margin-top:4px;'>Transiciones:</div><ul style='margin-left:20px;'>";
                     for (const auto &entry : it->second) {
-                        QString symbol = QString::fromStdString(entry.first);
-                        int target = entry.second;
-                        text += QString("    δ(I%1, %2) = I%3\n")
+                        const QString symbol = QString::fromStdString(entry.first);
+                        const int target = entry.second;
+                        text += QString("<li> δ(I%1, %2) = I%3</li>")
                                     .arg((*st).id_)
                                     .arg(symbol)
                                     .arg(target);
                     }
+                    text += "</ul>";
                 }
-
-                text += "\n";
             }
         }
     }
 
-    ui->textEdit->setText(text);
+    text += "</body></html>";
+
+    ui->textEdit->setHtml(text);
 }
 
 void SLRTutorWindow::addUserState(unsigned id)
