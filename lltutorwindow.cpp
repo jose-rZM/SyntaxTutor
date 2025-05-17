@@ -266,7 +266,7 @@ void LLTutorWindow::updateProgressPanel()
     html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>Conjuntos CAB"
             ":</div><ul style='margin-left:16px;'>";
     for (const auto &[symbol, cabSet] : userCAB.asKeyValueRange()) {
-        html += QString("<li> CAB(%1) = %2</li>").arg(symbol, "{" + cabSet.values().join(", ") + "}");
+        html += QString("<li> CAB(%1) = %2</li>").arg(symbol, "{" + cabSet + "}");
     }
     html += "</ul>";
 
@@ -274,15 +274,15 @@ void LLTutorWindow::updateProgressPanel()
     html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>Conjuntos SIG"
             ":</div><ul style='margin-left:16px;'>";
     for (const auto &[symbol, sigSet] : userSIG.asKeyValueRange()) {
-        html += QString("<li> SIG(%1) = %2</li>").arg(symbol, "{" + sigSet.values().join(", ") + "}");
+        html += QString("<li> SIG(%1) = %2</li>").arg(symbol, "{" + sigSet + "}");
     }
     html += "</ul>";
 
     // === SELECTORES ===
-    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>Conjuntos SD:"
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>Conjuntos SD"
             ":</div><ul style='margin-left:16px;'>";
     for (const auto &[rule, sdSet] : userSD.asKeyValueRange()) {
-        html += QString("<li> SD(%1) = %2</li>").arg(rule, "{" + sdSet.values().join(", ") + "}");
+        html += QString("<li> SD(%1) = %2</li>").arg(rule, "{" + sdSet + "}");
     }
     html += "</ul>";
 
@@ -742,9 +742,10 @@ void LLTutorWindow::updateState(bool isCorrect)
         if (isCorrect) {
             QString key = sortedGrammar.at(currentRule).first + " -> "
                           + sortedGrammar.at(currentRule).second.join(' ');
-            userSD[key] = solutionForB();
-            userCAB[sortedGrammar.at(currentRule).second.join(' ')] = solutionForB1();
-            userSIG[sortedGrammar.at(currentRule).first] = solutionForB2();
+            userSD[key] = solutionForB().values().join(", ");
+            userCAB[sortedGrammar.at(currentRule).second.join(' ')] = solutionForB1().values().join(
+                ", ");
+            userSIG[sortedGrammar.at(currentRule).first] = solutionForB2().values().join(", ");
             updateProgressPanel();
             currentRule++;
             currentState = static_cast<qsizetype>(currentRule) >= sortedGrammar.size() ? State::C
@@ -756,7 +757,8 @@ void LLTutorWindow::updateState(bool isCorrect)
     }
     case State::B1:
         if (isCorrect) {
-            userCAB[sortedGrammar.at(currentRule).second.join(' ')] = solutionForB1();
+            userCAB[sortedGrammar.at(currentRule).second.join(' ')] = solutionForB1().values().join(
+                ", ");
             updateProgressPanel();
         }
         currentState = isCorrect ? State::B2 : State::B1;
@@ -764,7 +766,7 @@ void LLTutorWindow::updateState(bool isCorrect)
 
     case State::B2:
         if (isCorrect) {
-            userSIG[sortedGrammar.at(currentRule).first] = solutionForB2();
+            userSIG[sortedGrammar.at(currentRule).first] = solutionForB2().values().join(", ");
             updateProgressPanel();
         }
         currentState = isCorrect ? State::B_prime : State::B2;
@@ -773,7 +775,7 @@ void LLTutorWindow::updateState(bool isCorrect)
     case State::B_prime: {
         QString key = sortedGrammar.at(currentRule).first + " -> "
                       + sortedGrammar.at(currentRule).second.join(' ');
-        userSD[key] = solutionForB();
+        userSD[key] = solutionForB().values().join(", ");
         updateProgressPanel();
         currentRule++;
         currentState = static_cast<qsizetype>(currentRule) >= sortedGrammar.size() ? State::C
