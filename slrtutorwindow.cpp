@@ -342,25 +342,73 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
 
 void SLRTutorWindow::showTable()
 {
-    QStringList headers;
+    // 1) Construimos la lista de cabeceras igual que antes
+    QStringList colHeaders;
+    // Primero, todas las terminales (sin EPSILON)
     for (const auto &symbol : slr1.gr_.st_.terminals_) {
-        if (symbol == slr1.gr_.st_.EPSILON_) {
+        if (symbol == slr1.gr_.st_.EPSILON_)
             continue;
-        }
-        headers << QString::fromStdString(symbol);
+        colHeaders << QString::fromStdString(symbol);
     }
-
+    // Luego, todos los no terminales
     for (const auto &symbol : slr1.gr_.st_.non_terminals_) {
-        headers << QString::fromStdString(symbol);
+        colHeaders << QString::fromStdString(symbol);
     }
 
-    SLRTableDialog dialog(slr1.states_.size(), headers.size(), headers, this);
+    // 2) Lanzamos el diálogo (igual que con LL, pero sin initialData por ahora)
+    SLRTableDialog dialog(slr1.states_.size(), colHeaders.size(), colHeaders, this);
     if (dialog.exec() == QDialog::Accepted) {
-        auto tabla = dialog.getTableData();
+        // 3) Recogemos todo lo que ha escrito el usuario
+        rawTable = dialog.getTableData();
 
-        for (int i = 0; i < tabla.size(); ++i) {
-            qDebug() << "Fila" << i << ":" << tabla[i];
+        // 4) Vaciamos la tabla interna
+        slrtable.clear();
+
+        // 5) Recorremos filas (estados) y columnas (símbolos)
+        const int nTerm = slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
+                              ? slr1.gr_.st_.terminals_.size() - 1
+                              : slr1.gr_.st_.terminals_.size();
+        for (int state = 0; state < rawTable.size(); ++state) {
+            for (int j = 0; j < rawTable[state].size(); ++j) {
+                QString cell = rawTable[state][j].trimmed();
+                if (cell.isEmpty())
+                    continue;
+
+                const QString sym = colHeaders[j];
+
+                // 6) Parseo según tipo de columna
+                if (j < nTerm) {
+                    // --- Acción sobre terminal ---
+                    if (cell.startsWith('s', Qt::CaseInsensitive)) {
+                        int toState = cell.mid(1).toInt();
+                        slrtable[state][sym] = ActionEntry::makeShift(toState);
+                    } else if (cell.startsWith('r', Qt::CaseInsensitive)) {
+                        int prodIdx = cell.mid(1).toInt();
+                        slrtable[state][sym] = ActionEntry::makeReduce(prodIdx);
+                    } else if (cell.compare("acc", Qt::CaseInsensitive) == 0) {
+                        slrtable[state][sym] = ActionEntry::makeAccept();
+                    } else {
+                        // si quisieras soportar otra notación...
+                        qWarning() << "Entrada no reconocida en Action[" << state << "][" << sym
+                                   << "]:" << cell;
+                    }
+                } else {
+                    // --- Goto sobre no terminal ---
+                    bool ok = false;
+                    int toState = cell.toInt(&ok);
+                    if (ok) {
+                        slrtable[state][sym] = ActionEntry::makeGoto(toState);
+                    } else {
+                        qWarning() << "Goto inválido en [" << state << "][" << sym << "]:" << cell;
+                    }
+                }
+            }
         }
+
+        // 7) Como en LL, lanzamos la validación
+        on_confirmButton_clicked();
+    } else {
+        rawTable.clear();
     }
 }
 
