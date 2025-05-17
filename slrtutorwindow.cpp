@@ -57,9 +57,9 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
-    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 13));
+    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
 
-    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 15));
+    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
@@ -436,7 +436,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 
     if (isUser) {
         if (text.isEmpty()) {
-            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 14));
+            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -448,7 +448,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             border: 1px solid rgba(0, 0, 0, 0.15);
         )");
         } else {
-            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
+            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -461,7 +461,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
         )");
         }
     } else {
-        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
+        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
