@@ -2,6 +2,7 @@
 #include <QEasingCurve>
 #include "ui_slrtutorwindow.h"
 #include <QFontDatabase>
+
 SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::SLRTutorWindow)
@@ -61,7 +62,8 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
 
     ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
+    ui->userResponse->setPlaceholderText(
+        "Introduce aquí tu respuesta. Ctrl + Enter para nueva línea.");
 
     // -- Chat Appearance
     QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
@@ -356,12 +358,9 @@ void SLRTutorWindow::showTable()
     if (dialog.exec() == QDialog::Accepted) {
         auto tabla = dialog.getTableData();
 
-        // Acá podés usar `tabla` como quieras
         for (int i = 0; i < tabla.size(); ++i) {
             qDebug() << "Fila" << i << ":" << tabla[i];
         }
-
-        addMessage("¡Tabla enviada correctamente!", false);
     }
 }
 
@@ -382,19 +381,16 @@ void SLRTutorWindow::updateProgressPanel()
                                            [i](const state &st) { return st.id_ == i; });
 
             if (st != userMadeStates.end()) {
-                // Encabezado del estado
                 text += QString("<div style='color:#00ADB5; font-weight:bold; "
                                 "margin-top:12px;'>Estado I%1:</div>")
                             .arg((*st).id_);
 
-                // Ítems como bloque monoespaciado
                 text += "<pre style='margin-left:12px; margin-top:4px;'>";
                 for (const Lr0Item &item : (*st).items_) {
                     text += QString::fromStdString(item.ToString()) + "\n";
                 }
                 text += "</pre>";
 
-                // Transiciones si hay
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {
                     text += "<div style='margin-left:12px; color:#BBBBBB; "
@@ -448,9 +444,9 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 
     QLabel *header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setStyleSheet(
-        isUser ? "font-weight: bold; color: #00ADB5; font-size: 12px; font-family: 'Noto Sans';"
-               : "font-weight: bold; color: #BBBBBB; font-size: 12px; font-family: 'Noto Sans';");
+    header->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
+    header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
+                                 : "font-weight: bold; color: #BBBBBB;");
 
     QHBoxLayout *messageLayout = new QHBoxLayout;
     messageLayout->setSpacing(0); // Sin espacio lateral adicional
