@@ -24,8 +24,8 @@ public:
 
         static const char *darkQss = R"(
 QWizard, QWizardPage {
-    background-color: #2b2b2b;
-    color: #e0e0e0;
+        background-color: #1F1F1F;
+        color: #E0E0E0;
 }
 
 QWizard::title {

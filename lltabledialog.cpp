@@ -10,7 +10,8 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
     table->setHorizontalHeaderLabels(colHeaders);
     table->setVerticalHeaderLabels(rowHeaders);
-
+    table->horizontalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
+    table->verticalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     table->resizeColumnsToContents();
     table->resizeRowsToContents();
 
@@ -30,23 +31,6 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
-    submitButton->setStyleSheet(R"(
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-
-    QPushButton:pressed {
-        background-color: #222831;
-    }        
-)");
     submitButton->setCursor(Qt::PointingHandCursor);
     connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
 
