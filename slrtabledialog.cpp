@@ -9,7 +9,12 @@ SLRTableDialog::SLRTableDialog(int rowCount,
 {
     table = new QTableWidget(rowCount, colCount, this);
     table->setHorizontalHeaderLabels(colHeaders);
-
+    this->setStyleSheet(R"(
+    QTableWidget {
+        background-color: #1F1F1F;
+        color: #E0E0E0;
+    }
+    )");
     QStringList rowLabels;
     for (int i = 0; i < rowCount; ++i)
         rowLabels << QString("State %1").arg(i);
