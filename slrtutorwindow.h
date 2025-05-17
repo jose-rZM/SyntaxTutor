@@ -203,6 +203,19 @@ private:
     unsigned currentReduceStateId = 0;
     state currentReduceState;
 
+    struct ActionEntry
+    {
+        enum Type { Shift, Reduce, Accept, Goto } type;
+        int target;
+        static ActionEntry makeShift(int s) { return {Shift, s}; }
+        static ActionEntry makeReduce(int r) { return {Reduce, r}; }
+        static ActionEntry makeAccept() { return {Accept, 0}; }
+        static ActionEntry makeGoto(int g) { return {Goto, g}; }
+    };
+
+    QMap<int, QMap<QString, ActionEntry>> slrtable;
+    QVector<QVector<QString>> rawTable;
+
     // ====== Conversation Log =======================================
     struct MessageLog
     {
