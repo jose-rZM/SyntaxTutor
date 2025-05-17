@@ -914,6 +914,7 @@ QString SLRTutorWindow::generateQuestion()
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true); // handled externally
         showTable();
+        return "";
     }
 
     case StateSlr::H_prime: {
@@ -932,6 +933,7 @@ QString SLRTutorWindow::generateQuestion()
         if (wizard.exec() == QWizard::Accepted) {
             on_confirmButton_clicked();
         }
+        return "";
     }
 
     default:

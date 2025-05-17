@@ -25,7 +25,7 @@ public:
         const int nTerm = parser.gr_.st_.terminals_.contains(parser.gr_.st_.EPSILON_)
                               ? parser.gr_.st_.terminals_.size() - 1
                               : parser.gr_.st_.terminals_.size();
-
+        SLRWizardPage *last = nullptr;
         // Generar explicación y páginas
         int rows = rawTable.size();
         int cols = colHeaders.size();
@@ -108,8 +108,12 @@ public:
 
                 // Crear página y añadir al wizard
                 SLRWizardPage *page = new SLRWizardPage(i, sym, explanation, expected, this);
+                last = page;
                 addPage(page);
             }
+        }
+        if (last) {
+            last->setFinalPage(true);
         }
     }
 
