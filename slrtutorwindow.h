@@ -76,6 +76,9 @@ public:
     void showTable();                                      // Render SLR(1) table
     void updateProgressPanel();                            // Refresh visual progress
     void addUserState(unsigned id);                        // Register a user-created state
+    void addUserTransition(unsigned fromId,
+                           const std::string &symbol,
+                           unsigned toId); // Register a user-created transition
 
     // ====== Visual Feedback & Animations ==========================
     void animateLabelPop(QLabel *label);
@@ -181,7 +184,9 @@ private:
 
     // ====== State Machine Runtime Variables ========================
     std::unordered_set<state> userMadeStates; // All states the user has created
-    UniqueQueue<unsigned> statesIdQueue;      // States to be processed in B-C-CA-CB loop
+    std::unordered_map<unsigned, std::unordered_map<std::string, unsigned>>
+        userMadeTransitions;             // Transitions made by the user
+    UniqueQueue<unsigned> statesIdQueue; // States to be processed in B-C-CA-CB loop
     unsigned currentStateId = 0;
     state currentSlrState;
 
