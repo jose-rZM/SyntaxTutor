@@ -10,8 +10,8 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
     table->setHorizontalHeaderLabels(colHeaders);
     table->setVerticalHeaderLabels(rowHeaders);
-    table->horizontalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
-    table->verticalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
+    table->horizontalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
+    table->verticalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
     table->resizeColumnsToContents();
     table->resizeRowsToContents();
 

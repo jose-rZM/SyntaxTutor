@@ -357,6 +357,41 @@ void SLRTutorWindow::showTable()
 
     // 2) Lanzamos el diálogo (igual que con LL, pero sin initialData por ahora)
     SLRTableDialog dialog(slr1.states_.size(), colHeaders.size(), colHeaders, this, &rawTable);
+    static const char *darkQss = R"(
+    QDialog, QWidget {
+        background-color: #2b2b2b;
+        color: #e0e0e0;
+    }
+    QTableWidget {
+        background-color: #1F1F1F;
+        color: #E0E0E0;
+        gridline-color: #555555;
+    }
+    QHeaderView::section {
+        background-color: #313436;
+        color: #E0E0E0;
+        padding: 4px;
+        border: 1px solid #555555;
+    }
+    QTableWidget::item:selected {
+        background-color: #50575F;
+        color: #ffffff;
+    }
+    QPushButton {
+        background-color: #393E46;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+    }
+    QPushButton:hover {
+        background-color: #50575F;
+    }
+    QPushButton:pressed {
+        background-color: #222831;
+    }
+    )";
+    dialog.setStyleSheet(darkQss);
     if (dialog.exec() == QDialog::Accepted) {
         // 3) Recogemos todo lo que ha escrito el usuario
         rawTable = dialog.getTableData();
@@ -409,6 +444,12 @@ void SLRTutorWindow::showTable()
         on_confirmButton_clicked();
     } else {
         rawTable.clear();
+        auto r = QMessageBox::question(this, "Cancelar tabla SLR(1)", "¿Quieres salir del tutor? Esto cancelará el ejercicio. Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\".", QMessageBox::Yes | QMessageBox::No);
+        if (r == QMessageBox::Yes) {
+            this->close();
+        } else {
+            on_confirmButton_clicked();
+        }
     }
 }
 
