@@ -59,33 +59,13 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
 
     ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 13));
 
-    // -- User Input Setup
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    QFont userFont = QApplication::font();
-    userFont.setPointSize(15);
-    ui->userResponse->setFont(scaledFont(15, false));
-=======
     ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 15));
->>>>>>> Stashed changes
-=======
-    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 15));
->>>>>>> Stashed changes
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
 
     // -- Chat Appearance
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    QFont chatFont = QApplication::font();
-    chatFont.setPointSize(12);
-    ui->listWidget->setFont(scaledFont(12, false));
-=======
-=======
->>>>>>> Stashed changes
     QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     ui->listWidget->setFont(chatFont);
->>>>>>> Stashed changes
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
@@ -102,17 +82,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
                   return a < b;
               });
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    QFont grammarFont = QApplication::font();
-    grammarFont.setPointSize(14);
-    ui->gr->setFont(scaledFont(14, false));
-=======
     ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
->>>>>>> Stashed changes
-=======
-    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
->>>>>>> Stashed changes
     ui->gr->setText(formattedGrammar);
 
     // ====== Status, Progress & First Message ===================
@@ -466,15 +436,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
 
     if (isUser) {
         if (text.isEmpty()) {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            label->setFont(scaledFont(10, true));
-=======
             label->setFont(QFontDatabase::font("Noto Sans", "Italic", 14));
->>>>>>> Stashed changes
-=======
-            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 14));
->>>>>>> Stashed changes
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -484,22 +446,9 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
             border-bottom-left-radius: 18px;
             border-bottom-right-radius: 18px;
             border: 1px solid rgba(0, 0, 0, 0.15);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            font-style: italic;
-        )");
-        } else {
-            label->setFont(scaledFont(10, false));
-=======
         )");
         } else {
             label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
->>>>>>> Stashed changes
-=======
-        )");
-        } else {
-            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
->>>>>>> Stashed changes
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -512,15 +461,7 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
         )");
         }
     } else {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        label->setFont(scaledFont(10, false));
-=======
         label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
->>>>>>> Stashed changes
-=======
-        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
->>>>>>> Stashed changes
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -536,20 +477,9 @@ void SLRTutorWindow::addMessage(const QString &text, bool isUser)
     label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
 
     QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    timestamp->setFont(scaledFont(7, false));
-    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
-=======
     timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     timestamp->setStyleSheet(
         "color: gray; margin-left: 5px;");
->>>>>>> Stashed changes
-=======
-    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
-    timestamp->setStyleSheet(
-        "color: gray; margin-left: 5px;");
->>>>>>> Stashed changes
     timestamp->setAlignment(Qt::AlignRight);
 
     innerLayout->addWidget(label);
@@ -811,6 +741,9 @@ QString SLRTutorWindow::generateQuestion()
                 .arg(currentStateId)
                 .arg(currentSymbol);
         } else {
+            nextStateId = slr1.transitions_.at(static_cast<unsigned int>(currentStateId))
+                              .at(currentSymbol.toStdString());
+            statesIdQueue.push(nextStateId);
             return QString("Calcula δ(I%1, %2):\n"
                            "¿Qué estado se genera al hacer transición con '%2'?\n"
                            "Este será el estado número %3.")
@@ -1167,7 +1100,10 @@ bool SLRTutorWindow::verifyResponseForCB(const QString &userResponse)
         return userResponse.isEmpty();
     } else {
         const auto response = ingestUserItems(userResponse);
-        return response == solutionForCB();
+        const auto sol = solutionForCB();
+        bool ok = response == sol;
+        return ok;
+        //return response == solutionForCB();
     }
 }
 
@@ -1922,12 +1858,4 @@ void SLRTutorWindow::on_userResponse_textChanged()
 
     // Establece también el máximo para limitar el crecimiento
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
-}
-
-QFont SLRTutorWindow::scaledFont(int basePointSize, bool italic)
-{
-    QFont font = QGuiApplication::font();
-    font.setPointSize(basePointSize);
-    font.setItalic(italic);
-    return font;
 }
