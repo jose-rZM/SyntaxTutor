@@ -364,21 +364,40 @@ void SLRTutorWindow::showTable()
         addMessage("¡Tabla enviada correctamente!", false);
     }
 }
-
 void SLRTutorWindow::updateProgressPanel()
 {
     QString text;
+
     if (userMadeStates.empty()) {
         text = "No se han construido estados aún.";
     } else {
         for (size_t i = 0; i < slr1.states_.size(); ++i) {
             auto st = std::ranges::find_if(userMadeStates,
                                            [i](const state &st) { return st.id_ == i; });
+
             if (st != userMadeStates.end()) {
-                text += QString("Estado I%1\n").arg((*st).id_);
+                text += QString("Estado I%1:\n").arg((*st).id_);
+
                 for (const Lr0Item &item : (*st).items_) {
-                    text += QString::fromStdString(item.ToString()) + "\n";
+                    text += "  " + QString::fromStdString(item.ToString()) + "\n";
                 }
+
+                auto it = userMadeTransitions.find((*st).id_);
+                if (it != userMadeTransitions.end() && !it->second.empty()) {
+                    text += "  ------------------------\n";
+                    text += "  Transiciones:\n";
+
+                    for (const auto &entry : it->second) {
+                        QString symbol = QString::fromStdString(entry.first);
+                        int target = entry.second;
+                        text += QString("    δ(I%1, %2) = I%3\n")
+                                    .arg((*st).id_)
+                                    .arg(symbol)
+                                    .arg(target);
+                    }
+                }
+
+                text += "\n";
             }
         }
     }
@@ -393,6 +412,11 @@ void SLRTutorWindow::addUserState(unsigned id)
         userMadeStates.insert(*st);
         updateProgressPanel();
     }
+}
+
+void SLRTutorWindow::addUserTransition(unsigned fromId, const std::string &symbol, unsigned toId)
+{
+    userMadeTransitions[fromId][symbol] = toId;
 }
 
 void SLRTutorWindow::addMessage(const QString &text, bool isUser)
@@ -889,6 +913,11 @@ void SLRTutorWindow::updateState(bool isCorrect)
         break;
 
     case StateSlr::CB: {
+        if (followSymbols.at(currentFollowSymbolsIdx).toStdString() != slr1.gr_.st_.EPSILON_) {
+            addUserTransition(currentStateId,
+                              followSymbols[currentFollowSymbolsIdx].toStdString(),
+                              nextStateId);
+        }
         ++currentFollowSymbolsIdx;
         if (currentFollowSymbolsIdx < followSymbols.size()) {
             currentState = StateSlr::CB;
