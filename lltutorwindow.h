@@ -168,6 +168,10 @@ private:
     QVector<MessageLog> conversationLog;
     QWidget *lastUserMessage = nullptr;
 
+    QMap<QString, QSet<QString>> userCAB;
+    QMap<QString, QSet<QString>> userSIG;
+    QMap<QString, QSet<QString>> userSD;
+
     // ====== Helper Conversions ================================
     std::vector<std::string> qvectorToStdVector(const QVector<QString> &qvec);
     QVector<QString> stdVectorToQVector(const std::vector<std::string> &vec);
