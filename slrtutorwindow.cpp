@@ -1333,8 +1333,12 @@ bool SLRTutorWindow::verifyResponseForC(const QString &userResponse)
 bool SLRTutorWindow::verifyResponseForCA(const QString &userResponse)
 {
     QStringList response = userResponse.split(",", Qt::SkipEmptyParts);
+    QSet<QString> responseSet;
+
+    for (const auto &s : std::as_const(response)) {
+        responseSet.insert(s.trimmed());
+    }
     QStringList expected = solutionForCA();
-    QSet<QString> responseSet(response.begin(), response.end());
     QSet<QString> expectedSet(expected.begin(), expected.end());
     return responseSet == expectedSet;
 }
@@ -1429,17 +1433,24 @@ bool SLRTutorWindow::verifyResponseForF(const QString &userResponse)
 bool SLRTutorWindow::verifyResponseForFA(const QString &userResponse)
 {
     QStringList resp = userResponse.split(',', Qt::SkipEmptyParts);
-    QSet<QString> given(resp.begin(), resp.end());
+    QSet<QString> userSet;
+    for (const auto &s : std::as_const(resp)) {
+        userSet.insert(s.trimmed());
+    }
     QSet<QString> expected = solutionForFA();
-    return given == expected;
+    return userSet == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForG(const QString &userResponse)
 {
     QSet<QString> expected = solutionForG();
     QStringList resp = userResponse.split(',', Qt::SkipEmptyParts);
-    QSet<QString> given = QSet<QString>(resp.begin(), resp.end());
-    return given == expected;
+    QSet<QString> userSet;
+
+    for (const auto &s : std::as_const(resp)) {
+        userSet.insert(s.trimmed());
+    }
+    return userSet == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForH()
