@@ -1582,7 +1582,7 @@ void LLTutorWindow::setupTutorial()
                 "<p>En esta sección se ve la gramática que estás analizando.</p>"
                 "<p>Consulta los símbolos y producciones para responder. Como norma general, los "
                 "símbolos en mayúscula serán los no terminales, los que están en minúscula, los "
-                "terminales, la cadena \"ESPILON\" representará la cadena vacía y $ representa el "
+                "terminales, la cadena \"EPSILON\" representará la cadena vacía y $ representa el "
                 "fin de línea.</p>");
 
     tm->addStep(ui->textEdit,

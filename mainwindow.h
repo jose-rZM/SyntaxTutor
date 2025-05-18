@@ -38,6 +38,8 @@ private slots:
 private:
     void setupTutorial();
 
+    void restartTutorial();
+
     Ui::MainWindow *ui;
     GrammarFactory factory;
     int level = 1;
