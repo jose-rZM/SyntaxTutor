@@ -29,6 +29,8 @@
 #include "backend/ll1_parser.hpp"
 #include "lltabledialog.h"
 
+class TutorialManager;
+
 namespace Ui {
 class LLTutorWindow;
 }
@@ -50,7 +52,7 @@ public:
     };
 
     // ====== Constructor / Destructor =========================
-    explicit LLTutorWindow(const Grammar &grammar, QWidget *parent = nullptr);
+    explicit LLTutorWindow(const Grammar &grammar, TutorialManager *tm = nullptr, QWidget *parent = nullptr);
     ~LLTutorWindow();
 
     // ====== State Machine & Question Logic ====================
@@ -178,7 +180,11 @@ private:
     QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string> &uset);
     std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString> &qset);
 
+    void setupTutorial();
+
     void fillSortedGrammar(); // Populate sortedGrammar from internal representation
+
+    TutorialManager *tm = nullptr;
 };
 
 #endif // LLTUTORWINDOW_H

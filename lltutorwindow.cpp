@@ -1,13 +1,15 @@
 #include "lltutorwindow.h"
 #include <QFontDatabase>
 #include <QRandomGenerator>
+#include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
 
-LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
+LLTutorWindow::LLTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LLTutorWindow)
     , grammar(grammar)
     , ll1(this->grammar)
+    , tm(tm)
 {
     // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
@@ -74,6 +76,10 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, QWidget *parent)
             &CustomTextEdit::sendRequested,
             this,
             &LLTutorWindow::on_confirmButton_clicked);
+
+    if (tm) {
+        setupTutorial();
+    }
 }
 
 LLTutorWindow::~LLTutorWindow()
@@ -1557,3 +1563,31 @@ void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> ro
 
     dialog->show();
 }
+
+void LLTutorWindow::setupTutorial()
+{
+    // 1) Zona de mensajes (el QListWidget donde sale “Tutor:”)
+    tm->addStep(ui->listWidget,
+                      "<h3>Mensajes</h3>"
+                      "<p>Aquí el tutor pregunta y muestra feedback.</p>"
+                      "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar una nueva línea con Ctrl+Enter si el formato lo requiere.</p>"
+                      );
+
+    // 2) Zona de Gramática (el QLabel o QTextEdit donde se muestra la gramática)
+    tm->addStep(ui->gr,
+                      "<h3>Gramática</h3>"
+                      "<p>En esta sección ves la gramática que estás analizando.</p>"
+                      "<p>Consulta los símbolos y producciones para responder.</p>"
+                      );
+
+    // 3) Zona de progreso/log (panel donde mostramos conjuntos FIRST/FOLLOW o el contador)
+    //    Asumo que esa zona está en un widget llamado ui->progressPanel
+    tm->addStep(ui->textEdit,
+                      "<h3>Progreso</h3>"
+                      "<p>Aquí se registran los pasos que das: "
+                      "conjuntos FIRST/FOLLOW, tabla LL(1), aciertos y errores.</p>"
+                      );
+
+}
+
+
