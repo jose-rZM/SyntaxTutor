@@ -480,11 +480,11 @@ void SLRTutorWindow::updateProgressPanel()
                                 "margin-top:12px;'>Estado I%1:</div>")
                             .arg((*st).id_);
 
-                text += "<pre style='margin-left:12px; margin-top:4px;'>";
+                text += "<p style='margin-left:12px; margin-top:4px;'>";
                 for (const Lr0Item &item : (*st).items_) {
-                    text += QString::fromStdString(item.ToString()) + "\n";
+                    text += QString::fromStdString(item.ToString()) + "<br/>";
                 }
-                text += "</pre>";
+                text += "</p>";
 
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {

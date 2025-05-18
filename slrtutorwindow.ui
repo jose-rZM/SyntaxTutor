@@ -197,7 +197,8 @@ border: 1px solid #3a3a3a;
 border-radius: 6px;
 padding: 8px;
 selection-background-color: #44475a;
-selection-color: #ffffff;</string>
+selection-color: #ffffff;
+font-family: Noto Sans</string>
         </property>
         <property name="readOnly">
          <bool>true</bool>
@@ -286,7 +287,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>856</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
