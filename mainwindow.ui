@@ -93,23 +93,25 @@
           <pointsize>-1</pointsize>
          </font>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    background-color: #2E2E2E; 
-    color: #AAAAAA;            
-    border: 1px solid #444444;   
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: 'Noto Sans';
+    background-color: #2F2F2F;        /* Gris muy oscuro, casi al tono de fondo */
+    color:            #CCCCCC;        /* Gris claro, sin llegar a blanco puro */
+    border:           1px solid #444; /* Borde sutil para definir límites */
+    padding:          8px 16px;
+    border-radius:    4px;
+    font-size:        14px;
+    font-family:      'Noto Sans';
 }
 QPushButton:hover {
-    background-color: #3A3A3A;
-    color: #CCCCCC;
+    background-color: #3A3A3A;        /* Un poco más claro al pasar el cursor */
+    color:            #FFFFFF;
 }
 QPushButton:pressed {
-    background-color: #262626;
-    color: #EEEEEE;
+    background-color: #262626;        /* Oscurece un pelín al pulsar */
 }</string>
         </property>
         <property name="text">
@@ -134,8 +136,30 @@ QPushButton:pressed {
         </property>
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QRadioButton {
+    color:    #DDDDDD;
+    font-size:16px;
+    spacing:  6px;
+}
+QRadioButton::indicator {
+    width:        16px;
+    height:       16px;
+    border-radius:8px;
+    border:       2px solid #555555;
+    background:   transparent;
+}
+QRadioButton::indicator:checked {
+    background: #00ADB5;
+    border:     2px solid #00ADB5;
+}
+QRadioButton::indicator:checked + QLabel {
+    color: #00ADB5;
+}
+</string>
         </property>
         <property name="text">
          <string>Nivel 1</string>
@@ -155,8 +179,30 @@ QPushButton:pressed {
         </property>
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QRadioButton {
+    color:    #DDDDDD;
+    font-size:16px;
+    spacing:  6px;
+}
+QRadioButton::indicator {
+    width:        16px;
+    height:       16px;
+    border-radius:8px;
+    border:       2px solid #555555;
+    background:   transparent;
+}
+QRadioButton::indicator:checked {
+    background: #00ADB5;
+    border:     2px solid #00ADB5;
+}
+QRadioButton::indicator:checked + QLabel {
+    color: #00ADB5;
+}
+</string>
         </property>
         <property name="text">
          <string>Nivel 2</string>
@@ -173,8 +219,30 @@ QPushButton:pressed {
         </property>
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>-1</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QRadioButton {
+    color:    #DDDDDD;
+    font-size:16px;
+    spacing:  6px;
+}
+QRadioButton::indicator {
+    width:        16px;
+    height:       16px;
+    border-radius:8px;
+    border:       2px solid #555555;
+    background:   transparent;
+}
+QRadioButton::indicator:checked {
+    background: #00ADB5;
+    border:     2px solid #00ADB5;
+}
+QRadioButton::indicator:checked + QLabel {
+    color: #00ADB5;
+}
+</string>
         </property>
         <property name="text">
          <string>Nivel 3</string>
