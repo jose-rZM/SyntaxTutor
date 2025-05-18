@@ -746,6 +746,9 @@ QString LLTutorWindow::generateQuestion()
 
         // ====== C: Mostrar tabla final al alumno =================
     case State::C:
+        addMessage("Rellena la tabla LL(1), en el panel derecho puedes consultar todos los "
+                   "cálculos que has realizado durante el ejercicio.",
+                   false);
         lastUserMessage = nullptr;
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true); // handled externally
@@ -1582,6 +1585,18 @@ void LLTutorWindow::setupTutorial()
                 "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar "
                 "una nueva línea con Ctrl+Enter si el formato lo requiere. Aunque en el tutor "
                 "LL(1) no es necesario.</p>");
+
+    tm->addStep(ui->listWidget,
+                "<h3>Formato de respuesta</h3>"
+                "<p>El tutor te indicará el formato de respuesta en cada pregunta. En LL(1), "
+                "siempre son o listas de símbolos separados por coma o números.</p>");
+
+    tm->addStep(ui->listWidget,
+                "<h3>Ejemplo práctico</h3>"
+                "<p>Supón que te piden el conjunto cabecera de una cadena. La respuesta correcta "
+                "sería una lista de símbolos, por ejemplo: a,b,c.</p>"
+                "<p>Si te preguntasen el número de símbolos de la gramática, bastaría con "
+                "responder con un número.</p>");
 
     tm->addStep(ui->gr,
                 "<h3>Gramática</h3>"

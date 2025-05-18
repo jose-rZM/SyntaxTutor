@@ -2261,8 +2261,29 @@ void SLRTutorWindow::setupTutorial()
         ui->listWidget,
         "<h3>Formato de respuesta</h3>"
         "<p>Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o "
-        "ítem LR (una regla gramatical con el (·) por línea. Recuerda que con Ctrl+Enter puedes "
-        "insertar una nueva línea.</p>");
+        "ítem LR (una regla gramatical con el (.) por línea. Recuerda que con Ctrl+Enter puedes "
+        "insertar una nueva línea. Veamos unos ejemplos.</p>");
+
+    tm->addStep(ui->listWidget,
+                "<h3>Ejemplo: regla gramatical</h3>"
+                "<p>Supón que tienes esta producción en la gramática: X -> a b | c</p>"
+                "<p>La respuesta correcta para esa pregunta sería exactamente:</p>"
+                "<pre>X -> a b</pre>"
+                "<pre>X -> c</pre>"
+                "<p>Una sola regla por línea, tal cual aparece arriba.</p>");
+
+    tm->addStep(ui->listWidget,
+                "<h3>Ejemplo: ítem LR(0)</h3>"
+                "<p>Un ítem LR añade un punto “.” para indicar la posición en la regla.</p>"
+                "<p>Por ejemplo, un ítem correspondiente a la misma producción sería:</p>"
+                "<pre>X -> a . b</pre>"
+                "<p>Observa el punto justo antes de “b”—ese es el formato exigido. En caso de "
+                "varios ítems, simplemente coloca uno por línea.</p>");
+
+    tm->addStep(ui->listWidget,
+                "<h3>Ejemplo: lista de símbolos</h3>"
+                "<p>Al igual que el LL(1), se te puede pedir una lista de símbolos separados por "
+                "coma.</p>");
 
     tm->addStep(this->window(),
                 "<h3>Finalización</h3>"
