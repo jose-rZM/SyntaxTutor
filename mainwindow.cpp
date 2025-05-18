@@ -198,12 +198,13 @@ void MainWindow::setupTutorial()
     tm = new TutorialManager(this);
 
     // Paso 1: explicación de botones LL(1) y SLR(1)
-    tm->addStep(ui->pushButton, "<h3>LL(1)</h3><p>Pulsa para lanzar el tutor LL(1).</p>");
-    tm->addStep(ui->pushButton_2, "<h3>SLR(1)</h3><p>Pulsa para lanzar el tutor SLR(1).</p>");
+    tm->addStep(ui->pushButton, "<h3>LL(1)</h3><p>Con este botón puedes lanzar el tutor LL(1).</p>");
+    tm->addStep(ui->pushButton_2, "<h3>SLR(1)</h3><p>Con este, el SLR(1).</p>");
 
     // Paso 2: explicación de niveles
     tm->addStep(ui->lv1Button,
-                "<p>También puedes seleccionar el nivel de dificultad (1, 2 o 3).</p>");
+                "<p>También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad "
+                "repercute en la longitud de la gramática.</p>");
 
     // Paso 3: LL(1)
     tm->addStep(ui->pushButton, "<p>Ahora se abrirá la ventana LL(1).</p>");
@@ -256,10 +257,9 @@ void MainWindow::setupTutorial()
 
                     tm->setRootWindow(this);
                     tm->clearSteps();
-                    tm->addStep(this,
-                                "<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a aprender "
-                                "sobre analizadores sintácticos. Puedes lanzar el tutorial de "
-                                "nuevo presionando el botón correspondiente.</p>");
+                    tm->addStep(
+                        this,
+                        "<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a practicar.</p>");
                     connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
                         tm->clearSteps();
                         delete tm;
