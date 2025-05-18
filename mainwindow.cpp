@@ -192,6 +192,9 @@ void MainWindow::on_tutorial_clicked()
 
 void MainWindow::setupTutorial()
 {
+    if (tm)
+        delete tm;
+
     tm = new TutorialManager(this);
 
     // Paso 1: explicación de botones LL(1) y SLR(1)
@@ -204,71 +207,123 @@ void MainWindow::setupTutorial()
 
     // Paso 3: LL(1)
     tm->addStep(ui->pushButton, "<p>Ahora se abrirá la ventana LL(1).</p>");
+    tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
-        if (idx == 3) {
-            // 1) Abre LL
+        if (idx == 4) {
+            // 1) Abrir LLTutorWindow…
             Grammar grammarLL = factory.GenLL1Grammar(1);
             auto *llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
             llTutor->setAttribute(Qt::WA_DeleteOnClose);
             llTutor->show();
 
-            // 2) Preparar SLR
-            connect(tm, &TutorialManager::tutorialFinished, this, [this, llTutor]() {
+            // Detectar cierre manual de LL
+            QMetaObject::Connection llManualCloseConn = connect(llTutor,
+                                                                &QObject::destroyed,
+                                                                this,
+                                                                [=]() { restartTutorial(); });
+
+            // 2) Cuando termine LL(1), preparamos SLR(1)
+            connect(tm, &TutorialManager::tutorialFinished, this, [=]() mutable {
+                // a) Desconecto la señal de cierre manual
+                disconnect(llManualCloseConn);
+                // b) Cierro LL de forma controlada
                 llTutor->close();
 
-                disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
-                disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+                // c) Limpiar conexiones de tm antiguas
+                disconnect(tm, nullptr, this, nullptr);
+                disconnect(tm, nullptr, tm, nullptr);
 
+                // d) Restaurar MainWindow como root
                 tm->setRootWindow(this);
 
+                // e) Pasos de SLR
                 tm->clearSteps();
                 tm->addStep(ui->pushButton_2, "<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>");
                 tm->addStep(ui->lv3Button,
                             "<p>Esta vez se usará una gramática más compleja (Nivel 3).</p>");
                 tm->addStep(ui->pushButton_2, "<p>Ahora se abrirá el tutor SLR(1).</p>");
+                tm->addStep(nullptr, "");
 
-                // a) Arranca el tutorial de SLR
+                // f) Arranco el tutorial de SLR
                 tm->start();
 
-                // b) Abrir SLR
-                connect(tm, &TutorialManager::stepStarted, this, [this](int idx2) {
-                    if (idx2 == 2) {
+                // g) Conexiones para el bloque SLR:
+                QMetaObject::Connection slrStepConn;
+                QMetaObject::Connection slrFinishConn;
+
+                // g.1) Al llegar al paso 3 abrimos SLR
+                slrStepConn = connect(tm, &TutorialManager::stepStarted, this, [=](int idx2) mutable {
+                    if (idx2 == 3) {
+                        // i) Abrimos SLR
                         Grammar grammarSLR = factory.GenSLR1Grammar(3);
                         auto *slrTutor = new SLRTutorWindow(grammarSLR, tm, nullptr);
                         slrTutor->setAttribute(Qt::WA_DeleteOnClose);
                         slrTutor->show();
+
+                        // ii) Detectar cierre manual de SLR
+                        QMetaObject::Connection slrManualCloseConn = connect(slrTutor,
+                                                                             &QObject::destroyed,
+                                                                             this,
+                                                                             [=]() {
+                                                                                 restartTutorial();
+                                                                             });
+
+                        // iii) Cuando termine SLR(1)
+                        slrFinishConn
+                            = connect(tm, &TutorialManager::tutorialFinished, this, [=]() mutable {
+                                  // – Desconecto cierre manual
+                                  disconnect(slrManualCloseConn);
+                                  // – Cierro SLR de forma controlada
+                                  slrTutor->close();
+                                  // – Desconecto handlers de este bloque
+                                  disconnect(slrStepConn);
+                                  disconnect(slrFinishConn);
+                                  // – Restaurar MainWindow y preparar paso final
+                                  tm->setRootWindow(this);
+                                  tm->clearSteps();
+                                  tm->addStep(this,
+                                              "<h2>¡Tutorial completado!</h2>"
+                                              "<p>Ya puedes comenzar a aprender sobre "
+                                              "analizadores sintácticos. "
+                                              "Pulsa el botón 'Tutorial' para repetir "
+                                              "cuando quieras.</p>");
+                                  // – Al acabar este paso, reiniciamos totalmente
+                                  connect(tm, &TutorialManager::tutorialFinished, this, [=]() {
+                                      restartTutorial();
+                                  });
+                                  tm->start();
+                              });
+
+                        // iv) Posponer highlight hasta que SLR esté mapeada
                         QTimer::singleShot(50, [=]() {
                             tm->setRootWindow(slrTutor);
                             tm->nextStep();
                         });
                     }
                 });
-
-                // c) Acaba SLR
-                connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
-                    disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
-                    disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
-
-                    tm->setRootWindow(this);
-                    tm->clearSteps();
-                    tm->addStep(this,
-                                "<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a aprender "
-                                "sobre analizadores sintácticos. Puedes lanzar el tutorial de "
-                                "nuevo presionando el botón correspondiente.</p>");
-                    connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
-                        tm->clearSteps();
-                        delete tm;
-                        setupTutorial();
-                    });
-                    tm->start();
-                });
             });
 
-            QTimer::singleShot(50, [this, llTutor]() {
+            // 3) Posponer el highlight de LL
+            QTimer::singleShot(50, [=]() {
                 tm->setRootWindow(llTutor);
                 tm->nextStep();
             });
         }
     });
+}
+
+void MainWindow::restartTutorial()
+{
+    if (tm) {
+        // 0) Si hay un overlay vivo, lo quitamos
+        tm->hideOverlay();
+        tm->clearSteps();
+
+        // 1) Desconectamos TODO lo que pudiera quedarnos
+        disconnect(tm, nullptr, this, nullptr);
+        disconnect(tm, nullptr, tm, nullptr);
+    }
+    // 3) Volvemos a configurar un tutorial nuevo
+    setupTutorial();
 }
