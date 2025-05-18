@@ -24,8 +24,11 @@
     <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">  background-color: #1F1F1F;
-    color: #E0E0E0;</string>
+   <string notr="true">QMainWindow {
+background-color: #1F1F1F;
+color: #E0E0E0;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -268,7 +271,7 @@ QRadioButton::indicator:checked + QLabel {
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuAcerca_de">
+   <widget class="QMenu" name="menuAcercaDe">
     <property name="title">
      <string>Acerca de</string>
     </property>
@@ -276,7 +279,7 @@ QRadioButton::indicator:checked + QLabel {
     <addaction name="actionReferencia_LL_1"/>
     <addaction name="actionReferencia_SLR_1"/>
    </widget>
-   <addaction name="menuAcerca_de"/>
+   <addaction name="menuAcercaDe"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSobre_la_aplicaci_n">

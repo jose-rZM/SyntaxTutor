@@ -55,6 +55,20 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pushButton->setCursor(Qt::PointingHandCursor);
     ui->pushButton_2->setCursor(Qt::PointingHandCursor);
+    ui->menuAcercaDe->setObjectName("menuAcercaDe");
+    ui->menuAcercaDe->setStyleSheet(R"(
+  /* Esto solo afecta al menú cuyo objectName sea 'menuAcercaDe' */
+  QMenu#menuAcercaDe::item {
+    padding: 6px 24px;
+  }
+  QMenu#menuAcercaDe::item:selected {
+    background-color: #00ADB5;
+    color: white;
+  }
+  QMenu#menuAcercaDe::icon {
+    padding-left: 4px;
+  }
+)");
 
     setupTutorial();
 }
@@ -225,6 +239,34 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
                     "<p>2025 Universidad de Málaga</p>");
 
     about.setStandardButtons(QMessageBox::Close);
+    auto *closeBtn = about.button(QMessageBox::Close);
+    if (closeBtn) {
+        closeBtn->setCursor(Qt::PointingHandCursor);
+    }
+    about.setStyleSheet(R"(
+      QMessageBox {
+        background-color: #1F1F1F;
+        color: white;
+        font-family: 'Noto Sans';
+      }
+    QMessageBox QLabel {
+        color: #EEEEEE;
+    }
+      QMessageBox QPushButton {
+        background-color: #00ADB5;
+        color: #FFFFFF;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      QMessageBox QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QMessageBox QPushButton:pressed {
+        background-color: #007F86;
+      }
+    )");
     about.exec();
 }
 
@@ -256,6 +298,33 @@ void MainWindow::on_actionReferencia_LL_1_triggered()
       </ul>
     )");
     help.setStandardButtons(QMessageBox::Close);
+    auto *closeBtn = help.button(QMessageBox::Close);
+    if (closeBtn) {
+        closeBtn->setCursor(Qt::PointingHandCursor);
+    }
+    help.setStyleSheet(R"(
+      QMessageBox {
+        background-color: #1F1F1F;
+        font-family: 'Noto Sans';
+      }
+    QMessageBox QLabel {
+        color: #EEEEEE;
+    }
+      QMessageBox QPushButton {
+        background-color: #00ADB5;
+        color: #FFFFFF;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      QMessageBox QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QMessageBox QPushButton:pressed {
+        background-color: #007F86;
+      }
+    )");
     help.exec();
 }
 
@@ -291,5 +360,33 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
       </ul>
     )");
     help.setStandardButtons(QMessageBox::Close);
+    auto *closeBtn = help.button(QMessageBox::Close);
+    if (closeBtn) {
+        closeBtn->setCursor(Qt::PointingHandCursor);
+    }
+    help.setStyleSheet(R"(
+      QMessageBox {
+        background-color: #1F1F1F;
+        color: white;
+        font-family: 'Noto Sans';
+      }
+    QMessageBox QLabel {
+        color: #EEEEEE;
+    }
+      QMessageBox QPushButton {
+        background-color: #00ADB5;
+        color: #FFFFFF;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      QMessageBox QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QMessageBox QPushButton:pressed {
+        background-color: #007F86;
+      }
+    )");
     help.exec();
 }
