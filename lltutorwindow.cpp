@@ -371,6 +371,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(255, 255, 255, 0.05);
         )");
     }
+    label->setAlignment(Qt::AlignJustify);
     label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
 
     QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
