@@ -86,7 +86,7 @@ void TutorialManager::nextStep()
 
     showOverlay();
 }
-#include <QGraphicsDropShadowEffect>
+
 void TutorialManager::showOverlay()
 {
     if (m_overlay) {
@@ -94,7 +94,7 @@ void TutorialManager::showOverlay()
     }
 
     m_overlay = new QWidget(m_root);
-    m_overlay->setStyleSheet("background:rgba(0,0,0,0.5);");
+    m_overlay->setStyleSheet("background:rgba(0,0,0,0.6);");
     m_overlay->show();
 
     m_highlight = new QFrame(m_overlay);
@@ -103,7 +103,10 @@ void TutorialManager::showOverlay()
 
     m_textBox = new QTextBrowser(m_overlay);
     m_textBox->setStyleSheet(R"(
-        background:#333333;
+        background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3b3b3b, stop:1 #2e2e2e
+        );
         color:#EEEEEE;
         padding:12px;
         border-radius:8px;
