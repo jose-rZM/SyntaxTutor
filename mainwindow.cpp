@@ -207,9 +207,10 @@ void MainWindow::setupTutorial()
 
     // Paso 3: LL(1)
     tm->addStep(ui->pushButton, "<p>Ahora se abrirá la ventana LL(1).</p>");
+    tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
-        if (idx == 3) {
+        if (idx == 4) {
             // 1) Abre LL
             Grammar grammarLL = factory.GenLL1Grammar(1);
             auto *llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
@@ -230,13 +231,13 @@ void MainWindow::setupTutorial()
                 tm->addStep(ui->lv3Button,
                             "<p>Esta vez se usará una gramática más compleja (Nivel 3).</p>");
                 tm->addStep(ui->pushButton_2, "<p>Ahora se abrirá el tutor SLR(1).</p>");
-
+                tm->addStep(nullptr, "");
                 // a) Arranca el tutorial de SLR
                 tm->start();
 
                 // b) Abrir SLR
                 connect(tm, &TutorialManager::stepStarted, this, [this](int idx2) {
-                    if (idx2 == 2) {
+                    if (idx2 == 3) {
                         Grammar grammarSLR = factory.GenSLR1Grammar(3);
                         auto *slrTutor = new SLRTutorWindow(grammarSLR, tm, nullptr);
                         slrTutor->setAttribute(Qt::WA_DeleteOnClose);
