@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "tutorialmanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -129,6 +130,40 @@ MainWindow::MainWindow(QWidget *parent)
         color: #FFFFFF;
     }
 )");
+
+    tm = new TutorialManager(this);
+
+    // Paso 1: explicación de botones LL(1) y SLR(1)
+    tm->addStep(ui->pushButton, "<h3>LL(1)</h3><p>Pulsa para lanzar el tutor LL(1).</p>");
+    tm->addStep(ui->pushButton_2, "<h3>SLR(1)</h3><p>Pulsa para lanzar el tutor SLR(1).</p>");
+
+    // Paso 2: explicación de niveles
+    tm->addStep(ui->lv1Button, "<p>Selecciona Nivel 1, 2 o 3 para la complejidad.</p>");
+
+    // Paso 3: vamos a la ventana LL(1)
+    tm->addStep(ui->pushButton, "<p>Ahora se abrirá la ventana LL(1).</p>");
+
+    // Paso 4: cuando llegue a este step, automáticamente abrimos la ventana
+    connect(tm, &TutorialManager::stepStarted, this, [=](int idx){
+        if (idx == 3) {
+            Grammar grammar = factory.GenLL1Grammar(1);
+            // 1) Abrimos la ventana
+            LLTutorWindow *tutor = new LLTutorWindow(grammar, tm, this);
+            tutor->setAttribute(Qt::WA_DeleteOnClose);
+            connect(tutor, &QWidget::destroyed, this, [this](){
+                this->setEnabled(true);
+            });
+            tutor->show();
+
+            // 2) Reasignamos el root del tutorial _tras_ que la ventana abra.
+            QTimer::singleShot(50, [=](){
+                tm->setRootWindow(tutor);
+                tm->nextStep();
+                // y disparamos nextStep() para que pinte el highlight
+            });
+        }
+    });
+
 }
 
 MainWindow::~MainWindow()
@@ -161,11 +196,8 @@ void MainWindow::on_pushButton_clicked()
     grammar.Debug();
 #endif
     this->setEnabled(false);
-    LLTutorWindow *tutor = new LLTutorWindow(grammar, this);
-    tutor->setAttribute(Qt::WA_DeleteOnClose);
-    connect(tutor, &QWidget::destroyed, this, [this]() {
-        this->setEnabled(true);
-    });
+    LLTutorWindow *tutor = new LLTutorWindow(grammar, tm, this);
+
     tutor->show();
 }
 
@@ -183,3 +215,11 @@ void MainWindow::on_pushButton_2_clicked()
     });
     tutor->show();
 }
+
+void MainWindow::on_tutorial_clicked()
+{
+    if (tm) {
+        tm->start();
+    }
+}
+

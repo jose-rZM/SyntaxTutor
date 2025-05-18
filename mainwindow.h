@@ -5,6 +5,7 @@
 #include "backend/grammar_factory.hpp"
 #include "backend/grammar.hpp"
 #include "lltutorwindow.h"
+#include "tutorialmanager.h"
 #include "slrtutorwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -32,9 +33,12 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_tutorial_clicked();
+
 private:
     Ui::MainWindow *ui;
     GrammarFactory factory;
     int level = 1;
+    TutorialManager *tm = nullptr;
 };
 #endif // MAINWINDOW_H

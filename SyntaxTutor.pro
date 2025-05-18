@@ -20,7 +20,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     slrtabledialog.cpp \
-    slrtutorwindow.cpp
+    slrtutorwindow.cpp \
+    tutorialmanager.cpp
 
 HEADERS += \
     UniqueQueue.h \
@@ -39,7 +40,8 @@ HEADERS += \
     slrtabledialog.h \
     slrtutorwindow.h \
     slrwizard.h \
-    slrwizardpage.h
+    slrwizardpage.h \
+    tutorialmanager.h
 
 FORMS += \
     lltutorwindow.ui \
