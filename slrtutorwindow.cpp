@@ -489,7 +489,8 @@ void SLRTutorWindow::updateProgressPanel()
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {
                     text += "<div style='margin-left:12px; color:#BBBBBB; "
-                            "margin-top:4px;'>Transiciones:</div><ul style='margin-left:20px;'>";
+                            "margin-top:4px;'>Transiciones:</div><ul "
+                            "style='list-style-type=circle; color:#777777, margin-left:20px;'>";
                     for (const auto &entry : it->second) {
                         const QString symbol = QString::fromStdString(entry.first);
                         const int target = entry.second;
