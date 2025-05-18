@@ -23,6 +23,8 @@ public:
     void addStep(QWidget* target, const QString& htmlText);
     void start();        // comienza el tour
     void setRootWindow(QWidget* newRoot);
+    void clearSteps();
+
 protected:
     bool eventFilter(QObject* obj, QEvent* ev) override;
 

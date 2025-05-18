@@ -1566,6 +1566,9 @@ void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> ro
 
 void LLTutorWindow::setupTutorial()
 {
+    tm->addStep(this->window(),
+                "<h3>Tutor LL(1)</h3>"
+                "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>");
     // 1) Zona de mensajes (el QListWidget donde sale “Tutor:”)
     tm->addStep(ui->listWidget,
                       "<h3>Mensajes</h3>"
@@ -1588,6 +1591,24 @@ void LLTutorWindow::setupTutorial()
                       "conjuntos FIRST/FOLLOW, tabla LL(1), aciertos y errores.</p>"
                       );
 
+    tm->addStep(ui->cntRight,
+                "<h3>Respuestas correctas</h3>"
+                "<p>Aquí podrás ver el número de respuestas correctas.</p>"
+                );
+
+    tm->addStep(ui->cntWrong,
+                "<h3>Respuestas correctas</h3>"
+                "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve animación en el mensaje.</p>"
+                );
+
+    tm->addStep(this->window(),
+                "<h3>Finalización</h3>"
+                "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En ese PDF se incluye la tabla de análisis LL(1), por si quieres consultarla.</p>");
+
+    connect(tm, &TutorialManager::tutorialFinished, this, [=](){
+        // Cuando acabe el tutorial dentro de LL(1), cerramos la ventana
+        this->close();
+    });
 }
 
 

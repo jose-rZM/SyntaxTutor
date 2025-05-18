@@ -1,13 +1,15 @@
 #include "tutorialmanager.h"
 #include <QVBoxLayout>
 
-TutorialManager::TutorialManager(QWidget* rootWindow)
-    : QObject(rootWindow), m_root(rootWindow)
+TutorialManager::TutorialManager(QWidget *rootWindow)
+    : QObject(rootWindow)
+    , m_root(rootWindow)
 {
     m_root->installEventFilter(this);
 }
 
-bool TutorialManager::eventFilter(QObject* obj, QEvent* ev) {
+bool TutorialManager::eventFilter(QObject *obj, QEvent *ev)
+{
     if (obj == m_root && ev->type() == QEvent::Resize) {
         // la ventana principal cambió de tamaño: reposicionamos todo
         repositionOverlay();
@@ -16,19 +18,30 @@ bool TutorialManager::eventFilter(QObject* obj, QEvent* ev) {
     return QObject::eventFilter(obj, ev);
 }
 
+void TutorialManager::clearSteps()
+{
+    if (m_overlay)
+        hideOverlay();
+    m_steps.clear();
+    m_index = -1;
+}
+
 // en tutorialmanager.cpp
-void TutorialManager::setRootWindow(QWidget* newRoot) {
+void TutorialManager::setRootWindow(QWidget *newRoot)
+{
     // quitas el filtro del antiguo
+    if (m_overlay) {
+        hideOverlay();
+    }
     m_root->removeEventFilter(this);
     m_root = newRoot;
     m_root->installEventFilter(this);
-    // ocultas cualquier overlay activo antes de seguir
-    hideOverlay();
 }
 
-
-void TutorialManager::repositionOverlay() {
-    if (!m_overlay) return;
+void TutorialManager::repositionOverlay()
+{
+    if (!m_overlay)
+        return;
 
     // 1) overlay siempre cubre toda la ventana
     m_overlay->setGeometry(m_root->rect());
@@ -36,9 +49,9 @@ void TutorialManager::repositionOverlay() {
     // 2) reposicionamos el highlight
     const auto &step = m_steps[m_index];
     if (step.target) {
-        QPoint topLeft = step.target->mapTo(m_root, QPoint(0,0));
+        QPoint topLeft = step.target->mapTo(m_root, QPoint(0, 0));
         QRect r(topLeft, step.target->size());
-        m_highlight->setGeometry(r.adjusted(-6,-6,6,6));
+        m_highlight->setGeometry(r.adjusted(-6, -6, 6, 6));
     }
 
     // 3) reposicionamos el textbox:
@@ -53,17 +66,19 @@ void TutorialManager::repositionOverlay() {
     m_nextBtn->move(m_root->width() - 100, m_root->height() - 50);
 }
 
-
-void TutorialManager::addStep(QWidget* target, const QString& htmlText) {
+void TutorialManager::addStep(QWidget *target, const QString &htmlText)
+{
     m_steps.append({target, htmlText});
 }
 
-void TutorialManager::start() {
+void TutorialManager::start()
+{
     m_index = -1;
     nextStep();
 }
 
-void TutorialManager::nextStep() {
+void TutorialManager::nextStep()
+{
     // escondemos overlay anterior
     hideOverlay();
 
@@ -82,7 +97,11 @@ void TutorialManager::nextStep() {
     showOverlay();
 }
 
-void TutorialManager::showOverlay() {
+void TutorialManager::showOverlay()
+{
+    if (m_overlay) {
+        hideOverlay();
+    }
     // 1) crea overlay, highlight, textbox, nextBtn…
     m_overlay = new QWidget(m_root);
     m_overlay->setStyleSheet("background:rgba(0,0,0,0.6);");
@@ -111,7 +130,8 @@ void TutorialManager::showOverlay() {
     repositionOverlay();
 }
 
-void TutorialManager::hideOverlay() {
+void TutorialManager::hideOverlay()
+{
     delete m_overlay;
     m_overlay = nullptr;
     m_highlight = nullptr;
