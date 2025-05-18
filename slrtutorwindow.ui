@@ -191,14 +191,41 @@
       <item>
        <widget class="QTextEdit" name="textEdit">
         <property name="styleSheet">
-         <string notr="true">background-color: #1e1e1e;
+         <string notr="true">QTextEdit {
+background-color: #1e1e1e;
 color: #ffffff;
 border: 1px solid #3a3a3a;
 border-radius: 6px;
 padding: 8px;
 selection-background-color: #44475a;
 selection-color: #ffffff;
-font-family: Noto Sans</string>
+font-family: Noto Sans
+}
+  QScrollBar:vertical {
+        background: #1e1e1e;
+        width: 10px;
+        margin: 2px 0 2px 0;
+        border-radius: 5px;
+    }
+
+    QScrollBar::handle:vertical {
+        background: #5c5c5c;
+        min-height: 20px;
+        border-radius: 5px;
+    }
+
+    QScrollBar::handle:vertical:hover {
+        background: #777;
+    }
+
+    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+        height: 0px;
+        background: none;
+    }
+
+    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        background: none;
+    }</string>
         </property>
         <property name="readOnly">
          <bool>true</bool>
