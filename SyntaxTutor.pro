@@ -49,7 +49,7 @@ FORMS += \
     slrtutorwindow.ui
 
 win32:CONFIG(release, debug|release) {
-    QMAKE_CXXFLAGS_RELEASE += -O3 -flto  -pipe
+    QMAKE_CXXFLAGS_RELEASE += -O3 -flto -DNDEBUG -pipe
     QMAKE_LFLAGS_RELEASE   += -s -flto
 }
 
