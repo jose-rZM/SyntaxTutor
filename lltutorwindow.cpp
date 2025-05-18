@@ -310,8 +310,8 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QWidget *messageWidget = new QWidget;
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->setSpacing(2);                    // Espaciado compacto
-    mainLayout->setContentsMargins(10, 5, 10, 5); // Márgenes exteriores reducidos
+    mainLayout->setSpacing(2);
+    mainLayout->setContentsMargins(10, 5, 10, 5);
 
     QLabel *header = new QLabel(isUser ? "Usuario" : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
@@ -320,10 +320,10 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
                                  : "font-weight: bold; color: #BBBBBB;");
 
     QHBoxLayout *messageLayout = new QHBoxLayout;
-    messageLayout->setSpacing(0); // Sin espacio lateral adicional
+    messageLayout->setSpacing(0);
 
     QVBoxLayout *innerLayout = new QVBoxLayout;
-    innerLayout->setSpacing(0); // Compacta label y timestamp
+    innerLayout->setSpacing(0);
 
     QLabel *label = new QLabel(messageText);
     label->setWordWrap(true);
@@ -378,7 +378,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
         )");
     }
     label->setAlignment(Qt::AlignJustify);
-    label->adjustSize(); // Asegura que el QLabel se expanda verticalmente
+    label->adjustSize();
 
     QLabel *timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
     timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
