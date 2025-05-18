@@ -227,3 +227,69 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
     about.setStandardButtons(QMessageBox::Close);
     about.exec();
 }
+
+void MainWindow::on_actionReferencia_LL_1_triggered()
+{
+    QMessageBox help(this);
+    help.setWindowTitle(tr("Referencia rápida LL(1)"));
+    help.setTextFormat(Qt::RichText);
+    help.setText(R"(
+      <h3>Referencia LL(1)</h3>
+      <ul>
+        <li><b>CAB(X):</b> conjunto de símbolos terminales que comienzan cadenas derivables desde X.</li>
+        <li><b>SIG(A):</b> conjunto de terminales que pueden seguir a A en alguna derivación.</li>
+  <li><b>Construcción de la Tabla LL(1):</b>
+    <ul>
+      <li>Para cada producción <code>A → α</code> y cada terminal <code>a</code> tal que 
+          <code>a ∈ CAB(α)</code>, asignar  
+          <code>Tabla[A][a] = "α"</code>.</li>
+      <li>Si <code>ε ∈ CAB(α)</code>, entonces para cada terminal 
+          <code>b ∈ SIG(A)</code> asignar  
+          <code>Tabla[A][b] = "α"</code>.</li>
+      <li>Si <code>ε ∈ CAB(α)</code> y <code>$ ∈ SIG(A)</code>, entonces  
+          <code>Tabla[A][$] = "α"</code> (fin de cadena).</li>
+      <li><b>Aceptación:</b> Por convención, no se añade entrada especial; el parser termina cuando 
+          encuentra <code>$</code> en la pila y en la entrada.</li>
+    </ul>
+  </li>
+        <li><b>Conflictos:</b> Sitios donde CAB(α) ∩ CAB(β) ≠ ∅ o ε ∈ CAB(α) y CAB(β) ∩ SIG(A) ≠ ∅.</li>
+      </ul>
+    )");
+    help.setStandardButtons(QMessageBox::Close);
+    help.exec();
+}
+
+void MainWindow::on_actionReferencia_SLR_1_triggered()
+{
+    QMessageBox help(this);
+    help.setWindowTitle(tr("Referencia rápida SLR(1)"));
+    help.setTextFormat(Qt::RichText);
+    help.setText(R"(
+      <h3>Referencia SLR(1)</h3>
+      <ul>
+        <li><b>Ítems LR(0):</b> producciones con “∙” marcando la posición de análisis.</li>
+        <li><b>Cierre( I ):</b> añadir ítems B → ∙ γ para cada ítem A → α ∙ B β. Repetir hasta que no se añadan más.</li>
+        <li><b>Goto( I, X ) o δ( I, X ):</b> desplazar “∙” sobre X en todos los ítems de I.</li>
+<li><b>Tabla SLR(1):</b>
+  <ul>
+    <li><b>Acciones (Action):</b>  
+      Para cada estado I y cada terminal a:
+      <ul>
+        <li>Si existe el ítem <code>A → α∙aβ</code> en I, entonces <code>Action[I,a] = s<sub>j</sub></code> (shift al estado j = Goto(I,a)).</li>
+        <li>Si existe el ítem <code>A → α∙</code> en I, entonces <code>Action[I,a] = r<sub>k</sub></code> (reduce usando la producción k = A→α) <em>para todo</em> <code>a ∈ FOLLOW(A)</code>.</li>
+        <li><code>Action[I,$] = acc</code> si <code>S' → S∙</code> está en I (aceptación). En esta aplicación, se acepta con <code>S → A·$</code></li>
+      </ul>
+    </li>
+    <li><b>Transiciones (Goto):</b>  
+      Para cada estado I y cada no terminal A:
+      <ul>
+        <li>Si <code>Goto(I,A) = J</code>, entonces <code>Goto[I,A] = J</code>.</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+      </ul>
+    )");
+    help.setStandardButtons(QMessageBox::Close);
+    help.exec();
+}

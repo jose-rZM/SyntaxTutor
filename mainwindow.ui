@@ -273,6 +273,8 @@ QRadioButton::indicator:checked + QLabel {
      <string>Acerca de</string>
     </property>
     <addaction name="actionSobre_la_aplicaci_n"/>
+    <addaction name="actionReferencia_LL_1"/>
+    <addaction name="actionReferencia_SLR_1"/>
    </widget>
    <addaction name="menuAcerca_de"/>
   </widget>
@@ -280,6 +282,16 @@ QRadioButton::indicator:checked + QLabel {
   <action name="actionSobre_la_aplicaci_n">
    <property name="text">
     <string>Sobre la aplicación</string>
+   </property>
+  </action>
+  <action name="actionReferencia_LL_1">
+   <property name="text">
+    <string>Referencia LL(1)</string>
+   </property>
+  </action>
+  <action name="actionReferencia_SLR_1">
+   <property name="text">
+    <string>Referencia SLR(1)</string>
    </property>
   </action>
  </widget>

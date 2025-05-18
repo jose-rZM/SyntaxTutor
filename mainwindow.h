@@ -37,6 +37,10 @@ private slots:
 
     void on_actionSobre_la_aplicaci_n_triggered();
 
+    void on_actionReferencia_LL_1_triggered();
+
+    void on_actionReferencia_SLR_1_triggered();
+
 private:
     void setupTutorial();
 
