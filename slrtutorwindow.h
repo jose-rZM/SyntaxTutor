@@ -55,6 +55,8 @@ enum class StateSlr {
     fin
 };
 
+class TutorialManager;
+
 // ====== Main Tutor Class for SLR(1) =============================
 class SLRTutorWindow : public QMainWindow
 {
@@ -62,7 +64,9 @@ class SLRTutorWindow : public QMainWindow
 
 public:
     // ====== Constructor / Destructor =============================
-    explicit SLRTutorWindow(const Grammar &grammar, QWidget *parent = nullptr);
+    explicit SLRTutorWindow(const Grammar &grammar,
+                            TutorialManager *tm = nullptr,
+                            QWidget *parent = nullptr);
     ~SLRTutorWindow();
 
     // ====== Core Flow Control =====================================
@@ -171,7 +175,7 @@ private:
     std::unordered_set<Lr0Item> ingestUserItems(const QString &userResponse);
     std::vector<std::pair<std::string, std::vector<std::string>>> ingestUserRules(
         const QString &userResponse);
-
+    void setupTutorial();
     // ====== Core Components ========================================
     Ui::SLRTutorWindow *ui;
     Grammar grammar;
@@ -233,6 +237,8 @@ private:
 
     QVector<MessageLog> conversationLog;
     QWidget *lastUserMessage = nullptr;
+
+    TutorialManager *tm;
 };
 
 #endif // SLRTUTORWINDOW_H

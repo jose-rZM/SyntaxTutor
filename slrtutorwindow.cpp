@@ -1,13 +1,15 @@
 #include "slrtutorwindow.h"
 #include <QEasingCurve>
-#include "ui_slrtutorwindow.h"
 #include <QFontDatabase>
+#include "tutorialmanager.h"
+#include "ui_slrtutorwindow.h"
 
-SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
+SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::SLRTutorWindow)
     , grammar(grammar)
     , slr1(grammar)
+    , tm(tm)
 {
     // ====== Parser Initialization ============================
     slr1.MakeParser();
@@ -103,6 +105,10 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, QWidget *parent)
             &CustomTextEdit::sendRequested,
             this,
             &SLRTutorWindow::on_confirmButton_clicked);
+
+    if (tm) {
+        setupTutorial();
+    }
 }
 
 SLRTutorWindow::~SLRTutorWindow()
@@ -2219,4 +2225,38 @@ void SLRTutorWindow::on_userResponse_textChanged()
 
     // Establece también el máximo para limitar el crecimiento
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+}
+
+void SLRTutorWindow::setupTutorial()
+{
+    tm->addStep(this->window(),
+                "<h3>Tutor SLR(1)</h3>"
+                "<p>Esta es la ventana del tutor de analizadores sintácticos SLR(1).</p>");
+
+    // 2) Zona de Gramática (el QLabel o QTextEdit donde se muestra la gramática)
+    tm->addStep(ui->gr,
+                "<h3>Gramática</h3>"
+                "<p>Como se puede ver, la gramática ahora es más compleja. Se genera "
+                "aleatoriamente.</p>");
+
+    // 3) Zona de progreso/log (panel donde mostramos conjuntos FIRST/FOLLOW o el contador)
+    //    Asumo que esa zona está en un widget llamado ui->progressPanel
+    tm->addStep(ui->textEdit,
+                "<h3>Progreso</h3>"
+                "<p>Aquí se registran los pasos, en el analizador SLR(1) son distintos: "
+                "estados de la colección LR(0) y transiciones con la función delta. Te será útil "
+                "para cuando tengas que rellenar la tabla SLR(1).</p>");
+
+    tm->addStep(
+        ui->listWidget,
+        "<h3>Formato de respuesta</h3>"
+        "<p>Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o "
+        "ítem LR por línea. Recuerda que con Ctrl+Enter puedes insertar una nueva línea.</p>");
+
+    tm->addStep(this->window(),
+                "<h3>Finalización</h3>"
+                "<p>Al igual que el tutor LL(1), podrás exportar toda la conversación y las tablas "
+                "de análisis en formato PDF.</p>");
+
+    connect(tm, &TutorialManager::tutorialFinished, this, [this]() { this->close(); });
 }
