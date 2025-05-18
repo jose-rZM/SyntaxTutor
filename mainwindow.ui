@@ -25,7 +25,7 @@
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item alignment="Qt::AlignmentFlag::AlignHCenter">
+      <item>
        <widget class="QPushButton" name="pushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -49,7 +49,7 @@
         </property>
        </widget>
       </item>
-      <item alignment="Qt::AlignmentFlag::AlignHCenter">
+      <item>
        <widget class="QPushButton" name="pushButton_2">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -75,6 +75,43 @@
       </item>
       <item>
        <widget class="QPushButton" name="tutorial">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>432</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Noto Sans</family>
+          <pointsize>-1</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #2E2E2E; 
+    color: #AAAAAA;            
+    border: 1px solid #444444;   
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Noto Sans';
+}
+QPushButton:hover {
+    background-color: #3A3A3A;
+    color: #CCCCCC;
+}
+QPushButton:pressed {
+    background-color: #262626;
+    color: #EEEEEE;
+}</string>
+        </property>
         <property name="text">
          <string>Tutorial</string>
         </property>
