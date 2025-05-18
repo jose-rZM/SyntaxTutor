@@ -87,6 +87,7 @@ void TutorialManager::nextStep()
     showOverlay();
 }
 
+#include <QScrollBar>
 void TutorialManager::showOverlay()
 {
     if (m_overlay) {
@@ -111,6 +112,28 @@ void TutorialManager::showOverlay()
         padding:12px;
         border-radius:8px;
     )");
+    m_textBox->verticalScrollBar()->setStyleSheet(R"(
+    QScrollBar:vertical {
+        background: #2E2E2E;
+        width: 12px;
+        margin: 0px;
+        border-radius: 6px;
+    }
+    QScrollBar::handle:vertical {
+        background: #555555;
+        min-height: 20px;
+        border-radius: 6px;
+    }
+    QScrollBar::handle:vertical:hover {
+        background: #777777;
+    }
+    QScrollBar::add-line, QScrollBar::sub-line {
+        height: 0px;
+    }
+    QScrollBar::add-page, QScrollBar::sub-page {
+        background: none;
+    }
+)");
     m_textBox->setHtml(m_steps[m_index].htmlText);
     m_textBox->show();
 

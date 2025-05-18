@@ -1451,7 +1451,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
 int LLTutorWindow::computeSubtreeWidth(const std::unique_ptr<TreeNode> &node, int hSpacing)
 {
     if (!node || node->children.empty())
-        return hSpacing; // nodo hoja ocupa al menos hSpacing
+        return hSpacing;
 
     int width = 0;
     for (const auto &child : node->children) {
@@ -1482,7 +1482,7 @@ void LLTutorWindow::drawTree(const std::unique_ptr<TreeNode> &root,
     if (root->children.empty())
         return;
 
-    // Calcular el ancho total del subárbol para distribuir los hijos correctamente
+    // Subtree width
     int totalWidth = 0;
     std::vector<int> subtreeWidths;
     for (const auto &child : root->children) {
