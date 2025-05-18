@@ -2229,6 +2229,10 @@ void SLRTutorWindow::on_userResponse_textChanged()
 
 void SLRTutorWindow::setupTutorial()
 {
+    userMadeStates.insert(
+        *std::ranges::find_if(slr1.states_, [](const state &st) { return st.id_ == 0; }));
+    userMadeTransitions[0]["A"] = slr1.transitions_.at(0).at("A");
+    updateProgressPanel();
     tm->addStep(this->window(),
                 "<h3>Tutor SLR(1)</h3>"
                 "<p>Esta es la ventana del tutor de analizadores sintácticos SLR(1).</p>");
@@ -2248,7 +2252,7 @@ void SLRTutorWindow::setupTutorial()
         ui->listWidget,
         "<h3>Formato de respuesta</h3>"
         "<p>Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o "
-        "ítem LR (una regla gramatical con el ·) por línea. Recuerda que con Ctrl+Enter puedes "
+        "ítem LR (una regla gramatical con el (·) por línea. Recuerda que con Ctrl+Enter puedes "
         "insertar una nueva línea.</p>");
 
     tm->addStep(this->window(),
