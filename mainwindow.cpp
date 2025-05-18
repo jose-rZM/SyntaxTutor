@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     factory.Init();
     ui->setupUi(this);
+    Qt::WindowFlags f = windowFlags();
+    f &= ~Qt::WindowMaximizeButtonHint;
+    setWindowFlags(f);
     ui->pushButton->setStyleSheet(R"(
     QPushButton {
         background-color: #00ADB5;
