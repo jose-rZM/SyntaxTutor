@@ -35,6 +35,8 @@ private slots:
 
     void on_tutorial_clicked();
 
+    void on_actionSobre_la_aplicaci_n_triggered();
+
 private:
     void setupTutorial();
 

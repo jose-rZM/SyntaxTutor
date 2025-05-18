@@ -201,3 +201,29 @@ void MainWindow::setupTutorial()
         }
     });
 }
+
+#include <QMessageBox>
+#include <QPixmap>
+
+void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
+{
+    QMessageBox about(this);
+    about.setWindowTitle(tr("Sobre la aplicación"));
+    QPixmap pix(":/resources/syntaxtutor.png");
+    about.setIconPixmap(pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    about.setTextFormat(Qt::RichText);
+    about.setText("<h2>SyntaxTutor</h2>"
+                  "<p><b>Versión: 1.0</b> "
+                  + qApp->applicationVersion()
+                  + "</p>"
+                    "<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>"
+                    "<p><b>Autor:</b> José R.</p>"
+                    "<p><b>Licencia:</b> GPLv3</p>"
+                    "<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y C++20.</p>"
+                    "<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - jose-rZM</a>"
+                    "<p>2025 Universidad de Málaga</p>");
+
+    about.setStandardButtons(QMessageBox::Close);
+    about.exec();
+}

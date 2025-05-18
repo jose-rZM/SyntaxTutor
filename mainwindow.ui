@@ -268,8 +268,20 @@ QRadioButton::indicator:checked + QLabel {
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAcerca_de">
+    <property name="title">
+     <string>Acerca de</string>
+    </property>
+    <addaction name="actionSobre_la_aplicaci_n"/>
+   </widget>
+   <addaction name="menuAcerca_de"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSobre_la_aplicaci_n">
+   <property name="text">
+    <string>Sobre la aplicación</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resources.qrc"/>
