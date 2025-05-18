@@ -1349,10 +1349,7 @@ bool SLRTutorWindow::verifyResponseForCB(const QString &userResponse)
         return userResponse.isEmpty();
     } else {
         const auto response = ingestUserItems(userResponse);
-        const auto sol = solutionForCB();
-        bool ok = response == sol;
-        return ok;
-        //return response == solutionForCB();
+        return response == solutionForCB();
     }
 }
 
@@ -1396,10 +1393,11 @@ bool SLRTutorWindow::verifyResponseForE1(const QString &userResponse)
 
 bool SLRTutorWindow::verifyResponseForE2(const QString &userResponse)
 {
-    QMap<unsigned, unsigned> expected = solutionForE2(); // id -> nº ítems completos
+    QStringList userResponseSplitted = userResponse.split(',', Qt::SkipEmptyParts);
+    QMap<unsigned, unsigned> expected = solutionForE2();
     QMap<unsigned, unsigned> given;
 
-    for (QString pair : userResponse.split(',', Qt::SkipEmptyParts)) {
+    for (const QString &pair : std::as_const(userResponseSplitted)) {
         auto kv = pair.split(':', Qt::SkipEmptyParts);
         if (kv.size() != 2)
             return false;
