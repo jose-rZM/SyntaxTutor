@@ -183,6 +183,10 @@ color: #E0E0E0;</string>
           <bold>true</bold>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true">    padding: 12px;
+    border-radius: 6px;</string>
+        </property>
         <property name="text">
          <string>Gramática</string>
         </property>
