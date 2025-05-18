@@ -2233,14 +2233,11 @@ void SLRTutorWindow::setupTutorial()
                 "<h3>Tutor SLR(1)</h3>"
                 "<p>Esta es la ventana del tutor de analizadores sintácticos SLR(1).</p>");
 
-    // 2) Zona de Gramática (el QLabel o QTextEdit donde se muestra la gramática)
     tm->addStep(ui->gr,
                 "<h3>Gramática</h3>"
                 "<p>Como se puede ver, la gramática ahora es más compleja. Se genera "
                 "aleatoriamente.</p>");
 
-    // 3) Zona de progreso/log (panel donde mostramos conjuntos FIRST/FOLLOW o el contador)
-    //    Asumo que esa zona está en un widget llamado ui->progressPanel
     tm->addStep(ui->textEdit,
                 "<h3>Progreso</h3>"
                 "<p>Aquí se registran los pasos, en el analizador SLR(1) son distintos: "
@@ -2251,7 +2248,8 @@ void SLRTutorWindow::setupTutorial()
         ui->listWidget,
         "<h3>Formato de respuesta</h3>"
         "<p>Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o "
-        "ítem LR por línea. Recuerda que con Ctrl+Enter puedes insertar una nueva línea.</p>");
+        "ítem LR (una regla gramatical con el ·) por línea. Recuerda que con Ctrl+Enter puedes "
+        "insertar una nueva línea.</p>");
 
     tm->addStep(this->window(),
                 "<h3>Finalización</h3>"

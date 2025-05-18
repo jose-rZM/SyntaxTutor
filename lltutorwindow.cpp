@@ -1569,46 +1569,41 @@ void LLTutorWindow::setupTutorial()
     tm->addStep(this->window(),
                 "<h3>Tutor LL(1)</h3>"
                 "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>");
-    // 1) Zona de mensajes (el QListWidget donde sale “Tutor:”)
+
     tm->addStep(ui->listWidget,
-                      "<h3>Mensajes</h3>"
-                      "<p>Aquí el tutor pregunta y muestra feedback.</p>"
-                      "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar una nueva línea con Ctrl+Enter si el formato lo requiere.</p>"
-                      );
+                "<h3>Mensajes</h3>"
+                "<p>Aquí el tutor pregunta y muestra feedback.</p>"
+                "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar "
+                "una nueva línea con Ctrl+Enter si el formato lo requiere. Aunque en el tutor "
+                "LL(1) no es necesario.</p>");
 
-    // 2) Zona de Gramática (el QLabel o QTextEdit donde se muestra la gramática)
     tm->addStep(ui->gr,
-                      "<h3>Gramática</h3>"
-                      "<p>En esta sección ves la gramática que estás analizando.</p>"
-                      "<p>Consulta los símbolos y producciones para responder.</p>"
-                      );
+                "<h3>Gramática</h3>"
+                "<p>En esta sección se ve la gramática que estás analizando.</p>"
+                "<p>Consulta los símbolos y producciones para responder. Como norma general, los "
+                "símbolos en mayúscula serán los no terminales, los que están en minúscula, los "
+                "terminales, la cadena \"ESPILON\" representará la cadena vacía y $ representa el "
+                "fin de línea.</p>");
 
-    // 3) Zona de progreso/log (panel donde mostramos conjuntos FIRST/FOLLOW o el contador)
-    //    Asumo que esa zona está en un widget llamado ui->progressPanel
     tm->addStep(ui->textEdit,
-                      "<h3>Progreso</h3>"
-                      "<p>Aquí se registran los pasos que das: "
-                      "conjuntos FIRST/FOLLOW, tabla LL(1), aciertos y errores.</p>"
-                      );
+                "<h3>Progreso</h3>"
+                "<p>Aquí se registran los pasos que das: "
+                "conjuntos cabecera (CAB), siguientes (SIG) y símbolos directores (SD).</p>");
 
     tm->addStep(ui->cntRight,
                 "<h3>Respuestas correctas</h3>"
-                "<p>Aquí podrás ver el número de respuestas correctas.</p>"
-                );
+                "<p>Aquí podrás ver el número de respuestas correctas.</p>");
 
     tm->addStep(ui->cntWrong,
-                "<h3>Respuestas correctas</h3>"
-                "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve animación en el mensaje.</p>"
-                );
+                "<h3>Respuestas incorrectas</h3>"
+                "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve "
+                "animación en el mensaje.</p>");
 
-    tm->addStep(this->window(),
-                "<h3>Finalización</h3>"
-                "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En ese PDF se incluye la tabla de análisis LL(1), por si quieres consultarla.</p>");
+    tm->addStep(
+        this->window(),
+        "<h3>Finalización</h3>"
+        "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En "
+        "ese PDF se incluye la tabla de análisis LL(1).</p>");
 
-    connect(tm, &TutorialManager::tutorialFinished, this, [=](){
-        // Cuando acabe el tutorial dentro de LL(1), cerramos la ventana
-        this->close();
-    });
+    connect(tm, &TutorialManager::tutorialFinished, this, [=]() { this->close(); });
 }
-
-

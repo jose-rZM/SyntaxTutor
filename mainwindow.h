@@ -2,11 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "backend/grammar_factory.hpp"
 #include "backend/grammar.hpp"
+#include "backend/grammar_factory.hpp"
 #include "lltutorwindow.h"
-#include "tutorialmanager.h"
 #include "slrtutorwindow.h"
+#include "tutorialmanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,6 +36,8 @@ private slots:
     void on_tutorial_clicked();
 
 private:
+    void setupTutorial();
+
     Ui::MainWindow *ui;
     GrammarFactory factory;
     int level = 1;
