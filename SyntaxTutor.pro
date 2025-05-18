@@ -46,6 +46,29 @@ FORMS += \
     mainwindow.ui \
     slrtutorwindow.ui
 
+win32:CONFIG(release, debug|release) {
+    QMAKE_CXXFLAGS_RELEASE += -O3 -flto -DNDEBUG -pipe
+    QMAKE_LFLAGS_RELEASE   += -s -flto
+}
+
+unix:!mac:CONFIG(release, debug|release) {
+    QMAKE_CXXFLAGS_RELEASE += \
+        -O3 \
+        -flto \
+        -DNDEBUG \
+        -fvisibility=hidden \
+        -fvisibility-inlines-hidden \
+        -pipe
+
+    QMAKE_LFLAGS_RELEASE += \
+        -flto \
+        -s \
+        -Wl,--as-needed
+
+    # Tras link: strippear de nuevo por si quedan símbolos
+    QMAKE_POST_LINK += $$QMAKE_STRIP $$DESTDIR/$${TARGET}
+}
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
