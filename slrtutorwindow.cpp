@@ -2288,6 +2288,12 @@ void SLRTutorWindow::setupTutorial()
                 "<p>Como se puede ver, la gramática ahora es más compleja. Se genera "
                 "aleatoriamente.</p>");
 
+    tm->addStep(ui->gr,
+                "<h3>Gramática</h3>"
+                "<p>Las reglas están numeradas en el tutor SLR(1). Te será útil para indicar las "
+                "acciones reduce en la tabla, pues deberás escribir el número de la regla "
+                "correspondiente.</p>");
+
     tm->addStep(ui->textEdit,
                 "<h3>Progreso</h3>"
                 "<p>Aquí se registran los pasos, en el analizador SLR(1) son distintos: "
