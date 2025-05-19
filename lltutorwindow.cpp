@@ -1704,5 +1704,11 @@ void LLTutorWindow::setupTutorial()
         "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En "
         "ese PDF se incluye la tabla de análisis LL(1).</p>");
 
-    connect(tm, &TutorialManager::tutorialFinished, this, [this]() { this->close(); });
+    tm->addStep(nullptr, "");
+
+    connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
+        if (idx == 14) {
+            tm->finishLL1();
+        }
+    });
 }

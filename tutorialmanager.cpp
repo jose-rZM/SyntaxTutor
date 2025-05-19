@@ -8,6 +8,16 @@ TutorialManager::TutorialManager(QWidget *rootWindow)
     m_root->installEventFilter(this);
 }
 
+void TutorialManager::finishLL1()
+{
+    emit ll1Finished();
+}
+
+void TutorialManager::finishSLR1()
+{
+    emit slr1Finished();
+}
+
 bool TutorialManager::eventFilter(QObject *obj, QEvent *ev)
 {
     if (obj == m_root && ev->type() == QEvent::Resize) {

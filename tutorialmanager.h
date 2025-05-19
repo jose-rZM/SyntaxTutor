@@ -12,8 +12,8 @@
 
 struct TutorialStep
 {
-    QWidget *target;  // el widget a resaltar
-    QString htmlText; // contenido HTML explicativo
+    QWidget *target;
+    QString htmlText;
 };
 
 class TutorialManager : public QObject
@@ -22,19 +22,24 @@ class TutorialManager : public QObject
 public:
     TutorialManager(QWidget *rootWindow);
     void addStep(QWidget *target, const QString &htmlText);
-    void start(); // comienza el tour
+    void start();
     void setRootWindow(QWidget *newRoot);
     void clearSteps();
     void hideOverlay();
+    void finishLL1();
+    void finishSLR1();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 signals:
-    /// Se emite justo antes de mostrar el overlay del paso `index`
     void stepStarted(int index);
-    /// Se emite cuando se acaba el tutorial
+
     void tutorialFinished();
+
+    void ll1Finished();
+
+    void slr1Finished();
 
 public slots:
     void nextStep();
@@ -43,11 +48,10 @@ private:
     void showOverlay();
     void repositionOverlay();
 
-    QWidget *m_root; // mainWindow o la ventana que arranque el tour
+    QWidget *m_root;
     QVector<TutorialStep> m_steps;
     int m_index = -1;
 
-    // overlays y frame de resalte
     QWidget *m_overlay = nullptr;
     QFrame *m_highlight = nullptr;
     QTextBrowser *m_textBox = nullptr;

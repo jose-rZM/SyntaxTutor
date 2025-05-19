@@ -2333,5 +2333,12 @@ void SLRTutorWindow::setupTutorial()
                 "<p>Al igual que el tutor LL(1), podrás exportar toda la conversación y las tablas "
                 "de análisis en formato PDF.</p>");
 
-    connect(tm, &TutorialManager::tutorialFinished, this, [this]() { this->close(); });
+    tm->addStep(nullptr, "");
+
+    connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
+        if (idx == 13) {
+            tm->finishSLR1();
+            this->close();
+        }
+    });
 }

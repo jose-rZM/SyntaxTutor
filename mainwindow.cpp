@@ -123,6 +123,8 @@ void MainWindow::on_tutorial_clicked()
         delete tm;
         tm = nullptr;
         setupTutorial();
+
+        connect(tm, &TutorialManager::tutorialFinished, this, [this]() { this->setEnabled(true); });
         tm->start();
     }
 }
@@ -153,7 +155,7 @@ void MainWindow::setupTutorial()
             llTutor->show();
 
             // 2) Preparar SLR
-            connect(tm, &TutorialManager::tutorialFinished, this, [this, llTutor]() {
+            connect(tm, &TutorialManager::ll1Finished, this, [this, llTutor]() {
                 llTutor->close();
 
                 disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
@@ -185,7 +187,7 @@ void MainWindow::setupTutorial()
                 });
 
                 // c) Acaba SLR
-                connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
+                connect(tm, &TutorialManager::slr1Finished, this, [this]() {
                     disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
                     disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
 
