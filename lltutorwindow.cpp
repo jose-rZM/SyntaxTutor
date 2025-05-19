@@ -462,11 +462,12 @@ void LLTutorWindow::showTable()
         background-color: #222831;
     }
     )";
-    LLTableDialog dialog(sortedNonTerminals, colHeaders, this, &rawTable);
-    dialog.setStyleSheet(darkQss);
-    if (dialog.exec() == QDialog::Accepted) {
+    auto *dialog = new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
+    dialog->setStyleSheet(darkQss);
+
+    connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
         rawTable.clear();
-        rawTable = dialog.getTableData();
+        rawTable = dialog->getTableData();
 
         lltable.clear();
 
@@ -489,7 +490,11 @@ void LLTutorWindow::showTable()
             }
         }
         on_confirmButton_clicked();
-    } else {
+
+        dialog->deleteLater();
+    });
+
+    connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
         QMessageBox msg(this);
         msg.setWindowTitle(tr("Cancelar tabla LL(1)"));
@@ -502,15 +507,15 @@ void LLTutorWindow::showTable()
         msg.setDefaultButton(QMessageBox::No);
 
         msg.setStyleSheet(R"(
-  QMessageBox {
-    background-color: #1F1F1F;
-    color: #EEEEEE;
-    font-family: 'Noto Sans';
-  }
-  QMessageBox QLabel {
-    color: #EEEEEE;
-  }
-)");
+            QMessageBox {
+                  background-color: #1F1F1F;
+                      color: #EEEEEE;
+                  font-family: 'Noto Sans';
+                }
+                QMessageBox QLabel {
+              color: #EEEEEE;
+            }
+        )");
         QAbstractButton *yesBtn = msg.button(QMessageBox::Yes);
         QAbstractButton *noBtn = msg.button(QMessageBox::No);
 
@@ -534,7 +539,7 @@ void LLTutorWindow::showTable()
       QPushButton:pressed {
         background-color: #007F86;
       }
-    )");
+        )");
         }
 
         if (noBtn) {
@@ -564,9 +569,13 @@ void LLTutorWindow::showTable()
         if (ret == QMessageBox::Yes) {
             this->close();
         } else {
-            on_confirmButton_clicked();
+            showTable();
         }
-    }
+        dialog->deleteLater();
+    });
+
+    dialog->setWindowModality(Qt::WindowModal);
+    dialog->show();
 }
 
 void LLTutorWindow::addDivisorLine(const QString &stateName)

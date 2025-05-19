@@ -14,6 +14,11 @@ struct Grammar {
             grammar);
 
     /**
+     * @brief Augment the grammar by adding the rule S' -> S, where S' is the new axiom and S is the old one.
+     */
+    void TransformToAugmentedGrammar();
+
+    /**
      * @brief Sets the axiom (entry point) of the grammar.
      *
      * @param axiom The entry point or start symbol of the grammar.

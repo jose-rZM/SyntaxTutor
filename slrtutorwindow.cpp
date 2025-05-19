@@ -4,17 +4,18 @@
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
 
-SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidget *parent)
+SLRTutorWindow::SLRTutorWindow(const Grammar &g, TutorialManager *tm, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::SLRTutorWindow)
-    , grammar(grammar)
-    , slr1(grammar)
+    , grammar(g)
+    , slr1(g)
     , tm(tm)
 {
     // ====== Parser Initialization ============================
     slr1.MakeParser();
 
 #ifdef QT_DEBUG
+    grammar.Debug();
     slr1.DebugStates();
     slr1.DebugActions();
 #endif
@@ -78,7 +79,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, TutorialManager *tm, QWid
     sortedNonTerminals = stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(),
               sortedNonTerminals.end(),
-              [&grammar](const QString &a, const QString &b) {
+              [this](const QString &a, const QString &b) {
                   if (a == grammar.axiom_)
                       return true;
                   if (b == grammar.axiom_)

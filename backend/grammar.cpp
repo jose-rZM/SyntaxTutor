@@ -20,12 +20,19 @@ Grammar::Grammar(
             }
         }
     }
-    axiom_ = "S'";
-    g_     = std::move(grammar);
-    g_["S"] = {{"A", st_.EOL_}};
-    g_[axiom_] = {{"S"}};
-    st_.PutSymbol("S", false);
+    axiom_ = "S";
+    g_ = grammar;
+    g_[axiom_] = {{"A", st_.EOL_}};
     st_.PutSymbol(axiom_, false);
+}
+
+void Grammar::TransformToAugmentedGrammar()
+{
+    std::string new_axiom = axiom_ + "'";
+    g_[new_axiom] = {{axiom_}};
+    st_.PutSymbol(new_axiom, false);
+
+    axiom_ = new_axiom;
 }
 
 void Grammar::SetAxiom(const std::string& axiom) {

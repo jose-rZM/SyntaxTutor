@@ -64,7 +64,7 @@ class SLRTutorWindow : public QMainWindow
 
 public:
     // ====== Constructor / Destructor =============================
-    explicit SLRTutorWindow(const Grammar &grammar,
+    explicit SLRTutorWindow(const Grammar &g,
                             TutorialManager *tm = nullptr,
                             QWidget *parent = nullptr);
     ~SLRTutorWindow();
