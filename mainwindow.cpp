@@ -123,8 +123,12 @@ void MainWindow::on_tutorial_clicked()
         delete tm;
         tm = nullptr;
         setupTutorial();
-
-        connect(tm, &TutorialManager::tutorialFinished, this, [this]() { this->setEnabled(true); });
+        ui->pushButton->setDisabled(true);
+        ui->pushButton_2->setDisabled(true);
+        ui->tutorial->setDisabled(true);
+        ui->lv1Button->setDisabled(true);
+        ui->lv2Button->setDisabled(true);
+        ui->lv3Button->setDisabled(true);
         tm->start();
     }
 }
@@ -199,6 +203,12 @@ void MainWindow::setupTutorial()
                     connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
                         tm->clearSteps();
                         delete tm;
+                        ui->pushButton->setDisabled(false);
+                        ui->pushButton_2->setDisabled(false);
+                        ui->tutorial->setDisabled(false);
+                        ui->lv1Button->setDisabled(false);
+                        ui->lv2Button->setDisabled(false);
+                        ui->lv3Button->setDisabled(false);
                         setupTutorial();
                     });
                     tm->start();

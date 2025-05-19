@@ -2279,6 +2279,8 @@ void SLRTutorWindow::setupTutorial()
         *std::ranges::find_if(slr1.states_, [](const state &st) { return st.id_ == 0; }));
     userMadeTransitions[0]["A"] = slr1.transitions_.at(0).at("A");
     updateProgressPanel();
+    ui->userResponse->setDisabled(true);
+    ui->confirmButton->setDisabled(true);
     tm->addStep(this->window(),
                 "<h3>Tutor SLR(1)</h3>"
                 "<p>Esta es la ventana del tutor de analizadores sintácticos SLR(1).</p>");

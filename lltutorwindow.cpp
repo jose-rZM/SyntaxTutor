@@ -1652,7 +1652,8 @@ void LLTutorWindow::setupTutorial()
     userCAB[sortedGrammar.at(currentRule).second.join(' ')] = solutionForB1().values().join(", ");
     userSIG[sortedGrammar.at(currentRule).first] = solutionForB2().values().join(", ");
     updateProgressPanel();
-
+    ui->userResponse->setDisabled(true);
+    ui->confirmButton->setDisabled(true);
     tm->addStep(this->window(),
                 "<h3>Tutor LL(1)</h3>"
                 "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>");
