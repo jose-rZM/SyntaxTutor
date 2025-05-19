@@ -190,6 +190,9 @@
         <property name="text">
          <string>Gramática</string>
         </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextInteractionFlag::NoTextInteraction</set>
+        </property>
        </widget>
       </item>
       <item>
@@ -318,7 +321,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>856</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
