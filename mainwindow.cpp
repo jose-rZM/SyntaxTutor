@@ -242,6 +242,7 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
     auto *closeBtn = about.button(QMessageBox::Close);
     if (closeBtn) {
         closeBtn->setCursor(Qt::PointingHandCursor);
+        closeBtn->setIcon(QIcon());
     }
     about.setStyleSheet(R"(
       QMessageBox {
@@ -301,6 +302,7 @@ void MainWindow::on_actionReferencia_LL_1_triggered()
     auto *closeBtn = help.button(QMessageBox::Close);
     if (closeBtn) {
         closeBtn->setCursor(Qt::PointingHandCursor);
+        closeBtn->setIcon(QIcon());
     }
     help.setStyleSheet(R"(
       QMessageBox {
@@ -363,6 +365,7 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
     auto *closeBtn = help.button(QMessageBox::Close);
     if (closeBtn) {
         closeBtn->setCursor(Qt::PointingHandCursor);
+        closeBtn->setIcon(QIcon());
     }
     help.setStyleSheet(R"(
       QMessageBox {

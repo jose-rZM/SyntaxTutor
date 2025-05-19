@@ -517,6 +517,7 @@ void LLTutorWindow::showTable()
         if (yesBtn) {
             yesBtn->setText(tr("Sí"));
             yesBtn->setCursor(Qt::PointingHandCursor);
+            yesBtn->setIcon(QIcon());
             yesBtn->setStyleSheet(R"(
       QPushButton {
         background-color: #00ADB5;
@@ -539,6 +540,7 @@ void LLTutorWindow::showTable()
         if (noBtn) {
             noBtn->setText(tr("No"));
             noBtn->setCursor(Qt::PointingHandCursor);
+            noBtn->setIcon(QIcon());
             noBtn->setStyleSheet(R"(
       QPushButton {
         background-color: #D9534F;
