@@ -129,7 +129,6 @@ void MainWindow::on_tutorial_clicked()
         ui->lv1Button->setDisabled(true);
         ui->lv2Button->setDisabled(true);
         ui->lv3Button->setDisabled(true);
-        connect(tm, &TutorialManager::destroyed, this, []() { qDebug() << "destroyed!"; });
         tm->start();
     }
 }
