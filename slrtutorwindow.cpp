@@ -28,7 +28,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &grammar, TutorialManager *tm, QWid
                 hasComplete = true;
             else
                 hasIncomplete = true;
-            if (hasComplete && hasIncomplete) {
+            if (hasComplete && hasIncomplete && it.antecedent_ != slr1.gr_.axiom_) {
                 statesWithLr0Conflict.append(&st);
                 conflictStatesIdQueue.push(st.id_);
                 break;
@@ -523,7 +523,7 @@ void SLRTutorWindow::showTable()
         if (ret == QMessageBox::Yes) {
             this->close();
         } else {
-            on_confirmButton_clicked();
+            showTable();
         }
     }
 }

@@ -20,14 +20,12 @@ Grammar::Grammar(
             }
         }
     }
-    axiom_ = "S";
+    axiom_ = "S'";
     g_     = std::move(grammar);
-    if (g_.find(axiom_) == g_.end()) {
-        // S -> firstNonTerminal $
-        g_[axiom_] = {{*st_.non_terminals_.begin(), st_.EOL_}};
-        st_.PutSymbol(axiom_, false);
-    }
-
+    g_["S"] = {{"A", st_.EOL_}};
+    g_[axiom_] = {{"S"}};
+    st_.PutSymbol("S", false);
+    st_.PutSymbol(axiom_, false);
 }
 
 void Grammar::SetAxiom(const std::string& axiom) {
