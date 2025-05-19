@@ -129,6 +129,7 @@ void MainWindow::on_tutorial_clicked()
         ui->lv1Button->setDisabled(true);
         ui->lv2Button->setDisabled(true);
         ui->lv3Button->setDisabled(true);
+        connect(tm, &TutorialManager::destroyed, this, []() { qDebug() << "destroyed!"; });
         tm->start();
     }
 }
@@ -155,13 +156,15 @@ void MainWindow::setupTutorial()
             // 1) Abre LL
             Grammar grammarLL = factory.GenLL1Grammar(1);
             auto *llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
+            Qt::WindowFlags f = llTutor->windowFlags();
+            f &= ~Qt::WindowCloseButtonHint;
+            llTutor->setWindowFlags(f);
             llTutor->setAttribute(Qt::WA_DeleteOnClose);
             llTutor->show();
 
             // 2) Preparar SLR
             connect(tm, &TutorialManager::ll1Finished, this, [this, llTutor]() {
                 llTutor->close();
-
                 disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
                 disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
 
@@ -181,6 +184,9 @@ void MainWindow::setupTutorial()
                     if (idx2 == 3) {
                         Grammar grammarSLR = factory.GenSLR1Grammar(3);
                         auto *slrTutor = new SLRTutorWindow(grammarSLR, tm, nullptr);
+                        Qt::WindowFlags f = slrTutor->windowFlags();
+                        f &= ~Qt::WindowCloseButtonHint;
+                        slrTutor->setWindowFlags(f);
                         slrTutor->setAttribute(Qt::WA_DeleteOnClose);
                         slrTutor->show();
                         QTimer::singleShot(50, [=]() {
