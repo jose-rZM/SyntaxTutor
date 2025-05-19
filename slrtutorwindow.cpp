@@ -2191,7 +2191,7 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
 QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
 {
     QString result;
-    int ruleCount = 1;
+    int ruleCount = 0;
 
     auto formatProductions = [&ruleCount](const QString &lhs, const std::vector<production> &prods) {
         QString out;
@@ -2200,7 +2200,7 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
 
         for (size_t i = 0; i < prods.size(); ++i) {
             const auto &prod = prods[i];
-            QString label = "(" + QString::number(ruleCount++) + ") ";
+            QString label = "(" + QString::number(ruleCount++) + ")    ";
 
             if (i == 0) {
                 out += label + headerText;
