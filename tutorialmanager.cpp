@@ -147,7 +147,7 @@ void TutorialManager::showOverlay()
     m_textBox->setHtml(m_steps[m_index].htmlText);
     m_textBox->show();
 
-    m_nextBtn = new QPushButton("Siguiente", m_overlay);
+    m_nextBtn = new QPushButton("&Siguiente", m_overlay);
     m_nextBtn->setCursor(Qt::PointingHandCursor);
     m_nextBtn->setStyleSheet(R"(
     QPushButton {
