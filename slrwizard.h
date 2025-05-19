@@ -32,11 +32,9 @@ public:
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 QString sym = colHeaders[j];
-                // Calcular expected
                 QString expected;
                 QString explanation;
                 if (j < nTerm) {
-                    // Acción sobre terminal
                     auto itAct = parser.actions_.at(i).find(sym.toStdString());
                     SLR1Parser::s_action act
                         = (itAct != parser.actions_.at(i).end()
@@ -53,7 +51,6 @@ public:
                         break;
                     }
                     case SLR1Parser::Action::Reduce: {
-                        // buscamos índice en sortedGrammar
                         int idx = -1;
                         for (int k = 0; k < sortedGrammar.size(); ++k) {
                             auto &rule = sortedGrammar[k];
@@ -79,7 +76,7 @@ public:
                     }
                     case SLR1Parser::Action::Accept:
                         expected = "acc";
-                        explanation = QString("Estado %1: contiene [S' → A·$]. ¿Qué palabra clave "
+                        explanation = QString("Estado %1: contiene [S' → S ·]. ¿Qué palabra clave "
                                               "usas para aceptar?")
                                           .arg(i);
                         break;
@@ -97,7 +94,7 @@ public:
                     if (itGo != parser.transitions_.at(i).end()) {
                         expected = QString::number(itGo->second);
                         explanation = QString("Estado %1: δ(%1, '%2') existe. ¿A qué estado va "
-                                              "la transición?")
+                                              "la transición? (pon solo el número)")
                                           .arg(i)
                                           .arg(sym);
                     } else {
@@ -105,7 +102,6 @@ public:
                     }
                 }
 
-                // Crear página y añadir al wizard
                 SLRWizardPage *page = new SLRWizardPage(i, sym, explanation, expected, this);
                 last = page;
                 addPage(page);

@@ -43,9 +43,10 @@ private slots:
         bool correct = (text.trimmed() == m_expected);
         setComplete(correct);
         if (correct) {
-            setSubTitle("✔ Respuesta correcta");
+            setSubTitle("✔ Respuesta correcta, pasa a la siguiente pregunta");
         } else {
-            setSubTitle("✘ Incorrecto, revisa la explicación");
+            setSubTitle(
+                "✘ Incorrecto, revisa el enunciado. Consulta los estados que has construido.");
         }
         wizard()->button(QWizard::NextButton)->setEnabled(correct);
     }
