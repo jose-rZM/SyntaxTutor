@@ -48,8 +48,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &g, TutorialManager *tm, QWidget *p
         }
     });
 
-    fillSortedGrammar();
-
     // ====== UI Setup ==========================================
     ui->setupUi(this);
 
@@ -75,17 +73,20 @@ SLRTutorWindow::SLRTutorWindow(const Grammar &g, TutorialManager *tm, QWidget *p
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
     // ====== Grammar Formatting =================================
-    formattedGrammar = FormatGrammar(grammar);
     sortedNonTerminals = stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
-    std::sort(sortedNonTerminals.begin(),
-              sortedNonTerminals.end(),
-              [this](const QString &a, const QString &b) {
-                  if (a == grammar.axiom_)
-                      return true;
-                  if (b == grammar.axiom_)
-                      return false;
-                  return a < b;
-              });
+    std::ranges::sort(sortedNonTerminals, [](const QString &a, const QString &b) {
+        if (a == "S'")
+            return true;
+        if (b == "S'")
+            return false;
+        if (a == "S")
+            return true;
+        if (b == "S")
+            return false;
+        return a < b;
+    });
+    fillSortedGrammar();
+    formattedGrammar = FormatGrammar(grammar);
 
     ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
     ui->gr->setText(formattedGrammar);
@@ -2233,15 +2234,9 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
         return out;
     };
 
-    auto axIt = grammar.g_.find(axiom);
-    if (axIt != grammar.g_.end()) {
-        result += formatProductions(QString::fromStdString(axiom), axIt->second);
-    }
-
-    for (const auto &[lhs, productions] : sortedRules) {
-        if (lhs == axiom)
-            continue;
-        result += formatProductions(QString::fromStdString(lhs), productions);
+    for (const QString &lhs : std::as_const(sortedNonTerminals)) {
+        const auto &prods = grammar.g_.at(lhs.toStdString());
+        result += formatProductions(lhs, prods);
     }
 
     return result;
@@ -2249,29 +2244,17 @@ QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
 
 void SLRTutorWindow::fillSortedGrammar()
 {
-    auto it = grammar.g_.find(grammar.axiom_);
     QVector<QPair<QString, QVector<QString>>> rules;
-    QPair<QString, QVector<QString>> rule({QString::fromStdString(grammar.axiom_), {}});
+    QPair<QString, QVector<QString>> rule;
 
-    if (it != grammar.g_.end()) {
-        for (const auto &prod : it->second) {
-            for (const auto &symbol : prod) {
-                rule.second.push_back(QString::fromStdString(symbol));
-            }
-        }
-    }
-    rules.push_back(rule);
-    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(), grammar.g_.end());
-    for (const auto &[lhs, productions] : sortedRules) {
-        if (lhs == grammar.axiom_)
-            continue;
-        rule = {QString::fromStdString(lhs), {}};
-        for (const auto &prod : productions) {
-            for (const auto &symbol : prod) {
+    for (const QString &nt : std::as_const(sortedNonTerminals)) {
+        const auto &prods = grammar.g_.at(nt.toStdString());
+        for (const auto &prod : prods) {
+            QPair<QString, QVector<QString>> rule{nt, {}};
+            for (const std::string &symbol : prod) {
                 rule.second.push_back(QString::fromStdString(symbol));
             }
             rules.push_back(rule);
-            rule = {QString::fromStdString(lhs), {}};
         }
     }
     sortedGrammar = rules;
