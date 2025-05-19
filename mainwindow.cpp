@@ -352,15 +352,15 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
       <ul>
         <li><b>Ítems LR(0):</b> producciones con “∙” marcando la posición de análisis.</li>
         <li><b>Cierre( I ):</b> añadir ítems B → ∙ γ para cada ítem A → α ∙ B β. Repetir hasta que no se añadan más.</li>
-        <li><b>Goto( I, X ) o δ( I, X ):</b> desplazar “∙” sobre X en todos los ítems de I.</li>
+        <li><b>Goto( I, X ) o δ( I, X ):</b> desplazar “∙” sobre X en todos los ítems de I y calcular su cierre.</li>
 <li><b>Tabla SLR(1):</b>
   <ul>
     <li><b>Acciones (Action):</b>  
       Para cada estado I y cada terminal a:
       <ul>
         <li>Si existe el ítem <code>A → α∙aβ</code> en I, entonces <code>Action[I,a] = s<sub>j</sub></code> (shift al estado j = Goto(I,a)).</li>
-        <li>Si existe el ítem <code>A → α∙</code> en I, entonces <code>Action[I,a] = r<sub>k</sub></code> (reduce usando la producción k = A→α) <em>para todo</em> <code>a ∈ FOLLOW(A)</code>.</li>
-        <li><code>Action[I,$] = acc</code> si <code>S' → S∙</code> está en I (aceptación). En esta aplicación, se acepta con <code>S → A·$</code></li>
+        <li>Si existe el ítem <code>A → α∙</code> en I, entonces <code>Action[I,a] = r<sub>k</sub></code> (reduce usando la producción k = A→α) <em>para todo</em> <code>a ∈ SIG(A)</code>.</li>
+        <li><code>Action[I,$] = acc</code> si <code>S' → S∙</code> está en I (aceptación).</li>
       </ul>
     </li>
     <li><b>Transiciones (Goto):</b>  
