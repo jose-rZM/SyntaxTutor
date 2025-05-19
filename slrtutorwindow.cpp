@@ -1525,21 +1525,17 @@ bool SLRTutorWindow::verifyResponseForG(const QString &userResponse)
 
 bool SLRTutorWindow::verifyResponseForH()
 {
-    // Si no hay nada, error
     if (slrtable.empty()) {
         return false;
     }
 
-    // Recorremos cada estado definido en el parser
     for (const state &slrState : slr1.states_) {
         unsigned int state = slrState.id_;
-        // 1) VALIDACIÓN DE ACCIONES SOBRE TERMINALES
         for (const auto &terminal : slr1.gr_.st_.terminals_) {
             if (terminal == slr1.gr_.st_.EPSILON_)
                 continue;
             QString sym = QString::fromStdString(terminal);
 
-            // Acción interna esperada para este (state, terminal)
             const auto &actMap = slr1.actions_.at(state);
             auto itAct = actMap.find(terminal);
             SLR1Parser::s_action expectedAct
@@ -1547,15 +1543,12 @@ bool SLRTutorWindow::verifyResponseForH()
                        ? itAct->second
                        : SLR1Parser::s_action{nullptr, SLR1Parser::Action::Empty});
 
-            // Lo que ha escrito el usuario
             auto userIt = slrtable[state].find(sym);
             bool userEmpty = (userIt == slrtable[state].end());
 
-            // Si internamente no hay acción y el usuario dejó vacío ⇒ OK
             if (expectedAct.action == SLR1Parser::Action::Empty && userEmpty) {
                 continue;
             }
-            // Si uno está vacío y el otro no ⇒ fallo
             if (expectedAct.action == SLR1Parser::Action::Empty || userEmpty) {
                 return false;
             }
@@ -1563,7 +1556,6 @@ bool SLRTutorWindow::verifyResponseForH()
             const ActionEntry &entry = userIt.value();
             switch (expectedAct.action) {
             case SLR1Parser::Action::Shift: {
-                // El destino de shift viene de transitions_
                 const auto &transMap = slr1.transitions_.at(state);
                 auto itTrans = transMap.find(terminal);
                 if (itTrans == transMap.end() || entry.type != ActionEntry::Shift
@@ -1573,9 +1565,8 @@ bool SLRTutorWindow::verifyResponseForH()
                 break;
             }
             case SLR1Parser::Action::Reduce: {
-                // Hay que convertir el Lr0Item* en índice de producción
                 const Lr0Item *itItem = expectedAct.item;
-                // Buscamos en sortedGrammar la misma regla
+                // Search in sortedGrammar the production given by item
                 int prodIdx = -1;
                 for (int k = 0; k < sortedGrammar.size(); ++k) {
                     const auto &rule = sortedGrammar[k];
@@ -1601,11 +1592,9 @@ bool SLRTutorWindow::verifyResponseForH()
             }
         }
 
-        // 2) VALIDACIÓN DE GOTOS SOBRE NO TERMINALES
         for (const auto &nonTerm : slr1.gr_.st_.non_terminals_) {
             QString sym = QString::fromStdString(nonTerm);
 
-            // Lo que ha escrito el usuario
             auto userIt = slrtable[state].find(sym);
             bool userEmpty = (userIt == slrtable[state].end());
 
@@ -1613,17 +1602,14 @@ bool SLRTutorWindow::verifyResponseForH()
                 continue;
             }
 
-            // Transición interna esperada para este (state, nonTerm)
             const auto transMap = slr1.transitions_.at(state);
             auto itTrans = transMap.find(nonTerm);
             bool hasGoto = (itTrans != transMap.end());
             unsigned int expectedState = hasGoto ? itTrans->second : 0;
 
-            // Si no hay goto y el usuario dejó vacío ⇒ OK
             if (!hasGoto && userEmpty) {
                 continue;
             }
-            // Si uno está vacío y el otro no ⇒ fallo
             if (!hasGoto || userEmpty) {
                 return false;
             }
@@ -1635,8 +1621,6 @@ bool SLRTutorWindow::verifyResponseForH()
             }
         }
     }
-
-    // Si todo coincide
     return true;
 }
 
@@ -2207,20 +2191,21 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
 QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
 {
     QString result;
+    int ruleCount = 1;
 
-    auto formatProductions = [](const QString &lhs, const std::vector<production> &prods) {
+    auto formatProductions = [&ruleCount](const QString &lhs, const std::vector<production> &prods) {
         QString out;
-        QString header = lhs + " → ";
-        int indentSize = header.length();
-        QString indent(indentSize, ' ');
+        QString headerText = lhs + " → ";
+        QString indent(headerText.length(), ' ');
 
-        bool first = true;
-        for (const auto &prod : prods) {
-            if (first) {
-                out += header;
-                first = false;
+        for (size_t i = 0; i < prods.size(); ++i) {
+            const auto &prod = prods[i];
+            QString label = "(" + QString::number(ruleCount++) + ") ";
+
+            if (i == 0) {
+                out += label + headerText;
             } else {
-                out += indent + "| ";
+                out += label + indent + "| ";
             }
 
             for (const auto &symbol : prod) {
