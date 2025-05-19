@@ -20,6 +20,10 @@ int main(int argc, char *argv[])
     QFont notoSans("Noto Sans");
     notoSans.setHintingPreference(QFont::HintingPreference::PreferNoHinting);
     QApplication::setFont(notoSans);
+#else
+    QFont notoSans("Noto Sans");
+    notoSans.setStyleStrategy(QFont::PreferQuality);
+    QApplication::setFont(notoSans);
 #endif
     MainWindow w;
     w.show();

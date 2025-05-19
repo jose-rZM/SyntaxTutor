@@ -1,4 +1,5 @@
 #include "lltutorwindow.h"
+#include <QAbstractButton>
 #include <QFontDatabase>
 #include <QRandomGenerator>
 #include "tutorialmanager.h"
@@ -490,8 +491,75 @@ void LLTutorWindow::showTable()
         on_confirmButton_clicked();
     } else {
         rawTable.clear();
-        auto r = QMessageBox::question(this, "Cancelar tabla LL(1)", "¿Quieres salir del tutor? Esto cancelará el ejercicio. Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\".", QMessageBox::Yes | QMessageBox::No);
-        if (r == QMessageBox::Yes) {
+        QMessageBox msg(this);
+        msg.setWindowTitle(tr("Cancelar tabla LL(1)"));
+        msg.setTextFormat(Qt::RichText);
+        msg.setText(tr("¿Quieres salir del tutor? Esto cancelará el ejercicio."
+                       " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
+
+        // 2) Configura los botones
+        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msg.setDefaultButton(QMessageBox::No);
+
+        msg.setStyleSheet(R"(
+  QMessageBox {
+    background-color: #1F1F1F;
+    color: #EEEEEE;
+    font-family: 'Noto Sans';
+  }
+  QMessageBox QLabel {
+    color: #EEEEEE;
+  }
+)");
+        QAbstractButton *yesBtn = msg.button(QMessageBox::Yes);
+        QAbstractButton *noBtn = msg.button(QMessageBox::No);
+
+        if (yesBtn) {
+            yesBtn->setText(tr("Sí"));
+            yesBtn->setCursor(Qt::PointingHandCursor);
+            yesBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #00ADB5;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Noto Sans';
+      }
+      QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QPushButton:pressed {
+        background-color: #007F86;
+      }
+    )");
+        }
+
+        if (noBtn) {
+            noBtn->setText(tr("No"));
+            noBtn->setCursor(Qt::PointingHandCursor);
+            noBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #D9534F;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font: 'Noto Sans';
+        font-weight: bold;
+      }
+      QPushButton:hover {
+        background-color: #E14E50;
+      }
+      QPushButton:pressed {
+        background-color: #C12E2A;
+      }
+    )");
+        }
+
+        int ret = msg.exec();
+        if (ret == QMessageBox::Yes) {
             this->close();
         } else {
             on_confirmButton_clicked();
