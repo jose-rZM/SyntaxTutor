@@ -350,21 +350,21 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
 
 void SLRTutorWindow::showTable()
 {
-    // 1) Construimos la lista de cabeceras igual que antes
     QStringList colHeaders;
-    // Primero, todas las terminales (sin EPSILON)
     for (const auto &symbol : slr1.gr_.st_.terminals_) {
         if (symbol == slr1.gr_.st_.EPSILON_)
             continue;
         colHeaders << QString::fromStdString(symbol);
     }
-    // Luego, todos los no terminales
     for (const auto &symbol : slr1.gr_.st_.non_terminals_) {
         colHeaders << QString::fromStdString(symbol);
     }
 
-    // 2) Lanzamos el diálogo (igual que con LL, pero sin initialData por ahora)
-    SLRTableDialog dialog(slr1.states_.size(), colHeaders.size(), colHeaders, this, &rawTable);
+    auto *dialog = new SLRTableDialog(slr1.states_.size(),
+                                      colHeaders.size(),
+                                      colHeaders,
+                                      this,
+                                      &rawTable);
     static const char *darkQss = R"(
     QDialog, QWidget {
         background-color: #2b2b2b;
@@ -399,15 +399,13 @@ void SLRTutorWindow::showTable()
         background-color: #222831;
     }
     )";
-    dialog.setStyleSheet(darkQss);
-    if (dialog.exec() == QDialog::Accepted) {
-        // 3) Recogemos todo lo que ha escrito el usuario
-        rawTable = dialog.getTableData();
+    dialog->setStyleSheet(darkQss);
 
-        // 4) Vaciamos la tabla interna
+    connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
+        rawTable = dialog->getTableData();
+
         slrtable.clear();
 
-        // 5) Recorremos filas (estados) y columnas (símbolos)
         const int nTerm = slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
                               ? slr1.gr_.st_.terminals_.size() - 1
                               : slr1.gr_.st_.terminals_.size();
@@ -419,9 +417,8 @@ void SLRTutorWindow::showTable()
 
                 const QString sym = colHeaders[j];
 
-                // 6) Parseo según tipo de columna
                 if (j < nTerm) {
-                    // --- Acción sobre terminal ---
+                    // --- Action with terminal ---
                     if (cell.startsWith('s', Qt::CaseInsensitive)) {
                         int toState = cell.mid(1).toInt();
                         slrtable[state][sym] = ActionEntry::makeShift(toState);
@@ -431,12 +428,11 @@ void SLRTutorWindow::showTable()
                     } else if (cell.compare("acc", Qt::CaseInsensitive) == 0) {
                         slrtable[state][sym] = ActionEntry::makeAccept();
                     } else {
-                        // si quisieras soportar otra notación...
                         qWarning() << "Entrada no reconocida en Action[" << state << "][" << sym
                                    << "]:" << cell;
                     }
                 } else {
-                    // --- Goto sobre no terminal ---
+                    // --- Goto with non-terminal ---
                     bool ok = false;
                     int toState = cell.toInt(&ok);
                     if (ok) {
@@ -448,9 +444,11 @@ void SLRTutorWindow::showTable()
             }
         }
 
-        // 7) Como en LL, lanzamos la validación
         on_confirmButton_clicked();
-    } else {
+        dialog->deleteLater();
+    });
+
+    connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
         QMessageBox msg(this);
         msg.setWindowTitle(tr("Cancelar ejercicio SLR(1)"));
@@ -527,7 +525,9 @@ void SLRTutorWindow::showTable()
         } else {
             showTable();
         }
-    }
+        dialog->deleteLater();
+    });
+    dialog->show();
 }
 
 void SLRTutorWindow::updateProgressPanel()
@@ -2207,8 +2207,6 @@ std::vector<std::pair<std::string, std::vector<std::string>>> SLRTutorWindow::in
 QString SLRTutorWindow::FormatGrammar(const Grammar &grammar)
 {
     QString result;
-    const std::string &axiom = grammar.axiom_;
-    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(), grammar.g_.end());
 
     auto formatProductions = [](const QString &lhs, const std::vector<production> &prods) {
         QString out;

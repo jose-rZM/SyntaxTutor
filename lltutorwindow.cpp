@@ -574,7 +574,6 @@ void LLTutorWindow::showTable()
         dialog->deleteLater();
     });
 
-    dialog->setWindowModality(Qt::WindowModal);
     dialog->show();
 }
 
