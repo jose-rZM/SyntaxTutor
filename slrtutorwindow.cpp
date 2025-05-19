@@ -903,7 +903,7 @@ QString SLRTutorWindow::generateQuestion()
         return "¿Cuál es el axioma de la gramática?";
 
     case StateSlr::A2:
-        return "Dado el ítem:  S → · A $\n"
+        return "Dado el ítem:  S' -> · S $\n"
                "¿Qué símbolo aparece justo después del punto (·)?";
 
     case StateSlr::A3:
@@ -1048,8 +1048,8 @@ QString SLRTutorWindow::generateQuestion()
         for (const auto &symbol : slr1.gr_.st_.non_terminals_) {
             colHeaders << QString::fromStdString(symbol);
         }
-        SLRWizard wizard(slr1, rawTable, colHeaders, sortedGrammar, this);
-        wizard.setStyleSheet(R"(
+        auto *wizard = new SLRWizard(slr1, rawTable, colHeaders, sortedGrammar, this);
+        wizard->setStyleSheet(R"(
     * {
         background-color: #2b2b2b;
         color: #e0e0e0;
@@ -1100,20 +1100,87 @@ QString SLRTutorWindow::generateQuestion()
             background-color: #333333;
     }
     )");
-        if (wizard.exec() == QWizard::Accepted) {
-            on_confirmButton_clicked();
-        } else {
-            auto r = QMessageBox::question(this,
-                                           "Cancelar tabla SLR(1)",
-                                           "Has cancelado la edición de la tabla. ¿Quieres salir del tutor?",
-                                           QMessageBox::Yes|QMessageBox::No);
-            if (r == QMessageBox::Yes) {
+        connect(wizard, &QWizard::accepted, this, [this]() { on_confirmButton_clicked(); });
+        connect(wizard, &QWizard::rejected, this, [this, wizard]() {
+            QMessageBox msg(this);
+            msg.setWindowTitle(tr("Cancelar ejercicio SLR(1)"));
+            msg.setTextFormat(Qt::RichText);
+            msg.setText(tr("¿Quieres salir del tutor? Esto cancelará el ejercicio."
+                           " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
+
+            // 2) Configura los botones
+            msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msg.setDefaultButton(QMessageBox::No);
+
+            msg.setStyleSheet(R"(
+  QMessageBox {
+    background-color: #1F1F1F;
+    color: #EEEEEE;
+    font-family: 'Noto Sans';
+  }
+  QMessageBox QLabel {
+    color: #EEEEEE;
+  }
+)");
+            QAbstractButton *yesBtn = msg.button(QMessageBox::Yes);
+            QAbstractButton *noBtn = msg.button(QMessageBox::No);
+
+            if (yesBtn) {
+                yesBtn->setText(tr("Sí"));
+                yesBtn->setCursor(Qt::PointingHandCursor);
+                yesBtn->setIcon(QIcon());
+                yesBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #00ADB5;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Noto Sans';
+      }
+      QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QPushButton:pressed {
+        background-color: #007F86;
+      }
+    )");
+            }
+
+            if (noBtn) {
+                noBtn->setText(tr("No"));
+                noBtn->setCursor(Qt::PointingHandCursor);
+                noBtn->setIcon(QIcon());
+                noBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #D9534F;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font: 'Noto Sans';
+        font-weight: bold;
+      }
+      QPushButton:hover {
+        background-color: #E14E50;
+      }
+      QPushButton:pressed {
+        background-color: #C12E2A;
+      }
+    )");
+            }
+            int ret = msg.exec();
+            if (ret == QMessageBox::Yes) {
                 this->close();
+                return "";
             } else {
                 on_confirmButton_clicked();
+                wizard->deleteLater();
                 return "";
             }
-        }
+        });
+        wizard->show();
     }
 
     default:
@@ -1865,7 +1932,7 @@ QString SLRTutorWindow::feedback()
 QString SLRTutorWindow::feedbackForA()
 {
     return "El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -> · "
-           "A$. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo "
+           "S. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo "
            "inicial.";
 }
 
