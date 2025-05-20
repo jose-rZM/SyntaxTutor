@@ -62,6 +62,7 @@ jobs:
       - name: Generate AppImage
         run: |
           export APPIMAGE_EXTRACT_AND_RUN=1
+          export LD_VER=continuous
           APPDIR=SyntaxTutor.AppDir
           
           wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/${LD_VER}/linuxdeploy-x86_64.AppImage \
@@ -71,16 +72,18 @@ jobs:
           -O /usr/local/bin/linuxdeploy-plugin-qt && \
           chmod +x /usr/local/bin/linuxdeploy-plugin-qt
 
-          mkdir -p $APPDIR/usr/bin && \
-            cp SyntaxTutor $APPDIR/usr/bin/ && \
+          mkdir -p $APPDIR/usr/bin \
+             $APPDIR/usr/share/icons/hicolor/256x256/apps
+          
+          cp SyntaxTutor $APPDIR/usr/bin/ && \
             printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > SyntaxTutor.desktop && \
             chmod +x SyntaxTutor.desktop && \
             install -Dm644 resources/syntaxtutor.png \
             $APPDIR/usr/share/icons/hicolor/256x256/apps/syntaxtutor.png && \
             /usr/local/bin/linuxdeploy \
               --appdir $APPDIR \
-              --desktop-file SyntaxTutor.desktop \
-              --icon-file resources/syntaxtutor.png \
+              --desktop-file $APPDIR/SyntaxTutor.desktop \
+              --icon-file $APPDIR/usr/share/icons/hicolor/256x256/apps/syntaxtutor.png \
               --plugin qt \
               --output appimage
 
