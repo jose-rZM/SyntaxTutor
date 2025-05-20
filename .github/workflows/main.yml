@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-macos-intel:
-    runs-on: macos-latest
+    runs-on: macos-13
 
     steps:
       - name: Checkout source
@@ -24,6 +24,10 @@ jobs:
           qmake6 -r
           make -j$(sysctl -n hw.ncpu)
 
+      - name: Verify arch
+        run: |
+          lipo -info SyntaxTutor.app/Contents/MacOS/SyntaxTutor
+        
       - name: Prepare icons
         run: |
           mkdir -p MyIcon.iconset
