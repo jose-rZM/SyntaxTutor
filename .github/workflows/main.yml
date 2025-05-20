@@ -45,7 +45,7 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
-          APP="SyntaxTutor"
+          APP="SyntaxTutor.app"
           
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
