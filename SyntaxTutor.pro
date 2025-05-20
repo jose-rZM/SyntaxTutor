@@ -78,6 +78,13 @@ unix:!mac:CONFIG(release, debug|release) {
     QMAKE_POST_LINK += $$QMAKE_STRIP ./$${TARGET}
 }
 
+macx {
+    CONFIG += app_bundle
+    QMAKE_MACOS_ARCHITECTURES = x86_64;arm64
+    QMAKE_MACOS_DEPLOYMENT_TARGET = 10.15
+    QMAKE_CXXFLAGS_RELEASE = -O3 -DNDEBUG
+}
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
