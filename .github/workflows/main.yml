@@ -20,10 +20,18 @@ jobs:
           arch: 'win64_msvc2022_64'
           
       - name: Import VS paths
-        shell: cmd
+        shell: pwsh
         run: | 
-          call "%ProgramFiles(x86)%\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
-        
+          $ErrorActionPreference = 'Stop'
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+            if (-not (Test-Path $vswhere)) {
+            throw "No he encontrado vswhere.exe en $vswhere"
+          }
+          $vsPath = & $vswhere -latest -products * `
+            -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+            -property installationPath
+          Write-Host "Usando Visual Studio en: $vsPath"
+          & "$vsPath\VC\Auxiliary\Build\vcvarsall.bat" x64        
       - name: Configure with qmake
         run: qmake -r
 
