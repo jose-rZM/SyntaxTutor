@@ -1,0 +1,83 @@
+name: Build & Deploy Qt6 App
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Install Qt 6 (x64)
+        uses: jurplel/install-qt@v2
+        with:
+          version: '6.6.0'
+          host: windows
+          target: desktop
+          arch: x64
+
+      - name: Configure with qmake
+        run: qmake -r
+
+      - name: Build with nmake
+        run: nmake /f Makefile.Release
+
+      - name: Prepare Windows deploy
+        run: |
+          mkdir deploy
+          windeployqt --release path\to\your.exe --dir deploy
+          powershell Compress-Archive -Path deploy\* -DestinationPath deploy.zip
+
+      - name: Upload Windows ZIP
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-deploy
+          path: deploy.zip
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Instalar dependencias Qt6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            qt6-base-dev qt6-tools-dev-tools \
+            libxcb-xinerama0-dev libglu1-mesa-dev
+
+      - name: Configure with qmake
+        run: |
+          qmake -r
+
+      - name: Build
+        run: |
+          make -j$(nproc)
+
+      - name: Generate AppImage
+        run: |
+          # Crea la estructura AppDir
+          APPDIR=MyApp.AppDir
+          mkdir -p $APPDIR/usr/bin
+          cp path/to/your_binary $APPDIR/usr/bin/MyApp
+
+          wget -qO linuxdeployqt.AppImage \
+            https://github.com/linuxdeploy/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
+          chmod +x linuxdeployqt.AppImage
+
+          ./linuxdeployqt.AppImage $APPDIR/usr/bin/MyApp \
+            -appimage \
+            -unsupported-allow-new-glibc \
+            -no-translations \
+            -verbose=2
+
+      - name: Upload Linux AppImage
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-appimage
+          path: '*.AppImage'
