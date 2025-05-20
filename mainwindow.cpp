@@ -188,7 +188,7 @@ void MainWindow::setupTutorial()
                         slrTutor->setWindowFlags(f);
                         slrTutor->setAttribute(Qt::WA_DeleteOnClose);
                         slrTutor->show();
-                        QTimer::singleShot(50, [=]() {
+                        QTimer::singleShot(50, [this, slrTutor]() {
                             tm->setRootWindow(slrTutor);
                             tm->nextStep();
                         });

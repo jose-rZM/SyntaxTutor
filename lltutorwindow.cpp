@@ -52,9 +52,9 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidge
     std::sort(sortedNonTerminals.begin(),
               sortedNonTerminals.end(),
               [&grammar](const QString &a, const QString &b) {
-                  if (a == grammar.axiom_)
+                  if (a.toStdString() == grammar.axiom_)
                       return true;
-                  if (b == grammar.axiom_)
+                  if (b.toStdString() == grammar.axiom_)
                       return false;
                   return a < b;
               });
