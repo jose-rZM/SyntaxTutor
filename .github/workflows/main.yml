@@ -42,14 +42,10 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
-          echo "Cwd:"
-          ls -la
-          find . -type f -name 'Syntaxtutor*' -maxdepth 3
           APP="SyntaxTutor.app"
           mkdir -p $APP/Contents/{MacOS,Resources}
 
-          cp SyntaxTutor $APP/Contents/MacOS/SyntaxTutor
-          chmod +x $APP/Contents/MacOS/SyntaxTutor
+          chmod +x "$APP/Contents/MacOS/SyntaxTutor"
 
           install -Dm644 resources/SyntaxTutor.icns \
             $APP/Contents/Resources/SyntaxTutor.icns
