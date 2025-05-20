@@ -1,5 +1,6 @@
 #include "slrtutorwindow.h"
 #include <QEasingCurve>
+#include <sstream>
 #include <QFontDatabase>
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
