@@ -21,9 +21,7 @@ jobs:
 
       - name: Build for Intel (x86_64)
         run: |
-          export QMAKE_MACOS_ARCHITECTURES=x86_64
-
-          qmake6 CONFIG+=release CONFIG+=app_bundle QMAKE_APPLE_DEVICE_ARCHS=x86_64 -r
+          qmake6 "CONFIG+=release" "CONFIG+=app_bundle" "QMAKE_APPLE_DEVICE_ARCHS=x86_64;arm64" -r
           make -j$(sysctl -n hw.ncpu)
 
       - name: Prepare icons
