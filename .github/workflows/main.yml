@@ -46,10 +46,12 @@ jobs:
       - name: Instalar dependencias Qt6
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            qt6-base-dev qt6-tools-dev-tools \
-            libxcb-xinerama0-dev libglu1-mesa-dev
-            
+          sudo apt-get install -y --no-install-recommends \
+            build-essential git wget ca-certificates file patchelf \
+            qt6-base-dev qt6-tools-dev qt6-tools-dev-tools \
+            qt6-svg-dev libxkbcommon-x11-0 libxcb-xinerama0
+          rm -rf /var/lib/apt/lists/*
+          
       - name: Configure with qmake
         run: |
           qmake6 -r
@@ -60,20 +62,25 @@ jobs:
 
       - name: Generate AppImage
         run: |
-          # Crea la estructura AppDir
-          APPDIR=MyApp.AppDir
-          mkdir -p $APPDIR/usr/bin
-          cp ./SyntaxTutor $APPDIR/usr/bin/SyntaxTutor
+          APPIMAGE_EXTRACT_AND_RUN=1
 
           wget -qO linuxdeployqt.AppImage \
             https://github.com/linuxdeploy/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
           chmod +x linuxdeployqt.AppImage
 
-          ./linuxdeployqt.AppImage $APPDIR/usr/bin/SyntaxTutor \
-            -appimage \
-            -unsupported-allow-new-glibc \
-            -no-translations \
-            -verbose=2
+          mkdir AppDir/usr/bin && \
+            cp SyntaxTutor AppDir/usr/bin/ && \
+            printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > SyntaxTutor.desktop && \
+            chmod +x SyntaxTutor.desktop && \
+            install -Dm644 resources/syntaxtutor.png \
+            AppDir/usr/share/icons/hicolor/256x256/apps/syntaxtutor.png && \
+            /usr/local/bin/linuxdeploy \
+              --appdir AppDir \
+              --desktop-file SyntaxTutor.desktop \
+              --icon-file resources/syntaxtutor.png \
+              --plugin qt \
+              --output appimage
+
 
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v4
