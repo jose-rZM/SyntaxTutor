@@ -15,10 +15,9 @@ jobs:
       - name: Install Qt 6 (x64)
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.6.0'
-          host: windows
-          target: desktop
-          arch: x64
+          version: '6.8.3'
+          target: 'desktop'
+          arch: 'win64_msvc2022_64'
 
       - name: Configure with qmake
         run: qmake -r
@@ -50,16 +49,10 @@ jobs:
           sudo apt-get install -y \
             qt6-base-dev qt6-tools-dev-tools \
             libxcb-xinerama0-dev libglu1-mesa-dev
-      - name: Select Qt6 system-wide
-        run: |
-          qtchooser -install qt6 $(which qmake6)
-          sudo mv ~/.config/qtchooser/qt6.conf /usr/share/qtchooser/qt6.conf
-          sudo mkdir -p /usr/lib/$(uname -p)-linux-gnu/qt-default/qtchooser
-          sudo ln -n /usr/share/qtchooser/qt6.conf /usr/lib/$(uname -p)-linux-gnu/qt-default/qtchooser/default.conf
-          
+            
       - name: Configure with qmake
         run: |
-          qmake -r
+          qmake6 -r
 
       - name: Build
         run: |
