@@ -35,15 +35,14 @@ jobs:
         shell: pwsh
         run: |
           mkdir deploy
-          $exe = '.\release\SyntaxTutor.exe'
-          windeployqt --release $exe --dir deploy
-          powershell Compress-Archive -Path deploy\* -DestinationPath deploy.zip
+          Copy-Item .\release\SyntaxTutor.exe deploy\
+          windeployqt --release .\deploy\SyntaxTutor.exe --dir deploy
 
       - name: Upload Windows ZIP
         uses: actions/upload-artifact@v4
         with:
           name: windows-deploy
-          path: deploy.zip
+          path: deploy
 
   build-linux:
     runs-on: ubuntu-latest
