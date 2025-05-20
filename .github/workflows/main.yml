@@ -21,21 +21,32 @@ jobs:
 
       - name: Build for Intel (x86_64)
         run: |
-          # Fuerza qmake a generar un binario para x86_64
           export QMAKE_MACOS_ARCHITECTURES=x86_64
 
           qmake6 CONFIG+=release -r
           make -j$(sysctl -n hw.ncpu)
 
+      - name: Prepare icons
+        run: |
+          mkdir -p MyIcon.iconset
+
+          sips -z 16 16   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16.png
+          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16@2x.png
+          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32.png
+          sips -z 64 64   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32@2x.png
+          sips -z 128 128 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128.png
+          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128@2x.png
+          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256.png
+          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256@2x.png
+          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512.png
+          sips -z 1024 1024 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512@2x.png
+
+          iconutil -c icns MyIcon.iconset -o resources/SyntaxTutor.icns
+
       - name: Prepare .app bundle
         run: |
           APP="SyntaxTutor-intel.app"
-          # Qt ya habrá generado el binario dentro del bundle si usas OUT_OF_SOURCE build
           mkdir -p "$APP/Contents"/{MacOS,Resources}
-
-          # Si qmake no creó el bundle, descomenta estas líneas para copiar tú:
-          # cp release/SyntaxTutor "$APP/Contents/MacOS/SyntaxTutor"
-          # chmod +x "$APP/Contents/MacOS/SyntaxTutor"
 
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
 
