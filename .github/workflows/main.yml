@@ -19,7 +19,7 @@ jobs:
           target: 'desktop'
           arch: 'win64_msvc2022_64'
           
-      - name: Import VS paths
+      - name: Import VS paths and prepare deploy
         shell: pwsh
         run: | 
           $ErrorActionPreference = 'Stop'
@@ -31,12 +31,10 @@ jobs:
             -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
             -property installationPath
           Write-Host "Usando Visual Studio en: $vsPath"
-          & "$vsPath\VC\Auxiliary\Build\vcvarsall.bat" x64        
-      - name: Configure with qmake
-        run: qmake -r
+          & "$vsPath\VC\Auxiliary\Build\vcvarsall.bat" x64     
 
-      - name: Build with nmake
-        run: nmake /f Makefile.Release
+          qmake -r
+          nmake /f Makefile.Release
 
       - name: Prepare Windows deploy
         run: |
