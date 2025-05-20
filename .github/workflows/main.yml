@@ -20,7 +20,7 @@ jobs:
 
       - name: Build with qmake & make
         run: |
-          qmake6 -r
+          qmake6 CONFIG+=release -r
           make -j$(sysctl -n hw.ncpu)
 
       - name: Prepare icons
@@ -42,6 +42,9 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
+          echo "Cwd:"
+          ls -la
+          find . -type f -name 'Syntaxtutor*' -maxdepth 3
           APP="SyntaxTutor.app"
           mkdir -p $APP/Contents/{MacOS,Resources}
 
