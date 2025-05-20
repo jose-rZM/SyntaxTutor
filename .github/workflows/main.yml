@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Qt 6 (x64)
-        uses: jurplel/install-qt@v2
+        uses: jurplel/install-qt-action@v4
         with:
           version: '6.6.0'
           host: windows
@@ -29,7 +29,7 @@ jobs:
       - name: Prepare Windows deploy
         run: |
           mkdir deploy
-          windeployqt --release path\to\your.exe --dir deploy
+          windeployqt --release .\SyntaxTutor.exe --dir deploy
           powershell Compress-Archive -Path deploy\* -DestinationPath deploy.zip
 
       - name: Upload Windows ZIP
@@ -50,7 +50,13 @@ jobs:
           sudo apt-get install -y \
             qt6-base-dev qt6-tools-dev-tools \
             libxcb-xinerama0-dev libglu1-mesa-dev
-
+      - name: Select Qt6 system-wide
+        run: |
+          qtchooser -install qt6 $(which qmake6)
+          sudo mv ~/.config/qtchooser/qt6.conf /usr/share/qtchooser/qt6.conf
+          sudo mkdir -p /usr/lib/$(uname -p)-linux-gnu/qt-default/qtchooser
+          sudo ln -n /usr/share/qtchooser/qt6.conf /usr/lib/$(uname -p)-linux-gnu/qt-default/qtchooser/default.conf
+          
       - name: Configure with qmake
         run: |
           qmake -r
@@ -64,13 +70,13 @@ jobs:
           # Crea la estructura AppDir
           APPDIR=MyApp.AppDir
           mkdir -p $APPDIR/usr/bin
-          cp path/to/your_binary $APPDIR/usr/bin/MyApp
+          cp ./SyntaxTutor $APPDIR/usr/bin/SyntaxTutor
 
           wget -qO linuxdeployqt.AppImage \
             https://github.com/linuxdeploy/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
           chmod +x linuxdeployqt.AppImage
 
-          ./linuxdeployqt.AppImage $APPDIR/usr/bin/MyApp \
+          ./linuxdeployqt.AppImage $APPDIR/usr/bin/SyntaxTutor \
             -appimage \
             -unsupported-allow-new-glibc \
             -no-translations \
