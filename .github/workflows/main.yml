@@ -18,7 +18,11 @@ jobs:
           version: '6.8.3'
           target: 'desktop'
           arch: 'win64_msvc2022_64'
-
+          
+      - name: Import VS paths
+        run: | 
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+        
       - name: Configure with qmake
         run: qmake -r
 
