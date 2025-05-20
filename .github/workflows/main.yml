@@ -19,24 +19,20 @@ jobs:
           target: 'desktop'
           arch: 'win64_msvc2022_64'
           
-      - name: Import VS paths and prepare deploy
-        shell: pwsh
-        run: | 
-          $ErrorActionPreference = 'Stop'
-          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-            if (-not (Test-Path $vswhere)) {
-            throw "No he encontrado vswhere.exe en $vswhere"
-          }
-          $vsPath = & $vswhere -latest -products * `
-            -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
-            -property installationPath
-          Write-Host "Usando Visual Studio en: $vsPath"
-          & "$vsPath\VC\Auxiliary\Build\vcvarsall.bat" x64     
+      - name: Setup MSVC env
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
 
-          qmake -r
-          nmake /f Makefile.Release
+      - name: Configure with qmake
+        run: qmake -r
+
+      - name: Build with nmake
+        run: nmake /f Makefile.Release
+        shell: cmd
 
       - name: Prepare Windows deploy
+        shell: pwsh
         run: |
           mkdir deploy
           windeployqt --release .\SyntaxTutor.exe --dir deploy
