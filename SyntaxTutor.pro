@@ -49,8 +49,15 @@ FORMS += \
     slrtutorwindow.ui
 
 win32:CONFIG(release, debug|release) {
-    QMAKE_CXXFLAGS_RELEASE += -O3 -flto -DNDEBUG -pipe
-    QMAKE_LFLAGS_RELEASE   += -s -flto
+    msvc {
+        QMAKE_CXXFLAGS_RELEASE += /O2 /GL /DNDEBUG
+        QMAKE_LFLAGS_RELEASE   += /LTCG
+    }
+
+    !msvc {
+        QMAKE_CXXFLAGS_RELEASE += -O3 -flto -DNDEBUG -pipe
+        QMAKE_LFLAGS_RELEASE   += -s -flto
+    }
 }
 
 unix:!mac:CONFIG(release, debug|release) {
@@ -68,7 +75,7 @@ unix:!mac:CONFIG(release, debug|release) {
         -Wl,--as-needed
 
     # Tras link: strippear de nuevo por si quedan símbolos
-    QMAKE_POST_LINK += $$QMAKE_STRIP $$DESTDIR/$${TARGET}
+    QMAKE_POST_LINK += $$QMAKE_STRIP ./$${TARGET}
 }
 
 # Default rules for deployment.
