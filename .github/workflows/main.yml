@@ -49,7 +49,7 @@ jobs:
           mkdir -p "$APP/Contents"/{MacOS,Resources}
 
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
-          cp Syntaxtutor $APP/Contents/MacOS
+          cp release/Syntaxtutor $APP/Contents/MacOS
           cat > "$APP/Contents/Info.plist" << 'EOF'
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
