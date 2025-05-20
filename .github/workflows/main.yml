@@ -33,7 +33,7 @@ jobs:
           powershell Compress-Archive -Path deploy\* -DestinationPath deploy.zip
 
       - name: Upload Windows ZIP
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-deploy
           path: deploy.zip
@@ -77,7 +77,7 @@ jobs:
             -verbose=2
 
       - name: Upload Linux AppImage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-appimage
           path: '*.AppImage'
