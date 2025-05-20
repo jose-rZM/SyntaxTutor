@@ -23,7 +23,7 @@ jobs:
         run: |
           export QMAKE_MACOS_ARCHITECTURES=x86_64
 
-          qmake6 CONFIG+=release -r
+          qmake6 CONFIG+=release CONFIG+=app_bundle -r
           make -j$(sysctl -n hw.ncpu)
 
       - name: Prepare icons
@@ -45,11 +45,11 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
-          APP="SyntaxTutor-intel.app"
-          mkdir -p "$APP/Contents"/{MacOS,Resources}
-
+          APP="SyntaxTutor"
+          
+          chmod +x "$APP/Contents/MacOS/SyntaxTutor"
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
-          cp release/Syntaxtutor $APP/Contents/MacOS
+
           cat > "$APP/Contents/Info.plist" << 'EOF'
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
@@ -74,16 +74,16 @@ jobs:
 
       - name: Run macdeployqt
         run: |
-          macdeployqt SyntaxTutor-intel.app \
+          macdeployqt SyntaxTutor.app \
             -verbose=2
 
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --sign - SyntaxTutor-intel.app
+          codesign --deep --force --options runtime --sign - SyntaxTutor.app
 
       - name: Create ZIP of .app
         run: |
-          ditto -c -k --keepParent SyntaxTutor-intel.app SyntaxTutor-intel.zip
+          ditto -c -k --keepParent SyntaxTutor.app SyntaxTutor-intel.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
