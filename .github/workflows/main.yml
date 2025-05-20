@@ -6,6 +6,85 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Install Qt6
+        run: |
+          brew update
+          brew install qt@6
+          echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
+
+      - name: Build with qmake & make
+        run: |
+          qmake6 -r
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Prepare icons
+        run: |
+          mkdir -p MyIcon.iconset
+
+          sips -z 16 16   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16.png
+          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16@2x.png
+          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32.png
+          sips -z 64 64   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32@2x.png
+          sips -z 128 128 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128.png
+          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128@2x.png
+          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256.png
+          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256@2x.png
+          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512.png
+          sips -z 1024 1024 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512@2x.png
+
+          iconutil -c icns MyIcon.iconset -o resources/SyntaxTutor.icns
+
+      - name: Prepare .app bundle
+        run: |
+          APP="SyntaxTutor.app"
+          mkdir -p $APP/Contents/{MacOS,Resources}
+
+          cp SyntaxTutor $APP/Contents/MacOS/SyntaxTutor
+          chmod +x $APP/Contents/MacOS/SyntaxTutor
+
+          install -Dm644 resources/SyntaxTutor.icns \
+            $APP/Contents/Resources/SyntaxTutor.icns
+
+          cat > $APP/Contents/Info.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+            "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>SyntaxTutor</string>
+            <key>CFBundleExecutable</key>
+            <string>SyntaxTutor</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.tuempresa.syntaxtutor</string>
+            <key>CFBundleVersion</key>
+            <string>1.0.0</string>
+            <key>CFBundleIconFile</key>
+            <string>SyntaxTutor.icns</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Run macdeployqt
+        run: |
+          macdeployqt SyntaxTutor.app \
+            -verbose=2
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-artifacts
+          path: |
+            SyntaxTutor.app
+            
   build-windows:
     runs-on: windows-latest
     steps:
