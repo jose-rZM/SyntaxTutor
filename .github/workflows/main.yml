@@ -47,8 +47,8 @@ jobs:
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
 
-          install -Dm644 resources/SyntaxTutor.icns \
-            $APP/Contents/Resources/SyntaxTutor.icns
+          cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
+          chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
 
           cat > $APP/Contents/Info.plist << 'EOF'
           <?xml version="1.0" encoding="UTF-8"?>
