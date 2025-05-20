@@ -76,8 +76,8 @@ jobs:
              $APPDIR/usr/share/icons/hicolor/256x256/apps
           
           cp SyntaxTutor $APPDIR/usr/bin/ && \
-            printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > SyntaxTutor.desktop && \
-            chmod +x SyntaxTutor.desktop && \
+            printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > $APPDIR/SyntaxTutor.desktop && \
+            chmod +x $APPDIR/SyntaxTutor.desktop && \
             install -Dm644 resources/syntaxtutor.png \
             $APPDIR/usr/share/icons/hicolor/256x256/apps/syntaxtutor.png && \
             /usr/local/bin/linuxdeploy \
