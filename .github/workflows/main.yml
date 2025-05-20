@@ -126,6 +126,8 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
+          ls -l
+          ls -l SyntaxTutor.app
           APP="SyntaxTutor.app"
           mkdir -p $APP/Contents/{MacOS,Resources}
 
