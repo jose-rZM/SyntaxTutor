@@ -6,6 +6,79 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-macos-intel:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Install Qt6
+        run: |
+          brew update
+          brew install qt@6
+          echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
+
+      - name: Build for Intel (x86_64)
+        run: |
+          # Fuerza qmake a generar un binario para x86_64
+          export QMAKE_MACOS_ARCHITECTURES=x86_64
+
+          qmake6 CONFIG+=release -r
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Prepare .app bundle
+        run: |
+          APP="SyntaxTutor-intel.app"
+          # Qt ya habrá generado el binario dentro del bundle si usas OUT_OF_SOURCE build
+          mkdir -p "$APP/Contents"/{MacOS,Resources}
+
+          # Si qmake no creó el bundle, descomenta estas líneas para copiar tú:
+          # cp release/SyntaxTutor "$APP/Contents/MacOS/SyntaxTutor"
+          # chmod +x "$APP/Contents/MacOS/SyntaxTutor"
+
+          cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
+
+          cat > "$APP/Contents/Info.plist" << 'EOF'
+            <?xml version="1.0" encoding="UTF-8"?>
+            <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+            "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+            <plist version="1.0">
+            <dict>
+            <key>CFBundleName</key>
+            <string>SyntaxTutor-Intel</string>
+            <key>CFBundleExecutable</key>
+            <string>SyntaxTutor</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.tuempresa.syntaxtutor.intel</string>
+            <key>CFBundleVersion</key>
+            <string>1.0.0</string>
+            <key>CFBundleIconFile</key>
+            <string>SyntaxTutor.icns</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            </dict>
+            </plist>
+            EOF
+
+      - name: Run macdeployqt
+        run: |
+          macdeployqt SyntaxTutor-intel.app \
+            -verbose=2
+
+      - name: Ad-hoc code signing
+        run: |
+          codesign --deep --force --options runtime --sign - SyntaxTutor-intel.app
+
+      - name: Create ZIP of .app
+        run: |
+          ditto -c -k --keepParent SyntaxTutor-intel.app SyntaxTutor-intel.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-intel
+          path: SyntaxTutor-intel.zip  
   build-macos:
     runs-on: macos-latest
     steps:
