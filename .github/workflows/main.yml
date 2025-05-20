@@ -35,7 +35,8 @@ jobs:
         shell: pwsh
         run: |
           mkdir deploy
-          windeployqt --release .\SyntaxTutor.exe --dir deploy
+          $exe = '.\release\SyntaxTutor.exe'
+          windeployqt --release $exe --dir deploy
           powershell Compress-Archive -Path deploy\* -DestinationPath deploy.zip
 
       - name: Upload Windows ZIP
