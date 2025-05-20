@@ -61,7 +61,7 @@ jobs:
 
       - name: Generate AppImage
         run: |
-          APPIMAGE_EXTRACT_AND_RUN=1
+          export APPIMAGE_EXTRACT_AND_RUN=1
 
           wget -qO linuxdeployqt.AppImage \
             https://github.com/linuxdeploy/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
