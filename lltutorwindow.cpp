@@ -199,7 +199,11 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
         html += "<div class='role'>";
         html += (message.isUser ? "Usuario: " : "Tutor: ");
         html += "</div>";
-        html += safeText;
+        if (!message.isCorrect) {
+            html += "<span style='background-color:red;'>" + safeText + "</span>";
+        } else {
+            html += safeText;
+        }
         html += "</div>";
     }
 
@@ -308,6 +312,9 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
         messageText = QString("No se proporcionó respuesta.");
     }
     conversationLog.emplaceBack(messageText, isUser);
+    if (isUser) {
+        lastUserMessageLogIdx = conversationLog.size() - 1;
+    }
 
     QWidget *messageWidget = new QWidget;
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -649,7 +656,6 @@ void LLTutorWindow::wrongAnimation()
         });
         animation->start(QAbstractAnimation::DeleteWhenStopped);
     }
-    lastUserMessage = nullptr;
 }
 
 void LLTutorWindow::wrongUserResponseAnimation()
@@ -718,6 +724,28 @@ void LLTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
     resetTimer->start(durationMs);
 }
 
+void LLTutorWindow::markLastUserIncorrect()
+{
+    if (!lastUserMessage)
+        return;
+
+    QList<QLabel *> labels = lastUserMessage->findChildren<QLabel *>();
+
+    if (labels.isEmpty() || labels.size() < 2) {
+        return;
+    }
+    labels[1]->setStyleSheet(R"(
+        background-color: #CC3333;
+        color: white;
+        padding: 12px 16px;
+        border-top-left-radius: 18px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    )");
+}
+
 void LLTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
@@ -740,6 +768,12 @@ void LLTutorWindow::on_confirmButton_clicked()
         addMessage(feedback(), false);
         wrongAnimation();
         wrongUserResponseAnimation();
+        markLastUserIncorrect();
+        if (lastUserMessageLogIdx != -1) {
+            conversationLog[lastUserMessageLogIdx].toggleIsCorrect();
+            lastUserMessageLogIdx = -1;
+        }
+        lastUserMessage = nullptr;
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);

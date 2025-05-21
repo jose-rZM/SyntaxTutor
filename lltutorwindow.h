@@ -73,6 +73,7 @@ public:
     void animateLabelColor(QLabel *label, const QColor &flashColor);
     void wrongAnimation();
     void wrongUserResponseAnimation();
+    void markLastUserIncorrect();
 
     // ====== Tree Generation (TeachFirst mode) =================
     void TeachFirstTree(const std::vector<std::string> &symbols,
@@ -161,14 +162,17 @@ private:
     {
         QString message;
         bool isUser;
+        bool isCorrect = true;
         MessageLog(const QString &message, bool isUser)
             : message(message)
             , isUser(isUser)
         {}
+        void toggleIsCorrect() { isCorrect = false; }
     };
 
     QVector<MessageLog> conversationLog;
     QWidget *lastUserMessage = nullptr;
+    qsizetype lastUserMessageLogIdx = -1;
 
     QMap<QString, QString> userCAB;
     QMap<QString, QString> userSIG;
