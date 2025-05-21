@@ -1239,26 +1239,49 @@ bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForC() {
-    if (lltable.empty()) {
-        return false;
-    }
-
     lastWrongCells.clear();
-    for (const auto &[nonTerminal, columns] : ll1.ll1_t_) {
-        for (const auto &[terminal, productions] : columns) {
-            const auto &production = productions[0];
-            const auto &entry
-                = lltable[QString::fromStdString(nonTerminal)][QString::fromStdString(terminal)];
-            if (production.empty() && entry.isEmpty()) {
-                continue;
-            }
 
-            if (production != qvectorToStdVector(entry)) {
-                lastWrongCells.emplace_back(QString::fromStdString(nonTerminal),
-                                            QString::fromStdString(terminal));
-            }
+    for (const auto &[nonTerminal, columns] : ll1.ll1_t_) {
+        const QString nt = QString::fromStdString(nonTerminal);
+
+        for (const auto &[terminal, productions] : columns) {
+            const QString t = QString::fromStdString(terminal);
+            const auto &expected = productions[0];
+
+            const QStringList entry = lltable.value(nt).value(t);
+
+            if (expected.empty() && entry.isEmpty())
+                continue;
+
+            if (expected != qvectorToStdVector(entry))
+                lastWrongCells.emplace_back(nt, t);
         }
     }
+
+    for (auto itNT = lltable.cbegin(); itNT != lltable.cend(); ++itNT) {
+        const QString nt = itNT.key();
+        auto itSysNT = ll1.ll1_t_.find(nt.toStdString());
+
+        for (auto itT = itNT->cbegin(); itT != itNT->cend(); ++itT) {
+            const QString t = itT.key();
+
+            bool wrong = false;
+
+            if (itSysNT == ll1.ll1_t_.end()) {
+                wrong = true;
+            } else {
+                auto itSysT = itSysNT->second.find(t.toStdString());
+                if (itSysT == itSysNT->second.end()) {
+                    wrong = true;
+                } else if (itSysT->second[0].empty()) {
+                    wrong = true;
+                }
+            }
+            if (wrong)
+                lastWrongCells.emplace_back(nt, t);
+        }
+    }
+
     return lastWrongCells.empty();
 }
 
