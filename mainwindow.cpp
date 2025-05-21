@@ -71,10 +71,12 @@ MainWindow::MainWindow(QWidget *parent)
 )");
 
     setupTutorial();
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
 {
+    saveSettings();
     delete ui;
 }
 
@@ -96,12 +98,51 @@ void MainWindow::on_lv3Button_clicked(bool checked)
         level = 3;
 }
 
+void MainWindow::loadSettings()
+{
+    userLevel = settings.value("gamification/nivel", 1).toUInt();
+    userScore = settings.value("gamification/puntos", 0).toUInt();
+    ui->badgeNivel->setText(QString::number(userLevel));
+    ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
+
+    int percent = qMin(100, static_cast<int>((userScore * 100) / thresholdFor(userLevel)));
+    ui->progressBarNivel->setValue(percent);
+}
+
+void MainWindow::saveSettings()
+{
+    settings.setValue("gamification/nivel", userLevel);
+    settings.setValue("gamification/puntos", userScore);
+}
+
+void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
+{
+    int delta = (cntRight - cntWrong);
+    userScore = static_cast<unsigned>(qMax(0, static_cast<int>(userScore) + delta));
+    unsigned thr = thresholdFor(userLevel);
+
+    while (userScore >= thr) {
+        userScore -= thr;
+        userLevel++;
+        thr = thresholdFor(userLevel);
+    }
+
+    ui->badgeNivel->setText(QString::number(userLevel));
+    ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
+
+    int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+    ui->progressBarNivel->setValue(percent);
+
+    saveSettings();
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     Grammar grammar = factory.GenLL1Grammar(level);
     this->setEnabled(false);
     LLTutorWindow *tutor = new LLTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
+    connect(tutor, &LLTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
     connect(tutor, &QWidget::destroyed, this, [this]() { this->setEnabled(true); });
     tutor->show();
 }
@@ -113,6 +154,7 @@ void MainWindow::on_pushButton_2_clicked()
     this->setEnabled(false);
     SLRTutorWindow *tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
+    connect(tutor, &SLRTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
     connect(tutor, &QWidget::destroyed, this, [this]() { this->setEnabled(true); });
     tutor->show();
 }

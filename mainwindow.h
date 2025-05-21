@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSettings>
 #include "backend/grammar.hpp"
 #include "backend/grammar_factory.hpp"
 #include "lltutorwindow.h"
@@ -21,6 +22,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    unsigned thresholdFor(unsigned level) { return BASE_THRESHOLD * level; }
 
 private slots:
     void on_lv1Button_clicked(bool checked);
@@ -46,9 +49,21 @@ private:
 
     void restartTutorial();
 
+    void handleTutorFinished(int cntRight, int cntWrong);
+
+    void saveSettings();
+
+    void loadSettings();
+
     Ui::MainWindow *ui;
     GrammarFactory factory;
     int level = 1;
     TutorialManager *tm = nullptr;
+
+    unsigned userLevel = 1;
+    unsigned userScore = 0;
+    QSettings settings;
+
+    const unsigned BASE_THRESHOLD = 10;
 };
 #endif // MAINWINDOW_H

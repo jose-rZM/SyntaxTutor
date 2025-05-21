@@ -134,7 +134,16 @@ private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
 
+signals:
+    void sessionFinished(int cntRight, int cntWrong);
+
 protected:
+    void closeEvent(QCloseEvent *event) override
+    {
+        emit sessionFinished(cntRightAnswers, cntWrongAnswers);
+        QWidget::closeEvent(event);
+    }
+
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
