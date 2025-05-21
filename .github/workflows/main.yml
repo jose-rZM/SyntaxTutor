@@ -20,9 +20,10 @@ jobs:
           path: |
             /Users/runner/Library/Caches/Homebrew
             /usr/local/Cellar/qt@6
+            /opt/homebrew/Cellar/qt@6
           key: ${{ runner.os }}-qt-${{ hashFiles('**/resources/syntaxtutor.png') }}-v6
-          restore-keys: \
-            ${{ runner.os }}-qt-      
+          restore-keys: |
+            ${{ runner.os }}-qt-  
 
       - name: Install & Link Qt6
         run: |
@@ -124,8 +125,9 @@ jobs:
           path: |
             /Users/runner/Library/Caches/Homebrew
             /usr/local/Cellar/qt@6
+            /opt/homebrew/Cellar/qt@6
           key: ${{ runner.os }}-qt-${{ hashFiles('**/resources/syntaxtutor.png') }}-v6
-          restore-keys: \
+          restore-keys: |
             ${{ runner.os }}-qt-
             
       - name: Install & Link Qt6
