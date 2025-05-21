@@ -162,14 +162,17 @@ private:
     {
         QString message;
         bool isUser;
+        bool isCorrect = true;
         MessageLog(const QString &message, bool isUser)
             : message(message)
             , isUser(isUser)
         {}
+        void toggleIsCorrect() { isCorrect = false; }
     };
 
     QVector<MessageLog> conversationLog;
     QWidget *lastUserMessage = nullptr;
+    qsizetype lastUserMessageLogIdx = -1;
 
     QMap<QString, QString> userCAB;
     QMap<QString, QString> userSIG;

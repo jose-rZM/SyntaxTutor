@@ -199,7 +199,11 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
         html += "<div class='role'>";
         html += (message.isUser ? "Usuario: " : "Tutor: ");
         html += "</div>";
-        html += safeText;
+        if (!message.isCorrect) {
+            html += "<span style='background-color:red;'>" + safeText + "</span>";
+        } else {
+            html += safeText;
+        }
         html += "</div>";
     }
 
@@ -308,6 +312,9 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
         messageText = QString("No se proporcionó respuesta.");
     }
     conversationLog.emplaceBack(messageText, isUser);
+    if (isUser) {
+        lastUserMessageLogIdx = conversationLog.size() - 1;
+    }
 
     QWidget *messageWidget = new QWidget;
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -728,7 +735,7 @@ void LLTutorWindow::markLastUserIncorrect()
         return;
     }
     labels[1]->setStyleSheet(R"(
-        background-color: #CC3333;    /* rojo “error” permanente */
+        background-color: #CC3333;
         color: white;
         padding: 12px 16px;
         border-top-left-radius: 18px;
@@ -762,7 +769,9 @@ void LLTutorWindow::on_confirmButton_clicked()
         wrongAnimation();
         wrongUserResponseAnimation();
         markLastUserIncorrect();
+        conversationLog[lastUserMessageLogIdx].toggleIsCorrect();
         lastUserMessage = nullptr;
+        lastUserMessageLogIdx = -1;
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);
