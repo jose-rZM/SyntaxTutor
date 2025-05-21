@@ -423,6 +423,9 @@ void LLTutorWindow::showTable()
     QStringList colHeaders;
 
     for (const auto &symbol : ll1.gr_.st_.terminals_) {
+        if (symbol == ll1.gr_.st_.EPSILON_) {
+            continue;
+        }
         colHeaders << QString::fromStdString(symbol);
     }
     static const char *darkQss = R"(
