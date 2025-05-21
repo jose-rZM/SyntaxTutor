@@ -73,6 +73,7 @@ public:
     void animateLabelColor(QLabel *label, const QColor &flashColor);
     void wrongAnimation();
     void wrongUserResponseAnimation();
+    void markLastUserIncorrect();
 
     // ====== Tree Generation (TeachFirst mode) =================
     void TeachFirstTree(const std::vector<std::string> &symbols,

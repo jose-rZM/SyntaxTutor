@@ -649,7 +649,6 @@ void LLTutorWindow::wrongAnimation()
         });
         animation->start(QAbstractAnimation::DeleteWhenStopped);
     }
-    lastUserMessage = nullptr;
 }
 
 void LLTutorWindow::wrongUserResponseAnimation()
@@ -718,6 +717,28 @@ void LLTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
     resetTimer->start(durationMs);
 }
 
+void LLTutorWindow::markLastUserIncorrect()
+{
+    if (!lastUserMessage)
+        return;
+
+    QList<QLabel *> labels = lastUserMessage->findChildren<QLabel *>();
+
+    if (labels.isEmpty() || labels.size() < 2) {
+        return;
+    }
+    labels[1]->setStyleSheet(R"(
+        background-color: #CC3333;    /* rojo “error” permanente */
+        color: white;
+        padding: 12px 16px;
+        border-top-left-radius: 18px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 18px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    )");
+}
+
 void LLTutorWindow::on_confirmButton_clicked()
 {
     QString userResponse;
@@ -740,6 +761,8 @@ void LLTutorWindow::on_confirmButton_clicked()
         addMessage(feedback(), false);
         wrongAnimation();
         wrongUserResponseAnimation();
+        markLastUserIncorrect();
+        lastUserMessage = nullptr;
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);
