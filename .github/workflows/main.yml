@@ -29,6 +29,9 @@ jobs:
         run: |
           brew update
           brew install qt@6
+
+      - name: Add Qt6 to PATH
+        run: |
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
 
       - name: Build for Intel (x86_64)
@@ -128,6 +131,9 @@ jobs:
         run: |
           brew update
           brew install qt@6
+
+      - name: Add Qt6 to PATH
+        run: |
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
 
       - name: Build with qmake & make
