@@ -22,13 +22,15 @@ jobs:
             /usr/local/Cellar/qt@6
           key: ${{ runner.os }}-qt-${{ hashFiles('**/resources/syntaxtutor.png') }}-v6
           restore-keys: \
-            ${{ runner.os }}-qt-
-            
-      - name: Install Qt6
-        if: steps.cache-qt.outputs.cache-hit != 'true'
+            ${{ runner.os }}-qt-      
+
+      - name: Install & Link Qt6
         run: |
-          brew update
-          brew install qt@6
+          if [ "${{ steps.cache-qt.outputs.cache-hit }}" != "true" ]; then
+            brew update
+            brew install qt@6
+          fi
+          brew link qt@6 --force --overwrite
 
       - name: Add Qt6 to PATH
         run: |
@@ -126,11 +128,13 @@ jobs:
           restore-keys: \
             ${{ runner.os }}-qt-
             
-      - name: Install Qt6
-        if: steps.cache-qt.outputs.cache-hit != 'true'
+      - name: Install & Link Qt6
         run: |
-          brew update
-          brew install qt@6
+          if [ "${{ steps.cache-qt.outputs.cache-hit }}" != "true" ]; then
+            brew update
+            brew install qt@6
+          fi
+          brew link qt@6 --force --overwrite
 
       - name: Add Qt6 to PATH
         run: |
