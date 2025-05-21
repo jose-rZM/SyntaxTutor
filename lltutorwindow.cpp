@@ -769,9 +769,11 @@ void LLTutorWindow::on_confirmButton_clicked()
         wrongAnimation();
         wrongUserResponseAnimation();
         markLastUserIncorrect();
-        conversationLog[lastUserMessageLogIdx].toggleIsCorrect();
+        if (lastUserMessageLogIdx != -1) {
+            conversationLog[lastUserMessageLogIdx].toggleIsCorrect();
+            lastUserMessageLogIdx = -1;
+        }
         lastUserMessage = nullptr;
-        lastUserMessageLogIdx = -1;
     } else {
         ui->cntRight->setText(QString::number(++cntRightAnswers));
         animateLabelPop(ui->tick);

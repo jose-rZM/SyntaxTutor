@@ -92,6 +92,7 @@ public:
     void animateLabelColor(QLabel *label, const QColor &flashColor);
     void wrongAnimation();             // Label animation for incorrect answer
     void wrongUserResponseAnimation(); // Message widget animation for incorrect answer
+    void markLastUserIncorrect();
 
     // ====== Response Verification ================================
     bool verifyResponse(const QString &userResponse);
@@ -229,14 +230,19 @@ private:
     {
         QString message;
         bool isUser;
+        bool isCorrect;
+
         MessageLog(const QString &message, bool isUser)
             : message(message)
             , isUser(isUser)
         {}
+
+        void toggleIsCorrect() { isCorrect = false; }
     };
 
     QVector<MessageLog> conversationLog;
     QWidget *lastUserMessage = nullptr;
+    qsizetype lastUserMessageLogIdx = -1;
 
     TutorialManager *tm;
 };
