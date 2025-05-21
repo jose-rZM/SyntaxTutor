@@ -68,7 +68,8 @@ public:
     void addDivisorLine(const QString &stateName);         // Visual separator by phase
     void exportConversationToPdf(const QString &filePath); // Export chat to PDF
     void showTable();                                      // Render LL(1) table
-    void updateProgressPanel();                            // Update progress panel
+    void showTableForCPrime();
+    void updateProgressPanel(); // Update progress panel
 
     // ====== Visual Feedback / Animations ======================
     void animateLabelPop(QLabel *label);
@@ -129,6 +130,7 @@ public:
     QString feedbackForB2();
     QString feedbackForBPrime();
     QString feedbackForC();
+    QString feedbackForCPrime();
     void feedbackForB1TreeWidget();   // TreeWidget of Teach (LL1 TeachFirst)
     void feedbackForB1TreeGraphics(); // Show derivation tree
 
