@@ -36,7 +36,7 @@ class LLTutorWindow;
 }
 
 // ====== LL(1) Tutor States ===================================
-enum class State { A, A1, A2, A_prime, B, B1, B2, B_prime, C, fin };
+enum class State { A, A1, A2, A_prime, B, B1, B2, B_prime, C, C_prime, fin };
 
 // ====== LL(1) Tutor Main Class ===============================
 class LLTutorWindow : public QMainWindow
@@ -52,7 +52,9 @@ public:
     };
 
     // ====== Constructor / Destructor =========================
-    explicit LLTutorWindow(const Grammar &grammar, TutorialManager *tm = nullptr, QWidget *parent = nullptr);
+    explicit LLTutorWindow(const Grammar &grammar,
+                           TutorialManager *tm = nullptr,
+                           QWidget *parent = nullptr);
     ~LLTutorWindow();
 
     // ====== State Machine & Question Logic ====================
@@ -130,6 +132,7 @@ public:
     void feedbackForB1TreeWidget();   // TreeWidget of Teach (LL1 TeachFirst)
     void feedbackForB1TreeGraphics(); // Show derivation tree
 
+    void handleTableSubmission(const QVector<QVector<QString>> &raw, const QStringList &colHeaders);
 private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
@@ -146,8 +149,14 @@ private:
     // ====== State & Grammar Tracking ==========================
     State currentState;
     size_t currentRule = 0;
+    const unsigned kMaxHighlightTries = 3;
+    const unsigned kMaxTotalTries = 5;
     unsigned lltries = 0;
     unsigned cntRightAnswers = 0, cntWrongAnswers = 0;
+
+    using Cell = std::pair<QString, QString>;
+    std::vector<Cell> lastWrongCells;
+    LLTableDialog *currentDlg = nullptr;
 
     QVector<QString> sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;

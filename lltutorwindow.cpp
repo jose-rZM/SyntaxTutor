@@ -471,35 +471,14 @@ void LLTutorWindow::showTable()
     )";
     auto *dialog = new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
     dialog->setStyleSheet(darkQss);
+    currentDlg = dialog;
 
-    connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
-        rawTable.clear();
-        rawTable = dialog->getTableData();
-
-        lltable.clear();
-
-        for (int i = 0; i < rawTable.size(); ++i) {
-            const QString &rowHeader = sortedNonTerminals[i];
-
-            for (int j = 0; j < rawTable[i].size(); ++j) {
-                const QString &colHeader = colHeaders[j];
-                const QString &cellContent = rawTable[i][j];
-
-                if (!cellContent.isEmpty()) {
-                    QStringList production = stdVectorToQVector(
-                        ll1.gr_.Split(cellContent.toStdString()));
-                    if (production.empty() && !cellContent.isEmpty()) {
-                        // Split could not process the string
-                        production = {cellContent};
-                    }
-                    lltable[rowHeader][colHeader] = production;
-                }
-            }
-        }
-        on_confirmButton_clicked();
-
-        dialog->deleteLater();
-    });
+    connect(dialog,
+            &LLTableDialog::submitted,
+            this,
+            [this, dialog, colHeaders](const QVector<QVector<QString>> &data) {
+                handleTableSubmission(data, colHeaders);
+            });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
@@ -582,6 +561,64 @@ void LLTutorWindow::showTable()
     });
 
     dialog->show();
+}
+
+void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>> &raw,
+                                          const QStringList &colHeaders)
+{
+    // --- 1) actualiza estructuras internas --------------------
+    rawTable = raw;
+    lltable.clear();
+    for (int i = 0; i < raw.size(); ++i) {
+        const auto &rowH = sortedNonTerminals[i];
+        for (int j = 0; j < raw[i].size(); ++j) {
+            const auto &colH = colHeaders[j];
+            const auto &cells = raw[i][j];
+            if (cells.isEmpty())
+                continue;
+            QStringList prod = stdVectorToQVector(ll1.gr_.Split(cells.toStdString()));
+            if (prod.empty())
+                prod = {cells};
+            lltable[rowH][colH] = prod;
+        }
+    }
+
+    // --- 2) verificación --------------------------------------
+    ++lltries;
+    lastWrongCells.clear();
+    bool ok = verifyResponseForC();
+
+    if (ok) {                       // ---- ACERTADO ------------
+        currentDlg->accept();       //   cierra diálogo
+        on_confirmButton_clicked(); //   usa la lógica existente
+        currentDlg = nullptr;
+        return;
+    }
+
+    // ---- FALLO ------------------------------------------------
+    if (lltries <= kMaxHighlightTries) {
+        // convertir (NT,T) -> (fila,col)
+        QList<QPair<int, int>> coords;
+        for (auto &[nt, t] : lastWrongCells) {
+            int r = sortedNonTerminals.indexOf(nt);
+            int c = colHeaders.indexOf(t);
+            if (r >= 0 && c >= 0)
+                coords.append({r, c});
+        }
+        currentDlg->highlightIncorrectCells(coords);
+        QMessageBox::information(currentDlg,
+                                 "Errores",
+                                 "Las celdas marcadas en rojo son incorrectas.");
+    } else if (lltries < kMaxTotalTries) {
+        QMessageBox::information(currentDlg,
+                                 "Vuelve a intentarlo",
+                                 "Recuerda las reglas de colocación de producciones.");
+    } else {
+        if (currentDlg)
+            currentDlg->accept();
+        on_confirmButton_clicked();
+        currentDlg = nullptr;
+    }
 }
 
 void LLTutorWindow::addDivisorLine(const QString &stateName)
@@ -756,8 +793,6 @@ void LLTutorWindow::on_confirmButton_clicked()
         isCorrect = verifyResponse(userResponse);
     } else {
         isCorrect = verifyResponseForC();
-        if (!isCorrect)
-            ++lltries;
     }
 
 
@@ -867,6 +902,9 @@ QString LLTutorWindow::generateQuestion()
         showTable();
         return "";
 
+    case State::C_prime:
+        addMessage("Rellena la tabla LL(1) con la solución proporcionada", false);
+
         // ====== Fallback case ====================================
     default:
         return "";
@@ -945,6 +983,9 @@ void LLTutorWindow::updateState(bool isCorrect)
         break;
     }
     case State::C:
+        if (lltries > kMaxTotalTries) {
+            currentState = State::C_prime;
+        }
         currentState = isCorrect ? State::fin : State::C;
         break;
 
@@ -1048,11 +1089,12 @@ bool LLTutorWindow::verifyResponseForC() {
             }
 
             if (production != qvectorToStdVector(entry)) {
-                return false;
+                lastWrongCells.emplace_back(QString::fromStdString(nonTerminal),
+                                            QString::fromStdString(terminal));
             }
         }
     }
-    return true;
+    return lastWrongCells.empty();
 }
 
 QString LLTutorWindow::solutionForA() {
@@ -1227,12 +1269,13 @@ QString LLTutorWindow::feedbackForBPrime()
 
 QString LLTutorWindow::feedbackForC()
 {
-    if (lltries > 2) {
+    if (lltries > kMaxTotalTries) {
         return QString::fromStdString(ll1.TeachLL1Table());
     }
     return "La tabla tiene errores.\n"
            "Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).\n"
-           "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A).";
+           "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A). Se ha marcado en "
+           "rojo las celdas incorrectas.";
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget *widget)

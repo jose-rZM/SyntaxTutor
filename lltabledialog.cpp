@@ -91,7 +91,6 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
     submitButton->setCursor(Qt::PointingHandCursor);
-    connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
     submitButton->setStyleSheet(R"(
   QPushButton {
     background-color: #00ADB5;
@@ -141,6 +140,7 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     }
 
     resize(width, height);
+    connect(submitButton, &QPushButton::clicked, this, [this]() { emit submitted(getTableData()); });
 }
 
 QVector<QVector<QString>> LLTableDialog::getTableData() const
@@ -174,5 +174,28 @@ void LLTableDialog::setInitialData(const QVector<QVector<QString>> &data)
 
             item->setText(data[i][j]);
         }
+    }
+}
+
+void LLTableDialog::highlightIncorrectCells(const QList<QPair<int, int>> &coords)
+{
+    for (int r = 0; r < table->rowCount(); ++r)
+        for (int c = 0; c < table->columnCount(); ++c) {
+            QTableWidgetItem *item = table->item(r, c);
+            if (!item) {
+                item = new QTableWidgetItem;
+                item->setTextAlignment(Qt::AlignCenter);
+                table->setItem(r, c, item);
+            }
+            item->setBackground(Qt::NoBrush);
+        }
+
+    const QColor err("#D9534F");
+    for (auto [r, c] : coords) {
+        QTableWidgetItem *item = table->item(r, c);
+        if (!item)
+            item = new QTableWidgetItem;
+        item->setBackground(err);
+        item->setForeground(Qt::white);
     }
 }
