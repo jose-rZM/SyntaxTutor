@@ -13,28 +13,10 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Cache Homebrew Qt
-        id: cache-qt
-        uses: actions/cache@v4
-        with:
-          path: |
-            /Users/runner/Library/Caches/Homebrew
-            /usr/local/Cellar/qt@6
-            /opt/homebrew/Cellar/qt@6
-          key: ${{ runner.os }}-qt-${{ hashFiles('**/resources/syntaxtutor.png') }}-v6
-          restore-keys: |
-            ${{ runner.os }}-qt-  
-
-      - name: Install & Link Qt6
+      - name: Install Qt6
         run: |
-          if [ "${{ steps.cache-qt.outputs.cache-hit }}" != "true" ]; then
-            brew update
-            brew install qt@6
-          fi
-          brew link qt@6 --force --overwrite
-
-      - name: Add Qt6 to PATH
-        run: |
+          brew update
+          brew install qt@6
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
 
       - name: Build for Intel (x86_64)
@@ -117,29 +99,11 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-        
-      - name: Cache Homebrew Qt
-        id: cache-qt
-        uses: actions/cache@v4
-        with:
-          path: |
-            /Users/runner/Library/Caches/Homebrew
-            /usr/local/Cellar/qt@6
-            /opt/homebrew/Cellar/qt@6
-          key: ${{ runner.os }}-qt-${{ hashFiles('**/resources/syntaxtutor.png') }}-v6
-          restore-keys: |
-            ${{ runner.os }}-qt-
-            
-      - name: Install & Link Qt6
-        run: |
-          if [ "${{ steps.cache-qt.outputs.cache-hit }}" != "true" ]; then
-            brew update
-            brew install qt@6
-          fi
-          brew link qt@6 --force --overwrite
 
-      - name: Add Qt6 to PATH
+      - name: Install Qt6
         run: |
+          brew update
+          brew install qt@6
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
 
       - name: Build with qmake & make
@@ -230,7 +194,6 @@ jobs:
           version: '6.8.3'
           target: 'desktop'
           arch: 'win64_msvc2022_64'
-          cache: true
           
       - name: Setup MSVC env
         uses: ilammy/msvc-dev-cmd@v1
@@ -262,14 +225,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-
-      - name: Cache apt packages
-        uses: actions/cache@v3
-        with:
-          path: /var/cache/apt/archives
-          key: ${{ runner.os }}-apt-${{ hashFiles('**/Dockerfile','**/*.pro') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
 
       - name: Instalar dependencias Qt6
         run: |
