@@ -71,6 +71,50 @@ MainWindow::MainWindow(QWidget *parent)
 )");
 
     setupTutorial();
+
+    connect(this, &MainWindow::userLevelChanged, this, [this](unsigned lvl) {
+        int idx = qBound(1, static_cast<int>(lvl), 10) - 1;
+        QString c = levelColors[idx];
+        QString border = QColor(c).darker(120).name();
+
+        ui->badgeNivel->setStyleSheet(QString(R"(
+    QLabel {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0px 6px;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: %1;
+    color: white;
+    border-radius: 12px;
+    border: 1px solid %2;
+    qproperty-alignment: 'AlignCenter';
+}
+        
+    )")
+                                          .arg(c)
+                                          .arg(border));
+
+        ui->badgeNivel->setText(QString::number(lvl));
+        ui->progressBarNivel->setStyleSheet(QString(R"(
+    QProgressBar {
+        background-color: #2A2A2A;
+        border: 1px solid #666666;   
+        border-radius: 3px;
+        min-height: 5px;
+        max-height: 5px;
+        text-align: center;
+        color: transparent;
+    }
+    QProgressBar::chunk {
+        background-color: %1;
+        border-radius: 3px;
+        margin: 0px;
+    }
+)")
+                                                .arg(c));
+    });
+
     loadSettings();
 }
 
@@ -100,18 +144,17 @@ void MainWindow::on_lv3Button_clicked(bool checked)
 
 void MainWindow::loadSettings()
 {
-    userLevel = settings.value("gamification/nivel", 1).toUInt();
+    setUserLevel(settings.value("gamification/nivel", 1).toUInt());
     userScore = settings.value("gamification/puntos", 0).toUInt();
-    ui->badgeNivel->setText(QString::number(userLevel));
     ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
 
-    int percent = qMin(100, static_cast<int>((userScore * 100) / thresholdFor(userLevel)));
+    int percent = qMin(100, static_cast<int>((userScore * 100) / thresholdFor(userLevel())));
     ui->progressBarNivel->setValue(percent);
 }
 
 void MainWindow::saveSettings()
 {
-    settings.setValue("gamification/nivel", userLevel);
+    settings.setValue("gamification/nivel", userLevel());
     settings.setValue("gamification/puntos", userScore);
 }
 
@@ -119,15 +162,14 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
 {
     int delta = (cntRight - cntWrong);
     userScore = static_cast<unsigned>(qMax(0, static_cast<int>(userScore) + delta));
-    unsigned thr = thresholdFor(userLevel);
+    unsigned thr = thresholdFor(userLevel());
 
     while (userScore >= thr) {
         userScore -= thr;
-        userLevel++;
-        thr = thresholdFor(userLevel);
+        setUserLevel(userLevel() + 1);
+        thr = thresholdFor(userLevel());
     }
 
-    ui->badgeNivel->setText(QString::number(userLevel));
     ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
 
     int percent = qMin(100, static_cast<int>((userScore * 100) / thr));

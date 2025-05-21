@@ -9,6 +9,19 @@
 #include "slrtutorwindow.h"
 #include "tutorialmanager.h"
 
+static const QVector<QString> levelColors = {
+    "#00B1A7", // 1
+    "#1ABC9C", // 2
+    "#2ECC71", // 3
+    "#F1C40F", // 4
+    "#F4D03F", // 5
+    "#F39C12", // 6
+    "#E67E22", // 7
+    "#D35400", // 8
+    "#E74C3C", // 9
+    "#FFD700"  // 10
+};
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -18,13 +31,21 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    Q_PROPERTY(unsigned userLevel READ userLevel WRITE setUserLevel NOTIFY userLevelChanged)
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     unsigned thresholdFor(unsigned level) { return BASE_THRESHOLD * level; }
-
+    unsigned userLevel() const { return m_userLevel; };
+    void setUserLevel(unsigned lvl)
+    {
+        if (m_userLevel == lvl)
+            return;
+        m_userLevel = lvl;
+        emit userLevelChanged(lvl);
+    }
 private slots:
     void on_lv1Button_clicked(bool checked);
 
@@ -44,6 +65,9 @@ private slots:
 
     void on_actionReferencia_SLR_1_triggered();
 
+signals:
+    void userLevelChanged(unsigned lvl);
+
 private:
     void setupTutorial();
 
@@ -60,7 +84,7 @@ private:
     int level = 1;
     TutorialManager *tm = nullptr;
 
-    unsigned userLevel = 1;
+    unsigned m_userLevel = 1;
     unsigned userScore = 0;
     QSettings settings;
 
