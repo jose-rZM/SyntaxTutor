@@ -1057,8 +1057,11 @@ bool LLTutorWindow::verifyResponseForC() {
 
 QString LLTutorWindow::solutionForA() {
     int nt = grammar.st_.non_terminals_.size();
-    int t = grammar.st_.terminals_.size();
-    QString solution (QString::number(nt) + "," + QString::number(t));
+    int t = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
+                ? grammar.st_.terminals_.size() - 1
+                : grammar.st_.terminals_.size();
+
+    QString solution(QString::number(nt) + "," + QString::number(t));
     return solution;
 }
 
@@ -1069,8 +1072,11 @@ QString LLTutorWindow::solutionForA1() {
 }
 
 QString LLTutorWindow::solutionForA2() {
-    int t = grammar.st_.terminals_.size() - 1;
-    QString solution (QString::number(t));
+    int t = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
+                ? grammar.st_.terminals_.size() - 2
+                : grammar.st_.terminals_.size() - 1;
+
+    QString solution(QString::number(t));
     return solution;
 }
 
@@ -1138,7 +1144,7 @@ QString LLTutorWindow::feedback()
 QString LLTutorWindow::feedbackForA() {
     return "La tabla LL(1) tiene:\n"
            " - Una fila por cada símbolo NO TERMINAL\n"
-           " - Una columna por cada TERMINAL (incluyendo $)\n"
+           " - Una columna por cada TERMINAL (incluyendo $ y excluyendo EPSILON)\n"
            "Esto define el tamaño de la tabla como filas × columnas.";
 }
 
@@ -1154,14 +1160,15 @@ QString LLTutorWindow::feedbackForA2() {
     QSet<QString> terminals = stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
     return QString("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
-                   "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($).\n"
+                   "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($). La "
+                   "cadena EPSILON, tampoco cuenta como símbolo terminal.\n"
                    "En esta gramática: %1")
         .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
     return QString("Como hay %1 símbolos no terminales (filas) y %2 terminales (columnas, "
-                   "incluyendo $),\n"
+                   "incluyendo $ y excluyendo EPSILON),\n"
                    "el tamaño de la tabla LL(1) será: %1 × %2.")
         .arg(grammar.st_.non_terminals_.size())
         .arg(grammar.st_.terminals_.size());
