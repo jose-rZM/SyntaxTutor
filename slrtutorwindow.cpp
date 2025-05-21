@@ -886,6 +886,7 @@ void SLRTutorWindow::on_confirmButton_clicked()
         addMessage(feedback(), false);
         wrongAnimation();
         wrongUserResponseAnimation();
+        markLastUserIncorrect();
         if (lastUserMessageLogIdx != -1) {
             conversationLog[lastUserMessageLogIdx].toggleIsCorrect();
             lastUserMessageLogIdx = -1;
