@@ -148,8 +148,15 @@ void MainWindow::loadSettings()
     userScore = settings.value("gamification/puntos", 0).toUInt();
     ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
 
-    int percent = qMin(100, static_cast<int>((userScore * 100) / thresholdFor(userLevel())));
-    ui->progressBarNivel->setValue(percent);
+    if (userLevel() >= MAX_LEVEL) {
+        ui->progressBarNivel->setEnabled(false);
+        ui->progressBarNivel->setValue(100);
+    } else {
+        ui->progressBarNivel->setEnabled(true);
+        unsigned thr = thresholdFor(userLevel());
+        int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+        ui->progressBarNivel->setValue(percent);
+    }
 }
 
 void MainWindow::saveSettings()
@@ -161,19 +168,27 @@ void MainWindow::saveSettings()
 void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
 {
     int delta = (cntRight - cntWrong);
-    userScore = static_cast<unsigned>(qMax(0, static_cast<int>(userScore) + delta));
-    unsigned thr = thresholdFor(userLevel());
+    int raw = static_cast<int>(userScore) + delta;
+    userScore = static_cast<unsigned>(qBound(0, raw, static_cast<int>(MAX_SCORE)));
 
-    while (userScore >= thr) {
+    while (userLevel() < MAX_LEVEL) {
+        unsigned thr = thresholdFor(userLevel());
+        if (userScore < thr)
+            break;
         userScore -= thr;
         setUserLevel(userLevel() + 1);
-        thr = thresholdFor(userLevel());
     }
 
     ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
-
-    int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
-    ui->progressBarNivel->setValue(percent);
+    if (userLevel() >= MAX_LEVEL) {
+        ui->progressBarNivel->setValue(100);
+        ui->progressBarNivel->setEnabled(false);
+    } else {
+        unsigned thr = thresholdFor(userLevel());
+        int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+        ui->progressBarNivel->setEnabled(true);
+        ui->progressBarNivel->setValue(percent);
+    }
 
     saveSettings();
 }

@@ -41,9 +41,10 @@ public:
     unsigned userLevel() const { return m_userLevel; };
     void setUserLevel(unsigned lvl)
     {
-        if (m_userLevel == lvl)
+        unsigned clamped = qMin(lvl, MAX_LEVEL);
+        if (m_userLevel == clamped)
             return;
-        m_userLevel = lvl;
+        m_userLevel = clamped;
         emit userLevelChanged(lvl);
     }
 private slots:
@@ -83,6 +84,9 @@ private:
     GrammarFactory factory;
     int level = 1;
     TutorialManager *tm = nullptr;
+
+    static constexpr unsigned MAX_LEVEL = 10;
+    static constexpr unsigned MAX_SCORE = 999;
 
     unsigned m_userLevel = 1;
     unsigned userScore = 0;
