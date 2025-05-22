@@ -146,7 +146,7 @@ void MainWindow::loadSettings()
 {
     setUserLevel(settings.value("gamification/nivel", 1).toUInt());
     userScore = settings.value("gamification/puntos", 0).toUInt();
-    ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
+    ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
 
     if (userLevel() >= MAX_LEVEL) {
         ui->progressBarNivel->setEnabled(false);
@@ -179,7 +179,7 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
         setUserLevel(userLevel() + 1);
     }
 
-    ui->labelScore->setText(QString("🏆 Puntos: %1").arg(userScore));
+    ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
     if (userLevel() >= MAX_LEVEL) {
         ui->progressBarNivel->setValue(100);
         ui->progressBarNivel->setEnabled(false);
