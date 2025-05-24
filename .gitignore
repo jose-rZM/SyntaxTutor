@@ -6,3 +6,5 @@ SyntaxTutor.pro.user
 AppDir/
 Dockerfile
 Makefile
+.qmake.stash
+SyntaxTutor
