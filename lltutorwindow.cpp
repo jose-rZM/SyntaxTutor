@@ -705,7 +705,7 @@ void LLTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
     QString flashStyle = QString("color: %1;").arg(flashColor.name());
     label->setStyleSheet(flashStyle);
 
-    // Cancelar temporizadores anteriores si existen
+    // Cancel previous timers
     const auto children = label->children();
     for (QObject *child : children) {
         if (auto oldTimer = qobject_cast<QTimer *>(child)) {
