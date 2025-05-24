@@ -1277,18 +1277,74 @@ QString LLTutorWindow::feedbackForB1()
 QString LLTutorWindow::feedbackForB2()
 {
     const QString nt = sortedGrammar.at(currentRule).first;
-    return "Cuando CAB(α) contiene ε, se necesita SIG(" + nt
-           + ") para completar los símbolos directores.\n"
-           + QString::fromStdString(ll1.TeachFollow(nt.toStdString()));
+    QString feedbackBase = QString("Cuando CAB(α) contiene ε, se necesita SIG(%1) para completar "
+                                   "los símbolos directores.\n"
+                                   "%2")
+                               .arg(nt, QString::fromStdString(ll1.TeachFollow(nt.toStdString())));
+
+    QStringList resp = ui->userResponse->toPlainText()
+                           .trimmed()
+                           .split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QSet<QString> setSol = solutionForB2();
+    QSet<QString> setResp(setSol.begin(), setSol.end());
+
+    if (resp.isEmpty()) {
+        return "No has indicado ningún símbolo de SIG(" + nt + ").\n" + feedbackBase;
+    }
+    if (resp.size() == 1 && resp[0] == ui->userResponse->toPlainText().trimmed()) {
+        return "Recuerda separar los símbolos de SIG(" + nt + ") con comas.\n" + feedbackBase;
+    }
+
+    QSet<QString> missing = setSol - setResp;
+    QSet<QString> rest = setResp - setSol;
+    QString msg;
+    if (!missing.isEmpty()) {
+        msg += "Te han faltado símbolos.\n";
+    }
+    if (!rest.isEmpty()) {
+        msg += "No forman parte de SIG(" + nt + "): " + QStringList(rest.values()).join(", ")
+               + ".\n";
+    }
+    return msg + feedbackBase;
 }
 
 QString LLTutorWindow::feedbackForBPrime()
 {
     const auto &rule = sortedGrammar.at(currentRule);
-    return "Un símbolo director indica cuándo se puede aplicar una producción durante el "
-           "análisis.\n"
-           + QString::fromStdString(ll1.TeachPredictionSymbols(rule.first.toStdString(),
-                                                               qvectorToStdVector(rule.second)));
+    QString feedbackBase = QString("Un símbolo director indica cuándo se puede aplicar una "
+                                   "producción durante el análisis.\n"
+                                   "%1")
+                               .arg(QString::fromStdString(
+                                   ll1.TeachPredictionSymbols(rule.first.toStdString(),
+                                                              qvectorToStdVector(rule.second))));
+
+    QStringList resp = ui->userResponse->toPlainText()
+                           .trimmed()
+                           .split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QSet<QString> setSol = solutionForB();
+    QSet<QString> setResp(resp.begin(), resp.end());
+
+    if (resp.isEmpty()) {
+        return "No has indicado ningún símbolo director.\n" + feedbackBase;
+    }
+    if (resp.size() == 1 && resp[0].contains(' ')) {
+        return "No has seguido el formato indicado (símbolos separados por coma).\n" + feedbackBase;
+    }
+
+    QSet<QString> faltan = setSol - setResp;
+    QSet<QString> demas = setResp - setSol;
+    QString msg;
+    if (!faltan.isEmpty()) {
+        msg += "Te han faltado estos símbolos directores: "
+               + QStringList(faltan.values()).join(", ") + ".\n";
+    }
+    if (!demas.isEmpty()) {
+        msg += "Estos no son símbolos directores válidos: " + QStringList(demas.values()).join(", ")
+               + ".\n";
+    }
+    return msg + feedbackBase;
 }
 
 QString LLTutorWindow::feedbackForC()
