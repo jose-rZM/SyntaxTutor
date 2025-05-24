@@ -2225,33 +2225,128 @@ QString SLRTutorWindow::feedbackForE2()
 
 QString SLRTutorWindow::feedbackForF()
 {
-    QString txt = "Un conflicto LR(0) ocurre cuando un mismo estado contiene tanto: ítems "
-                  "completos (REDUCE) como ítems con algún símbolo tras el · (SHIFT). En estos "
-                  "casos, la acción no es única, aparece un conflicto que debe resolverse.";
-    if (statesWithLr0Conflict.isEmpty())
-        return txt + " En esta colección no aparece ningún conflicto.";
-    QStringList ids;
+    QString txt = "Un conflicto LR(0) ocurre cuando un mismo estado contiene tanto ítems completos "
+                  "(REDUCE) "
+                  "como ítems con símbolo tras el · (SHIFT).";
+
     QSet<unsigned> sol = solutionForF();
-    for (unsigned id : std::as_const(sol))
-        ids << QString::number(id);
-    return txt + " Los estados conflictivos son: " + ids.join(", ");
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    if (text.isEmpty()) {
+        return txt + "\nNo has listado ningún estado conflictivo. ";
+    }
+    QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    QSet<unsigned> user;
+    for (auto &p : parts) {
+        bool ok = false;
+        unsigned v = p.trimmed().toUInt(&ok);
+        if (!ok) {
+            return "Formato inválido: usa números separados por comas.";
+        }
+        user.insert(v);
+    }
+
+    QSet<unsigned> missing = sol - user;
+    QSet<unsigned> rest = user - sol;
+    QString msg;
+    QStringList missingList, restList;
+    for (const unsigned val : std::as_const(missing)) {
+        missingList.append(QString::number(val));
+    }
+    for (const unsigned val : std::as_const(rest)) {
+        missingList.append(QString::number(val));
+    }
+    if (!sol.isEmpty()) {
+        if (!missing.isEmpty()) {
+            msg += "Faltan estos estados conflictivos: " + missingList.join(", ") + ".\n";
+        }
+        if (!rest.isEmpty()) {
+            msg += "Has marcado estados sin conflicto: " + restList.join(", ")
+                   + ". En esos estados no hay confusión sobre qué acción aplicar.\n";
+        }
+    } else {
+        msg += "No debería haber conflictos, pero has listado algunos.\n";
+    }
+    if (msg.isEmpty()) {
+        msg = "Revisa cada estado en busca de ítems completos y desplazables juntos.";
+    }
+
+    return txt + "\n" + msg;
 }
 
 QString SLRTutorWindow::feedbackForFA()
 {
-    QStringList list = solutionForFA().values();
-    return QString("Para resolver el conflicto en I%1, se usan los símbolos SIG del antecedente. "
-                   "Solo se aplica REDUCE en los terminales: %2.")
-        .arg(currentConflictStateId)
-        .arg(list.join(", "));
+    unsigned stId = currentConflictStateId;
+    QString txtBase
+        = QString("Para resolver el conflicto en I%1, solo puedes REDUCE en ciertos terminales.\n")
+              .arg(stId);
+
+    QStringList sol = solutionForFA().values();
+    QSet<QString> solSet(sol.begin(), sol.end());
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    if (text.isEmpty()) {
+        return txtBase + "No has indicado ningún terminal.\n";
+    }
+    QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    QSet<QString> user;
+    for (auto &p : parts) {
+        user.insert(p.trimmed());
+    }
+
+    QSet<QString> missing = solSet - user;
+    QSet<QString> rest = user - solSet;
+    QString msg;
+    if (!missing.isEmpty()) {
+        msg += "Te faltan estos terminales para REDUCE: " + QStringList(missing.values()).join(", ")
+               + ".\n";
+    }
+    if (!rest.isEmpty()) {
+        msg += "Estos no se usan para REDUCE en I" + QString::number(stId) + ": "
+               + QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (msg.isEmpty()) {
+        msg = "Revisa la definición de SIG del antecedente para escoger solo esos terminales. Has "
+              "aprendido a cómo calcularlo en el ejercicio LL(1).\n";
+    }
+
+    return txtBase + msg;
 }
 
 QString SLRTutorWindow::feedbackForG()
 {
-    QStringList list = solutionForG().values();
-    return QString("En el estado %1, se aplica REDUCE en los terminales: %2.")
-        .arg(currentReduceStateId)
-        .arg(list.join(", "));
+    unsigned stId = currentReduceStateId;
+    QString txtBase = QString("En el estado I%1, se aplica REDUCE solo en ciertos terminales.\n")
+                          .arg(stId);
+
+    QStringList sol = solutionForG().values();
+    QSet<QString> solSet(sol.begin(), sol.end());
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    if (text.isEmpty()) {
+        return txtBase + "No has listado ningún terminal para REDUCE.\n";
+    }
+    QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    QSet<QString> user;
+    for (auto &p : parts) {
+        user.insert(p.trimmed());
+    }
+
+    QSet<QString> missing = solSet - user;
+    QSet<QString> rest = user - solSet;
+    QString msg;
+    if (!missing.isEmpty()) {
+        msg += "Faltan estos terminales: " + QStringList(missing.values()).join(", ") + ".\n";
+    }
+    if (!rest.isEmpty()) {
+        msg += "No deberías hacer REDUCE en: " + QStringList(rest.values()).join(", ")
+               + ". ¡No pertenecen al conjunto de símbolos siguientes!\n";
+    }
+    if (msg.isEmpty()) {
+        msg = "Asegúrate de usar solo los terminales en SIG del antecedente de la producción.";
+    }
+
+    return txtBase + msg;
 }
 
 /************************************************************
