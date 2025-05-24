@@ -1183,11 +1183,21 @@ QString LLTutorWindow::feedbackForA1() {
 QString LLTutorWindow::feedbackForA2() {
     QSet<QString> terminals = stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
-    return QString("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
+
+    if (ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)) {
+        return QString(
+                   "Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
                    "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($). La "
-                   "cadena EPSILON, tampoco cuenta como símbolo terminal.\n"
+                   "cadena EPSILON, tampoco cuenta como símbolo terminal, pues es un metasímbolo "
+                   "que representa la cadena vacía.\n"
                    "En esta gramática: %1")
-        .arg(l.join(", "));
+            .arg(l.join(", "));
+    } else {
+        return QString("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
+                       "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($).\n"
+                       "En esta gramática: %1")
+            .arg(l.join(", "));
+    }
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
