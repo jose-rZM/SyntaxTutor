@@ -2170,7 +2170,7 @@ QString SLRTutorWindow::feedbackForDPrime()
 QString SLRTutorWindow::feedbackForE()
 {
     return "Un estado es candidato para una acción REDUCE si contiene algún ítem de la forma X -> "
-           "α ·, es decir, con el punto al final (ítem completo).";
+           "α · o X -> EPSILON ·, es decir, con el punto al final (ítem completo).";
 }
 
 QString SLRTutorWindow::feedbackForE1()
