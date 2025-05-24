@@ -995,7 +995,8 @@ bool LLTutorWindow::verifyResponse(const QString &userResponse)
 }
 
 bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
-    return userResponse == solutionForA();
+    QStringList userResp = userResponse.split(',', Qt::SkipEmptyParts);
+    return userResp == solutionForA();
 }
 
 bool LLTutorWindow::verifyResponseForA1(const QString& userResponse) {
