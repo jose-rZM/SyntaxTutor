@@ -836,12 +836,31 @@ void SLRTutorWindow::animateLabelPop(QLabel *label)
 void SLRTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
 {
     int durationMs = 400;
-    QString originalStyle = label->styleSheet();
-    label->setStyleSheet(QString("color: %1;").arg(flashColor.name()));
 
-    QTimer::singleShot(durationMs, label, [label, originalStyle]() {
-        label->setStyleSheet(originalStyle);
+    if (!label->property("originalStyle").isValid()) {
+        label->setProperty("originalStyle", label->styleSheet());
+    }
+
+    QString flashStyle = QString("color: %1;").arg(flashColor.name());
+    label->setStyleSheet(flashStyle);
+
+    // Cancel previous timers
+    const auto children = label->children();
+    for (QObject *child : children) {
+        if (auto oldTimer = qobject_cast<QTimer *>(child)) {
+            oldTimer->stop();
+            oldTimer->deleteLater();
+        }
+    }
+
+    QTimer *resetTimer = new QTimer(label);
+    resetTimer->setSingleShot(true);
+    QObject::connect(resetTimer, &QTimer::timeout, label, [label, resetTimer]() {
+        label->setStyleSheet(label->property("originalStyle").toString());
+        resetTimer->deleteLater();
     });
+
+    resetTimer->start(durationMs);
 }
 
 void SLRTutorWindow::markLastUserIncorrect()
