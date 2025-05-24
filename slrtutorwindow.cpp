@@ -2097,9 +2097,31 @@ QString SLRTutorWindow::feedbackForD1()
 
 QString SLRTutorWindow::feedbackForD2()
 {
-    return QString(
-               "Hay un total de %1 de símbolos gramaticales, excluyendo la cadena vacía (EPSILON).")
-        .arg(solutionForD2());
+    int actual = solutionForD2().toInt();
+    QString feedbackBase
+        = QString("Hay un total de %1 símbolos gramaticales, excluyendo EPSILON e incluyendo $.")
+              .arg(actual);
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    bool ok = false;
+    int userVal = text.toInt(&ok);
+
+    if (text.isEmpty()) {
+        return "No has indicado ningún número de símbolos. Escribe un valor entero.";
+    }
+    if (!ok) {
+        return "Formato incorrecto: usa sólo dígitos para el conteo de símbolos.";
+    }
+    if (userVal != actual) {
+        return QString("Has puesto %1 símbolos, pero deberías contar tanto los terminales como los "
+                       "no terminales "
+                       "excluyendo EPSILON e incluyendo $, lo que da %2.\n"
+                       "Revisa tu conjunto de símbolos de la gramática.")
+                   .arg(userVal)
+                   .arg(actual)
+               + "\n" + feedbackBase;
+    }
+    return feedbackBase;
 }
 
 QString SLRTutorWindow::feedbackForDPrime()
