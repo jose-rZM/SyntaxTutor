@@ -188,6 +188,9 @@ private:
 
     void fillSortedGrammar(); // Populate sortedGrammar from internal representation
 
+    QPropertyAnimation *m_shakeAnimation
+        = nullptr; // For interrupting userResponse animation if they spam enter key
+
     TutorialManager *tm = nullptr;
 };
 
