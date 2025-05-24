@@ -2126,11 +2126,45 @@ QString SLRTutorWindow::feedbackForD2()
 
 QString SLRTutorWindow::feedbackForDPrime()
 {
-    return QString("La tabla SLR(1) tiene tantas filas como estados haya, y tantas columnas como "
-                   "símbolos gramaticales, excepto la cadena vacía. Es decir, tiene %1 filas y %2 "
-                   "columnas.")
-        .arg(solutionForD1())
-        .arg(solutionForD2());
+    int solRows = solutionForD1().toInt();
+    int solCols = solutionForD2().toInt();
+    QString feedbackBase
+        = QString(
+              "La tabla SLR(1) tiene %1 filas (estados) y %2 columnas (símbolos, sin ε y con $).")
+              .arg(solRows)
+              .arg(solCols);
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    if (text.isEmpty()) {
+        return "No has indicado ningún valor. Debías escribir filas,columnas separados por coma.\n"
+               + feedbackBase;
+    }
+    if (parts.size() != 2) {
+        return "Formato inválido: se esperaban dos valores separados por una coma, p.ej. “5,12”.\n"
+               + feedbackBase;
+    }
+
+    bool ok1 = false, ok2 = false;
+    int userRows = parts[0].trimmed().toInt(&ok1);
+    int userCols = parts[1].trimmed().toInt(&ok2);
+    if (!ok1 || !ok2) {
+        return "Ambos valores debían ser enteros.\n" + feedbackBase;
+    }
+
+    QString msg;
+    if (userRows != solRows) {
+        msg += QString("Número de filas: pusiste %1 pero hay %2 estados.\n")
+                   .arg(userRows)
+                   .arg(solRows);
+    }
+    if (userCols != solCols) {
+        msg += QString("Número de columnas: pusiste %1 pero hay %2 símbolos.\n")
+                   .arg(userCols)
+                   .arg(solCols);
+    }
+
+    return feedbackBase;
 }
 
 QString SLRTutorWindow::feedbackForE()
