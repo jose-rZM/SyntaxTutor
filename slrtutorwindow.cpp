@@ -2070,7 +2070,29 @@ QString SLRTutorWindow::feedbackForD()
 
 QString SLRTutorWindow::feedbackForD1()
 {
-    return QString("Se han generado %1 estados").arg(slr1.states_.size());
+    int actual = slr1.states_.size();
+    QString feedbackBase = QString("Se han generado %1 estados.").arg(actual);
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    bool ok = false;
+    int userVal = text.toInt(&ok);
+
+    if (text.isEmpty()) {
+        return "No has indicado ningún número de estados. Escribe un entero. En el panel derecho "
+               "tienes todos los estados que has generado.";
+    }
+    if (!ok) {
+        return "Formato inválido: escribe sólo dígitos para el número de estados.\n" + feedbackBase;
+    }
+    if (userVal != actual) {
+        return QString("Has escrito %1, pero el número real de estados en el autómata es %2.\n"
+                       "Recuerda que en el panel derecho tienes todos los estados (y transiciones) "
+                       "que has generado.")
+                   .arg(userVal)
+                   .arg(actual)
+               + "\n" + feedbackBase;
+    }
+    return feedbackBase;
 }
 
 QString SLRTutorWindow::feedbackForD2()
