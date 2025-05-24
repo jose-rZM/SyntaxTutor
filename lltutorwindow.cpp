@@ -1055,19 +1055,19 @@ bool LLTutorWindow::verifyResponseForC() {
     return true;
 }
 
-QString LLTutorWindow::solutionForA() {
+QStringList LLTutorWindow::solutionForA()
+{
     int nt = grammar.st_.non_terminals_.size();
     int t = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
                 ? grammar.st_.terminals_.size() - 1
                 : grammar.st_.terminals_.size();
-
-    QString solution(QString::number(nt) + "," + QString::number(t));
-    return solution;
+    return {QString::number(nt), QString::number(t)};
 }
 
-QString LLTutorWindow::solutionForA1() {
+QString LLTutorWindow::solutionForA1()
+{
     int nt = grammar.st_.non_terminals_.size();
-    QString solution (QString::number(nt));
+    QString solution(QString::number(nt));
     return solution;
 }
 
