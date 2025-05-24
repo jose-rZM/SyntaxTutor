@@ -2043,12 +2043,10 @@ QString SLRTutorWindow::feedbackForCA()
     QStringList following = solutionForCA();
     if (std::ranges::any_of(currentSlrState.items_,
                             [](const Lr0Item &item) { return item.IsComplete(); })) {
-        return QString(
-                   "Los símbolos son: %1.\nCuando un ítem es de la forma X -> a ·, X -> a·$ o X "
-                   "-> EPSILON · "
-                   "(ítem completo), el símbolo siguiente es siempre EPSILON. En estas "
-                   "condiciones, "
-                   "se puede aplicar un reduce.")
+        return QString("Los símbolos son: %1.\nCuando un ítem es de la forma X → α· o X "
+                       "-> EPSILON · "
+                       "(ítem completo), el símbolo siguiente es siempre EPSILON. En estos casos "
+                       "podrás aplicar un reduce, recuérdalo.")
             .arg(following.join(", "));
     } else {
         return QString("Los símbolos que aparecen tras el punto (·) en los ítems determinan "
