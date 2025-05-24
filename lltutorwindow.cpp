@@ -1143,10 +1143,33 @@ QString LLTutorWindow::feedback()
 }
 
 QString LLTutorWindow::feedbackForA() {
-    return "La tabla LL(1) tiene:\n"
-           " - Una fila por cada símbolo NO TERMINAL\n"
-           " - Una columna por cada TERMINAL (incluyendo $ y excluyendo EPSILON)\n"
-           "Esto define el tamaño de la tabla como filas × columnas.";
+    QString feedback("La tabla LL(1) tiene:\n"
+                     " - Una fila por cada símbolo NO TERMINAL\n"
+                     " - Una columna por cada TERMINAL (incluyendo $ y excluyendo EPSILON)\n"
+                     "Esto define el tamaño de la tabla como filas × columnas.");
+    if (!ui->userResponse->toPlainText().isEmpty()) {
+        QStringList resp = ui->userResponse->toPlainText().trimmed().split(',', Qt::SkipEmptyParts);
+        if (resp.size() == 1 && resp[0] == ui->userResponse->toPlainText().trimmed()) {
+            return "Parece que no has seguido el formato correctamente. Debes separar el número de "
+                   "filas y columnas con una coma.\n"
+                   + feedback;
+        } else {
+            if (resp.size() != 2) {
+                return "No has seguido el formato correspondiente (filas,columnas).\n" + feedback;
+            } else {
+                QStringList sol = solutionForA();
+                if (sol[0] == resp[0] && sol[1] != resp[1]) {
+                    return "No has contado bien el número de símbolos terminales.\n" + feedback;
+                } else if (sol[0] != resp[0] && sol[1] == resp[1]) {
+                    return "No has contado bien el número de símbolos no terminales.\n" + feedback;
+                } else {
+                    return feedback;
+                }
+            }
+        }
+    } else {
+        return feedback;
+    }
 }
 
 QString LLTutorWindow::feedbackForA1() {
