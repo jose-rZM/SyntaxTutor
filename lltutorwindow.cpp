@@ -1287,7 +1287,7 @@ QString LLTutorWindow::feedbackForB2()
                            .split(',', Qt::SkipEmptyParts)
                            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
     QSet<QString> setSol = solutionForB2();
-    QSet<QString> setResp(setSol.begin(), setSol.end());
+    QSet<QString> setResp(resp.begin(), resp.end());
 
     if (resp.isEmpty()) {
         return "No has indicado ningún símbolo de SIG(" + nt + ").\n" + feedbackBase;
