@@ -660,9 +660,13 @@ void LLTutorWindow::wrongAnimation()
 
 void LLTutorWindow::wrongUserResponseAnimation()
 {
+    if (m_shakeAnimation && m_shakeAnimation->state() == QAbstractAnimation::Running)
+        return;
+
     QPoint originalPos = ui->userResponse->pos();
 
     QPropertyAnimation *animation = new QPropertyAnimation(ui->userResponse, "pos");
+    m_shakeAnimation = animation;
     animation->setDuration(200);
     animation->setLoopCount(1);
 
@@ -674,6 +678,11 @@ void LLTutorWindow::wrongUserResponseAnimation()
     animation->setKeyValueAt(1, originalPos);
 
     animation->setEasingCurve(QEasingCurve::OutBounce);
+    connect(animation, &QAbstractAnimation::finished, this, [this, originalPos]() {
+        ui->userResponse->move(originalPos);
+        m_shakeAnimation = nullptr;
+    });
+
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 

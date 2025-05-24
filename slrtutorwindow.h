@@ -244,6 +244,9 @@ private:
     QWidget *lastUserMessage = nullptr;
     qsizetype lastUserMessageLogIdx = -1;
 
+    QPropertyAnimation *m_shakeAnimation
+        = nullptr; // For interrupting userResponse animation if they spam enter key
+
     TutorialManager *tm;
 };
 
