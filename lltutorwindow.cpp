@@ -2,6 +2,7 @@
 #include <QAbstractButton>
 #include <QFontDatabase>
 #include <QRandomGenerator>
+#include <QRegularExpression>
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
 
@@ -1209,9 +1210,40 @@ QString LLTutorWindow::feedbackForAPrime() {
 }
 
 QString LLTutorWindow::feedbackForB() {
-    return "Para una regla X → Y, sus símbolos directores (SD) indican "
-           "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
-           "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)";
+    QString feedbackBase("Para una regla X → Y, sus símbolos directores (SD) indican "
+                         "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
+                         "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
+
+    QStringList resp = ui->userResponse->toPlainText()
+                           .trimmed()
+                           .split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QSet<QString> setSol = solutionForB();
+    QSet<QString> setResp(resp.begin(), resp.end());
+
+    if (resp.isEmpty()) {
+        return "No has indicado ningún símbolo director.\n" + feedbackBase;
+    }
+    if (resp.size() == 1 && resp[0].contains(' ')) {
+        return "Parece que no has separado los símbolos con comas correctamente.\n" + feedbackBase;
+    }
+
+    if (resp.contains(ll1.gr_.st_.EPSILON_)) {
+        return "Has introducido EPSILON, los símbolos directores no pueden contenerlo.\n"
+               + feedbackBase;
+    }
+
+    QSet<QString> missing = setSol - setResp;
+    QSet<QString> rest = setResp - setSol;
+    QString msg;
+    if (!missing.isEmpty()) {
+        msg += "Te han faltado símbolos.\n";
+    }
+    if (!rest.isEmpty()) {
+        msg += "Has incluido símbolos que no corresponden: " + QStringList(rest.values()).join(", ")
+               + ".\n";
+    }
+    return msg + feedbackBase;
 }
 
 void LLTutorWindow::feedbackForB1TreeGraphics()
