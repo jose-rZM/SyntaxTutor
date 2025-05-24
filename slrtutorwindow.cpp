@@ -2175,12 +2175,43 @@ QString SLRTutorWindow::feedbackForE()
 
 QString SLRTutorWindow::feedbackForE1()
 {
-    QStringList ids;
     QSet<unsigned> sol = solutionForE1();
-    for (unsigned id : sol)
-        ids << QString::number(id);
-    return "Los estados con ítems completos son: " + ids.join(", ")
-           + ". Estos son los únicos estados donde puede haber acciones REDUCE en la tabla.";
+
+    QString text = ui->userResponse->toPlainText().trimmed();
+    if (text.isEmpty()) {
+        return "No has indicado ningún estado. Debes listar los IDs separados por comas.\n"
+               "Recuerda que solo los estados con ítems completos pueden hacer REDUCE.";
+    }
+    QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    QSet<unsigned> user;
+    for (auto &p : parts) {
+        bool ok = false;
+        unsigned v = p.trimmed().toUInt(&ok);
+        if (!ok) {
+            return "Formato inválido: cada ID debe ser un número entero. Usa comas para separar.\n"
+                   "Ejemplo: 2,5,7";
+        }
+        user.insert(v);
+    }
+
+    QSet<unsigned> missing = sol - user;
+    QSet<unsigned> rest = user - sol;
+    QString msg;
+    QStringList missingList, restList;
+    for (const unsigned val : std::as_const(missing)) {
+        missingList.append(QString::number(val));
+    }
+    for (const unsigned val : std::as_const(rest)) {
+        missingList.append(QString::number(val));
+    }
+    if (!missing.isEmpty()) {
+        msg += "Te faltan estos estados con REDUCE posible: " + missingList.join(", ") + ".\n";
+    }
+    if (!rest.isEmpty()) {
+        msg += "Has incluido estados sin ítems completos: " + restList.join(", ") + ".\n";
+    }
+
+    return msg + "Solo los estados con ítems completos (punto al final) pueden hacer REDUCE.";
 }
 
 QString SLRTutorWindow::feedbackForE2()
