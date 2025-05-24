@@ -827,19 +827,39 @@ void SLRTutorWindow::wrongUserResponseAnimation()
 
 void SLRTutorWindow::animateLabelPop(QLabel *label)
 {
-    QPropertyAnimation *animation = new QPropertyAnimation(label, "geometry");
-    QRect startRect = label->geometry();
-    QRect expandedRect = QRect(startRect.x() - 3,
-                               startRect.y() - 2,
-                               startRect.width() + 5,
-                               startRect.height() + 4);
+    auto *runningAnim = label->property("popAnimation").value<QPropertyAnimation *>();
+    if (runningAnim && runningAnim->state() == QAbstractAnimation::Running)
+        return;
 
-    animation->setDuration(200);
-    animation->setKeyValueAt(0, startRect);
-    animation->setKeyValueAt(0.5, expandedRect);
-    animation->setKeyValueAt(1, startRect);
-    animation->setEasingCurve(QEasingCurve::OutCubic);
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
+    QRect originalRect;
+    if (label->property("popOriginalRect").isValid()) {
+        originalRect = label->property("popOriginalRect").toRect();
+    } else {
+        originalRect = label->geometry();
+        label->setProperty("popOriginalRect", originalRect);
+    }
+
+    QRect expandedRect(originalRect.x() - 3,
+                       originalRect.y() - 2,
+                       originalRect.width() + 5,
+                       originalRect.height() + 4);
+
+    auto *anim = new QPropertyAnimation(label, "geometry", this);
+    label->setProperty("popAnimation", QVariant::fromValue(anim));
+
+    anim->setDuration(200);
+    anim->setKeyValueAt(0.0, originalRect);
+    anim->setKeyValueAt(0.5, expandedRect);
+    anim->setKeyValueAt(1.0, originalRect);
+    anim->setEasingCurve(QEasingCurve::OutCubic);
+
+    connect(anim, &QAbstractAnimation::finished, this, [label]() {
+        const QRect orig = label->property("popOriginalRect").toRect();
+        label->setGeometry(orig);
+        label->setProperty("popAnimation", QVariant());
+    });
+
+    anim->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void SLRTutorWindow::animateLabelColor(QLabel *label, const QColor &flashColor)
