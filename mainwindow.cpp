@@ -291,11 +291,11 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
 void MainWindow::on_pushButton_clicked()
 {
     Grammar grammar = factory.GenLL1Grammar(level);
-    this->setEnabled(false);
+    this->hide();
     LLTutorWindow *tutor = new LLTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
+    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
     connect(tutor, &LLTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->setEnabled(true); });
     tutor->show();
 }
 
@@ -303,11 +303,12 @@ void MainWindow::on_pushButton_2_clicked()
 {
     Grammar grammar = factory.GenSLR1Grammar(level);
     grammar.TransformToAugmentedGrammar();
-    this->setEnabled(false);
+    this->hide();
     SLRTutorWindow *tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
+  
+    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
     connect(tutor, &SLRTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->setEnabled(true); });
     tutor->show();
 }
 
