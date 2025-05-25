@@ -43,13 +43,12 @@ jobs:
       - name: Run tests and dump XML
         run: ./test_runner --gtest_output=xml:reports/gtest-report.xml
 
-      - name: Convert JUnit → Sonar Generic Test Data
+      - name: Convert JUnit XML → Sonar Generic Test Data
         run: |
-          pip install sonar-test-report-converter
-          mkdir -p reports
-          sonar-test-report-converter \
-          reports/gtest-report.xml \
-          reports/sonar-test-execution.xml
+          git clone https://github.com/bloodlee/sonar_test_report_converter.git converter
+          python3 converter/converter.py \
+            reports/gtest-report.xml \
+            reports/sonar-test-execution.xml
         
       - name: Install gcovr & generate SonarQube XML coverage
         run: |
