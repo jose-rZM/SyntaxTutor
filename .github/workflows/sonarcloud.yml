@@ -45,7 +45,9 @@ jobs:
 
       - name: Convert JUnit XML → Sonar Generic Test Data
         run: |
-          sudo apt-get install libxml2-dev libxslt1-dev python-dev
+          sudo apt-get update
+          sudo apt install python3-dev libxml2-dev libxslt1-dev zlib1g-dev
+          pip3 install lxml
           git clone https://github.com/RedPaladin/sonar_test_report_converter.git converter
           python3 converter/converter_p3.py \
             reports/gtest-report.xml \
