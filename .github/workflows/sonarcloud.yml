@@ -41,19 +41,8 @@ jobs:
             -o test_runner
 
       - name: Run tests and dump XML
-        run: ./test_runner --gtest_output=xml:reports/gtest-report.xml
+        run: ./test_runner
 
-      - name: Convert JUnit XML → Sonar Generic Test Data
-        run: |
-          sudo apt-get update
-          sudo apt install python3-dev libxml2-dev libxslt1-dev zlib1g-dev
-          pip3 install lxml
-          git clone https://github.com/RedPaladin/sonar_test_report_converter.git converter
-          python3 converter/converter_p3.py \
-            -t junit \
-            -D .\
-            -P reports/gtest-reports.xml \
-            -o reports/sonar-test-execution.xml
         
       - name: Install gcovr & generate SonarQube XML coverage
         run: |
@@ -69,6 +58,5 @@ jobs:
           args: >
             --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
             --define sonar.coverageReportPaths=coverage.xml
-            --define sonar.testExecutionReportPaths=reports/sonar-test-execution.xml
 
 
