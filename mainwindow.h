@@ -10,16 +10,16 @@
 #include "tutorialmanager.h"
 
 static const QVector<QString> levelColors = {
-    "#00B1A7", // 1
-    "#1ABC9C", // 2
-    "#2ECC71", // 3
-    "#F1C40F", // 4
-    "#F4D03F", // 5
-    "#F39C12", // 6
-    "#E67E22", // 7
-    "#D35400", // 8
-    "#E74C3C", // 9
-    "#FFD700"  // 10
+    "#2C3E50", // 1: Navy oscuro
+    "#2980B9", // 2: Azul brillante
+    "#16A085", // 3: Teal
+    "#27AE60", // 4: Verde esmeralda
+    "#8E44AD", // 5: Púrpura medio
+    "#9B59B6", // 6: Púrpura claro
+    "#E67E22", // 7: Naranja
+    "#D35400", // 8: Naranja oscuro
+    "#CD7F32", // 9: Bronce
+    "#FFD700"  // 10: Oro puro
 };
 
 QT_BEGIN_NAMESPACE
@@ -68,6 +68,8 @@ private slots:
 
 signals:
     void userLevelChanged(unsigned lvl);
+
+    void userLevelUp(unsigned newLevel);
 
 private:
     void setupTutorial();

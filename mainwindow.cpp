@@ -115,6 +115,103 @@ MainWindow::MainWindow(QWidget *parent)
                                                 .arg(c));
     });
 
+    connect(this, &MainWindow::userLevelUp, this, [this](unsigned newLevel) {
+        QPropertyAnimation *anim = new QPropertyAnimation(ui->badgeNivel, "geometry");
+        QRect original = ui->badgeNivel->geometry();
+        QRect enlarged = original.adjusted(-4, -4, 4, 4);
+
+        anim->setDuration(150);
+        anim->setKeyValueAt(0, original);
+        anim->setKeyValueAt(0.5, enlarged);
+        anim->setKeyValueAt(1, original);
+        anim->setEasingCurve(QEasingCurve::OutBack);
+        anim->start(QAbstractAnimation::DeleteWhenStopped);
+
+        auto *glow = new QGraphicsDropShadowEffect(ui->badgeNivel);
+        glow->setColor(QColor(Qt::white).lighter(130));
+        glow->setOffset(0);
+        glow->setBlurRadius(25);
+        ui->badgeNivel->setGraphicsEffect(glow);
+
+        QTimer::singleShot(1000, glow, [glow, this]() {
+            ui->badgeNivel->setGraphicsEffect(nullptr);
+        });
+
+        QLabel *floatLabel = new QLabel("+1 Nivel", ui->badgeNivel->parentWidget());
+        floatLabel->setStyleSheet(R"(
+    QLabel {
+        font-weight: bold;
+        font-size: 20px;
+        background: transparent;
+    }
+)");
+        floatLabel->adjustSize();
+
+        QPoint badgePos = ui->badgeNivel->geometry().topLeft();
+        int badgeWidth = ui->badgeNivel->width();
+        int x = badgePos.x() + badgeWidth / 2 - floatLabel->width() / 2;
+        int y = badgePos.y() - 10;
+        floatLabel->move(x, y);
+        floatLabel->show();
+
+        QStringList rainbowColors
+            = {"#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8F00FF"};
+        auto *rainbowTimer = new QTimer(floatLabel);
+        int colorIndex;
+        connect(rainbowTimer,
+                &QTimer::timeout,
+                floatLabel,
+                [floatLabel, rainbowColors, colorIndex = 0]() mutable {
+                    QString color = rainbowColors[colorIndex % rainbowColors.size()];
+                    floatLabel->setStyleSheet(QString(R"(
+        QLabel {
+            font-weight: bold;
+            font-size: 20px;
+            background: transparent;
+            color: %1;
+        }
+    )")
+                                                  .arg(color));
+                    colorIndex++;
+                });
+        rainbowTimer->start(100);
+        QPropertyAnimation *moveAnim = new QPropertyAnimation(floatLabel, "pos");
+        moveAnim->setDuration(1500);
+        moveAnim->setStartValue(QPoint(x, y + 10));
+        moveAnim->setEndValue(QPoint(x, y + 40));
+        moveAnim->setEasingCurve(QEasingCurve::OutQuad);
+
+        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(floatLabel);
+        floatLabel->setGraphicsEffect(effect);
+
+        QPropertyAnimation *fadeAnim = new QPropertyAnimation(effect, "opacity");
+        fadeAnim->setDuration(1500);
+        fadeAnim->setStartValue(1.0);
+        fadeAnim->setEndValue(0.0);
+
+        connect(fadeAnim, &QPropertyAnimation::finished, floatLabel, [floatLabel, rainbowTimer]() {
+            rainbowTimer->stop();
+            floatLabel->deleteLater();
+        });
+
+        moveAnim->start(QAbstractAnimation::DeleteWhenStopped);
+        fadeAnim->start(QAbstractAnimation::DeleteWhenStopped);
+    });
+
+#ifdef QT_DEBUG
+    auto *debugShortcutLvlUp = new QShortcut(QKeySequence("Ctrl+Shift+U"), this);
+    connect(debugShortcutLvlUp, &QShortcut::activated, this, [this]() {
+        setUserLevel(userLevel() + 1);
+        emit userLevelUp(userLevel() + 1);
+    });
+
+    auto *debugShortcutLvlDown = new QShortcut(QKeySequence("Ctrl+Shift+D"), this);
+    connect(debugShortcutLvlDown, &QShortcut::activated, this, [this]() {
+        if (userLevel() > 1)
+            setUserLevel(userLevel() - 1);
+    });
+#endif
+
     loadSettings();
 }
 
@@ -177,6 +274,7 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
             break;
         userScore -= thr;
         setUserLevel(userLevel() + 1);
+        emit userLevelUp(userLevel());
     }
 
     ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
