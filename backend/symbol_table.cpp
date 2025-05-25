@@ -4,12 +4,12 @@
 
 void SymbolTable::PutSymbol(const std::string& identifier, bool isTerminal) {
     if (isTerminal) {
-        st_.insert({identifier, TERMINAL});
+        st_.insert({identifier, symbol_type::TERMINAL});
         terminals_.insert(identifier);
         terminals_wtho_eol_.insert(identifier);
 
     } else {
-        st_.insert({identifier, NO_TERMINAL});
+        st_.insert({identifier, symbol_type::NO_TERMINAL});
         non_terminals_.insert(identifier);
     }
 }

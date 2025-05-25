@@ -5,7 +5,7 @@
 #include <utility>
 #include <vector>
 
-enum symbol_type { NO_TERMINAL, TERMINAL };
+enum class symbol_type { NO_TERMINAL, TERMINAL };
 
 struct SymbolTable {
     /// @brief End-of-line symbol used in parsing, initialized as "$".
@@ -17,8 +17,8 @@ struct SymbolTable {
 
     /// @brief Main symbol table, mapping identifiers to a pair of symbol type
     /// and its regex.
-    std::unordered_map<std::string, symbol_type> st_{{EOL_, TERMINAL},
-                                                     {EPSILON_, TERMINAL}};
+    std::unordered_map<std::string, symbol_type> st_{{EOL_, symbol_type::TERMINAL},
+                                                     {EPSILON_, symbol_type::TERMINAL}};
 
     std::unordered_set<std::string> terminals_{EOL_};
     std::unordered_set<std::string> terminals_wtho_eol_{};
