@@ -15,13 +15,13 @@ void SymbolTable::PutSymbol(const std::string& identifier, bool isTerminal) {
 }
 
 bool SymbolTable::In(const std::string& s) {
-    return st_.find(s) != st_.cend();
+    return st_.contains(s);
 }
 
 bool SymbolTable::IsTerminal(const std::string& s) {
-    return terminals_.find(s) != terminals_.end();
+    return terminals_.contains(s);
 }
 
 bool SymbolTable::IsTerminalWthoEol(const std::string& s) {
-    return s != EPSILON_ && terminals_.find(s) != terminals_.end();
+    return s != EPSILON_ && terminals_.contains(s);
 }
