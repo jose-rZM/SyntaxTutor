@@ -36,7 +36,7 @@ jobs:
           cd /usr/src/gtest && sudo cmake . && sudo make && sudo cp lib/*.a /usr/lib
           cd $GITHUB_WORKSPACE
           g++ -std=gnu++2a -O0 -g --coverage -fprofile-arcs -ftest-coverage \
-            backend/grammar.cpp backend/grammar_factory.cpp backend/ll1_parser.cpp backend/lr0_item.cpp backend/slr1_parser.cpp backend/symbol_table.cpp backend/backend/tests.cpp \
+            backend/grammar.cpp backend/grammar_factory.cpp backend/ll1_parser.cpp backend/lr0_item.cpp backend/slr1_parser.cpp backend/symbol_table.cpp backend/tests.cpp \
             -Ibackend/include -lgtest -lgtest_main --coverage \
             -o test_runner
 
