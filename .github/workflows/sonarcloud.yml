@@ -42,13 +42,7 @@ jobs:
 
       - name: Run tests
         run: ./test_runner
-
-      - name: Install lcov & generate coverage report
-        run: |
-          sudo apt-get install -y lcov
-          lcov --capture \
-               --directory . \
-               --output-file coverage.info
+        
       - name: Install lcov & generate coverage report
         run: |
           sudo apt-get install -y lcov
