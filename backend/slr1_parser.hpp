@@ -71,7 +71,7 @@ class SLR1Parser {
         std::map<unsigned int, std::map<std::string, unsigned int>>;
 
     SLR1Parser() = default;
-    SLR1Parser(Grammar gr);
+    explicit SLR1Parser(Grammar gr);
 
     /**
      * @brief Retrieves all LR(0) items in the grammar.

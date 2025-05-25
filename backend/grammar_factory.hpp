@@ -35,8 +35,7 @@ struct GrammarFactory {
          * grammar.
          * @param grammar The grammar to initialize the FactoryItem with.
          */
-        FactoryItem(const std::unordered_map<std::string,
-                                             std::vector<production>>& grammar);
+        explicit FactoryItem(const std::unordered_map<std::string, std::vector<production>> &grammar);
 
         /**
          * @brief Checks if a grammar has an empty production for a given
