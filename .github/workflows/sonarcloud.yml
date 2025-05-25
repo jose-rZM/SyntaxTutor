@@ -40,8 +40,16 @@ jobs:
             -Ibackend/include -lgtest -lgtest_main --coverage \
             -o test_runner
 
-      - name: Run tests
-        run: ./test_runner
+      - name: Run tests and dump XML
+        run: ./test_runner --gtest_output=xml:reports/gtest-report.xml
+
+      - name: Convert JUnit → Sonar Generic Test Data
+        run: |
+          pip install sonar-test-report-converter
+          mkdir -p reports
+          sonar-test-report-converter \
+          reports/gtest-report.xml \
+          reports/sonar-test-execution.xml
         
       - name: Install gcovr & generate SonarQube XML coverage
         run: |
@@ -57,4 +65,6 @@ jobs:
           args: >
             --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
             --define sonar.coverageReportPaths=coverage.xml
+            --define sonar.testExecutionReportPaths=reports/sonar-test-execution.xml
+
 
