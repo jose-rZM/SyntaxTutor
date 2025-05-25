@@ -112,7 +112,7 @@ public:
 
     // ====== Expected Solutions (Auto-generated) ===============
     QString solution(const std::string &state);
-    QString solutionForA();
+    QStringList solutionForA();
     QString solutionForA1();
     QString solutionForA2();
     QSet<QString> solutionForB();
