@@ -45,8 +45,8 @@ jobs:
 
       - name: Convert JUnit XML → Sonar Generic Test Data
         run: |
-          git clone https://github.com/bloodlee/sonar_test_report_converter.git converter
-          python3 converter/converter.py \
+          git clone https://github.com/RedPaladin/sonar_test_report_converter.git converter
+          python3 converter/converter_p3.py \
             reports/gtest-report.xml \
             reports/sonar-test-execution.xml
         
