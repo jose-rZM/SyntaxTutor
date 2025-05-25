@@ -99,10 +99,10 @@ void MainWindow::on_lv3Button_clicked(bool checked)
 void MainWindow::on_pushButton_clicked()
 {
     Grammar grammar = factory.GenLL1Grammar(level);
-    this->setEnabled(false);
+    this->hide();
     LLTutorWindow *tutor = new LLTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->setEnabled(true); });
+    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
     tutor->show();
 }
 
