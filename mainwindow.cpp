@@ -301,6 +301,13 @@ void MainWindow::setupTutorial()
 
                     tm->setRootWindow(this);
                     tm->clearSteps();
+                    tm->addStep(ui->badgeNivel,
+                                "<h2>Nivel</h2>"
+                                "<p>¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios "
+                                "o avances en el estudio, "
+                                "ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un "
+                                "total de 10. "
+                                "¡Intenta llegar al máximo!</p>");
                     tm->addStep(
                         this,
                         "<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a practicar.</p>");

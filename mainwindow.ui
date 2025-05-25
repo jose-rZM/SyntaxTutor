@@ -36,7 +36,7 @@ color: #E0E0E0;
      <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
+     <layout class="QHBoxLayout" name="gamificationLayout" stretch="0,0">
       <property name="spacing">
        <number>4</number>
       </property>
@@ -207,7 +207,7 @@ QProgressBar::chunk {
      </spacer>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="mainBtnsLayout" stretch="0,0,0">
       <item>
        <widget class="QPushButton" name="pushButton">
         <property name="sizePolicy">
@@ -318,7 +318,7 @@ QPushButton:pressed {
      </spacer>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="levelsLayout" stretch="0,0,0">
       <property name="spacing">
        <number>17</number>
       </property>
