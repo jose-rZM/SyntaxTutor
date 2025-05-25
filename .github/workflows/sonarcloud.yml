@@ -43,15 +43,12 @@ jobs:
       - name: Run tests
         run: ./test_runner
         
-      - name: Install lcov & generate coverage report
+      - name: Install gcovr & generate SonarQube XML coverage
         run: |
-          sudo apt-get install -y lcov
-          lcov --capture \
-               --directory . \
-               --output-file coverage.info \
-               --output-file coverage.info \
-               --rc geninfo_unexecuted_blocks=1 \
-               --ignore-errors mismatch
+          sudo apt-get update
+          sudo apt-get install -y gcovr
+          gcovr -r . --sonarqube --output coverage.xml
+      
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
@@ -59,3 +56,5 @@ jobs:
         with:
           args: >
             --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
+            --define sonar.coverageReportPaths=coverage.xml
+
