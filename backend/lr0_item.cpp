@@ -27,7 +27,7 @@ Lr0Item::Lr0Item(std::string antecedent, std::vector<std::string> consequent,
     : antecedent_(std::move(antecedent)), consequent_(std::move(consequent)),
       epsilon_(std::move(epsilon)), eol_(std::move(eol)), dot_(dot) {
     if (this->consequent_.size() == 1 && this->consequent_[0] == epsilon_) {
-        dot = 1;
+        dot_ = 1;
     }
 }
 
