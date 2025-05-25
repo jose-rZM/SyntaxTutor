@@ -8,10 +8,15 @@
 #include "lr0_item.hpp"
 #include "symbol_table.hpp"
 
-Lr0Item::Lr0Item(std::string antecedent, std::vector<std::string> consequent,
-                 std::string epsilon, std::string eol)
-    : antecedent_(std::move(antecedent)), consequent_(std::move(consequent)),
-      epsilon_(std::move(epsilon)), eol_(std::move(eol)), dot_(0) {
+Lr0Item::Lr0Item(std::string antecedent,
+                 std::vector<std::string> consequent,
+                 std::string epsilon,
+                 std::string eol)
+    : antecedent_(std::move(antecedent))
+    , consequent_(std::move(consequent))
+    , epsilon_(std::move(epsilon))
+    , eol_(std::move(eol))
+{
     if (this->consequent_.size() == 1 && this->consequent_[0] == epsilon_) {
         dot_ = 1;
     }
