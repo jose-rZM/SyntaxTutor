@@ -1490,7 +1490,7 @@ QString LLTutorWindow::feedbackForB() {
         return "Parece que no has separado los símbolos con comas correctamente.\n" + feedbackBase;
     }
 
-    if (resp.contains(ll1.gr_.st_.EPSILON_)) {
+    if (resp.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
         return "Has introducido EPSILON, los símbolos directores no pueden contenerlo.\n"
                + feedbackBase;
     }
