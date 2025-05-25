@@ -203,12 +203,11 @@ jobs:
         with:
           arch: x64
 
-      - name: Configure with qmake
-        run: qmake -r
-
-      - name: Build with nmake
-        run: nmake /f Makefile.Release
+      - name: Configure & Build
         shell: cmd
+        run: |
+          qmake -r
+          nmake /f Makefile.Release
 
       - name: Prepare Windows deploy
         shell: pwsh
