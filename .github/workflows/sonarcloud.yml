@@ -50,8 +50,10 @@ jobs:
           pip3 install lxml
           git clone https://github.com/RedPaladin/sonar_test_report_converter.git converter
           python3 converter/converter_p3.py \
-            reports/gtest-report.xml \
-            reports/sonar-test-execution.xml
+            -t junit \
+            -D .\
+            -P reports/gtest-reports.xml \
+            -o reports/sonar-test-execution.xml
         
       - name: Install gcovr & generate SonarQube XML coverage
         run: |
