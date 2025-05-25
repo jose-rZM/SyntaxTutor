@@ -235,17 +235,15 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Instalar dependencias Qt6
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            build-essential git wget ca-certificates file patchelf \
-            qt6-base-dev qt6-tools-dev qt6-tools-dev-tools \
-            qt6-svg-dev libxkbcommon-x11-0 libxcb-xinerama0
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.8.2
+          cache: true
           
       - name: Configure with qmake
         run: |
-          qmake6 -r
+          qmake6 -r -config release
 
       - name: Build
         run: |
