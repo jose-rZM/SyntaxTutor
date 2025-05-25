@@ -54,7 +54,10 @@ jobs:
           sudo apt-get install -y lcov
           lcov --capture \
                --directory . \
-               --output-file coverage.info
+               --output-file coverage.info \
+               --output-file coverage.info \
+               --rc geninfo_unexecuted_blocks=1 \
+               --rc geninfo_error=mismatch=0
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
