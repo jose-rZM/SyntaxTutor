@@ -110,10 +110,10 @@ void MainWindow::on_pushButton_2_clicked()
 {
     Grammar grammar = factory.GenSLR1Grammar(level);
     grammar.TransformToAugmentedGrammar();
-    this->setEnabled(false);
+    this->hide();
     SLRTutorWindow *tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->setEnabled(true); });
+    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
     tutor->show();
 }
 
