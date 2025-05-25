@@ -20,14 +20,18 @@ jobs:
         with:
           version: 6.8.2
           cache: true
-        
-      - name: Install Build Wrapper
-        uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v5
+
+      - name: Download and unzip Sonar build-wrapper
+        run: |
+          wget https://binaries.sonarsource.com/Distribution/build-wrapper-linux-x86/build-wrapper-linux-x86.zip
+          unzip build-wrapper-linux-x86.zip
+
+      
       - name: Run Build Wrapper
         run: |
           mkdir build
           cd build
-          build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} qumake6 ../SyntaxTutor.pro -config releaes
+          build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} qmake6 ../SyntaxTutor.pro -config releaes
           make
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
