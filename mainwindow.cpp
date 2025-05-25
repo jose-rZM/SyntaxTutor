@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
                                                 .arg(c));
     });
 
-    connect(this, &MainWindow::userLevelUp, this, [this](unsigned newLevel) {
+    connect(this, &MainWindow::userLevelUp, this, [this]() {
         QPropertyAnimation *anim = new QPropertyAnimation(ui->badgeNivel, "geometry");
         QRect original = ui->badgeNivel->geometry();
         QRect enlarged = original.adjusted(-4, -4, 4, 4);
@@ -133,9 +133,7 @@ MainWindow::MainWindow(QWidget *parent)
         glow->setBlurRadius(25);
         ui->badgeNivel->setGraphicsEffect(glow);
 
-        QTimer::singleShot(1000, glow, [glow, this]() {
-            ui->badgeNivel->setGraphicsEffect(nullptr);
-        });
+        QTimer::singleShot(1000, glow, [this]() { ui->badgeNivel->setGraphicsEffect(nullptr); });
 
         QLabel *floatLabel = new QLabel("+1 Nivel", ui->badgeNivel->parentWidget());
         floatLabel->setStyleSheet(R"(
@@ -157,7 +155,6 @@ MainWindow::MainWindow(QWidget *parent)
         QStringList rainbowColors
             = {"#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8F00FF"};
         auto *rainbowTimer = new QTimer(floatLabel);
-        int colorIndex;
         connect(rainbowTimer,
                 &QTimer::timeout,
                 floatLabel,
