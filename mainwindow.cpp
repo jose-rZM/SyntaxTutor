@@ -71,10 +71,150 @@ MainWindow::MainWindow(QWidget *parent)
 )");
 
     setupTutorial();
+
+    connect(this, &MainWindow::userLevelChanged, this, [this](unsigned lvl) {
+        int idx = qBound(1, static_cast<int>(lvl), 10) - 1;
+        QString c = levelColors[idx];
+        QString border = QColor(c).darker(120).name();
+
+        ui->badgeNivel->setStyleSheet(QString(R"(
+    QLabel {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0px 6px;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: %1;
+    color: white;
+    border-radius: 12px;
+    border: 1px solid %2;
+    qproperty-alignment: 'AlignCenter';
+}
+        
+    )")
+                                          .arg(c)
+                                          .arg(border));
+
+        ui->badgeNivel->setText(QString::number(lvl));
+        ui->progressBarNivel->setStyleSheet(QString(R"(
+    QProgressBar {
+        background-color: #2A2A2A;
+        border: 1px solid #666666;   
+        border-radius: 3px;
+        min-height: 5px;
+        max-height: 5px;
+        text-align: center;
+        color: transparent;
+    }
+    QProgressBar::chunk {
+        background-color: %1;
+        border-radius: 3px;
+        margin: 0px;
+    }
+)")
+                                                .arg(c));
+    });
+
+    connect(this, &MainWindow::userLevelUp, this, [this]() {
+        QPropertyAnimation *anim = new QPropertyAnimation(ui->badgeNivel, "geometry");
+        QRect original = ui->badgeNivel->geometry();
+        QRect enlarged = original.adjusted(-4, -4, 4, 4);
+
+        anim->setDuration(150);
+        anim->setKeyValueAt(0, original);
+        anim->setKeyValueAt(0.5, enlarged);
+        anim->setKeyValueAt(1, original);
+        anim->setEasingCurve(QEasingCurve::OutBack);
+        anim->start(QAbstractAnimation::DeleteWhenStopped);
+
+        auto *glow = new QGraphicsDropShadowEffect(ui->badgeNivel);
+        glow->setColor(QColor(Qt::white).lighter(130));
+        glow->setOffset(0);
+        glow->setBlurRadius(25);
+        ui->badgeNivel->setGraphicsEffect(glow);
+
+        QTimer::singleShot(1000, glow, [this]() { ui->badgeNivel->setGraphicsEffect(nullptr); });
+
+        QLabel *floatLabel = new QLabel("+1 Nivel", ui->badgeNivel->parentWidget());
+        floatLabel->setStyleSheet(R"(
+    QLabel {
+        font-weight: bold;
+        font-size: 20px;
+        background: transparent;
+    }
+)");
+        floatLabel->adjustSize();
+
+        QPoint badgePos = ui->badgeNivel->geometry().topLeft();
+        int badgeWidth = ui->badgeNivel->width();
+        int x = badgePos.x() + badgeWidth / 2 - floatLabel->width() / 2;
+        int y = badgePos.y() - 10;
+        floatLabel->move(x, y);
+        floatLabel->show();
+
+        QStringList rainbowColors
+            = {"#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8F00FF"};
+        auto *rainbowTimer = new QTimer(floatLabel);
+        connect(rainbowTimer,
+                &QTimer::timeout,
+                floatLabel,
+                [floatLabel, rainbowColors, colorIndex = 0]() mutable {
+                    QString color = rainbowColors[colorIndex % rainbowColors.size()];
+                    floatLabel->setStyleSheet(QString(R"(
+        QLabel {
+            font-weight: bold;
+            font-size: 20px;
+            background: transparent;
+            color: %1;
+        }
+    )")
+                                                  .arg(color));
+                    colorIndex++;
+                });
+        rainbowTimer->start(100);
+        QPropertyAnimation *moveAnim = new QPropertyAnimation(floatLabel, "pos");
+        moveAnim->setDuration(1500);
+        moveAnim->setStartValue(QPoint(x, y + 10));
+        moveAnim->setEndValue(QPoint(x, y + 40));
+        moveAnim->setEasingCurve(QEasingCurve::OutQuad);
+
+        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(floatLabel);
+        floatLabel->setGraphicsEffect(effect);
+
+        QPropertyAnimation *fadeAnim = new QPropertyAnimation(effect, "opacity");
+        fadeAnim->setDuration(1500);
+        fadeAnim->setStartValue(1.0);
+        fadeAnim->setEndValue(0.0);
+
+        connect(fadeAnim, &QPropertyAnimation::finished, floatLabel, [floatLabel, rainbowTimer]() {
+            rainbowTimer->stop();
+            floatLabel->deleteLater();
+        });
+
+        moveAnim->start(QAbstractAnimation::DeleteWhenStopped);
+        fadeAnim->start(QAbstractAnimation::DeleteWhenStopped);
+    });
+
+#ifdef QT_DEBUG
+    auto *debugShortcutLvlUp = new QShortcut(QKeySequence("Ctrl+Shift+U"), this);
+    connect(debugShortcutLvlUp, &QShortcut::activated, this, [this]() {
+        setUserLevel(userLevel() + 1);
+        emit userLevelUp(userLevel() + 1);
+    });
+
+    auto *debugShortcutLvlDown = new QShortcut(QKeySequence("Ctrl+Shift+D"), this);
+    connect(debugShortcutLvlDown, &QShortcut::activated, this, [this]() {
+        if (userLevel() > 1)
+            setUserLevel(userLevel() - 1);
+    });
+#endif
+
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
 {
+    saveSettings();
     delete ui;
 }
 
@@ -96,6 +236,58 @@ void MainWindow::on_lv3Button_clicked(bool checked)
         level = 3;
 }
 
+void MainWindow::loadSettings()
+{
+    setUserLevel(settings.value("gamification/nivel", 1).toUInt());
+    userScore = settings.value("gamification/puntos", 0).toUInt();
+    ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
+
+    if (userLevel() >= MAX_LEVEL) {
+        ui->progressBarNivel->setEnabled(false);
+        ui->progressBarNivel->setValue(100);
+    } else {
+        ui->progressBarNivel->setEnabled(true);
+        unsigned thr = thresholdFor(userLevel());
+        int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+        ui->progressBarNivel->setValue(percent);
+    }
+}
+
+void MainWindow::saveSettings()
+{
+    settings.setValue("gamification/nivel", userLevel());
+    settings.setValue("gamification/puntos", userScore);
+}
+
+void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
+{
+    int delta = (cntRight - cntWrong);
+    int raw = static_cast<int>(userScore) + delta;
+    userScore = static_cast<unsigned>(qBound(0, raw, static_cast<int>(MAX_SCORE)));
+
+    while (userLevel() < MAX_LEVEL) {
+        unsigned thr = thresholdFor(userLevel());
+        if (userScore < thr)
+            break;
+        userScore -= thr;
+        setUserLevel(userLevel() + 1);
+        emit userLevelUp(userLevel());
+    }
+
+    ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
+    if (userLevel() >= MAX_LEVEL) {
+        ui->progressBarNivel->setValue(100);
+        ui->progressBarNivel->setEnabled(false);
+    } else {
+        unsigned thr = thresholdFor(userLevel());
+        int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+        ui->progressBarNivel->setEnabled(true);
+        ui->progressBarNivel->setValue(percent);
+    }
+
+    saveSettings();
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     Grammar grammar = factory.GenLL1Grammar(level);
@@ -103,6 +295,7 @@ void MainWindow::on_pushButton_clicked()
     LLTutorWindow *tutor = new LLTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
     connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
+    connect(tutor, &LLTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
     tutor->show();
 }
 
@@ -113,7 +306,9 @@ void MainWindow::on_pushButton_2_clicked()
     this->hide();
     SLRTutorWindow *tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
+  
     connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
+    connect(tutor, &SLRTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
     tutor->show();
 }
 
@@ -202,6 +397,13 @@ void MainWindow::setupTutorial()
 
                     tm->setRootWindow(this);
                     tm->clearSteps();
+                    tm->addStep(ui->badgeNivel,
+                                "<h2>Nivel</h2>"
+                                "<p>¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios "
+                                "o avances en el estudio, "
+                                "ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un "
+                                "total de 10. "
+                                "¡Intenta llegar al máximo!</p>");
                     tm->addStep(
                         this,
                         "<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a practicar.</p>");

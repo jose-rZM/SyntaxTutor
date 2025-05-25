@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build-macos-intel:
     runs-on: macos-13
@@ -200,12 +203,18 @@ jobs:
         with:
           arch: x64
 
-      - name: Configure with qmake
-        run: qmake -r
-
-      - name: Build with nmake
-        run: nmake /f Makefile.Release
+      - name: Configure & Build (Windows)
         shell: cmd
+        run: |
+          :: 1) Call vcvarsall
+          call "%ProgramFiles(x86)%\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+
+          :: 2) Update PATH
+          set PATH=D:\a\SyntaxTutor\Qt\6.8.3\msvc2022_64\bin;%PATH%
+
+          :: 3) Configure and build
+          qmake6 -r
+          nmake /f Makefile.Release
 
       - name: Prepare Windows deploy
         shell: pwsh
