@@ -76,24 +76,18 @@ color: #E0E0E0;
            <widget class="QLabel" name="labelScore">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <family>Noto Sans</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">QLabel#badgeNivel {
-    min-width: 24px;
-    min-height: 24px;
-    padding: 0px;
-    font-weight: bold;
-    font-size: 12px;
-    background-color: #00B1A7;
-    color: white;
-    border-radius: 12px;
-    border: 1px solid #008F80;
-    /* pequeñas “sombras” internas para darle relieve */
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.3);
-    qproperty-alignment: 'AlignCenter';
+             <string notr="true">
+    QLabel {
+        font-weight: bold;
+        font-size: 15px;
+        color: white;
+        font-family: 'Noto Sans';
 }</string>
             </property>
             <property name="text">
@@ -125,22 +119,15 @@ color: #E0E0E0;
           </property>
           <property name="styleSheet">
            <string notr="true">QLabel#badgeNivel {
-    /* Asegura tamaño mínimo cuadrado */
     min-width: 24px;
     min-height: 24px;
-    /* Centrado con algo de “aire” a los lados si el número crece */
     padding: 0px 6px;
-    /* Tipografía más definida */
     font-weight: bold;
     font-size: 12px;
-    /* Color de fondo y texto */
     background-color: #00B1A7;
     color: white;
-    /* Radio = mitad de min-width/min-height para círculo perfecto */
     border-radius: 12px;
-    /* Un borde ligeramente más oscuro para “levantar” el badge */
     border: 1px solid #008F80;
-    /* Centrar el texto dentro del QLabel */
     qproperty-alignment: 'AlignCenter';
 }
 </string>

@@ -57,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_2->setCursor(Qt::PointingHandCursor);
     ui->menuAcercaDe->setObjectName("menuAcercaDe");
     ui->menuAcercaDe->setStyleSheet(R"(
-  /* Esto solo afecta al menú cuyo objectName sea 'menuAcercaDe' */
   QMenu#menuAcercaDe::item {
     padding: 6px 24px;
   }
@@ -89,8 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
     border-radius: 12px;
     border: 1px solid %2;
     qproperty-alignment: 'AlignCenter';
-}
-        
+}       
     )")
                                           .arg(c)
                                           .arg(border));
