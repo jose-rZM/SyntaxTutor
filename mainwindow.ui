@@ -76,19 +76,15 @@ color: #E0E0E0;
            <widget class="QLabel" name="labelScore">
             <property name="font">
              <font>
-              <family>Noto Sans</family>
-              <pointsize>-1</pointsize>
+              <pointsize>12</pointsize>
               <bold>true</bold>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>ArrowCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">
-    QLabel {
-        font-weight: bold;
-        font-size: 15px;
-        color: white;
-        font-family: 'Noto Sans';
-}</string>
+             <string notr="true"/>
             </property>
             <property name="text">
              <string>Puntos: 0</string>
@@ -118,7 +114,7 @@ color: #E0E0E0;
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">QLabel#badgeNivel {
+           <string notr="true">QLabel {
     min-width: 24px;
     min-height: 24px;
     padding: 0px 6px;

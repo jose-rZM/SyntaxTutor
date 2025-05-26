@@ -71,6 +71,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupTutorial();
 
+    ui->labelScore->setStyleSheet(R"(
+    QLabel {
+        font-weight: bold;
+        font-size: 15px;
+        color: white;
+        font-family: 'Noto Sans';
+})");
+
     connect(this, &MainWindow::userLevelChanged, this, [this](unsigned lvl) {
         int idx = qBound(1, static_cast<int>(lvl), 10) - 1;
         QString c = levelColors[idx];
