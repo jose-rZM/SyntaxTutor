@@ -34,7 +34,7 @@ class LL1Parser {
      *
      * @param gr Grammar object to parse with
      */
-    LL1Parser(Grammar gr);
+    explicit LL1Parser(Grammar gr);
 
     /**
      * @brief Creates the LL(1) parsing table for the grammar.
