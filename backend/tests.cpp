@@ -1041,6 +1041,169 @@ TEST(GrammarTest, LeftFactorize_SingleProduction) {
     EXPECT_EQ(g.g_, g_factorized.g_);
 }
 
+TEST(LL1__Test, CreateLL1Table_NoConflict) {
+    std::unordered_map<std::string, std::vector<production>> G = {
+        {"A", {{"a"}}},
+        {"B", {{"b"}}}
+    };
+    Grammar g(G);
+    LL1Parser ll1(g);
+
+    bool ok = ll1.CreateLL1Table();
+    EXPECT_TRUE(ok);
+}
+
+TEST(LL1__Test, CreateLL1Table_DirectConflict) {
+    std::unordered_map<std::string, std::vector<production>> G = {
+        {"A", {{"a"}, {"a"}}}
+    };
+    Grammar g(G);
+    LL1Parser ll1(g);
+
+    bool ok = ll1.CreateLL1Table();
+    EXPECT_FALSE(ok);
+}
+
+TEST(LL1__Test, First_EmptyRuleYieldsEpsilon) {
+    Grammar g;
+    LL1Parser ll1(g);
+
+    std::unordered_set<std::string> result;
+    ll1.First({}, result);
+
+    EXPECT_TRUE(result.count(g.st_.EPSILON_));
+    EXPECT_EQ(result.size(), 1u);
+}
+
+TEST(LL1__Test, First_RuleStartingWithEOLYieldsEpsilon) {
+    Grammar g;
+    LL1Parser ll1(g);
+
+    std::unordered_set<std::string> result;
+    ll1.First({{"$"}}, result);
+
+    EXPECT_TRUE(result.count(g.st_.EPSILON_));
+    EXPECT_EQ(result.size(), 1u);
+}
+
+TEST(LL1__Test, First_LeadingEpsilonSkipsToNext) {
+    Grammar g;
+    g.st_.PutSymbol("a", true);
+
+    LL1Parser ll1(g);
+    std::unordered_set<std::string> result;
+    ll1.First({{"EPSILON", "a"}}, result);
+
+    EXPECT_TRUE(result.count("a"));
+    EXPECT_FALSE(result.count(g.st_.EPSILON_));
+}
+
+TEST(LL1__Test, First_SingleTerminal) {
+    Grammar g;
+    g.st_.PutSymbol("x", true);
+
+    LL1Parser ll1(g);
+    std::unordered_set<std::string> result;
+    ll1.First({{"x"}}, result);
+
+    EXPECT_TRUE(result.count("x"));
+    EXPECT_EQ(result.size(), 1u);
+}
+
+TEST(LL1__Test, First_NonterminalWithEmptyFirstSets) {
+    Grammar g;
+    g.st_.PutSymbol("Z", false);
+    LL1Parser ll1(g);
+
+    std::unordered_set<std::string> result;
+    ll1.First({{"Z"}}, result);
+
+    EXPECT_TRUE(result.empty());
+}
+
+TEST(LL1__Test, CreateLL1Table_UsesFollowForNullable) {
+    std::unordered_map<std::string, std::vector<production>> G = {
+        {"A", {{"EPSILON"}, {"a"}}}
+    };
+
+    Grammar g(G);
+    LL1Parser ll1(g);
+
+    bool ok = ll1.CreateLL1Table();
+    EXPECT_TRUE(ok);
+}
+
+
+TEST(LL1__Test, ComputeFollowSets_Sequence) {
+    Grammar g; 
+    g.st_.PutSymbol("A", false);
+    g.st_.PutSymbol("B", false);
+    g.st_.PutSymbol("a", true);
+    g.st_.PutSymbol("b", true);
+
+    g.axiom_ = "S";
+    g.AddProduction("S", {"A", "B"});
+    g.AddProduction("A", {"a"});
+    g.AddProduction("B", {"b"});
+
+    LL1Parser ll1(g);
+    ll1.ComputeFollowSets();
+
+    auto followA = ll1.Follow("A");
+    EXPECT_EQ(followA, (std::unordered_set<std::string>{"b"}));
+
+    auto followB = ll1.Follow("B");
+    EXPECT_EQ(followB, (std::unordered_set<std::string>{g.st_.EOL_}));
+}
+
+TEST(LL1__Test, ComputeFollowSets_NullableAtEnd) {
+    Grammar g;
+    g.st_.PutSymbol("A", false);
+    g.st_.PutSymbol("B", false);
+    g.st_.PutSymbol("b", true);
+    g.st_.PutSymbol(g.st_.EPSILON_, true);
+
+    g.axiom_ = "S";
+    g.AddProduction("S", {"B", "A"});
+    g.AddProduction("A", {g.st_.EPSILON_});
+    g.AddProduction("B", {"b"});
+
+    LL1Parser ll1(g);
+    ll1.ComputeFollowSets();
+
+    EXPECT_EQ(ll1.Follow("A"), (std::unordered_set<std::string>{g.st_.EOL_}));
+    EXPECT_EQ(ll1.Follow("B"), (std::unordered_set<std::string>{g.st_.EOL_}));
+}
+
+TEST(LL1__Test, ComputeFollowSets_NullableInMiddle) {
+    Grammar g;
+    std::vector<std::string> syms{"A", "B", "C", "a", "c"};
+    for (auto& sym : syms) {
+        g.st_.PutSymbol(sym, sym[0]>='a' && sym[0]<='z');
+        if (sym=="A"||sym=="B"||sym=="C") g.st_.non_terminals_.insert(sym);
+    }
+    g.st_.PutSymbol(g.st_.EPSILON_, true);
+
+    g.axiom_ = "S";
+    g.AddProduction("S", {"A","B","C"});
+    g.AddProduction("A", {"a"});
+    g.AddProduction("B", {g.st_.EPSILON_});
+    g.AddProduction("C", {"c"});
+
+    LL1Parser ll1(g);
+    ll1.ComputeFollowSets();
+
+    EXPECT_EQ(ll1.Follow("A"), (std::unordered_set<std::string>{"c"}));
+    EXPECT_EQ(ll1.Follow("B"), (std::unordered_set<std::string>{"c"}));
+    EXPECT_EQ(ll1.Follow("C"), (std::unordered_set<std::string>{g.st_.EOL_}));
+}
+
+TEST(LL1__Test, Follow_UnknownNonTerminalReturnsEmpty) {
+    Grammar g;
+    LL1Parser ll1(g);
+    EXPECT_TRUE(ll1.Follow("X").empty());
+}
+
 TEST(LL1__Test, FirstSet) {
     Grammar g;
 
