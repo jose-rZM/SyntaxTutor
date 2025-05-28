@@ -1448,6 +1448,7 @@ QString LLTutorWindow::feedbackForA2() {
     QList<QString> l(terminals.begin(), terminals.end());
 
     if (ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)) {
+        l.removeOne(ll1.gr_.st_.EPSILON_);
         return QString(
                    "Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
                    "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($). La "
@@ -1464,11 +1465,11 @@ QString LLTutorWindow::feedbackForA2() {
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
+    QStringList sol = solutionForA();
     return QString("Como hay %1 símbolos no terminales (filas) y %2 terminales (columnas, "
                    "incluyendo $ y excluyendo EPSILON),\n"
-                   "el tamaño de la tabla LL(1) será: %1 × %2.")
-        .arg(grammar.st_.non_terminals_.size())
-        .arg(grammar.st_.terminals_.size());
+                   "el tamaño de la tabla LL(1) será: %1.")
+        .arg(sol.join('x'));
 }
 
 QString LLTutorWindow::feedbackForB() {
