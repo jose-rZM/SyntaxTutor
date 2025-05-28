@@ -46,8 +46,9 @@ bool Grammar::HasEmptyProduction(const std::string& antecedent) {
            }) != rules.cend();
 }
 
-std::vector<std::pair<const std::string, production>>
-Grammar::FilterRulesByConsequent(const std::string& arg) {
+std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByConsequent(
+    const std::string &arg) const
+{
     std::vector<std::pair<const std::string, production>> rules;
     for (const auto& rule : g_) {
         for (const production& prod : rule.second) {
