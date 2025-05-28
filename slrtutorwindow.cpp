@@ -986,7 +986,7 @@ QString SLRTutorWindow::generateQuestion()
         return "¿Cuál es el axioma de la gramática?";
 
     case StateSlr::A2:
-        return "Dado el ítem:  S' -> · S $\n"
+        return "Dado el ítem:  S' -> · S\n"
                "¿Qué símbolo aparece justo después del punto (·)?";
 
     case StateSlr::A3:
