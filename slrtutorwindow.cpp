@@ -947,11 +947,62 @@ void SLRTutorWindow::on_confirmButton_clicked()
     }
     updateState(isCorrect);
     if (currentState == StateSlr::fin) {
-        auto reply = QMessageBox::question(this,
-                                           "Fin del análisis",
-                                           "¿Deseas exportar la conversación?",
-                                           QMessageBox::Yes | QMessageBox::No);
-        if (reply == QMessageBox::Yes) {
+        QMessageBox end(this);
+        end.setWindowTitle("Fin del ejercicio");
+        end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        end.setDefaultButton(QMessageBox::No);
+
+        QAbstractButton *yesBtn = end.button(QMessageBox::Yes);
+        QAbstractButton *noBtn = end.button(QMessageBox::No);
+
+        if (yesBtn) {
+            yesBtn->setText(tr("Sí"));
+            yesBtn->setCursor(Qt::PointingHandCursor);
+            yesBtn->setIcon(QIcon());
+            yesBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #00ADB5;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Noto Sans';
+      }
+      QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QPushButton:pressed {
+        background-color: #007F86;
+      }
+        )");
+        }
+
+        if (noBtn) {
+            noBtn->setText(tr("No"));
+            noBtn->setCursor(Qt::PointingHandCursor);
+            noBtn->setIcon(QIcon());
+            noBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #D9534F;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font: 'Noto Sans';
+        font-weight: bold;
+      }
+      QPushButton:hover {
+        background-color: #E14E50;
+      }
+      QPushButton:pressed {
+        background-color: #C12E2A;
+      }
+    )");
+        }
+
+        int ret = end.exec();
+        if (ret == QMessageBox::Yes) {
             QString filePath = QFileDialog::getSaveFileName(this,
                                                             "Guardar conversación",
                                                             "conversacion.pdf",
@@ -960,9 +1011,9 @@ void SLRTutorWindow::on_confirmButton_clicked()
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
+        } else {
+            close();
         }
-        close();
-        return;
     }
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
