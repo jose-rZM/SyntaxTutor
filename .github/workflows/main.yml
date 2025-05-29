@@ -84,9 +84,24 @@ jobs:
           macdeployqt SyntaxTutor.app \
             -verbose=2
 
+      - name: Create entitlements
+        run: |
+          cat > entitlements.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+          "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+          <!-- Desactiva la Library Validation para tu propio bundle -->
+          <key>com.apple.security.cs.disable-library-validation</key>
+          <true/>
+          </dict>
+          </plist>
+          EOF
+
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --sign - SyntaxTutor.app
+          codesign --deep --force --options runtime --entitlements entitlements.plist --sign SyntaxTutor.app
 
       - name: Create ZIP of .app
         run: |
@@ -170,9 +185,24 @@ jobs:
           macdeployqt SyntaxTutor.app \
             -verbose=2
 
+      - name: Create entitlements
+        run: |
+          cat > entitlements.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+          "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+          <!-- Desactiva la Library Validation para tu propio bundle -->
+          <key>com.apple.security.cs.disable-library-validation</key>
+          <true/>
+          </dict>
+          </plist>
+          EOF
+
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --sign - SyntaxTutor.app
+          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
 
       - name: Create ZIP of .app
         run: |
