@@ -92,7 +92,6 @@ jobs:
           "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-          <!-- Desactiva la Library Validation para tu propio bundle -->
           <key>com.apple.security.cs.disable-library-validation</key>
           <true/>
           </dict>
@@ -101,7 +100,7 @@ jobs:
 
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --entitlements entitlements.plist --sign SyntaxTutor.app
+          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
 
       - name: Create ZIP of .app
         run: |
@@ -193,7 +192,6 @@ jobs:
           "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
-          <!-- Desactiva la Library Validation para tu propio bundle -->
           <key>com.apple.security.cs.disable-library-validation</key>
           <true/>
           </dict>
