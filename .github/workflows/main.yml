@@ -24,7 +24,7 @@ jobs:
 
       - name: Build for Intel (x86_64)
         run: |
-          qmake6 -r
+          qmake6 -r -config release
           make -j$(sysctl -n hw.ncpu)
 
       - name: Verify arch
