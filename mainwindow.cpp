@@ -624,9 +624,56 @@ void MainWindow::on_idiom_clicked()
     msgBox.setWindowTitle(tr("Idioma"));
     msgBox.setText(tr("Selecciona el idioma de la aplicación:"));
     QPushButton *btnEs = msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
+    btnEs->setObjectName("btnEs");
     QPushButton *btnEn = msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
-    msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
+    btnEn->setObjectName("btnEn");
+    QPushButton *btnCanc = msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
+    btnCanc->setObjectName("btnCanc");
+    msgBox.setStyleSheet(R"(
+        QMessageBox {
+            background-color: #1F1F1F;
+            color: #EEEEEE;
+            font-family: 'Noto Sans';
+            font-size: 13px;
+            border: 1px solid #444444;
+            border-radius: 4px;
+        }
+        QMessageBox QLabel {
+            color: #EEEEEE;
+        }
 
+        QPushButton#btnEs, QPushButton#btnEn {
+            background-color: #00ADB5;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: 'Noto Sans';
+        }
+        QPushButton#btnEs:hover, QPushButton#btnEn:hover {
+            background-color: #00CED1;
+        }
+        QPushButton#btnEs:pressed, QPushButton#btnEn:pressed {
+            background-color: #007F86;
+        }
+
+        QPushButton#btnCanc {
+            background-color: #D9534F;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: 'Noto Sans';
+        }
+        QPushButton#btnCanc:hover {
+            background-color: #E14E50;
+        }
+        QPushButton#btnCanc:pressed {
+            background-color: #C12E2A;
+        }
+    )");
     msgBox.exec();
 
     QString selectedLang;
@@ -636,7 +683,7 @@ void MainWindow::on_idiom_clicked()
     } else if (msgBox.clickedButton() == btnEn) {
         selectedLang = "en";
     } else {
-        return; // Cancelado
+        return;
     }
 
     QSettings settings("UMA", "SyntaxTutor");
@@ -645,10 +692,39 @@ void MainWindow::on_idiom_clicked()
     if (selectedLang != currentLang) {
         settings.setValue("lang/language", selectedLang);
 
-        QMessageBox::information(
-            this,
-            tr("Reiniciar requerido"),
-            tr("Para aplicar el cambio de idioma, es necesario reiniciar la aplicación."));
+        QMessageBox info(this);
+        info.setWindowTitle(tr("Reiniciar requerido"));
+        info.setText(tr("Para aplicar el cambio de idioma, es necesario reiniciar la aplicación."));
+        info.setStandardButtons(QMessageBox::Ok);
+        info.setStyleSheet(R"(
+            QMessageBox {
+                background-color: #1F1F1F;
+                color: #EEEEEE;
+                font-family: 'Noto Sans';
+                font-size: 15px;
+                border: 1px solid #444444;
+                border-radius: 4px;
+            }
+            QMessageBox QLabel {
+                color: #EEEEEE;
+            }
+            QMessageBox QPushButton {
+                background-color: #00ADB5;
+                color: white;
+                border: none;
+                padding: 6px 14px;
+                border-radius: 4px;
+                font-weight: bold;
+                font-family: 'Noto Sans';
+            }
+            QMessageBox QPushButton:hover {
+                background-color: #00CED1;
+            }
+            QMessageBox QPushButton:pressed {
+                background-color: #007F86;
+            }
+        )");
+        info.exec();
 
         qApp->quit();
         QProcess::startDetached(qApp->applicationFilePath(), QStringList());
