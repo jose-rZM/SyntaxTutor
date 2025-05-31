@@ -162,7 +162,13 @@ public:
     QString feedbackForF();
     QString feedbackForFA();
     QString feedbackForG();
-
+    QString TeachDeltaFunction(const std::unordered_set<Lr0Item> &items, const QString &symbol);
+    void TeachClosureStep(std::unordered_set<Lr0Item> &items,
+                          unsigned int size,
+                          std::unordered_set<std::string> &visited,
+                          int depth,
+                          QString &output);
+    QString TeachClosure(const std::unordered_set<Lr0Item> &initialItems);
 private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();

@@ -2111,7 +2111,7 @@ QString SLRTutorWindow::feedbackForA4()
     std::unordered_set<Lr0Item> item{init};
     return "El cierre incluye todas las producciones de los no terminales que aparecen tras el ·, "
            "añadidas recursivamente.\n"
-           + QString::fromStdString(slr1.TeachClosure(item));
+           + QString(TeachClosure(item));
 }
 
 QString SLRTutorWindow::feedbackForAPrime()
@@ -2156,9 +2156,8 @@ QString SLRTutorWindow::feedbackForCA()
 
 QString SLRTutorWindow::feedbackForCB()
 {
-    return QString::fromStdString(
-        slr1.TeachDeltaFunction(currentSlrState.items_,
-                                followSymbols[currentFollowSymbolsIdx].toStdString()));
+    return QString(
+        TeachDeltaFunction(currentSlrState.items_, followSymbols[currentFollowSymbolsIdx]));
 }
 
 QString SLRTutorWindow::feedbackForD()
@@ -2661,19 +2660,135 @@ void SLRTutorWindow::on_userResponse_textChanged()
     int padding = 20;
     int desiredHeight = lineCount * lineHeight + padding;
 
-    // Establecer mínimo fijo (respetado por el layout)
     const int minHeight = 45;
     ui->userResponse->setMinimumHeight(minHeight);
 
-    // Animar el cambio de altura real
     QPropertyAnimation *animation = new QPropertyAnimation(ui->userResponse, "minimumHeight");
     animation->setDuration(120);
     animation->setStartValue(ui->userResponse->height());
-    animation->setEndValue(std::max(minHeight, desiredHeight)); // nunca menos de minHeight
+    animation->setEndValue(std::max(minHeight, desiredHeight));
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 
-    // Establece también el máximo para limitar el crecimiento
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+}
+
+QString SLRTutorWindow::TeachClosure(const std::unordered_set<Lr0Item> &initialItems)
+{
+    QString output;
+    std::unordered_set<Lr0Item> items = initialItems;
+
+    output += tr("Para el estado:\n");
+    output += QString::fromStdString(slr1.PrintItems(items));
+
+    std::unordered_set<std::string> visited;
+    TeachClosureStep(items, items.size(), visited, 0, output);
+
+    output += tr("Cierre:\n");
+    for (const auto &item : items) {
+        output += "  - " + QString::fromStdString(item.ToString()) + "\n";
+    }
+
+    return output;
+}
+
+void SLRTutorWindow::TeachClosureStep(std::unordered_set<Lr0Item> &items,
+                                      unsigned int size,
+                                      std::unordered_set<std::string> &visited,
+                                      int depth,
+                                      QString &output)
+{
+    QString indent(depth * 2, ' ');
+
+    std::unordered_set<Lr0Item> newItems;
+
+    output += indent + tr("- Coge los ítems con un no terminal después del ·:\n");
+
+    for (const auto &item : items) {
+        std::string next = item.NextToDot();
+        if (next == slr1.gr_.st_.EPSILON_ || slr1.gr_.st_.IsTerminal(next)) {
+            continue;
+        }
+
+        output += indent + "  - " + tr("Ítem: ") + QString::fromStdString(item.ToString()) + "\n";
+
+        if (!slr1.gr_.st_.IsTerminal(next) && !visited.contains(next)) {
+            output += indent
+                      + tr("    - Encontrado un no terminal: %1\n").arg(QString::fromStdString(next));
+            output += indent
+                      + tr("    - Añade todas las producciones de %1 con el · al inicio:\n")
+                            .arg(QString::fromStdString(next));
+
+            const auto &rules = slr1.gr_.g_.at(next);
+            for (const auto &rule : rules) {
+                Lr0Item newItem(next, rule, 0, slr1.gr_.st_.EPSILON_, slr1.gr_.st_.EOL_);
+                newItems.insert(newItem);
+
+                output += indent + "      - " + tr("Añadido: ")
+                          + QString::fromStdString(newItem.ToString()) + "\n";
+            }
+
+            visited.insert(next);
+        }
+    }
+
+    items.insert(newItems.begin(), newItems.end());
+
+    if (size != items.size()) {
+        output += indent + tr("- Se han añadido nuevos ítems. Repite el proceso.\n");
+        TeachClosureStep(items, items.size(), visited, depth + 1, output);
+    } else {
+        output += indent + tr("- No se han añadido nuevos ítems. El cierre está completo.\n");
+    }
+}
+
+QString SLRTutorWindow::TeachDeltaFunction(const std::unordered_set<Lr0Item> &items,
+                                           const QString &symbol)
+{
+    if (symbol == QString::fromStdString(slr1.gr_.st_.EPSILON_)) {
+        return tr("Sin importar el estado, δ(I, ε) = ∅.\n");
+    }
+
+    QString output;
+    output += tr("Sea I:\n\n");
+    output += QString::fromStdString(slr1.PrintItems(items));
+    output += "\n";
+
+    output += tr("Para encontrar δ(I, %1):\n").arg(symbol);
+    output += tr("1. Busca los ítems con %1 después del ·. Es decir, ítems de la forma α·%1β\n")
+                  .arg(symbol);
+
+    std::unordered_set<Lr0Item> filtered;
+    for (const auto &item : items) {
+        if (item.NextToDot() == symbol.toStdString()) {
+            filtered.insert(item);
+        }
+    }
+
+    if (filtered.empty()) {
+        output += tr("2. No hay ítems. Por tanto δ(I, %1) = ∅\n").arg(symbol);
+        return output;
+    }
+
+    output += tr("2. Sea J:\n\n");
+    output += QString::fromStdString(slr1.PrintItems(filtered));
+    output += "\n";
+
+    output += tr("3. Avanza el · una posición:\n\n");
+    std::unordered_set<Lr0Item> advanced;
+    for (const auto &item : filtered) {
+        Lr0Item moved = item;
+        moved.AdvanceDot();
+        advanced.insert(moved);
+    }
+    output += QString::fromStdString(slr1.PrintItems(advanced));
+    output += "\n";
+
+    output += tr("4. δ(I, %1) = CIERRE(J)\n").arg(symbol);
+    output += tr("5. Cierre de J:\n\n");
+    slr1.Closure(advanced);
+    output += QString::fromStdString(slr1.PrintItems(advanced));
+
+    return output;
 }
 
 void SLRTutorWindow::setupTutorial()
