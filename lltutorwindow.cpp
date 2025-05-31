@@ -1672,7 +1672,7 @@ QString LLTutorWindow::feedbackForC()
 
 QString LLTutorWindow::feedbackForCPrime()
 {
-    return QString::fromStdString(ll1.TeachLL1Table());
+    return TeachLL1Table();
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget *widget)
@@ -2124,6 +2124,229 @@ void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> ro
     dialog->setLayout(layout);
 
     dialog->show();
+}
+
+QString LLTutorWindow::TeachFollow(const QString &nt)
+{
+    QString output;
+    output += tr("Encontrar los símbolos siguientes a %1:\n").arg(nt);
+
+    const std::string nt_str = nt.toStdString();
+
+    if (nt_str == ll1.gr_.axiom_) {
+        output += tr("Como %1 es el axioma, SIG(%1) = { %2 }\n")
+                      .arg(nt, QString::fromStdString(ll1.gr_.st_.EOL_));
+        return output;
+    }
+
+    // Step 1: Find all rules where the non-terminal appears in the consequent
+    std::vector<std::pair<std::string, production>> rules_with_nt;
+    for (const auto &[antecedent, productions] : ll1.gr_.g_) {
+        for (const auto &prod : productions) {
+            auto it = std::find(prod.begin(), prod.end(), nt_str);
+            if (it != prod.end()) {
+                rules_with_nt.emplace_back(antecedent, prod);
+            }
+        }
+    }
+    if (rules_with_nt.empty()) {
+        output += tr("1. %1 no aparece en ningún consecuente.\n").arg(nt);
+        return output;
+    }
+
+    output += tr("1. Busca las reglas donde %1 está en el consecuente:\n").arg(nt);
+    for (const auto &[antecedent, prod] : rules_with_nt) {
+        output += "   - " + QString::fromStdString(antecedent) + " → "
+                  + QStringList::fromVector(stdVectorToQVector(prod)).join(" ") + "\n";
+    }
+
+    // Step 2: Compute Follow for each occurrence of the non-terminal in the
+    // rules
+    std::unordered_set<std::string> follow_set;
+    for (const auto &[antecedent, prod] : rules_with_nt) {
+        for (auto it = prod.begin(); it != prod.end(); ++it) {
+            if (*it == nt_str) {
+                // Case 1: Non-terminal is not at the end of the production
+                if (std::next(it) != prod.end()) {
+                    std::vector<std::string> remaining_symbols(std::next(it), prod.end());
+                    std::unordered_set<std::string> first_of_remaining;
+                    ll1.First(remaining_symbols, first_of_remaining);
+                    QString rem_qstr
+                        = QStringList::fromVector(stdVectorToQVector(remaining_symbols)).join(" ");
+                    QString first_qstr = QStringList::fromVector(
+                                             stdUnorderedSetToQSet(first_of_remaining).values())
+                                             .join(" ");
+
+                    output += tr("2. Calcula la cabecera de la subcadena después de %1: { %2 } = { "
+                                 "%3 }\n")
+                                  .arg(nt, rem_qstr, first_qstr);
+
+                    // Add First(remaining_symbols) to Follow(non_terminal)
+                    for (const std::string &symbol : first_of_remaining) {
+                        if (symbol != ll1.gr_.st_.EPSILON_) {
+                            follow_set.insert(symbol);
+                        }
+                    }
+
+                    // If ε ∈ First(remaining_symbols), add Follow(antecedent)
+                    if (first_of_remaining.find(ll1.gr_.st_.EPSILON_) != first_of_remaining.end()) {
+                        std::unordered_set<std::string> ant_follow(ll1.Follow(antecedent));
+                        QString ant_follow_str = QStringList::fromVector(
+                                                     stdUnorderedSetToQSet(ant_follow).values())
+                                                     .join(" ");
+
+                        output += tr("   - Como ε ∈ CAB, agrega SIG(%1) = { %2 } a SIG(%3)\n")
+                                      .arg(QString::fromStdString(antecedent), ant_follow_str, nt);
+                        follow_set.insert(ant_follow.begin(), ant_follow.end());
+                    }
+                }
+                // Case 2: Non-terminal is at the end of the production
+                else {
+                    std::unordered_set<std::string> ant_follow(ll1.Follow(antecedent));
+                    QString ant_follow_str = QStringList::fromVector(
+                                                 stdUnorderedSetToQSet(ant_follow).values())
+                                                 .join(" ");
+                    output += tr("2. %1 está al final de la producción. Agrega SIG(%2) = { %3 } a "
+                                 "SIG(%1)\n")
+                                  .arg(nt, QString::fromStdString(antecedent), ant_follow_str);
+                    follow_set.insert(ant_follow.begin(), ant_follow.end());
+                }
+            }
+        }
+    }
+
+    // Step 3: Display the final Follow set
+    QString final_follow = QStringList::fromVector(stdUnorderedSetToQSet(follow_set).values())
+                               .join(" ");
+    output += tr("3. Conjunto SIG(%1) = { %2 }\n").arg(nt, final_follow);
+
+    return output;
+}
+
+QString LLTutorWindow::TeachPredictionSymbols(const QString &ant, const production &consequent)
+{
+    QString output;
+
+    QString consequent_str = QStringList::fromVector(stdVectorToQVector(consequent)).join(" ");
+    output += tr("Encontrar los símbolos directores de: %1 → %2:\n").arg(ant, consequent_str);
+
+    // Step 1: Compute First(consequent)
+    std::unordered_set<std::string> first_of_consequent;
+    ll1.First(consequent, first_of_consequent);
+
+    QString first_str = QStringList::fromVector(stdUnorderedSetToQSet(first_of_consequent).values())
+                            .join(" ");
+    output += tr("1. Calcula CAB(%1) = { %2 }\n").arg(consequent_str, first_str);
+
+    // Step 2: Initialize prediction symbols with First(consequent) excluding ε
+    std::unordered_set<std::string> prediction_symbols;
+    for (const std::string &symbol : first_of_consequent) {
+        if (symbol != ll1.gr_.st_.EPSILON_) {
+            prediction_symbols.insert(symbol);
+        }
+    }
+
+    QString pred_str = QStringList::fromVector(stdUnorderedSetToQSet(prediction_symbols).values())
+                           .join(" ");
+    output += tr("2. Inicializa los símbolos directores con CAB(%1) excepto ε: { %2 }\n")
+                  .arg(consequent_str, pred_str);
+
+    // Step 3: If ε ∈ First(consequent), add Follow(antecedent) to prediction
+    // symbols
+    if (first_of_consequent.find(ll1.gr_.st_.EPSILON_) != first_of_consequent.end()) {
+        output += tr("   - Como ε ∈ CAB(%1), agrega SIG(%2) a los símbolos directores.\n")
+                      .arg(consequent_str, ant);
+
+        const auto follow_ant = ll1.Follow(ant.toStdString());
+        prediction_symbols.insert(follow_ant.begin(), follow_ant.end());
+
+        QString follow_str = QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
+                                 .join(" ");
+        output += tr("     SIG(%1) = { %2 }\n").arg(ant, follow_str);
+    }
+
+    // Step 4: Display the final prediction symbols
+    QString final_str = QStringList::fromVector(stdUnorderedSetToQSet(prediction_symbols).values())
+                            .join(" ");
+    output += tr("3. Entonces, los símbolos directores de %1 → %2 son: { %3 }\n")
+                  .arg(ant, consequent_str, final_str);
+
+    return output;
+}
+
+QString LLTutorWindow::TeachLL1Table()
+{
+    QString output;
+    output += tr("1. Proceso para construir la tabla LL(1):\n");
+    output += tr(
+        "La tabla LL(1) se construye definiendo todos los símbolos directores para cada regla.\n");
+
+    size_t i = 1;
+    for (const auto &[nt, prods] : ll1.gr_.g_) {
+        for (const production &prod : prods) {
+            std::unordered_set<std::string> pred = ll1.PredictionSymbols(nt, prod);
+
+            QString prod_str = QStringList::fromVector(stdVectorToQVector(prod)).join(" ");
+            QString pred_str = QStringList::fromVector(stdUnorderedSetToQSet(pred).values())
+                                   .join(" ");
+
+            output += tr("  %1. SD(%2 → %3) = { %4 }\n")
+                          .arg(i++)
+                          .arg(QString::fromStdString(nt))
+                          .arg(prod_str)
+                          .arg(pred_str);
+        }
+    }
+
+    output += tr("2. Una gramática cumple la condición LL(1) si para cada no terminal, ninguna de "
+                 "sus producciones tiene símbolos directores en común.\n"
+                 "Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅\n");
+
+    bool has_conflicts = false;
+    for (const auto &[nt, cols] : ll1.ll1_t_) {
+        for (const auto &col : cols) {
+            if (col.second.size() > 1) {
+                has_conflicts = true;
+                output += tr("- Conflicto en %1:\n").arg(QString::fromStdString(col.first));
+                for (const production &prod : col.second) {
+                    QString prod_str = QStringList::fromVector(stdVectorToQVector(prod)).join(" ");
+                    output += tr("  SD(%1 → %2)\n").arg(QString::fromStdString(nt), prod_str);
+                }
+            }
+        }
+    }
+
+    if (!has_conflicts) {
+        output += tr("3. Los conjuntos de símbolos directores no se solapan. La gramática es "
+                     "LL(1). La tabla LL(1) se construye de la siguiente forma.\n");
+
+        output += tr("4. Ten una fila por cada símbolo no terminal (%1 filas), y una columna por "
+                     "cada terminal excepto epsilon más %2 (%3 columnas).\n")
+                      .arg(ll1.gr_.st_.non_terminals_.size())
+                      .arg(QString::fromStdString(ll1.gr_.st_.EOL_))
+                      .arg(ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)
+                               ? ll1.gr_.st_.terminals_.size() - 1
+                               : ll1.gr_.st_.terminals_.size());
+
+        output += tr(
+            "5. Coloca α en la celda (A,β) si β ∈ SD(A → α), déjala vacía en otro caso.\n");
+
+        for (const auto &[nt, cols] : ll1.ll1_t_) {
+            for (const auto &col : cols) {
+                QString prod_str = QStringList::fromVector(stdVectorToQVector(col.second.at(0)))
+                                       .join(" ");
+                output += tr("  - ll1(%1, %2) = %3\n")
+                              .arg(QString::fromStdString(nt))
+                              .arg(QString::fromStdString(col.first))
+                              .arg(prod_str);
+            }
+        }
+    } else {
+        output += tr("3. Como al menos dos conjuntos se solapan con el mismo terminal, la "
+                     "gramática no es LL(1).\n");
+    }
+
+    return output;
 }
 
 void LLTutorWindow::setupTutorial()
