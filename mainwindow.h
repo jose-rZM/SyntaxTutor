@@ -66,6 +66,8 @@ private slots:
 
     void on_actionReferencia_SLR_1_triggered();
 
+    void on_idiom_clicked();
+
 signals:
     void userLevelChanged(unsigned lvl);
 

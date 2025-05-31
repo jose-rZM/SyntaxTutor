@@ -5,6 +5,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , settings("UMA", "SyntaxTutor")
 {
     factory.Init();
     ui->setupUi(this);
@@ -405,16 +406,19 @@ void MainWindow::setupTutorial()
 
                     tm->setRootWindow(this);
                     tm->clearSteps();
-                    tm->addStep(ui->badgeNivel,
-                                "<h2>Nivel</h2>"
-                                "<p>¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios "
-                                "o avances en el estudio, "
-                                "ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un "
-                                "total de 10. "
-                                "¡Intenta llegar al máximo!</p>");
+                    tm->addStep(
+                        ui->badgeNivel,
+                        tr("<h2>Nivel</h2>"
+                           "<p>¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios "
+                           "o avances en el estudio, "
+                           "ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un "
+                           "total de 10. "
+                           "¡Intenta llegar al máximo!</p>"));
+
                     tm->addStep(
                         this,
-                        "<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a practicar.</p>");
+                        tr("<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a practicar.</p>"));
+
                     connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
                         tm->clearSteps();
                         delete tm;
@@ -611,4 +615,42 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
       }
     )");
     help.exec();
+}
+
+#include <QProcess>
+void MainWindow::on_idiom_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("Idioma"));
+    msgBox.setText(tr("Selecciona el idioma de la aplicación:"));
+    QPushButton *btnEs = msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
+    QPushButton *btnEn = msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
+    msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
+
+    msgBox.exec();
+
+    QString selectedLang;
+
+    if (msgBox.clickedButton() == btnEs) {
+        selectedLang = "es";
+    } else if (msgBox.clickedButton() == btnEn) {
+        selectedLang = "en";
+    } else {
+        return; // Cancelado
+    }
+
+    QSettings settings("UMA", "SyntaxTutor");
+    QString currentLang = settings.value("lang/language", "es").toString();
+
+    if (selectedLang != currentLang) {
+        settings.setValue("lang/language", selectedLang);
+
+        QMessageBox::information(
+            this,
+            tr("Reiniciar requerido"),
+            tr("Para aplicar el cambio de idioma, es necesario reiniciar la aplicación."));
+
+        qApp->quit();
+        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+    }
 }

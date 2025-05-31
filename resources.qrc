@@ -6,5 +6,7 @@
         <file>resources/NotoSans-Italic.ttf</file>
         <file>resources/NotoSans-Regular.ttf</file>
         <file>resources/trophy.svg</file>
+        <file>translations/st_en.qm</file>
+        <file>translations/st_es.qm</file>
     </qresource>
 </RCC>
