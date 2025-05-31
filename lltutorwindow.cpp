@@ -36,7 +36,7 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidge
     // -- User Response Box
     ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
+    ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
 
     // -- Chat Font
     QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
@@ -65,7 +65,7 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidge
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage("La gramática es:\n" + formattedGrammar, false);
+    addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = State::A;
     addDivisorLine("Estado inicial");
@@ -185,20 +185,19 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     }
     </style>
     )";
-    html += R"(
-    <div style="text-align: center; font-size: 8pt; color: #888; margin-top: 60px;">
-        Generado automáticamente por SyntaxTutor el )"
-            + QDate::currentDate().toString("dd/MM/yyyy") + R"(</div>
-    )";
+    html += "<div style='text-align: center; font-size: 8pt; color: #888; margin-top: 60px;'>";
+    html += tr("Generado automáticamente por SyntaxTutor el ")
+            + QDate::currentDate().toString("dd/MM/yyyy");
+    html += "</div>";
 
-    html += "<h2>Conversación</h2>";
+    html += "<h2>" + tr("Conversación") + "</h2>";
 
     for (auto it = conversationLog.constBegin(); it != conversationLog.constEnd(); ++it) {
         const MessageLog &message = *it;
         QString safeText = message.message.toHtmlEscaped().replace("\n", "<br>");
         html += "<div class='entry'>";
         html += "<div class='role'>";
-        html += (message.isUser ? "Usuario: " : "Tutor: ");
+        html += (message.isUser ? tr("Usuario: ") : tr("Tutor: "));
         html += "</div>";
         if (!message.isCorrect) {
             html += "<span style='background-color:red;'>" + safeText + "</span>";
@@ -211,21 +210,21 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     html += "</body></html>";
     html += R"(<div class='page-break'></div>)";
 
-    html += "<h2>Cabeceras</h2>";
+    html += "<h2>" + tr("Cabeceras") + "</h2>";
     for (const auto &nt : std::as_const(sortedNonTerminals)) {
         const auto &first = stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
-        html += "CAB(" + nt + ") = {";
+        html += tr("CAB") + "(" + nt + ") = {";
         html += first.join(",");
         html += "}<br>";
     }
 
-    html += "<h2>Siguientes</h2>";
+    html += "<h2>" + tr("Siguientes") + "</h2>";
     for (const auto &nt : std::as_const(sortedNonTerminals)) {
         const auto &follow = stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
-        html += "SIG(" + nt + ") = {" + follow.join(',') + "}<br>";
+        html += tr("SIG") + "(" + nt + ") = {" + follow.join(',') + "}<br>";
     }
 
-    html += "<h2>Símbolos directores</h2>";
+    html += "<h2>" + tr("Símbolos directores") + "</h2>";
     for (const auto &[nt, production] : std::as_const(sortedGrammar)) {
         const auto predSymbols = stdUnorderedSetToQSet(
                                      ll1.PredictionSymbols(nt.toStdString(),
@@ -236,7 +235,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     }
     html += R"(<div class='page-break'></div>)";
     html += R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
-    html += "<tr><th>No terminal / Símbolo</th>";
+    html += "<tr><th>" + tr("No terminal / Símbolo") + "</th>";
     for (const auto &s : ll1.gr_.st_.terminals_) {
         html += "<th>" + QString::fromStdString(s) + "</th>";
     }
