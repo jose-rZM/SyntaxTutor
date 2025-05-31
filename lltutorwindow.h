@@ -133,6 +133,9 @@ public:
     QString feedbackForCPrime();
     void feedbackForB1TreeWidget();   // TreeWidget of Teach (LL1 TeachFirst)
     void feedbackForB1TreeGraphics(); // Show derivation tree
+    QString TeachFollow(const QString &nt);
+    QString TeachPredictionSymbols(const QString &ant, const production &conseq);
+    QString TeachLL1Table();
 
     void handleTableSubmission(const QVector<QVector<QString>> &raw, const QStringList &colHeaders);
 private slots:

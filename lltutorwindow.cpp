@@ -36,7 +36,7 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidge
     // -- User Response Box
     ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setPlaceholderText("Introduce aquí tu respuesta.");
+    ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
 
     // -- Chat Font
     QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
@@ -65,7 +65,7 @@ LLTutorWindow::LLTutorWindow(const Grammar &grammar, TutorialManager *tm, QWidge
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage("La gramática es:\n" + formattedGrammar, false);
+    addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = State::A;
     addDivisorLine("Estado inicial");
@@ -185,20 +185,19 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     }
     </style>
     )";
-    html += R"(
-    <div style="text-align: center; font-size: 8pt; color: #888; margin-top: 60px;">
-        Generado automáticamente por SyntaxTutor el )"
-            + QDate::currentDate().toString("dd/MM/yyyy") + R"(</div>
-    )";
+    html += "<div style='text-align: center; font-size: 8pt; color: #888; margin-top: 60px;'>";
+    html += tr("Generado automáticamente por SyntaxTutor el ")
+            + QDate::currentDate().toString("dd/MM/yyyy");
+    html += "</div>";
 
-    html += "<h2>Conversación</h2>";
+    html += "<h2>" + tr("Conversación") + "</h2>";
 
     for (auto it = conversationLog.constBegin(); it != conversationLog.constEnd(); ++it) {
         const MessageLog &message = *it;
         QString safeText = message.message.toHtmlEscaped().replace("\n", "<br>");
         html += "<div class='entry'>";
         html += "<div class='role'>";
-        html += (message.isUser ? "Usuario: " : "Tutor: ");
+        html += (message.isUser ? tr("Usuario: ") : tr("Tutor: "));
         html += "</div>";
         if (!message.isCorrect) {
             html += "<span style='background-color:red;'>" + safeText + "</span>";
@@ -211,21 +210,21 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     html += "</body></html>";
     html += R"(<div class='page-break'></div>)";
 
-    html += "<h2>Cabeceras</h2>";
+    html += "<h2>" + tr("Cabeceras") + "</h2>";
     for (const auto &nt : std::as_const(sortedNonTerminals)) {
         const auto &first = stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
-        html += "CAB(" + nt + ") = {";
+        html += tr("CAB") + "(" + nt + ") = {";
         html += first.join(",");
         html += "}<br>";
     }
 
-    html += "<h2>Siguientes</h2>";
+    html += "<h2>" + tr("Siguientes") + "</h2>";
     for (const auto &nt : std::as_const(sortedNonTerminals)) {
         const auto &follow = stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
-        html += "SIG(" + nt + ") = {" + follow.join(',') + "}<br>";
+        html += tr("SIG") + "(" + nt + ") = {" + follow.join(',') + "}<br>";
     }
 
-    html += "<h2>Símbolos directores</h2>";
+    html += "<h2>" + tr("Símbolos directores") + "</h2>";
     for (const auto &[nt, production] : std::as_const(sortedGrammar)) {
         const auto predSymbols = stdUnorderedSetToQSet(
                                      ll1.PredictionSymbols(nt.toStdString(),
@@ -236,7 +235,7 @@ void LLTutorWindow::exportConversationToPdf(const QString &filePath)
     }
     html += R"(<div class='page-break'></div>)";
     html += R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
-    html += "<tr><th>No terminal / Símbolo</th>";
+    html += "<tr><th>" + tr("No terminal / Símbolo") + "</th>";
     for (const auto &s : ll1.gr_.st_.terminals_) {
         html += "<th>" + QString::fromStdString(s) + "</th>";
     }
@@ -1089,52 +1088,52 @@ QString LLTutorWindow::generateQuestion()
     switch (currentState) {
     // ====== A: Estructura de la tabla LL(1) ==================
     case State::A:
-        return "¿Cuántas filas y columnas tiene la tabla LL(1)?\n"
-               "Formato de respuesta: filas,columnas";
+        return tr("¿Cuántas filas y columnas tiene la tabla LL(1)?\n"
+                  "Formato de respuesta: filas,columnas");
 
     case State::A1:
-        return "¿Cuántos símbolos no terminales tiene la gramática?";
+        return tr("¿Cuántos símbolos no terminales tiene la gramática?");
 
     case State::A2:
-        return "¿Cuántos símbolos terminales tiene la gramática?";
+        return tr("¿Cuántos símbolos terminales tiene la gramática?");
 
     case State::A_prime:
-        return "Entonces, basándote en los símbolos identificados,\n"
-               "¿cuántas filas y columnas tiene la tabla LL(1)? Formato: filas,columnas";
+        return tr("Entonces, basándote en los símbolos identificados,\n"
+                  "¿cuántas filas y columnas tiene la tabla LL(1)? Formato: filas,columnas");
 
         // ====== B: Análisis de símbolos directores ===============
     case State::B:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuáles son los símbolos directores (SD) de esta regla?\n%1 → %2\n"
-                       "Formato: a,b,c")
+        return tr("¿Cuáles son los símbolos directores (SD) de esta regla?\n%1 → %2\n"
+                  "Formato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
 
     case State::B1:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es el conjunto cabecera (CAB) del consecuente?\n%1 → %2\n"
-                       "Formato: a,b,c")
+        return tr("¿Cuál es el conjunto cabecera (CAB) del consecuente?\n%1 → %2\n"
+                  "Formato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
 
     case State::B2:
         rule = sortedGrammar.at(currentRule);
-        return QString("¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?\n%1 → %2\n"
-                       "Formato: a,b,c")
+        return tr("¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?\n%1 → %2\n"
+                  "Formato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
 
     case State::B_prime:
         rule = sortedGrammar.at(currentRule);
-        return QString("Entonces, ¿cuáles son los símbolos directores (SD) de la regla?\n%1 → %2\n"
-                       "Formato: a,b,c")
+        return tr("Entonces, ¿cuáles son los símbolos directores (SD) de la regla?\n%1 → %2\n"
+                  "Formato: a,b,c")
             .arg(rule.first)
             .arg(rule.second.join(" "));
 
         // ====== C: Mostrar tabla final al alumno =================
     case State::C:
-        addMessage("Rellena la tabla LL(1), en el panel derecho puedes consultar todos los "
-                   "cálculos que has realizado durante el ejercicio.",
+        addMessage(tr("Rellena la tabla LL(1), en el panel derecho puedes consultar todos los "
+                      "cálculos que has realizado durante el ejercicio."),
                    false);
         lastUserMessage = nullptr;
         ui->userResponse->setDisabled(true);
@@ -1457,26 +1456,34 @@ QString LLTutorWindow::feedback()
     }
 }
 
-QString LLTutorWindow::feedbackForA() {
-    QString feedback("La tabla LL(1) tiene:\n"
-                     " - Una fila por cada símbolo NO TERMINAL\n"
-                     " - Una columna por cada TERMINAL (incluyendo $ y excluyendo EPSILON)\n"
-                     "Esto define el tamaño de la tabla como filas × columnas.");
-    if (!ui->userResponse->toPlainText().isEmpty()) {
-        QStringList resp = ui->userResponse->toPlainText().trimmed().split(',', Qt::SkipEmptyParts);
-        if (resp.size() == 1 && resp[0] == ui->userResponse->toPlainText().trimmed()) {
-            return "Parece que no has seguido el formato correctamente. Debes separar el número de "
-                   "filas y columnas con una coma.\n"
+QString LLTutorWindow::feedbackForA()
+{
+    QString feedback = tr("La tabla LL(1) tiene:\n"
+                          " - Una fila por cada símbolo NO TERMINAL\n"
+                          " - Una columna por cada TERMINAL (incluyendo $ y excluyendo EPSILON)\n"
+                          "Esto define el tamaño de la tabla como filas × columnas.");
+
+    QString userText = ui->userResponse->toPlainText().trimmed();
+
+    if (!userText.isEmpty()) {
+        QStringList resp = userText.split(',', Qt::SkipEmptyParts);
+
+        if (resp.size() == 1 && resp[0] == userText) {
+            return tr("Parece que no has seguido el formato correctamente. Debes separar el número "
+                      "de "
+                      "filas y columnas con una coma.\n")
                    + feedback;
         } else {
             if (resp.size() != 2) {
-                return "No has seguido el formato correspondiente (filas,columnas).\n" + feedback;
+                return tr("No has seguido el formato correspondiente (filas,columnas).\n")
+                       + feedback;
             } else {
                 QStringList sol = solutionForA();
                 if (sol[0] == resp[0] && sol[1] != resp[1]) {
-                    return "No has contado bien el número de símbolos terminales.\n" + feedback;
+                    return tr("No has contado bien el número de símbolos terminales.\n") + feedback;
                 } else if (sol[0] != resp[0] && sol[1] == resp[1]) {
-                    return "No has contado bien el número de símbolos no terminales.\n" + feedback;
+                    return tr("No has contado bien el número de símbolos no terminales.\n")
+                           + feedback;
                 } else {
                     return feedback;
                 }
@@ -1490,8 +1497,8 @@ QString LLTutorWindow::feedbackForA() {
 QString LLTutorWindow::feedbackForA1() {
     QSet<QString> non_terminals = stdUnorderedSetToQSet(grammar.st_.non_terminals_);
     QList<QString> l(non_terminals.begin(), non_terminals.end());
-    return QString("Los NO TERMINALES son los que aparecen como antecedente en alguna regla.\n"
-                   "En esta gramática: %1")
+    return tr("Los NO TERMINALES son los que aparecen como antecedente en alguna regla.\n"
+              "En esta gramática: %1")
         .arg(l.join(", "));
 }
 
@@ -1501,33 +1508,32 @@ QString LLTutorWindow::feedbackForA2() {
 
     if (ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)) {
         l.removeOne(ll1.gr_.st_.EPSILON_);
-        return QString(
-                   "Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
-                   "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($). La "
-                   "cadena EPSILON, tampoco cuenta como símbolo terminal, pues es un metasímbolo "
-                   "que representa la cadena vacía.\n"
-                   "En esta gramática: %1")
+        return tr("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
+                  "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($). La "
+                  "cadena EPSILON, tampoco cuenta como símbolo terminal, pues es un metasímbolo "
+                  "que representa la cadena vacía.\n"
+                  "En esta gramática: %1")
             .arg(l.join(", "));
     } else {
-        return QString("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
-                       "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($).\n"
-                       "En esta gramática: %1")
+        return tr("Los TERMINALES son todos los símbolos que aparecen en los consecuentes\n"
+                  "y que NO son no terminales, excluyendo el símbolo de fin de entrada ($).\n"
+                  "En esta gramática: %1")
             .arg(l.join(", "));
     }
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
     QStringList sol = solutionForA();
-    return QString("Como hay %1 símbolos no terminales (filas) y %2 terminales (columnas, "
-                   "incluyendo $ y excluyendo EPSILON),\n"
-                   "el tamaño de la tabla LL(1) será: %1.")
+    return tr("Como hay %1 símbolos no terminales (filas) y %2 terminales (columnas, "
+              "incluyendo $ y excluyendo EPSILON),\n"
+              "el tamaño de la tabla LL(1) será: %1.")
         .arg(sol.join('x'));
 }
 
 QString LLTutorWindow::feedbackForB() {
-    QString feedbackBase("Para una regla X → Y, sus símbolos directores (SD) indican "
-                         "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
-                         "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
+    QString feedbackBase = tr("Para una regla X → Y, sus símbolos directores (SD) indican "
+                              "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
+                              "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
 
     QStringList resp = ui->userResponse->toPlainText()
                            .trimmed()
@@ -1537,14 +1543,15 @@ QString LLTutorWindow::feedbackForB() {
     QSet<QString> setResp(resp.begin(), resp.end());
 
     if (resp.isEmpty()) {
-        return "No has indicado ningún símbolo director.\n" + feedbackBase;
+        return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
     if (resp.size() == 1 && resp[0].contains(' ')) {
-        return "Parece que no has separado los símbolos con comas correctamente.\n" + feedbackBase;
+        return tr("Parece que no has separado los símbolos con comas correctamente.\n")
+               + feedbackBase;
     }
 
     if (resp.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
-        return "Has introducido EPSILON, los símbolos directores no pueden contenerlo.\n"
+        return tr("Has introducido EPSILON, los símbolos directores no pueden contenerlo.\n")
                + feedbackBase;
     }
 
@@ -1552,11 +1559,11 @@ QString LLTutorWindow::feedbackForB() {
     QSet<QString> rest = setResp - setSol;
     QString msg;
     if (!missing.isEmpty()) {
-        msg += "Te han faltado símbolos.\n";
+        msg += tr("Te han faltado símbolos.\n");
     }
     if (!rest.isEmpty()) {
-        msg += "Has incluido símbolos que no corresponden: " + QStringList(rest.values()).join(", ")
-               + ".\n";
+        msg += tr("Has incluido símbolos que no corresponden: ")
+               + QStringList(rest.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
@@ -1582,20 +1589,18 @@ QString LLTutorWindow::feedbackForB1()
     ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
     QString cab = sortedGrammar.at(currentRule).second.join(' ');
     QString resultSet = stdUnorderedSetToQSet(result).values().join(", ");
-    return QString(
-               "Se calcula CABECERA del consecuente: CAB(%1)\n"
-               "Con esto se obtienen los terminales que pueden aparecer al comenzar a derivar %1.\n"
-               "Resultado: { %2 }")
+    return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
+              "Con esto se obtienen los terminales que pueden aparecer al comenzar a derivar %1.\n"
+              "Resultado: { %2 }")
         .arg(cab, resultSet);
 }
 
 QString LLTutorWindow::feedbackForB2()
 {
     const QString nt = sortedGrammar.at(currentRule).first;
-    QString feedbackBase = QString("Cuando CAB(α) contiene ε, se necesita SIG(%1) para completar "
-                                   "los símbolos directores.\n"
-                                   "%2")
-                               .arg(nt, QString::fromStdString(ll1.TeachFollow(nt.toStdString())));
+    QString feedbackBase = tr("Cuando CAB(α) contiene ε, se necesita SIG(%1) para completar "
+                              "los símbolos directores.\n%2")
+                               .arg(nt, TeachFollow(nt));
 
     QStringList resp = ui->userResponse->toPlainText()
                            .trimmed()
@@ -1605,34 +1610,34 @@ QString LLTutorWindow::feedbackForB2()
     QSet<QString> setResp(resp.begin(), resp.end());
 
     if (resp.isEmpty()) {
-        return "No has indicado ningún símbolo de SIG(" + nt + ").\n" + feedbackBase;
+        return tr("No has indicado ningún símbolo de SIG(%1).\n").arg(nt) + feedbackBase;
     }
+
     if (resp.size() == 1 && resp[0] == ui->userResponse->toPlainText().trimmed()) {
-        return "Recuerda separar los símbolos de SIG(" + nt + ") con comas.\n" + feedbackBase;
+        return tr("Recuerda separar los símbolos de SIG(%1) con comas.\n").arg(nt) + feedbackBase;
     }
 
     QSet<QString> missing = setSol - setResp;
     QSet<QString> rest = setResp - setSol;
     QString msg;
     if (!missing.isEmpty()) {
-        msg += "Te han faltado símbolos.\n";
+        msg += tr("Te han faltado símbolos.\n");
     }
     if (!rest.isEmpty()) {
-        msg += "No forman parte de SIG(" + nt + "): " + QStringList(rest.values()).join(", ")
-               + ".\n";
+        msg += tr("No forman parte de SIG(%1): %2.\n").arg(nt, QStringList(rest.values()).join(", "));
     }
+
     return msg + feedbackBase;
 }
 
 QString LLTutorWindow::feedbackForBPrime()
 {
     const auto &rule = sortedGrammar.at(currentRule);
-    QString feedbackBase = QString("Un símbolo director indica cuándo se puede aplicar una "
-                                   "producción durante el análisis.\n"
-                                   "%1")
-                               .arg(QString::fromStdString(
-                                   ll1.TeachPredictionSymbols(rule.first.toStdString(),
-                                                              qvectorToStdVector(rule.second))));
+    QString feedbackBase = tr("Un símbolo director indica cuándo se puede aplicar una "
+                              "producción durante el análisis.\n"
+                              "%1")
+                               .arg(TeachPredictionSymbols(rule.first,
+                                                           qvectorToStdVector(rule.second)));
 
     QStringList resp = ui->userResponse->toPlainText()
                            .trimmed()
@@ -1642,37 +1647,39 @@ QString LLTutorWindow::feedbackForBPrime()
     QSet<QString> setResp(resp.begin(), resp.end());
 
     if (resp.isEmpty()) {
-        return "No has indicado ningún símbolo director.\n" + feedbackBase;
+        return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
     if (resp.size() == 1 && resp[0].contains(' ')) {
-        return "No has seguido el formato indicado (símbolos separados por coma).\n" + feedbackBase;
+        return tr("No has seguido el formato indicado (símbolos separados por coma).\n")
+               + feedbackBase;
     }
 
-    QSet<QString> faltan = setSol - setResp;
-    QSet<QString> demas = setResp - setSol;
+    QSet<QString> missing = setSol - setResp;
+    QSet<QString> rest = setResp - setSol;
     QString msg;
-    if (!faltan.isEmpty()) {
-        msg += "Te han faltado estos símbolos directores: "
-               + QStringList(faltan.values()).join(", ") + ".\n";
+    if (!missing.isEmpty()) {
+        msg += tr("Te han faltado estos símbolos directores: ")
+               + QStringList(missing.values()).join(", ") + ".\n";
     }
-    if (!demas.isEmpty()) {
-        msg += "Estos no son símbolos directores válidos: " + QStringList(demas.values()).join(", ")
-               + ".\n";
+    if (!rest.isEmpty()) {
+        msg += tr("Estos no son símbolos directores válidos: ")
+               + QStringList(rest.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
 
 QString LLTutorWindow::feedbackForC()
 {
-    return "La tabla tiene errores.\n"
-           "Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).\n"
-           "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A). Se ha marcado en "
-           "rojo las celdas incorrectas.";
+    return tr(
+        "La tabla tiene errores.\n"
+        "Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).\n"
+        "Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A). Se ha marcado en "
+        "rojo las celdas incorrectas.");
 }
 
 QString LLTutorWindow::feedbackForCPrime()
 {
-    return QString::fromStdString(ll1.TeachLL1Table());
+    return TeachLL1Table();
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget *widget)
@@ -1686,7 +1693,7 @@ void LLTutorWindow::addWidgetMessage(QWidget *widget)
 void LLTutorWindow::feedbackForB1TreeWidget()
 {
     QTreeWidget *treeWidgetFeedback = new QTreeWidget();
-    treeWidgetFeedback->setHeaderLabel("Derivación de CABECERA");
+    treeWidgetFeedback->setHeaderLabel(tr("Derivación de CABECERA"));
 
     QTreeWidgetItem *root = new QTreeWidgetItem({QString::fromStdString(
         "CAB(" + sortedGrammar.at(currentRule).second.join(' ').toStdString() + ")")});
@@ -1892,9 +1899,7 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
     std::vector<std::string> remaining_symbols(symbols.begin() + 1, symbols.end());
 
     auto *node = new QTreeWidgetItem();
-    node->setText(0,
-                  QString::fromStdString("Paso " + std::to_string(depth + 1) + ": "
-                                         + current_symbol));
+    node->setText(0, tr("Paso %1: %2").arg(depth + 1).arg(QString::fromStdString(current_symbol)));
     parent->addChild(node);
 
     if (ll1.gr_.st_.IsTerminal(current_symbol)) {
@@ -1902,17 +1907,17 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
             return;
         }
         if (current_symbol == ll1.gr_.st_.EOL_) {
-            node->addChild(new QTreeWidgetItem({"Añadir ε, se ha llegado al final de la cadena"}));
-        } else {
             node->addChild(
-                new QTreeWidgetItem({QString::fromStdString("Terminal → Añadir a CAB")}));
+                new QTreeWidgetItem({tr("Añadir ε, se ha llegado al final de la cadena")}));
+        } else {
+            node->addChild(new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
         }
         return;
     }
 
     if (processing.contains(current_symbol)) {
-        node->addChild(
-            new QTreeWidgetItem({QString::fromStdString("Evitando ciclo en " + current_symbol)}));
+        node->addChild(new QTreeWidgetItem(
+            {tr("Evitando ciclo en %1").arg(QString::fromStdString(current_symbol))}));
         return;
     }
 
@@ -1932,8 +1937,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string> &symbols,
 
         if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
             auto *eps_node = new QTreeWidgetItem(
-                {QString("Contiene ε → seguir con resto: "
-                         + stdVectorToQVector(remaining_symbols).join(' '))});
+                {tr("Contiene ε → seguir con resto: %1")
+                     .arg(stdVectorToQVector(remaining_symbols).join(' '))});
             prod_node->addChild(eps_node);
             TeachFirstTree(remaining_symbols, first_set, depth + 1, processing, eps_node);
         }
@@ -1955,8 +1960,9 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
     std::vector<std::string> rest(symbols.begin() + 1, symbols.end());
 
     auto node = std::make_unique<TreeNode>();
-    node->label = "CAB(" + QString::fromStdString(current);
-    node->label += rest.empty() ? ")" : ' ' + stdVectorToQVector(rest).join(' ') + ")";
+    node->label = tr("CAB(%1%2)")
+                      .arg(QString::fromStdString(current))
+                      .arg(rest.empty() ? "" : " " + stdVectorToQVector(rest).join(' '));
 
     if (ll1.gr_.st_.IsTerminal(current)) {
         if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
@@ -1964,8 +1970,8 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
         }
         auto child = std::make_unique<TreeNode>();
         child->label = (current == ll1.gr_.st_.EOL_)
-                           ? "Añadir ε a CAB"
-                           : "Añadir " + QString::fromStdString(current) + " a CAB";
+                           ? tr("Añadir ε a CAB")
+                           : tr("Añadir %1 a CAB").arg(QString::fromStdString(current));
         node->children.push_back(std::move(child));
         return node;
     }
@@ -1975,8 +1981,9 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
 
         if (std::count(active_derivations.begin(), active_derivations.end(), derivation_key) > 0) {
             auto cycle = std::make_unique<TreeNode>();
-            cycle->label = "Evitar ciclo: " + QString::fromStdString(current) + " → "
-                           + stdVectorToQVector(prod).join(' ');
+            cycle->label = tr("Evitar ciclo: %1 → %2")
+                               .arg(QString::fromStdString(current))
+                               .arg(stdVectorToQVector(prod).join(' '));
             node->children.push_back(std::move(cycle));
             continue;
         }
@@ -1995,7 +2002,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
 
         if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()) {
             auto epsNode = std::make_unique<TreeNode>();
-            epsNode->label = "ε → continuar con: " + stdVectorToQVector(rest).join(' ');
+            epsNode->label = tr("ε → continuar con: %1").arg(stdVectorToQVector(rest).join(' '));
             if (auto sub = buildTreeNode(rest, first_set, depth + 1, active_derivations))
                 epsNode->children.push_back(std::move(sub));
             prodNode->children.push_back(std::move(epsNode));
@@ -2126,6 +2133,229 @@ void LLTutorWindow::showTreeGraphics(std::unique_ptr<LLTutorWindow::TreeNode> ro
     dialog->show();
 }
 
+QString LLTutorWindow::TeachFollow(const QString &nt)
+{
+    QString output;
+    output += tr("Encontrar los símbolos siguientes a %1:\n").arg(nt);
+
+    const std::string nt_str = nt.toStdString();
+
+    if (nt_str == ll1.gr_.axiom_) {
+        output += tr("Como %1 es el axioma, SIG(%1) = { %2 }\n")
+                      .arg(nt, QString::fromStdString(ll1.gr_.st_.EOL_));
+        return output;
+    }
+
+    // Step 1: Find all rules where the non-terminal appears in the consequent
+    std::vector<std::pair<std::string, production>> rules_with_nt;
+    for (const auto &[antecedent, productions] : ll1.gr_.g_) {
+        for (const auto &prod : productions) {
+            auto it = std::find(prod.begin(), prod.end(), nt_str);
+            if (it != prod.end()) {
+                rules_with_nt.emplace_back(antecedent, prod);
+            }
+        }
+    }
+    if (rules_with_nt.empty()) {
+        output += tr("1. %1 no aparece en ningún consecuente.\n").arg(nt);
+        return output;
+    }
+
+    output += tr("1. Busca las reglas donde %1 está en el consecuente:\n").arg(nt);
+    for (const auto &[antecedent, prod] : rules_with_nt) {
+        output += "   - " + QString::fromStdString(antecedent) + " → "
+                  + QStringList::fromVector(stdVectorToQVector(prod)).join(" ") + "\n";
+    }
+
+    // Step 2: Compute Follow for each occurrence of the non-terminal in the
+    // rules
+    std::unordered_set<std::string> follow_set;
+    for (const auto &[antecedent, prod] : rules_with_nt) {
+        for (auto it = prod.begin(); it != prod.end(); ++it) {
+            if (*it == nt_str) {
+                // Case 1: Non-terminal is not at the end of the production
+                if (std::next(it) != prod.end()) {
+                    std::vector<std::string> remaining_symbols(std::next(it), prod.end());
+                    std::unordered_set<std::string> first_of_remaining;
+                    ll1.First(remaining_symbols, first_of_remaining);
+                    QString rem_qstr
+                        = QStringList::fromVector(stdVectorToQVector(remaining_symbols)).join(" ");
+                    QString first_qstr = QStringList::fromVector(
+                                             stdUnorderedSetToQSet(first_of_remaining).values())
+                                             .join(" ");
+
+                    output += tr("2. Calcula la cabecera de la subcadena después de %1: { %2 } = { "
+                                 "%3 }\n")
+                                  .arg(nt, rem_qstr, first_qstr);
+
+                    // Add First(remaining_symbols) to Follow(non_terminal)
+                    for (const std::string &symbol : first_of_remaining) {
+                        if (symbol != ll1.gr_.st_.EPSILON_) {
+                            follow_set.insert(symbol);
+                        }
+                    }
+
+                    // If ε ∈ First(remaining_symbols), add Follow(antecedent)
+                    if (first_of_remaining.find(ll1.gr_.st_.EPSILON_) != first_of_remaining.end()) {
+                        std::unordered_set<std::string> ant_follow(ll1.Follow(antecedent));
+                        QString ant_follow_str = QStringList::fromVector(
+                                                     stdUnorderedSetToQSet(ant_follow).values())
+                                                     .join(" ");
+
+                        output += tr("   - Como ε ∈ CAB, agrega SIG(%1) = { %2 } a SIG(%3)\n")
+                                      .arg(QString::fromStdString(antecedent), ant_follow_str, nt);
+                        follow_set.insert(ant_follow.begin(), ant_follow.end());
+                    }
+                }
+                // Case 2: Non-terminal is at the end of the production
+                else {
+                    std::unordered_set<std::string> ant_follow(ll1.Follow(antecedent));
+                    QString ant_follow_str = QStringList::fromVector(
+                                                 stdUnorderedSetToQSet(ant_follow).values())
+                                                 .join(" ");
+                    output += tr("2. %1 está al final de la producción. Agrega SIG(%2) = { %3 } a "
+                                 "SIG(%1)\n")
+                                  .arg(nt, QString::fromStdString(antecedent), ant_follow_str);
+                    follow_set.insert(ant_follow.begin(), ant_follow.end());
+                }
+            }
+        }
+    }
+
+    // Step 3: Display the final Follow set
+    QString final_follow = QStringList::fromVector(stdUnorderedSetToQSet(follow_set).values())
+                               .join(" ");
+    output += tr("3. Conjunto SIG(%1) = { %2 }\n").arg(nt, final_follow);
+
+    return output;
+}
+
+QString LLTutorWindow::TeachPredictionSymbols(const QString &ant, const production &consequent)
+{
+    QString output;
+
+    QString consequent_str = QStringList::fromVector(stdVectorToQVector(consequent)).join(" ");
+    output += tr("Encontrar los símbolos directores de: %1 → %2:\n").arg(ant, consequent_str);
+
+    // Step 1: Compute First(consequent)
+    std::unordered_set<std::string> first_of_consequent;
+    ll1.First(consequent, first_of_consequent);
+
+    QString first_str = QStringList::fromVector(stdUnorderedSetToQSet(first_of_consequent).values())
+                            .join(" ");
+    output += tr("1. Calcula CAB(%1) = { %2 }\n").arg(consequent_str, first_str);
+
+    // Step 2: Initialize prediction symbols with First(consequent) excluding ε
+    std::unordered_set<std::string> prediction_symbols;
+    for (const std::string &symbol : first_of_consequent) {
+        if (symbol != ll1.gr_.st_.EPSILON_) {
+            prediction_symbols.insert(symbol);
+        }
+    }
+
+    QString pred_str = QStringList::fromVector(stdUnorderedSetToQSet(prediction_symbols).values())
+                           .join(" ");
+    output += tr("2. Inicializa los símbolos directores con CAB(%1) excepto ε: { %2 }\n")
+                  .arg(consequent_str, pred_str);
+
+    // Step 3: If ε ∈ First(consequent), add Follow(antecedent) to prediction
+    // symbols
+    if (first_of_consequent.find(ll1.gr_.st_.EPSILON_) != first_of_consequent.end()) {
+        output += tr("   - Como ε ∈ CAB(%1), agrega SIG(%2) a los símbolos directores.\n")
+                      .arg(consequent_str, ant);
+
+        const auto follow_ant = ll1.Follow(ant.toStdString());
+        prediction_symbols.insert(follow_ant.begin(), follow_ant.end());
+
+        QString follow_str = QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
+                                 .join(" ");
+        output += tr("     SIG(%1) = { %2 }\n").arg(ant, follow_str);
+    }
+
+    // Step 4: Display the final prediction symbols
+    QString final_str = QStringList::fromVector(stdUnorderedSetToQSet(prediction_symbols).values())
+                            .join(" ");
+    output += tr("3. Entonces, los símbolos directores de %1 → %2 son: { %3 }\n")
+                  .arg(ant, consequent_str, final_str);
+
+    return output;
+}
+
+QString LLTutorWindow::TeachLL1Table()
+{
+    QString output;
+    output += tr("1. Proceso para construir la tabla LL(1):\n");
+    output += tr(
+        "La tabla LL(1) se construye definiendo todos los símbolos directores para cada regla.\n");
+
+    size_t i = 1;
+    for (const auto &[nt, prods] : ll1.gr_.g_) {
+        for (const production &prod : prods) {
+            std::unordered_set<std::string> pred = ll1.PredictionSymbols(nt, prod);
+
+            QString prod_str = QStringList::fromVector(stdVectorToQVector(prod)).join(" ");
+            QString pred_str = QStringList::fromVector(stdUnorderedSetToQSet(pred).values())
+                                   .join(" ");
+
+            output += tr("  %1. SD(%2 → %3) = { %4 }\n")
+                          .arg(i++)
+                          .arg(QString::fromStdString(nt))
+                          .arg(prod_str)
+                          .arg(pred_str);
+        }
+    }
+
+    output += tr("2. Una gramática cumple la condición LL(1) si para cada no terminal, ninguna de "
+                 "sus producciones tiene símbolos directores en común.\n"
+                 "Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅\n");
+
+    bool has_conflicts = false;
+    for (const auto &[nt, cols] : ll1.ll1_t_) {
+        for (const auto &col : cols) {
+            if (col.second.size() > 1) {
+                has_conflicts = true;
+                output += tr("- Conflicto en %1:\n").arg(QString::fromStdString(col.first));
+                for (const production &prod : col.second) {
+                    QString prod_str = QStringList::fromVector(stdVectorToQVector(prod)).join(" ");
+                    output += tr("  SD(%1 → %2)\n").arg(QString::fromStdString(nt), prod_str);
+                }
+            }
+        }
+    }
+
+    if (!has_conflicts) {
+        output += tr("3. Los conjuntos de símbolos directores no se solapan. La gramática es "
+                     "LL(1). La tabla LL(1) se construye de la siguiente forma.\n");
+
+        output += tr("4. Ten una fila por cada símbolo no terminal (%1 filas), y una columna por "
+                     "cada terminal excepto epsilon más %2 (%3 columnas).\n")
+                      .arg(ll1.gr_.st_.non_terminals_.size())
+                      .arg(QString::fromStdString(ll1.gr_.st_.EOL_))
+                      .arg(ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)
+                               ? ll1.gr_.st_.terminals_.size() - 1
+                               : ll1.gr_.st_.terminals_.size());
+
+        output += tr(
+            "5. Coloca α en la celda (A,β) si β ∈ SD(A → α), déjala vacía en otro caso.\n");
+
+        for (const auto &[nt, cols] : ll1.ll1_t_) {
+            for (const auto &col : cols) {
+                QString prod_str = QStringList::fromVector(stdVectorToQVector(col.second.at(0)))
+                                       .join(" ");
+                output += tr("  - ll1(%1, %2) = %3\n")
+                              .arg(QString::fromStdString(nt))
+                              .arg(QString::fromStdString(col.first))
+                              .arg(prod_str);
+            }
+        }
+    } else {
+        output += tr("3. Como al menos dos conjuntos se solapan con el mismo terminal, la "
+                     "gramática no es LL(1).\n");
+    }
+
+    return output;
+}
+
 void LLTutorWindow::setupTutorial()
 {
     QString key = "S -> A $";
@@ -2136,55 +2366,59 @@ void LLTutorWindow::setupTutorial()
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
     tm->addStep(this->window(),
-                "<h3>Tutor LL(1)</h3>"
-                "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>");
-
-    tm->addStep(ui->listWidget,
-                "<h3>Mensajes</h3>"
-                "<p>Aquí el tutor pregunta y muestra feedback.</p>"
-                "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar "
-                "una nueva línea con Ctrl+Enter si el formato lo requiere. Aunque en el tutor "
-                "LL(1) no es necesario.</p>");
-
-    tm->addStep(ui->listWidget,
-                "<h3>Formato de respuesta</h3>"
-                "<p>El tutor te indicará el formato de respuesta en cada pregunta. En LL(1), "
-                "siempre son o listas de símbolos separados por coma o números.</p>");
-
-    tm->addStep(ui->listWidget,
-                "<h3>Ejemplo práctico</h3>"
-                "<p>Supón que te piden el conjunto cabecera de una cadena. La respuesta correcta "
-                "sería una lista de símbolos, por ejemplo: a,b,c.</p>"
-                "<p>Si te preguntasen el número de símbolos de la gramática, bastaría con "
-                "responder con un número.</p>");
-
-    tm->addStep(ui->gr,
-                "<h3>Gramática</h3>"
-                "<p>En esta sección se ve la gramática que estás analizando.</p>"
-                "<p>Consulta los símbolos y producciones para responder. Como norma general, los "
-                "símbolos en mayúscula serán los no terminales, los que están en minúscula, los "
-                "terminales, la cadena \"EPSILON\" representará la cadena vacía y $ representa el "
-                "fin de línea.</p>");
-
-    tm->addStep(ui->textEdit,
-                "<h3>Progreso</h3>"
-                "<p>Aquí se registran los pasos que das: "
-                "conjuntos cabecera (CAB), siguientes (SIG) y símbolos directores (SD).</p>");
-
-    tm->addStep(ui->cntRight,
-                "<h3>Respuestas correctas</h3>"
-                "<p>Aquí podrás ver el número de respuestas correctas.</p>");
-
-    tm->addStep(ui->cntWrong,
-                "<h3>Respuestas incorrectas</h3>"
-                "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve "
-                "animación en el mensaje.</p>");
+                tr("<h3>Tutor LL(1)</h3>"
+                   "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>"));
 
     tm->addStep(
-        this->window(),
-        "<h3>Finalización</h3>"
-        "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En "
-        "ese PDF se incluye la tabla de análisis LL(1).</p>");
+        ui->listWidget,
+        tr("<h3>Mensajes</h3>"
+           "<p>Aquí el tutor pregunta y muestra feedback.</p>"
+           "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar "
+           "una nueva línea con Ctrl+Enter si el formato lo requiere. Aunque en el tutor "
+           "LL(1) no es necesario.</p>"));
+
+    tm->addStep(ui->listWidget,
+                tr("<h3>Formato de respuesta</h3>"
+                   "<p>El tutor te indicará el formato de respuesta en cada pregunta. En LL(1), "
+                   "siempre son o listas de símbolos separados por coma o números.</p>"));
+
+    tm->addStep(
+        ui->listWidget,
+        tr("<h3>Ejemplo práctico</h3>"
+           "<p>Supón que te piden el conjunto cabecera de una cadena. La respuesta correcta "
+           "sería una lista de símbolos, por ejemplo: a,b,c.</p>"
+           "<p>Si te preguntasen el número de símbolos de la gramática, bastaría con "
+           "responder con un número.</p>"));
+
+    tm->addStep(
+        ui->gr,
+        tr("<h3>Gramática</h3>"
+           "<p>En esta sección se ve la gramática que estás analizando.</p>"
+           "<p>Consulta los símbolos y producciones para responder. Como norma general, los "
+           "símbolos en mayúscula serán los no terminales, los que están en minúscula, los "
+           "terminales, la cadena \"EPSILON\" representará la cadena vacía y $ representa el "
+           "fin de línea.</p>"));
+
+    tm->addStep(ui->textEdit,
+                tr("<h3>Progreso</h3>"
+                   "<p>Aquí se registran los pasos que das: "
+                   "conjuntos cabecera (CAB), siguientes (SIG) y símbolos directores (SD).</p>"));
+
+    tm->addStep(ui->cntRight,
+                tr("<h3>Respuestas correctas</h3>"
+                   "<p>Aquí podrás ver el número de respuestas correctas.</p>"));
+
+    tm->addStep(
+        ui->cntWrong,
+        tr("<h3>Respuestas incorrectas</h3>"
+           "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve "
+           "animación en el mensaje.</p>"));
+
+    tm->addStep(this->window(),
+                tr("<h3>Finalización</h3>"
+                   "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación "
+                   "a PDF. En "
+                   "ese PDF se incluye la tabla de análisis LL(1).</p>"));
 
     tm->addStep(nullptr, "");
 
