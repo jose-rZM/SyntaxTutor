@@ -141,7 +141,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         QTimer::singleShot(1000, glow, [this]() { ui->badgeNivel->setGraphicsEffect(nullptr); });
 
-        QLabel *floatLabel = new QLabel("+1 Nivel", ui->badgeNivel->parentWidget());
+        QLabel *floatLabel = new QLabel(tr("+1 Nivel"), ui->badgeNivel->parentWidget());
         floatLabel->setStyleSheet(R"(
     QLabel {
         font-weight: bold;
@@ -244,9 +244,9 @@ void MainWindow::on_lv3Button_clicked(bool checked)
 
 void MainWindow::loadSettings()
 {
-    setUserLevel(settings.value("gamification/nivel", 1).toUInt());
-    userScore = settings.value("gamification/puntos", 0).toUInt();
-    ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
+    setUserLevel(settings.value("gamification/level", 1).toUInt());
+    userScore = settings.value("gamification/score", 0).toUInt();
+    ui->labelScore->setText(tr("Puntos: %1").arg(userScore));
 
     if (userLevel() >= MAX_LEVEL) {
         ui->progressBarNivel->setEnabled(false);
@@ -261,8 +261,8 @@ void MainWindow::loadSettings()
 
 void MainWindow::saveSettings()
 {
-    settings.setValue("gamification/nivel", userLevel());
-    settings.setValue("gamification/puntos", userScore);
+    settings.setValue("gamification/level", userLevel());
+    settings.setValue("gamification/score", userScore);
 }
 
 void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
@@ -280,7 +280,7 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
         emit userLevelUp(userLevel());
     }
 
-    ui->labelScore->setText(QString("Puntos: %1").arg(userScore));
+    ui->labelScore->setText(tr("Puntos: %1").arg(userScore));
     if (userLevel() >= MAX_LEVEL) {
         ui->progressBarNivel->setValue(100);
         ui->progressBarNivel->setEnabled(false);
@@ -339,16 +339,17 @@ void MainWindow::setupTutorial()
     tm = new TutorialManager(this);
 
     // Paso 1: explicación de botones LL(1) y SLR(1)
-    tm->addStep(ui->pushButton, "<h3>LL(1)</h3><p>Con este botón puedes lanzar el tutor LL(1).</p>");
-    tm->addStep(ui->pushButton_2, "<h3>SLR(1)</h3><p>Con este, el SLR(1).</p>");
+    tm->addStep(ui->pushButton,
+                tr("<h3>LL(1)</h3><p>Con este botón puedes lanzar el tutor LL(1).</p>"));
+    tm->addStep(ui->pushButton_2, tr("<h3>SLR(1)</h3><p>Con este, el SLR(1).</p>"));
 
     // Paso 2: explicación de niveles
     tm->addStep(ui->lv1Button,
-                "<p>También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad "
-                "repercute en la longitud de la gramática.</p>");
+                tr("<p>También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad "
+                   "repercute en la longitud de la gramática.</p>"));
 
     // Paso 3: LL(1)
-    tm->addStep(ui->pushButton, "<p>Ahora se abrirá la ventana LL(1).</p>");
+    tm->addStep(ui->pushButton, tr("<p>Ahora se abrirá la ventana LL(1).</p>"));
     tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
@@ -371,10 +372,10 @@ void MainWindow::setupTutorial()
                 tm->setRootWindow(this);
 
                 tm->clearSteps();
-                tm->addStep(ui->pushButton_2, "<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>");
+                tm->addStep(ui->pushButton_2, tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
                 tm->addStep(ui->lv3Button,
-                            "<p>Esta vez se usará una gramática más compleja (Nivel 3).</p>");
-                tm->addStep(ui->pushButton_2, "<p>Ahora se abrirá el tutor SLR(1).</p>");
+                            tr("<p>Esta vez se usará una gramática más compleja (Nivel 3).</p>"));
+                tm->addStep(ui->pushButton_2, tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
                 tm->addStep(nullptr, "");
                 // a) Arranca el tutorial de SLR
                 tm->start();
@@ -448,16 +449,13 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
     about.setIconPixmap(pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     about.setTextFormat(Qt::RichText);
-    about.setText("<h2>SyntaxTutor</h2>"
-                  "<p><b>Versión: 1.0</b> "
-                  + qApp->applicationVersion()
-                  + "</p>"
-                    "<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>"
-                    "<p><b>Autor:</b> José R.</p>"
-                    "<p><b>Licencia:</b> GPLv3</p>"
-                    "<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y C++20.</p>"
-                    "<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - jose-rZM</a>"
-                    "<p>2025 Universidad de Málaga</p>");
+    about.setText(
+        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0</b> ") + qApp->applicationVersion()
+        + tr("</p>") + tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>")
+        + tr("<p><b>Autor:</b> José R.</p>") + tr("<p><b>Licencia:</b> GPLv3</p>")
+        + tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y C++20.</p>")
+        + tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - jose-rZM</a></p>")
+        + tr("<p>2025 Universidad de Málaga</p>"));
 
     about.setStandardButtons(QMessageBox::Close);
     auto *closeBtn = about.button(QMessageBox::Close);
@@ -497,7 +495,7 @@ void MainWindow::on_actionReferencia_LL_1_triggered()
     QMessageBox help(this);
     help.setWindowTitle(tr("Referencia rápida LL(1)"));
     help.setTextFormat(Qt::RichText);
-    help.setText(R"(
+    help.setText(tr(R"(
       <h3>Referencia LL(1)</h3>
       <ul>
         <li><b>CAB(X):</b> conjunto de símbolos terminales que comienzan cadenas derivables desde X.</li>
@@ -518,7 +516,7 @@ void MainWindow::on_actionReferencia_LL_1_triggered()
   </li>
         <li><b>Conflictos:</b> Sitios donde CAB(α) ∩ CAB(β) ≠ ∅ o ε ∈ CAB(α) y CAB(β) ∩ SIG(A) ≠ ∅.</li>
       </ul>
-    )");
+    )"));
     help.setStandardButtons(QMessageBox::Close);
     auto *closeBtn = help.button(QMessageBox::Close);
     if (closeBtn) {
@@ -556,7 +554,7 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
     QMessageBox help(this);
     help.setWindowTitle(tr("Referencia rápida SLR(1)"));
     help.setTextFormat(Qt::RichText);
-    help.setText(R"(
+    help.setText(tr(R"(
       <h3>Referencia SLR(1)</h3>
       <ul>
         <li><b>Ítems LR(0):</b> producciones con “∙” marcando la posición de análisis.</li>
@@ -581,7 +579,7 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
   </ul>
 </li>
       </ul>
-    )");
+    )"));
     help.setStandardButtons(QMessageBox::Close);
     auto *closeBtn = help.button(QMessageBox::Close);
     if (closeBtn) {
