@@ -1,6 +1,9 @@
 QT       += core gui printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+TRANSLATIONS += st_es.ts \
+                st_en.ts
+
 CONFIG += c++20
 
 # You can make your code fail to compile if it uses deprecated APIs.
