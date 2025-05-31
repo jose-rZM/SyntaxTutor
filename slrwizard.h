@@ -20,7 +20,7 @@ public:
               QWidget *parent = nullptr)
         : QWizard(parent)
     {
-        setWindowTitle("Ayuda interactiva: Tabla SLR(1)");
+        setWindowTitle(tr("Ayuda interactiva: Tabla SLR(1)"));
 
         const int nTerm = parser.gr_.st_.terminals_.contains(parser.gr_.st_.EPSILON_)
                               ? parser.gr_.st_.terminals_.size() - 1
@@ -44,8 +44,8 @@ public:
                     case SLR1Parser::Action::Shift: {
                         unsigned to = parser.transitions_.at(i).at(sym.toStdString());
                         expected = QString("s%1").arg(to);
-                        explanation = QString("Estado %1: existe transición δ(%1, '%2'). ¿A qué "
-                                              "estado harías shift?")
+                        explanation = tr("Estado %1: existe transición δ(%1, '%2'). ¿A qué "
+                                         "estado harías shift?")
                                           .arg(i)
                                           .arg(sym);
                         break;
@@ -67,8 +67,8 @@ public:
                         QStringList followList;
                         for (auto &t : F)
                             followList << QString::fromStdString(t);
-                        explanation = QString("Estado %1: contiene el ítem [%2 → ...·] y '%3' ∈ "
-                                              "SIG(%2). ¿Qué regla usas para reducir (0, 1, ...)?")
+                        explanation = tr("Estado %1: contiene el ítem [%2 → ...·] y '%3' ∈ "
+                                         "SIG(%2). ¿Qué regla usas para reducir (0, 1, ...)?")
                                           .arg(i)
                                           .arg(QString::fromStdString(act.item->antecedent_))
                                           .arg(colHeaders[j]);
@@ -76,8 +76,8 @@ public:
                     }
                     case SLR1Parser::Action::Accept:
                         expected = "acc";
-                        explanation = QString("Estado %1: contiene [S' → S ·]. ¿Qué palabra clave "
-                                              "usas para aceptar?")
+                        explanation = tr("Estado %1: contiene [S' → S ·]. ¿Qué palabra clave "
+                                         "usas para aceptar?")
                                           .arg(i);
                         break;
                     case SLR1Parser::Action::Empty:
@@ -93,8 +93,8 @@ public:
                     auto itGo = parser.transitions_.at(i).find(nonT);
                     if (itGo != parser.transitions_.at(i).end()) {
                         expected = QString::number(itGo->second);
-                        explanation = QString("Estado %1: δ(%1, '%2') existe. ¿A qué estado va "
-                                              "la transición? (pon solo el número)")
+                        explanation = tr("Estado %1: δ(%1, '%2') existe. ¿A qué estado va "
+                                         "la transición? (pon solo el número)")
                                           .arg(i)
                                           .arg(sym);
                     } else {

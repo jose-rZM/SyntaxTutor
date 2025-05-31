@@ -22,13 +22,13 @@ public:
         , m_symbol(symbol)
         , m_expected(expected)
     {
-        setTitle(QString("Estado %1, símbolo '%2'").arg(state).arg(symbol));
+        setTitle(tr("Estado %1, símbolo '%2'").arg(state).arg(symbol));
 
         QLabel *lbl = new QLabel(explanation, this);
         lbl->setWordWrap(true);
 
         m_edit = new QLineEdit(this);
-        m_edit->setPlaceholderText("Escribe tu respuesta (p.ej. s3, r2, acc, 5)");
+        m_edit->setPlaceholderText(tr("Escribe tu respuesta (p.ej. s3, r2, acc, 5)"));
 
         QVBoxLayout *layout = new QVBoxLayout(this);
         layout->addWidget(lbl);
@@ -43,10 +43,10 @@ private slots:
         bool correct = (text.trimmed() == m_expected);
         setComplete(correct);
         if (correct) {
-            setSubTitle("✔ Respuesta correcta, pasa a la siguiente pregunta");
+            setSubTitle(tr("✔ Respuesta correcta, pasa a la siguiente pregunta"));
         } else {
             setSubTitle(
-                "✘ Incorrecto, revisa el enunciado. Consulta los estados que has construido.");
+                tr("✘ Incorrecto, revisa el enunciado. Consulta los estados que has construido."));
         }
         wizard()->button(QWizard::NextButton)->setEnabled(correct);
     }
