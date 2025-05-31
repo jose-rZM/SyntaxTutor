@@ -448,6 +448,36 @@ QRadioButton::indicator:checked + QLabel {
     </item>
     <item>
      <widget class="QPushButton" name="idiom">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::RightToLeft</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background: transparent;
+    color: #CCCCCC;
+    border: 1px solid #00ADB5;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-family: 'Noto Sans';
+    font-size: 12px;
+}
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+}
+QPushButton:pressed {
+    background-color: rgba(255, 255, 255, 0.10);
+}</string>
+      </property>
       <property name="text">
        <string>Idioma</string>
       </property>
