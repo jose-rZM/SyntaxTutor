@@ -24,10 +24,8 @@ int main(int argc, char *argv[])
     QTranslator translator;
     if (langCode == "en") {
         bool x = translator.load(":/translations/st_en.qm");
-        qDebug() << "english: " << x;
     } else {
         bool x = translator.load(":/translations/st_es.qm");
-        qDebug() << "spanish: " << x;
     }
     a.installTranslator(&translator);
     loadFonts();
