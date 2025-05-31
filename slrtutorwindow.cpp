@@ -2807,58 +2807,63 @@ void SLRTutorWindow::setupTutorial()
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
     tm->addStep(this->window(),
-                "<h3>Tutor SLR(1)</h3>"
-                "<p>Esta es la ventana del tutor de analizadores sintácticos SLR(1).</p>");
+                tr("<h3>Tutor SLR(1)</h3>"
+                   "<p>Esta es la ventana del tutor de analizadores sintácticos SLR(1).</p>"));
 
     tm->addStep(ui->gr,
-                "<h3>Gramática</h3>"
-                "<p>Como se puede ver, la gramática ahora es más compleja. Se genera "
-                "aleatoriamente.</p>");
+                tr("<h3>Gramática</h3>"
+                   "<p>Como se puede ver, la gramática ahora es más compleja. Se genera "
+                   "aleatoriamente.</p>"));
 
-    tm->addStep(ui->gr,
-                "<h3>Gramática</h3>"
-                "<p>Las reglas están numeradas en el tutor SLR(1). Te será útil para indicar las "
-                "acciones reduce en la tabla, pues deberás escribir el número de la regla "
-                "correspondiente.</p>");
+    tm->addStep(
+        ui->gr,
+        tr("<h3>Gramática</h3>"
+           "<p>Las reglas están numeradas en el tutor SLR(1). Te será útil para indicar las "
+           "acciones reduce en la tabla, pues deberás escribir el número de la regla "
+           "correspondiente.</p>"));
 
-    tm->addStep(ui->textEdit,
-                "<h3>Progreso</h3>"
-                "<p>Aquí se registran los pasos, en el analizador SLR(1) son distintos: "
-                "estados de la colección LR(0) y transiciones con la función delta. Te será útil "
-                "para cuando tengas que rellenar la tabla SLR(1).</p>");
+    tm->addStep(
+        ui->textEdit,
+        tr("<h3>Progreso</h3>"
+           "<p>Aquí se registran los pasos, en el analizador SLR(1) son distintos: "
+           "estados de la colección LR(0) y transiciones con la función delta. Te será útil "
+           "para cuando tengas que rellenar la tabla SLR(1).</p>"));
 
     tm->addStep(
         ui->listWidget,
-        "<h3>Formato de respuesta</h3>"
-        "<p>Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o "
-        "ítem LR (una regla gramatical con el (.) por línea. Recuerda que con Ctrl+Enter puedes "
-        "insertar una nueva línea. Veamos unos ejemplos.</p>");
+        tr("<h3>Formato de respuesta</h3>"
+           "<p>Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical "
+           "o "
+           "ítem LR (una regla gramatical con el (.) por línea. Recuerda que con Ctrl+Enter puedes "
+           "insertar una nueva línea. Veamos unos ejemplos.</p>"));
 
     tm->addStep(ui->listWidget,
-                "<h3>Ejemplo: regla gramatical</h3>"
-                "<p>Supón que tienes esta producción en la gramática: X -> a b | c</p>"
-                "<p>La respuesta correcta para esa pregunta sería exactamente:</p>"
-                "<pre>X -> a b</pre>"
-                "<pre>X -> c</pre>"
-                "<p>Una sola regla por línea, tal cual aparece arriba.</p>");
+                tr("<h3>Ejemplo: regla gramatical</h3>"
+                   "<p>Supón que tienes esta producción en la gramática: X -> a b | c</p>"
+                   "<p>La respuesta correcta para esa pregunta sería exactamente:</p>"
+                   "<pre>X -> a b</pre>"
+                   "<pre>X -> c</pre>"
+                   "<p>Una sola regla por línea, tal cual aparece arriba.</p>"));
 
     tm->addStep(ui->listWidget,
-                "<h3>Ejemplo: ítem LR(0)</h3>"
-                "<p>Un ítem LR añade un punto “.” para indicar la posición en la regla.</p>"
-                "<p>Por ejemplo, un ítem correspondiente a la misma producción sería:</p>"
-                "<pre>X -> a . b</pre>"
-                "<p>Observa el punto justo antes de “b”—ese es el formato exigido. En caso de "
-                "varios ítems, simplemente coloca uno por línea.</p>");
+                tr("<h3>Ejemplo: ítem LR(0)</h3>"
+                   "<p>Un ítem LR añade un punto “.” para indicar la posición en la regla.</p>"
+                   "<p>Por ejemplo, un ítem correspondiente a la misma producción sería:</p>"
+                   "<pre>X -> a . b</pre>"
+                   "<p>Observa el punto justo antes de “b”—ese es el formato exigido. En caso de "
+                   "varios ítems, simplemente coloca uno por línea.</p>"));
 
-    tm->addStep(ui->listWidget,
-                "<h3>Ejemplo: lista de símbolos</h3>"
-                "<p>Al igual que el LL(1), se te puede pedir una lista de símbolos separados por "
-                "coma.</p>");
+    tm->addStep(
+        ui->listWidget,
+        tr("<h3>Ejemplo: lista de símbolos</h3>"
+           "<p>Al igual que el LL(1), se te puede pedir una lista de símbolos separados por "
+           "coma.</p>"));
 
-    tm->addStep(this->window(),
-                "<h3>Finalización</h3>"
-                "<p>Al igual que el tutor LL(1), podrás exportar toda la conversación y las tablas "
-                "de análisis en formato PDF.</p>");
+    tm->addStep(
+        this->window(),
+        tr("<h3>Finalización</h3>"
+           "<p>Al igual que el tutor LL(1), podrás exportar toda la conversación y las tablas "
+           "de análisis en formato PDF.</p>"));
 
     tm->addStep(nullptr, "");
 

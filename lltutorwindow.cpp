@@ -2366,55 +2366,59 @@ void LLTutorWindow::setupTutorial()
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
     tm->addStep(this->window(),
-                "<h3>Tutor LL(1)</h3>"
-                "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>");
-
-    tm->addStep(ui->listWidget,
-                "<h3>Mensajes</h3>"
-                "<p>Aquí el tutor pregunta y muestra feedback.</p>"
-                "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar "
-                "una nueva línea con Ctrl+Enter si el formato lo requiere. Aunque en el tutor "
-                "LL(1) no es necesario.</p>");
-
-    tm->addStep(ui->listWidget,
-                "<h3>Formato de respuesta</h3>"
-                "<p>El tutor te indicará el formato de respuesta en cada pregunta. En LL(1), "
-                "siempre son o listas de símbolos separados por coma o números.</p>");
-
-    tm->addStep(ui->listWidget,
-                "<h3>Ejemplo práctico</h3>"
-                "<p>Supón que te piden el conjunto cabecera de una cadena. La respuesta correcta "
-                "sería una lista de símbolos, por ejemplo: a,b,c.</p>"
-                "<p>Si te preguntasen el número de símbolos de la gramática, bastaría con "
-                "responder con un número.</p>");
-
-    tm->addStep(ui->gr,
-                "<h3>Gramática</h3>"
-                "<p>En esta sección se ve la gramática que estás analizando.</p>"
-                "<p>Consulta los símbolos y producciones para responder. Como norma general, los "
-                "símbolos en mayúscula serán los no terminales, los que están en minúscula, los "
-                "terminales, la cadena \"EPSILON\" representará la cadena vacía y $ representa el "
-                "fin de línea.</p>");
-
-    tm->addStep(ui->textEdit,
-                "<h3>Progreso</h3>"
-                "<p>Aquí se registran los pasos que das: "
-                "conjuntos cabecera (CAB), siguientes (SIG) y símbolos directores (SD).</p>");
-
-    tm->addStep(ui->cntRight,
-                "<h3>Respuestas correctas</h3>"
-                "<p>Aquí podrás ver el número de respuestas correctas.</p>");
-
-    tm->addStep(ui->cntWrong,
-                "<h3>Respuestas incorrectas</h3>"
-                "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve "
-                "animación en el mensaje.</p>");
+                tr("<h3>Tutor LL(1)</h3>"
+                   "<p>Esta es la ventana del tutor de analizadores sintácticos LL(1).</p>"));
 
     tm->addStep(
-        this->window(),
-        "<h3>Finalización</h3>"
-        "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En "
-        "ese PDF se incluye la tabla de análisis LL(1).</p>");
+        ui->listWidget,
+        tr("<h3>Mensajes</h3>"
+           "<p>Aquí el tutor pregunta y muestra feedback.</p>"
+           "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o Enter. Puedes insertar "
+           "una nueva línea con Ctrl+Enter si el formato lo requiere. Aunque en el tutor "
+           "LL(1) no es necesario.</p>"));
+
+    tm->addStep(ui->listWidget,
+                tr("<h3>Formato de respuesta</h3>"
+                   "<p>El tutor te indicará el formato de respuesta en cada pregunta. En LL(1), "
+                   "siempre son o listas de símbolos separados por coma o números.</p>"));
+
+    tm->addStep(
+        ui->listWidget,
+        tr("<h3>Ejemplo práctico</h3>"
+           "<p>Supón que te piden el conjunto cabecera de una cadena. La respuesta correcta "
+           "sería una lista de símbolos, por ejemplo: a,b,c.</p>"
+           "<p>Si te preguntasen el número de símbolos de la gramática, bastaría con "
+           "responder con un número.</p>"));
+
+    tm->addStep(
+        ui->gr,
+        tr("<h3>Gramática</h3>"
+           "<p>En esta sección se ve la gramática que estás analizando.</p>"
+           "<p>Consulta los símbolos y producciones para responder. Como norma general, los "
+           "símbolos en mayúscula serán los no terminales, los que están en minúscula, los "
+           "terminales, la cadena \"EPSILON\" representará la cadena vacía y $ representa el "
+           "fin de línea.</p>"));
+
+    tm->addStep(ui->textEdit,
+                tr("<h3>Progreso</h3>"
+                   "<p>Aquí se registran los pasos que das: "
+                   "conjuntos cabecera (CAB), siguientes (SIG) y símbolos directores (SD).</p>"));
+
+    tm->addStep(ui->cntRight,
+                tr("<h3>Respuestas correctas</h3>"
+                   "<p>Aquí podrás ver el número de respuestas correctas.</p>"));
+
+    tm->addStep(
+        ui->cntWrong,
+        tr("<h3>Respuestas incorrectas</h3>"
+           "<p>Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve "
+           "animación en el mensaje.</p>"));
+
+    tm->addStep(this->window(),
+                tr("<h3>Finalización</h3>"
+                   "<p>Una vez termines el ejercicio entero, podrás exportar toda la conversación "
+                   "a PDF. En "
+                   "ese PDF se incluye la tabla de análisis LL(1).</p>"));
 
     tm->addStep(nullptr, "");
 
