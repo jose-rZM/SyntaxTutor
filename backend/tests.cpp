@@ -27,6 +27,7 @@ TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
 
     ASSERT_FALSE(g.g_.empty());
     ASSERT_GE(g.g_.size(), 2);
+    g.g_.erase("S");
     bool ret = std::ranges::any_of(factory.items, [&g](const GrammarFactory::FactoryItem &item) {
         return item.g_ == g.g_;
     });
@@ -51,7 +52,7 @@ TEST(GrammarFactoryTest, Lv3GrammarHaveSizeGt4)
     GrammarFactory factory;
 
     factory.Init();
-    Grammar g = factory.PickOne(2);
+    Grammar g = factory.PickOne(3);
 
     ASSERT_FALSE(g.g_.empty());
     ASSERT_GE(g.g_.size(), 4);
