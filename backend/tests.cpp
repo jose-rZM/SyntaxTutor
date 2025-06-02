@@ -33,6 +33,33 @@ TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
     ASSERT_TRUE(ret);
 }
 
+TEST(GrammarFactoryTest, Lv2GrammarHaveSizeGt2)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    Grammar g = factory.PickOne(2);
+
+    ASSERT_FALSE(g.g_.empty());
+    ASSERT_GE(g.g_.size(), 2);
+    ASSERT_TRUE(g.g_.contains("A"));
+    ASSERT_TRUE(g.g_.contains("B"));
+}
+
+TEST(GrammarFactoryTest, Lv3GrammarHaveSizeGt3)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    Grammar g = factory.PickOne(2);
+
+    ASSERT_FALSE(g.g_.empty());
+    ASSERT_GE(g.g_.size(), 3);
+    ASSERT_TRUE(g.g_.contains("A"));
+    ASSERT_TRUE(g.g_.contains("B"));
+    ASSERT_TRUE(g.g_.contains("C"));
+}
+
 TEST(GrammarTest, IsInfinite_WhenGrammarIsInfinite) {
     Grammar        g;
     GrammarFactory factory;
