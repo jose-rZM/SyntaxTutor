@@ -2,11 +2,9 @@
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-    , settings("UMA", "SyntaxTutor")
-{
+MainWindow::MainWindow(QWidget* parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow),
+      settings("UMA", "SyntaxTutor") {
     factory.Init();
     ui->setupUi(this);
     Qt::WindowFlags f = windowFlags();
@@ -81,8 +79,8 @@ MainWindow::MainWindow(QWidget *parent)
 })");
 
     connect(this, &MainWindow::userLevelChanged, this, [this](unsigned lvl) {
-        int idx = qBound(1, static_cast<int>(lvl), 10) - 1;
-        QString c = levelColors[idx];
+        int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
+        QString c      = levelColors[idx];
         QString border = QColor(c).darker(120).name();
 
         ui->badgeNivel->setStyleSheet(QString(R"(
@@ -123,7 +121,8 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(this, &MainWindow::userLevelUp, this, [this]() {
-        QPropertyAnimation *anim = new QPropertyAnimation(ui->badgeNivel, "geometry");
+        QPropertyAnimation* anim =
+            new QPropertyAnimation(ui->badgeNivel, "geometry");
         QRect original = ui->badgeNivel->geometry();
         QRect enlarged = original.adjusted(-4, -4, 4, 4);
 
@@ -134,15 +133,18 @@ MainWindow::MainWindow(QWidget *parent)
         anim->setEasingCurve(QEasingCurve::OutBack);
         anim->start(QAbstractAnimation::DeleteWhenStopped);
 
-        auto *glow = new QGraphicsDropShadowEffect(ui->badgeNivel);
+        auto* glow = new QGraphicsDropShadowEffect(ui->badgeNivel);
         glow->setColor(QColor(Qt::white).lighter(130));
         glow->setOffset(0);
         glow->setBlurRadius(25);
         ui->badgeNivel->setGraphicsEffect(glow);
 
-        QTimer::singleShot(1000, glow, [this]() { ui->badgeNivel->setGraphicsEffect(nullptr); });
+        QTimer::singleShot(1000, glow, [this]() {
+            ui->badgeNivel->setGraphicsEffect(nullptr);
+        });
 
-        QLabel *floatLabel = new QLabel(tr("+1 Nivel"), ui->badgeNivel->parentWidget());
+        QLabel* floatLabel =
+            new QLabel(tr("+1 Nivel"), ui->badgeNivel->parentWidget());
         floatLabel->setStyleSheet(R"(
     QLabel {
         font-weight: bold;
@@ -152,21 +154,20 @@ MainWindow::MainWindow(QWidget *parent)
 )");
         floatLabel->adjustSize();
 
-        QPoint badgePos = ui->badgeNivel->geometry().topLeft();
-        int badgeWidth = ui->badgeNivel->width();
-        int x = badgePos.x() + badgeWidth / 2 - floatLabel->width() / 2;
-        int y = badgePos.y() - 10;
+        QPoint badgePos   = ui->badgeNivel->geometry().topLeft();
+        int    badgeWidth = ui->badgeNivel->width();
+        int    x = badgePos.x() + badgeWidth / 2 - floatLabel->width() / 2;
+        int    y = badgePos.y() - 10;
         floatLabel->move(x, y);
         floatLabel->show();
 
-        QStringList rainbowColors
-            = {"#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8F00FF"};
-        auto *rainbowTimer = new QTimer(floatLabel);
-        connect(rainbowTimer,
-                &QTimer::timeout,
-                floatLabel,
+        QStringList rainbowColors = {"#FF0000", "#FF7F00", "#FFFF00", "#00FF00",
+                                     "#0000FF", "#4B0082", "#8F00FF"};
+        auto*       rainbowTimer  = new QTimer(floatLabel);
+        connect(rainbowTimer, &QTimer::timeout, floatLabel,
                 [floatLabel, rainbowColors, colorIndex = 0]() mutable {
-                    QString color = rainbowColors[colorIndex % rainbowColors.size()];
+                    QString color =
+                        rainbowColors[colorIndex % rainbowColors.size()];
                     floatLabel->setStyleSheet(QString(R"(
         QLabel {
             font-weight: bold;
@@ -179,37 +180,42 @@ MainWindow::MainWindow(QWidget *parent)
                     colorIndex++;
                 });
         rainbowTimer->start(100);
-        QPropertyAnimation *moveAnim = new QPropertyAnimation(floatLabel, "pos");
+        QPropertyAnimation* moveAnim =
+            new QPropertyAnimation(floatLabel, "pos");
         moveAnim->setDuration(1500);
         moveAnim->setStartValue(QPoint(x, y + 10));
         moveAnim->setEndValue(QPoint(x, y + 40));
         moveAnim->setEasingCurve(QEasingCurve::OutQuad);
 
-        QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(floatLabel);
+        QGraphicsOpacityEffect* effect = new QGraphicsOpacityEffect(floatLabel);
         floatLabel->setGraphicsEffect(effect);
 
-        QPropertyAnimation *fadeAnim = new QPropertyAnimation(effect, "opacity");
+        QPropertyAnimation* fadeAnim =
+            new QPropertyAnimation(effect, "opacity");
         fadeAnim->setDuration(1500);
         fadeAnim->setStartValue(1.0);
         fadeAnim->setEndValue(0.0);
 
-        connect(fadeAnim, &QPropertyAnimation::finished, floatLabel, [floatLabel, rainbowTimer]() {
-            rainbowTimer->stop();
-            floatLabel->deleteLater();
-        });
+        connect(fadeAnim, &QPropertyAnimation::finished, floatLabel,
+                [floatLabel, rainbowTimer]() {
+                    rainbowTimer->stop();
+                    floatLabel->deleteLater();
+                });
 
         moveAnim->start(QAbstractAnimation::DeleteWhenStopped);
         fadeAnim->start(QAbstractAnimation::DeleteWhenStopped);
     });
 
 #ifdef QT_DEBUG
-    auto *debugShortcutLvlUp = new QShortcut(QKeySequence("Ctrl+Shift+U"), this);
+    auto* debugShortcutLvlUp =
+        new QShortcut(QKeySequence("Ctrl+Shift+U"), this);
     connect(debugShortcutLvlUp, &QShortcut::activated, this, [this]() {
         setUserLevel(userLevel() + 1);
         emit userLevelUp(userLevel() + 1);
     });
 
-    auto *debugShortcutLvlDown = new QShortcut(QKeySequence("Ctrl+Shift+D"), this);
+    auto* debugShortcutLvlDown =
+        new QShortcut(QKeySequence("Ctrl+Shift+D"), this);
     connect(debugShortcutLvlDown, &QShortcut::activated, this, [this]() {
         if (userLevel() > 1)
             setUserLevel(userLevel() - 1);
@@ -219,32 +225,27 @@ MainWindow::MainWindow(QWidget *parent)
     loadSettings();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     saveSettings();
     delete ui;
 }
 
-void MainWindow::on_lv1Button_clicked(bool checked)
-{
+void MainWindow::on_lv1Button_clicked(bool checked) {
     if (checked)
         level = 1;
 }
 
-void MainWindow::on_lv2Button_clicked(bool checked)
-{
+void MainWindow::on_lv2Button_clicked(bool checked) {
     if (checked)
         level = 2;
 }
 
-void MainWindow::on_lv3Button_clicked(bool checked)
-{
+void MainWindow::on_lv3Button_clicked(bool checked) {
     if (checked)
         level = 3;
 }
 
-void MainWindow::loadSettings()
-{
+void MainWindow::loadSettings() {
     setUserLevel(settings.value("gamification/level", 1).toUInt());
     userScore = settings.value("gamification/score", 0).toUInt();
     ui->labelScore->setText(tr("Puntos: %1").arg(userScore));
@@ -254,23 +255,22 @@ void MainWindow::loadSettings()
         ui->progressBarNivel->setValue(100);
     } else {
         ui->progressBarNivel->setEnabled(true);
-        unsigned thr = thresholdFor(userLevel());
-        int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+        unsigned thr     = thresholdFor(userLevel());
+        int      percent = qMin(100, static_cast<int>((userScore * 100) / thr));
         ui->progressBarNivel->setValue(percent);
     }
 }
 
-void MainWindow::saveSettings()
-{
+void MainWindow::saveSettings() {
     settings.setValue("gamification/level", userLevel());
     settings.setValue("gamification/score", userScore);
 }
 
-void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
-{
+void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
     int delta = (cntRight - cntWrong);
-    int raw = static_cast<int>(userScore) + delta;
-    userScore = static_cast<unsigned>(qBound(0, raw, static_cast<int>(MAX_SCORE)));
+    int raw   = static_cast<int>(userScore) + delta;
+    userScore =
+        static_cast<unsigned>(qBound(0, raw, static_cast<int>(MAX_SCORE)));
 
     while (userLevel() < MAX_LEVEL) {
         unsigned thr = thresholdFor(userLevel());
@@ -286,8 +286,8 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
         ui->progressBarNivel->setValue(100);
         ui->progressBarNivel->setEnabled(false);
     } else {
-        unsigned thr = thresholdFor(userLevel());
-        int percent = qMin(100, static_cast<int>((userScore * 100) / thr));
+        unsigned thr     = thresholdFor(userLevel());
+        int      percent = qMin(100, static_cast<int>((userScore * 100) / thr));
         ui->progressBarNivel->setEnabled(true);
         ui->progressBarNivel->setValue(percent);
     }
@@ -295,32 +295,31 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong)
     saveSettings();
 }
 
-void MainWindow::on_pushButton_clicked()
-{
+void MainWindow::on_pushButton_clicked() {
     Grammar grammar = factory.GenLL1Grammar(level);
     this->hide();
-    LLTutorWindow *tutor = new LLTutorWindow(grammar, nullptr, this);
+    LLTutorWindow* tutor = new LLTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
     connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
-    connect(tutor, &LLTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
+    connect(tutor, &LLTutorWindow::sessionFinished, this,
+            &MainWindow::handleTutorFinished);
     tutor->show();
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
+void MainWindow::on_pushButton_2_clicked() {
     Grammar grammar = factory.GenSLR1Grammar(level);
     grammar.TransformToAugmentedGrammar();
     this->hide();
-    SLRTutorWindow *tutor = new SLRTutorWindow(grammar, nullptr, this);
+    SLRTutorWindow* tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
-  
+
     connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
-    connect(tutor, &SLRTutorWindow::sessionFinished, this, &MainWindow::handleTutorFinished);
+    connect(tutor, &SLRTutorWindow::sessionFinished, this,
+            &MainWindow::handleTutorFinished);
     tutor->show();
 }
 
-void MainWindow::on_tutorial_clicked()
-{
+void MainWindow::on_tutorial_clicked() {
     if (tm) {
         delete tm;
         tm = nullptr;
@@ -335,18 +334,19 @@ void MainWindow::on_tutorial_clicked()
     }
 }
 
-void MainWindow::setupTutorial()
-{
+void MainWindow::setupTutorial() {
     tm = new TutorialManager(this);
 
     // Paso 1: explicación de botones LL(1) y SLR(1)
-    tm->addStep(ui->pushButton,
-                tr("<h3>LL(1)</h3><p>Con este botón puedes lanzar el tutor LL(1).</p>"));
-    tm->addStep(ui->pushButton_2, tr("<h3>SLR(1)</h3><p>Con este, el SLR(1).</p>"));
+    tm->addStep(ui->pushButton, tr("<h3>LL(1)</h3><p>Con este botón puedes "
+                                   "lanzar el tutor LL(1).</p>"));
+    tm->addStep(ui->pushButton_2,
+                tr("<h3>SLR(1)</h3><p>Con este, el SLR(1).</p>"));
 
     // Paso 2: explicación de niveles
     tm->addStep(ui->lv1Button,
-                tr("<p>También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad "
+                tr("<p>También puedes seleccionar el nivel de dificultad (1, 2 "
+                   "o 3). La dificultad "
                    "repercute en la longitud de la gramática.</p>"));
 
     // Paso 3: LL(1)
@@ -356,9 +356,9 @@ void MainWindow::setupTutorial()
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
         if (idx == 4) {
             // 1) Abre LL
-            Grammar grammarLL = factory.GenLL1Grammar(1);
-            auto *llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
-            Qt::WindowFlags f = llTutor->windowFlags();
+            Grammar         grammarLL = factory.GenLL1Grammar(1);
+            auto*           llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
+            Qt::WindowFlags f       = llTutor->windowFlags();
             f &= ~Qt::WindowCloseButtonHint;
             llTutor->setWindowFlags(f);
             llTutor->setAttribute(Qt::WA_DeleteOnClose);
@@ -368,68 +368,78 @@ void MainWindow::setupTutorial()
             connect(tm, &TutorialManager::ll1Finished, this, [this, llTutor]() {
                 llTutor->close();
                 disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
-                disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+                disconnect(tm, &TutorialManager::tutorialFinished, this,
+                           nullptr);
 
                 tm->setRootWindow(this);
 
                 tm->clearSteps();
-                tm->addStep(ui->pushButton_2, tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
+                tm->addStep(
+                    ui->pushButton_2,
+                    tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
                 tm->addStep(ui->lv3Button,
-                            tr("<p>Esta vez se usará una gramática más compleja (Nivel 3).</p>"));
-                tm->addStep(ui->pushButton_2, tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
+                            tr("<p>Esta vez se usará una gramática más "
+                               "compleja (Nivel 3).</p>"));
+                tm->addStep(ui->pushButton_2,
+                            tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
                 tm->addStep(nullptr, "");
                 // a) Arranca el tutorial de SLR
                 tm->start();
 
                 // b) Abrir SLR
-                connect(tm, &TutorialManager::stepStarted, this, [this](int idx2) {
-                    if (idx2 == 3) {
-                        Grammar grammarSLR = factory.GenSLR1Grammar(3);
-                        grammarSLR.TransformToAugmentedGrammar();
-                        auto *slrTutor = new SLRTutorWindow(grammarSLR, tm, nullptr);
-                        Qt::WindowFlags f = slrTutor->windowFlags();
-                        f &= ~Qt::WindowCloseButtonHint;
-                        slrTutor->setWindowFlags(f);
-                        slrTutor->setAttribute(Qt::WA_DeleteOnClose);
-                        slrTutor->show();
-                        QTimer::singleShot(50, [this, slrTutor]() {
-                            tm->setRootWindow(slrTutor);
-                            tm->nextStep();
+                connect(tm, &TutorialManager::stepStarted, this,
+                        [this](int idx2) {
+                            if (idx2 == 3) {
+                                Grammar grammarSLR = factory.GenSLR1Grammar(3);
+                                grammarSLR.TransformToAugmentedGrammar();
+                                auto* slrTutor =
+                                    new SLRTutorWindow(grammarSLR, tm, nullptr);
+                                Qt::WindowFlags f = slrTutor->windowFlags();
+                                f &= ~Qt::WindowCloseButtonHint;
+                                slrTutor->setWindowFlags(f);
+                                slrTutor->setAttribute(Qt::WA_DeleteOnClose);
+                                slrTutor->show();
+                                QTimer::singleShot(50, [this, slrTutor]() {
+                                    tm->setRootWindow(slrTutor);
+                                    tm->nextStep();
+                                });
+                            }
                         });
-                    }
-                });
 
                 // c) Acaba SLR
                 connect(tm, &TutorialManager::slr1Finished, this, [this]() {
-                    disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
-                    disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+                    disconnect(tm, &TutorialManager::stepStarted, this,
+                               nullptr);
+                    disconnect(tm, &TutorialManager::tutorialFinished, this,
+                               nullptr);
 
                     tm->setRootWindow(this);
                     tm->clearSteps();
-                    tm->addStep(
-                        ui->badgeNivel,
-                        tr("<h2>Nivel</h2>"
-                           "<p>¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios "
-                           "o avances en el estudio, "
-                           "ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un "
-                           "total de 10. "
-                           "¡Intenta llegar al máximo!</p>"));
+                    tm->addStep(ui->badgeNivel,
+                                tr("<h2>Nivel</h2>"
+                                   "<p>¡Practicar tiene recompensa! Cada vez "
+                                   "que resuelvas ejercicios "
+                                   "o avances en el estudio, "
+                                   "ganarás puntos. Estos puntos te ayudarán a "
+                                   "subir de nivel: hay un "
+                                   "total de 10. "
+                                   "¡Intenta llegar al máximo!</p>"));
 
-                    tm->addStep(
-                        this,
-                        tr("<h2>¡Tutorial completado!</h2><p>Ya puedes comenzar a practicar.</p>"));
+                    tm->addStep(this, tr("<h2>¡Tutorial completado!</h2><p>Ya "
+                                         "puedes comenzar a practicar.</p>"));
 
-                    connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
-                        tm->clearSteps();
-                        delete tm;
-                        ui->pushButton->setDisabled(false);
-                        ui->pushButton_2->setDisabled(false);
-                        ui->tutorial->setDisabled(false);
-                        ui->lv1Button->setDisabled(false);
-                        ui->lv2Button->setDisabled(false);
-                        ui->lv3Button->setDisabled(false);
-                        setupTutorial();
-                    });
+                    connect(tm, &TutorialManager::tutorialFinished, this,
+                            [this]() {
+                                tm->clearSteps();
+                                delete tm;
+                                ui->pushButton->setDisabled(false);
+                                ui->pushButton_2->setDisabled(false);
+                                ui->tutorial->setDisabled(false);
+                                ui->lv1Button->setDisabled(false);
+                                ui->lv2Button->setDisabled(false);
+                                ui->lv3Button->setDisabled(false);
+                                setupTutorial();
+                            });
                     tm->start();
                 });
             });
@@ -445,24 +455,28 @@ void MainWindow::setupTutorial()
 #include <QMessageBox>
 #include <QPixmap>
 
-void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
-{
+void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
     QMessageBox about(this);
     about.setWindowTitle(tr("Sobre la aplicación"));
     QPixmap pix(":/resources/syntaxtutor.png");
-    about.setIconPixmap(pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    about.setIconPixmap(
+        pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     about.setTextFormat(Qt::RichText);
     about.setText(
-        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0</b> ") + qApp->applicationVersion()
-        + tr("</p>") + tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>")
-        + tr("<p><b>Autor:</b> José R.</p>") + tr("<p><b>Licencia:</b> GPLv3</p>")
-        + tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y C++20.</p>")
-        + tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - jose-rZM</a></p>")
-        + tr("<p>2025 Universidad de Málaga</p>"));
+        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0</b> ") +
+        qApp->applicationVersion() + tr("</p>") +
+        tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>") +
+        tr("<p><b>Autor:</b> José R.</p>") +
+        tr("<p><b>Licencia:</b> GPLv3</p>") +
+        tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "
+           "C++20.</p>") +
+        tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - "
+           "jose-rZM</a></p>") +
+        tr("<p>2025 Universidad de Málaga</p>"));
 
     about.setStandardButtons(QMessageBox::Close);
-    auto *closeBtn = about.button(QMessageBox::Close);
+    auto* closeBtn = about.button(QMessageBox::Close);
     if (closeBtn) {
         closeBtn->setCursor(Qt::PointingHandCursor);
         closeBtn->setIcon(QIcon());
@@ -494,8 +508,7 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered()
     about.exec();
 }
 
-void MainWindow::on_actionReferencia_LL_1_triggered()
-{
+void MainWindow::on_actionReferencia_LL_1_triggered() {
     QMessageBox help(this);
     help.setWindowTitle(tr("Referencia rápida LL(1)"));
     help.setTextFormat(Qt::RichText);
@@ -522,7 +535,7 @@ void MainWindow::on_actionReferencia_LL_1_triggered()
       </ul>
     )"));
     help.setStandardButtons(QMessageBox::Close);
-    auto *closeBtn = help.button(QMessageBox::Close);
+    auto* closeBtn = help.button(QMessageBox::Close);
     if (closeBtn) {
         closeBtn->setCursor(Qt::PointingHandCursor);
         closeBtn->setIcon(QIcon());
@@ -553,8 +566,7 @@ void MainWindow::on_actionReferencia_LL_1_triggered()
     help.exec();
 }
 
-void MainWindow::on_actionReferencia_SLR_1_triggered()
-{
+void MainWindow::on_actionReferencia_SLR_1_triggered() {
     QMessageBox help(this);
     help.setWindowTitle(tr("Referencia rápida SLR(1)"));
     help.setTextFormat(Qt::RichText);
@@ -585,7 +597,7 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
       </ul>
     )"));
     help.setStandardButtons(QMessageBox::Close);
-    auto *closeBtn = help.button(QMessageBox::Close);
+    auto* closeBtn = help.button(QMessageBox::Close);
     if (closeBtn) {
         closeBtn->setCursor(Qt::PointingHandCursor);
         closeBtn->setIcon(QIcon());
@@ -618,16 +630,18 @@ void MainWindow::on_actionReferencia_SLR_1_triggered()
 }
 
 #include <QProcess>
-void MainWindow::on_idiom_clicked()
-{
+void MainWindow::on_idiom_clicked() {
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("Idioma"));
     msgBox.setText(tr("Selecciona el idioma de la aplicación:"));
-    QPushButton *btnEs = msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
+    QPushButton* btnEs =
+        msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
     btnEs->setObjectName("btnEs");
-    QPushButton *btnEn = msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
+    QPushButton* btnEn =
+        msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
     btnEn->setObjectName("btnEn");
-    QPushButton *btnCanc = msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
+    QPushButton* btnCanc =
+        msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
     btnCanc->setObjectName("btnCanc");
     msgBox.setStyleSheet(R"(
         QMessageBox {
@@ -687,14 +701,15 @@ void MainWindow::on_idiom_clicked()
     }
 
     QSettings settings("UMA", "SyntaxTutor");
-    QString currentLang = settings.value("lang/language", "es").toString();
+    QString   currentLang = settings.value("lang/language", "es").toString();
 
     if (selectedLang != currentLang) {
         settings.setValue("lang/language", selectedLang);
 
         QMessageBox info(this);
         info.setWindowTitle(tr("Reiniciar requerido"));
-        info.setText(tr("Para aplicar el cambio de idioma, es necesario reiniciar la aplicación."));
+        info.setText(tr("Para aplicar el cambio de idioma, es necesario "
+                        "reiniciar la aplicación."));
         info.setStandardButtons(QMessageBox::Ok);
         info.setStyleSheet(R"(
             QMessageBox {

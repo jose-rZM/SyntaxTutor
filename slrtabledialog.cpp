@@ -1,15 +1,14 @@
 #include "slrtabledialog.h"
 #include <QFontDatabase>
-SLRTableDialog::SLRTableDialog(int rowCount,
-                               int colCount,
-                               const QStringList &colHeaders,
-                               QWidget *parent,
-                               QVector<QVector<QString>> *initialData)
-    : QDialog(parent)
-{
+SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
+                               const QStringList& colHeaders, QWidget* parent,
+                               QVector<QVector<QString>>* initialData)
+    : QDialog(parent) {
     table = new QTableWidget(rowCount, colCount, this);
-    table->horizontalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
-    table->verticalHeader()->setFont(QFontDatabase::font("Noto Sans", "Regular", 11));
+    table->horizontalHeader()->setFont(
+        QFontDatabase::font("Noto Sans", "Regular", 11));
+    table->verticalHeader()->setFont(
+        QFontDatabase::font("Noto Sans", "Regular", 11));
     table->setHorizontalHeaderLabels(colHeaders);
 
     QStringList rowLabels;
@@ -27,7 +26,7 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     submitButton->setCursor(Qt::PointingHandCursor);
     connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(table);
     layout->addWidget(submitButton);
     layout->setContentsMargins(10, 10, 10, 10);
@@ -48,8 +47,8 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     height += 100; // extra
 
     QSize screenSize = QGuiApplication::primaryScreen()->availableSize();
-    width = qMin(width, screenSize.width() - 100);
-    height = qMin(height, screenSize.height() - 100);
+    width            = qMin(width, screenSize.width() - 100);
+    height           = qMin(height, screenSize.height() - 100);
 
     if (initialData != nullptr) {
         setInitialData(*initialData);
@@ -58,13 +57,12 @@ SLRTableDialog::SLRTableDialog(int rowCount,
     resize(width, height);
 }
 
-QVector<QVector<QString>> SLRTableDialog::getTableData() const
-{
+QVector<QVector<QString>> SLRTableDialog::getTableData() const {
     QVector<QVector<QString>> data;
     for (int i = 0; i < table->rowCount(); ++i) {
         QVector<QString> row;
         for (int j = 0; j < table->columnCount(); ++j) {
-            QTableWidgetItem *item = table->item(i, j);
+            QTableWidgetItem* item = table->item(i, j);
             row.append(item ? item->text() : "");
         }
         data.append(row);
@@ -72,14 +70,14 @@ QVector<QVector<QString>> SLRTableDialog::getTableData() const
     return data;
 }
 
-void SLRTableDialog::setInitialData(const QVector<QVector<QString>> &data)
-{
+void SLRTableDialog::setInitialData(const QVector<QVector<QString>>& data) {
     const int rows = qMin(data.size(), table->rowCount());
-    const int cols = (rows > 0) ? qMin(data[0].size(), table->columnCount()) : 0;
+    const int cols =
+        (rows > 0) ? qMin(data[0].size(), table->columnCount()) : 0;
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            QTableWidgetItem *item = table->item(i, j);
+            QTableWidgetItem* item = table->item(i, j);
 
             if (!item) {
                 item = new QTableWidgetItem();

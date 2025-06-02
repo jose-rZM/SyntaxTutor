@@ -2,24 +2,21 @@
 #include <QFontDatabase>
 #include <QStyledItemDelegate>
 
-class CenterAlignDelegate : public QStyledItemDelegate
-{
-public:
+class CenterAlignDelegate : public QStyledItemDelegate {
+  public:
     using QStyledItemDelegate::QStyledItemDelegate;
-    void initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &idx) const override
-    {
+    void initStyleOption(QStyleOptionViewItem* opt,
+                         const QModelIndex&    idx) const override {
         QStyledItemDelegate::initStyleOption(opt, idx);
         opt->displayAlignment = Qt::AlignCenter;
-        opt->font = QFontDatabase::font("Noto Sans", "Regular", 14);
+        opt->font             = QFontDatabase::font("Noto Sans", "Regular", 14);
     }
 };
 
-LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
-                             const QStringList &colHeaders,
-                             QWidget *parent,
-                             QVector<QVector<QString>> *initialData)
-    : QDialog(parent)
-{
+LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
+                             const QStringList& colHeaders, QWidget* parent,
+                             QVector<QVector<QString>>* initialData)
+    : QDialog(parent) {
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
     table->setItemDelegate(new CenterAlignDelegate(table));
     table->setAlternatingRowColors(true);
@@ -69,8 +66,10 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
 )");
     table->setHorizontalHeaderLabels(colHeaders);
     table->setVerticalHeaderLabels(rowHeaders);
-    table->horizontalHeader()->setFont(QFontDatabase::font("Noto Sans", "Bold", 13));
-    table->verticalHeader()->setFont(QFontDatabase::font("Noto Sans", "Bold", 13));
+    table->horizontalHeader()->setFont(
+        QFontDatabase::font("Noto Sans", "Bold", 13));
+    table->verticalHeader()->setFont(
+        QFontDatabase::font("Noto Sans", "Bold", 13));
     table->resizeColumnsToContents();
     table->resizeRowsToContents();
 
@@ -86,7 +85,7 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
 
     table->horizontalHeader()->setStretchLastSection(true);
 
-    submitButton = new QPushButton("Finalizar", this);
+    submitButton           = new QPushButton("Finalizar", this);
     QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
@@ -110,7 +109,7 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
   }
 )");
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(table);
     layout->addWidget(submitButton);
     layout->setContentsMargins(10, 10, 10, 10);
@@ -132,24 +131,24 @@ LLTableDialog::LLTableDialog(const QStringList &rowHeaders,
     height += 100;
 
     QSize screenSize = QGuiApplication::primaryScreen()->availableSize();
-    width = qMin(width, screenSize.width() - 100);
-    height = qMin(height, screenSize.height() - 100);
+    width            = qMin(width, screenSize.width() - 100);
+    height           = qMin(height, screenSize.height() - 100);
 
     if (initialData != nullptr) {
         setInitialData(*initialData);
     }
 
     resize(width, height);
-    connect(submitButton, &QPushButton::clicked, this, [this]() { emit submitted(getTableData()); });
+    connect(submitButton, &QPushButton::clicked, this,
+            [this]() { emit submitted(getTableData()); });
 }
 
-QVector<QVector<QString>> LLTableDialog::getTableData() const
-{
+QVector<QVector<QString>> LLTableDialog::getTableData() const {
     QVector<QVector<QString>> data;
     for (int i = 0; i < table->rowCount(); ++i) {
         QVector<QString> row;
         for (int j = 0; j < table->columnCount(); ++j) {
-            QTableWidgetItem *item = table->item(i, j);
+            QTableWidgetItem* item = table->item(i, j);
             row.append(item ? item->text() : "");
         }
         data.append(row);
@@ -157,14 +156,14 @@ QVector<QVector<QString>> LLTableDialog::getTableData() const
     return data;
 }
 
-void LLTableDialog::setInitialData(const QVector<QVector<QString>> &data)
-{
+void LLTableDialog::setInitialData(const QVector<QVector<QString>>& data) {
     const int rows = qMin(data.size(), table->rowCount());
-    const int cols = (rows > 0) ? qMin(data[0].size(), table->columnCount()) : 0;
+    const int cols =
+        (rows > 0) ? qMin(data[0].size(), table->columnCount()) : 0;
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            QTableWidgetItem *item = table->item(i, j);
+            QTableWidgetItem* item = table->item(i, j);
 
             if (!item) {
                 item = new QTableWidgetItem();
@@ -177,11 +176,11 @@ void LLTableDialog::setInitialData(const QVector<QVector<QString>> &data)
     }
 }
 
-void LLTableDialog::highlightIncorrectCells(const QList<QPair<int, int>> &coords)
-{
+void LLTableDialog::highlightIncorrectCells(
+    const QList<QPair<int, int>>& coords) {
     for (int r = 0; r < table->rowCount(); ++r)
         for (int c = 0; c < table->columnCount(); ++c) {
-            QTableWidgetItem *item = table->item(r, c);
+            QTableWidgetItem* item = table->item(r, c);
             if (!item) {
                 item = new QTableWidgetItem;
                 item->setTextAlignment(Qt::AlignCenter);
@@ -192,7 +191,7 @@ void LLTableDialog::highlightIncorrectCells(const QList<QPair<int, int>> &coords
 
     const QColor err("#D9534F");
     for (auto [r, c] : coords) {
-        QTableWidgetItem *item = table->item(r, c);
+        QTableWidgetItem* item = table->item(r, c);
         if (!item)
             item = new QTableWidgetItem;
         item->setBackground(err);

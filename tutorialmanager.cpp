@@ -1,25 +1,20 @@
 #include "tutorialmanager.h"
 #include <QVBoxLayout>
 
-TutorialManager::TutorialManager(QWidget *rootWindow)
-    : QObject(rootWindow)
-    , m_root(rootWindow)
-{
+TutorialManager::TutorialManager(QWidget* rootWindow)
+    : QObject(rootWindow), m_root(rootWindow) {
     m_root->installEventFilter(this);
 }
 
-void TutorialManager::finishLL1()
-{
+void TutorialManager::finishLL1() {
     emit ll1Finished();
 }
 
-void TutorialManager::finishSLR1()
-{
+void TutorialManager::finishSLR1() {
     emit slr1Finished();
 }
 
-bool TutorialManager::eventFilter(QObject *obj, QEvent *ev)
-{
+bool TutorialManager::eventFilter(QObject* obj, QEvent* ev) {
     if (obj == m_root && ev->type() == QEvent::Resize) {
         repositionOverlay();
         return false;
@@ -27,16 +22,14 @@ bool TutorialManager::eventFilter(QObject *obj, QEvent *ev)
     return QObject::eventFilter(obj, ev);
 }
 
-void TutorialManager::clearSteps()
-{
+void TutorialManager::clearSteps() {
     if (m_overlay)
         hideOverlay();
     m_steps.clear();
     m_index = -1;
 }
 
-void TutorialManager::setRootWindow(QWidget *newRoot)
-{
+void TutorialManager::setRootWindow(QWidget* newRoot) {
     if (m_overlay) {
         hideOverlay();
     }
@@ -45,17 +38,16 @@ void TutorialManager::setRootWindow(QWidget *newRoot)
     m_root->installEventFilter(this);
 }
 
-void TutorialManager::repositionOverlay()
-{
+void TutorialManager::repositionOverlay() {
     if (!m_overlay)
         return;
 
     m_overlay->setGeometry(m_root->rect());
 
-    const auto &step = m_steps[m_index];
+    const auto& step = m_steps[m_index];
     if (step.target) {
         QPoint topLeft = step.target->mapTo(m_root, QPoint(0, 0));
-        QRect r(topLeft, step.target->size());
+        QRect  r(topLeft, step.target->size());
         m_highlight->setGeometry(r.adjusted(-6, -6, 6, 6));
     }
 
@@ -70,19 +62,16 @@ void TutorialManager::repositionOverlay()
     m_nextBtn->move(bx, by);
 }
 
-void TutorialManager::addStep(QWidget *target, const QString &htmlText)
-{
+void TutorialManager::addStep(QWidget* target, const QString& htmlText) {
     m_steps.append({target, htmlText});
 }
 
-void TutorialManager::start()
-{
+void TutorialManager::start() {
     m_index = -1;
     nextStep();
 }
 
-void TutorialManager::nextStep()
-{
+void TutorialManager::nextStep() {
     hideOverlay();
 
     ++m_index;
@@ -98,8 +87,7 @@ void TutorialManager::nextStep()
 }
 
 #include <QScrollBar>
-void TutorialManager::showOverlay()
-{
+void TutorialManager::showOverlay() {
     if (m_overlay) {
         hideOverlay();
     }
@@ -109,7 +97,8 @@ void TutorialManager::showOverlay()
     m_overlay->show();
 
     m_highlight = new QFrame(m_overlay);
-    m_highlight->setStyleSheet("border:2px solid #00ADB5; background:transparent;");
+    m_highlight->setStyleSheet(
+        "border:2px solid #00ADB5; background:transparent;");
     m_highlight->show();
 
     m_textBox = new QTextBrowser(m_overlay);
@@ -173,11 +162,10 @@ void TutorialManager::showOverlay()
     repositionOverlay();
 }
 
-void TutorialManager::hideOverlay()
-{
+void TutorialManager::hideOverlay() {
     delete m_overlay;
-    m_overlay = nullptr;
+    m_overlay   = nullptr;
     m_highlight = nullptr;
-    m_textBox = nullptr;
-    m_nextBtn = nullptr;
+    m_textBox   = nullptr;
+    m_nextBtn   = nullptr;
 }
