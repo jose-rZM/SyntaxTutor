@@ -3,6 +3,7 @@
 #include "ll1_parser.hpp"
 #include "slr1_parser.hpp"
 #include <algorithm>
+#include <ranges>
 #include <gtest/gtest.h>
 namespace testing {
 namespace internal {
@@ -15,6 +16,120 @@ template <> void PrintTo(const Lr0Item& item, std::ostream* os) {
 void SortProductions(Grammar& grammar) {
     for (auto& [nt, productions] : grammar.g_) {
         std::sort(productions.begin(), productions.end());
+    }
+}
+
+TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
+    GrammarFactory factory;
+
+    factory.Init();
+    Grammar g = factory.PickOne(1);
+
+    ASSERT_FALSE(g.g_.empty());
+    ASSERT_GE(g.g_.size(), 2);
+    g.g_.erase("S");
+    bool ret = std::ranges::any_of(factory.items, [&g](const GrammarFactory::FactoryItem &item) {
+        return item.g_ == g.g_;
+    });
+    ASSERT_TRUE(ret);
+}
+
+TEST(GrammarFactoryTest, Lv2GrammarHaveSizeGt3)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    Grammar g = factory.PickOne(2);
+
+    ASSERT_FALSE(g.g_.empty());
+    ASSERT_GE(g.g_.size(), 3);
+    ASSERT_TRUE(g.g_.contains("A"));
+    ASSERT_TRUE(g.g_.contains("B"));
+}
+
+TEST(GrammarFactoryTest, Lv3GrammarHaveSizeGt4)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    Grammar g = factory.PickOne(3);
+
+    ASSERT_FALSE(g.g_.empty());
+    ASSERT_GE(g.g_.size(), 4);
+    ASSERT_TRUE(g.g_.contains("A"));
+    ASSERT_TRUE(g.g_.contains("B"));
+    ASSERT_TRUE(g.g_.contains("C"));
+}
+
+TEST(GrammarFactoryTest, GeneratedLv1LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 100; ++i) {
+        Grammar g = factory.GenLL1Grammar(1);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv2LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 100; ++i) {
+        Grammar g = factory.GenLL1Grammar(2);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv3LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 100; ++i) {
+        Grammar g = factory.GenLL1Grammar(3);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv1SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 100; ++i) {
+        Grammar g = factory.GenSLR1Grammar(1);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv2SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 100; ++i) {
+        Grammar g = factory.GenSLR1Grammar(2);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv3SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 100; ++i) {
+        Grammar g = factory.GenSLR1Grammar(3);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
