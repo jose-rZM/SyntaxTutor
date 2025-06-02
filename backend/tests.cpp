@@ -3,6 +3,7 @@
 #include "ll1_parser.hpp"
 #include "slr1_parser.hpp"
 #include <algorithm>
+#include <ranges>
 #include <gtest/gtest.h>
 namespace testing {
 namespace internal {
@@ -16,6 +17,20 @@ void SortProductions(Grammar& grammar) {
     for (auto& [nt, productions] : grammar.g_) {
         std::sort(productions.begin(), productions.end());
     }
+}
+
+TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
+    GrammarFactory factory;
+
+    factory.Init();
+    Grammar g = factory.PickOne(1);
+
+    ASSERT_FALSE(g.g_.empty());
+    ASSERT_GE(g.g_.size(), 2);
+    bool ret = std::ranges::any_of(factory.items, [&g](const GrammarFactory::FactoryItem &item) {
+        return item.g_ == g.g_;
+    });
+    ASSERT_TRUE(ret);
 }
 
 TEST(GrammarTest, IsInfinite_WhenGrammarIsInfinite) {
