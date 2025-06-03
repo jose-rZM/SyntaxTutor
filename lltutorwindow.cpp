@@ -315,7 +315,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     QString messageText = text;
     // LOG
     if (messageText.isEmpty()) {
-        messageText = QString("No se proporcionó respuesta.");
+        messageText = tr("No se proporcionó respuesta.");
     }
     conversationLog.emplaceBack(messageText, isUser);
     if (isUser) {
@@ -1555,7 +1555,8 @@ QString LLTutorWindow::feedbackForAPrime() {
               "(columnas, "
               "incluyendo $ y excluyendo EPSILON),\n"
               "el tamaño de la tabla LL(1) será: %1.")
-        .arg(sol.join('x'));
+        .arg(sol[0])
+        .arg(sol[1]);
 }
 
 QString LLTutorWindow::feedbackForB() {
