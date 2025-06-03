@@ -76,10 +76,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
         stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
     std::ranges::sort(sortedNonTerminals,
                       [](const QString& a, const QString& b) {
-                          if (a == "S'")
-                              return true;
-                          if (b == "S'")
-                              return false;
                           if (a == "S")
                               return true;
                           if (b == "S")
