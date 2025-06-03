@@ -643,8 +643,10 @@ void LLTutorWindow::showTable() {
     dialog->setStyleSheet(darkQss);
     currentDlg = dialog;
 
-    connect(dialog, &LLTableDialog::submitted, this,
-            [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+    connect(dialog,
+            &LLTableDialog::submitted,
+            this,
+            [this, colHeaders](const QVector<QVector<QString>>& data) {
                 handleTableSubmission(data, colHeaders);
             });
 
@@ -1009,7 +1011,7 @@ void LLTutorWindow::on_confirmButton_clicked() {
 
     if (currentState == State::fin) {
         QMessageBox end(this);
-        end.setWindowTitle("Fin del ejercicio");
+        end.setWindowTitle(tr("Fin del ejercicio"));
         end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         end.setDefaultButton(QMessageBox::No);
 
@@ -1064,9 +1066,10 @@ void LLTutorWindow::on_confirmButton_clicked() {
 
         int ret = end.exec();
         if (ret == QMessageBox::Yes) {
-            QString filePath = QFileDialog::getSaveFileName(
-                this, "Guardar conversación", "conversacion.pdf",
-                "Archivo PDF (*.pdf)");
+            QString filePath = QFileDialog::getSaveFileName(this,
+                                                            tr("Guardar conversación"),
+                                                            "conver.pdf",
+                                                            tr("Archivo PDF (*.pdf)"));
 
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
