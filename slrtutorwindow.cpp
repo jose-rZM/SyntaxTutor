@@ -1333,6 +1333,7 @@ QString SLRTutorWindow::generateQuestion() {
         });
         wizard->show();
     }
+        return "";
 
     default:
         return "";
