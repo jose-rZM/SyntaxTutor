@@ -143,6 +143,111 @@ TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
     ASSERT_TRUE(gr.st_.non_terminals_.contains("C"));
 }
 
+TEST(GrammarSplitTest, SplitEpsilonReturnsSingleton) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"a"}}}
+    });
+    Grammar gr(g);
+    const std::string eps = gr.st_.EPSILON_;
+
+    auto result = gr.Split(eps);
+    ASSERT_EQ(result.size(), 1u);
+    ASSERT_EQ(result[0], eps);
+}
+
+TEST(GrammarSplitTest, SplitSingleCharSymbols) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"a", "B"}}},   
+        {"B", {{"b"}}}         
+    });
+    Grammar gr(g);
+
+    auto result = gr.Split("ab");
+    ASSERT_EQ(result.size(), 2u);
+    EXPECT_EQ(result[0], "a");
+    EXPECT_EQ(result[1], "b");
+}
+
+TEST(GrammarSplitTest, SplitLongestMatchPrefersLongerSymbol) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"ab"}}}   
+    });
+    Grammar gr(g);
+
+    auto result = gr.Split("ab");
+    ASSERT_EQ(result.size(), 1u);
+    EXPECT_EQ(result[0], "ab");
+}
+
+TEST(GrammarSplitTest, SplitInvalidSubstringReturnsEmpty) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"a"}}},
+        {"B", {{"b"}}}
+    });
+    Grammar gr(g);
+
+    auto result = gr.Split("ac");
+    EXPECT_TRUE(result.empty());
+}
+
+
+TEST(GrammarMiscTest, SetAxiomChangesAxiom) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"a"}}}
+    });
+    Grammar gr(g);
+
+    ASSERT_EQ(gr.axiom_, "S");
+    gr.SetAxiom("X");
+    EXPECT_EQ(gr.axiom_, "X");
+}
+
+
+TEST(GrammarMiscTest, HasEmptyProductionDetectsEpsilon) {
+    std::unordered_map<std::string, std::vector<production>> g_initial({
+        {"A", {{"a"}}},
+        {"B", {{"b"}}}
+    });
+    Grammar temp(g_initial);
+    const std::string eps = temp.st_.EPSILON_;
+
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{eps}, {"x"}}},
+        {"B", {{"b"}}}
+    });
+    Grammar gr(g);
+
+    EXPECT_TRUE(gr.HasEmptyProduction("A"));
+    EXPECT_FALSE(gr.HasEmptyProduction("B"));
+}
+
+TEST(GrammarMiscTest, FilterRulesByConsequentFindsAllOccurrences) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"a", "B"}}},
+        {"B", {{"b"}}},
+        {"C", {{"B", "c"}}}
+    });
+    Grammar gr(g);
+
+    auto rules = gr.FilterRulesByConsequent("B");
+
+    ASSERT_EQ(rules.size(), 2u);
+
+    bool foundA = false, foundC = false;
+    for (auto& p : rules) {
+        const std::string& lhs = p.first;
+        const production& prod = p.second;
+        if (lhs == "A" && prod.size() == 2 && prod[0] == "a" && prod[1] == "B") {
+            foundA = true;
+        }
+        if (lhs == "C" && prod.size() == 2 && prod[0] == "B" && prod[1] == "c") {
+            foundC = true;
+        }
+    }
+    EXPECT_TRUE(foundA);
+    EXPECT_TRUE(foundC);
+}
+
 TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
     GrammarFactory factory;
 
