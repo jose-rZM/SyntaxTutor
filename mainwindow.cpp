@@ -308,7 +308,6 @@ void MainWindow::on_pushButton_clicked() {
 
 void MainWindow::on_pushButton_2_clicked() {
     Grammar grammar = factory.GenSLR1Grammar(level);
-    grammar.TransformToAugmentedGrammar();
     this->hide();
     SLRTutorWindow* tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);

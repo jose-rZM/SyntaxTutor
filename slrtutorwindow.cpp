@@ -76,10 +76,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
         stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
     std::ranges::sort(sortedNonTerminals,
                       [](const QString& a, const QString& b) {
-                          if (a == "S'")
-                              return true;
-                          if (b == "S'")
-                              return false;
                           if (a == "S")
                               return true;
                           if (b == "S")
@@ -1043,7 +1039,7 @@ QString SLRTutorWindow::generateQuestion() {
         return tr("¿Cuál es el axioma de la gramática?");
 
     case StateSlr::A2:
-        return tr("Dado el ítem:  S' -> · S\n"
+        return tr("Dado el ítem:  S -> · A $\n"
                   "¿Qué símbolo aparece justo después del punto (·)?");
 
     case StateSlr::A3:
@@ -1337,6 +1333,7 @@ QString SLRTutorWindow::generateQuestion() {
         });
         wizard->show();
     }
+        return "";
 
     default:
         return "";

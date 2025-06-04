@@ -32,7 +32,7 @@ Lr0Item::Lr0Item(std::string antecedent, std::vector<std::string> consequent,
 }
 
 std::string Lr0Item::NextToDot() const {
-    if (dot_ >= consequent_.size()) {
+    if (dot_ == consequent_.size() || (dot_ < consequent_.size() && consequent_[dot_] == eol_)) {
         return epsilon_;
     }
     return consequent_[dot_];
@@ -45,7 +45,8 @@ void Lr0Item::AdvanceDot() {
 }
 
 bool Lr0Item::IsComplete() const {
-    return dot_ >= consequent_.size() || (consequent_.size() == 1 && consequent_[0] == epsilon_);
+    return dot_ >= consequent_.size() || (consequent_.size() == 1 && consequent_[0] == epsilon_)
+           || (dot_ < consequent_.size() && consequent_[dot_] == eol_);
 }
 
 void Lr0Item::PrintItem() const {
