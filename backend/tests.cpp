@@ -19,6 +19,130 @@ void SortProductions(Grammar& grammar) {
     }
 }
 
+TEST(GrammarTest, SimpleGrammar) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{"a"}}}
+    });
+
+    Grammar gr(g);
+
+    std::unordered_map<std::string, std::vector<production>> expected;
+    expected["S"] = { {"A", "$"} };
+    expected["A"] = { {"a"} };
+
+    ASSERT_EQ(gr.axiom_, "S");
+    ASSERT_TRUE(gr.g_.contains("S"));
+    ASSERT_EQ(gr.g_, expected);
+    ASSERT_TRUE(gr.st_.terminals_.contains("a"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("$"));
+}
+
+
+TEST(GrammarTest, GrammarWithEpsilon) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", {{ "EPSILON" }}}
+    });
+
+    Grammar gr(g);
+    const std::string eps = gr.st_.EPSILON_;
+
+    std::unordered_map<std::string, std::vector<production>> expected;
+    expected["S"] = { {"A", "$"} };
+    expected["A"] = { {eps} };
+
+    ASSERT_EQ(gr.axiom_, "S");
+    ASSERT_EQ(gr.g_, expected);
+    ASSERT_TRUE(gr.st_.terminals_.contains(eps));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
+}
+
+
+TEST(GrammarTest, MultipleProductionsMixedSymbols) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", { {"a", "B"}, {"b"} }},
+        {"B", { {"c"} }}
+    });
+
+    Grammar gr(g);
+
+    std::unordered_map<std::string, std::vector<production>> expected;
+    expected["S"] = { {"A", "$"} };
+    expected["A"] = { {"a", "B"}, {"b"} };
+    expected["B"] = { {"c"} };
+
+    ASSERT_EQ(gr.axiom_, "S");
+    ASSERT_TRUE(gr.g_.contains("S"));
+    ASSERT_EQ(gr.g_, expected);
+    ASSERT_TRUE(gr.st_.terminals_.contains("a"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("b"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("c"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("$"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("B"));
+}
+
+
+TEST(GrammarTest, RecursiveArithmeticGrammar) {
+    std::unordered_map<std::string, std::vector<production>> g({
+        {"A", { {"A", "p", "T"}, {"T"} }},
+        {"T", { {"T", "m", "F"}, {"F"} }},
+        {"F", { {"a", "A", "c"}, {"i"} }}
+    });
+
+    Grammar gr(g);
+
+    std::unordered_map<std::string, std::vector<production>> expected;
+    expected["S"] = { {"A", "$"} };                    
+    expected["A"] = { {"A", "p", "T"}, {"T"} };
+    expected["T"] = { {"T", "m", "F"}, {"F"} };
+    expected["F"] = { {"a", "A", "c"}, {"i"} };
+
+    ASSERT_EQ(gr.axiom_, "S");
+    ASSERT_TRUE(gr.g_.contains("S"));
+    ASSERT_EQ(gr.g_, expected);
+    ASSERT_TRUE(gr.st_.terminals_.contains("p"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("m"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("a"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("c"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("i"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("$"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("T"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("F"));
+}
+
+
+TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
+    std::unordered_map<std::string, std::vector<production>> g;
+    {
+        g["A"] = { {"a"}, {"EPSILON"} };
+        g["B"] = { {"b", "B"}, {"b"} };
+        g["C"] = { {"c"} };
+    }
+
+    Grammar gr(g);
+    const std::string eps = gr.st_.EPSILON_;
+
+    std::unordered_map<std::string, std::vector<production>> expected;
+    expected["S"]  = { {"A", "$"} };       
+    expected["A"]  = { {"a"}, {eps} };
+    expected["B"]  = { {"b", "B"}, {"b"} };
+    expected["C"]  = { {"c"} };
+
+    ASSERT_EQ(gr.axiom_, "S");
+    ASSERT_TRUE(gr.g_.contains("S"));
+    ASSERT_EQ(gr.g_, expected);
+    ASSERT_TRUE(gr.st_.terminals_.contains("a"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("b"));
+    ASSERT_TRUE(gr.st_.terminals_.contains("c"));
+    ASSERT_TRUE(gr.st_.terminals_.contains(eps));
+    ASSERT_TRUE(gr.st_.terminals_.contains("$"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("B"));
+    ASSERT_TRUE(gr.st_.non_terminals_.contains("C"));
+}
+
 TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
     GrammarFactory factory;
 
