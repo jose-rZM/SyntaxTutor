@@ -2028,10 +2028,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             return nullptr;
         }
         auto child = std::make_unique<TreeNode>();
-        child->label =
-            (current == ll1.gr_.st_.EOL_)
-                ? tr("Añadir ε a CAB")
-                : tr("Añadir %1 a CAB").arg(QString::fromStdString(current));
+        child->label = tr("Añadir %1 a CAB").arg(QString::fromStdString(current));
         node->children.push_back(std::move(child));
         return node;
     }
