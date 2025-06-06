@@ -2324,8 +2324,17 @@ QString LLTutorWindow::TeachPredictionSymbols(const QString&    ant,
     std::unordered_set<std::string> first_of_consequent;
     ll1.First(consequent, first_of_consequent);
 
-    QString first_str = QStringList::fromVector(
-                            stdUnorderedSetToQSet(first_of_consequent).values())
+    // WORKAROUND: Internally, $ is not added to FIRST
+    bool isStartSymbol = (ant.toStdString() == ll1.gr_.axiom_);
+    if (isStartSymbol) {
+        auto it_eps = first_of_consequent.find(ll1.gr_.st_.EPSILON_);
+        if (it_eps != first_of_consequent.end()) {
+            first_of_consequent.erase(it_eps);
+            first_of_consequent.insert(ll1.gr_.st_.EOL_);
+        }
+    }
+
+    QString first_str = QStringList::fromVector(stdUnorderedSetToQSet(first_of_consequent).values())
                             .join(" ");
     output +=
         tr("1. Calcula CAB(%1) = { %2 }\n").arg(consequent_str, first_str);
@@ -2356,9 +2365,8 @@ QString LLTutorWindow::TeachPredictionSymbols(const QString&    ant,
         const auto follow_ant = ll1.Follow(ant.toStdString());
         prediction_symbols.insert(follow_ant.begin(), follow_ant.end());
 
-        QString follow_str =
-            QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
-                .join(" ");
+        QString follow_str = QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
+                                 .join(" ");
         output += tr("     SIG(%1) = { %2 }\n").arg(ant, follow_str);
     }
 
