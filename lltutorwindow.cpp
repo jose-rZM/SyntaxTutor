@@ -1959,8 +1959,7 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
             return;
         }
         if (current_symbol == ll1.gr_.st_.EOL_) {
-            node->addChild(new QTreeWidgetItem(
-                {tr("Añadir ε, se ha llegado al final de la cadena")}));
+            node->addChild(new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
         } else {
             node->addChild(
                 new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
