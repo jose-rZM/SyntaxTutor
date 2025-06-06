@@ -1213,7 +1213,12 @@ void LLTutorWindow::updateState(bool isCorrect) {
                 solutionForB1().values().join(", ");
             updateProgressPanel();
         }
-        currentState = isCorrect ? State::B2 : State::B1;
+        // workaround, S does not have FOLLOW
+        if (sortedGrammar.at(currentRule).first.toStdString() == ll1.gr_.axiom_) {
+            currentState = isCorrect ? State::B_prime : State::B1;
+        } else {
+            currentState = isCorrect ? State::B2 : State::B1;
+        }
         break;
 
     case State::B2:
