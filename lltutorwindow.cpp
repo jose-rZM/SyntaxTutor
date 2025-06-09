@@ -2245,10 +2245,19 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                                                                prod.end());
                     std::unordered_set<std::string> first_of_remaining;
                     ll1.First(remaining_symbols, first_of_remaining);
-                    QString rem_qstr =
-                        QStringList::fromVector(
-                            stdVectorToQVector(remaining_symbols))
-                            .join(" ");
+
+                    // -- WORKAROUND: if next symbol is $, consider $ as terminal while teaching
+                    if (!remaining_symbols.empty() && remaining_symbols.back() == ll1.gr_.st_.EOL_) {
+                        auto it_eps = first_of_remaining.find(ll1.gr_.st_.EPSILON_);
+                        if (it_eps != first_of_remaining.end()) {
+                            first_of_remaining.erase(it_eps);
+                        }
+                        first_of_remaining.insert(ll1.gr_.st_.EOL_);
+                    }
+                    // END WORKAROUND
+
+                    QString rem_qstr
+                        = QStringList::fromVector(stdVectorToQVector(remaining_symbols)).join(" ");
                     QString first_qstr =
                         QStringList::fromVector(
                             stdUnorderedSetToQSet(first_of_remaining).values())
@@ -2287,16 +2296,20 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                 else {
                     std::unordered_set<std::string> ant_follow(
                         ll1.Follow(antecedent));
-                    QString ant_follow_str =
-                        QStringList::fromVector(
-                            stdUnorderedSetToQSet(ant_follow).values())
-                            .join(" ");
-                    output += tr("2. %1 está al final de la producción. Agrega "
-                                 "SIG(%2) = { %3 } a "
-                                 "SIG(%1)\n")
-                                  .arg(nt, QString::fromStdString(antecedent),
-                                       ant_follow_str);
-                    follow_set.insert(ant_follow.begin(), ant_follow.end());
+                    if (antecedent == nt) {
+                        output += tr("2. %1 está al final de la producción, habría que agregar "
+                                     "SIG(%2) a SIG(%1), pero cae en bucle, por tanto se ignora\n")
+                                      .arg(nt, QString::fromStdString(antecedent));
+                    } else {
+                        QString ant_follow_str = QStringList::fromVector(
+                                                     stdUnorderedSetToQSet(ant_follow).values())
+                                                     .join(" ");
+                        output += tr("2. %1 está al final de la producción. Agrega "
+                                     "SIG(%2) = { %3 } a "
+                                     "SIG(%1)\n")
+                                      .arg(nt, QString::fromStdString(antecedent), ant_follow_str);
+                        follow_set.insert(ant_follow.begin(), ant_follow.end());
+                    }
                 }
             }
         }
