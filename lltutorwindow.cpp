@@ -1624,10 +1624,28 @@ void LLTutorWindow::feedbackForB1TreeGraphics() {
 QString LLTutorWindow::feedbackForB1() {
     feedbackForB1TreeWidget();
     feedbackForB1TreeGraphics();
+
+    const auto& consequent_qv = sortedGrammar.at(currentRule).second;
+    std::vector<std::string> consequent_vec = qvectorToStdVector(consequent_qv);
     std::unordered_set<std::string> result;
-    ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
-    QString cab       = sortedGrammar.at(currentRule).second.join(' ');
-    QString resultSet = stdUnorderedSetToQSet(result).values().join(", ");
+    ll1.First(consequent_vec, result);
+
+    // —— WORKAROUND: change how $ is handled, replace epsilon with $
+    const std::string antecedent = sortedGrammar.at(currentRule).first.toStdString();
+    if (antecedent == ll1.gr_.axiom_ && !consequent_qv.isEmpty()
+        && consequent_qv.back().toStdString() == ll1.gr_.st_.EOL_) {
+        auto it_eps = result.find(ll1.gr_.st_.EPSILON_);
+        if (it_eps != result.end()) {
+            result.erase(it_eps);
+            result.insert(ll1.gr_.st_.EOL_);
+        }
+    }
+    // —— END WORKAROUND
+
+    // 2) Preparamos la cadena para mostrar al usuario
+    QString cab = consequent_qv.join(' ');
+    QString resultSet = QStringList::fromVector(stdUnorderedSetToQSet(result).values()).join(", ");
+
     return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
               "Con esto se obtienen los terminales que pueden aparecer al "
               "comenzar a derivar %1.\n"
