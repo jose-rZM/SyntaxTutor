@@ -1576,7 +1576,7 @@ QString LLTutorWindow::feedbackForAPrime() {
     return tr("Como hay %1 símbolos no terminales (filas) y %2 terminales "
               "(columnas, "
               "incluyendo $ y excluyendo EPSILON),\n"
-              "el tamaño de la tabla LL(1) será: %1.")
+              "el tamaño de la tabla LL(1) será: %1x%2.")
         .arg(sol[0])
         .arg(sol[1]);
 }
