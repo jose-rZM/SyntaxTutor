@@ -1213,7 +1213,12 @@ void LLTutorWindow::updateState(bool isCorrect) {
                 solutionForB1().values().join(", ");
             updateProgressPanel();
         }
-        currentState = isCorrect ? State::B2 : State::B1;
+        // workaround, S does not have FOLLOW
+        if (sortedGrammar.at(currentRule).first.toStdString() == ll1.gr_.axiom_) {
+            currentState = isCorrect ? State::B_prime : State::B1;
+        } else {
+            currentState = isCorrect ? State::B2 : State::B1;
+        }
         break;
 
     case State::B2:
@@ -1417,11 +1422,25 @@ QSet<QString> LLTutorWindow::solutionForB() {
 }
 
 QSet<QString> LLTutorWindow::solutionForB1() {
-    const auto&                     current = sortedGrammar[currentRule];
+    const auto& current = sortedGrammar[currentRule];
+    const QString ant = current.first;
+    const QStringList& cons = current.second;
+
+    std::vector<std::string> cons_vec = qvectorToStdVector(cons);
     std::unordered_set<std::string> result;
-    ll1.First(qvectorToStdVector(current.second), result);
-    QSet<QString> solution = stdUnorderedSetToQSet(result);
-    return solution;
+    ll1.First(cons_vec, result);
+
+    // —— WORKAROUND: axiom rule with A nullable, first contains $ in teaching mode
+    if (ant.toStdString() == ll1.gr_.axiom_ && !cons.isEmpty()
+        && cons.back().toStdString() == ll1.gr_.st_.EOL_) {
+        auto it_eps = result.find(ll1.gr_.st_.EPSILON_);
+        if (it_eps != result.end()) {
+            result.erase(it_eps);
+            result.insert(ll1.gr_.st_.EOL_);
+        }
+    }
+
+    return stdUnorderedSetToQSet(result);
 }
 
 QSet<QString> LLTutorWindow::solutionForB2() {
@@ -1557,7 +1576,7 @@ QString LLTutorWindow::feedbackForAPrime() {
     return tr("Como hay %1 símbolos no terminales (filas) y %2 terminales "
               "(columnas, "
               "incluyendo $ y excluyendo EPSILON),\n"
-              "el tamaño de la tabla LL(1) será: %1.")
+              "el tamaño de la tabla LL(1) será: %1x%2.")
         .arg(sol[0])
         .arg(sol[1]);
 }
@@ -1619,10 +1638,28 @@ void LLTutorWindow::feedbackForB1TreeGraphics() {
 QString LLTutorWindow::feedbackForB1() {
     feedbackForB1TreeWidget();
     feedbackForB1TreeGraphics();
+
+    const auto& consequent_qv = sortedGrammar.at(currentRule).second;
+    std::vector<std::string> consequent_vec = qvectorToStdVector(consequent_qv);
     std::unordered_set<std::string> result;
-    ll1.First(qvectorToStdVector(sortedGrammar.at(currentRule).second), result);
-    QString cab       = sortedGrammar.at(currentRule).second.join(' ');
-    QString resultSet = stdUnorderedSetToQSet(result).values().join(", ");
+    ll1.First(consequent_vec, result);
+
+    // —— WORKAROUND: change how $ is handled, replace epsilon with $
+    const std::string antecedent = sortedGrammar.at(currentRule).first.toStdString();
+    if (antecedent == ll1.gr_.axiom_ && !consequent_qv.isEmpty()
+        && consequent_qv.back().toStdString() == ll1.gr_.st_.EOL_) {
+        auto it_eps = result.find(ll1.gr_.st_.EPSILON_);
+        if (it_eps != result.end()) {
+            result.erase(it_eps);
+            result.insert(ll1.gr_.st_.EOL_);
+        }
+    }
+    // —— END WORKAROUND
+
+    // 2) Preparamos la cadena para mostrar al usuario
+    QString cab = consequent_qv.join(' ');
+    QString resultSet = QStringList::fromVector(stdUnorderedSetToQSet(result).values()).join(", ");
+
     return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
               "Con esto se obtienen los terminales que pueden aparecer al "
               "comenzar a derivar %1.\n"
@@ -1959,8 +1996,7 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
             return;
         }
         if (current_symbol == ll1.gr_.st_.EOL_) {
-            node->addChild(new QTreeWidgetItem(
-                {tr("Añadir ε, se ha llegado al final de la cadena")}));
+            node->addChild(new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
         } else {
             node->addChild(
                 new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
@@ -2028,10 +2064,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             return nullptr;
         }
         auto child = std::make_unique<TreeNode>();
-        child->label =
-            (current == ll1.gr_.st_.EOL_)
-                ? tr("Añadir ε a CAB")
-                : tr("Añadir %1 a CAB").arg(QString::fromStdString(current));
+        child->label = tr("Añadir %1 a CAB").arg(QString::fromStdString(current));
         node->children.push_back(std::move(child));
         return node;
     }
@@ -2244,10 +2277,19 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                                                                prod.end());
                     std::unordered_set<std::string> first_of_remaining;
                     ll1.First(remaining_symbols, first_of_remaining);
-                    QString rem_qstr =
-                        QStringList::fromVector(
-                            stdVectorToQVector(remaining_symbols))
-                            .join(" ");
+
+                    // -- WORKAROUND: if next symbol is $, consider $ as terminal while teaching
+                    if (!remaining_symbols.empty() && remaining_symbols.back() == ll1.gr_.st_.EOL_) {
+                        auto it_eps = first_of_remaining.find(ll1.gr_.st_.EPSILON_);
+                        if (it_eps != first_of_remaining.end()) {
+                            first_of_remaining.erase(it_eps);
+                        }
+                        first_of_remaining.insert(ll1.gr_.st_.EOL_);
+                    }
+                    // END WORKAROUND
+
+                    QString rem_qstr
+                        = QStringList::fromVector(stdVectorToQVector(remaining_symbols)).join(" ");
                     QString first_qstr =
                         QStringList::fromVector(
                             stdUnorderedSetToQSet(first_of_remaining).values())
@@ -2286,16 +2328,20 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                 else {
                     std::unordered_set<std::string> ant_follow(
                         ll1.Follow(antecedent));
-                    QString ant_follow_str =
-                        QStringList::fromVector(
-                            stdUnorderedSetToQSet(ant_follow).values())
-                            .join(" ");
-                    output += tr("2. %1 está al final de la producción. Agrega "
-                                 "SIG(%2) = { %3 } a "
-                                 "SIG(%1)\n")
-                                  .arg(nt, QString::fromStdString(antecedent),
-                                       ant_follow_str);
-                    follow_set.insert(ant_follow.begin(), ant_follow.end());
+                    if (antecedent == nt) {
+                        output += tr("2. %1 está al final de la producción, habría que agregar "
+                                     "SIG(%2) a SIG(%1), pero cae en bucle, por tanto se ignora\n")
+                                      .arg(nt, QString::fromStdString(antecedent));
+                    } else {
+                        QString ant_follow_str = QStringList::fromVector(
+                                                     stdUnorderedSetToQSet(ant_follow).values())
+                                                     .join(" ");
+                        output += tr("2. %1 está al final de la producción. Agrega "
+                                     "SIG(%2) = { %3 } a "
+                                     "SIG(%1)\n")
+                                      .arg(nt, QString::fromStdString(antecedent), ant_follow_str);
+                        follow_set.insert(ant_follow.begin(), ant_follow.end());
+                    }
                 }
             }
         }
@@ -2323,8 +2369,17 @@ QString LLTutorWindow::TeachPredictionSymbols(const QString&    ant,
     std::unordered_set<std::string> first_of_consequent;
     ll1.First(consequent, first_of_consequent);
 
-    QString first_str = QStringList::fromVector(
-                            stdUnorderedSetToQSet(first_of_consequent).values())
+    // WORKAROUND: Internally, $ is not added to FIRST
+    bool isStartSymbol = (ant.toStdString() == ll1.gr_.axiom_);
+    if (isStartSymbol) {
+        auto it_eps = first_of_consequent.find(ll1.gr_.st_.EPSILON_);
+        if (it_eps != first_of_consequent.end()) {
+            first_of_consequent.erase(it_eps);
+            first_of_consequent.insert(ll1.gr_.st_.EOL_);
+        }
+    }
+
+    QString first_str = QStringList::fromVector(stdUnorderedSetToQSet(first_of_consequent).values())
                             .join(" ");
     output +=
         tr("1. Calcula CAB(%1) = { %2 }\n").arg(consequent_str, first_str);
@@ -2355,9 +2410,8 @@ QString LLTutorWindow::TeachPredictionSymbols(const QString&    ant,
         const auto follow_ant = ll1.Follow(ant.toStdString());
         prediction_symbols.insert(follow_ant.begin(), follow_ant.end());
 
-        QString follow_str =
-            QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
-                .join(" ");
+        QString follow_str = QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
+                                 .join(" ");
         output += tr("     SIG(%1) = { %2 }\n").arg(ant, follow_str);
     }
 
