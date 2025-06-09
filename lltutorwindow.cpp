@@ -1422,11 +1422,25 @@ QSet<QString> LLTutorWindow::solutionForB() {
 }
 
 QSet<QString> LLTutorWindow::solutionForB1() {
-    const auto&                     current = sortedGrammar[currentRule];
+    const auto& current = sortedGrammar[currentRule];
+    const QString ant = current.first;
+    const QStringList& cons = current.second;
+
+    std::vector<std::string> cons_vec = qvectorToStdVector(cons);
     std::unordered_set<std::string> result;
-    ll1.First(qvectorToStdVector(current.second), result);
-    QSet<QString> solution = stdUnorderedSetToQSet(result);
-    return solution;
+    ll1.First(cons_vec, result);
+
+    // —— WORKAROUND: axiom rule with A nullable, first contains $ in teaching mode
+    if (ant.toStdString() == ll1.gr_.axiom_ && !cons.isEmpty()
+        && cons.back().toStdString() == ll1.gr_.st_.EOL_) {
+        auto it_eps = result.find(ll1.gr_.st_.EPSILON_);
+        if (it_eps != result.end()) {
+            result.erase(it_eps);
+            result.insert(ll1.gr_.st_.EOL_);
+        }
+    }
+
+    return stdUnorderedSetToQSet(result);
 }
 
 QSet<QString> LLTutorWindow::solutionForB2() {
