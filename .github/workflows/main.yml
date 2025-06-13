@@ -15,16 +15,20 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-
-      - name: Install Qt6
+        
+      - name: Install dbus
         run: |
           brew update
+          brew install dbus
+  
+      - name: Install Qt6
+        run: |
           brew install qt@6
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
 
       - name: Build for Intel (x86_64)
         run: |
-          qmake6 -r -config release
+          qmake6 -r -config release "QT+=dbus"
           make -j$(sysctl -n hw.ncpu)
 
       - name: Verify arch
@@ -117,15 +121,19 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Install Qt6
+      - name: Install dbus
         run: |
           brew update
+          brew install dbus
+          
+      - name: Install Qt6
+        run: |
           brew install qt@6
           echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
 
       - name: Build with qmake & make
         run: |
-          qmake6 CONFIG+=release -r
+          qmake6 CONFIG+=release -r "QT+=dbus"
           make -j$(sysctl -n hw.ncpu)
 
       - name: Prepare icons
