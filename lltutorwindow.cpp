@@ -1074,9 +1074,8 @@ void LLTutorWindow::on_confirmButton_clicked() {
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
-        } else {
-            close();
         }
+        close();
     }
     ui->userResponse->clear();
     addMessage(generateQuestion(), false);
