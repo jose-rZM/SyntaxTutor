@@ -76,7 +76,7 @@ public:
                     }
                     case SLR1Parser::Action::Accept:
                         expected = "acc";
-                        explanation = tr("Estado %1: contiene [S' → A · $]. ¿Qué palabra clave "
+                        explanation = tr("Estado %1: contiene [S → A · $]. ¿Qué palabra clave "
                                          "usas para aceptar?")
                                           .arg(i);
                         break;

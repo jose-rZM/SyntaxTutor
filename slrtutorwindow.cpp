@@ -952,6 +952,10 @@ void SLRTutorWindow::on_confirmButton_clicked() {
     if (currentState == StateSlr::fin) {
         QMessageBox end(this);
         end.setWindowTitle(tr("Fin del ejercicio"));
+        end.setText(tr("¿Exportar a PDF?"));
+        end.setInformativeText(tr(
+            "Se generará un PDF con toda la conversación, estados calculados y la tabla SLR(1)."));
+
         end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         end.setDefaultButton(QMessageBox::No);
 
