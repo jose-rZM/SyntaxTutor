@@ -1012,6 +1012,9 @@ void LLTutorWindow::on_confirmButton_clicked() {
     if (currentState == State::fin) {
         QMessageBox end(this);
         end.setWindowTitle(tr("Fin del ejercicio"));
+        end.setText(tr("¿Exportar a PDF?"));
+        end.setInformativeText(tr("Se generará un PDF con toda la conversación, funciones "
+                                  "calculadas (CAB, SIG, SD) y la tabla LL(1)."));
         end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         end.setDefaultButton(QMessageBox::No);
 
