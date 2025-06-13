@@ -281,6 +281,11 @@ the size of the LL(1) table will be: %1x%2.</translation>
         <translation>Add $, the end has been reached</translation>
     </message>
     <message>
+        <location filename="../lltutorwindow.cpp" line="2069"/>
+        <source>Añadir &quot;%1&quot; a CAB</source>
+        <translation>Add &quot;%1&quot; to FIRST</translation>
+    </message>
+    <message>
         <source>Los TERMINALES son todos los símbolos que aparecen en los consecuentes
 y que NO son no terminales, excluyendo el símbolo de fin de entrada, pues es un metasímbolo que representa la cadena vacía.
 En esta gramática: %1</source>
@@ -460,9 +465,8 @@ If ε ∈ FIRST(α), it should also be placed in (A, b) for each b ∈ FOLLOW(A)
         <translation type="vanished">Add ε to FIRST</translation>
     </message>
     <message>
-        <location filename="../lltutorwindow.cpp" line="2069"/>
         <source>Añadir %1 a CAB</source>
-        <translation>Add %1 to FIRST</translation>
+        <translation type="vanished">Add %1 to FIRST</translation>
     </message>
     <message>
         <location filename="../lltutorwindow.cpp" line="2080"/>
