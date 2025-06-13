@@ -28,7 +28,7 @@ jobs:
 
       - name: Build for Intel (x86_64)
         run: |
-          qmake6 -r -config release "QT+=dbus"
+          qmake6 -r -config release "QT+=dbus" "QMAKE_MACOS_ARCHITECTURES=x86_64"
           make -j$(sysctl -n hw.ncpu)
 
       - name: Verify arch
@@ -133,7 +133,7 @@ jobs:
 
       - name: Build with qmake & make
         run: |
-          qmake6 CONFIG+=release -r "QT+=dbus"
+          qmake6 CONFIG+=release -r "QT+=dbus" "QMAKE_MACOS_ARCHITECTURES=arm64"
           make -j$(sysctl -n hw.ncpu)
 
       - name: Prepare icons
