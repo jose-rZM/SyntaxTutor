@@ -83,7 +83,6 @@ unix:!mac:CONFIG(release, debug|release) {
 
 macx {
     CONFIG += app_bundle
-    QMAKE_MACOS_ARCHITECTURES = x86_64;arm64
     QMAKE_MACOS_DEPLOYMENT_TARGET = 10.15
     QMAKE_CXXFLAGS_RELEASE = -O3 -DNDEBUG
 }
