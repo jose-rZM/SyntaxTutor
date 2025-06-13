@@ -2030,8 +2030,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
         TeachFirstTree(new_symbols, first_set, depth + 1, processing,
                        prod_node);
 
-        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) !=
-            prod.end()) {
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()
+            && !remaining_symbols.empty()) {
             auto* eps_node = new QTreeWidgetItem(
                 {tr("Contiene ε → seguir con resto: %1")
                      .arg(stdVectorToQVector(remaining_symbols).join(' '))});
