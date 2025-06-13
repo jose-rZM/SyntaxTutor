@@ -357,15 +357,15 @@ void MainWindow::setupTutorial() {
             // 1) Abre LL
             Grammar         grammarLL = factory.GenLL1Grammar(1);
             auto*           llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
-            Qt::WindowFlags f       = llTutor->windowFlags();
-            f &= ~Qt::WindowCloseButtonHint;
-            llTutor->setWindowFlags(f);
+            llTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
             llTutor->setAttribute(Qt::WA_DeleteOnClose);
+            this->hide();
             llTutor->show();
 
             // 2) Preparar SLR
             connect(tm, &TutorialManager::ll1Finished, this, [this, llTutor]() {
                 llTutor->close();
+                this->show();
                 disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
                 disconnect(tm, &TutorialManager::tutorialFinished, this,
                            nullptr);
@@ -393,11 +393,11 @@ void MainWindow::setupTutorial() {
                                 grammarSLR.TransformToAugmentedGrammar();
                                 auto* slrTutor =
                                     new SLRTutorWindow(grammarSLR, tm, nullptr);
-                                Qt::WindowFlags f = slrTutor->windowFlags();
-                                f &= ~Qt::WindowCloseButtonHint;
-                                slrTutor->setWindowFlags(f);
+                                slrTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint
+                                                         | Qt::WindowTitleHint);
                                 slrTutor->setAttribute(Qt::WA_DeleteOnClose);
                                 slrTutor->show();
+                                this->hide();
                                 QTimer::singleShot(50, [this, slrTutor]() {
                                     tm->setRootWindow(slrTutor);
                                     tm->nextStep();
@@ -411,7 +411,7 @@ void MainWindow::setupTutorial() {
                                nullptr);
                     disconnect(tm, &TutorialManager::tutorialFinished, this,
                                nullptr);
-
+                    this->show();
                     tm->setRootWindow(this);
                     tm->clearSteps();
                     tm->addStep(ui->badgeNivel,
