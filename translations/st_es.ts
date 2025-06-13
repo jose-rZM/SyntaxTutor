@@ -265,6 +265,11 @@ el tamaño de la tabla LL(1) será: %1x%2.</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../lltutorwindow.cpp" line="2069"/>
+        <source>Añadir &quot;%1&quot; a CAB</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../lltutorwindow.cpp" line="1588"/>
         <source>Para una regla X → Y, sus símbolos directores (SD) indican en qué columnas debe colocarse la producción en la tabla LL(1).
 La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)</source>
@@ -399,11 +404,6 @@ Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A). Se 
     <message>
         <location filename="../lltutorwindow.cpp" line="2060"/>
         <source>CAB(%1%2)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../lltutorwindow.cpp" line="2069"/>
-        <source>Añadir %1 a CAB</source>
         <translation></translation>
     </message>
     <message>

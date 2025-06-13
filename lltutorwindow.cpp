@@ -2030,8 +2030,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
         TeachFirstTree(new_symbols, first_set, depth + 1, processing,
                        prod_node);
 
-        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) !=
-            prod.end()) {
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()
+            && !remaining_symbols.empty()) {
             auto* eps_node = new QTreeWidgetItem(
                 {tr("Contiene ε → seguir con resto: %1")
                      .arg(stdVectorToQVector(remaining_symbols).join(' '))});
@@ -2066,7 +2066,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             return nullptr;
         }
         auto child = std::make_unique<TreeNode>();
-        child->label = tr("Añadir %1 a CAB").arg(QString::fromStdString(current));
+        child->label = tr("Añadir \"%1\" a CAB").arg(QString::fromStdString(current));
         node->children.push_back(std::move(child));
         return node;
     }
@@ -2097,8 +2097,8 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
                                      active_derivations))
             prodNode->children.push_back(std::move(sub));
 
-        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) !=
-            prod.end()) {
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()
+            && !rest.empty()) {
             auto epsNode   = std::make_unique<TreeNode>();
             epsNode->label = tr("ε → continuar con: %1")
                                  .arg(stdVectorToQVector(rest).join(' '));
