@@ -261,7 +261,9 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     for (const auto& [nt, production] : std::as_const(sortedGrammar)) {
         html += "<h3>" + nt + " → " + production.join(' ') + "</h3>";
         QString img = generateTreeImageBase64(qvectorToStdVector(production));
-        html += "<div style='text-align:center;margin-bottom:30px;'><img src='" + img + "'></div>";
+        html +=
+            "<div style='text-align:center;margin-bottom:30px;'><img src='" +
+            img + "'></div>";
     }
 
     doc.setHtml(html);
@@ -2208,7 +2210,7 @@ void LLTutorWindow::showTreeGraphics(
 
 QString LLTutorWindow::generateTreeImageBase64(
     const std::vector<std::string>& symbols) {
-      std::unordered_set<std::string>                               first_set;
+    std::unordered_set<std::string>                               first_set;
     std::vector<std::pair<std::string, std::vector<std::string>>> active;
 
     auto root = buildTreeNode(symbols, first_set, 0, active);
@@ -2218,7 +2220,7 @@ QString LLTutorWindow::generateTreeImageBase64(
     drawTree(root, &scene, QPointF(0, 0), 220, 100);
 
     QRectF rect = scene.itemsBoundingRect();
-    rect = rect.marginsAdded(QMarginsF(10, 10, 10, 10));
+    rect        = rect.marginsAdded(QMarginsF(10, 10, 10, 10));
     scene.setSceneRect(rect);
 
     QImage image(rect.size().toSize(), QImage::Format_ARGB32);
