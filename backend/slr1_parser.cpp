@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <ranges>
 #include <map>
 #include <queue>
 #include <string>
@@ -237,8 +238,7 @@ bool SLR1Parser::MakeParser() {
             break;
         }
         const state& qi = *it;
-        std::for_each(qi.items_.begin(), qi.items_.end(),
-                      [&](const Lr0Item& item) -> void {
+        std::ranges::for_each(qi.items_, [&](const Lr0Item& item) -> void {
                           std::string next = item.NextToDot();
                           if (next != gr_.st_.EPSILON_ && next != gr_.st_.EOL_) {
                               nextSymbols.insert(next);
@@ -308,8 +308,7 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
             std::find(visited.cbegin(), visited.cend(), next) ==
                 visited.cend()) {
             const std::vector<production>& rules = gr_.g_.at(next);
-            std::for_each(rules.begin(), rules.end(),
-                          [&](const auto& rule) -> void {
+            std::ranges::for_each(rules, [&](const auto& rule) -> void {
                               newItems.insert({item.NextToDot(), rule,
                                                gr_.st_.EPSILON_, gr_.st_.EOL_});
                           });
@@ -329,7 +328,7 @@ SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
         return {};
     }
     std::vector<Lr0Item> filtered;
-    std::for_each(items.begin(), items.end(), [&](const Lr0Item& item) -> void {
+    std::ranges::for_each(items, [&](const Lr0Item& item) -> void {
         std::string next = item.NextToDot();
         if (next == str) {
             filtered.push_back(item);

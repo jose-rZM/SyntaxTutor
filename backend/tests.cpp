@@ -362,6 +362,169 @@ TEST(GrammarFactoryTest, GeneratedLv3SLR1GrammarIsAlwaysSLR1)
     }
 }
 
+TEST(GrammarFactoryTest, NormalizeNonTerminals_Basic) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> g{
+        {"A", {{"a", "B"}, {"b"}}},
+        {"B", {{"c"}}}
+    };
+
+    GrammarFactory::FactoryItem item(g);
+
+    factory.NormalizeNonTerminals(item, "X");
+
+    ASSERT_EQ(item.g_.size(), 1u);
+    ASSERT_TRUE(item.g_.contains("X"));
+    production             p1{"a", "X"};
+    production             p2{"b"};
+    production             p3{"c"};
+    std::vector<production> expected{p1, p2, p3};
+    auto                     result   = item.g_["X"];
+    ASSERT_EQ(result.size(), expected.size());
+    for (const auto& prod : expected) {
+        auto it = std::find(result.begin(), result.end(), prod);
+        EXPECT_NE(it, result.end());
+    }
+    EXPECT_EQ(item.st_.non_terminals_.size(), 1u);
+    EXPECT_TRUE(item.st_.non_terminals_.contains("X"));
+}
+
+TEST(GrammarFactoryTest, AdjustTerminals_ReplacesCorrectly) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g{{"B", {{"b"}}}};
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    factory.AdjustTerminals(base, cmb, "X");
+
+    ASSERT_EQ(base.g_.size(), 1u);
+    ASSERT_TRUE(base.g_.contains("A"));
+    ASSERT_EQ(base.g_["A"], std::vector<production>{{{"X"}}});
+    ASSERT_EQ(base.st_.terminals_wtho_eol_.size(), 1u);
+    ASSERT_FALSE(base.st_.terminals_wtho_eol_.contains("b"));
+}
+
+TEST(GrammarFactoryTest, Merge_AppendsProductions) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g{{"A", {{"b"}}}};
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    auto merged = factory.Merge(base, cmb);
+
+    ASSERT_EQ(merged.size(), 1u);
+    ASSERT_TRUE(merged.contains("A"));
+    std::vector<production> expected{{{"a"}}, {{"b"}}};
+    EXPECT_EQ(merged["A"], expected);
+}
+
+TEST(GrammarFactoryTest, NormalizeNonTerminals_MultipleSymbols) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> g{
+        {"A", {{"a", "B"}, {"b", "C"}}},
+        {"B", {{"c"}}},
+        {"C", {{"d", "A"}}},
+    };
+
+    GrammarFactory::FactoryItem item(g);
+
+    factory.NormalizeNonTerminals(item, "N");
+
+    ASSERT_EQ(item.g_.size(), 1u);
+    ASSERT_TRUE(item.g_.contains("N"));
+    std::vector<production> expected{
+        {"a", "N"},
+        {"b", "N"},
+        {"c"},
+        {"d", "N"}
+    };
+    auto result = item.g_["N"];
+    ASSERT_EQ(result.size(), expected.size());
+    for (const auto& prod : expected) {
+        auto it = std::find(result.begin(), result.end(), prod);
+        EXPECT_NE(it, result.end());
+    }
+    EXPECT_EQ(item.st_.non_terminals_.size(), 1u);
+    EXPECT_TRUE(item.st_.non_terminals_.contains("N"));
+}
+
+TEST(GrammarFactoryTest, AdjustTerminals_EarlyReturnWhenAlphabetEmpty) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g;
+    for (const std::string& t :
+         std::vector<std::string>{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"}) {
+        cmb_g["B"].push_back({t});
+    }
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    factory.AdjustTerminals(base, cmb, "X");
+
+    ASSERT_EQ(base.g_.size(), 1u);
+    ASSERT_EQ(base.g_["A"], std::vector<production>{{{"a"}}});
+    ASSERT_EQ(base.st_.terminals_wtho_eol_.size(), 1u);
+    EXPECT_TRUE(base.st_.terminals_wtho_eol_.contains("a"));
+}
+
+TEST(GrammarFactoryTest, AdjustTerminals_DeterministicReplacement) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g;
+    for (const std::string& t :
+         std::vector<std::string>{"a", "b", "d", "e", "f", "g", "h", "i", "j", "k", "l"}) {
+        cmb_g["B"].push_back({t});
+    }
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    factory.AdjustTerminals(base, cmb, "X");
+
+    ASSERT_EQ(base.g_.size(), 1u);
+    ASSERT_TRUE(base.g_.contains("A"));
+    ASSERT_EQ(base.g_["A"], std::vector<production>{{{"X"}}});
+    ASSERT_EQ(base.st_.terminals_wtho_eol_.size(), 1u);
+    EXPECT_TRUE(base.st_.terminals_wtho_eol_.contains("c"));
+    EXPECT_FALSE(base.st_.terminals_wtho_eol_.contains("a"));
+}
+
+TEST(GrammarFactoryTest, Merge_MultipleNonTerminals) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{
+        {"A", {{"a"}}},
+        {"B", {{"b"}}}
+    };
+    std::unordered_map<std::string, std::vector<production>> cmb_g{
+        {"B", {{"x"}}},
+        {"C", {{"c"}}},
+        {"D", {{"d"}}}
+    };
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    auto merged = factory.Merge(base, cmb);
+
+    ASSERT_EQ(merged.size(), 4u);
+    EXPECT_EQ(merged["A"], std::vector<production>{{"a"}});
+    EXPECT_EQ(merged["B"], (std::vector<production>{{"b"}, {"x"}}));
+    EXPECT_EQ(merged["C"], std::vector<production>{{"c"}});
+    EXPECT_EQ(merged["D"], std::vector<production>{{"d"}});
+}
+
 TEST(GrammarTest, IsInfinite_WhenGrammarIsInfinite) {
     Grammar        g;
     GrammarFactory factory;
