@@ -1857,8 +1857,8 @@ QStringList SLRTutorWindow::solutionForCA() {
     bool          acceptingItem = false;
 
     std::ranges::for_each(currentSlrState.items_, [&](const Lr0Item& item) {
-        if (QString::fromStdString(item.NextToDot()) == slr1.gr_.st_.EPSILON_ &&
-            QString::fromStdString(item.antecedent_) == slr1.gr_.axiom_) {
+        if (item.NextToDot() == slr1.gr_.st_.EPSILON_ &&
+            item.antecedent_ == slr1.gr_.axiom_) {
             acceptingItem = true;
         } else {
             following_symbols.insert(QString::fromStdString(item.NextToDot()));
