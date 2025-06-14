@@ -269,6 +269,9 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
 }
 
 void LLTutorWindow::updateProgressPanel() {
+    QScrollBar* scrollBar = ui->textEdit->verticalScrollBar();
+    int scrollPos = scrollBar->value();
+
     QString html = R"(
         <html>
         <body style="font-family: 'Noto Sans'; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
@@ -301,6 +304,7 @@ void LLTutorWindow::updateProgressPanel() {
     html += "</body></html>";
 
     ui->textEdit->setHtml(html);
+    scrollBar->setValue(scrollPos);
 }
 
 void LLTutorWindow::addMessage(const QString& text, bool isUser) {
