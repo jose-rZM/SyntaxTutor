@@ -41,7 +41,7 @@ void Grammar::SetAxiom(const std::string& axiom)
     axiom_ = axiom;
 }
 
-bool Grammar::HasEmptyProduction(const std::string& antecedent)
+bool Grammar::HasEmptyProduction(const std::string& antecedent) const
 {
     auto rules{g_.at(std::string{antecedent})};
     return std::ranges::find_if(rules, [&](const auto& rule) {
@@ -50,7 +50,7 @@ bool Grammar::HasEmptyProduction(const std::string& antecedent)
 }
 
 std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByConsequent(
-    const std::string& arg)
+    const std::string& arg) const
 {
     std::vector<std::pair<const std::string, production>> rules;
     for (const auto& [nt, prods] : g_) {
@@ -63,7 +63,8 @@ std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByCons
     return rules;
 }
 
-void Grammar::Debug() {
+void Grammar::Debug() const
+{
     std::cout << "Grammar:\n";
     for (const auto& entry : g_) {
         std::cout << entry.first << " -> ";
@@ -76,8 +77,9 @@ void Grammar::Debug() {
         std::cout << "\n";
     }
 }
-bool Grammar::HasLeftRecursion(const std::string&              antecedent,
-                               const std::vector<std::string>& consequent) {
+bool Grammar::HasLeftRecursion(const std::string& antecedent,
+                               const std::vector<std::string>& consequent) const
+{
     return consequent.at(0) == antecedent;
 }
 
