@@ -547,7 +547,8 @@ void SLRTutorWindow::updateProgressPanel() {
     )";
 
     if (userMadeStates.empty()) {
-        text += "<div style='color:#aaaaaa;'>" + tr("No se han construido estados aún.") + "</div>";
+        text += "<div style='color:#aaaaaa;'>" +
+                tr("No se han construido estados aún.") + "</div>";
     } else {
         for (size_t i = 0; i < slr1.states_.size(); ++i) {
             auto st = std::ranges::find_if(
@@ -568,11 +569,11 @@ void SLRTutorWindow::updateProgressPanel() {
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {
                     text += "<div style='margin-left:12px; color:#BBBBBB; "
-                            "margin-top:4px;'>"
-                            + tr("Transiciones:")
-                            + "</div><ul "
-                              "style='list-style-type:circle; color:#777777; "
-                              "margin-left:20px;'>";
+                            "margin-top:4px;'>" +
+                            tr("Transiciones:") +
+                            "</div><ul "
+                            "style='list-style-type:circle; color:#777777; "
+                            "margin-left:20px;'>";
                     for (const auto& entry : it->second) {
                         const QString symbol =
                             QString::fromStdString(entry.first);
@@ -916,8 +917,9 @@ void SLRTutorWindow::on_confirmButton_clicked() {
         QMessageBox end(this);
         end.setWindowTitle(tr("Fin del ejercicio"));
         end.setText(tr("¿Exportar a PDF?"));
-        end.setInformativeText(tr(
-            "Se generará un PDF con toda la conversación, estados calculados y la tabla SLR(1)."));
+        end.setInformativeText(
+            tr("Se generará un PDF con toda la conversación, estados "
+               "calculados y la tabla SLR(1)."));
 
         end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         end.setDefaultButton(QMessageBox::No);
@@ -1362,7 +1364,8 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     case StateSlr::CA:
         if (!isCorrect) {
             currentState = StateSlr::CA;
-        } else if (!followSymbols.empty() && currentFollowSymbolsIdx < followSymbols.size()) {
+        } else if (!followSymbols.empty() &&
+                   currentFollowSymbolsIdx < followSymbols.size()) {
             currentState = StateSlr::CB;
         } else {
             currentState = StateSlr::B;
@@ -1851,11 +1854,11 @@ unsigned SLRTutorWindow::solutionForC() {
 
 QStringList SLRTutorWindow::solutionForCA() {
     QSet<QString> following_symbols;
-    bool acceptingItem = false;
+    bool          acceptingItem = false;
 
     std::ranges::for_each(currentSlrState.items_, [&](const Lr0Item& item) {
-        if (QString::fromStdString(item.NextToDot()) == slr1.gr_.st_.EPSILON_
-            && QString::fromStdString(item.antecedent_) == slr1.gr_.axiom_) {
+        if (QString::fromStdString(item.NextToDot()) == slr1.gr_.st_.EPSILON_ &&
+            QString::fromStdString(item.antecedent_) == slr1.gr_.axiom_) {
             acceptingItem = true;
         } else {
             following_symbols.insert(QString::fromStdString(item.NextToDot()));
@@ -2114,9 +2117,10 @@ QString SLRTutorWindow::feedbackForC() {
 
 QString SLRTutorWindow::feedbackForCA() {
     QStringList expected = solutionForCA();
-    QString text = ui->userResponse->toPlainText().trimmed();
-    QStringList resp = text.split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QString     text     = ui->userResponse->toPlainText().trimmed();
+    QStringList resp =
+        text.split(',', Qt::SkipEmptyParts)
+            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
     QSet<QString> setResp(resp.begin(), resp.end());
     QSet<QString> duplicates;
     for (const QString& part : std::as_const(resp)) {
@@ -2129,8 +2133,9 @@ QString SLRTutorWindow::feedbackForCA() {
     QSet<QString> setSol(expected.begin(), expected.end());
 
     QString base;
-    if (std::ranges::any_of(currentSlrState.items_,
-                            [](const Lr0Item& item) { return item.IsComplete(); })) {
+    if (std::ranges::any_of(currentSlrState.items_, [](const Lr0Item& item) {
+            return item.IsComplete();
+        })) {
         base = tr("Los símbolos son: %1.\nCuando un ítem es de la forma X → α· "
                   "o X "
                   "-> EPSILON · "
@@ -2153,16 +2158,18 @@ QString SLRTutorWindow::feedbackForCA() {
     }
 
     QSet<QString> missing = setSol - setResp;
-    QSet<QString> rest = setResp - setSol;
-    QString msg;
+    QSet<QString> rest    = setResp - setSol;
+    QString       msg;
     if (!duplicates.isEmpty()) {
-        msg += tr("Has repetido símbolos: %1.\n").arg(QStringList(duplicates.values()).join(", "));
+        msg += tr("Has repetido símbolos: %1.\n")
+                   .arg(QStringList(duplicates.values()).join(", "));
     }
     if (!missing.isEmpty()) {
         msg += tr("Te han faltado símbolos.\n");
     }
     if (!rest.isEmpty()) {
-        msg += tr("No aparecen tras el punto: %1.\n").arg(QStringList(rest.values()).join(", "));
+        msg += tr("No aparecen tras el punto: %1.\n")
+                   .arg(QStringList(rest.values()).join(", "));
     }
 
     return msg + base;
