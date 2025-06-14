@@ -2411,8 +2411,10 @@ QString SLRTutorWindow::feedbackForF() {
 
 QString SLRTutorWindow::feedbackForFA() {
     unsigned stId    = currentConflictStateId;
-    QString  txtBase = tr("Para resolver el conflicto en I%1, solo puedes "
-                           "REDUCE en ciertos terminales.\n")
+    QString  txtBase = tr("En el estado I%1 se produce un conflicto LR(0). Un "
+                           "ítem completo compite con otro "
+                           "desplazable. Debes escribir los terminales en los "
+                           "que la tabla aplicará REDUCE.\n")
                           .arg(stId);
 
     QStringList   sol = solutionForFA().values();
@@ -2440,9 +2442,9 @@ QString SLRTutorWindow::feedbackForFA() {
                QStringList(rest.values()).join(", ") + ".\n";
     }
     if (msg.isEmpty()) {
-        msg = tr("Revisa la definición de SIG del antecedente para escoger "
-                 "solo esos terminales. Has "
-                 "aprendido a cómo calcularlo en el ejercicio LL(1).\n");
+        msg = tr("Recuerda que solo se reduce en los terminales de SIG; en los "
+                 "demás se realiza "
+                 "SHIFT. Puedes apoyarte en la definición de SIG.\n");
     }
 
     return txtBase + msg;

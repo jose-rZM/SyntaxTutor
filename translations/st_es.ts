@@ -1469,31 +1469,31 @@ No has listado ningún estado conflictivo. </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2414"/>
-        <source>Para resolver el conflicto en I%1, solo puedes REDUCE en ciertos terminales.
+        <location filename="../slrtutorwindow.cpp" line="2415"/>
+        <source>En el estado I%1 se produce un conflicto LR(0). Un ítem completo compite con otro desplazable. Debes escribir los terminales en los que la tabla aplicará REDUCE.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2423"/>
+        <location filename="../slrtutorwindow.cpp" line="2444"/>
+        <source>Recuerda que solo se reduce en los terminales de SIG; en los demás se realiza SHIFT. Puedes apoyarte en la definición de SIG.
+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../slrtutorwindow.cpp" line="2424"/>
         <source>No has indicado ningún terminal.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2435"/>
+        <location filename="../slrtutorwindow.cpp" line="2436"/>
         <source>Te faltan estos terminales para REDUCE: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2439"/>
+        <location filename="../slrtutorwindow.cpp" line="2440"/>
         <source>Estos no se usan para REDUCE en I%1: </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../slrtutorwindow.cpp" line="2443"/>
-        <source>Revisa la definición de SIG del antecedente para escoger solo esos terminales. Has aprendido a cómo calcularlo en el ejercicio LL(1).
-</source>
         <translation></translation>
     </message>
     <message>
