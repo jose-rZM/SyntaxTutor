@@ -2109,24 +2109,48 @@ QString SLRTutorWindow::feedbackForC() {
 }
 
 QString SLRTutorWindow::feedbackForCA() {
-    QStringList following = solutionForCA();
-    if (std::ranges::any_of(currentSlrState.items_, [](const Lr0Item& item) {
-            return item.IsComplete();
-        })) {
-        return tr("Los símbolos son: %1.\nCuando un ítem es de la forma X → α· "
+    QStringList expected = solutionForCA();
+    QString text = ui->userResponse->toPlainText().trimmed();
+    QStringList resp = text.split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QSet<QString> setSol(expected.begin(), expected.end());
+    QSet<QString> setResp(resp.begin(), resp.end());
+
+    QString base;
+    if (std::ranges::any_of(currentSlrState.items_,
+                            [](const Lr0Item& item) { return item.IsComplete(); })) {
+        base = tr("Los símbolos son: %1.\nCuando un ítem es de la forma X → α· "
                   "o X "
                   "-> EPSILON · "
                   "(ítem completo), el símbolo siguiente es siempre EPSILON. "
                   "En estos casos "
                   "podrás aplicar un reduce, recuérdalo.")
-            .arg(following.join(", "));
+                   .arg(expected.join(", "));
     } else {
-        return tr("Los símbolos que aparecen tras el punto (·) en los ítems "
+        base = tr("Los símbolos que aparecen tras el punto (·) en los ítems "
                   "determinan "
                   "posibles transiciones. En este estado, esos símbolos son: "
                   "%1.")
-            .arg(following.join(", "));
+                   .arg(expected.join(", "));
     }
+    if (text.isEmpty()) {
+        return tr("No has indicado ningún símbolo.\n") + base;
+    }
+    if (resp.size() == 1 && resp[0].contains(' ')) {
+        return tr("Recuerda separar los símbolos con comas.\n") + base;
+    }
+
+    QSet<QString> missing = setSol - setResp;
+    QSet<QString> rest = setResp - setSol;
+    QString msg;
+    if (!missing.isEmpty()) {
+        msg += tr("Te han faltado símbolos.\n");
+    }
+    if (!rest.isEmpty()) {
+        msg += tr("No aparecen tras el punto: %1.\n").arg(QStringList(rest.values()).join(", "));
+    }
+
+    return msg + base;
 }
 
 QString SLRTutorWindow::feedbackForCB() {
