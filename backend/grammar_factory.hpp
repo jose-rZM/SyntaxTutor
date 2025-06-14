@@ -193,30 +193,28 @@ struct GrammarFactory {
      * @param grammar The grammar to check.
      * @return true if there is direct left recursion, false otherwise.
      */
-    bool HasDirectLeftRecursion(Grammar& grammar);
+    bool HasDirectLeftRecursion(const Grammar& grammar) const;
 
     /**
      * @brief Checks if a grammar contains indirect left recursion.
      * @param grammar The grammar to check.
      * @return true if there is direct left recursion, false otherwise.
      */
-    bool HasIndirectLeftRecursion(Grammar& grammar);
+    bool HasIndirectLeftRecursion(const Grammar& grammar) const;
 
     /**
      * @brief Checks if directed graph has a cycle using topological sort.
      * @param graph The directed graph.
      * @return true if grammar has cycle.
      */
-    bool
-    HasCycle(const std::unordered_map<std::string,
-                                      std::unordered_set<std::string>>& graph);
+    bool HasCycle(const std::unordered_map<std::string, std::unordered_set<std::string>>& graph) const;
 
     /**
      * @brief Find nullable symbols in a grammar.
      * @param grammar The grammar to check.
      * @return set of nullable symbols.
      */
-    std::unordered_set<std::string> NullableSymbols(Grammar& grammar);
+    std::unordered_set<std::string> NullableSymbols(const Grammar& grammar) const;
 
     // -------- TRANSFORMATIONS --------
     /**
@@ -240,7 +238,7 @@ struct GrammarFactory {
      * B it is removed, so B is removed alongside its productions.
      * @param grammar. The grammar to remove unit rules.
      */
-    void RemoveUnitRules(Grammar& grammar);
+    void RemoveUnitRules(Grammar& grammar) const;
 
     /**
      * @brief Perfoms left factorization. A grammar could be left factorized if
@@ -298,6 +296,14 @@ struct GrammarFactory {
      */
     std::string GenerateNewNonTerminal(Grammar&           grammar,
                                        const std::string& base);
+
+    void NormalizeNonTerminals(FactoryItem& item, const std::string& nt) const;
+
+    void AdjustTerminals(FactoryItem& base, const FactoryItem& cmb,
+                         const std::string& target_nt) const;
+
+    std::unordered_map<std::string, std::vector<production>>
+    Merge(const FactoryItem& base, const FactoryItem& cmb) const;
     /**
      * @brief A vector of FactoryItem objects representing different level 1
      * grammar items created by the Init method.
