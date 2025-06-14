@@ -3266,6 +3266,56 @@ TEST(SLR1ParserTest, AllItemsGeneratesEveryItem) {
     EXPECT_EQ(items, expected);
 }
 
+TEST(GrammarFactoryHelperTest, LongestCommonPrefix) {
+    GrammarFactory factory;
+    std::vector<production> prods{
+        {"a", "b", "c"},
+        {"a", "b", "d"},
+        {"a", "b"}
+    };
+    auto prefix = factory.LongestCommonPrefix(prods);
+    std::vector<std::string> expected{"a", "b"};
+    EXPECT_EQ(prefix, expected);
+}
+
+TEST(GrammarFactoryHelperTest, StartsWithAndGenerateNonTerminal) {
+    GrammarFactory factory;
+    production prod{"a", "b", "c"};
+    EXPECT_TRUE(factory.StartsWith(prod, {"a", "b"}));
+    EXPECT_FALSE(factory.StartsWith(prod, {"a", "c"}));
+
+    Grammar g;
+    g.st_.PutSymbol("A", false);
+    g.st_.PutSymbol("A'", false);
+    std::string nt = factory.GenerateNewNonTerminal(g, "A");
+    EXPECT_EQ(nt, "A''");
+}
+
+TEST(GrammarFactoryHelperTest, HasCycleDetection) {
+    GrammarFactory factory;
+    std::unordered_map<std::string, std::unordered_set<std::string>> cyc{
+        {"A", {"B"}},
+        {"B", {"C"}},
+        {"C", {"A"}}
+    };
+    EXPECT_TRUE(factory.HasCycle(cyc));
+
+    std::unordered_map<std::string, std::unordered_set<std::string>> acyc{
+        {"A", {"B"}},
+        {"B", {"C"}},
+        {"C", {}}
+    };
+    EXPECT_FALSE(factory.HasCycle(acyc));
+}
+
+TEST(GrammarFactoryTest, HigherLevelGrammarsExist) {
+    GrammarFactory factory;
+    factory.Init();
+    EXPECT_GE(factory.Lv4().g_.size(), 4u);
+    EXPECT_GE(factory.Lv5().g_.size(), 5u);
+    EXPECT_GE(factory.Lv6().g_.size(), 6u);
+    EXPECT_GE(factory.Lv7().g_.size(), 7u);
+}
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
