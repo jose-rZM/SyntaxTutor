@@ -131,84 +131,10 @@ Grammar GrammarFactory::Lv3() {
     std::uniform_int_distribution<size_t> dist(0, items.size() - 1);
     FactoryItem                           cmb = items.at(dist(gen));
 
-    // STEP 3 Change non terminals in cmb to C ---------------------------
-    std::unordered_map<std::string, std::vector<production>>
-        cmb_updated_grammar;
-    cmb.st_.non_terminals_.emplace("C");
-    for (auto& [nt, prods] : cmb.g_) {
-        std::string new_nt = "C";
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (!cmb.st_.IsTerminal(symbol)) {
-                    symbol = "C";
-                    cmb.st_.non_terminals_.erase(symbol);
-                }
-            }
-        }
-        cmb_updated_grammar["C"] = prods;
-    }
-    cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.emplace("C");
+    NormalizeNonTerminals(cmb, "C");
+    AdjustTerminals(base, cmb, "C");
 
-    // STEP 4 Change one base terminal to another that is not in cmb
-    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
-    std::unordered_set<std::string> terminal_alphabet_set(
-        terminal_alphabet_.begin(), terminal_alphabet_.end());
-
-    for (const std::string& terminal : cmb_terminals) {
-        terminal_alphabet_set.erase(terminal);
-    }
-
-    std::uniform_int_distribution<size_t> terminal_dist(
-        0, terminal_alphabet_set.size() - 1);
-    std::vector<std::string> remaining_terminals(terminal_alphabet_set.begin(),
-                                                 terminal_alphabet_set.end());
-    std::string new_terminal = remaining_terminals[terminal_dist(gen)];
-
-    std::uniform_int_distribution<size_t> base_terminal_dist(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    std::vector<std::string> base_terminals(
-        base.st_.terminals_wtho_eol_.begin(),
-        base.st_.terminals_wtho_eol_.end());
-    std::string terminal_to_replace =
-        base_terminals.at(base_terminal_dist(gen));
-
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = new_terminal;
-                }
-            }
-        }
-    }
-    base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.emplace(new_terminal);
-    base_terminal_dist = std::uniform_int_distribution<size_t>(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    // -----------------------------------------------------
-
-    // STEP 5 Change one random terminal -> terminal B
-    terminal_to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                                     base_terminal_dist(gen));
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = "C";
-                }
-            }
-        }
-    }
-
-    std::unordered_map<std::string, std::vector<production>> combined_grammar =
-        base.g_;
-    for (auto& [nt, prods] : cmb.g_) {
-        combined_grammar[nt].insert(combined_grammar[nt].end(), prods.begin(),
-                                    prods.end());
-    }
-
-    return Grammar(combined_grammar);
+    return Grammar(Merge(base, cmb));
 }
 
 Grammar GrammarFactory::Lv4() {
@@ -223,84 +149,10 @@ Grammar GrammarFactory::Lv4() {
     std::uniform_int_distribution<size_t> dist(0, items.size() - 1);
     FactoryItem                           cmb = items.at(dist(gen));
 
-    // STEP 3 Change non terminals in cmb to C ---------------------------
-    std::unordered_map<std::string, std::vector<production>>
-        cmb_updated_grammar;
-    cmb.st_.non_terminals_.emplace("D");
-    for (auto& [nt, prods] : cmb.g_) {
-        std::string new_nt = "D";
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (!cmb.st_.IsTerminal(symbol)) {
-                    symbol = "D";
-                    cmb.st_.non_terminals_.erase(symbol);
-                }
-            }
-        }
-        cmb_updated_grammar["D"] = prods;
-    }
-    cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.emplace("D");
+    NormalizeNonTerminals(cmb, "D");
+    AdjustTerminals(base, cmb, "D");
 
-    // STEP 4 Change one base terminal to another that is not in cmb
-    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
-    std::unordered_set<std::string> terminal_alphabet_set(
-        terminal_alphabet_.begin(), terminal_alphabet_.end());
-
-    for (const std::string& terminal : cmb_terminals) {
-        terminal_alphabet_set.erase(terminal);
-    }
-
-    std::uniform_int_distribution<size_t> terminal_dist(
-        0, terminal_alphabet_set.size() - 1);
-    std::vector<std::string> remaining_terminals(terminal_alphabet_set.begin(),
-                                                 terminal_alphabet_set.end());
-    std::string new_terminal = remaining_terminals[terminal_dist(gen)];
-
-    std::uniform_int_distribution<size_t> base_terminal_dist(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    std::vector<std::string> base_terminals(
-        base.st_.terminals_wtho_eol_.begin(),
-        base.st_.terminals_wtho_eol_.end());
-    std::string terminal_to_replace =
-        base_terminals.at(base_terminal_dist(gen));
-
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = new_terminal;
-                }
-            }
-        }
-    }
-    base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.emplace(new_terminal);
-    base_terminal_dist = std::uniform_int_distribution<size_t>(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    // -----------------------------------------------------
-
-    // STEP 5 Change one random terminal -> terminal B
-    terminal_to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                                     base_terminal_dist(gen));
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = "D";
-                }
-            }
-        }
-    }
-
-    std::unordered_map<std::string, std::vector<production>> combined_grammar =
-        base.g_;
-    for (auto& [nt, prods] : cmb.g_) {
-        combined_grammar[nt].insert(combined_grammar[nt].end(), prods.begin(),
-                                    prods.end());
-    }
-
-    return Grammar(combined_grammar);
+    return Grammar(Merge(base, cmb));
 }
 
 Grammar GrammarFactory::Lv5() {
@@ -315,84 +167,10 @@ Grammar GrammarFactory::Lv5() {
     std::uniform_int_distribution<size_t> dist(0, items.size() - 1);
     FactoryItem                           cmb = items.at(dist(gen));
 
-    // STEP 3 Change non terminals in cmb to C ---------------------------
-    std::unordered_map<std::string, std::vector<production>>
-        cmb_updated_grammar;
-    cmb.st_.non_terminals_.emplace("E");
-    for (auto& [nt, prods] : cmb.g_) {
-        std::string new_nt = "E";
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (!cmb.st_.IsTerminal(symbol)) {
-                    symbol = "E";
-                    cmb.st_.non_terminals_.erase(symbol);
-                }
-            }
-        }
-        cmb_updated_grammar["E"] = prods;
-    }
-    cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.emplace("E");
+    NormalizeNonTerminals(cmb, "E");
+    AdjustTerminals(base, cmb, "E");
 
-    // STEP 4 Change one base terminal to another that is not in cmb
-    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
-    std::unordered_set<std::string> terminal_alphabet_set(
-        terminal_alphabet_.begin(), terminal_alphabet_.end());
-
-    for (const std::string& terminal : cmb_terminals) {
-        terminal_alphabet_set.erase(terminal);
-    }
-
-    std::uniform_int_distribution<size_t> terminal_dist(
-        0, terminal_alphabet_set.size() - 1);
-    std::vector<std::string> remaining_terminals(terminal_alphabet_set.begin(),
-                                                 terminal_alphabet_set.end());
-    std::string new_terminal = remaining_terminals[terminal_dist(gen)];
-
-    std::uniform_int_distribution<size_t> base_terminal_dist(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    std::vector<std::string> base_terminals(
-        base.st_.terminals_wtho_eol_.begin(),
-        base.st_.terminals_wtho_eol_.end());
-    std::string terminal_to_replace =
-        base_terminals.at(base_terminal_dist(gen));
-
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = new_terminal;
-                }
-            }
-        }
-    }
-    base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.emplace(new_terminal);
-    base_terminal_dist = std::uniform_int_distribution<size_t>(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    // -----------------------------------------------------
-
-    // STEP 5 Change one random terminal -> terminal B
-    terminal_to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                                     base_terminal_dist(gen));
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = "E";
-                }
-            }
-        }
-    }
-
-    std::unordered_map<std::string, std::vector<production>> combined_grammar =
-        base.g_;
-    for (auto& [nt, prods] : cmb.g_) {
-        combined_grammar[nt].insert(combined_grammar[nt].end(), prods.begin(),
-                                    prods.end());
-    }
-
-    return Grammar(combined_grammar);
+    return Grammar(Merge(base, cmb));
 }
 
 Grammar GrammarFactory::Lv6() {
@@ -407,84 +185,10 @@ Grammar GrammarFactory::Lv6() {
     std::uniform_int_distribution<size_t> dist(0, items.size() - 1);
     FactoryItem                           cmb = items.at(dist(gen));
 
-    // STEP 3 Change non terminals in cmb to C ---------------------------
-    std::unordered_map<std::string, std::vector<production>>
-        cmb_updated_grammar;
-    cmb.st_.non_terminals_.emplace("F");
-    for (auto& [nt, prods] : cmb.g_) {
-        std::string new_nt = "F";
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (!cmb.st_.IsTerminal(symbol)) {
-                    symbol = "F";
-                    cmb.st_.non_terminals_.erase(symbol);
-                }
-            }
-        }
-        cmb_updated_grammar["F"] = prods;
-    }
-    cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.emplace("F");
+    NormalizeNonTerminals(cmb, "F");
+    AdjustTerminals(base, cmb, "F");
 
-    // STEP 4 Change one base terminal to another that is not in cmb
-    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
-    std::unordered_set<std::string> terminal_alphabet_set(
-        terminal_alphabet_.begin(), terminal_alphabet_.end());
-
-    for (const std::string& terminal : cmb_terminals) {
-        terminal_alphabet_set.erase(terminal);
-    }
-
-    std::uniform_int_distribution<size_t> terminal_dist(
-        0, terminal_alphabet_set.size() - 1);
-    std::vector<std::string> remaining_terminals(terminal_alphabet_set.begin(),
-                                                 terminal_alphabet_set.end());
-    std::string new_terminal = remaining_terminals[terminal_dist(gen)];
-
-    std::uniform_int_distribution<size_t> base_terminal_dist(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    std::vector<std::string> base_terminals(
-        base.st_.terminals_wtho_eol_.begin(),
-        base.st_.terminals_wtho_eol_.end());
-    std::string terminal_to_replace =
-        base_terminals.at(base_terminal_dist(gen));
-
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = new_terminal;
-                }
-            }
-        }
-    }
-    base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.emplace(new_terminal);
-    base_terminal_dist = std::uniform_int_distribution<size_t>(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    // -----------------------------------------------------
-
-    // STEP 5 Change one random terminal -> terminal B
-    terminal_to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                                     base_terminal_dist(gen));
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = "F";
-                }
-            }
-        }
-    }
-
-    std::unordered_map<std::string, std::vector<production>> combined_grammar =
-        base.g_;
-    for (auto& [nt, prods] : cmb.g_) {
-        combined_grammar[nt].insert(combined_grammar[nt].end(), prods.begin(),
-                                    prods.end());
-    }
-
-    return Grammar(combined_grammar);
+    return Grammar(Merge(base, cmb));
 }
 
 Grammar GrammarFactory::Lv7() {
@@ -498,84 +202,10 @@ Grammar GrammarFactory::Lv7() {
     std::uniform_int_distribution<size_t> dist(0, items.size() - 1);
     FactoryItem                           cmb = items.at(dist(gen));
 
-    // STEP 3 Change non terminals in cmb to C ---------------------------
-    std::unordered_map<std::string, std::vector<production>>
-        cmb_updated_grammar;
-    cmb.st_.non_terminals_.emplace("G");
-    for (auto& [nt, prods] : cmb.g_) {
-        std::string new_nt = "G";
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (!cmb.st_.IsTerminal(symbol)) {
-                    symbol = "G";
-                    cmb.st_.non_terminals_.erase(symbol);
-                }
-            }
-        }
-        cmb_updated_grammar["G"] = prods;
-    }
-    cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.emplace("G");
+    NormalizeNonTerminals(cmb, "G");
+    AdjustTerminals(base, cmb, "G");
 
-    // STEP 4 Change one base terminal to another that is not in cmb
-    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
-    std::unordered_set<std::string> terminal_alphabet_set(
-        terminal_alphabet_.begin(), terminal_alphabet_.end());
-
-    for (const std::string& terminal : cmb_terminals) {
-        terminal_alphabet_set.erase(terminal);
-    }
-
-    std::uniform_int_distribution<size_t> terminal_dist(
-        0, terminal_alphabet_set.size() - 1);
-    std::vector<std::string> remaining_terminals(terminal_alphabet_set.begin(),
-                                                 terminal_alphabet_set.end());
-    std::string new_terminal = remaining_terminals[terminal_dist(gen)];
-
-    std::uniform_int_distribution<size_t> base_terminal_dist(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    std::vector<std::string> base_terminals(
-        base.st_.terminals_wtho_eol_.begin(),
-        base.st_.terminals_wtho_eol_.end());
-    std::string terminal_to_replace =
-        base_terminals.at(base_terminal_dist(gen));
-
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = new_terminal;
-                }
-            }
-        }
-    }
-    base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.emplace(new_terminal);
-    base_terminal_dist = std::uniform_int_distribution<size_t>(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    // -----------------------------------------------------
-
-    // STEP 5 Change one random terminal -> terminal B
-    terminal_to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                                     base_terminal_dist(gen));
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = "G";
-                }
-            }
-        }
-    }
-
-    std::unordered_map<std::string, std::vector<production>> combined_grammar =
-        base.g_;
-    for (auto& [nt, prods] : cmb.g_) {
-        combined_grammar[nt].insert(combined_grammar[nt].end(), prods.begin(),
-                                    prods.end());
-    }
-
-    return Grammar(combined_grammar);
+    return Grammar(Merge(base, cmb));
 }
 
 GrammarFactory::FactoryItem GrammarFactory::CreateLv2Item() {
@@ -594,85 +224,10 @@ GrammarFactory::FactoryItem GrammarFactory::CreateLv2Item() {
     }
     // -----------------------------------------------------
 
-    // STEP 3 Change non terminals in cmb to B
-    // --------------------------------------------
-    std::unordered_map<std::string, std::vector<production>>
-        cmb_updated_grammar;
-    cmb.st_.non_terminals_.emplace("B");
-    for (auto& [nt, prods] : cmb.g_) {
-        std::string new_nt = "B";
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (!cmb.st_.IsTerminal(symbol)) {
-                    symbol = "B";
-                    cmb.st_.non_terminals_.erase(symbol);
-                }
-            }
-        }
-        cmb_updated_grammar["B"] = prods;
-    }
-    cmb.g_ = std::move(cmb_updated_grammar);
-    // -----------------------------------------------------
+    NormalizeNonTerminals(cmb, "B");
+    AdjustTerminals(base, cmb, "B");
 
-    // STEP 4 Change one base terminal to another that is not in cmb
-    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
-    std::unordered_set<std::string> terminal_alphabet_set(
-        terminal_alphabet_.begin(), terminal_alphabet_.end());
-
-    for (const std::string& terminal : cmb_terminals) {
-        terminal_alphabet_set.erase(terminal);
-    }
-
-    std::uniform_int_distribution<size_t> terminal_dist(
-        0, terminal_alphabet_set.size() - 1);
-    std::vector<std::string> remaining_terminals(terminal_alphabet_set.begin(),
-                                                 terminal_alphabet_set.end());
-    std::string new_terminal = remaining_terminals[terminal_dist(gen)];
-
-    std::uniform_int_distribution<size_t> base_terminal_dist(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    std::vector<std::string> base_terminals(
-        base.st_.terminals_wtho_eol_.begin(),
-        base.st_.terminals_wtho_eol_.end());
-    std::string terminal_to_replace =
-        base_terminals.at(base_terminal_dist(gen));
-
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = new_terminal;
-                }
-            }
-        }
-    }
-    base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.emplace(new_terminal);
-    base_terminal_dist = std::uniform_int_distribution<size_t>(
-        0, base.st_.terminals_wtho_eol_.size() - 1);
-    // -----------------------------------------------------
-
-    // STEP 5 Change one random terminal -> terminal B
-    terminal_to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                                     base_terminal_dist(gen));
-    for (auto& [nt, prods] : base.g_) {
-        for (auto& prod : prods) {
-            for (std::string& symbol : prod) {
-                if (symbol == terminal_to_replace) {
-                    symbol = "B";
-                }
-            }
-        }
-    }
-
-    std::unordered_map<std::string, std::vector<production>> combined_grammar =
-        base.g_;
-    for (auto& [nt, prods] : cmb.g_) {
-        combined_grammar[nt].insert(combined_grammar[nt].end(), prods.begin(),
-                                    prods.end());
-    }
-
-    return FactoryItem(combined_grammar);
+    return FactoryItem(Merge(base, cmb));
 }
 
 bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) const {
@@ -700,12 +255,9 @@ bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) const {
         }
     }
 
-    for (const auto& nt : grammar.st_.non_terminals_) {
-        if (!reachable.contains(nt)) {
-            return true;
-        }
-    }
-    return false;
+    return std::ranges::any_of(grammar.st_.non_terminals_, [&](const auto& nt) {
+        return !reachable.contains(nt);
+    });
 }
 
 bool GrammarFactory::IsInfinite(Grammar& grammar) const {
@@ -741,7 +293,7 @@ bool GrammarFactory::IsInfinite(Grammar& grammar) const {
     return generating != grammar.st_.non_terminals_;
 }
 
-bool GrammarFactory::HasDirectLeftRecursion(Grammar& grammar) {
+bool GrammarFactory::HasDirectLeftRecursion(const Grammar& grammar) const {
     for (const auto& [nt, prods] : grammar.g_) {
         for (const auto& prod : prods) {
             if (nt == prod[0]) {
@@ -752,7 +304,7 @@ bool GrammarFactory::HasDirectLeftRecursion(Grammar& grammar) {
     return false;
 }
 
-bool GrammarFactory::HasIndirectLeftRecursion(Grammar& grammar) {
+bool GrammarFactory::HasIndirectLeftRecursion(const Grammar& grammar) const {
     std::unordered_set<std::string> nullable = NullableSymbols(grammar);
     std::unordered_map<std::string, std::unordered_set<std::string>> graph;
 
@@ -778,7 +330,7 @@ bool GrammarFactory::HasIndirectLeftRecursion(Grammar& grammar) {
 
 bool GrammarFactory::HasCycle(
     const std::unordered_map<std::string, std::unordered_set<std::string>>&
-        graph) {
+        graph) const {
     std::unordered_map<std::string, int> in_degree;
     std::queue<std::string>              q;
 
@@ -814,7 +366,7 @@ bool GrammarFactory::HasCycle(
 }
 
 std::unordered_set<std::string>
-GrammarFactory::NullableSymbols(Grammar& grammar) {
+GrammarFactory::NullableSymbols(const Grammar& grammar) const {
     std::unordered_set<std::string> nullable;
     bool                            changed;
 
@@ -859,17 +411,17 @@ void GrammarFactory::RemoveLeftRecursion(Grammar& grammar) {
         std::string new_non_terminal = GenerateNewNonTerminal(grammar, nt);
         for (const auto& prod : productions) {
             if (!prod.empty() && prod[0] == nt) {
-                alpha.push_back({prod.begin() + 1, prod.end()});
+                alpha.emplace_back(prod.begin() + 1, prod.end());
             } else {
                 if (prod[0] == grammar.st_.EPSILON_) {
                     continue;
                 }
-                beta.push_back(prod);
+                beta.emplace_back(prod);
             }
         }
         if (!alpha.empty()) {
             if (beta.empty()) {
-                beta.push_back({});
+                beta.emplace_back();
             }
             for (auto& b : beta) {
                 b.push_back(new_non_terminal);
@@ -877,7 +429,7 @@ void GrammarFactory::RemoveLeftRecursion(Grammar& grammar) {
             for (auto& a : alpha) {
                 a.push_back(new_non_terminal);
             }
-            alpha.push_back({grammar.st_.EPSILON_});
+            alpha.emplace_back(production{grammar.st_.EPSILON_});
             new_rules[nt]               = beta;
             new_rules[new_non_terminal] = alpha;
             grammar.st_.PutSymbol(new_non_terminal, false);
@@ -890,7 +442,7 @@ void GrammarFactory::RemoveLeftRecursion(Grammar& grammar) {
     grammar.g_ = std::move(new_rules);
 }
 
-void GrammarFactory::RemoveUnitRules(Grammar& grammar) {
+void GrammarFactory::RemoveUnitRules(Grammar& grammar) const {
     for (const auto& [nt, prods] : grammar.g_) {
         for (const auto& prod : prods) {
             if (prod.size() == 1 && !grammar.st_.IsTerminal(prod[0])) {
@@ -919,7 +471,7 @@ void GrammarFactory::LeftFactorize(Grammar& grammar) {
                     LongestCommonPrefix(remaining_productions);
 
                 if (common_prefix.empty()) {
-                    factored_productions.push_back(remaining_productions[0]);
+                    factored_productions.emplace_back(remaining_productions[0]);
                     remaining_productions.erase(remaining_productions.begin());
                 } else {
                     std::string new_non_terminal =
@@ -928,7 +480,7 @@ void GrammarFactory::LeftFactorize(Grammar& grammar) {
 
                     std::vector<std::string> new_production = common_prefix;
                     new_production.push_back(new_non_terminal);
-                    factored_productions.push_back(new_production);
+                    factored_productions.emplace_back(std::move(new_production));
 
                     std::vector<production> new_remaining_productions;
                     for (const auto& prod : remaining_productions) {
@@ -940,9 +492,9 @@ void GrammarFactory::LeftFactorize(Grammar& grammar) {
                                 remaining_part.push_back(grammar.st_.EPSILON_);
                                 grammar.st_.PutSymbol(grammar.st_.EPSILON_, true);
                             }
-                            new_remaining_productions.push_back(remaining_part);
+                            new_remaining_productions.emplace_back(std::move(remaining_part));
                         } else {
-                            factored_productions.push_back(prod);
+                            factored_productions.emplace_back(prod);
                         }
                     }
 
@@ -1038,4 +590,82 @@ void GrammarFactory::FactoryItem::Debug() {
         }
         std::cout << "\n";
     }
+}
+
+void GrammarFactory::NormalizeNonTerminals(FactoryItem& item,
+                                            const std::string& nt) const {
+    std::unordered_map<std::string, std::vector<production>> updated;
+    for (auto& [old_nt, prods] : item.g_) {
+        for (auto& prod : prods) {
+            for (auto& symbol : prod) {
+                if (!item.st_.IsTerminal(symbol)) {
+                    symbol = nt;
+                }
+            }
+        }
+        updated[nt].insert(updated[nt].end(), prods.begin(), prods.end());
+    }
+    item.g_ = std::move(updated);
+    item.st_.non_terminals_.clear();
+    item.st_.non_terminals_.emplace(nt);
+}
+
+void GrammarFactory::AdjustTerminals(FactoryItem& base, const FactoryItem& cmb,
+                                     const std::string& target_nt) const {
+    std::random_device rd;
+    std::mt19937       gen(rd());
+
+    std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
+    std::unordered_set<std::string> alphabet(terminal_alphabet_.begin(),
+                                             terminal_alphabet_.end());
+    for (const auto& t : cmb_terminals) {
+        alphabet.erase(t);
+    }
+    if (alphabet.empty()) {
+        return;
+    }
+    std::vector<std::string> remaining(alphabet.begin(), alphabet.end());
+    std::uniform_int_distribution<size_t> dist(0, remaining.size() - 1);
+    std::string new_terminal = remaining[dist(gen)];
+
+    std::vector<std::string> base_terms(base.st_.terminals_wtho_eol_.begin(),
+                                        base.st_.terminals_wtho_eol_.end());
+    std::uniform_int_distribution<size_t> base_dist(0, base_terms.size() - 1);
+    std::string to_replace = base_terms.at(base_dist(gen));
+
+    for (auto& [nt, prods] : base.g_) {
+        for (auto& prod : prods) {
+            for (auto& symbol : prod) {
+                if (symbol == to_replace) {
+                    symbol = new_terminal;
+                }
+            }
+        }
+    }
+    base.st_.terminals_wtho_eol_.erase(to_replace);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
+
+    base_terms.assign(base.st_.terminals_wtho_eol_.begin(),
+                      base.st_.terminals_wtho_eol_.end());
+    base_dist = std::uniform_int_distribution<size_t>(0, base_terms.size() - 1);
+    to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
+                            base_dist(gen));
+    for (auto& [nt, prods] : base.g_) {
+        for (auto& prod : prods) {
+            for (auto& symbol : prod) {
+                if (symbol == to_replace) {
+                    symbol = target_nt;
+                }
+            }
+        }
+    }
+}
+
+std::unordered_map<std::string, std::vector<production>>
+GrammarFactory::Merge(const FactoryItem& base, const FactoryItem& cmb) const {
+    auto result = base.g_;
+    for (const auto& [nt, prods] : cmb.g_) {
+        result[nt].insert(result[nt].end(), prods.begin(), prods.end());
+    }
+    return result;
 }
