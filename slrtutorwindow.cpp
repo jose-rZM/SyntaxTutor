@@ -538,6 +538,8 @@ void SLRTutorWindow::showTable() {
 }
 
 void SLRTutorWindow::updateProgressPanel() {
+    int scrollPos = ui->textEdit->verticalScrollBar()->value();
+
     QString text;
 
     text += R"(
@@ -546,8 +548,7 @@ void SLRTutorWindow::updateProgressPanel() {
     )";
 
     if (userMadeStates.empty()) {
-        text += "<div style='color:#aaaaaa;'>No se han construido estados "
-                "aún.</div>";
+        text += "<div style='color:#aaaaaa;'>" + tr("No se han construido estados aún.") + "</div>";
     } else {
         for (size_t i = 0; i < slr1.states_.size(); ++i) {
             auto st = std::ranges::find_if(
@@ -555,7 +556,8 @@ void SLRTutorWindow::updateProgressPanel() {
 
             if (st != userMadeStates.end()) {
                 text += QString("<div style='color:#00ADB5; font-weight:bold; "
-                                "margin-top:12px;'>Estado I%1:</div>")
+                                "margin-top:12px;'>%1 I%2:</div>")
+                            .arg(tr("Estado"))
                             .arg((*st).id_);
 
                 text += "<p style='margin-left:12px; margin-top:4px;'>";
@@ -567,9 +569,11 @@ void SLRTutorWindow::updateProgressPanel() {
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {
                     text += "<div style='margin-left:12px; color:#BBBBBB; "
-                            "margin-top:4px;'>Transiciones:</div><ul "
-                            "style='list-style-type=circle; color:#777777, "
-                            "margin-left:20px;'>";
+                            "margin-top:4px;'>"
+                            + tr("Transiciones:")
+                            + "</div><ul "
+                              "style='list-style-type:circle; color:#777777; "
+                              "margin-left:20px;'>";
                     for (const auto& entry : it->second) {
                         const QString symbol =
                             QString::fromStdString(entry.first);
@@ -588,6 +592,7 @@ void SLRTutorWindow::updateProgressPanel() {
     text += "</body></html>";
 
     ui->textEdit->setHtml(text);
+    ui->textEdit->verticalScrollBar()->setValue(scrollPos);
 }
 
 void SLRTutorWindow::addUserState(unsigned id) {
