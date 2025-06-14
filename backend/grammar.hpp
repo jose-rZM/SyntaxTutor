@@ -51,8 +51,8 @@ struct Grammar {
      * Searches for rules in which the specified token is part of the consequent
      * and returns those rules.
      */
-    std::vector<std::pair<const std::string, production>>
-    FilterRulesByConsequent(const std::string& arg);
+    std::vector<std::pair<const std::string, production>> FilterRulesByConsequent(
+        const std::string& arg);
 
     /**
      * @brief Prints the current grammar structure to standard output.

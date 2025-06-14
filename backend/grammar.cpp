@@ -1,9 +1,11 @@
 #include "grammar.hpp"
 #include "symbol_table.hpp"
 #include <algorithm>
+#include <ranges>
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <format>
 
 Grammar::Grammar(
     const std::unordered_map<std::string, std::vector<production>>& grammar) {
@@ -35,24 +37,27 @@ void Grammar::TransformToAugmentedGrammar()
     axiom_ = new_axiom;
 }
 
-void Grammar::SetAxiom(const std::string& axiom) {
+void Grammar::SetAxiom(const std::string& axiom)
+{
     axiom_ = axiom;
 }
 
-bool Grammar::HasEmptyProduction(const std::string& antecedent) {
-    auto rules{g_.at(antecedent)};
-    return std::find_if(rules.cbegin(), rules.cend(), [&](const auto& rule) {
+bool Grammar::HasEmptyProduction(const std::string& antecedent)
+{
+    auto rules{g_.at(std::string{antecedent})};
+    return std::ranges::find_if(rules, [&](const auto& rule) {
                return rule[0] == st_.EPSILON_;
-           }) != rules.cend();
+           }) != rules.end();
 }
 
-std::vector<std::pair<const std::string, production>>
-Grammar::FilterRulesByConsequent(const std::string& arg) {
+std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByConsequent(
+    const std::string& arg)
+{
     std::vector<std::pair<const std::string, production>> rules;
-    for (const auto& rule : g_) {
-        for (const production& prod : rule.second) {
-            if (std::find(prod.cbegin(), prod.cend(), arg) != prod.cend()) {
-                rules.emplace_back(rule.first, prod);
+    for (const auto& [nt, prods] : g_) {
+        for (const production& prod : prods) {
+            if (std::ranges::find(prod, arg) != prod.end()) {
+                rules.emplace_back(nt, prod);
             }
         }
     }
@@ -82,16 +87,16 @@ std::string Grammar::GenerateNewNonTerminal(const std::string& base) {
     std::string new_nt;
 
     do {
-        new_nt = base + "'" + std::to_string(i);
-        i++;
-    } while (st_.non_terminals_.find(new_nt) != st_.non_terminals_.end());
+        new_nt = std::format("{}'{}", base, i);
+        ++i;
+    } while (st_.non_terminals_.contains(new_nt));
     st_.non_terminals_.insert(new_nt);
     return new_nt;
 }
 
 void Grammar::AddProduction(const std::string&              antecedent,
                             const std::vector<std::string>& consequent) {
-    g_[antecedent].push_back(std::move(consequent));
+    g_[antecedent].push_back(consequent);
 }
 
 std::vector<std::string> Grammar::Split(const std::string& s) {
@@ -109,8 +114,9 @@ std::vector<std::string> Grammar::Split(const std::string& s) {
         if (st_.In(str)) {
             unsigned lookahead = end + 1;
             while (lookahead <= s.size()) {
-                std::string extended = s.substr(start, lookahead - start);
-                if (st_.In(extended)) {
+                if (std::string extended =
+                        s.substr(start, lookahead - start);
+                    st_.In(extended)) {
                     end = lookahead;
                 }
                 ++lookahead;
