@@ -77,7 +77,6 @@ public:
 
     // ====== UI Interaction ========================================
     void addMessage(const QString &text, bool isUser);     // Add message to chat
-    void addDivisorLine(const QString &stateName);         // Insert a visual divider
     void exportConversationToPdf(const QString &filePath); // Export full interaction
     void showTable();                                      // Render SLR(1) table
     void launchSLRWizard();
