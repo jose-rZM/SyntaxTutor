@@ -275,31 +275,26 @@ void LLTutorWindow::updateProgressPanel() {
     )";
 
     // === CABECERAS (First) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; "
-            "margin-top:12px;'>Conjuntos CAB"
-            ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>"
+            + tr("Conjuntos CAB (FIRST)") + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, cabSet] : userCAB.asKeyValueRange()) {
-        html +=
-            QString("<li> CAB(%1) = %2</li>").arg(symbol, "{" + cabSet + "}");
+        html += QString("<li>%1(%2) = %3</li>").arg(tr("CAB"), symbol, "{" + cabSet + "}");
     }
     html += "</ul>";
 
     // === SIGUIENTES (Follow) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; "
-            "margin-top:12px;'>Conjuntos SIG"
-            ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos SIG")
+            + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, sigSet] : userSIG.asKeyValueRange()) {
-        html +=
-            QString("<li> SIG(%1) = %2</li>").arg(symbol, "{" + sigSet + "}");
+        html += QString("<li>%1(%2) = %3</li>").arg(tr("SIG"), symbol, "{" + sigSet + "}");
     }
     html += "</ul>";
 
     // === SELECTORES ===
-    html += "<div style='color:#00ADB5; font-weight:bold; "
-            "margin-top:12px;'>Conjuntos SD"
-            ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos SD")
+            + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [rule, sdSet] : userSD.asKeyValueRange()) {
-        html += QString("<li> SD(%1) = %2</li>").arg(rule, "{" + sdSet + "}");
+        html += QString("<li>%1(%2) = %3</li>").arg(tr("SD"), rule, "{" + sdSet + "}");
     }
     html += "</ul>";
 
