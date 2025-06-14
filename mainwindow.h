@@ -45,7 +45,7 @@ public:
         if (m_userLevel == clamped)
             return;
         m_userLevel = clamped;
-        emit userLevelChanged(lvl);
+        emit userLevelChanged(clamped);
     }
 private slots:
     void on_lv1Button_clicked(bool checked);
