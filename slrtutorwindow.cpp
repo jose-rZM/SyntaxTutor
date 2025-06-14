@@ -1846,16 +1846,26 @@ unsigned SLRTutorWindow::solutionForC() {
 
 QStringList SLRTutorWindow::solutionForCA() {
     QSet<QString> following_symbols;
-    std::ranges::for_each(
-        currentSlrState.items_, [&following_symbols](const Lr0Item& item) {
+    bool acceptingItem = false;
+
+    std::ranges::for_each(currentSlrState.items_, [&](const Lr0Item& item) {
+        if (QString::fromStdString(item.NextToDot()) == slr1.gr_.st_.EPSILON_
+            && QString::fromStdString(item.antecedent_) == slr1.gr_.axiom_) {
+            acceptingItem = true;
+        } else {
             following_symbols.insert(QString::fromStdString(item.NextToDot()));
-        });
+        }
+    });
 
     // FILL FOLLOW SYMBOLS FOR CB QUESTION
     followSymbols           = following_symbols.values();
     currentFollowSymbolsIdx = 0;
 
-    return followSymbols;
+    QStringList result = followSymbols;
+    if (acceptingItem) {
+        result.append(QString::fromStdString(slr1.gr_.st_.EOL_));
+    }
+    return result;
 }
 
 std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
