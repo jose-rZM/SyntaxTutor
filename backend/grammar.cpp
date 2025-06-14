@@ -5,7 +5,6 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include <format>
 
 Grammar::Grammar(
     const std::unordered_map<std::string, std::vector<production>>& grammar) {
@@ -87,8 +86,8 @@ std::string Grammar::GenerateNewNonTerminal(const std::string& base) {
     std::string new_nt;
 
     do {
-        new_nt = std::format("{}'{}", base, i);
-        ++i;
+        new_nt = base + "'" + std::to_string(i);
+        i++;
     } while (st_.non_terminals_.contains(new_nt));
     st_.non_terminals_.insert(new_nt);
     return new_nt;
