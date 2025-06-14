@@ -1587,7 +1587,11 @@ bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
     QSet<QString> responseSet;
 
     for (const auto& s : std::as_const(response)) {
-        responseSet.insert(s.trimmed());
+        QString trimmed = s.trimmed();
+        if (responseSet.contains(trimmed)) {
+            return false;
+        }
+        responseSet.insert(trimmed);
     }
     QStringList   expected = solutionForCA();
     QSet<QString> expectedSet(expected.begin(), expected.end());
@@ -2113,8 +2117,16 @@ QString SLRTutorWindow::feedbackForCA() {
     QString text = ui->userResponse->toPlainText().trimmed();
     QStringList resp = text.split(',', Qt::SkipEmptyParts)
                            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
-    QSet<QString> setSol(expected.begin(), expected.end());
     QSet<QString> setResp(resp.begin(), resp.end());
+    QSet<QString> duplicates;
+    for (const QString& part : std::as_const(resp)) {
+        QString trimmed = part.trimmed();
+        if (resp.count(trimmed) > 1)
+            duplicates.insert(trimmed);
+        setResp.insert(trimmed);
+        resp.append(trimmed);
+    }
+    QSet<QString> setSol(expected.begin(), expected.end());
 
     QString base;
     if (std::ranges::any_of(currentSlrState.items_,
@@ -2143,6 +2155,9 @@ QString SLRTutorWindow::feedbackForCA() {
     QSet<QString> missing = setSol - setResp;
     QSet<QString> rest = setResp - setSol;
     QString msg;
+    if (!duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: %1.\n").arg(QStringList(duplicates.values()).join(", "));
+    }
     if (!missing.isEmpty()) {
         msg += tr("Te han faltado símbolos.\n");
     }
