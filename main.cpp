@@ -21,9 +21,9 @@ int main(int argc, char* argv[]) {
     QString     langCode = settings.value("lang/language", "es").toString();
     QTranslator translator;
     if (langCode == "en") {
-        bool x = translator.load(":/translations/st_en.qm");
+        translator.load(":/translations/st_en.qm");
     } else {
-        bool x = translator.load(":/translations/st_es.qm");
+        translator.load(":/translations/st_es.qm");
     }
     a.installTranslator(&translator);
     loadFonts();

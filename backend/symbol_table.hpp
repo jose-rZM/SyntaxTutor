@@ -38,7 +38,7 @@ struct SymbolTable {
      * @param s Symbol identifier to search.
      * @return true if the symbol is present, otherwise false.
      */
-    bool In(const std::string& s);
+    bool In(const std::string& s) const;
 
     /**
      * @brief Checks if a symbol is a terminal.
@@ -46,7 +46,7 @@ struct SymbolTable {
      * @param s Symbol identifier to check.
      * @return true if the symbol is terminal, otherwise false.
      */
-    bool IsTerminal(const std::string& s);
+    bool IsTerminal(const std::string& s) const;
 
     /**
      * @brief Checks if a symbol is a terminal excluding EOL.
@@ -54,5 +54,5 @@ struct SymbolTable {
      * @param s Symbol identifier to check.
      * @return true if the symbol is terminal, otherwise false.
      */
-    bool IsTerminalWthoEol(const std::string& s);
+    bool IsTerminalWthoEol(const std::string& s) const;
 };

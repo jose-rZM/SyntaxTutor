@@ -38,7 +38,7 @@ struct Grammar {
      * An empty production is represented as `<antecedent> -> ;`, indicating
      * that the antecedent can produce an empty string.
      */
-    bool HasEmptyProduction(const std::string& antecedent);
+    bool HasEmptyProduction(const std::string& antecedent) const;
 
     /**
      * @brief Filters grammar rules that contain a specific token in their
@@ -52,7 +52,7 @@ struct Grammar {
      * and returns those rules.
      */
     std::vector<std::pair<const std::string, production>> FilterRulesByConsequent(
-        const std::string& arg);
+        const std::string& arg) const;
 
     /**
      * @brief Prints the current grammar structure to standard output.
@@ -60,7 +60,7 @@ struct Grammar {
      * This function provides a debug view of the grammar by printing out all
      * rules, the axiom, and other relevant details.
      */
-    void Debug();
+    void Debug() const;
 
     /**
      * @brief Checks if a rule exhibits left recursion.
@@ -75,7 +75,7 @@ struct Grammar {
      * parsing algorithms.
      */
     bool HasLeftRecursion(const std::string&              antecedent,
-                          const std::vector<std::string>& consequent);
+                          const std::vector<std::string>& consequent) const;
 
     std::string GenerateNewNonTerminal(const std::string& base);
 

@@ -362,6 +362,69 @@ TEST(GrammarFactoryTest, GeneratedLv3SLR1GrammarIsAlwaysSLR1)
     }
 }
 
+TEST(GrammarFactoryTest, NormalizeNonTerminals_Basic) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> g{
+        {"A", {{"a", "B"}, {"b"}}},
+        {"B", {{"c"}}}
+    };
+
+    GrammarFactory::FactoryItem item(g);
+
+    factory.NormalizeNonTerminals(item, "X");
+
+    ASSERT_EQ(item.g_.size(), 1u);
+    ASSERT_TRUE(item.g_.contains("X"));
+    production             p1{"a", "X"};
+    production             p2{"b"};
+    production             p3{"c"};
+    std::vector<production> expected{p1, p2, p3};
+    auto                     result   = item.g_["X"];
+    ASSERT_EQ(result.size(), expected.size());
+    for (const auto& prod : expected) {
+        auto it = std::find(result.begin(), result.end(), prod);
+        EXPECT_NE(it, result.end());
+    }
+    EXPECT_EQ(item.st_.non_terminals_.size(), 1u);
+    EXPECT_TRUE(item.st_.non_terminals_.contains("X"));
+}
+
+TEST(GrammarFactoryTest, AdjustTerminals_ReplacesCorrectly) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g{{"B", {{"b"}}}};
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    factory.AdjustTerminals(base, cmb, "X");
+
+    ASSERT_EQ(base.g_.size(), 1u);
+    ASSERT_TRUE(base.g_.contains("A"));
+    ASSERT_EQ(base.g_["A"], std::vector<production>{{{"X"}}});
+    ASSERT_EQ(base.st_.terminals_wtho_eol_.size(), 1u);
+    ASSERT_FALSE(base.st_.terminals_wtho_eol_.contains("b"));
+}
+
+TEST(GrammarFactoryTest, Merge_AppendsProductions) {
+    GrammarFactory factory;
+
+    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g{{"A", {{"b"}}}};
+
+    GrammarFactory::FactoryItem base(base_g);
+    GrammarFactory::FactoryItem cmb(cmb_g);
+
+    auto merged = factory.Merge(base, cmb);
+
+    ASSERT_EQ(merged.size(), 1u);
+    ASSERT_TRUE(merged.contains("A"));
+    std::vector<production> expected{{{"a"}}, {{"b"}}};
+    EXPECT_EQ(merged["A"], expected);
+}
+
 TEST(GrammarTest, IsInfinite_WhenGrammarIsInfinite) {
     Grammar        g;
     GrammarFactory factory;

@@ -14,14 +14,14 @@ void SymbolTable::PutSymbol(const std::string& identifier, bool isTerminal) {
     }
 }
 
-bool SymbolTable::In(const std::string& s) {
+bool SymbolTable::In(const std::string& s) const {
     return st_.contains(s);
 }
 
-bool SymbolTable::IsTerminal(const std::string& s) {
+bool SymbolTable::IsTerminal(const std::string& s) const {
     return terminals_.contains(s);
 }
 
-bool SymbolTable::IsTerminalWthoEol(const std::string& s) {
+bool SymbolTable::IsTerminalWthoEol(const std::string& s) const {
     return s != EPSILON_ && terminals_.contains(s);
 }
