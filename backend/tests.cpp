@@ -3212,6 +3212,60 @@ TEST(SLR1_SolveLRConflicts, ShiftReduceConflict) {
     EXPECT_TRUE(slr1.SolveLRConflicts(st1));
 }
 
+TEST(Lr0ItemTest, BehaviourMethods) {
+    Lr0Item item{"A", {"a", "b"}, 0, "EPSILON", "$"};
+    EXPECT_EQ(item.NextToDot(), "a");
+    item.AdvanceDot();
+    EXPECT_FALSE(item.IsComplete());
+    EXPECT_EQ(item.NextToDot(), "b");
+    item.AdvanceDot();
+    EXPECT_TRUE(item.IsComplete());
+    EXPECT_EQ(item.NextToDot(), "EPSILON");
+}
+
+TEST(SymbolTableTest, InsertAndQuery) {
+    SymbolTable st;
+    st.PutSymbol("A", false);
+    st.PutSymbol("a", true);
+    EXPECT_TRUE(st.In("A"));
+    EXPECT_TRUE(st.In("a"));
+    EXPECT_TRUE(st.IsTerminal("a"));
+    EXPECT_FALSE(st.IsTerminal("A"));
+    EXPECT_TRUE(st.IsTerminalWthoEol("a"));
+}
+
+TEST(StateTest, EqualityAndHash) {
+    state s1;
+    s1.id_ = 0;
+    s1.items_.insert({"A", {"a"}, 0, "EPSILON", "$"});
+
+    state s2;
+    s2.id_ = 1;
+    s2.items_.insert({"A", {"a"}, 0, "EPSILON", "$"});
+
+    EXPECT_EQ(s1, s2);
+    std::unordered_set<state> set;
+    set.insert(s1);
+    EXPECT_EQ(set.count(s2), 1u);
+}
+
+TEST(SLR1ParserTest, AllItemsGeneratesEveryItem) {
+    Grammar g;
+    g.st_.PutSymbol("S", false);
+    g.st_.PutSymbol("a", true);
+    g.axiom_ = "S";
+    g.AddProduction("S", {"a", g.st_.EOL_});
+
+    SLR1Parser slr1(g);
+    auto items = slr1.AllItems();
+
+    std::unordered_set<Lr0Item> expected = {
+        {"S", {"a", g.st_.EOL_}, 0, g.st_.EPSILON_, g.st_.EOL_},
+        {"S", {"a", g.st_.EOL_}, 1, g.st_.EPSILON_, g.st_.EOL_},
+        {"S", {"a", g.st_.EOL_}, 2, g.st_.EPSILON_, g.st_.EOL_}};
+    EXPECT_EQ(items, expected);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
