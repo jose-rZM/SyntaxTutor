@@ -8,6 +8,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
 #include <QGraphicsView>
+#include <QImage>
+#include <QBuffer>
 #include <QListWidgetItem>
 #include <QMainWindow>
 #include <QMessageBox>
@@ -98,6 +100,7 @@ public:
                   int vSpacing);
 
     void showTreeGraphics(std::unique_ptr<TreeNode> root); // Display derivation tree visually
+    QString generateTreeImageBase64(const std::vector<std::string> &symbols);
 
     // ====== User Response Verification ========================
     bool verifyResponse(const QString &userResponse); // Delegates to current state's verification

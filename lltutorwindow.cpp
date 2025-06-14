@@ -256,6 +256,14 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     }
     html += "</table></div>";
 
+    html += R"(<div class='page-break'></div>)";
+    html += "<h2>" + tr("Árboles CAB") + "</h2>";
+    for (const auto& [nt, production] : std::as_const(sortedGrammar)) {
+        html += "<h3>" + nt + " → " + production.join(' ') + "</h3>";
+        QString img = generateTreeImageBase64(qvectorToStdVector(production));
+        html += "<div style='text-align:center;margin-bottom:30px;'><img src='" + img + "'></div>";
+    }
+
     doc.setHtml(html);
 
     QPrinter printer(QPrinter::HighResolution);
@@ -2196,6 +2204,38 @@ void LLTutorWindow::showTreeGraphics(
     dialog->setLayout(layout);
 
     dialog->show();
+}
+
+QString LLTutorWindow::generateTreeImageBase64(
+    const std::vector<std::string>& symbols) {
+      std::unordered_set<std::string>                               first_set;
+    std::vector<std::pair<std::string, std::vector<std::string>>> active;
+
+    auto root = buildTreeNode(symbols, first_set, 0, active);
+
+    QGraphicsScene scene;
+    scene.setBackgroundBrush(QColor("#1F1F1F"));
+    drawTree(root, &scene, QPointF(0, 0), 220, 100);
+
+    QRectF rect = scene.itemsBoundingRect();
+    rect = rect.marginsAdded(QMarginsF(10, 10, 10, 10));
+    scene.setSceneRect(rect);
+
+    QImage image(rect.size().toSize(), QImage::Format_ARGB32);
+    image.fill(QColor("#1F1F1F"));
+
+    QPainter painter(&image);
+    scene.render(&painter);
+    painter.end();
+
+    QByteArray ba;
+    QBuffer    buffer(&ba);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, "PNG");
+    buffer.close();
+
+    return QString("data:image/png;base64,%1")
+        .arg(QString::fromLatin1(ba.toBase64()));
 }
 
 QString LLTutorWindow::TeachFollow(const QString& nt) {
