@@ -349,7 +349,7 @@ SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
     }
 }
 
-std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) {
+std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) const {
     std::ostringstream output;
     for (const auto& item : items) {
         output << "  - ";

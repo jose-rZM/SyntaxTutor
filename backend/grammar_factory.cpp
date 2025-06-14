@@ -2,6 +2,7 @@
 #include "ll1_parser.hpp"
 #include "slr1_parser.hpp"
 #include <algorithm>
+#include <ranges>
 #include <iostream>
 #include <queue>
 #include <random>
@@ -133,7 +134,7 @@ Grammar GrammarFactory::Lv3() {
     // STEP 3 Change non terminals in cmb to C ---------------------------
     std::unordered_map<std::string, std::vector<production>>
         cmb_updated_grammar;
-    cmb.st_.non_terminals_.insert("C");
+    cmb.st_.non_terminals_.emplace("C");
     for (auto& [nt, prods] : cmb.g_) {
         std::string new_nt = "C";
         for (auto& prod : prods) {
@@ -147,7 +148,7 @@ Grammar GrammarFactory::Lv3() {
         cmb_updated_grammar["C"] = prods;
     }
     cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.insert("C");
+    cmb.st_.non_terminals_.emplace("C");
 
     // STEP 4 Change one base terminal to another that is not in cmb
     std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
@@ -182,7 +183,7 @@ Grammar GrammarFactory::Lv3() {
         }
     }
     base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.insert(new_terminal);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
     base_terminal_dist = std::uniform_int_distribution<size_t>(
         0, base.st_.terminals_wtho_eol_.size() - 1);
     // -----------------------------------------------------
@@ -225,7 +226,7 @@ Grammar GrammarFactory::Lv4() {
     // STEP 3 Change non terminals in cmb to C ---------------------------
     std::unordered_map<std::string, std::vector<production>>
         cmb_updated_grammar;
-    cmb.st_.non_terminals_.insert("D");
+    cmb.st_.non_terminals_.emplace("D");
     for (auto& [nt, prods] : cmb.g_) {
         std::string new_nt = "D";
         for (auto& prod : prods) {
@@ -239,7 +240,7 @@ Grammar GrammarFactory::Lv4() {
         cmb_updated_grammar["D"] = prods;
     }
     cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.insert("D");
+    cmb.st_.non_terminals_.emplace("D");
 
     // STEP 4 Change one base terminal to another that is not in cmb
     std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
@@ -274,7 +275,7 @@ Grammar GrammarFactory::Lv4() {
         }
     }
     base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.insert(new_terminal);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
     base_terminal_dist = std::uniform_int_distribution<size_t>(
         0, base.st_.terminals_wtho_eol_.size() - 1);
     // -----------------------------------------------------
@@ -317,7 +318,7 @@ Grammar GrammarFactory::Lv5() {
     // STEP 3 Change non terminals in cmb to C ---------------------------
     std::unordered_map<std::string, std::vector<production>>
         cmb_updated_grammar;
-    cmb.st_.non_terminals_.insert("E");
+    cmb.st_.non_terminals_.emplace("E");
     for (auto& [nt, prods] : cmb.g_) {
         std::string new_nt = "E";
         for (auto& prod : prods) {
@@ -331,7 +332,7 @@ Grammar GrammarFactory::Lv5() {
         cmb_updated_grammar["E"] = prods;
     }
     cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.insert("E");
+    cmb.st_.non_terminals_.emplace("E");
 
     // STEP 4 Change one base terminal to another that is not in cmb
     std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
@@ -366,7 +367,7 @@ Grammar GrammarFactory::Lv5() {
         }
     }
     base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.insert(new_terminal);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
     base_terminal_dist = std::uniform_int_distribution<size_t>(
         0, base.st_.terminals_wtho_eol_.size() - 1);
     // -----------------------------------------------------
@@ -409,7 +410,7 @@ Grammar GrammarFactory::Lv6() {
     // STEP 3 Change non terminals in cmb to C ---------------------------
     std::unordered_map<std::string, std::vector<production>>
         cmb_updated_grammar;
-    cmb.st_.non_terminals_.insert("F");
+    cmb.st_.non_terminals_.emplace("F");
     for (auto& [nt, prods] : cmb.g_) {
         std::string new_nt = "F";
         for (auto& prod : prods) {
@@ -423,7 +424,7 @@ Grammar GrammarFactory::Lv6() {
         cmb_updated_grammar["F"] = prods;
     }
     cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.insert("F");
+    cmb.st_.non_terminals_.emplace("F");
 
     // STEP 4 Change one base terminal to another that is not in cmb
     std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
@@ -458,7 +459,7 @@ Grammar GrammarFactory::Lv6() {
         }
     }
     base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.insert(new_terminal);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
     base_terminal_dist = std::uniform_int_distribution<size_t>(
         0, base.st_.terminals_wtho_eol_.size() - 1);
     // -----------------------------------------------------
@@ -500,7 +501,7 @@ Grammar GrammarFactory::Lv7() {
     // STEP 3 Change non terminals in cmb to C ---------------------------
     std::unordered_map<std::string, std::vector<production>>
         cmb_updated_grammar;
-    cmb.st_.non_terminals_.insert("G");
+    cmb.st_.non_terminals_.emplace("G");
     for (auto& [nt, prods] : cmb.g_) {
         std::string new_nt = "G";
         for (auto& prod : prods) {
@@ -514,7 +515,7 @@ Grammar GrammarFactory::Lv7() {
         cmb_updated_grammar["G"] = prods;
     }
     cmb.g_ = std::move(cmb_updated_grammar);
-    cmb.st_.non_terminals_.insert("G");
+    cmb.st_.non_terminals_.emplace("G");
 
     // STEP 4 Change one base terminal to another that is not in cmb
     std::unordered_set<std::string> cmb_terminals = cmb.st_.terminals_wtho_eol_;
@@ -549,7 +550,7 @@ Grammar GrammarFactory::Lv7() {
         }
     }
     base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.insert(new_terminal);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
     base_terminal_dist = std::uniform_int_distribution<size_t>(
         0, base.st_.terminals_wtho_eol_.size() - 1);
     // -----------------------------------------------------
@@ -597,7 +598,7 @@ GrammarFactory::FactoryItem GrammarFactory::CreateLv2Item() {
     // --------------------------------------------
     std::unordered_map<std::string, std::vector<production>>
         cmb_updated_grammar;
-    cmb.st_.non_terminals_.insert("B");
+    cmb.st_.non_terminals_.emplace("B");
     for (auto& [nt, prods] : cmb.g_) {
         std::string new_nt = "B";
         for (auto& prod : prods) {
@@ -646,7 +647,7 @@ GrammarFactory::FactoryItem GrammarFactory::CreateLv2Item() {
         }
     }
     base.st_.terminals_wtho_eol_.erase(terminal_to_replace);
-    base.st_.terminals_wtho_eol_.insert(new_terminal);
+    base.st_.terminals_wtho_eol_.emplace(new_terminal);
     base_terminal_dist = std::uniform_int_distribution<size_t>(
         0, base.st_.terminals_wtho_eol_.size() - 1);
     // -----------------------------------------------------
@@ -674,7 +675,7 @@ GrammarFactory::FactoryItem GrammarFactory::CreateLv2Item() {
     return FactoryItem(combined_grammar);
 }
 
-bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) {
+bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) const {
     std::unordered_set<std::string> reachable;
     std::queue<std::string>         pending;
 
@@ -690,7 +691,7 @@ bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) {
             for (const auto& production : it->second) {
                 for (const auto& symbol : production) {
                     if (!grammar.st_.IsTerminal(symbol) &&
-                        reachable.find(symbol) == reachable.end()) {
+                        !reachable.contains(symbol)) {
                         reachable.insert(symbol);
                         pending.push(symbol);
                     }
@@ -700,28 +701,28 @@ bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) {
     }
 
     for (const auto& nt : grammar.st_.non_terminals_) {
-        if (reachable.find(nt) == reachable.end()) {
+        if (!reachable.contains(nt)) {
             return true;
         }
     }
     return false;
 }
 
-bool GrammarFactory::IsInfinite(Grammar& grammar) {
+bool GrammarFactory::IsInfinite(Grammar& grammar) const {
     std::unordered_set<std::string> generating;
     bool                            changed = true;
 
     while (changed) {
         changed = false;
         for (const auto& [nt, productions] : grammar.g_) {
-            if (generating.find(nt) != generating.end()) {
+            if (generating.contains(nt)) {
                 continue;
             }
             for (const auto& prod : productions) {
                 bool all_generating = true;
                 for (const auto& symbol : prod) {
                     if (!grammar.st_.IsTerminal(symbol) &&
-                        generating.find(symbol) == generating.end()) {
+                        !generating.contains(symbol)) {
                         all_generating = false;
                         break;
                     }
@@ -766,7 +767,7 @@ bool GrammarFactory::HasIndirectLeftRecursion(Grammar& grammar) {
                     break;
                 }
                 graph[nt].insert(prod[i]);
-                if (!nullable.count(prod[i])) {
+                if (!nullable.contains(prod[i])) {
                     break;
                 }
             }
@@ -821,7 +822,7 @@ GrammarFactory::NullableSymbols(Grammar& grammar) {
     do {
         changed = false;
         for (const auto& [nt, productions] : grammar.g_) {
-            if (nullable.count(nt)) {
+            if (nullable.contains(nt)) {
                 continue;
             }
             for (const production& prod : productions) {
@@ -831,7 +832,7 @@ GrammarFactory::NullableSymbols(Grammar& grammar) {
                 } else {
                     bool all_nullable = true;
                     for (const std::string& sym : prod) {
-                        if (!nullable.count(sym) && sym != grammar.st_.EOL_) {
+                        if (!nullable.contains(sym) && sym != grammar.st_.EOL_) {
                             all_nullable = false;
                             break;
                         }
@@ -1020,9 +1021,9 @@ GrammarFactory::FactoryItem::FactoryItem(
 bool GrammarFactory::FactoryItem::HasEmptyProduction(
     const std::string& antecedent) {
     auto& rules = g_.at(antecedent);
-    return std::find_if(rules.cbegin(), rules.cend(), [&](const auto& rule) {
+    return std::ranges::find_if(rules, [&](const auto& rule) {
                return rule[0] == st_.EPSILON_;
-           }) != rules.cend();
+           }) != rules.end();
 }
 
 void GrammarFactory::FactoryItem::Debug() {

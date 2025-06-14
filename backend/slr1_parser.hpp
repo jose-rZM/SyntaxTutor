@@ -265,7 +265,7 @@ class SLR1Parser {
      */
     bool MakeParser();
 
-    std::string PrintItems(const std::unordered_set<Lr0Item>& items);
+    std::string PrintItems(const std::unordered_set<Lr0Item>& items) const;
 
     /// @brief The grammar being processed by the parser.
     Grammar gr_;
