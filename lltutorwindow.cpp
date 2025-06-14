@@ -277,8 +277,8 @@ void LLTutorWindow::updateProgressPanel() {
     )";
 
     // === CABECERAS (First) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>"
-            + tr("Conjuntos CAB (FIRST)") + ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos CAB")
+            + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, cabSet] : userCAB.asKeyValueRange()) {
         html += QString("<li>%1(%2) = %3</li>").arg(tr("CAB"), symbol, "{" + cabSet + "}");
     }
