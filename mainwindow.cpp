@@ -355,9 +355,10 @@ void MainWindow::setupTutorial() {
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
         if (idx == 4) {
             // 1) Abre LL
-            Grammar         grammarLL = factory.GenLL1Grammar(1);
-            auto*           llTutor = new LLTutorWindow(grammarLL, tm, nullptr);
-            llTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
+            Grammar grammarLL = factory.GenLL1Grammar(1);
+            auto*   llTutor   = new LLTutorWindow(grammarLL, tm, nullptr);
+            llTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint |
+                                    Qt::WindowTitleHint);
             llTutor->setAttribute(Qt::WA_DeleteOnClose);
             this->hide();
             llTutor->show();
@@ -386,24 +387,25 @@ void MainWindow::setupTutorial() {
                 tm->start();
 
                 // b) Abrir SLR
-                connect(tm, &TutorialManager::stepStarted, this,
-                        [this](int idx2) {
-                            if (idx2 == 3) {
-                                Grammar grammarSLR = factory.GenSLR1Grammar(3);
-                                grammarSLR.TransformToAugmentedGrammar();
-                                auto* slrTutor =
-                                    new SLRTutorWindow(grammarSLR, tm, nullptr);
-                                slrTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint
-                                                         | Qt::WindowTitleHint);
-                                slrTutor->setAttribute(Qt::WA_DeleteOnClose);
-                                slrTutor->show();
-                                this->hide();
-                                QTimer::singleShot(50, [this, slrTutor]() {
-                                    tm->setRootWindow(slrTutor);
-                                    tm->nextStep();
-                                });
-                            }
-                        });
+                connect(
+                    tm, &TutorialManager::stepStarted, this, [this](int idx2) {
+                        if (idx2 == 3) {
+                            Grammar grammarSLR = factory.GenSLR1Grammar(3);
+                            grammarSLR.TransformToAugmentedGrammar();
+                            auto* slrTutor =
+                                new SLRTutorWindow(grammarSLR, tm, nullptr);
+                            slrTutor->setWindowFlags(Qt::Window |
+                                                     Qt::CustomizeWindowHint |
+                                                     Qt::WindowTitleHint);
+                            slrTutor->setAttribute(Qt::WA_DeleteOnClose);
+                            slrTutor->show();
+                            this->hide();
+                            QTimer::singleShot(50, [this, slrTutor]() {
+                                tm->setRootWindow(slrTutor);
+                                tm->nextStep();
+                            });
+                        }
+                    });
 
                 // c) Acaba SLR
                 connect(tm, &TutorialManager::slr1Finished, this, [this]() {

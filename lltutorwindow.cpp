@@ -276,26 +276,29 @@ void LLTutorWindow::updateProgressPanel() {
     )";
 
     // === CABECERAS (First) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos CAB")
-            + ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +
+            tr("Conjuntos CAB") + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, cabSet] : userCAB.asKeyValueRange()) {
-        html += QString("<li>%1(%2) = %3</li>").arg(tr("CAB"), symbol, "{" + cabSet + "}");
+        html += QString("<li>%1(%2) = %3</li>")
+                    .arg(tr("CAB"), symbol, "{" + cabSet + "}");
     }
     html += "</ul>";
 
     // === SIGUIENTES (Follow) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos SIG")
-            + ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +
+            tr("Conjuntos SIG") + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, sigSet] : userSIG.asKeyValueRange()) {
-        html += QString("<li>%1(%2) = %3</li>").arg(tr("SIG"), symbol, "{" + sigSet + "}");
+        html += QString("<li>%1(%2) = %3</li>")
+                    .arg(tr("SIG"), symbol, "{" + sigSet + "}");
     }
     html += "</ul>";
 
     // === SELECTORES ===
-    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos SD")
-            + ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +
+            tr("Conjuntos SD") + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [rule, sdSet] : userSD.asKeyValueRange()) {
-        html += QString("<li>%1(%2) = %3</li>").arg(tr("SD"), rule, "{" + sdSet + "}");
+        html += QString("<li>%1(%2) = %3</li>")
+                    .arg(tr("SD"), rule, "{" + sdSet + "}");
     }
     html += "</ul>";
 
@@ -640,9 +643,7 @@ void LLTutorWindow::showTable() {
     dialog->setStyleSheet(darkQss);
     currentDlg = dialog;
 
-    connect(dialog,
-            &LLTableDialog::submitted,
-            this,
+    connect(dialog, &LLTableDialog::submitted, this,
             [this, colHeaders](const QVector<QVector<QString>>& data) {
                 handleTableSubmission(data, colHeaders);
             });
@@ -969,8 +970,9 @@ void LLTutorWindow::on_confirmButton_clicked() {
         QMessageBox end(this);
         end.setWindowTitle(tr("Fin del ejercicio"));
         end.setText(tr("¿Exportar a PDF?"));
-        end.setInformativeText(tr("Se generará un PDF con toda la conversación, funciones "
-                                  "calculadas (CAB, SIG, SD) y la tabla LL(1)."));
+        end.setInformativeText(
+            tr("Se generará un PDF con toda la conversación, funciones "
+               "calculadas (CAB, SIG, SD) y la tabla LL(1)."));
         end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         end.setDefaultButton(QMessageBox::No);
 
@@ -1025,10 +1027,9 @@ void LLTutorWindow::on_confirmButton_clicked() {
 
         int ret = end.exec();
         if (ret == QMessageBox::Yes) {
-            QString filePath = QFileDialog::getSaveFileName(this,
-                                                            tr("Guardar conversación"),
-                                                            "conver.pdf",
-                                                            tr("Archivo PDF (*.pdf)"));
+            QString filePath = QFileDialog::getSaveFileName(
+                this, tr("Guardar conversación"), "conver.pdf",
+                tr("Archivo PDF (*.pdf)"));
 
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
@@ -1172,7 +1173,8 @@ void LLTutorWindow::updateState(bool isCorrect) {
             updateProgressPanel();
         }
         // workaround, S does not have FOLLOW
-        if (sortedGrammar.at(currentRule).first.toStdString() == ll1.gr_.axiom_) {
+        if (sortedGrammar.at(currentRule).first.toStdString() ==
+            ll1.gr_.axiom_) {
             currentState = isCorrect ? State::B_prime : State::B1;
         } else {
             currentState = isCorrect ? State::B2 : State::B1;
@@ -1380,17 +1382,18 @@ QSet<QString> LLTutorWindow::solutionForB() {
 }
 
 QSet<QString> LLTutorWindow::solutionForB1() {
-    const auto& current = sortedGrammar[currentRule];
-    const QString ant = current.first;
-    const QStringList& cons = current.second;
+    const auto&        current = sortedGrammar[currentRule];
+    const QString      ant     = current.first;
+    const QStringList& cons    = current.second;
 
-    std::vector<std::string> cons_vec = qvectorToStdVector(cons);
+    std::vector<std::string>        cons_vec = qvectorToStdVector(cons);
     std::unordered_set<std::string> result;
     ll1.First(cons_vec, result);
 
-    // —— WORKAROUND: axiom rule with A nullable, first contains $ in teaching mode
-    if (ant.toStdString() == ll1.gr_.axiom_ && !cons.isEmpty()
-        && cons.back().toStdString() == ll1.gr_.st_.EOL_) {
+    // —— WORKAROUND: axiom rule with A nullable, first contains $ in teaching
+    // mode
+    if (ant.toStdString() == ll1.gr_.axiom_ && !cons.isEmpty() &&
+        cons.back().toStdString() == ll1.gr_.st_.EOL_) {
         auto it_eps = result.find(ll1.gr_.st_.EPSILON_);
         if (it_eps != result.end()) {
             result.erase(it_eps);
@@ -1603,9 +1606,10 @@ QString LLTutorWindow::feedbackForB1() {
     ll1.First(consequent_vec, result);
 
     // —— WORKAROUND: change how $ is handled, replace epsilon with $
-    const std::string antecedent = sortedGrammar.at(currentRule).first.toStdString();
-    if (antecedent == ll1.gr_.axiom_ && !consequent_qv.isEmpty()
-        && consequent_qv.back().toStdString() == ll1.gr_.st_.EOL_) {
+    const std::string antecedent =
+        sortedGrammar.at(currentRule).first.toStdString();
+    if (antecedent == ll1.gr_.axiom_ && !consequent_qv.isEmpty() &&
+        consequent_qv.back().toStdString() == ll1.gr_.st_.EOL_) {
         auto it_eps = result.find(ll1.gr_.st_.EPSILON_);
         if (it_eps != result.end()) {
             result.erase(it_eps);
@@ -1616,7 +1620,9 @@ QString LLTutorWindow::feedbackForB1() {
 
     // 2) Preparamos la cadena para mostrar al usuario
     QString cab = consequent_qv.join(' ');
-    QString resultSet = QStringList::fromVector(stdUnorderedSetToQSet(result).values()).join(", ");
+    QString resultSet =
+        QStringList::fromVector(stdUnorderedSetToQSet(result).values())
+            .join(", ");
 
     return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
               "Con esto se obtienen los terminales que pueden aparecer al "
@@ -1954,7 +1960,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
             return;
         }
         if (current_symbol == ll1.gr_.st_.EOL_) {
-            node->addChild(new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
+            node->addChild(
+                new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
         } else {
             node->addChild(
                 new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
@@ -1986,8 +1993,9 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
         TeachFirstTree(new_symbols, first_set, depth + 1, processing,
                        prod_node);
 
-        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()
-            && !remaining_symbols.empty()) {
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) !=
+                prod.end() &&
+            !remaining_symbols.empty()) {
             auto* eps_node = new QTreeWidgetItem(
                 {tr("Contiene ε → seguir con resto: %1")
                      .arg(stdVectorToQVector(remaining_symbols).join(' '))});
@@ -2022,7 +2030,8 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             return nullptr;
         }
         auto child = std::make_unique<TreeNode>();
-        child->label = tr("Añadir \"%1\" a CAB").arg(QString::fromStdString(current));
+        child->label =
+            tr("Añadir \"%1\" a CAB").arg(QString::fromStdString(current));
         node->children.push_back(std::move(child));
         return node;
     }
@@ -2053,8 +2062,9 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
                                      active_derivations))
             prodNode->children.push_back(std::move(sub));
 
-        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) != prod.end()
-            && !rest.empty()) {
+        if (std::find(prod.begin(), prod.end(), ll1.gr_.st_.EPSILON_) !=
+                prod.end() &&
+            !rest.empty()) {
             auto epsNode   = std::make_unique<TreeNode>();
             epsNode->label = tr("ε → continuar con: %1")
                                  .arg(stdVectorToQVector(rest).join(' '));
@@ -2236,9 +2246,12 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                     std::unordered_set<std::string> first_of_remaining;
                     ll1.First(remaining_symbols, first_of_remaining);
 
-                    // -- WORKAROUND: if next symbol is $, consider $ as terminal while teaching
-                    if (!remaining_symbols.empty() && remaining_symbols.back() == ll1.gr_.st_.EOL_) {
-                        auto it_eps = first_of_remaining.find(ll1.gr_.st_.EPSILON_);
+                    // -- WORKAROUND: if next symbol is $, consider $ as
+                    // terminal while teaching
+                    if (!remaining_symbols.empty() &&
+                        remaining_symbols.back() == ll1.gr_.st_.EOL_) {
+                        auto it_eps =
+                            first_of_remaining.find(ll1.gr_.st_.EPSILON_);
                         if (it_eps != first_of_remaining.end()) {
                             first_of_remaining.erase(it_eps);
                         }
@@ -2246,8 +2259,10 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                     }
                     // END WORKAROUND
 
-                    QString rem_qstr
-                        = QStringList::fromVector(stdVectorToQVector(remaining_symbols)).join(" ");
+                    QString rem_qstr =
+                        QStringList::fromVector(
+                            stdVectorToQVector(remaining_symbols))
+                            .join(" ");
                     QString first_qstr =
                         QStringList::fromVector(
                             stdUnorderedSetToQSet(first_of_remaining).values())
@@ -2287,17 +2302,23 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                     std::unordered_set<std::string> ant_follow(
                         ll1.Follow(antecedent));
                     if (antecedent == nt) {
-                        output += tr("2. %1 está al final de la producción, habría que agregar "
-                                     "SIG(%2) a SIG(%1), pero cae en bucle, por tanto se ignora\n")
-                                      .arg(nt, QString::fromStdString(antecedent));
+                        output +=
+                            tr("2. %1 está al final de la producción, habría "
+                               "que agregar "
+                               "SIG(%2) a SIG(%1), pero cae en bucle, por "
+                               "tanto se ignora\n")
+                                .arg(nt, QString::fromStdString(antecedent));
                     } else {
-                        QString ant_follow_str = QStringList::fromVector(
-                                                     stdUnorderedSetToQSet(ant_follow).values())
-                                                     .join(" ");
-                        output += tr("2. %1 está al final de la producción. Agrega "
-                                     "SIG(%2) = { %3 } a "
-                                     "SIG(%1)\n")
-                                      .arg(nt, QString::fromStdString(antecedent), ant_follow_str);
+                        QString ant_follow_str =
+                            QStringList::fromVector(
+                                stdUnorderedSetToQSet(ant_follow).values())
+                                .join(" ");
+                        output +=
+                            tr("2. %1 está al final de la producción. Agrega "
+                               "SIG(%2) = { %3 } a "
+                               "SIG(%1)\n")
+                                .arg(nt, QString::fromStdString(antecedent),
+                                     ant_follow_str);
                         follow_set.insert(ant_follow.begin(), ant_follow.end());
                     }
                 }
@@ -2337,7 +2358,8 @@ QString LLTutorWindow::TeachPredictionSymbols(const QString&    ant,
         }
     }
 
-    QString first_str = QStringList::fromVector(stdUnorderedSetToQSet(first_of_consequent).values())
+    QString first_str = QStringList::fromVector(
+                            stdUnorderedSetToQSet(first_of_consequent).values())
                             .join(" ");
     output +=
         tr("1. Calcula CAB(%1) = { %2 }\n").arg(consequent_str, first_str);
@@ -2368,8 +2390,9 @@ QString LLTutorWindow::TeachPredictionSymbols(const QString&    ant,
         const auto follow_ant = ll1.Follow(ant.toStdString());
         prediction_symbols.insert(follow_ant.begin(), follow_ant.end());
 
-        QString follow_str = QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
-                                 .join(" ");
+        QString follow_str =
+            QStringList::fromVector(stdUnorderedSetToQSet(follow_ant).values())
+                .join(" ");
         output += tr("     SIG(%1) = { %2 }\n").arg(ant, follow_str);
     }
 
