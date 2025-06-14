@@ -1360,11 +1360,12 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         break;
 
     case StateSlr::CA:
-        if (!followSymbols.empty() &&
-            currentFollowSymbolsIdx < followSymbols.size()) {
+        if (!isCorrect) {
+            currentState = StateSlr::CA;
+        } else if (!followSymbols.empty() && currentFollowSymbolsIdx < followSymbols.size()) {
             currentState = StateSlr::CB;
         } else {
-            currentState = StateSlr::CA;
+            currentState = StateSlr::B;
         }
         break;
 
