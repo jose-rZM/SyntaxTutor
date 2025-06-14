@@ -172,7 +172,7 @@ struct GrammarFactory {
      * @param grammar The grammar to check.
      * @return true if there are unreachable symbols, false otherwise.
      */
-    bool HasUnreachableSymbols(Grammar& grammar);
+    bool HasUnreachableSymbols(Grammar& grammar) const;
 
     /**
      * @brief Checks if a grammar is infinite, meaning there are non-terminal
@@ -185,7 +185,7 @@ struct GrammarFactory {
      * @param grammar The grammar to check.
      * @return true if the grammar has infinite derivations, false otherwise.
      */
-    bool IsInfinite(Grammar& grammar);
+    bool IsInfinite(Grammar& grammar) const;
 
     /**
      * @brief Checks if a grammar contains direct left recursion (a non-terminal
