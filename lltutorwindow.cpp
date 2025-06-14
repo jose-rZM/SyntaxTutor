@@ -1512,7 +1512,7 @@ QString LLTutorWindow::feedbackForA2() {
     QList<QString> l(terminals.begin(), terminals.end());
 
     if (ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)) {
-        l.removeOne(ll1.gr_.st_.EPSILON_);
+        l.removeOne(QString::fromStdString(ll1.gr_.st_.EPSILON_));
         return tr("Los TERMINALES son todos los símbolos que aparecen en los "
                   "consecuentes\n"
                   "y que NO son no terminales, excluyendo el símbolo de fin de "
@@ -2301,7 +2301,7 @@ QString LLTutorWindow::TeachFollow(const QString& nt) {
                 else {
                     std::unordered_set<std::string> ant_follow(
                         ll1.Follow(antecedent));
-                    if (antecedent == nt) {
+                    if (QString::fromStdString(antecedent) == nt) {
                         output +=
                             tr("2. %1 está al final de la producción, habría "
                                "que agregar "
