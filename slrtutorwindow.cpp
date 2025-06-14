@@ -980,9 +980,8 @@ void SLRTutorWindow::on_confirmButton_clicked() {
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
-        } else {
-            close();
         }
+        close();
     }
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
