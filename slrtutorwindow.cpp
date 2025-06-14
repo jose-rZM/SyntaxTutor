@@ -96,7 +96,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = StateSlr::A;
-    addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
     // ====== Signal Connections ==================================
@@ -538,6 +537,8 @@ void SLRTutorWindow::showTable() {
 }
 
 void SLRTutorWindow::updateProgressPanel() {
+    int scrollPos = ui->textEdit->verticalScrollBar()->value();
+
     QString text;
 
     text += R"(
@@ -546,8 +547,7 @@ void SLRTutorWindow::updateProgressPanel() {
     )";
 
     if (userMadeStates.empty()) {
-        text += "<div style='color:#aaaaaa;'>No se han construido estados "
-                "aún.</div>";
+        text += "<div style='color:#aaaaaa;'>" + tr("No se han construido estados aún.") + "</div>";
     } else {
         for (size_t i = 0; i < slr1.states_.size(); ++i) {
             auto st = std::ranges::find_if(
@@ -555,7 +555,8 @@ void SLRTutorWindow::updateProgressPanel() {
 
             if (st != userMadeStates.end()) {
                 text += QString("<div style='color:#00ADB5; font-weight:bold; "
-                                "margin-top:12px;'>Estado I%1:</div>")
+                                "margin-top:12px;'>%1 I%2:</div>")
+                            .arg(tr("Estado"))
                             .arg((*st).id_);
 
                 text += "<p style='margin-left:12px; margin-top:4px;'>";
@@ -567,9 +568,11 @@ void SLRTutorWindow::updateProgressPanel() {
                 auto it = userMadeTransitions.find((*st).id_);
                 if (it != userMadeTransitions.end() && !it->second.empty()) {
                     text += "<div style='margin-left:12px; color:#BBBBBB; "
-                            "margin-top:4px;'>Transiciones:</div><ul "
-                            "style='list-style-type=circle; color:#777777, "
-                            "margin-left:20px;'>";
+                            "margin-top:4px;'>"
+                            + tr("Transiciones:")
+                            + "</div><ul "
+                              "style='list-style-type:circle; color:#777777; "
+                              "margin-left:20px;'>";
                     for (const auto& entry : it->second) {
                         const QString symbol =
                             QString::fromStdString(entry.first);
@@ -588,6 +591,7 @@ void SLRTutorWindow::updateProgressPanel() {
     text += "</body></html>";
 
     ui->textEdit->setHtml(text);
+    ui->textEdit->verticalScrollBar()->setValue(scrollPos);
 }
 
 void SLRTutorWindow::addUserState(unsigned id) {
@@ -727,47 +731,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
     ui->listWidget->update();
-    ui->listWidget->scrollToBottom();
-}
-
-void SLRTutorWindow::addDivisorLine(const QString& stateName) {
-    QWidget*     dividerWidget = new QWidget;
-    QHBoxLayout* layout        = new QHBoxLayout(dividerWidget);
-    layout->setContentsMargins(10, 5, 10, 5);
-    layout->setSpacing(10); // espacio entre líneas y texto
-
-    QFrame* lineLeft = new QFrame;
-    lineLeft->setFrameShape(QFrame::HLine);
-    lineLeft->setStyleSheet("color: #CCCCCC;");
-    lineLeft->setMinimumWidth(20);
-    lineLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QLabel* label     = new QLabel(stateName);
-    QFont   labelFont = QFontDatabase::font("Noto Sans", "Regular", 11);
-    labelFont.setItalic(true);
-    label->setFont(labelFont);
-    label->setStyleSheet(R"(
-        color: #888888;
-        font-size: 11px;
-        background: transparent;
-    )");
-
-    QFrame* lineRight = new QFrame;
-    lineRight->setFrameShape(QFrame::HLine);
-    lineRight->setStyleSheet("color: #CCCCCC;");
-    lineRight->setMinimumWidth(20);
-    lineRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    layout->addWidget(lineLeft);
-    layout->addWidget(label);
-    layout->addWidget(lineRight);
-
-    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    dividerWidget->setLayout(layout);
-    item->setSizeHint(dividerWidget->sizeHint());
-
-    ui->listWidget->addItem(item);
-    ui->listWidget->setItemWidget(item, dividerWidget);
     ui->listWidget->scrollToBottom();
 }
 
@@ -1017,9 +980,8 @@ void SLRTutorWindow::on_confirmButton_clicked() {
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
-        } else {
-            close();
         }
+        close();
     }
     addMessage(generateQuestion(), false);
     ui->userResponse->clear();
@@ -1357,7 +1319,6 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         if (isCorrect) {
             addUserState(0);
             statesIdQueue.push(0);
-            addDivisorLine("Construcción del estado inicial");
         }
         break;
     }
@@ -1382,7 +1343,6 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         currentState = StateSlr::B;
         addUserState(0);
         statesIdQueue.push(0);
-        addDivisorLine("Construcción de la colección LR(0)");
         break;
     }
 
@@ -1390,7 +1350,6 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     case StateSlr::B:
         if (statesIdQueue.empty()) {
             currentState = StateSlr::D;
-            addDivisorLine("Tabla SLR(1)");
         } else {
             currentState = StateSlr::C;
         }

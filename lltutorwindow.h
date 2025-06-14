@@ -65,7 +65,6 @@ public:
     // ====== UI Interaction ====================================
     void addMessage(const QString &text, bool isUser);     // Add text message to chat
     void addWidgetMessage(QWidget *widget);                // Add widget (e.g., table, tree)
-    void addDivisorLine(const QString &stateName);         // Visual separator by phase
     void exportConversationToPdf(const QString &filePath); // Export chat to PDF
     void showTable();                                      // Render LL(1) table
     void showTableForCPrime();

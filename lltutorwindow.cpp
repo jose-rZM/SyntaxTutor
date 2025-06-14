@@ -65,7 +65,6 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = State::A;
-    addDivisorLine("Estado inicial");
     addMessage(generateQuestion(), false);
 
     ui->userResponse->clear();
@@ -269,43 +268,41 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
 }
 
 void LLTutorWindow::updateProgressPanel() {
+    int scrollPos = ui->textEdit->verticalScrollBar()->value();
+
     QString html = R"(
         <html>
         <body style="font-family: 'Noto Sans'; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
     )";
 
     // === CABECERAS (First) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; "
-            "margin-top:12px;'>Conjuntos CAB"
-            ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos CAB")
+            + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, cabSet] : userCAB.asKeyValueRange()) {
-        html +=
-            QString("<li> CAB(%1) = %2</li>").arg(symbol, "{" + cabSet + "}");
+        html += QString("<li>%1(%2) = %3</li>").arg(tr("CAB"), symbol, "{" + cabSet + "}");
     }
     html += "</ul>";
 
     // === SIGUIENTES (Follow) ===
-    html += "<div style='color:#00ADB5; font-weight:bold; "
-            "margin-top:12px;'>Conjuntos SIG"
-            ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos SIG")
+            + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [symbol, sigSet] : userSIG.asKeyValueRange()) {
-        html +=
-            QString("<li> SIG(%1) = %2</li>").arg(symbol, "{" + sigSet + "}");
+        html += QString("<li>%1(%2) = %3</li>").arg(tr("SIG"), symbol, "{" + sigSet + "}");
     }
     html += "</ul>";
 
     // === SELECTORES ===
-    html += "<div style='color:#00ADB5; font-weight:bold; "
-            "margin-top:12px;'>Conjuntos SD"
-            ":</div><ul style='margin-left:16px;'>";
+    html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" + tr("Conjuntos SD")
+            + ":</div><ul style='margin-left:16px;'>";
     for (const auto& [rule, sdSet] : userSD.asKeyValueRange()) {
-        html += QString("<li> SD(%1) = %2</li>").arg(rule, "{" + sdSet + "}");
+        html += QString("<li>%1(%2) = %3</li>").arg(tr("SD"), rule, "{" + sdSet + "}");
     }
     html += "</ul>";
 
     html += "</body></html>";
 
     ui->textEdit->setHtml(html);
+    ui->textEdit->verticalScrollBar()->setValue(scrollPos);
 }
 
 void LLTutorWindow::addMessage(const QString& text, bool isUser) {
@@ -787,47 +784,6 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         on_confirmButton_clicked();
         currentDlg = nullptr;
     }
-}
-
-void LLTutorWindow::addDivisorLine(const QString& stateName) {
-    QWidget*     dividerWidget = new QWidget;
-    QHBoxLayout* layout        = new QHBoxLayout(dividerWidget);
-    layout->setContentsMargins(10, 5, 10, 5);
-    layout->setSpacing(10); // espacio entre líneas y texto
-
-    QFrame* lineLeft = new QFrame;
-    lineLeft->setFrameShape(QFrame::HLine);
-    lineLeft->setStyleSheet("color: #CCCCCC;");
-    lineLeft->setMinimumWidth(20);
-    lineLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QLabel* label     = new QLabel(stateName);
-    QFont   labelFont = QFontDatabase::font("Noto Sans", "Regular", 11);
-    labelFont.setItalic(true);
-    label->setFont(labelFont);
-    label->setStyleSheet(R"(
-        color: #888888;
-        font-size: 11px;
-        background: transparent;
-    )");
-
-    QFrame* lineRight = new QFrame;
-    lineRight->setFrameShape(QFrame::HLine);
-    lineRight->setStyleSheet("color: #CCCCCC;");
-    lineRight->setMinimumWidth(20);
-    lineRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    layout->addWidget(lineLeft);
-    layout->addWidget(label);
-    layout->addWidget(lineRight);
-
-    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    dividerWidget->setLayout(layout);
-    item->setSizeHint(dividerWidget->sizeHint());
-
-    ui->listWidget->addItem(item);
-    ui->listWidget->setItemWidget(item, dividerWidget);
-    ui->listWidget->scrollToBottom();
 }
 
 void LLTutorWindow::wrongAnimation() {
