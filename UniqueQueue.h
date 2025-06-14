@@ -28,6 +28,7 @@ public:
 
     void clear() {
         while(!queue_.empty()) queue_.pop();
+        seen_.clear();
     }
 
 private:
