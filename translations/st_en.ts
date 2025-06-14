@@ -1696,34 +1696,46 @@ You have not listed any conflicting states. </translation>
         <translation>Check each state for complete and shiftable items together.</translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2414"/>
-        <source>Para resolver el conflicto en I%1, solo puedes REDUCE en ciertos terminales.
+        <location filename="../slrtutorwindow.cpp" line="2415"/>
+        <source>En el estado I%1 se produce un conflicto LR(0). Un ítem completo compite con otro desplazable. Debes escribir los terminales en los que la tabla aplicará REDUCE.
 </source>
-        <translation>To resolve the conflict in I%1, you can only REDUCE on certain terminals.
+        <translation>I%1 has a LR(0) conflict. That is, a state with a complete item and a shiftable one. You must write the terminals where the table will apply REDUCE.
 </translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2423"/>
+        <location filename="../slrtutorwindow.cpp" line="2444"/>
+        <source>Recuerda que solo se reduce en los terminales de SIG; en los demás se realiza SHIFT. Puedes apoyarte en la definición de SIG.
+</source>
+        <translation>Remember that it is only reduced on FOLLOW terminals; SHIFT is performed on all other terminals. You can rely on the FOLLOW definition.
+</translation>
+    </message>
+    <message>
+        <source>Para resolver el conflicto en I%1, solo puedes REDUCE en ciertos terminales.
+</source>
+        <translation type="vanished">To resolve the conflict in I%1, you can only REDUCE on certain terminals.
+</translation>
+    </message>
+    <message>
+        <location filename="../slrtutorwindow.cpp" line="2424"/>
         <source>No has indicado ningún terminal.
 </source>
         <translation>You have not specified a terminal.
 </translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2435"/>
+        <location filename="../slrtutorwindow.cpp" line="2436"/>
         <source>Te faltan estos terminales para REDUCE: </source>
         <translation>You are missing these terminals for REDUCE: </translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2439"/>
+        <location filename="../slrtutorwindow.cpp" line="2440"/>
         <source>Estos no se usan para REDUCE en I%1: </source>
         <translation>These are not used for REDUCE in I%1: </translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2443"/>
         <source>Revisa la definición de SIG del antecedente para escoger solo esos terminales. Has aprendido a cómo calcularlo en el ejercicio LL(1).
 </source>
-        <translation>Check the FOLLOW definition of the antecedent to choose only those terminals. You have learned how to calculate it in exercise LL(1).
+        <translation type="vanished">Check the FOLLOW definition of the antecedent to choose only those terminals. You have learned how to calculate it in exercise LL(1).
 </translation>
     </message>
     <message>
