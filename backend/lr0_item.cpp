@@ -49,6 +49,8 @@ bool Lr0Item::IsComplete() const {
            || (dot_ < consequent_.size() && consequent_[dot_] == eol_);
 }
 
+// GCOVR_EXCL_START
+// LCOV_EXCL_START
 void Lr0Item::PrintItem() const {
     std::cout << "[ " << antecedent_ << " -> ";
     for (unsigned int i = 0; i < consequent_.size(); ++i) {
@@ -77,6 +79,8 @@ std::string Lr0Item::ToString() const {
     str += "]";
     return str;
 }
+// LCOV_EXCL_STOP
+// GCOVR_EXCL_STOP
 
 bool Lr0Item::operator==(const Lr0Item& other) const {
     return antecedent_ == other.antecedent_ &&

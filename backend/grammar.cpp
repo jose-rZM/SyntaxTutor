@@ -27,15 +27,6 @@ Grammar::Grammar(
     st_.PutSymbol(axiom_, false);
 }
 
-void Grammar::TransformToAugmentedGrammar()
-{
-    std::string new_axiom = axiom_ + "'";
-    g_[new_axiom] = {{axiom_}};
-    st_.PutSymbol(new_axiom, false);
-
-    axiom_ = new_axiom;
-}
-
 void Grammar::SetAxiom(const std::string& axiom)
 {
     axiom_ = axiom;
@@ -63,6 +54,8 @@ std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByCons
     return rules;
 }
 
+// GCOVR_EXCL_START
+// LCOV_EXCL_START
 void Grammar::Debug() const //NOSONAR
 {
     std::cout << "Grammar:\n";
@@ -77,6 +70,9 @@ void Grammar::Debug() const //NOSONAR
         std::cout << "\n";
     }
 }
+// LCOV_EXCL_STOP
+// GCOVR_EXCL_STOP
+
 bool Grammar::HasLeftRecursion(const std::string& antecedent,
                                const std::vector<std::string>& consequent) const
 {

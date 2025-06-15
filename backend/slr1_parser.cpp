@@ -219,6 +219,8 @@ SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
     }
 }
 
+// GCOVR_EXCL_START
+// LCOV_EXCL_START
 std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) const {
     std::ostringstream output;
     for (const auto& item : items) {
@@ -228,6 +230,8 @@ std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) con
     }
     return output.str();
 }
+// LCOV_EXCL_STOP
+// GCOVR_EXCL_STOP
 
 void SLR1Parser::First(std::span<const std::string>     rule,
                        std::unordered_set<std::string>& result) {
