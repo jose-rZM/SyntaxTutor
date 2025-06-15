@@ -60,7 +60,7 @@ struct Grammar {
      * This function provides a debug view of the grammar by printing out all
      * rules, the axiom, and other relevant details.
      */
-    void Debug() const;
+    void Debug() const; //NOSONAR
 
     /**
      * @brief Checks if a rule exhibits left recursion.

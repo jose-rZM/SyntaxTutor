@@ -63,7 +63,7 @@ std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByCons
     return rules;
 }
 
-void Grammar::Debug() const
+void Grammar::Debug() const //NOSONAR
 {
     std::cout << "Grammar:\n";
     for (const auto& entry : g_) {
