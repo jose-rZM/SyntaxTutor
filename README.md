@@ -89,7 +89,25 @@ To build SyntaxTutor from source, you just need:
 qmake6
 make
 ````
-This will generate the executable in te project directory.
-  
+---
 
+### 📚 Documentation
 
+Full documentation for the source code is available via Doxygen:
+
+* **🌐 Online HTML Documentation**: [https://jose-rzm.github.io/SyntaxTutor/](https://jose-rzm.github.io/SyntaxTutor/)
+* **📄 PDF Reference Manual**: [refman.pdf](docs/latex/refman.pdf) (in the `docs/latex/` folder)
+
+The documentation includes:
+
+* Detailed class and function reference
+* Graphs of dependencies and inheritance
+* Descriptions of parsing algorithms and internal logic
+
+To regenerate it locally, install [Doxygen](https://www.doxygen.nl/) and run:
+
+```bash
+doxygen
+```
+
+This will update the contents of the `docs/` folder with both HTML and LaTeX output.
