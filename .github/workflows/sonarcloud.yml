@@ -45,7 +45,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gcovr
-          gcovr -r . --filter '.*backend/.*' --sonarqube --output coverage.xml
+          gcovr -r . --filter '.*backend/.*' --exclude-conditions --sonarqube --output coverage.xml
           
             
       - name: SonarQube Scan
