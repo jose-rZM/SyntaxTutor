@@ -3529,6 +3529,13 @@ TEST(GrammarFactoryHelperTest, LongestCommonPrefix) {
     EXPECT_EQ(prefix, expected);
 }
 
+TEST(GrammarFactoryHelperTest, StartsWithReturnsFalseWhenProdIsShorterThanPrefix) {
+    GrammarFactory factory;
+    production prod{"a", "b"};
+    EXPECT_FALSE(factory.StartsWith(prod, {"a", "b", "c"}));
+    EXPECT_FALSE(factory.StartsWith(prod, {"a", "c", "b"}));
+}
+
 TEST(GrammarFactoryHelperTest, StartsWithAndGenerateNonTerminal) {
     GrammarFactory factory;
     production prod{"a", "b", "c"};
