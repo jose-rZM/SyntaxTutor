@@ -2500,8 +2500,6 @@ void LLTutorWindow::setupTutorial() {
     userSD[key] = solutionForB().values().join(", ");
     userCAB[sortedGrammar.at(currentRule).second.join(' ')] =
         solutionForB1().values().join(", ");
-    userSIG[sortedGrammar.at(currentRule).first] =
-        solutionForB2().values().join(", ");
     updateProgressPanel();
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
