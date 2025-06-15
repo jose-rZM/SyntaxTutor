@@ -1,0 +1,5 @@
+<map id="MainWindow" name="MainWindow">
+<area shape="rect" id="Node000001" title="Main application window of SyntaxTutor, managing levels, exercises, and UI state." alt="" coords="10,81,116,109"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,121,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,49,66,81,60,81,60,49"/>
+</map>

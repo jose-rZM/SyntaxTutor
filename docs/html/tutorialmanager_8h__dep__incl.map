@@ -1,0 +1,16 @@
+<map id="tutorialmanager.h" name="tutorialmanager.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="204,5,343,33"/>
+<area shape="rect" id="Node000002" href="$lltutorwindow_8cpp.html" title=" " alt="" coords="5,81,142,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,41,110,83,108,78,223,36"/>
+<area shape="rect" id="Node000003" href="$mainwindow_8cpp.html" title=" " alt="" coords="114,157,244,184"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,44,223,62,206,82,190,122,183,157,178,156,185,120,202,80,219,58,239,40"/>
+<area shape="rect" id="Node000004" href="$mainwindow_8h.html" title=" " alt="" coords="216,81,331,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="276,49,276,81,271,81,271,49"/>
+<area shape="rect" id="Node000006" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="355,81,499,109"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="316,38,401,78,399,83,313,42"/>
+<area shape="rect" id="Node000007" href="$tutorialmanager_8cpp.html" title=" " alt="" coords="524,81,677,109"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="348,34,542,78,541,83,346,40"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="246,121,197,158,194,154,243,116"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title=" " alt="" coords="268,157,349,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="289,122,304,155,300,157,284,124"/>
+</map>

@@ -1,0 +1,72 @@
+\doxysection{SLRWizard\+Page Class Reference}
+\hypertarget{classSLRWizardPage}{}\label{classSLRWizardPage}\index{SLRWizardPage@{SLRWizardPage}}
+
+
+A single step in the SLR(1) guided assistant for table construction.  
+
+
+
+
+{\ttfamily \#include $<$slrwizardpage.\+h$>$}
+
+
+
+Inheritance diagram for SLRWizard\+Page\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classSLRWizardPage__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SLRWizard\+Page\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classSLRWizardPage__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6}{SLRWizard\+Page}} (int \mbox{\hyperlink{structstate}{state}}, const QString \&symbol, const QString \&explanation, const QString \&expected, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a page for a specific cell in the SLR(1) table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A single step in the SLR(1) guided assistant for table construction. 
+
+This wizard page presents a specific (state, symbol) cell in the SLR(1) parsing table, and prompts the student to enter the correct ACTION or GOTO value.
+
+The page checks the user\textquotesingle{}s input against the expected answer and provides immediate feedback, disabling the "{}\+Next"{} button until the correct response is entered. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6}\index{SLRWizardPage@{SLRWizardPage}!SLRWizardPage@{SLRWizardPage}}
+\index{SLRWizardPage@{SLRWizardPage}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{SLRWizardPage()}{SLRWizardPage()}}
+{\footnotesize\ttfamily \label{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6} 
+SLRWizard\+Page\+::\+SLRWizard\+Page (\begin{DoxyParamCaption}\item[{int}]{state}{, }\item[{const QString \&}]{symbol}{, }\item[{const QString \&}]{explanation}{, }\item[{const QString \&}]{expected}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a page for a specific cell in the SLR(1) table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The state ID (row index in the table). \\
+\hline
+{\em symbol} & The grammar symbol (column header). \\
+\hline
+{\em explanation} & A pedagogical explanation shown to the user. \\
+\hline
+{\em expected} & The expected answer (e.\+g., "{}s2"{}, "{}r1"{}, "{}acc"{}, or a state number). \\
+\hline
+{\em parent} & The parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{slrwizardpage_8h}{slrwizardpage.\+h}}\end{DoxyCompactItemize}

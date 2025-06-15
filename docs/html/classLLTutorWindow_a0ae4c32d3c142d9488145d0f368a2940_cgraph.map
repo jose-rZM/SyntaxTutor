@@ -1,0 +1,13 @@
+<map id="LLTutorWindow::showTableForCPrime" name="LLTutorWindow::showTableForCPrime">
+<area shape="rect" id="Node000001" title="Display the full LL(1) table in C&#39; ex." alt="" coords="5,46,200,91"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a4f1547926d1d6034d3d3cd0ba53131a3" title="&lt; Export chat to PDF" alt="" coords="248,29,442,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,56,232,52,233,58,201,61"/>
+<area shape="rect" id="Node000005" href="$classLLTableDialog.html#a5aafabe038ddf5f3cf382f4263d1ce79" title="Signal emitted when the user submits the table." alt="" coords="500,80,684,108"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="200,71,485,86,484,91,200,76"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="304,30,297,20,302,11,318,5,345,3,373,5,389,12,386,16,372,10,345,8,320,10,306,15,302,20,308,27"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a76a825d9c56a31849e340be7b45f6674" title=" " alt="" coords="490,12,694,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="442,37,474,36,474,41,443,42"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="416,55,507,74,506,79,415,60"/>
+<area shape="rect" id="Node000004" href="$classLLTutorWindow.html#a667223abed46d411250b3a8e2c6baadd" title=" " alt="" coords="742,20,999,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="695,31,727,31,727,36,695,36"/>
+</map>

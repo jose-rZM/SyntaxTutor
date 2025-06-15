@@ -1,0 +1,5 @@
+<map id="GrammarFactory::IsInfinite" name="GrammarFactory::IsInfinite">
+<area shape="rect" id="Node000001" title="Checks if a grammar is infinite, meaning there are non&#45;terminal symbols that can never derive a termi..." alt="" coords="5,5,201,33"/>
+<area shape="rect" id="Node000002" href="$structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21" title="Checks if a symbol is a terminal." alt="" coords="249,5,428,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,16,233,16,233,22,201,22"/>
+</map>

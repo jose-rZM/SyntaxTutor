@@ -1,0 +1,19 @@
+<map id="LLTutorWindow::solutionForB" name="LLTutorWindow::solutionForB">
+<area shape="rect" id="Node000001" title=" " alt="" coords="848,96,1056,124"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#abfa66b3379ae723e980e3761accb4d15" title=" " alt="" coords="564,5,780,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="908,91,857,68,800,47,758,36,759,31,801,42,859,63,910,86"/>
+<area shape="rect" id="Node000005" href="$classLLTutorWindow.html#ac949d35e0528713e92fd7bff0455e117" title=" " alt="" coords="569,57,775,102"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="832,99,775,93,776,88,833,94"/>
+<area shape="rect" id="Node000006" href="$classLLTutorWindow.html#a8d36384b192e7925df83b8ee740af250" title="Updates the tutor state after verifying user response." alt="" coords="570,125,775,153"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="833,125,776,131,775,126,832,120"/>
+<area shape="rect" id="Node000007" href="$classLLTutorWindow.html#a36fa8a40caeacd5be8d3ad5895320f25" title=" " alt="" coords="544,177,800,205"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="902,132,801,167,752,179,750,174,800,162,900,127"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a94ddf1d30839b7191479c24588a760bc" title=" " alt="" coords="289,36,476,64"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="549,35,476,43,476,37,549,30"/>
+<area shape="rect" id="Node000004" href="$classLLTutorWindow.html#a7aaded0d4be413f66c9468b5ceff3314" title=" " alt="" coords="5,36,221,64"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="274,61,221,61,221,56,274,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="236,38,289,39,289,44,236,44"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="553,70,476,62,476,57,554,65"/>
+<area shape="rect" id="Node000008" href="$classLLTutorWindow.html#a73af7974f642964985fa5f5ea94f5687" title=" " alt="" coords="269,177,496,205"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="528,194,496,194,496,188,528,188"/>
+</map>

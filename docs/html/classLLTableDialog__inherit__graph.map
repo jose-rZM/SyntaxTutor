@@ -1,0 +1,5 @@
+<map id="LLTableDialog" name="LLTableDialog">
+<area shape="rect" id="Node000001" title="Dialog for filling and submitting an LL(1) parsing table." alt="" coords="5,81,116,109"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="24,5,97,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,49,63,81,58,81,58,49"/>
+</map>

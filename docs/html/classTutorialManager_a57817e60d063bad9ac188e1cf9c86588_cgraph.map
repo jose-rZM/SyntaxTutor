@@ -1,0 +1,5 @@
+<map id="TutorialManager::setRootWindow" name="TutorialManager::setRootWindow">
+<area shape="rect" id="Node000001" title="Sets the root window (used for repositioning the overlay)." alt="" coords="5,5,190,50"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="238,14,451,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,25,222,25,222,30,190,30"/>
+</map>

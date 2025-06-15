@@ -1,0 +1,6 @@
+<map id="SLR1Parser::Closure" name="SLR1Parser::Closure">
+<area shape="rect" id="Node000001" title="Computes the closure of a set of LR(0) items." alt="" coords="5,29,157,57"/>
+<area shape="rect" id="Node000002" href="$classSLR1Parser.html#a00101890c3c4d2871a8c100209abf122" title="Helper function for computing the closure of LR(0) items." alt="" coords="205,29,379,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,40,189,40,189,46,157,46"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="256,30,250,20,254,11,269,5,292,3,317,5,330,12,328,16,315,10,292,8,270,10,258,15,255,20,260,27"/>
+</map>

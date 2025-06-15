@@ -1,0 +1,5 @@
+<map id="TutorialManager::clearSteps" name="TutorialManager::clearSteps">
+<area shape="rect" id="Node000001" title="Clears all steps in the tutorial." alt="" coords="5,5,208,33"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="256,5,469,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,16,240,16,240,22,208,22"/>
+</map>

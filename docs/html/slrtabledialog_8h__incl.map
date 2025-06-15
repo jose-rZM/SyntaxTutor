@@ -1,0 +1,17 @@
+<map id="slrtabledialog.h" name="slrtabledialog.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="380,5,502,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,79,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="380,32,252,53,94,83,93,78,251,48,379,27"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="103,81,229,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="392,36,231,79,229,74,391,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="254,81,364,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="418,36,347,75,344,71,416,31"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="388,81,493,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="443,34,443,65,438,65,438,34"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="518,81,593,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="463,31,524,70,521,75,460,36"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="617,81,728,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="483,31,617,73,616,78,481,36"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="753,81,862,109"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="503,30,738,77,737,82,502,35"/>
+</map>

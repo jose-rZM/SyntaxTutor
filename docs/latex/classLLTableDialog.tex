@@ -1,0 +1,171 @@
+\doxysection{LLTable\+Dialog Class Reference}
+\hypertarget{classLLTableDialog}{}\label{classLLTableDialog}\index{LLTableDialog@{LLTableDialog}}
+
+
+Dialog for filling and submitting an LL(1) parsing table.  
+
+
+
+
+{\ttfamily \#include $<$lltabledialog.\+h$>$}
+
+
+
+Inheritance diagram for LLTable\+Dialog\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classLLTableDialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for LLTable\+Dialog\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classLLTableDialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classLLTableDialog_a5aafabe038ddf5f3cf382f4263d1ce79}{submitted}} (const QVector$<$ QVector$<$ QString $>$ $>$ \&data)
+\begin{DoxyCompactList}\small\item\em Signal emitted when the user submits the table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLLTableDialog_a3b3e1ec69138b66a5f2239ec86466279}{LLTable\+Dialog}} (const QString\+List \&row\+Headers, const QString\+List \&col\+Headers, QWidget \texorpdfstring{$\ast$}{*}parent, QVector$<$ QVector$<$ QString $>$ $>$ \texorpdfstring{$\ast$}{*}initial\+Data=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the LL(1) table dialog with given headers and optional initial data. \end{DoxyCompactList}\item 
+QVector$<$ QVector$<$ QString $>$ $>$ \mbox{\hyperlink{classLLTableDialog_a75f516c03d82c5ee7f5fbcc9cab7783a}{get\+Table\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Returns the contents of the table filled by the user. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLLTableDialog_af6ff62b64182502d4357c1cac30ac71f}{set\+Initial\+Data}} (const QVector$<$ QVector$<$ QString $>$ $>$ \&data)
+\begin{DoxyCompactList}\small\item\em Pre-\/fills the table with existing user data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLLTableDialog_ac1791cc427d1523730c6da5b8c2c9f4b}{highlight\+Incorrect\+Cells}} (const QList$<$ QPair$<$ int, int $>$ $>$ \&coords)
+\begin{DoxyCompactList}\small\item\em Highlights cells that are incorrect based on provided coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Dialog for filling and submitting an LL(1) parsing table. 
+
+This class represents a dialog window that displays a table for users to complete the LL(1) parsing matrix. It provides functionality to initialize the table with data, retrieve the user\textquotesingle{}s input, and highlight incorrect answers. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classLLTableDialog_a3b3e1ec69138b66a5f2239ec86466279}\index{LLTableDialog@{LLTableDialog}!LLTableDialog@{LLTableDialog}}
+\index{LLTableDialog@{LLTableDialog}!LLTableDialog@{LLTableDialog}}
+\doxysubsubsection{\texorpdfstring{LLTableDialog()}{LLTableDialog()}}
+{\footnotesize\ttfamily \label{classLLTableDialog_a3b3e1ec69138b66a5f2239ec86466279} 
+LLTable\+Dialog\+::\+LLTable\+Dialog (\begin{DoxyParamCaption}\item[{const QString\+List \&}]{row\+Headers}{, }\item[{const QString\+List \&}]{col\+Headers}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{, }\item[{QVector$<$ QVector$<$ QString $>$ $>$ \texorpdfstring{$\ast$}{*}}]{initial\+Data}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Constructs the LL(1) table dialog with given headers and optional initial data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row\+Headers} & Row labels (non-\/terminal symbols). \\
+\hline
+{\em col\+Headers} & Column labels (terminal symbols). \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+{\em initial\+Data} & Optional initial table data to pre-\/fill cells. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classLLTableDialog_a3b3e1ec69138b66a5f2239ec86466279_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classLLTableDialog_a75f516c03d82c5ee7f5fbcc9cab7783a}\index{LLTableDialog@{LLTableDialog}!getTableData@{getTableData}}
+\index{getTableData@{getTableData}!LLTableDialog@{LLTableDialog}}
+\doxysubsubsection{\texorpdfstring{getTableData()}{getTableData()}}
+{\footnotesize\ttfamily \label{classLLTableDialog_a75f516c03d82c5ee7f5fbcc9cab7783a} 
+QVector$<$ QVector$<$ QString $>$ $>$ LLTable\+Dialog\+::get\+Table\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Returns the contents of the table filled by the user. 
+
+\begin{DoxyReturn}{Returns}
+A 2D vector representing the LL(1) table. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classLLTableDialog_a75f516c03d82c5ee7f5fbcc9cab7783a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classLLTableDialog_ac1791cc427d1523730c6da5b8c2c9f4b}\index{LLTableDialog@{LLTableDialog}!highlightIncorrectCells@{highlightIncorrectCells}}
+\index{highlightIncorrectCells@{highlightIncorrectCells}!LLTableDialog@{LLTableDialog}}
+\doxysubsubsection{\texorpdfstring{highlightIncorrectCells()}{highlightIncorrectCells()}}
+{\footnotesize\ttfamily \label{classLLTableDialog_ac1791cc427d1523730c6da5b8c2c9f4b} 
+void LLTable\+Dialog\+::highlight\+Incorrect\+Cells (\begin{DoxyParamCaption}\item[{const QList$<$ QPair$<$ int, int $>$ $>$ \&}]{coords}{}\end{DoxyParamCaption})}
+
+
+
+Highlights cells that are incorrect based on provided coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coords} & A list of (row, column) pairs to highlight as incorrect. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classLLTableDialog_af6ff62b64182502d4357c1cac30ac71f}\index{LLTableDialog@{LLTableDialog}!setInitialData@{setInitialData}}
+\index{setInitialData@{setInitialData}!LLTableDialog@{LLTableDialog}}
+\doxysubsubsection{\texorpdfstring{setInitialData()}{setInitialData()}}
+{\footnotesize\ttfamily \label{classLLTableDialog_af6ff62b64182502d4357c1cac30ac71f} 
+void LLTable\+Dialog\+::set\+Initial\+Data (\begin{DoxyParamCaption}\item[{const QVector$<$ QVector$<$ QString $>$ $>$ \&}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Pre-\/fills the table with existing user data. 
+
+This is used to populate the table with a previous (possibly incorrect) answer when retrying a task or providing feedback.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & A 2D vector of strings representing the initial cell values. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classLLTableDialog_af6ff62b64182502d4357c1cac30ac71f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classLLTableDialog_a5aafabe038ddf5f3cf382f4263d1ce79}\index{LLTableDialog@{LLTableDialog}!submitted@{submitted}}
+\index{submitted@{submitted}!LLTableDialog@{LLTableDialog}}
+\doxysubsubsection{\texorpdfstring{submitted}{submitted}}
+{\footnotesize\ttfamily \label{classLLTableDialog_a5aafabe038ddf5f3cf382f4263d1ce79} 
+void LLTable\+Dialog\+::submitted (\begin{DoxyParamCaption}\item[{const QVector$<$ QVector$<$ QString $>$ $>$ \&}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the user submits the table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The filled table data submitted by the user. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classLLTableDialog_a5aafabe038ddf5f3cf382f4263d1ce79_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lltabledialog_8h}{lltabledialog.\+h}}\item 
+\mbox{\hyperlink{lltabledialog_8cpp}{lltabledialog.\+cpp}}\end{DoxyCompactItemize}

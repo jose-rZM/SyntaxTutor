@@ -1,0 +1,77 @@
+\doxysection{state Struct Reference}
+\hypertarget{structstate}{}\label{structstate}\index{state@{state}}
+
+
+Represents a state in the LR(0) automaton.  
+
+
+
+
+{\ttfamily \#include $<$state.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structstate_a463398083f82b863b2ea8d793073f186}{operator==}} (const \mbox{\hyperlink{structstate}{state}} \&other) const
+\begin{DoxyCompactList}\small\item\em Equality operator for comparing states based on their items. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The set of LR(0) items that make up this state. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{structstate_ae4175bd8db542097060d70960296505d}{id\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Unique identifier of the state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a state in the LR(0) automaton. 
+
+Each state consists of a unique identifier and a set of LR(0) items that define its core. States are used to build the SLR(1) parsing table. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structstate_a463398083f82b863b2ea8d793073f186}\index{state@{state}!operator==@{operator==}}
+\index{operator==@{operator==}!state@{state}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily \label{structstate_a463398083f82b863b2ea8d793073f186} 
+bool state\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structstate}{state}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equality operator for comparing states based on their items. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The state to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if both states have the same item set; false otherwise. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structstate_ae4175bd8db542097060d70960296505d}\index{state@{state}!id\_@{id\_}}
+\index{id\_@{id\_}!state@{state}}
+\doxysubsubsection{\texorpdfstring{id\_}{id\_}}
+{\footnotesize\ttfamily \label{structstate_ae4175bd8db542097060d70960296505d} 
+unsigned int state\+::id\+\_\+}
+
+
+
+Unique identifier of the state. 
+
+\Hypertarget{structstate_a54da669fd7d80f2459478e228a5f8af6}\index{state@{state}!items\_@{items\_}}
+\index{items\_@{items\_}!state@{state}}
+\doxysubsubsection{\texorpdfstring{items\_}{items\_}}
+{\footnotesize\ttfamily \label{structstate_a54da669fd7d80f2459478e228a5f8af6} 
+std\+::unordered\+\_\+set$<$\mbox{\hyperlink{structLr0Item}{Lr0\+Item}}$>$ state\+::items\+\_\+}
+
+
+
+The set of LR(0) items that make up this state. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+backend/\mbox{\hyperlink{state_8hpp}{state.\+hpp}}\end{DoxyCompactItemize}

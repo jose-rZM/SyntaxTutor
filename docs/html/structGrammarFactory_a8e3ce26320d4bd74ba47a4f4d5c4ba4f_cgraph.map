@@ -1,0 +1,21 @@
+<map id="GrammarFactory::Lv4" name="GrammarFactory::Lv4">
+<area shape="rect" id="Node000001" title="Generates a Level 4 grammar by combining Level 3 and Level 1 items." alt="" coords="5,94,167,121"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a384f98c92be56b27c65e20edebd32bcd" title="Adjusts the terminal symbols between two grammar items." alt="" coords="706,146,949,173"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,106,389,112,524,119,659,130,732,140,732,145,658,136,523,125,388,117,167,111"/>
+<area shape="rect" id="Node000003" href="$structGrammarFactory.html#aa5d138c30fed1776d37e6fa63e1048fc" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="215,144,376,172"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,119,221,138,220,143,145,125"/>
+<area shape="rect" id="Node000005" href="$structGrammarFactory.html#a44b66cee9f82b5643992e1290f3653bb" title="Merges the grammar rules of two grammar items into a single grammar." alt="" coords="738,94,917,121"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="105,91,152,61,182,47,214,36,337,10,388,4,436,3,535,13,659,36,728,57,788,84,786,89,726,62,658,41,534,18,436,8,388,9,338,15,215,41,185,51,155,66,108,96"/>
+<area shape="rect" id="Node000006" href="$structGrammarFactory.html#a7eb4aeb1e55ff7e38e9f5b8a1fbfd464" title="Replaces all non&#45;terminal symbols in a grammar item with a single target non&#45;terminal." alt="" coords="725,237,930,282"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="109,120,157,150,216,181,278,204,343,223,475,247,601,259,709,261,709,267,601,264,475,253,342,228,276,210,214,186,154,155,106,124"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="357,170,424,181,541,188,658,181,727,173,728,179,659,186,541,193,424,186,356,175"/>
+<area shape="rect" id="Node000004" href="$structGrammarFactory.html#a0048c0c61b253a0f2d29bcce7c6ead44" title="Creates a Level 2 grammar item for use in grammar generation." alt="" coords="424,144,658,172"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="377,156,408,156,408,161,377,161"/>
+<area shape="poly" id="edge9_Node000003_Node000005" title=" " alt="" coords="360,141,424,130,580,115,722,108,722,113,580,121,424,136,361,146"/>
+<area shape="poly" id="edge10_Node000003_Node000006" title=" " alt="" coords="341,170,425,193,573,222,710,242,709,248,572,227,423,198,340,175"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="659,156,691,156,691,162,659,162"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="623,141,730,122,731,127,624,146"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="583,170,749,229,747,234,582,175"/>
+<area shape="rect" id="Node000007" href="$structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21" title="Checks if a symbol is a terminal." alt="" coords="997,246,1176,273"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="931,257,981,257,981,262,931,262"/>
+</map>

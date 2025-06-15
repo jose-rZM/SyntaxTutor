@@ -1,0 +1,332 @@
+\doxysection{Tutorial\+Manager Class Reference}
+\hypertarget{classTutorialManager}{}\label{classTutorialManager}\index{TutorialManager@{TutorialManager}}
+
+
+Manages interactive tutorials by highlighting UI elements and guiding the user.  
+
+
+
+
+{\ttfamily \#include $<$tutorialmanager.\+h$>$}
+
+
+
+Inheritance diagram for Tutorial\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classTutorialManager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tutorial\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classTutorialManager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3}{next\+Step}} ()
+\begin{DoxyCompactList}\small\item\em Advances to the next tutorial step. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTutorialManager_aba61470a5090632d6df51b167e740054}{step\+Started}} (int index)
+\begin{DoxyCompactList}\small\item\em Emitted when a new tutorial step starts. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_ac3e8c34792596992dc52d21de5198030}{tutorial\+Finished}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the full tutorial is finished. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_abf8b24c8df5d32737916275846e6af6a}{ll1\+Finished}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the LL(1) tutorial ends. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_a43ead2fd97e8b0783026004724988cdf}{slr1\+Finished}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the SLR(1) tutorial ends. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTutorialManager_ae02b2f24d983da558e4ec9ae9292460d}{Tutorial\+Manager}} (QWidget \texorpdfstring{$\ast$}{*}root\+Window)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classTutorialManager}{Tutorial\+Manager} for a given window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_a7b05249eda87d17113d5e91c0b9da529}{add\+Step}} (QWidget \texorpdfstring{$\ast$}{*}target, const QString \&html\+Text)
+\begin{DoxyCompactList}\small\item\em Adds a new step to the tutorial sequence. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_a4fd17560c48c8f8646ef846b8f36bb30}{start}} ()
+\begin{DoxyCompactList}\small\item\em Starts the tutorial from the beginning. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_a57817e60d063bad9ac188e1cf9c86588}{set\+Root\+Window}} (QWidget \texorpdfstring{$\ast$}{*}new\+Root)
+\begin{DoxyCompactList}\small\item\em Sets the root window (used for repositioning the overlay). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209}{clear\+Steps}} ()
+\begin{DoxyCompactList}\small\item\em Clears all steps in the tutorial. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887}{hide\+Overlay}} ()
+\begin{DoxyCompactList}\small\item\em Hides the tutorial overlay immediately. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_ac86a5d7a9645910bf065c0573810ab1a}{finish\+LL1}} ()
+\begin{DoxyCompactList}\small\item\em Ends the LL(1) tutorial sequence and emits its corresponding signal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTutorialManager_afffc44cf7c78c43e9f5c982389284272}{finish\+SLR1}} ()
+\begin{DoxyCompactList}\small\item\em Ends the SLR(1) tutorial sequence and emits its corresponding signal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classTutorialManager_add968041547b7ec3c9e1ef0f19d5005a}{event\+Filter}} (QObject \texorpdfstring{$\ast$}{*}obj, QEvent \texorpdfstring{$\ast$}{*}ev) override
+\begin{DoxyCompactList}\small\item\em Intercepts UI events to handle overlay behavior. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages interactive tutorials by highlighting UI elements and guiding the user. 
+
+This class implements a step-\/by-\/step overlay system that visually highlights widgets and shows textual instructions to guide the user through the interface. It supports multiple tutorials (e.\+g., for LL(1) and SLR(1) modes), with custom steps and signals for tutorial completion. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classTutorialManager_ae02b2f24d983da558e4ec9ae9292460d}\index{TutorialManager@{TutorialManager}!TutorialManager@{TutorialManager}}
+\index{TutorialManager@{TutorialManager}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{TutorialManager()}{TutorialManager()}}
+{\footnotesize\ttfamily \label{classTutorialManager_ae02b2f24d983da558e4ec9ae9292460d} 
+Tutorial\+Manager\+::\+Tutorial\+Manager (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{root\+Window}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classTutorialManager}{Tutorial\+Manager} for a given window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em root\+Window} & The main application window used for relative positioning. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTutorialManager_a7b05249eda87d17113d5e91c0b9da529}\index{TutorialManager@{TutorialManager}!addStep@{addStep}}
+\index{addStep@{addStep}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{addStep()}{addStep()}}
+{\footnotesize\ttfamily \label{classTutorialManager_a7b05249eda87d17113d5e91c0b9da529} 
+void Tutorial\+Manager\+::add\+Step (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{target}{, }\item[{const QString \&}]{html\+Text}{}\end{DoxyParamCaption})}
+
+
+
+Adds a new step to the tutorial sequence. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The widget to highlight during the step. \\
+\hline
+{\em html\+Text} & The instructional HTML message for the step. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209}\index{TutorialManager@{TutorialManager}!clearSteps@{clearSteps}}
+\index{clearSteps@{clearSteps}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{clearSteps()}{clearSteps()}}
+{\footnotesize\ttfamily \label{classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209} 
+void Tutorial\+Manager\+::clear\+Steps (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Clears all steps in the tutorial. 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_add968041547b7ec3c9e1ef0f19d5005a}\index{TutorialManager@{TutorialManager}!eventFilter@{eventFilter}}
+\index{eventFilter@{eventFilter}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{eventFilter()}{eventFilter()}}
+{\footnotesize\ttfamily \label{classTutorialManager_add968041547b7ec3c9e1ef0f19d5005a} 
+bool Tutorial\+Manager\+::event\+Filter (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{obj}{, }\item[{QEvent \texorpdfstring{$\ast$}{*}}]{ev}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Intercepts UI events to handle overlay behavior. 
+
+\Hypertarget{classTutorialManager_ac86a5d7a9645910bf065c0573810ab1a}\index{TutorialManager@{TutorialManager}!finishLL1@{finishLL1}}
+\index{finishLL1@{finishLL1}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{finishLL1()}{finishLL1()}}
+{\footnotesize\ttfamily \label{classTutorialManager_ac86a5d7a9645910bf065c0573810ab1a} 
+void Tutorial\+Manager\+::finish\+LL1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Ends the LL(1) tutorial sequence and emits its corresponding signal. 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_ac86a5d7a9645910bf065c0573810ab1a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_afffc44cf7c78c43e9f5c982389284272}\index{TutorialManager@{TutorialManager}!finishSLR1@{finishSLR1}}
+\index{finishSLR1@{finishSLR1}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{finishSLR1()}{finishSLR1()}}
+{\footnotesize\ttfamily \label{classTutorialManager_afffc44cf7c78c43e9f5c982389284272} 
+void Tutorial\+Manager\+::finish\+SLR1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Ends the SLR(1) tutorial sequence and emits its corresponding signal. 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_afffc44cf7c78c43e9f5c982389284272_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887}\index{TutorialManager@{TutorialManager}!hideOverlay@{hideOverlay}}
+\index{hideOverlay@{hideOverlay}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{hideOverlay()}{hideOverlay()}}
+{\footnotesize\ttfamily \label{classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887} 
+void Tutorial\+Manager\+::hide\+Overlay (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Hides the tutorial overlay immediately. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_abf8b24c8df5d32737916275846e6af6a}\index{TutorialManager@{TutorialManager}!ll1Finished@{ll1Finished}}
+\index{ll1Finished@{ll1Finished}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{ll1Finished}{ll1Finished}}
+{\footnotesize\ttfamily \label{classTutorialManager_abf8b24c8df5d32737916275846e6af6a} 
+void Tutorial\+Manager\+::ll1\+Finished (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the LL(1) tutorial ends. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_abf8b24c8df5d32737916275846e6af6a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3}\index{TutorialManager@{TutorialManager}!nextStep@{nextStep}}
+\index{nextStep@{nextStep}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{nextStep}{nextStep}}
+{\footnotesize\ttfamily \label{classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3} 
+void Tutorial\+Manager\+::next\+Step (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Advances to the next tutorial step. 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_a57817e60d063bad9ac188e1cf9c86588}\index{TutorialManager@{TutorialManager}!setRootWindow@{setRootWindow}}
+\index{setRootWindow@{setRootWindow}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{setRootWindow()}{setRootWindow()}}
+{\footnotesize\ttfamily \label{classTutorialManager_a57817e60d063bad9ac188e1cf9c86588} 
+void Tutorial\+Manager\+::set\+Root\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{new\+Root}{}\end{DoxyParamCaption})}
+
+
+
+Sets the root window (used for repositioning the overlay). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Root} & The new main window to reference. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_a57817e60d063bad9ac188e1cf9c86588_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_a43ead2fd97e8b0783026004724988cdf}\index{TutorialManager@{TutorialManager}!slr1Finished@{slr1Finished}}
+\index{slr1Finished@{slr1Finished}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{slr1Finished}{slr1Finished}}
+{\footnotesize\ttfamily \label{classTutorialManager_a43ead2fd97e8b0783026004724988cdf} 
+void Tutorial\+Manager\+::slr1\+Finished (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the SLR(1) tutorial ends. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_a43ead2fd97e8b0783026004724988cdf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_a4fd17560c48c8f8646ef846b8f36bb30}\index{TutorialManager@{TutorialManager}!start@{start}}
+\index{start@{start}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily \label{classTutorialManager_a4fd17560c48c8f8646ef846b8f36bb30} 
+void Tutorial\+Manager\+::start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Starts the tutorial from the beginning. 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_a4fd17560c48c8f8646ef846b8f36bb30_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_aba61470a5090632d6df51b167e740054}\index{TutorialManager@{TutorialManager}!stepStarted@{stepStarted}}
+\index{stepStarted@{stepStarted}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{stepStarted}{stepStarted}}
+{\footnotesize\ttfamily \label{classTutorialManager_aba61470a5090632d6df51b167e740054} 
+void Tutorial\+Manager\+::step\+Started (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when a new tutorial step starts. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Index of the current step. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_aba61470a5090632d6df51b167e740054_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classTutorialManager_ac3e8c34792596992dc52d21de5198030}\index{TutorialManager@{TutorialManager}!tutorialFinished@{tutorialFinished}}
+\index{tutorialFinished@{tutorialFinished}!TutorialManager@{TutorialManager}}
+\doxysubsubsection{\texorpdfstring{tutorialFinished}{tutorialFinished}}
+{\footnotesize\ttfamily \label{classTutorialManager_ac3e8c34792596992dc52d21de5198030} 
+void Tutorial\+Manager\+::tutorial\+Finished (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the full tutorial is finished. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTutorialManager_ac3e8c34792596992dc52d21de5198030_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{tutorialmanager_8h}{tutorialmanager.\+h}}\item 
+\mbox{\hyperlink{tutorialmanager_8cpp}{tutorialmanager.\+cpp}}\end{DoxyCompactItemize}

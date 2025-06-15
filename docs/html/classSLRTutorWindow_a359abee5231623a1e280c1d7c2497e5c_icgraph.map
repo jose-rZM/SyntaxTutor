@@ -1,0 +1,7 @@
+<map id="SLRTutorWindow::updateProgressPanel" name="SLRTutorWindow::updateProgressPanel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="543,5,781,50"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a378858d91aa3551dc59e33ffd5b0065f" title="&lt; Refresh visual progress" alt="" coords="270,14,495,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="527,30,495,30,495,25,527,25"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#acef80f9051484e7bbc7ad003d4b8e180" title="Updates tutor state based on whether the last answer was correct." alt="" coords="5,14,222,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,30,222,30,222,25,254,25"/>
+</map>

@@ -1,0 +1,114 @@
+\doxysection{SLRWizard Class Reference}
+\hypertarget{classSLRWizard}{}\label{classSLRWizard}\index{SLRWizard@{SLRWizard}}
+
+
+Interactive assistant that guides the student step-\/by-\/step through the SLR(1) parsing table.  
+
+
+
+
+{\ttfamily \#include $<$slrwizard.\+h$>$}
+
+
+
+Inheritance diagram for SLRWizard\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classSLRWizard__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SLRWizard\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classSLRWizard__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSLRWizard_a1833672694f25771c1b66c4e2b935610}{SLRWizard}} (\mbox{\hyperlink{classSLR1Parser}{SLR1\+Parser}} \&parser, const QVector$<$ QVector$<$ QString $>$ $>$ \&raw\+Table, const QString\+List \&col\+Headers, const QVector$<$ QPair$<$ QString, QVector$<$ QString $>$ $>$ $>$ \&sorted\+Grammar, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the SLR(1) wizard with all necessary parsing context. \end{DoxyCompactList}\item 
+QVector$<$ QString $>$ \mbox{\hyperlink{classSLRWizard_ada2751317642cb02e08bb1a3575627cd}{std\+Vector\+To\+QVector}} (const std\+::vector$<$ std\+::string $>$ \&vec)
+\begin{DoxyCompactList}\small\item\em Converts a std\+::vector$<$std\+::string$>$ to QVector$<$\+QString$>$ for UI compatibility. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interactive assistant that guides the student step-\/by-\/step through the SLR(1) parsing table. 
+
+This wizard-\/based dialog presents the user with one cell of the SLR(1) parsing table at a time, asking them to deduce the correct ACTION or GOTO entry based on the LR(0) automaton and FOLLOW sets. It is designed as an educational aid to explain the reasoning behind each parsing decision.
+
+Each page includes\+:
+\begin{DoxyItemize}
+\item The current state and symbol (terminal or non-\/terminal).
+\item A guided explanation based on the grammar and LR(0) state.
+\item The expected entry (e.\+g., s3, r1, acc, or a state number). 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSLRWizard_a1833672694f25771c1b66c4e2b935610}\index{SLRWizard@{SLRWizard}!SLRWizard@{SLRWizard}}
+\index{SLRWizard@{SLRWizard}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{SLRWizard()}{SLRWizard()}}
+{\footnotesize\ttfamily \label{classSLRWizard_a1833672694f25771c1b66c4e2b935610} 
+SLRWizard\+::\+SLRWizard (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classSLR1Parser}{SLR1\+Parser}} \&}]{parser}{, }\item[{const QVector$<$ QVector$<$ QString $>$ $>$ \&}]{raw\+Table}{, }\item[{const QString\+List \&}]{col\+Headers}{, }\item[{const QVector$<$ QPair$<$ QString, QVector$<$ QString $>$ $>$ $>$ \&}]{sorted\+Grammar}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs the SLR(1) wizard with all necessary parsing context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & The SLR(1) parser instance containing the LR(0) states and transitions. \\
+\hline
+{\em raw\+Table} & The target parsing table (student version or reference). \\
+\hline
+{\em col\+Headers} & Header symbols (terminals and non-\/terminals). \\
+\hline
+{\em sorted\+Grammar} & Ordered list of grammar rules for reduce explanations. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLRWizard_a1833672694f25771c1b66c4e2b935610_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classSLRWizard_ada2751317642cb02e08bb1a3575627cd}\index{SLRWizard@{SLRWizard}!stdVectorToQVector@{stdVectorToQVector}}
+\index{stdVectorToQVector@{stdVectorToQVector}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{stdVectorToQVector()}{stdVectorToQVector()}}
+{\footnotesize\ttfamily \label{classSLRWizard_ada2751317642cb02e08bb1a3575627cd} 
+QVector$<$ QString $>$ SLRWizard\+::std\+Vector\+To\+QVector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{vec}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts a std\+::vector$<$std\+::string$>$ to QVector$<$\+QString$>$ for UI compatibility. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The input vector of strings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A QVector of QStrings. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLRWizard_ada2751317642cb02e08bb1a3575627cd_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{slrwizard_8h}{slrwizard.\+h}}\end{DoxyCompactItemize}

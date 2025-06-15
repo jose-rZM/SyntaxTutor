@@ -1,0 +1,7 @@
+<map id="Lr0Item::NextToDot" name="Lr0Item::NextToDot">
+<area shape="rect" id="Node000001" title="Returns the symbol immediately after the dot, or empty if the dot is at the end." alt="" coords="265,32,412,60"/>
+<area shape="rect" id="Node000002" href="$classSLR1Parser.html#aee48bcbf0a93badeb5271a7299cc458b" title="Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol." alt="" coords="42,5,180,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,38,180,30,180,25,250,33"/>
+<area shape="rect" id="Node000003" href="$classSLR1Parser.html#a6a31a57223b052028c74f5d70db41c16" title="Resolves LR conflicts in a given state." alt="" coords="5,57,217,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,58,217,62,217,57,249,53"/>
+</map>

@@ -1,0 +1,26 @@
+<map id="GrammarFactory::Lv5" name="GrammarFactory::Lv5">
+<area shape="rect" id="Node000001" title="Generates a Level 5 grammar by combining Level 4 and Level 1 items." alt="" coords="5,288,167,315"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a384f98c92be56b27c65e20edebd32bcd" title="Adjusts the terminal symbols between two grammar items." alt="" coords="916,186,1158,214"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,295,475,273,670,255,867,231,956,215,957,220,868,236,671,260,475,279,167,300"/>
+<area shape="rect" id="Node000003" href="$structGrammarFactory.html#a8e3ce26320d4bd74ba47a4f4d5c4ba4f" title="Generates a Level 4 grammar by combining Level 3 and Level 1 items." alt="" coords="215,237,376,265"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="145,284,220,266,221,271,147,290"/>
+<area shape="rect" id="Node000006" href="$structGrammarFactory.html#a44b66cee9f82b5643992e1290f3653bb" title="Merges the grammar rules of two grammar items into a single grammar." alt="" coords="947,9,1126,37"/>
+<area shape="poly" id="edge15_Node000001_Node000006" title=" " alt="" coords="102,285,153,244,230,186,323,124,423,70,486,42,541,24,591,12,639,5,740,4,868,9,932,12,931,18,868,15,740,9,639,11,592,17,542,29,488,47,425,74,325,129,233,191,156,248,105,289"/>
+<area shape="rect" id="Node000007" href="$structGrammarFactory.html#a7eb4aeb1e55ff7e38e9f5b8a1fbfd464" title="Replaces all non&#45;terminal symbols in a grammar item with a single target non&#45;terminal." alt="" coords="934,258,1140,302"/>
+<area shape="poly" id="edge16_Node000001_Node000007" title=" " alt="" coords="108,313,155,343,185,358,215,368,317,387,422,393,526,390,629,379,725,363,814,344,955,305,956,310,815,349,726,369,629,385,527,395,421,399,316,392,214,373,182,362,152,348,105,318"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="376,243,900,207,900,212,377,248"/>
+<area shape="rect" id="Node000004" href="$structGrammarFactory.html#aa5d138c30fed1776d37e6fa63e1048fc" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="424,136,585,163"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="325,234,460,168,462,173,327,239"/>
+<area shape="poly" id="edge13_Node000003_Node000006" title=" " alt="" coords="305,235,352,180,385,149,423,122,485,89,551,64,619,45,688,31,820,17,932,14,932,20,820,22,689,36,621,50,553,69,487,94,425,126,389,153,356,184,309,238"/>
+<area shape="poly" id="edge14_Node000003_Node000007" title=" " alt="" coords="377,261,424,267,557,275,690,279,919,280,919,285,689,284,556,280,424,272,376,267"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="566,132,629,121,705,113,787,111,868,121,905,132,940,146,1000,176,998,180,938,150,903,137,867,127,787,117,705,118,630,126,567,138"/>
+<area shape="rect" id="Node000005" href="$structGrammarFactory.html#a0048c0c61b253a0f2d29bcce7c6ead44" title="Creates a Level 2 grammar item for use in grammar generation." alt="" coords="633,136,868,163"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="586,147,618,147,618,152,586,152"/>
+<area shape="poly" id="edge11_Node000004_Node000006" title=" " alt="" coords="538,132,633,97,789,60,931,35,932,40,790,65,634,103,539,137"/>
+<area shape="poly" id="edge12_Node000004_Node000007" title=" " alt="" coords="565,161,928,251,927,256,564,166"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="833,161,940,180,939,185,832,166"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="783,133,988,41,990,46,785,137"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="825,161,869,179,884,190,894,201,917,223,963,249,961,253,914,227,890,204,881,194,866,184,823,166"/>
+<area shape="rect" id="Node000008" href="$structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21" title="Checks if a symbol is a terminal." alt="" coords="1206,266,1385,294"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="1140,277,1190,277,1190,283,1140,283"/>
+</map>

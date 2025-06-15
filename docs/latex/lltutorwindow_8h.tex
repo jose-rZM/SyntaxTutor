@@ -1,0 +1,123 @@
+\doxysection{lltutorwindow.\+h File Reference}
+\hypertarget{lltutorwindow_8h}{}\label{lltutorwindow_8h}\index{lltutorwindow.h@{lltutorwindow.h}}
+{\ttfamily \#include $<$QAbstract\+Item\+View$>$}\newline
+{\ttfamily \#include $<$QDialog$>$}\newline
+{\ttfamily \#include $<$QFile\+Dialog$>$}\newline
+{\ttfamily \#include $<$QGraphics\+Colorize\+Effect$>$}\newline
+{\ttfamily \#include $<$QGraphics\+Scene$>$}\newline
+{\ttfamily \#include $<$QGraphics\+Text\+Item$>$}\newline
+{\ttfamily \#include $<$QGraphics\+View$>$}\newline
+{\ttfamily \#include $<$QList\+Widget\+Item$>$}\newline
+{\ttfamily \#include $<$QMain\+Window$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$QPainter$>$}\newline
+{\ttfamily \#include $<$QProperty\+Animation$>$}\newline
+{\ttfamily \#include $<$QPush\+Button$>$}\newline
+{\ttfamily \#include $<$QScroll\+Bar$>$}\newline
+{\ttfamily \#include $<$QShortcut$>$}\newline
+{\ttfamily \#include $<$QTable\+Widget$>$}\newline
+{\ttfamily \#include $<$QText\+Document$>$}\newline
+{\ttfamily \#include $<$QText\+Edit$>$}\newline
+{\ttfamily \#include $<$QTime$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$QTree\+Widget\+Item$>$}\newline
+{\ttfamily \#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \#include $<$Qt\+Print\+Support/\+QPrinter$>$}\newline
+{\ttfamily \#include "{}backend/grammar.\+hpp"{}}\newline
+{\ttfamily \#include "{}backend/ll1\+\_\+parser.\+hpp"{}}\newline
+{\ttfamily \#include "{}lltabledialog.\+h"{}}\newline
+Include dependency graph for lltutorwindow.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lltutorwindow_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{lltutorwindow_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classLLTutorWindow}{LLTutor\+Window}}
+\begin{DoxyCompactList}\small\item\em Main window for the LL(1) interactive tutoring mode in Syntax\+Tutor. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structLLTutorWindow_1_1TreeNode}{LLTutor\+Window\+::\+Tree\+Node}}
+\begin{DoxyCompactList}\small\item\em \doxylink{structLLTutorWindow_1_1TreeNode}{Tree\+Node} structure used to build derivation trees. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}} \{ \newline
+\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a27f237e6b7f96587b6202ff3607ad88a}{A1}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac6bdf6f65f3845da9085e9ae5790b494}{A2}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8adbb308b04e4006cecc1b9346c85f7f1e}{A\+\_\+prime}}
+, \newline
+\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571}{B}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9512565ef6194ca664dc41ec0de7a53}{B1}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8abbd97b00c539801e32317ab550867ec4}{B2}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8abf4117e13eb3260dd9c0659f69d76cb5}{B\+\_\+prime}}
+, \newline
+\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0d61f8370cad1d412f80b84d143e1257}{C}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8aba5fd286c2b0f34d0933d1ef7c57cb8a}{C\+\_\+prime}}
+, \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad79695776a5b40f7cadbee1f91a85c82}{fin}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\index{lltutorwindow.h@{lltutorwindow.h}!State@{State}}
+\index{State@{State}!lltutorwindow.h@{lltutorwindow.h}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily \label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8} 
+enum class \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A@{A}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!A@{A}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29} 
+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A1@{A1}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!A1@{A1}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a27f237e6b7f96587b6202ff3607ad88a}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a27f237e6b7f96587b6202ff3607ad88a} 
+A1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A2@{A2}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!A2@{A2}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac6bdf6f65f3845da9085e9ae5790b494}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac6bdf6f65f3845da9085e9ae5790b494} 
+A2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A\_prime@{A\_prime}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!A\_prime@{A\_prime}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8adbb308b04e4006cecc1b9346c85f7f1e}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8adbb308b04e4006cecc1b9346c85f7f1e} 
+A\+\_\+prime&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B@{B}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!B@{B}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571} 
+B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B1@{B1}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!B1@{B1}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9512565ef6194ca664dc41ec0de7a53}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9512565ef6194ca664dc41ec0de7a53} 
+B1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B2@{B2}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!B2@{B2}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8abbd97b00c539801e32317ab550867ec4}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8abbd97b00c539801e32317ab550867ec4} 
+B2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B\_prime@{B\_prime}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!B\_prime@{B\_prime}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8abf4117e13eb3260dd9c0659f69d76cb5}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8abf4117e13eb3260dd9c0659f69d76cb5} 
+B\+\_\+prime&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C@{C}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!C@{C}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0d61f8370cad1d412f80b84d143e1257}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0d61f8370cad1d412f80b84d143e1257} 
+C&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\_prime@{C\_prime}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!C\_prime@{C\_prime}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8aba5fd286c2b0f34d0933d1ef7c57cb8a}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8aba5fd286c2b0f34d0933d1ef7c57cb8a} 
+C\+\_\+prime&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{fin@{fin}!lltutorwindow.h@{lltutorwindow.h}}\index{lltutorwindow.h@{lltutorwindow.h}!fin@{fin}}}\Hypertarget{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad79695776a5b40f7cadbee1f91a85c82}\label{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad79695776a5b40f7cadbee1f91a85c82} 
+fin&\\
+\hline
+
+\end{DoxyEnumFields}

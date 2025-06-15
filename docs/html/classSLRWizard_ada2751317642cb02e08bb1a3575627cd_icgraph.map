@@ -1,0 +1,5 @@
+<map id="SLRWizard::stdVectorToQVector" name="SLRWizard::stdVectorToQVector">
+<area shape="rect" id="Node000001" title="Converts a std::vector&lt;std::string&gt; to QVector&lt;QString&gt; for UI compatibility." alt="" coords="221,5,447,33"/>
+<area shape="rect" id="Node000002" href="$classSLRWizard.html#a1833672694f25771c1b66c4e2b935610" title="Constructs the SLR(1) wizard with all necessary parsing context." alt="" coords="5,5,173,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,22,173,22,173,16,205,16"/>
+</map>

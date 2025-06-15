@@ -1,0 +1,5 @@
+<map id="TutorialManager::nextStep" name="TutorialManager::nextStep">
+<area shape="rect" id="Node000001" title="Advances to the next tutorial step." alt="" coords="218,5,410,33"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30" title="Starts the tutorial from the beginning." alt="" coords="5,5,170,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,22,170,22,170,16,202,16"/>
+</map>

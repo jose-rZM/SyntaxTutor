@@ -1,0 +1,56 @@
+\doxysection{backend/symbol\+\_\+table.hpp File Reference}
+\hypertarget{symbol__table_8hpp}{}\label{symbol__table_8hpp}\index{backend/symbol\_table.hpp@{backend/symbol\_table.hpp}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for symbol\+\_\+table.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{symbol__table_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{symbol__table_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSymbolTable}{Symbol\+Table}}
+\begin{DoxyCompactList}\small\item\em Stores and manages grammar symbols, including their classification and special markers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231}{symbol\+\_\+type}} \{ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231ae5e0e3ea5a4ed4670f1b5c09d66811f8}{NO\+\_\+\+TERMINAL}}
+, \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}{TERMINAL}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the type of a grammar symbol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231}\index{symbol\_table.hpp@{symbol\_table.hpp}!symbol\_type@{symbol\_type}}
+\index{symbol\_type@{symbol\_type}!symbol\_table.hpp@{symbol\_table.hpp}}
+\doxysubsubsection{\texorpdfstring{symbol\_type}{symbol\_type}}
+{\footnotesize\ttfamily \label{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231} 
+enum class \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231}{symbol\+\_\+type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Represents the type of a grammar symbol. 
+
+This enum distinguishes between terminal and non-\/terminal symbols within the grammar and the symbol table. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_TERMINAL@{NO\_TERMINAL}!symbol\_table.hpp@{symbol\_table.hpp}}\index{symbol\_table.hpp@{symbol\_table.hpp}!NO\_TERMINAL@{NO\_TERMINAL}}}\Hypertarget{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231ae5e0e3ea5a4ed4670f1b5c09d66811f8}\label{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231ae5e0e3ea5a4ed4670f1b5c09d66811f8} 
+NO\+\_\+\+TERMINAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TERMINAL@{TERMINAL}!symbol\_table.hpp@{symbol\_table.hpp}}\index{symbol\_table.hpp@{symbol\_table.hpp}!TERMINAL@{TERMINAL}}}\Hypertarget{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}\label{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6} 
+TERMINAL&\\
+\hline
+
+\end{DoxyEnumFields}

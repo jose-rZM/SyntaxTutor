@@ -1,0 +1,15 @@
+<map id="GrammarFactory::Lv5" name="GrammarFactory::Lv5">
+<area shape="rect" id="Node000001" title="Generates a Level 5 grammar by combining Level 4 and Level 1 items." alt="" coords="970,81,1131,109"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a06b08500014ade97db2a3b6fd72096d9" title="Generates a Level 6 grammar by combining Level 5 and Level 1 items." alt="" coords="760,56,922,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="954,86,922,82,922,77,954,81"/>
+<area shape="rect" id="Node000004" href="$structGrammarFactory.html#a5c57d8d96992059e78a68e5bd5ec5260" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="312,56,503,84"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="954,100,760,98,503,81,504,76,760,93,954,94"/>
+<area shape="rect" id="Node000003" href="$structGrammarFactory.html#ae4773738861fc98eb1aff9dc78cf019b" title="Generates a Level 7 grammar by combining Level 6 and Level 1 items." alt="" coords="551,5,712,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="766,54,691,36,692,31,767,49"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="745,72,504,72,504,67,745,67"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="553,40,472,58,471,53,552,34"/>
+<area shape="rect" id="Node000005" href="$structGrammarFactory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="10,29,259,57"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="296,62,259,58,259,53,296,56"/>
+<area shape="rect" id="Node000006" href="$structGrammarFactory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,81,264,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="296,83,264,86,264,80,296,77"/>
+</map>

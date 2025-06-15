@@ -1,0 +1,181 @@
+\doxysection{slrtutorwindow.\+h File Reference}
+\hypertarget{slrtutorwindow_8h}{}\label{slrtutorwindow_8h}\index{slrtutorwindow.h@{slrtutorwindow.h}}
+{\ttfamily \#include $<$QAbstract\+Item\+View$>$}\newline
+{\ttfamily \#include $<$QDialog$>$}\newline
+{\ttfamily \#include $<$QFile\+Dialog$>$}\newline
+{\ttfamily \#include $<$QGraphics\+Colorize\+Effect$>$}\newline
+{\ttfamily \#include $<$QList\+Widget\+Item$>$}\newline
+{\ttfamily \#include $<$QMain\+Window$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$QProperty\+Animation$>$}\newline
+{\ttfamily \#include $<$QPush\+Button$>$}\newline
+{\ttfamily \#include $<$QRegular\+Expression$>$}\newline
+{\ttfamily \#include $<$QScroll\+Bar$>$}\newline
+{\ttfamily \#include $<$QShortcut$>$}\newline
+{\ttfamily \#include $<$QTable\+Widget$>$}\newline
+{\ttfamily \#include $<$QText\+Document$>$}\newline
+{\ttfamily \#include $<$QText\+Edit$>$}\newline
+{\ttfamily \#include $<$QTime$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \#include $<$Qt\+Print\+Support/\+QPrinter$>$}\newline
+{\ttfamily \#include "{}Unique\+Queue.\+h"{}}\newline
+{\ttfamily \#include "{}backend/grammar.\+hpp"{}}\newline
+{\ttfamily \#include "{}backend/slr1\+\_\+parser.\+hpp"{}}\newline
+{\ttfamily \#include "{}slrtabledialog.\+h"{}}\newline
+Include dependency graph for slrtutorwindow.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{slrtutorwindow_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{slrtutorwindow_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classSLRTutorWindow}{SLRTutor\+Window}}
+\begin{DoxyCompactList}\small\item\em Main window for the SLR(1) interactive tutoring mode in Syntax\+Tutor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473d}{State\+Slr}} \{ \newline
+\mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7fc56270e7a70fa81a5935b72eacbe29}{A}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da27f237e6b7f96587b6202ff3607ad88a}{A1}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac6bdf6f65f3845da9085e9ae5790b494}{A2}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da6593d7b12fd418cdb35bbf438de72f66}{A3}}
+, \newline
+\mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0c2f3adf2a48bab3adb470f4da57f3d0}{A4}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadbb308b04e4006cecc1b9346c85f7f1e}{A\+\_\+prime}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da9d5ed678fe57bcca610140957afab571}{B}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0d61f8370cad1d412f80b84d143e1257}{C}}
+, \newline
+\mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3e8d115eb4b32b9e9479f387dbe14ee1}{CA}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da834cb54b61bbed9d4296c995e4c5d8b2}{CB}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daf623e75af30e62bbd73d6df5b50bb7b5}{D}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da4a4079e06eb2f7ba7a12821c7c58a3f6}{D1}}
+, \newline
+\mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac4d62b6dcca08e5caf06c01889282859}{D2}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7ca5dc50827bbc9567c75cc4344c86eb}{D\+\_\+prime}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3a3ea00cfc35332cedf6e5e9a32e94da}{E}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da48ed5d2db39237d7ae5e829b17581629}{E1}}
+, \newline
+\mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da560fce20abef5cd3f8e4d13c94669a46}{E2}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daceaaf344427537ca0d8f1dbd83dcb44b}{FA}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadfcf28d0734569a6a693bc8194de62bf}{G}}
+, \newline
+\mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac1d9f50f86825a1a2302ec2449c17196}{H}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da07f25294fd107fcdf475aa6de0b89d9d}{H\+\_\+prime}}
+, \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dad79695776a5b40f7cadbee1f91a85c82}{fin}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473d}\index{slrtutorwindow.h@{slrtutorwindow.h}!StateSlr@{StateSlr}}
+\index{StateSlr@{StateSlr}!slrtutorwindow.h@{slrtutorwindow.h}}
+\doxysubsubsection{\texorpdfstring{StateSlr}{StateSlr}}
+{\footnotesize\ttfamily \label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473d} 
+enum class \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473d}{State\+Slr}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A@{A}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!A@{A}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7fc56270e7a70fa81a5935b72eacbe29}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7fc56270e7a70fa81a5935b72eacbe29} 
+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A1@{A1}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!A1@{A1}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da27f237e6b7f96587b6202ff3607ad88a}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da27f237e6b7f96587b6202ff3607ad88a} 
+A1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A2@{A2}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!A2@{A2}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac6bdf6f65f3845da9085e9ae5790b494}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac6bdf6f65f3845da9085e9ae5790b494} 
+A2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A3@{A3}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!A3@{A3}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da6593d7b12fd418cdb35bbf438de72f66}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da6593d7b12fd418cdb35bbf438de72f66} 
+A3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A4@{A4}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!A4@{A4}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0c2f3adf2a48bab3adb470f4da57f3d0}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0c2f3adf2a48bab3adb470f4da57f3d0} 
+A4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A\_prime@{A\_prime}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!A\_prime@{A\_prime}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadbb308b04e4006cecc1b9346c85f7f1e}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadbb308b04e4006cecc1b9346c85f7f1e} 
+A\+\_\+prime&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B@{B}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!B@{B}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da9d5ed678fe57bcca610140957afab571}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da9d5ed678fe57bcca610140957afab571} 
+B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C@{C}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!C@{C}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0d61f8370cad1d412f80b84d143e1257}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0d61f8370cad1d412f80b84d143e1257} 
+C&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CA@{CA}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!CA@{CA}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3e8d115eb4b32b9e9479f387dbe14ee1}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3e8d115eb4b32b9e9479f387dbe14ee1} 
+CA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CB@{CB}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!CB@{CB}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da834cb54b61bbed9d4296c995e4c5d8b2}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da834cb54b61bbed9d4296c995e4c5d8b2} 
+CB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D@{D}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!D@{D}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daf623e75af30e62bbd73d6df5b50bb7b5}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daf623e75af30e62bbd73d6df5b50bb7b5} 
+D&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D1@{D1}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!D1@{D1}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da4a4079e06eb2f7ba7a12821c7c58a3f6}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da4a4079e06eb2f7ba7a12821c7c58a3f6} 
+D1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D2@{D2}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!D2@{D2}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac4d62b6dcca08e5caf06c01889282859}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac4d62b6dcca08e5caf06c01889282859} 
+D2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\_prime@{D\_prime}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!D\_prime@{D\_prime}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7ca5dc50827bbc9567c75cc4344c86eb}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7ca5dc50827bbc9567c75cc4344c86eb} 
+D\+\_\+prime&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E@{E}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!E@{E}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3a3ea00cfc35332cedf6e5e9a32e94da}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3a3ea00cfc35332cedf6e5e9a32e94da} 
+E&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E1@{E1}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!E1@{E1}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da48ed5d2db39237d7ae5e829b17581629}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da48ed5d2db39237d7ae5e829b17581629} 
+E1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E2@{E2}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!E2@{E2}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da560fce20abef5cd3f8e4d13c94669a46}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da560fce20abef5cd3f8e4d13c94669a46} 
+E2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F@{F}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!F@{F}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012} 
+F&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FA@{FA}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!FA@{FA}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daceaaf344427537ca0d8f1dbd83dcb44b}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daceaaf344427537ca0d8f1dbd83dcb44b} 
+FA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G@{G}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!G@{G}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadfcf28d0734569a6a693bc8194de62bf}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadfcf28d0734569a6a693bc8194de62bf} 
+G&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{H@{H}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!H@{H}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac1d9f50f86825a1a2302ec2449c17196}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac1d9f50f86825a1a2302ec2449c17196} 
+H&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{H\_prime@{H\_prime}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!H\_prime@{H\_prime}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da07f25294fd107fcdf475aa6de0b89d9d}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da07f25294fd107fcdf475aa6de0b89d9d} 
+H\+\_\+prime&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{fin@{fin}!slrtutorwindow.h@{slrtutorwindow.h}}\index{slrtutorwindow.h@{slrtutorwindow.h}!fin@{fin}}}\Hypertarget{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dad79695776a5b40f7cadbee1f91a85c82}\label{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dad79695776a5b40f7cadbee1f91a85c82} 
+fin&\\
+\hline
+
+\end{DoxyEnumFields}

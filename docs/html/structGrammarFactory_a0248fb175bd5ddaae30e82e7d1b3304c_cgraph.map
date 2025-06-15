@@ -1,0 +1,11 @@
+<map id="GrammarFactory::LeftFactorize" name="GrammarFactory::LeftFactorize">
+<area shape="rect" id="Node000001" title="Perfoms left factorization. A grammar could be left factorized if it have productions with the same p..." alt="" coords="5,114,228,142"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#aca2925bbcb27fa32b0b53d626dfd7b7e" title="Generates a new non&#45;terminal symbol that is unique in the grammar." alt="" coords="301,5,499,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,111,275,60,297,53,299,58,277,65,150,116"/>
+<area shape="rect" id="Node000003" href="$structGrammarFactory.html#ab6c2988168d6b13fc7d166f22c708003" title="Finds the longest common prefix among a set of productions." alt="" coords="276,75,524,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,113,260,109,260,115,228,118"/>
+<area shape="rect" id="Node000004" href="$structSymbolTable.html#aba5ea04e1b9eec27e041bb9422121340" title="Adds a non&#45;terminal symbol to the symbol table." alt="" coords="309,143,491,171"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="228,137,293,143,293,149,228,142"/>
+<area shape="rect" id="Node000005" href="$structGrammarFactory.html#ab4d6073366842e8539dace5eb00564e9" title="Checks if a production starts with a given prefix." alt="" coords="297,195,503,223"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="156,139,276,180,311,189,310,194,275,185,154,145"/>
+</map>

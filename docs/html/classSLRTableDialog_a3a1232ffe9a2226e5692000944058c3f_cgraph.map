@@ -1,0 +1,5 @@
+<map id="SLRTableDialog::SLRTableDialog" name="SLRTableDialog::SLRTableDialog">
+<area shape="rect" id="Node000001" title="Constructs the SLR(1) table dialog." alt="" coords="5,5,193,50"/>
+<area shape="rect" id="Node000002" href="$classSLRTableDialog.html#aa20290eafe616ab7fa02467426895d84" title="Fills the table with existing data." alt="" coords="241,14,458,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,25,225,25,225,30,193,30"/>
+</map>

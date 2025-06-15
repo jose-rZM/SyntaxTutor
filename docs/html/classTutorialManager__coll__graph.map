@@ -1,0 +1,5 @@
+<map id="TutorialManager" name="TutorialManager">
+<area shape="rect" id="Node000001" title="Manages interactive tutorials by highlighting UI elements and guiding the user." alt="" coords="5,81,132,109"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="32,5,105,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,49,71,81,66,81,66,49"/>
+</map>

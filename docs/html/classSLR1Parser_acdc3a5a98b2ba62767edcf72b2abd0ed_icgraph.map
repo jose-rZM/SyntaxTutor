@@ -1,0 +1,5 @@
+<map id="SLR1Parser::MakeParser" name="SLR1Parser::MakeParser">
+<area shape="rect" id="Node000001" title="Constructs the SLR(1) parsing tables (action and transition tables)." alt="" coords="312,5,490,33"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,5,264,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="296,22,264,22,264,16,296,16"/>
+</map>

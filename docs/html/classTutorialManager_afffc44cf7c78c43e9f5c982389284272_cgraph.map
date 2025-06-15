@@ -1,0 +1,5 @@
+<map id="TutorialManager::finishSLR1" name="TutorialManager::finishSLR1">
+<area shape="rect" id="Node000001" title="Ends the SLR(1) tutorial sequence and emits its corresponding signal." alt="" coords="5,5,208,33"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf" title="Emitted when the SLR(1) tutorial ends." alt="" coords="256,5,467,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,16,240,16,240,22,208,22"/>
+</map>

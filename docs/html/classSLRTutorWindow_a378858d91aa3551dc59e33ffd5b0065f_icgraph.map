@@ -1,0 +1,5 @@
+<map id="SLRTutorWindow::addUserState" name="SLRTutorWindow::addUserState">
+<area shape="rect" id="Node000001" title="&lt; Refresh visual progress" alt="" coords="270,5,495,33"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#acef80f9051484e7bbc7ad003d4b8e180" title="Updates tutor state based on whether the last answer was correct." alt="" coords="5,5,222,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,22,222,22,222,16,254,16"/>
+</map>

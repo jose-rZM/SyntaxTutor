@@ -1,0 +1,7 @@
+<map id="TutorialManager::tutorialFinished" name="TutorialManager::tutorialFinished">
+<area shape="rect" id="Node000001" title="Emitted when the full tutorial is finished." alt="" coords="458,5,639,50"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="218,14,410,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="443,30,410,30,410,25,443,25"/>
+<area shape="rect" id="Node000003" href="$classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30" title="Starts the tutorial from the beginning." alt="" coords="5,14,170,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="202,30,170,30,170,25,202,25"/>
+</map>

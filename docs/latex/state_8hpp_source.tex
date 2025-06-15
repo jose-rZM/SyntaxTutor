@@ -1,0 +1,34 @@
+\doxysection{state.\+hpp}
+\hypertarget{state_8hpp_source}{}\label{state_8hpp_source}\index{backend/state.hpp@{backend/state.hpp}}
+\mbox{\hyperlink{state_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lr0__item_8hpp}{lr0\_item.hpp}}"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstate}{state}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ std::unordered\_set<Lr0Item>\ \mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structstate_ae4175bd8db542097060d70960296505d}{id\_}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structstate_a463398083f82b863b2ea8d793073f186}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structstate}{state}}\&\ other)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ other.\mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}}\ ==\ \mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}};\ \}}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<state>\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ state\&\ st)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ seed\ =}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ std::accumulate(st.\mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}}.begin(),\ st.\mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}}.end(),\ 0,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{size\_t}\ acc,\ \textcolor{keyword}{const}\ Lr0Item\&\ item)\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ acc\ \string^\ (std::hash<Lr0Item>()(item));}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ seed;}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ \}\ \textcolor{comment}{//\ namespace\ std}}
+
+\end{DoxyCode}

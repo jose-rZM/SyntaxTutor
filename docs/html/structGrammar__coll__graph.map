@@ -1,0 +1,5 @@
+<map id="Grammar" name="Grammar">
+<area shape="rect" id="Node000001" title="Represents a context&#45;free grammar, including its rules, symbol table, and starting symbol." alt="" coords="16,98,99,126"/>
+<area shape="rect" id="Node000002" href="$structSymbolTable.html" title="Stores and manages grammar symbols, including their classification and special markers." alt="" coords="5,5,110,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,48,60,98,55,98,55,48"/>
+</map>

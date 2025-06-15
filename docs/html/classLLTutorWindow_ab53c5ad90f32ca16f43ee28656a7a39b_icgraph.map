@@ -1,0 +1,6 @@
+<map id="LLTutorWindow::FormatGrammar" name="LLTutorWindow::FormatGrammar">
+<area shape="rect" id="Node000001" title="Formats a grammar for display in the chat interface." alt="" coords="277,29,511,57"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a4b10e71e3768385018d953ab251ebcee" title="Constructs the LL(1) tutor window with a given grammar." alt="" coords="5,29,229,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,46,229,46,229,40,261,40"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="165,17,148,10,117,8,88,10,72,15,68,20,74,27,70,31,62,20,69,11,87,5,117,3,149,5,167,12"/>
+</map>

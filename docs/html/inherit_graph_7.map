@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,57,121,85"/>
+<area shape="rect" id="Node000001" href="$classLLTutorWindow.html" title="Main window for the LL(1) interactive tutoring mode in SyntaxTutor." alt="" coords="174,5,292,33"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="124,50,185,31,186,36,126,55"/>
+<area shape="rect" id="Node000002" href="$classMainWindow.html" title="Main application window of SyntaxTutor, managing levels, exercises, and UI state." alt="" coords="181,57,286,85"/>
+<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="136,68,180,68,180,74,136,74"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html" title="Main window for the SLR(1) interactive tutoring mode in SyntaxTutor." alt="" coords="169,109,298,137"/>
+<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="126,87,186,106,185,111,124,93"/>
+</map>

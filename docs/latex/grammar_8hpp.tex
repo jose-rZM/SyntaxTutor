@@ -1,0 +1,46 @@
+\doxysection{backend/grammar.hpp File Reference}
+\hypertarget{grammar_8hpp}{}\label{grammar_8hpp}\index{backend/grammar.hpp@{backend/grammar.hpp}}
+{\ttfamily \#include "{}symbol\+\_\+table.\+hpp"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for grammar.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grammar_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grammar_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structGrammar}{Grammar}}
+\begin{DoxyCompactList}\small\item\em Represents a context-\/free grammar, including its rules, symbol table, and starting symbol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} = std\+::vector$<$std\+::string$>$
+\begin{DoxyCompactList}\small\item\em Represents the right-\/hand side of a grammar rule. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}\index{grammar.hpp@{grammar.hpp}!production@{production}}
+\index{production@{production}!grammar.hpp@{grammar.hpp}}
+\doxysubsubsection{\texorpdfstring{production}{production}}
+{\footnotesize\ttfamily \label{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0} 
+using \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} = std\+::vector$<$std\+::string$>$}
+
+
+
+Represents the right-\/hand side of a grammar rule. 
+
+A production is a sequence of grammar symbols (terminals or non-\/terminals) that can be derived from a non-\/terminal symbol in the grammar.
+
+For example, in the rule A → a B c, the production would be\+: \{"{}a"{}, "{}\+B"{}, "{}c"{}\} 

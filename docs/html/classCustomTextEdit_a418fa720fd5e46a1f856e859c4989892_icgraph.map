@@ -1,0 +1,8 @@
+<map id="CustomTextEdit::sendRequested" name="CustomTextEdit::sendRequested">
+<area shape="rect" id="Node000001" title=" " alt="" coords="277,56,508,84"/>
+<area shape="rect" id="Node000002" href="$classCustomTextEdit.html#ac87765b7ed4b3752474893bae4df08bf" title=" " alt="" coords="22,5,212,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,56,212,45,212,40,284,51"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a4b10e71e3768385018d953ab251ebcee" title="Constructs the LL(1) tutor window with a given grammar." alt="" coords="5,98,229,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="281,90,214,100,213,95,280,84"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="165,85,148,79,117,76,88,78,72,83,68,89,75,96,71,99,63,89,69,79,87,73,117,71,149,74,166,80"/>
+</map>

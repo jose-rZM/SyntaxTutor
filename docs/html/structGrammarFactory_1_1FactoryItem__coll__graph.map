@@ -1,0 +1,5 @@
+<map id="GrammarFactory::FactoryItem" name="GrammarFactory::FactoryItem">
+<area shape="rect" id="Node000001" title="Represents an individual grammar item with its associated symbol table." alt="" coords="5,98,222,126"/>
+<area shape="rect" id="Node000002" href="$structSymbolTable.html" title="Stores and manages grammar symbols, including their classification and special markers." alt="" coords="61,5,166,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,48,116,98,111,98,111,48"/>
+</map>

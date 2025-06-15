@@ -1,0 +1,629 @@
+\doxysection{SLR1\+Parser Class Reference}
+\hypertarget{classSLR1Parser}{}\label{classSLR1Parser}\index{SLR1Parser@{SLR1Parser}}
+
+
+Implements an SLR(1) parser for context-\/free grammars.  
+
+
+
+
+{\ttfamily \#include $<$slr1\+\_\+parser.\+hpp$>$}
+
+
+
+Collaboration diagram for SLR1\+Parser\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{classSLR1Parser__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSLR1Parser_1_1s__action}{s\+\_\+action}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895}{Action}} \{ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895a825a3d98017bab11815ad2817201324c}{Shift}}
+, \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8}{Reduce}}
+, \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ac4408d335012a56ff58937d78050efad}{Accept}}
+, \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ace2c8aed9c2fa0cfbed56cbda4d8bf07}{Empty}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the possible actions in the SLR(1) parsing table. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd}{action\+\_\+table}}
+\begin{DoxyCompactList}\small\item\em Represents the action table for the SLR(1) parser. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217}{transition\+\_\+table}}
+\begin{DoxyCompactList}\small\item\em Represents the transition table for the SLR(1) parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSLR1Parser_af61cf9a5210b5df543a0ffcff96ce295}{SLR1\+Parser}} ()=default
+\item 
+\mbox{\hyperlink{classSLR1Parser_aa42411d1cb318041138b476e80aacc9a}{SLR1\+Parser}} (\mbox{\hyperlink{structGrammar}{Grammar}} gr)
+\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \mbox{\hyperlink{classSLR1Parser_af1f26efc1c4f8826b2bd1477aa44868b}{All\+Items}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves all LR(0) items in the grammar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb}{Closure}} (std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items)
+\begin{DoxyCompactList}\small\item\em Computes the closure of a set of LR(0) items. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLR1Parser_a00101890c3c4d2871a8c100209abf122}{Closure\+Util}} (std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items, unsigned int size, std\+::unordered\+\_\+set$<$ std\+::string $>$ \&visited)
+\begin{DoxyCompactList}\small\item\em Helper function for computing the closure of LR(0) items. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \mbox{\hyperlink{classSLR1Parser_aee48bcbf0a93badeb5271a7299cc458b}{Delta}} (const std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items, const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classSLR1Parser_a6a31a57223b052028c74f5d70db41c16}{Solve\+LRConflicts}} (const \mbox{\hyperlink{structstate}{state}} \&st)
+\begin{DoxyCompactList}\small\item\em Resolves LR conflicts in a given state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First}} (std\+::span$<$ const std\+::string $>$ rule, std\+::unordered\+\_\+set$<$ std\+::string $>$ \&result)
+\begin{DoxyCompactList}\small\item\em Calculates the FIRST set for a given production rule in a grammar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLR1Parser_af0a486daf0c5083b113e557d68732481}{Compute\+First\+Sets}} ()
+\begin{DoxyCompactList}\small\item\em Computes the FIRST sets for all non-\/terminal symbols in the grammar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a}{Compute\+Follow\+Sets}} ()
+\begin{DoxyCompactList}\small\item\em Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+set$<$ std\+::string $>$ \mbox{\hyperlink{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb}{Follow}} (const std\+::string \&arg)
+\begin{DoxyCompactList}\small\item\em Computes the FOLLOW set for a given non-\/terminal symbol in the grammar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b}{Make\+Initial\+State}} ()
+\begin{DoxyCompactList}\small\item\em Creates the initial state of the parser\textquotesingle{}s state machine. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed}{Make\+Parser}} ()
+\begin{DoxyCompactList}\small\item\em Constructs the SLR(1) parsing tables (action and transition tables). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classSLR1Parser_a95d6f1070a535768c6d7f8f953c2b69d}{Print\+Items}} (const std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items) const
+\begin{DoxyCompactList}\small\item\em Returns a string representation of a set of LR(0) items. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The grammar being processed by the parser. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+set$<$ std\+::string $>$ $>$ \mbox{\hyperlink{classSLR1Parser_a4b9b4f88bfef3c3e77f791446f3d820c}{first\+\_\+sets\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Cached FIRST sets for all symbols in the grammar. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+set$<$ std\+::string $>$ $>$ \mbox{\hyperlink{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}{follow\+\_\+sets\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Cached FOLLOW sets for all non-\/terminal symbols in the grammar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd}{action\+\_\+table}} \mbox{\hyperlink{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}{actions\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The action table used by the parser to determine shift/reduce actions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217}{transition\+\_\+table}} \mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The transition table used by the parser to determine state transitions. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structstate}{state}} $>$ \mbox{\hyperlink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The set of states in the parser\textquotesingle{}s state machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements an SLR(1) parser for context-\/free grammars. 
+
+This class builds an SLR(1) parsing table and LR(0) automaton from a given grammar. It provides methods for computing closure sets, GOTO transitions, constructing states, and performing syntax analysis using the generated table. 
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd}\index{SLR1Parser@{SLR1Parser}!action\_table@{action\_table}}
+\index{action\_table@{action\_table}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{action\_table}{action\_table}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd} 
+using \mbox{\hyperlink{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd}{SLR1\+Parser\+::action\+\_\+table}}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::map<unsigned\ int,\ std::map<std::string,\ SLR1Parser::s\_action>>}
+
+\end{DoxyCode}
+
+
+Represents the action table for the SLR(1) parser. 
+
+The action table is a map that associates each state and input symbol with a specific action ({\ttfamily Shift}, {\ttfamily Reduce}, {\ttfamily Accept}, or {\ttfamily Empty}). It is used to determine the parser\textquotesingle{}s behavior during the parsing process.
+
+The table is structured as\+:
+\begin{DoxyItemize}
+\item Outer map\+: Keys are state IDs (unsigned int).
+\item Inner map\+: Keys are input symbols (std\+::string), and values are {\ttfamily \doxylink{structSLR1Parser_1_1s__action}{s\+\_\+action}} structs representing the action to take. 
+\end{DoxyItemize}\Hypertarget{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217}\index{SLR1Parser@{SLR1Parser}!transition\_table@{transition\_table}}
+\index{transition\_table@{transition\_table}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{transition\_table}{transition\_table}}
+{\footnotesize\ttfamily \label{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217} 
+using \mbox{\hyperlink{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217}{SLR1\+Parser\+::transition\+\_\+table}}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::map<unsigned\ int,\ std::map<std::string,\ unsigned\ int>>}
+
+\end{DoxyCode}
+
+
+Represents the transition table for the SLR(1) parser. 
+
+The transition table is a map that associates each state and symbol with the next state to transition to. It is used to guide the parser\textquotesingle{}s state transitions during the parsing process.
+
+The table is structured as\+:
+\begin{DoxyItemize}
+\item Outer map\+: Keys are state IDs (unsigned int).
+\item Inner map\+: Keys are symbols (std\+::string), and values are the next state IDs (unsigned int). 
+\end{DoxyItemize}
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895}\index{SLR1Parser@{SLR1Parser}!Action@{Action}}
+\index{Action@{Action}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{Action}{Action}}
+{\footnotesize\ttfamily \label{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895} 
+enum class \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895}{SLR1\+Parser\+::\+Action}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Represents the possible actions in the SLR(1) parsing table. 
+
+This enumeration defines the types of actions that can be taken by the parser during the parsing process\+:
+\begin{DoxyItemize}
+\item {\ttfamily Shift}\+: Shift the input symbol onto the stack and transition to a new state.
+\item {\ttfamily Reduce}\+: Reduce a production rule and pop symbols from the stack.
+\item {\ttfamily Accept}\+: Accept the input as a valid string in the grammar.
+\item {\ttfamily Empty}\+: No action is defined for the current state and input symbol. 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Shift@{Shift}!SLR1Parser@{SLR1Parser}}\index{SLR1Parser@{SLR1Parser}!Shift@{Shift}}}\Hypertarget{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895a825a3d98017bab11815ad2817201324c}\label{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895a825a3d98017bab11815ad2817201324c} 
+Shift&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Reduce@{Reduce}!SLR1Parser@{SLR1Parser}}\index{SLR1Parser@{SLR1Parser}!Reduce@{Reduce}}}\Hypertarget{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8}\label{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8} 
+Reduce&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Accept@{Accept}!SLR1Parser@{SLR1Parser}}\index{SLR1Parser@{SLR1Parser}!Accept@{Accept}}}\Hypertarget{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ac4408d335012a56ff58937d78050efad}\label{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ac4408d335012a56ff58937d78050efad} 
+Accept&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Empty@{Empty}!SLR1Parser@{SLR1Parser}}\index{SLR1Parser@{SLR1Parser}!Empty@{Empty}}}\Hypertarget{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ace2c8aed9c2fa0cfbed56cbda4d8bf07}\label{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ace2c8aed9c2fa0cfbed56cbda4d8bf07} 
+Empty&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSLR1Parser_af61cf9a5210b5df543a0ffcff96ce295}\index{SLR1Parser@{SLR1Parser}!SLR1Parser@{SLR1Parser}}
+\index{SLR1Parser@{SLR1Parser}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{SLR1Parser()}{SLR1Parser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classSLR1Parser_af61cf9a5210b5df543a0ffcff96ce295} 
+SLR1\+Parser\+::\+SLR1\+Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{classSLR1Parser_aa42411d1cb318041138b476e80aacc9a}\index{SLR1Parser@{SLR1Parser}!SLR1Parser@{SLR1Parser}}
+\index{SLR1Parser@{SLR1Parser}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{SLR1Parser()}{SLR1Parser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classSLR1Parser_aa42411d1cb318041138b476e80aacc9a} 
+SLR1\+Parser\+::\+SLR1\+Parser (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}}}]{gr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_aa42411d1cb318041138b476e80aacc9a_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classSLR1Parser_af1f26efc1c4f8826b2bd1477aa44868b}\index{SLR1Parser@{SLR1Parser}!AllItems@{AllItems}}
+\index{AllItems@{AllItems}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{AllItems()}{AllItems()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_af1f26efc1c4f8826b2bd1477aa44868b} 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ SLR1\+Parser\+::\+All\+Items (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieves all LR(0) items in the grammar. 
+
+This function returns a set of all LR(0) items derived from the grammar\textquotesingle{}s productions. Each LR(0) item represents a production with a marker indicating the current position in the production (e.\+g., A → α•β).
+
+\begin{DoxyReturn}{Returns}
+A set of all LR(0) items in the grammar. 
+\end{DoxyReturn}
+\Hypertarget{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb}\index{SLR1Parser@{SLR1Parser}!Closure@{Closure}}
+\index{Closure@{Closure}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{Closure()}{Closure()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb} 
+void SLR1\+Parser\+::\+Closure (\begin{DoxyParamCaption}\item[{std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&}]{items}{}\end{DoxyParamCaption})}
+
+
+
+Computes the closure of a set of LR(0) items. 
+
+This function computes the closure of a given set of LR(0) items by adding all items that can be derived from the current items using the grammar\textquotesingle{}s productions. The closure operation ensures that all possible derivations are considered when constructing the parser\textquotesingle{}s states.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & The set of LR(0) items for which to compute the closure. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_a00101890c3c4d2871a8c100209abf122}\index{SLR1Parser@{SLR1Parser}!ClosureUtil@{ClosureUtil}}
+\index{ClosureUtil@{ClosureUtil}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{ClosureUtil()}{ClosureUtil()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a00101890c3c4d2871a8c100209abf122} 
+void SLR1\+Parser\+::\+Closure\+Util (\begin{DoxyParamCaption}\item[{std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&}]{items}{, }\item[{unsigned int}]{size}{, }\item[{std\+::unordered\+\_\+set$<$ std\+::string $>$ \&}]{visited}{}\end{DoxyParamCaption})}
+
+
+
+Helper function for computing the closure of LR(0) items. 
+
+This function recursively computes the closure of a set of LR(0) items by adding items derived from non-\/terminal symbols. It avoids redundant work by tracking visited non-\/terminals and stopping when no new items are added.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & The set of LR(0) items being processed. \\
+\hline
+{\em size} & The size of the items set at the start of the current iteration. \\
+\hline
+{\em visited} & A set of non-\/terminals that have already been processed. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classSLR1Parser_a00101890c3c4d2871a8c100209abf122_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a00101890c3c4d2871a8c100209abf122_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_af0a486daf0c5083b113e557d68732481}\index{SLR1Parser@{SLR1Parser}!ComputeFirstSets@{ComputeFirstSets}}
+\index{ComputeFirstSets@{ComputeFirstSets}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{ComputeFirstSets()}{ComputeFirstSets()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_af0a486daf0c5083b113e557d68732481} 
+void SLR1\+Parser\+::\+Compute\+First\+Sets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Computes the FIRST sets for all non-\/terminal symbols in the grammar. 
+
+This function calculates the FIRST set for each non-\/terminal symbol in the grammar by iteratively applying a least fixed-\/point algorithm. This approach ensures that the FIRST sets are fully populated by repeatedly expanding and updating the sets until no further changes occur (i.\+e., a fixed-\/point is reached). Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_af0a486daf0c5083b113e557d68732481_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_af0a486daf0c5083b113e557d68732481_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a}\index{SLR1Parser@{SLR1Parser}!ComputeFollowSets@{ComputeFollowSets}}
+\index{ComputeFollowSets@{ComputeFollowSets}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{ComputeFollowSets()}{ComputeFollowSets()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a} 
+void SLR1\+Parser\+::\+Compute\+Follow\+Sets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. 
+
+The FOLLOW set of a non-\/terminal symbol A contains all terminal symbols that can appear immediately after A in any sentential form derived from the grammar\textquotesingle{}s start symbol. Additionally, if A can be the last symbol in a derivation, the end-\/of-\/input marker ({\ttfamily \$}) is included in its FOLLOW set.
+
+This function computes the FOLLOW sets using the following rules\+:
+\begin{DoxyEnumerate}
+\item Initialize FOLLOW(\+S) = \{ \$ \}, where S is the start symbol.
+\item For each production rule of the form A → α\+Bβ\+:
+\begin{DoxyItemize}
+\item Add FIRST(β) (excluding ε) to FOLLOW(\+B).
+\item If ε ∈ FIRST(β), add FOLLOW(\+A) to FOLLOW(\+B).
+\end{DoxyItemize}
+\item Repeat step 2 until no changes occur in any FOLLOW set.
+\end{DoxyEnumerate}
+
+The computed FOLLOW sets are cached in the {\ttfamily follow\+\_\+sets\+\_\+} member variable for later use by the parser.
+
+\begin{DoxyNote}{Note}
+This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily first\+\_\+sets\+\_\+} member variable.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First} 
+
+\doxylink{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}{follow\+\_\+sets\+\_\+} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_aee48bcbf0a93badeb5271a7299cc458b}\index{SLR1Parser@{SLR1Parser}!Delta@{Delta}}
+\index{Delta@{Delta}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{Delta()}{Delta()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_aee48bcbf0a93badeb5271a7299cc458b} 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ SLR1\+Parser\+::\+Delta (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&}]{items}{, }\item[{const std\+::string \&}]{str}{}\end{DoxyParamCaption})}
+
+
+
+Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol. 
+
+This function is equivalent to the δ(\+I, X) function in LR parsing, where it computes the set of items reached from a state I via symbol X.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & The current set of LR(0) items (state). \\
+\hline
+{\em str} & The grammar symbol used for the transition. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting item set after the GOTO transition. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_aee48bcbf0a93badeb5271a7299cc458b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}\index{SLR1Parser@{SLR1Parser}!First@{First}}
+\index{First@{First}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{First()}{First()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0} 
+void SLR1\+Parser\+::\+First (\begin{DoxyParamCaption}\item[{std\+::span$<$ const std\+::string $>$}]{rule}{, }\item[{std\+::unordered\+\_\+set$<$ std\+::string $>$ \&}]{result}{}\end{DoxyParamCaption})}
+
+
+
+Calculates the FIRST set for a given production rule in a grammar. 
+
+The FIRST set of a production rule contains all terminal symbols that can appear at the beginning of any string derived from that rule. If the rule can derive the empty string (epsilon), epsilon is included in the FIRST set.
+
+This function computes the FIRST set by examining each symbol in the production rule\+:
+\begin{DoxyItemize}
+\item If a terminal symbol is encountered, it is added directly to the FIRST set, as it is the starting symbol of some derivation.
+\item If a non-\/terminal symbol is encountered, its FIRST set is recursively computed and added to the result, excluding epsilon unless it is followed by another symbol that could also lead to epsilon.
+\item If the entire rule could derive epsilon (i.\+e., each symbol in the rule can derive epsilon), then epsilon is added to the FIRST set.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & A span of strings representing the production rule for which to compute the FIRST set. Each string in the span is a symbol (either terminal or non-\/terminal). \\
+\hline
+{\em result} & A reference to an unordered set of strings where the computed FIRST set will be stored. The set will contain all terminal symbols that can start derivations of the rule, and possibly epsilon if the rule can derive an empty string. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb}\index{SLR1Parser@{SLR1Parser}!Follow@{Follow}}
+\index{Follow@{Follow}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{Follow()}{Follow()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb} 
+std\+::unordered\+\_\+set$<$ std\+::string $>$ SLR1\+Parser\+::\+Follow (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{arg}{}\end{DoxyParamCaption})}
+
+
+
+Computes the FOLLOW set for a given non-\/terminal symbol in the grammar. 
+
+The FOLLOW set for a non-\/terminal symbol includes all symbols that can appear immediately to the right of that symbol in any derivation, as well as any end-\/of-\/input markers if the symbol can appear at the end of derivations. FOLLOW sets are used in LL(1) parsing table construction to determine possible continuations after a non-\/terminal.
+
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & Non-\/terminal symbol for which to compute the FOLLOW set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An unordered set of strings containing symbols that form the FOLLOW set for {\ttfamily arg}. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b}\index{SLR1Parser@{SLR1Parser}!MakeInitialState@{MakeInitialState}}
+\index{MakeInitialState@{MakeInitialState}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{MakeInitialState()}{MakeInitialState()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b} 
+void SLR1\+Parser\+::\+Make\+Initial\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Creates the initial state of the parser\textquotesingle{}s state machine. 
+
+This function initializes the starting state of the parser by computing the closure of the initial set of LR(0) items derived from the grammar\textquotesingle{}s start symbol. The initial state is added to the {\ttfamily states\+\_\+} set, and its transitions are prepared for further processing in the parser construction.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+} 
+
+\doxylink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\+\_\+} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed}\index{SLR1Parser@{SLR1Parser}!MakeParser@{MakeParser}}
+\index{MakeParser@{MakeParser}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{MakeParser()}{MakeParser()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed} 
+bool SLR1\+Parser\+::\+Make\+Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Constructs the SLR(1) parsing tables (action and transition tables). 
+
+This function builds the SLR(1) parsing tables by computing the canonical collection of LR(0) items, generating the action and transition tables, and resolving conflicts (if any). It returns {\ttfamily true} if the grammar is SLR(1) and the tables are successfully constructed, or {\ttfamily false} if a conflict is detected that cannot be resolved.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the parsing tables are successfully constructed, {\ttfamily false} if the grammar is not SLR(1) or a conflict is encountered.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}{actions\+\_\+} 
+
+\doxylink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\+\_\+} 
+
+\doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSLR1Parser_a95d6f1070a535768c6d7f8f953c2b69d}\index{SLR1Parser@{SLR1Parser}!PrintItems@{PrintItems}}
+\index{PrintItems@{PrintItems}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{PrintItems()}{PrintItems()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a95d6f1070a535768c6d7f8f953c2b69d} 
+std\+::string SLR1\+Parser\+::\+Print\+Items (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&}]{items}{}\end{DoxyParamCaption}) const}
+
+
+
+Returns a string representation of a set of LR(0) items. 
+
+This function converts a set of LR(0) items into a human-\/readable string, including dot positions, to help visualize parser states.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & The set of LR(0) items to print. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A formatted string representation of the items. 
+\end{DoxyReturn}
+\Hypertarget{classSLR1Parser_a6a31a57223b052028c74f5d70db41c16}\index{SLR1Parser@{SLR1Parser}!SolveLRConflicts@{SolveLRConflicts}}
+\index{SolveLRConflicts@{SolveLRConflicts}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{SolveLRConflicts()}{SolveLRConflicts()}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a6a31a57223b052028c74f5d70db41c16} 
+bool SLR1\+Parser\+::\+Solve\+LRConflicts (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structstate}{state}} \&}]{st}{}\end{DoxyParamCaption})}
+
+
+
+Resolves LR conflicts in a given state. 
+
+This function attempts to resolve shift/reduce or reduce/reduce conflicts in a given state using SLR(1) parsing rules. It checks the FOLLOW sets of non-\/terminals to determine the correct action and updates the action table accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em st} & The state in which to resolve conflicts. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if all conflicts are resolved, {\ttfamily false} if an unresolvable conflict is detected. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLR1Parser_a6a31a57223b052028c74f5d70db41c16_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}\index{SLR1Parser@{SLR1Parser}!actions\_@{actions\_}}
+\index{actions\_@{actions\_}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{actions\_}{actions\_}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066} 
+\mbox{\hyperlink{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd}{action\+\_\+table}} SLR1\+Parser\+::actions\+\_\+}
+
+
+
+The action table used by the parser to determine shift/reduce actions. 
+
+\Hypertarget{classSLR1Parser_a4b9b4f88bfef3c3e77f791446f3d820c}\index{SLR1Parser@{SLR1Parser}!first\_sets\_@{first\_sets\_}}
+\index{first\_sets\_@{first\_sets\_}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{first\_sets\_}{first\_sets\_}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a4b9b4f88bfef3c3e77f791446f3d820c} 
+std\+::unordered\+\_\+map$<$std\+::string, std\+::unordered\+\_\+set$<$std\+::string$>$ $>$ SLR1\+Parser\+::first\+\_\+sets\+\_\+}
+
+
+
+Cached FIRST sets for all symbols in the grammar. 
+
+\Hypertarget{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}\index{SLR1Parser@{SLR1Parser}!follow\_sets\_@{follow\_sets\_}}
+\index{follow\_sets\_@{follow\_sets\_}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{follow\_sets\_}{follow\_sets\_}}
+{\footnotesize\ttfamily \label{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671} 
+std\+::unordered\+\_\+map$<$std\+::string, std\+::unordered\+\_\+set$<$std\+::string$>$ $>$ SLR1\+Parser\+::follow\+\_\+sets\+\_\+}
+
+
+
+Cached FOLLOW sets for all non-\/terminal symbols in the grammar. 
+
+\Hypertarget{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}\index{SLR1Parser@{SLR1Parser}!gr\_@{gr\_}}
+\index{gr\_@{gr\_}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{gr\_}{gr\_}}
+{\footnotesize\ttfamily \label{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a} 
+\mbox{\hyperlink{structGrammar}{Grammar}} SLR1\+Parser\+::gr\+\_\+}
+
+
+
+The grammar being processed by the parser. 
+
+\Hypertarget{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}\index{SLR1Parser@{SLR1Parser}!states\_@{states\_}}
+\index{states\_@{states\_}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{states\_}{states\_}}
+{\footnotesize\ttfamily \label{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12} 
+std\+::unordered\+\_\+set$<$\mbox{\hyperlink{structstate}{state}}$>$ SLR1\+Parser\+::states\+\_\+}
+
+
+
+The set of states in the parser\textquotesingle{}s state machine. 
+
+\Hypertarget{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}\index{SLR1Parser@{SLR1Parser}!transitions\_@{transitions\_}}
+\index{transitions\_@{transitions\_}!SLR1Parser@{SLR1Parser}}
+\doxysubsubsection{\texorpdfstring{transitions\_}{transitions\_}}
+{\footnotesize\ttfamily \label{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf} 
+\mbox{\hyperlink{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217}{transition\+\_\+table}} SLR1\+Parser\+::transitions\+\_\+}
+
+
+
+The transition table used by the parser to determine state transitions. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+backend/\mbox{\hyperlink{slr1__parser_8hpp}{slr1\+\_\+parser.\+hpp}}\item 
+backend/\mbox{\hyperlink{slr1__parser_8cpp}{slr1\+\_\+parser.\+cpp}}\end{DoxyCompactItemize}

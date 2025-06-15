@@ -1,0 +1,6 @@
+<map id="SLRTutorWindow::TeachClosureStep" name="SLRTutorWindow::TeachClosureStep">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,258,57"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="91,30,84,20,89,11,105,5,132,3,160,5,175,12,173,16,158,10,131,8,106,10,93,15,89,20,95,27"/>
+<area shape="rect" id="Node000002" href="$structLr0Item.html#af04204a80422464f843b7a8ef4a22965" title="Converts the item to a string representation, including the dot position." alt="" coords="306,29,437,57"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="258,40,290,40,290,46,258,46"/>
+</map>

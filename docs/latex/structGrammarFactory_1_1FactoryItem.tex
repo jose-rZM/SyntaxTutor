@@ -1,0 +1,82 @@
+\doxysection{Grammar\+Factory\+::Factory\+Item Struct Reference}
+\hypertarget{structGrammarFactory_1_1FactoryItem}{}\label{structGrammarFactory_1_1FactoryItem}\index{GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}}
+
+
+Represents an individual grammar item with its associated symbol table.  
+
+
+
+
+{\ttfamily \#include $<$grammar\+\_\+factory.\+hpp$>$}
+
+
+
+Collaboration diagram for Grammar\+Factory\+::Factory\+Item\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{structGrammarFactory_1_1FactoryItem__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem_ae7d899f0b7b5334fdc11ef605d520dc7}{Factory\+Item}} (const std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ $>$ \&grammar)
+\begin{DoxyCompactList}\small\item\em Constructor that initializes a \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item} with the provided grammar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ $>$ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem_a5e63b86c5b47a6c2f4f572d7a71cf296}{g\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Stores the grammar rules where each key is a non-\/terminal symbol and each value is a vector of production rules. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem_a81f9c40d0e12aed4e8dec48750b94d5e}{st\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Symbol table associated with this grammar item. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an individual grammar item with its associated symbol table. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structGrammarFactory_1_1FactoryItem_ae7d899f0b7b5334fdc11ef605d520dc7}\index{GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}!FactoryItem@{FactoryItem}}
+\index{FactoryItem@{FactoryItem}!GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}}
+\doxysubsubsection{\texorpdfstring{FactoryItem()}{FactoryItem()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_1_1FactoryItem_ae7d899f0b7b5334fdc11ef605d520dc7} 
+Grammar\+Factory\+::\+Factory\+Item\+::\+Factory\+Item (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ $>$ \&}]{grammar}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor that initializes a \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item} with the provided grammar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to initialize the \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item} with. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structGrammarFactory_1_1FactoryItem_a5e63b86c5b47a6c2f4f572d7a71cf296}\index{GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}!g\_@{g\_}}
+\index{g\_@{g\_}!GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}}
+\doxysubsubsection{\texorpdfstring{g\_}{g\_}}
+{\footnotesize\ttfamily \label{structGrammarFactory_1_1FactoryItem_a5e63b86c5b47a6c2f4f572d7a71cf296} 
+std\+::unordered\+\_\+map$<$std\+::string, std\+::vector$<$\mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}}$>$ $>$ Grammar\+Factory\+::\+Factory\+Item\+::g\+\_\+}
+
+
+
+Stores the grammar rules where each key is a non-\/terminal symbol and each value is a vector of production rules. 
+
+\Hypertarget{structGrammarFactory_1_1FactoryItem_a81f9c40d0e12aed4e8dec48750b94d5e}\index{GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}!st\_@{st\_}}
+\index{st\_@{st\_}!GrammarFactory::FactoryItem@{GrammarFactory::FactoryItem}}
+\doxysubsubsection{\texorpdfstring{st\_}{st\_}}
+{\footnotesize\ttfamily \label{structGrammarFactory_1_1FactoryItem_a81f9c40d0e12aed4e8dec48750b94d5e} 
+\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} Grammar\+Factory\+::\+Factory\+Item\+::st\+\_\+}
+
+
+
+Symbol table associated with this grammar item. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+backend/\mbox{\hyperlink{grammar__factory_8hpp}{grammar\+\_\+factory.\+hpp}}\item 
+backend/\mbox{\hyperlink{grammar__factory_8cpp}{grammar\+\_\+factory.\+cpp}}\end{DoxyCompactItemize}

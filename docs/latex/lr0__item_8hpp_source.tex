@@ -1,0 +1,46 @@
+\doxysection{lr0\+\_\+item.\+hpp}
+\hypertarget{lr0__item_8hpp_source}{}\label{lr0__item_8hpp_source}\index{backend/lr0\_item.hpp@{backend/lr0\_item.hpp}}
+\mbox{\hyperlink{lr0__item_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}{consequent\_}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_a3eac80af8491180b91b09ab815144b01}{epsilon\_}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_ae2d19acc432c32741350ff5da9a98316}{eol\_}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}{dot\_}}\ =\ 0;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}(std::string\ antecedent,\ std::vector<std::string>\ consequent,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ epsilon,\ std::string\ eol);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}(std::string\ antecedent,\ std::vector<std::string>\ consequent,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dot,\ std::string\ epsilon,\ std::string\ eol);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_a485ab0289f3353b47ea38dcee418a0b6}{NextToDot}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structLr0Item_a6142b6f8428fbf567eda36c751594033}{PrintItem}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00076\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_af04204a80422464f843b7a8ef4a22965}{ToString}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structLr0Item_ac342e279b0a266a84f984b82604532e6}{AdvanceDot}}();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structLr0Item_a4db23e1d025750a6ca817aa4998a03f4}{IsComplete}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structLr0Item_a21198c89325c73ee25a8d960cff7d1fa}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}\&\ other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00098\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{structLr0Item}{Lr0Item}}>\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{structLr0Item}{Lr0Item}}\&\ item)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ \}\ \textcolor{comment}{//\ namespace\ std}}
+
+\end{DoxyCode}

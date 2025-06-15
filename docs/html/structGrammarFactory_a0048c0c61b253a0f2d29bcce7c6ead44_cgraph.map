@@ -1,0 +1,11 @@
+<map id="GrammarFactory::CreateLv2Item" name="GrammarFactory::CreateLv2Item">
+<area shape="rect" id="Node000001" title="Creates a Level 2 grammar item for use in grammar generation." alt="" coords="5,57,240,85"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a384f98c92be56b27c65e20edebd32bcd" title="Adjusts the terminal symbols between two grammar items." alt="" coords="288,5,530,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,54,313,34,314,39,203,59"/>
+<area shape="rect" id="Node000003" href="$structGrammarFactory.html#a44b66cee9f82b5643992e1290f3653bb" title="Merges the grammar rules of two grammar items into a single grammar." alt="" coords="319,57,498,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,68,304,68,304,74,240,74"/>
+<area shape="rect" id="Node000004" href="$structGrammarFactory.html#a7eb4aeb1e55ff7e38e9f5b8a1fbfd464" title="Replaces all non&#45;terminal symbols in a grammar item with a single target non&#45;terminal." alt="" coords="306,109,512,154"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,83,292,104,291,109,192,88"/>
+<area shape="rect" id="Node000005" href="$structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21" title="Checks if a symbol is a terminal." alt="" coords="578,117,757,145"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="512,128,562,128,562,134,512,134"/>
+</map>

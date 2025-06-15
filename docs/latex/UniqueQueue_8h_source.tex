@@ -1,0 +1,43 @@
+\doxysection{Unique\+Queue.\+h}
+\hypertarget{UniqueQueue_8h_source}{}\label{UniqueQueue_8h_source}\mbox{\hyperlink{UniqueQueue_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UNIQUEQUEUE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UNIQUEQUEUE\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUniqueQueue}{UniqueQueue}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUniqueQueue_ae7a96bcd1dc074da3dd6f914e33c21a1}{push}}(\textcolor{keyword}{const}\ T\&\ value)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (seen\_.insert(value).second)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ queue\_.push(value);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUniqueQueue_ab30785b5961db0f2719a943a2d275f83}{pop}}()\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!queue\_.empty())\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ queue\_.pop();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{const}\ T\&\ \mbox{\hyperlink{classUniqueQueue_a50ab8ce73ca5c552e1e2182192d2d315}{front}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ queue\_.front();}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classUniqueQueue_af4cfcbfc8e87bbb41f52ea3fb3791390}{empty}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ queue\_.empty();}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classUniqueQueue_a00d514eb64338cf61e2f014043589ff2}{clear}}()\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!queue\_.empty())\ queue\_.pop();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ seen\_.clear();}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00063\ \ \ \ \ std::queue<T>\ queue\_;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ std::unordered\_set<T>\ seen\_;\ }
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UNIQUEQUEUE\_H}}
+
+\end{DoxyCode}

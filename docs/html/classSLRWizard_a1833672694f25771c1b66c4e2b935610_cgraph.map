@@ -1,0 +1,7 @@
+<map id="SLRWizard::SLRWizard" name="SLRWizard::SLRWizard">
+<area shape="rect" id="Node000001" title="Constructs the SLR(1) wizard with all necessary parsing context." alt="" coords="5,32,173,60"/>
+<area shape="rect" id="Node000002" href="$classSLR1Parser.html#af2549ef0375afbb8fd53fa2abafe60bb" title="Computes the FOLLOW set for a given non&#45;terminal symbol in the grammar." alt="" coords="262,5,406,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,34,246,26,246,31,173,39"/>
+<area shape="rect" id="Node000003" href="$classSLRWizard.html#ada2751317642cb02e08bb1a3575627cd" title="Converts a std::vector&lt;std::string&gt; to QVector&lt;QString&gt; for UI compatibility." alt="" coords="221,57,447,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,52,206,55,205,61,173,57"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="SLRTutorWindow::solutionForD1" name="SLRTutorWindow::solutionForD1">
+<area shape="rect" id="Node000001" title=" " alt="" coords="875,65,1065,110"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#abf1bd38094495acfe41a8d4f71bb43e3" title=" " alt="" coords="619,5,816,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="860,64,814,53,815,48,861,59"/>
+<area shape="rect" id="Node000004" href="$classSLRTutorWindow.html#a794d559b2350ae40655ff8192f9eacc0" title=" " alt="" coords="608,74,827,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="860,90,828,90,828,85,860,85"/>
+<area shape="rect" id="Node000007" href="$classSLRTutorWindow.html#aa8e3d1a0184100e4eb4a5f752991cebc" title=" " alt="" coords="307,121,545,166"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="860,111,828,116,681,131,545,140,545,135,681,125,827,110,860,106"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#a0688f86822e79e77b8d8c75c0b6d11a0" title=" " alt="" coords="327,14,524,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="603,30,525,30,525,25,603,25"/>
+<area shape="rect" id="Node000005" href="$classSLRTutorWindow.html#ab67bc48b847b74adedfb678363799f2e" title=" " alt="" coords="292,70,560,98"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="592,89,560,88,560,83,592,83"/>
+<area shape="rect" id="Node000006" href="$classSLRTutorWindow.html#ad2558a64cf4a24f493aa732558ba9e20" title=" " alt="" coords="5,100,244,128"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="276,102,244,105,244,100,276,96"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="291,133,244,129,244,123,291,128"/>
+</map>

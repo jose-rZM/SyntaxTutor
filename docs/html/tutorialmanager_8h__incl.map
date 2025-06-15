@@ -1,0 +1,19 @@
+<map id="tutorialmanager.h" name="tutorialmanager.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="332,5,470,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,74,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="332,35,89,83,88,78,331,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="98,81,170,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="354,36,186,82,184,77,352,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="195,81,268,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="372,36,276,77,274,72,370,31"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="292,81,398,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="393,35,366,70,362,67,389,32"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="422,81,492,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="413,32,440,67,436,70,409,35"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="516,81,627,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="432,31,528,72,526,77,430,36"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="651,81,724,109"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="454,31,636,77,635,83,452,36"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="749,81,826,109"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="471,29,734,78,733,83,470,34"/>
+</map>

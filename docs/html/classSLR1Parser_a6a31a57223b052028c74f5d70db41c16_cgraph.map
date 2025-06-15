@@ -1,0 +1,9 @@
+<map id="SLR1Parser::SolveLRConflicts" name="SLR1Parser::SolveLRConflicts">
+<area shape="rect" id="Node000001" title="Resolves LR conflicts in a given state." alt="" coords="5,57,217,85"/>
+<area shape="rect" id="Node000002" href="$classSLR1Parser.html#af2549ef0375afbb8fd53fa2abafe60bb" title="Computes the FOLLOW set for a given non&#45;terminal symbol in the grammar." alt="" coords="269,5,414,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,54,261,34,262,40,176,59"/>
+<area shape="rect" id="Node000003" href="$structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4" title="Checks whether the dot has reached the end of the production." alt="" coords="265,57,418,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,68,249,68,249,74,217,74"/>
+<area shape="rect" id="Node000004" href="$structLr0Item.html#a485ab0289f3353b47ea38dcee418a0b6" title="Returns the symbol immediately after the dot, or empty if the dot is at the end." alt="" coords="268,109,415,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,83,262,103,261,108,175,88"/>
+</map>

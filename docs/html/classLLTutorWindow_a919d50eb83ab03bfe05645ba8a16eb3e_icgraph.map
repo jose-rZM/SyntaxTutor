@@ -1,0 +1,9 @@
+<map id="LLTutorWindow::solutionForB1" name="LLTutorWindow::solutionForB1">
+<area shape="rect" id="Node000001" title=" " alt="" coords="556,36,771,64"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a8d36384b192e7925df83b8ee740af250" title="Updates the tutor state after verifying user response." alt="" coords="292,5,497,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="540,38,497,34,498,28,541,33"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a6e037711b2e27cf298a6a1b0f0028f60" title=" " alt="" coords="281,57,508,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="541,66,509,69,508,64,540,61"/>
+<area shape="rect" id="Node000004" href="$classLLTutorWindow.html#a73af7974f642964985fa5f5ea94f5687" title=" " alt="" coords="5,65,233,93"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="265,82,233,82,233,76,265,76"/>
+</map>

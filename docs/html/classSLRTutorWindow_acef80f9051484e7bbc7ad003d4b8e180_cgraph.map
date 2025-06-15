@@ -1,0 +1,11 @@
+<map id="SLRTutorWindow::updateState" name="SLRTutorWindow::updateState">
+<area shape="rect" id="Node000001" title="Updates tutor state based on whether the last answer was correct." alt="" coords="5,40,222,68"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a378858d91aa3551dc59e33ffd5b0065f" title="&lt; Refresh visual progress" alt="" coords="285,14,510,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,42,269,37,269,42,222,47"/>
+<area shape="rect" id="Node000005" href="$classSLRTutorWindow.html#a60a2dd5a7a890a4844d40a400fa9426e" title="&lt; Register a user&#45;created state" alt="" coords="270,66,525,94"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="222,61,254,64,254,70,222,67"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#a359abee5231623a1e280c1d7c2497e5c" title=" " alt="" coords="573,5,811,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="510,25,557,25,557,30,510,30"/>
+<area shape="rect" id="Node000004" href="$structLr0Item.html#af04204a80422464f843b7a8ef4a22965" title="Converts the item to a string representation, including the dot position." alt="" coords="859,14,991,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="812,25,844,25,844,30,812,30"/>
+</map>

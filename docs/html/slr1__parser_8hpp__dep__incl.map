@@ -1,0 +1,20 @@
+<map id="backend/slr1_parser.hpp" name="backend/slr1_parser.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="334,5,513,33"/>
+<area shape="rect" id="Node000002" href="$grammar__factory_8cpp.html" title=" " alt="" coords="5,81,223,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="354,40,170,83,169,78,352,35"/>
+<area shape="rect" id="Node000003" href="$slr1__parser_8cpp.html" title=" " alt="" coords="246,81,424,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="398,45,353,83,349,79,394,41"/>
+<area shape="rect" id="Node000004" href="$slrtutorwindow_8h.html" title=" " alt="" coords="448,81,577,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="453,41,499,78,495,83,449,45"/>
+<area shape="rect" id="Node000009" href="$slrwizard_8h.html" title=" " alt="" coords="601,81,694,109"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="479,36,608,78,606,83,477,41"/>
+<area shape="rect" id="Node000005" href="$mainwindow_8h.html" title=" " alt="" coords="436,157,552,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="508,124,500,157,495,156,503,123"/>
+<area shape="rect" id="Node000008" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="575,157,720,184"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="551,114,625,154,622,159,548,119"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title=" " alt="" coords="389,232,471,260"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="475,198,443,234,439,230,471,195"/>
+<area shape="rect" id="Node000007" href="$mainwindow_8cpp.html" title=" " alt="" coords="494,232,624,260"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="518,194,550,230,546,234,514,198"/>
+<area shape="poly" id="edge9_Node000009_Node000008" title=" " alt="" coords="650,124,650,156,645,156,645,124"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="GrammarFactory::Lv3" name="GrammarFactory::Lv3">
+<area shape="rect" id="Node000001" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="1388,183,1550,210"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a8e3ce26320d4bd74ba47a4f4d5c4ba4f" title="Generates a Level 4 grammar by combining Level 3 and Level 1 items." alt="" coords="1179,157,1340,185"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1372,188,1340,184,1341,178,1373,182"/>
+<area shape="rect" id="Node000006" href="$structGrammarFactory.html#a5c57d8d96992059e78a68e5bd5ec5260" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="312,107,503,134"/>
+<area shape="poly" id="edge11_Node000001_Node000006" title=" " alt="" coords="1373,208,1222,219,1052,224,840,224,782,222,724,215,612,191,515,163,443,137,445,132,517,158,614,186,725,210,783,217,840,219,1052,219,1222,214,1373,203"/>
+<area shape="rect" id="Node000003" href="$structGrammarFactory.html#a6c928859881a49c81ec6be76a36c74d7" title="Generates a Level 5 grammar by combining Level 4 and Level 1 items." alt="" coords="970,107,1131,134"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1184,156,1110,138,1111,132,1185,151"/>
+<area shape="poly" id="edge10_Node000002_Node000006" title=" " alt="" coords="1163,168,503,129,503,123,1163,163"/>
+<area shape="rect" id="Node000004" href="$structGrammarFactory.html#a06b08500014ade97db2a3b6fd72096d9" title="Generates a Level 6 grammar by combining Level 5 and Level 1 items." alt="" coords="760,56,922,84"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="975,105,901,87,902,82,976,100"/>
+<area shape="poly" id="edge9_Node000003_Node000006" title=" " alt="" coords="954,123,504,123,504,118,954,118"/>
+<area shape="rect" id="Node000005" href="$structGrammarFactory.html#ae4773738861fc98eb1aff9dc78cf019b" title="Generates a Level 7 grammar by combining Level 6 and Level 1 items." alt="" coords="551,5,712,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="766,54,691,36,692,31,767,49"/>
+<area shape="poly" id="edge8_Node000004_Node000006" title=" " alt="" coords="745,83,551,104,504,110,503,105,551,99,745,77"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="580,42,552,54,438,109,436,104,550,49,578,37"/>
+<area shape="rect" id="Node000007" href="$structGrammarFactory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="10,80,259,108"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="296,112,259,109,259,103,296,107"/>
+<area shape="rect" id="Node000008" href="$structGrammarFactory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,132,264,160"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="296,133,264,136,264,131,296,128"/>
+</map>

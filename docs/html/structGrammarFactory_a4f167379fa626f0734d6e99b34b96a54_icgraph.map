@@ -1,0 +1,5 @@
+<map id="GrammarFactory::RemoveLeftRecursion" name="GrammarFactory::RemoveLeftRecursion">
+<area shape="rect" id="Node000001" title="Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its produ..." alt="" coords="302,5,519,50"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="5,14,254,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="286,30,254,30,254,25,286,25"/>
+</map>

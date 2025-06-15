@@ -1,0 +1,845 @@
+\doxysection{Grammar\+Factory Struct Reference}
+\hypertarget{structGrammarFactory}{}\label{structGrammarFactory}\index{GrammarFactory@{GrammarFactory}}
+
+
+Responsible for creating and managing grammar items and performing checks on grammars.  
+
+
+
+
+{\ttfamily \#include $<$grammar\+\_\+factory.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}}
+\begin{DoxyCompactList}\small\item\em Represents an individual grammar item with its associated symbol table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structGrammarFactory_a7c7e94a38b31ab06b0b0276cb2530936}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{structGrammarFactory}{Grammar\+Factory} and populates the items vector with initial grammar items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a5c57d8d96992059e78a68e5bd5ec5260}{Pick\+One}} (int level)
+\begin{DoxyCompactList}\small\item\em Picks a random grammar based on the specified difficulty level (1, 2, or 3). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a008edfd357bd31ea6566c4bc0bca6845}{Gen\+LL1\+Grammar}} (int level)
+\begin{DoxyCompactList}\small\item\em Generates a LL(1) random grammar based on the specified difficulty level. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a9d305dd64af208b12d6153e1ab63bc38}{Gen\+SLR1\+Grammar}} (int level)
+\begin{DoxyCompactList}\small\item\em Generates a SLR(1) random grammar based on the specified difficulty lefel. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a4aa75c7d88bef418639ca3ba5ee3404b}{Lv1}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 1 grammar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a5368eb47dd1f9d7de083c41c0250e7e4}{Lv2}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 2 grammar by combining Level 1 items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_aa5d138c30fed1776d37e6fa63e1048fc}{Lv3}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a8e3ce26320d4bd74ba47a4f4d5c4ba4f}{Lv4}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 4 grammar by combining Level 3 and Level 1 items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a6c928859881a49c81ec6be76a36c74d7}{Lv5}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 5 grammar by combining Level 4 and Level 1 items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_a06b08500014ade97db2a3b6fd72096d9}{Lv6}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 6 grammar by combining Level 5 and Level 1 items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammar}{Grammar}} \mbox{\hyperlink{structGrammarFactory_ae4773738861fc98eb1aff9dc78cf019b}{Lv7}} ()
+\begin{DoxyCompactList}\small\item\em Generates a Level 7 grammar by combining Level 6 and Level 1 items. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \mbox{\hyperlink{structGrammarFactory_a0048c0c61b253a0f2d29bcce7c6ead44}{Create\+Lv2\+Item}} ()
+\begin{DoxyCompactList}\small\item\em Creates a Level 2 grammar item for use in grammar generation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db}{Has\+Unreachable\+Symbols}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
+\begin{DoxyCompactList}\small\item\em Checks if a grammar contains unreachable symbols (non-\/terminals that cannot be derived from the start symbol). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883}{Is\+Infinite}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
+\begin{DoxyCompactList}\small\item\em Checks if a grammar is infinite, meaning there are non-\/terminal symbols that can never derive a terminal string. This happens when a production leads to an infinite recursion or an endless derivation without reaching terminal symbols. For example, a production like\+: S -\/\texorpdfstring{$>$}{>} A A -\/\texorpdfstring{$>$}{>} a A \texorpdfstring{$\vert$}{|} B B -\/\texorpdfstring{$>$}{>} c B could lead to an infinite derivation of non-\/terminals. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f}{Has\+Direct\+Left\+Recursion}} (const \mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
+\begin{DoxyCompactList}\small\item\em Checks if a grammar contains direct left recursion (a non-\/terminal can produce itself on the left side of a production in one step). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5}{Has\+Indirect\+Left\+Recursion}} (const \mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
+\begin{DoxyCompactList}\small\item\em Checks if a grammar contains indirect left recursion. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structGrammarFactory_a545a96027491b8858aa2621f6476385f}{Has\+Cycle}} (const std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+set$<$ std\+::string $>$ $>$ \&graph) const
+\begin{DoxyCompactList}\small\item\em Checks if directed graph has a cycle using topological sort. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+set$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549}{Nullable\+Symbols}} (const \mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
+\begin{DoxyCompactList}\small\item\em Find nullable symbols in a grammar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54}{Remove\+Left\+Recursion}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar)
+\begin{DoxyCompactList}\small\item\em Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its productions is A -\/\texorpdfstring{$>$}{>} A a, where A is a non terminal symbol and "{}a"{} the rest of the production. The procedure removes direct left recursion by adding a new non terminal. So, if the productions with left recursion are A -\/\texorpdfstring{$>$}{>} A a \texorpdfstring{$\vert$}{|} b, the result would be A -\/\texorpdfstring{$>$}{>} b A\textquotesingle{}; A\textquotesingle{}-\/\texorpdfstring{$>$}{>} a A\textquotesingle{} \texorpdfstring{$\vert$}{|} EPSILON. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c}{Left\+Factorize}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar)
+\begin{DoxyCompactList}\small\item\em Perfoms left factorization. A grammar could be left factorized if it have productions with the same prefix for one non terminal. For example, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y; could be left factorized because it has "{}a"{} as the common prefix. The left factorization is done by adding a new non terminal symbol that contains the uncommon part, and by unifying the common prefix in a one producion. So, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y would be A -\/\texorpdfstring{$>$}{>} a A\textquotesingle{}; A\textquotesingle{} -\/\texorpdfstring{$>$}{>} x \texorpdfstring{$\vert$}{|} y. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003}{Longest\+Common\+Prefix}} (const std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ \&productions)
+\begin{DoxyCompactList}\small\item\em Finds the longest common prefix among a set of productions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9}{Starts\+With}} (const \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} \&prod, const std\+::vector$<$ std\+::string $>$ \&prefix)
+\begin{DoxyCompactList}\small\item\em Checks if a production starts with a given prefix. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structGrammarFactory_aca2925bbcb27fa32b0b53d626dfd7b7e}{Generate\+New\+Non\+Terminal}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar, const std\+::string \&base)
+\begin{DoxyCompactList}\small\item\em Generates a new non-\/terminal symbol that is unique in the grammar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464}{Normalize\+Non\+Terminals}} (\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&item, const std\+::string \&nt) const
+\begin{DoxyCompactList}\small\item\em Replaces all non-\/terminal symbols in a grammar item with a single target non-\/terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd}{Adjust\+Terminals}} (\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&base, const \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&cmb, const std\+::string \&target\+\_\+nt) const
+\begin{DoxyCompactList}\small\item\em Adjusts the terminal symbols between two grammar items. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ $>$ \mbox{\hyperlink{structGrammarFactory_a44b66cee9f82b5643992e1290f3653bb}{Merge}} (const \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&base, const \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&cmb) const
+\begin{DoxyCompactList}\small\item\em Merges the grammar rules of two grammar items into a single grammar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} $>$ \mbox{\hyperlink{structGrammarFactory_a4abe0dd76b57891bf88d72f96e609400}{items}}
+\begin{DoxyCompactList}\small\item\em A vector of \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item} objects representing different level 1 grammar items created by the Init method. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_a10f99aa4bba42948fb99d9f1b4ae21c5}{terminal\+\_\+alphabet\+\_\+}}
+\begin{DoxyCompactList}\small\item\em A vector of terminal symbols (alphabet) used in the grammar. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_af83e177b6eab8c0ebf3baa719845090d}{non\+\_\+terminal\+\_\+alphabet\+\_\+}}
+\begin{DoxyCompactList}\small\item\em A vector of non-\/terminal symbols (alphabet) used in the grammar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Responsible for creating and managing grammar items and performing checks on grammars. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd}\index{GrammarFactory@{GrammarFactory}!AdjustTerminals@{AdjustTerminals}}
+\index{AdjustTerminals@{AdjustTerminals}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{AdjustTerminals()}{AdjustTerminals()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd} 
+void Grammar\+Factory\+::\+Adjust\+Terminals (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&}]{base}{, }\item[{const \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&}]{cmb}{, }\item[{const std\+::string \&}]{target\+\_\+nt}{}\end{DoxyParamCaption}) const}
+
+
+
+Adjusts the terminal symbols between two grammar items. 
+
+This function modifies the terminal symbols of a base grammar item so that they do not conflict with those of the item being combined. It also renames terminals to ensure consistency and inserts the target non-\/terminal where appropriate.
+
+
+\begin{DoxyParams}{Parameters}
+{\em base} & The base grammar item to adjust. \\
+\hline
+{\em cmb} & The grammar item being combined with the base. \\
+\hline
+{\em target\+\_\+nt} & The target non-\/terminal symbol used for replacement. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a0048c0c61b253a0f2d29bcce7c6ead44}\index{GrammarFactory@{GrammarFactory}!CreateLv2Item@{CreateLv2Item}}
+\index{CreateLv2Item@{CreateLv2Item}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{CreateLv2Item()}{CreateLv2Item()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a0048c0c61b253a0f2d29bcce7c6ead44} 
+\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Grammar\+Factory\+::\+Factory\+Item}} Grammar\+Factory\+::\+Create\+Lv2\+Item (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Creates a Level 2 grammar item for use in grammar generation. 
+
+This function generates a Level 2 grammar item, which can be used as a building block for creating more complex grammars.
+
+\begin{DoxyReturn}{Returns}
+A \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item} representing a Level 2 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a0048c0c61b253a0f2d29bcce7c6ead44_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a0048c0c61b253a0f2d29bcce7c6ead44_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_aca2925bbcb27fa32b0b53d626dfd7b7e}\index{GrammarFactory@{GrammarFactory}!GenerateNewNonTerminal@{GenerateNewNonTerminal}}
+\index{GenerateNewNonTerminal@{GenerateNewNonTerminal}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{GenerateNewNonTerminal()}{GenerateNewNonTerminal()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_aca2925bbcb27fa32b0b53d626dfd7b7e} 
+std\+::string Grammar\+Factory\+::\+Generate\+New\+Non\+Terminal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{, }\item[{const std\+::string \&}]{base}{}\end{DoxyParamCaption})}
+
+
+
+Generates a new non-\/terminal symbol that is unique in the grammar. 
+
+This function creates a new non-\/terminal symbol by appending a prime symbol (\textquotesingle{}) to the base name until the resulting symbol is not already present in the grammar\textquotesingle{}s symbol table. It is used during left factorization to introduce new non-\/terminals for factored productions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar in which the new non-\/terminal will be added. \\
+\hline
+{\em base} & The base name for the new non-\/terminal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A unique non-\/terminal symbol derived from the base name. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_aca2925bbcb27fa32b0b53d626dfd7b7e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a008edfd357bd31ea6566c4bc0bca6845}\index{GrammarFactory@{GrammarFactory}!GenLL1Grammar@{GenLL1Grammar}}
+\index{GenLL1Grammar@{GenLL1Grammar}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{GenLL1Grammar()}{GenLL1Grammar()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a008edfd357bd31ea6566c4bc0bca6845} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Gen\+LL1\+Grammar (\begin{DoxyParamCaption}\item[{int}]{level}{}\end{DoxyParamCaption})}
+
+
+
+Generates a LL(1) random grammar based on the specified difficulty level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & The difficulty level (1, 2, or 3) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A random LL(1) grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a008edfd357bd31ea6566c4bc0bca6845_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a9d305dd64af208b12d6153e1ab63bc38}\index{GrammarFactory@{GrammarFactory}!GenSLR1Grammar@{GenSLR1Grammar}}
+\index{GenSLR1Grammar@{GenSLR1Grammar}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{GenSLR1Grammar()}{GenSLR1Grammar()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a9d305dd64af208b12d6153e1ab63bc38} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Gen\+SLR1\+Grammar (\begin{DoxyParamCaption}\item[{int}]{level}{}\end{DoxyParamCaption})}
+
+
+
+Generates a SLR(1) random grammar based on the specified difficulty lefel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & The difficulty level (1, 2, or 3) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A random SLR(1) grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a9d305dd64af208b12d6153e1ab63bc38_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a545a96027491b8858aa2621f6476385f}\index{GrammarFactory@{GrammarFactory}!HasCycle@{HasCycle}}
+\index{HasCycle@{HasCycle}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{HasCycle()}{HasCycle()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a545a96027491b8858aa2621f6476385f} 
+bool Grammar\+Factory\+::\+Has\+Cycle (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+set$<$ std\+::string $>$ $>$ \&}]{graph}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if directed graph has a cycle using topological sort. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The directed graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if grammar has cycle. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a545a96027491b8858aa2621f6476385f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f}\index{GrammarFactory@{GrammarFactory}!HasDirectLeftRecursion@{HasDirectLeftRecursion}}
+\index{HasDirectLeftRecursion@{HasDirectLeftRecursion}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{HasDirectLeftRecursion()}{HasDirectLeftRecursion()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f} 
+bool Grammar\+Factory\+::\+Has\+Direct\+Left\+Recursion (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if a grammar contains direct left recursion (a non-\/terminal can produce itself on the left side of a production in one step). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if there is direct left recursion, false otherwise. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5}\index{GrammarFactory@{GrammarFactory}!HasIndirectLeftRecursion@{HasIndirectLeftRecursion}}
+\index{HasIndirectLeftRecursion@{HasIndirectLeftRecursion}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{HasIndirectLeftRecursion()}{HasIndirectLeftRecursion()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5} 
+bool Grammar\+Factory\+::\+Has\+Indirect\+Left\+Recursion (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if a grammar contains indirect left recursion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if there is direct left recursion, false otherwise. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db}\index{GrammarFactory@{GrammarFactory}!HasUnreachableSymbols@{HasUnreachableSymbols}}
+\index{HasUnreachableSymbols@{HasUnreachableSymbols}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{HasUnreachableSymbols()}{HasUnreachableSymbols()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db} 
+bool Grammar\+Factory\+::\+Has\+Unreachable\+Symbols (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if a grammar contains unreachable symbols (non-\/terminals that cannot be derived from the start symbol). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if there are unreachable symbols, false otherwise. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a7c7e94a38b31ab06b0b0276cb2530936}\index{GrammarFactory@{GrammarFactory}!Init@{Init}}
+\index{Init@{Init}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a7c7e94a38b31ab06b0b0276cb2530936} 
+void Grammar\+Factory\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the \doxylink{structGrammarFactory}{Grammar\+Factory} and populates the items vector with initial grammar items. 
+
+\Hypertarget{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883}\index{GrammarFactory@{GrammarFactory}!IsInfinite@{IsInfinite}}
+\index{IsInfinite@{IsInfinite}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{IsInfinite()}{IsInfinite()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883} 
+bool Grammar\+Factory\+::\+Is\+Infinite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if a grammar is infinite, meaning there are non-\/terminal symbols that can never derive a terminal string. This happens when a production leads to an infinite recursion or an endless derivation without reaching terminal symbols. For example, a production like\+: S -\/\texorpdfstring{$>$}{>} A A -\/\texorpdfstring{$>$}{>} a A \texorpdfstring{$\vert$}{|} B B -\/\texorpdfstring{$>$}{>} c B could lead to an infinite derivation of non-\/terminals. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the grammar has infinite derivations, false otherwise. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c}\index{GrammarFactory@{GrammarFactory}!LeftFactorize@{LeftFactorize}}
+\index{LeftFactorize@{LeftFactorize}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{LeftFactorize()}{LeftFactorize()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c} 
+void Grammar\+Factory\+::\+Left\+Factorize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption})}
+
+
+
+Perfoms left factorization. A grammar could be left factorized if it have productions with the same prefix for one non terminal. For example, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y; could be left factorized because it has "{}a"{} as the common prefix. The left factorization is done by adding a new non terminal symbol that contains the uncommon part, and by unifying the common prefix in a one producion. So, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y would be A -\/\texorpdfstring{$>$}{>} a A\textquotesingle{}; A\textquotesingle{} -\/\texorpdfstring{$>$}{>} x \texorpdfstring{$\vert$}{|} y. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to be left factorized. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003}\index{GrammarFactory@{GrammarFactory}!LongestCommonPrefix@{LongestCommonPrefix}}
+\index{LongestCommonPrefix@{LongestCommonPrefix}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{LongestCommonPrefix()}{LongestCommonPrefix()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003} 
+std\+::vector$<$ std\+::string $>$ Grammar\+Factory\+::\+Longest\+Common\+Prefix (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ \&}]{productions}{}\end{DoxyParamCaption})}
+
+
+
+Finds the longest common prefix among a set of productions. 
+
+This function computes the longest sequence of symbols that is common to the beginning of all productions in the given vector. It is used during left factorization to identify common prefixes that can be factored out.
+
+
+\begin{DoxyParams}{Parameters}
+{\em productions} & A vector of productions to analyze. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of strings representing the longest common prefix. If no common prefix exists, an empty vector is returned. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a4aa75c7d88bef418639ca3ba5ee3404b}\index{GrammarFactory@{GrammarFactory}!Lv1@{Lv1}}
+\index{Lv1@{Lv1}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv1()}{Lv1()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a4aa75c7d88bef418639ca3ba5ee3404b} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv1 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 1 grammar. 
+
+\begin{DoxyReturn}{Returns}
+A Level 1 grammar. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a4aa75c7d88bef418639ca3ba5ee3404b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a5368eb47dd1f9d7de083c41c0250e7e4}\index{GrammarFactory@{GrammarFactory}!Lv2@{Lv2}}
+\index{Lv2@{Lv2}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv2()}{Lv2()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a5368eb47dd1f9d7de083c41c0250e7e4} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv2 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 2 grammar by combining Level 1 items. 
+
+\begin{DoxyReturn}{Returns}
+A Level 2 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a5368eb47dd1f9d7de083c41c0250e7e4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a5368eb47dd1f9d7de083c41c0250e7e4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_aa5d138c30fed1776d37e6fa63e1048fc}\index{GrammarFactory@{GrammarFactory}!Lv3@{Lv3}}
+\index{Lv3@{Lv3}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv3()}{Lv3()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_aa5d138c30fed1776d37e6fa63e1048fc} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv3 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item. 
+
+\begin{DoxyReturn}{Returns}
+A Level 3 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_aa5d138c30fed1776d37e6fa63e1048fc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_aa5d138c30fed1776d37e6fa63e1048fc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a8e3ce26320d4bd74ba47a4f4d5c4ba4f}\index{GrammarFactory@{GrammarFactory}!Lv4@{Lv4}}
+\index{Lv4@{Lv4}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv4()}{Lv4()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a8e3ce26320d4bd74ba47a4f4d5c4ba4f} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv4 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 4 grammar by combining Level 3 and Level 1 items. 
+
+This function creates a more complex grammar by combining elements from Level 3 and Level 1 grammars. It is used to generate grammars with increased complexity for testing or parsing purposes.
+
+\begin{DoxyReturn}{Returns}
+A Level 4 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a8e3ce26320d4bd74ba47a4f4d5c4ba4f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a8e3ce26320d4bd74ba47a4f4d5c4ba4f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a6c928859881a49c81ec6be76a36c74d7}\index{GrammarFactory@{GrammarFactory}!Lv5@{Lv5}}
+\index{Lv5@{Lv5}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv5()}{Lv5()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a6c928859881a49c81ec6be76a36c74d7} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv5 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 5 grammar by combining Level 4 and Level 1 items. 
+
+This function creates a more advanced grammar by combining elements from Level 4 and Level 1 grammars. It is used to generate grammars with higher complexity for testing or parsing purposes.
+
+\begin{DoxyReturn}{Returns}
+A Level 5 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a6c928859881a49c81ec6be76a36c74d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a6c928859881a49c81ec6be76a36c74d7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a06b08500014ade97db2a3b6fd72096d9}\index{GrammarFactory@{GrammarFactory}!Lv6@{Lv6}}
+\index{Lv6@{Lv6}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv6()}{Lv6()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a06b08500014ade97db2a3b6fd72096d9} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv6 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 6 grammar by combining Level 5 and Level 1 items. 
+
+This function creates a highly complex grammar by combining elements from Level 5 and Level 1 grammars. It is used to generate grammars with advanced structures for testing or parsing purposes.
+
+\begin{DoxyReturn}{Returns}
+A Level 6 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a06b08500014ade97db2a3b6fd72096d9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a06b08500014ade97db2a3b6fd72096d9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_ae4773738861fc98eb1aff9dc78cf019b}\index{GrammarFactory@{GrammarFactory}!Lv7@{Lv7}}
+\index{Lv7@{Lv7}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Lv7()}{Lv7()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_ae4773738861fc98eb1aff9dc78cf019b} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Lv7 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates a Level 7 grammar by combining Level 6 and Level 1 items. 
+
+This function creates a very complex grammar by combining elements from Level 6 and Level 1 grammars. It is used to generate grammars with highly advanced structures for testing or parsing purposes.
+
+\begin{DoxyReturn}{Returns}
+A Level 7 grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_ae4773738861fc98eb1aff9dc78cf019b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_ae4773738861fc98eb1aff9dc78cf019b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a44b66cee9f82b5643992e1290f3653bb}\index{GrammarFactory@{GrammarFactory}!Merge@{Merge}}
+\index{Merge@{Merge}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{Merge()}{Merge()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a44b66cee9f82b5643992e1290f3653bb} 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ $>$ Grammar\+Factory\+::\+Merge (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&}]{base}{, }\item[{const \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&}]{cmb}{}\end{DoxyParamCaption}) const}
+
+
+
+Merges the grammar rules of two grammar items into a single grammar. 
+
+This function performs a raw combination of the production rules from both grammar items, resulting in a single grammar map that contains all productions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em base} & The first grammar item. \\
+\hline
+{\em cmb} & The second grammar item. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A merged grammar map containing all production rules from both inputs. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a44b66cee9f82b5643992e1290f3653bb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464}\index{GrammarFactory@{GrammarFactory}!NormalizeNonTerminals@{NormalizeNonTerminals}}
+\index{NormalizeNonTerminals@{NormalizeNonTerminals}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{NormalizeNonTerminals()}{NormalizeNonTerminals()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464} 
+void Grammar\+Factory\+::\+Normalize\+Non\+Terminals (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}} \&}]{item}{, }\item[{const std\+::string \&}]{nt}{}\end{DoxyParamCaption}) const}
+
+
+
+Replaces all non-\/terminal symbols in a grammar item with a single target non-\/terminal. 
+
+This function is used during grammar combination to normalize the non-\/terminal symbols in a given \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}, so that they are consistent and compatible with another item.
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & The grammar item whose non-\/terminals will be renamed. \\
+\hline
+{\em nt} & The new non-\/terminal symbol that will replace all existing ones. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549}\index{GrammarFactory@{GrammarFactory}!NullableSymbols@{NullableSymbols}}
+\index{NullableSymbols@{NullableSymbols}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{NullableSymbols()}{NullableSymbols()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549} 
+std\+::unordered\+\_\+set$<$ std\+::string $>$ Grammar\+Factory\+::\+Nullable\+Symbols (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption}) const}
+
+
+
+Find nullable symbols in a grammar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+set of nullable symbols. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a5c57d8d96992059e78a68e5bd5ec5260}\index{GrammarFactory@{GrammarFactory}!PickOne@{PickOne}}
+\index{PickOne@{PickOne}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{PickOne()}{PickOne()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a5c57d8d96992059e78a68e5bd5ec5260} 
+\mbox{\hyperlink{structGrammar}{Grammar}} Grammar\+Factory\+::\+Pick\+One (\begin{DoxyParamCaption}\item[{int}]{level}{}\end{DoxyParamCaption})}
+
+
+
+Picks a random grammar based on the specified difficulty level (1, 2, or 3). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & The difficulty level (1, 2, or 3). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A randomly picked grammar. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a5c57d8d96992059e78a68e5bd5ec5260_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a5c57d8d96992059e78a68e5bd5ec5260_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54}\index{GrammarFactory@{GrammarFactory}!RemoveLeftRecursion@{RemoveLeftRecursion}}
+\index{RemoveLeftRecursion@{RemoveLeftRecursion}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{RemoveLeftRecursion()}{RemoveLeftRecursion()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54} 
+void Grammar\+Factory\+::\+Remove\+Left\+Recursion (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}} \&}]{grammar}{}\end{DoxyParamCaption})}
+
+
+
+Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its productions is A -\/\texorpdfstring{$>$}{>} A a, where A is a non terminal symbol and "{}a"{} the rest of the production. The procedure removes direct left recursion by adding a new non terminal. So, if the productions with left recursion are A -\/\texorpdfstring{$>$}{>} A a \texorpdfstring{$\vert$}{|} b, the result would be A -\/\texorpdfstring{$>$}{>} b A\textquotesingle{}; A\textquotesingle{}-\/\texorpdfstring{$>$}{>} a A\textquotesingle{} \texorpdfstring{$\vert$}{|} EPSILON. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grammar} & The grammar to remove left recursion \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9}\index{GrammarFactory@{GrammarFactory}!StartsWith@{StartsWith}}
+\index{StartsWith@{StartsWith}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{StartsWith()}{StartsWith()}}
+{\footnotesize\ttfamily \label{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9} 
+bool Grammar\+Factory\+::\+Starts\+With (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} \&}]{prod}{, }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{prefix}{}\end{DoxyParamCaption})}
+
+
+
+Checks if a production starts with a given prefix. 
+
+This function determines whether the symbols in a production match the provided prefix sequence at the beginning. It is used during left factorization to identify productions that share a common prefix.
+
+
+\begin{DoxyParams}{Parameters}
+{\em prod} & The production to check. \\
+\hline
+{\em prefix} & The sequence of symbols to compare against the beginning of the production. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the production starts with the prefix, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structGrammarFactory_a4abe0dd76b57891bf88d72f96e609400}\index{GrammarFactory@{GrammarFactory}!items@{items}}
+\index{items@{items}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{items}{items}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a4abe0dd76b57891bf88d72f96e609400} 
+std\+::vector$<$\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{Factory\+Item}}$>$ Grammar\+Factory\+::items}
+
+
+
+A vector of \doxylink{structGrammarFactory_1_1FactoryItem}{Factory\+Item} objects representing different level 1 grammar items created by the Init method. 
+
+\Hypertarget{structGrammarFactory_af83e177b6eab8c0ebf3baa719845090d}\index{GrammarFactory@{GrammarFactory}!non\_terminal\_alphabet\_@{non\_terminal\_alphabet\_}}
+\index{non\_terminal\_alphabet\_@{non\_terminal\_alphabet\_}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{non\_terminal\_alphabet\_}{non\_terminal\_alphabet\_}}
+{\footnotesize\ttfamily \label{structGrammarFactory_af83e177b6eab8c0ebf3baa719845090d} 
+std\+::vector$<$std\+::string$>$ Grammar\+Factory\+::non\+\_\+terminal\+\_\+alphabet\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\textcolor{stringliteral}{"{}A"{}},\ \textcolor{stringliteral}{"{}B"{}},\ \textcolor{stringliteral}{"{}C"{}},\ \textcolor{stringliteral}{"{}D"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}E"{}},\ \textcolor{stringliteral}{"{}F"{}},\ \textcolor{stringliteral}{"{}G"{}}\}}
+
+\end{DoxyCode}
+
+
+A vector of non-\/terminal symbols (alphabet) used in the grammar. 
+
+\Hypertarget{structGrammarFactory_a10f99aa4bba42948fb99d9f1b4ae21c5}\index{GrammarFactory@{GrammarFactory}!terminal\_alphabet\_@{terminal\_alphabet\_}}
+\index{terminal\_alphabet\_@{terminal\_alphabet\_}!GrammarFactory@{GrammarFactory}}
+\doxysubsubsection{\texorpdfstring{terminal\_alphabet\_}{terminal\_alphabet\_}}
+{\footnotesize\ttfamily \label{structGrammarFactory_a10f99aa4bba42948fb99d9f1b4ae21c5} 
+std\+::vector$<$std\+::string$>$ Grammar\+Factory\+::terminal\+\_\+alphabet\+\_\+}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\textcolor{stringliteral}{"{}a"{}},\ \textcolor{stringliteral}{"{}b"{}},\ \textcolor{stringliteral}{"{}c"{}},\ \textcolor{stringliteral}{"{}d"{}},\ \textcolor{stringliteral}{"{}e"{}},\ \textcolor{stringliteral}{"{}f"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}g"{}},\ \textcolor{stringliteral}{"{}h"{}},\ \textcolor{stringliteral}{"{}i"{}},\ \textcolor{stringliteral}{"{}j"{}},\ \textcolor{stringliteral}{"{}k"{}},\ \textcolor{stringliteral}{"{}l"{}}\}}
+
+\end{DoxyCode}
+
+
+A vector of terminal symbols (alphabet) used in the grammar. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+backend/\mbox{\hyperlink{grammar__factory_8hpp}{grammar\+\_\+factory.\+hpp}}\item 
+backend/\mbox{\hyperlink{grammar__factory_8cpp}{grammar\+\_\+factory.\+cpp}}\end{DoxyCompactItemize}

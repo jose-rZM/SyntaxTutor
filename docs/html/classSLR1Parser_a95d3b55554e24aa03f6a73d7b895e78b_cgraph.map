@@ -1,0 +1,8 @@
+<map id="SLR1Parser::MakeInitialState" name="SLR1Parser::MakeInitialState">
+<area shape="rect" id="Node000001" title="Creates the initial state of the parser&#39;s state machine." alt="" coords="5,29,214,57"/>
+<area shape="rect" id="Node000002" href="$classSLR1Parser.html#a0ff2187985600bff50ff8235543d96fb" title="Computes the closure of a set of LR(0) items." alt="" coords="262,29,413,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,40,246,40,246,46,214,46"/>
+<area shape="rect" id="Node000003" href="$classSLR1Parser.html#a00101890c3c4d2871a8c100209abf122" title="Helper function for computing the closure of LR(0) items." alt="" coords="461,29,635,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="413,40,445,40,445,46,413,46"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="512,30,506,20,511,11,525,5,548,3,573,5,586,12,584,16,572,10,548,8,526,10,514,15,511,20,516,27"/>
+</map>

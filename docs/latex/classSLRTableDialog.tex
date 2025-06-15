@@ -1,0 +1,122 @@
+\doxysection{SLRTable\+Dialog Class Reference}
+\hypertarget{classSLRTableDialog}{}\label{classSLRTableDialog}\index{SLRTableDialog@{SLRTableDialog}}
+
+
+Dialog window for completing and submitting an SLR(1) parsing table.  
+
+
+
+
+{\ttfamily \#include $<$slrtabledialog.\+h$>$}
+
+
+
+Inheritance diagram for SLRTable\+Dialog\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{classSLRTableDialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SLRTable\+Dialog\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{classSLRTableDialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSLRTableDialog_a3a1232ffe9a2226e5692000944058c3f}{SLRTable\+Dialog}} (int row\+Count, int col\+Count, const QString\+List \&col\+Headers, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr, QVector$<$ QVector$<$ QString $>$ $>$ \texorpdfstring{$\ast$}{*}initial\+Data=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the SLR(1) table dialog. \end{DoxyCompactList}\item 
+QVector$<$ QVector$<$ QString $>$ $>$ \mbox{\hyperlink{classSLRTableDialog_a5e5ba1b836c93aa1290ca3026718cff9}{get\+Table\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the content of the table after user interaction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSLRTableDialog_aa20290eafe616ab7fa02467426895d84}{set\+Initial\+Data}} (const QVector$<$ QVector$<$ QString $>$ $>$ \&data)
+\begin{DoxyCompactList}\small\item\em Fills the table with existing data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Dialog window for completing and submitting an SLR(1) parsing table. 
+
+This class displays a table-\/based UI for students to fill in the ACTION and GOTO parts of the SLR(1) parsing table. It supports initializing the table with data, retrieving user input, and integrating with correction logic in tutorial or challenge mode. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSLRTableDialog_a3a1232ffe9a2226e5692000944058c3f}\index{SLRTableDialog@{SLRTableDialog}!SLRTableDialog@{SLRTableDialog}}
+\index{SLRTableDialog@{SLRTableDialog}!SLRTableDialog@{SLRTableDialog}}
+\doxysubsubsection{\texorpdfstring{SLRTableDialog()}{SLRTableDialog()}}
+{\footnotesize\ttfamily \label{classSLRTableDialog_a3a1232ffe9a2226e5692000944058c3f} 
+SLRTable\+Dialog\+::\+SLRTable\+Dialog (\begin{DoxyParamCaption}\item[{int}]{row\+Count}{, }\item[{int}]{col\+Count}{, }\item[{const QString\+List \&}]{col\+Headers}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}, }\item[{QVector$<$ QVector$<$ QString $>$ $>$ \texorpdfstring{$\ast$}{*}}]{initial\+Data}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Constructs the SLR(1) table dialog. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row\+Count} & Number of rows (usually equal to number of LR(0) states). \\
+\hline
+{\em col\+Count} & Number of columns (symbols = terminals + non-\/terminals). \\
+\hline
+{\em col\+Headers} & Header labels for the columns. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+{\em initial\+Data} & Optional initial data to pre-\/fill the table. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLRTableDialog_a3a1232ffe9a2226e5692000944058c3f_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classSLRTableDialog_a5e5ba1b836c93aa1290ca3026718cff9}\index{SLRTableDialog@{SLRTableDialog}!getTableData@{getTableData}}
+\index{getTableData@{getTableData}!SLRTableDialog@{SLRTableDialog}}
+\doxysubsubsection{\texorpdfstring{getTableData()}{getTableData()}}
+{\footnotesize\ttfamily \label{classSLRTableDialog_a5e5ba1b836c93aa1290ca3026718cff9} 
+QVector$<$ QVector$<$ QString $>$ $>$ SLRTable\+Dialog\+::get\+Table\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the content of the table after user interaction. 
+
+\begin{DoxyReturn}{Returns}
+A 2D vector representing the current table values. 
+\end{DoxyReturn}
+\Hypertarget{classSLRTableDialog_aa20290eafe616ab7fa02467426895d84}\index{SLRTableDialog@{SLRTableDialog}!setInitialData@{setInitialData}}
+\index{setInitialData@{setInitialData}!SLRTableDialog@{SLRTableDialog}}
+\doxysubsubsection{\texorpdfstring{setInitialData()}{setInitialData()}}
+{\footnotesize\ttfamily \label{classSLRTableDialog_aa20290eafe616ab7fa02467426895d84} 
+void SLRTable\+Dialog\+::set\+Initial\+Data (\begin{DoxyParamCaption}\item[{const QVector$<$ QVector$<$ QString $>$ $>$ \&}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Fills the table with existing data. 
+
+This method is used to show a previous user submission (e.\+g., during retries or feedback).
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & 2D vector containing the table data to display. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSLRTableDialog_aa20290eafe616ab7fa02467426895d84_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{slrtabledialog_8h}{slrtabledialog.\+h}}\item 
+\mbox{\hyperlink{slrtabledialog_8cpp}{slrtabledialog.\+cpp}}\end{DoxyCompactItemize}

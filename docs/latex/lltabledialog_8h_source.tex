@@ -1,0 +1,42 @@
+\doxysection{lltabledialog.\+h}
+\hypertarget{lltabledialog_8h_source}{}\label{lltabledialog_8h_source}\mbox{\hyperlink{lltabledialog_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LLTABLEDIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LLTABLEDIALOG\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QGuiApplication>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QHeaderView>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QList>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QPair>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QScreen>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classLLTableDialog_a3b3e1ec69138b66a5f2239ec86466279}{LLTableDialog}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classLLTableDialog_a3b3e1ec69138b66a5f2239ec86466279}{LLTableDialog}}(\textcolor{keyword}{const}\ QStringList\ \&rowHeaders,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\ \&colHeaders,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget\ *parent,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QVector<QVector<QString>>\ *initialData\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \ \ \ \ QVector<QVector<QString>>\ \mbox{\hyperlink{classLLTableDialog_a75f516c03d82c5ee7f5fbcc9cab7783a}{getTableData}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classLLTableDialog_af6ff62b64182502d4357c1cac30ac71f}{setInitialData}}(\textcolor{keyword}{const}\ QVector<QVector<QString>>\ \&data);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classLLTableDialog_ac1791cc427d1523730c6da5b8c2c9f4b}{highlightIncorrectCells}}(\textcolor{keyword}{const}\ QList<QPair<int,\ int>>\ \&coords);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ signals:}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classLLTableDialog_a5aafabe038ddf5f3cf382f4263d1ce79}{submitted}}(\textcolor{keyword}{const}\ QVector<QVector<QString>>\ \&data);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00068\ \ \ \ \ QTableWidget\ *table;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ QPushButton\ *submitButton;\ }
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LLTABLEDIALOG\_H}}
+
+\end{DoxyCode}
