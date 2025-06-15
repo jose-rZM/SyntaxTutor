@@ -773,13 +773,13 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
                 coords.append({r, c});
         }
         currentDlg->highlightIncorrectCells(coords);
-        QMessageBox::information(currentDlg,
-                                 tr("Errores"),
-                                 tr("Las celdas marcadas en rojo son incorrectas."));
+        QMessageBox::information(
+            currentDlg, tr("Errores"),
+            tr("Las celdas marcadas en rojo son incorrectas."));
     } else if (lltries < kMaxTotalTries) {
-        QMessageBox::information(currentDlg,
-                                 tr("Vuelve a intentarlo"),
-                                 tr("Recuerda las reglas de colocación de producciones."));
+        QMessageBox::information(
+            currentDlg, tr("Vuelve a intentarlo"),
+            tr("Recuerda las reglas de colocación de producciones."));
     } else {
         if (currentDlg)
             currentDlg->accept();

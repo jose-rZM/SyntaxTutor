@@ -2,15 +2,14 @@
 #include <QFontDatabase>
 #include <QStyledItemDelegate>
 
-class CenterAlignDelegate : public QStyledItemDelegate
-{
-public:
+class CenterAlignDelegate : public QStyledItemDelegate {
+  public:
     using QStyledItemDelegate::QStyledItemDelegate;
-    void initStyleOption(QStyleOptionViewItem* opt, const QModelIndex& idx) const override
-    {
+    void initStyleOption(QStyleOptionViewItem* opt,
+                         const QModelIndex&    idx) const override {
         QStyledItemDelegate::initStyleOption(opt, idx);
         opt->displayAlignment = Qt::AlignCenter;
-        opt->font = QFontDatabase::font("Noto Sans", "Regular", 14);
+        opt->font             = QFontDatabase::font("Noto Sans", "Regular", 14);
     }
 };
 

@@ -85,7 +85,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
 
     table->horizontalHeader()->setStretchLastSection(true);
 
-    submitButton = new QPushButton(tr("Finalizar"), this);
+    submitButton           = new QPushButton(tr("Finalizar"), this);
     QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
