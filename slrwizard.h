@@ -9,10 +9,32 @@
 #include "backend/slr1_parser.hpp"
 #include "slrwizardpage.h"
 
+/**
+ * @class SLRWizard
+ * @brief Interactive assistant that guides the student step-by-step through the SLR(1) parsing table.
+ *
+ * This wizard-based dialog presents the user with one cell of the SLR(1) parsing table at a time,
+ * asking them to deduce the correct ACTION or GOTO entry based on the LR(0) automaton and FOLLOW sets.
+ * It is designed as an educational aid to explain the reasoning behind each parsing decision.
+ *
+ * Each page includes:
+ * - The current state and symbol (terminal or non-terminal).
+ * - A guided explanation based on the grammar and LR(0) state.
+ * - The expected entry (e.g., s3, r1, acc, or a state number).
+ */
 class SLRWizard : public QWizard
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructs the SLR(1) wizard with all necessary parsing context.
+     *
+     * @param parser The SLR(1) parser instance containing the LR(0) states and transitions.
+     * @param rawTable The target parsing table (student version or reference).
+     * @param colHeaders Header symbols (terminals and non-terminals).
+     * @param sortedGrammar Ordered list of grammar rules for reduce explanations.
+     * @param parent Parent widget.
+     */
     SLRWizard(SLR1Parser &parser,
               const QVector<QVector<QString>> &rawTable,
               const QStringList &colHeaders,
@@ -112,6 +134,11 @@ public:
         }
     }
 
+    /**
+     * @brief Converts a std::vector<std::string> to QVector<QString> for UI compatibility.
+     * @param vec The input vector of strings.
+     * @return A QVector of QStrings.
+     */
     QVector<QString> stdVectorToQVector(const std::vector<std::string> &vec)
     {
         QVector<QString> result;

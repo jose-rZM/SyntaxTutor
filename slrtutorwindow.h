@@ -59,30 +59,59 @@ enum class StateSlr {
 class TutorialManager;
 
 // ====== Main Tutor Class for SLR(1) =============================
+/**
+ * @class SLRTutorWindow
+ * @brief Main window for the SLR(1) interactive tutoring mode in SyntaxTutor.
+ *
+ * This class implements an interactive, step-by-step tutorial to teach students
+ * how to construct SLR(1) parsing tables, including closure, GOTO, automaton
+ * construction, FOLLOW sets, and the final table.
+ *
+ * It supports animated feedback, pedagogical guidance, error correction, and export
+ * of the tutoring session.
+ *
+ * The tutor follows a finite-state flow (`StateSlr`) to structure learning,
+ * with corrective explanations and automatic evaluation at each step.
+ */
 class SLRTutorWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
     // ====== Constructor / Destructor =============================
+    /**
+     * @brief Constructs the SLR(1) tutor window with a given grammar.
+     * @param g The grammar used for the session.
+     * @param tm Optional pointer to the tutorial manager (for guided tour).
+     * @param parent Parent widget.
+     */
     explicit SLRTutorWindow(const Grammar &g,
                             TutorialManager *tm = nullptr,
                             QWidget *parent = nullptr);
     ~SLRTutorWindow();
 
     // ====== Core Flow Control =====================================
-    QString generateQuestion();                    // Generate question for current state
-    void updateState(bool isCorrect);              // Advance state depending on correctness
-    QString FormatGrammar(const Grammar &grammar); // Utility for displaying grammar
-    void fillSortedGrammar();                      // Prepares grammar in display-friendly format
+    /**
+     * @brief Generates a new question for the current tutor state.
+     * @return The formatted question string.
+     */
+    QString generateQuestion();
+
+    /**
+     * @brief Updates tutor state based on whether the last answer was correct.
+     * @param isCorrect Whether the user's answer was correct.
+     */
+    void updateState(bool isCorrect);
+    QString FormatGrammar(const Grammar &grammar); /// < Utility for displaying grammar
+    void fillSortedGrammar();                      /// < Prepares grammar in display-friendly format
 
     // ====== UI Interaction ========================================
-    void addMessage(const QString &text, bool isUser);     // Add message to chat
-    void exportConversationToPdf(const QString &filePath); // Export full interaction
-    void showTable();                                      // Render SLR(1) table
+    void addMessage(const QString &text, bool isUser);     /// < Add message to chat
+    void exportConversationToPdf(const QString &filePath); /// < Export full interaction
+    void showTable();                                      /// < Render SLR(1) table
     void launchSLRWizard();
-    void updateProgressPanel();                            // Refresh visual progress
-    void addUserState(unsigned id);                        // Register a user-created state
+    void updateProgressPanel();     /// < Refresh visual progress
+    void addUserState(unsigned id); /// < Register a user-created state
     void addUserTransition(unsigned fromId,
                            const std::string &symbol,
                            unsigned toId); // Register a user-created transition

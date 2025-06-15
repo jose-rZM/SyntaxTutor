@@ -39,12 +39,33 @@ class LLTutorWindow;
 enum class State { A, A1, A2, A_prime, B, B1, B2, B_prime, C, C_prime, fin };
 
 // ====== LL(1) Tutor Main Class ===============================
+/**
+ * @class LLTutorWindow
+ * @brief Main window for the LL(1) interactive tutoring mode in SyntaxTutor.
+ *
+ * This class guides students through the construction and analysis of LL(1) parsing tables.
+ * It uses a finite-state sequence to present progressively more complex tasks,
+ * verifies user responses, provides corrective feedback, and supports visualizations
+ * like derivation trees.
+ *
+ * The tutor is designed to teach the student *how* the LL(1) table is built,
+ * not just test it — including interactive tasks, animated feedback, and hints.
+ *
+ * Key features include:
+ * - Interactive question flow based on grammar analysis.
+ * - Derivation tree generation (`TeachFirst`).
+ * - Step-by-step verification of FIRST, FOLLOW, prediction symbols, and table entries.
+ * - Exportable conversation log for grading or review.
+ */
 class LLTutorWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
     // ====== Derivation Tree (used in TeachFirst) =============
+    /**
+     * @brief TreeNode structure used to build derivation trees.
+     */
     struct TreeNode
     {
         QString label;
@@ -52,30 +73,51 @@ public:
     };
 
     // ====== Constructor / Destructor =========================
+    /**
+     * @brief Constructs the LL(1) tutor window with a given grammar.
+     * @param grammar The grammar to use during the session.
+     * @param tm Optional pointer to the tutorial manager (for help overlays).
+     * @param parent Parent widget.
+     */
     explicit LLTutorWindow(const Grammar &grammar,
                            TutorialManager *tm = nullptr,
                            QWidget *parent = nullptr);
     ~LLTutorWindow();
 
     // ====== State Machine & Question Logic ====================
-    QString generateQuestion();                    // Returns question for current state
-    void updateState(bool isCorrect);              // Advance state based on user input
-    QString FormatGrammar(const Grammar &grammar); // Nicely format grammar for display
+    /**
+     * @brief Generates a question for the current state of the tutor.
+     * @return A formatted question string.
+     */
+    QString generateQuestion();
+
+    /**
+     * @brief Updates the tutor state after verifying user response.
+     * @param isCorrect Whether the user answered correctly.
+     */
+    void updateState(bool isCorrect);
+
+    /**
+     * @brief Formats a grammar for display in the chat interface.
+     * @param grammar The grammar to format.
+     * @return A QString representation.
+     */
+    QString FormatGrammar(const Grammar &grammar);
 
     // ====== UI Interaction ====================================
-    void addMessage(const QString &text, bool isUser);     // Add text message to chat
-    void addWidgetMessage(QWidget *widget);                // Add widget (e.g., table, tree)
-    void exportConversationToPdf(const QString &filePath); // Export chat to PDF
-    void showTable();                                      // Render LL(1) table
-    void showTableForCPrime();
+    void addMessage(const QString &text, bool isUser);     /// < Add text message to chat
+    void addWidgetMessage(QWidget *widget);                /// < Add widget (e.g., table, tree)
+    void exportConversationToPdf(const QString &filePath); /// < Export chat to PDF
+    void showTable();           ///< Display the full LL(1) table in C ex.
+    void showTableForCPrime();  ///< Display the full LL(1) table in C' ex.
     void updateProgressPanel(); // Update progress panel
 
     // ====== Visual Feedback / Animations ======================
     void animateLabelPop(QLabel *label);
     void animateLabelColor(QLabel *label, const QColor &flashColor);
-    void wrongAnimation();
-    void wrongUserResponseAnimation();
-    void markLastUserIncorrect();
+    void wrongAnimation();             ///< Visual shake/flash for incorrect answer.
+    void wrongUserResponseAnimation(); ///< Animation specific to user chat input.
+    void markLastUserIncorrect();      ///< Marks last message as incorrect.
 
     // ====== Tree Generation (TeachFirst mode) =================
     void TeachFirstTree(const std::vector<std::string> &symbols,
