@@ -1124,17 +1124,17 @@ That is, for each rule A → X and A → Y, SD(A → X) ∩ SD(A → Y) = ∅
 <context>
     <name>SLRTableDialog</name>
     <message>
-        <location filename="../slrtabledialog.cpp" line="16"/>
+        <location filename="../slrtabledialog.cpp" line="74"/>
         <source>State %1</source>
         <translation>State %1</translation>
     </message>
     <message>
-        <location filename="../slrtabledialog.cpp" line="24"/>
+        <location filename="../slrtabledialog.cpp" line="92"/>
         <source>Finalizar</source>
         <translation>Finish</translation>
     </message>
     <message>
-        <location filename="../slrtabledialog.cpp" line="35"/>
+        <location filename="../slrtabledialog.cpp" line="121"/>
         <source>Completar tabla SLR</source>
         <translation>Complete SLR table</translation>
     </message>
@@ -1481,6 +1481,16 @@ Formato: a,b,c — vacío si no se aplica en ninguno.</source>
 %2
 Write the terminal symbols on which REDUCTION is to be applied.
 Format: a,b,c (empty if none).</translation>
+    </message>
+    <message>
+        <location filename="../slrtutorwindow.cpp" line="2029"/>
+        <source>La tabla no es correcta.</source>
+        <translation>Incorrect table.</translation>
+    </message>
+    <message>
+        <location filename="../slrtutorwindow.cpp" line="2033"/>
+        <source>Error interno. Estado actual desconocido a la hora de dar retroalimentación.</source>
+        <translation>Internal error. Current state is unknown.</translation>
     </message>
     <message>
         <location filename="../slrtutorwindow.cpp" line="2039"/>

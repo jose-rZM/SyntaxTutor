@@ -959,17 +959,17 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
 <context>
     <name>SLRTableDialog</name>
     <message>
-        <location filename="../slrtabledialog.cpp" line="16"/>
+        <location filename="../slrtabledialog.cpp" line="74"/>
         <source>State %1</source>
         <translation>Estado %1</translation>
     </message>
     <message>
-        <location filename="../slrtabledialog.cpp" line="24"/>
+        <location filename="../slrtabledialog.cpp" line="92"/>
         <source>Finalizar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrtabledialog.cpp" line="35"/>
+        <location filename="../slrtabledialog.cpp" line="121"/>
         <source>Completar tabla SLR</source>
         <translation></translation>
     </message>
@@ -1275,6 +1275,16 @@ Formato: a,b,c (vacío si ninguno).</source>
 %2
 Indica los terminales sobre los que se aplicará REDUCCIÓN.
 Formato: a,b,c — vacío si no se aplica en ninguno.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../slrtutorwindow.cpp" line="2029"/>
+        <source>La tabla no es correcta.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../slrtutorwindow.cpp" line="2033"/>
+        <source>Error interno. Estado actual desconocido a la hora de dar retroalimentación.</source>
         <translation></translation>
     </message>
     <message>
