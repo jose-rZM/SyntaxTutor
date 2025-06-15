@@ -85,25 +85,6 @@ class SLR1Parser {
     std::unordered_set<Lr0Item> AllItems() const;
 
     /**
-     * @brief Prints debug information about the parser's states.
-     *
-     * This function outputs detailed information about the states in the
-     * parser's state machine, including the LR(0) items in each state. It is
-     * used for debugging and verifying the correctness of the state machine.
-     */
-    void DebugStates() const;
-
-    /**
-     * @brief Prints debug information about the parser's action table.
-     *
-     * This function outputs detailed information about the action table,
-     * including shift, reduce, and accept actions for each state and input
-     * symbol. It is used for debugging and verifying the correctness of the
-     * parsing table.
-     */
-    void DebugActions();
-
-    /**
      * @brief Computes the closure of a set of LR(0) items.
      *
      * This function computes the closure of a given set of LR(0) items by

@@ -9,7 +9,6 @@
 #include "grammar.hpp"
 #include "ll1_parser.hpp"
 #include "symbol_table.hpp"
-#include "tabulate.hpp"
 
 LL1Parser::LL1Parser(Grammar gr) : gr_(std::move(gr)) {
     ComputeFirstSets();
@@ -184,79 +183,4 @@ LL1Parser::PredictionSymbols(const std::string&              antecedent,
     hd.erase(gr_.st_.EPSILON_);
     hd.merge(Follow(antecedent));
     return hd;
-}
-
-void LL1Parser::PrintTable() {
-    using namespace tabulate;
-    Table table;
-
-    Table::Row_t                          headers = {"Non-terminal"};
-    std::unordered_map<std::string, bool> columns;
-
-    for (const auto& outerPair : ll1_t_) {
-        for (const auto& innerPair : outerPair.second) {
-            columns[innerPair.first] = true;
-        }
-    }
-
-    for (const auto& col : columns) {
-        headers.push_back(col.first);
-    }
-
-    auto& header_row = table.add_row(headers);
-    header_row.format()
-        .font_align(FontAlign::center)
-        .font_color(Color::yellow)
-        .font_style({FontStyle::bold});
-
-    std::vector<std::string> non_terminals;
-    for (const auto& outerPair : ll1_t_) {
-        non_terminals.push_back(outerPair.first);
-    }
-
-    std::sort(non_terminals.begin(), non_terminals.end(),
-              [this](const std::string& a, const std::string& b) {
-                  if (a == gr_.axiom_)
-                      return true; // Axiom comes first
-                  if (b == gr_.axiom_)
-                      return false; // Axiom comes first
-                  return a < b;     // Sort the rest alphabetically
-              });
-
-    for (const std::string& nonTerminal : non_terminals) {
-        Table::Row_t row_data = {nonTerminal};
-
-        for (const auto& col : columns) {
-            auto innerIt = ll1_t_.at(nonTerminal).find(col.first);
-            if (innerIt != ll1_t_.at(nonTerminal).end()) {
-                std::string cell_content;
-                for (const auto& prod : innerIt->second) {
-                    cell_content += "[ ";
-                    for (const std::string& elem : prod) {
-                        cell_content += elem + " ";
-                    }
-                    cell_content += "] ";
-                }
-                row_data.push_back(cell_content);
-            } else {
-                row_data.push_back("-");
-            }
-        }
-
-        table.add_row(row_data);
-    }
-
-    table[0].format().font_color(Color::cyan).font_style({FontStyle::bold});
-    for (size_t i = 1; i < table.size(); ++i) {
-        for (size_t j = 1; j < table[i].size(); ++j) {
-            if (table[i][j].get_text().find("] [") != std::string::npos) {
-                table[i][j].format().font_color(Color::red);
-            }
-        }
-    }
-    table.format().font_align(FontAlign::center);
-    table.column(0).format().font_color(Color::cyan);
-
-    // Print the table
-    std::cout << table << std::endl;
 }

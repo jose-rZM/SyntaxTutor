@@ -4,13 +4,13 @@
 #include <map>
 #include <queue>
 #include <string>
+#include <sstream>
 #include <unordered_set>
 #include <vector>
 
 #include "grammar.hpp"
 #include "slr1_parser.hpp"
 #include "symbol_table.hpp"
-#include "tabulate.hpp"
 
 SLR1Parser::SLR1Parser(Grammar gr) : gr_(std::move(gr)) {
     ComputeFirstSets();
@@ -27,135 +27,6 @@ std::unordered_set<Lr0Item> SLR1Parser::AllItems() const {
         }
     }
     return items;
-}
-
-void SLR1Parser::DebugStates() const {
-    tabulate::Table        table;
-    tabulate::Table::Row_t header = {"State ID", "Items"};
-    table.add_row(header);
-
-    for (size_t state = 0; state < states_.size(); ++state) {
-        tabulate::Table::Row_t row;
-        const auto             currentIt = std::find_if(
-            states_.begin(), states_.end(),
-            [state](const auto& st) -> bool { return st.id_ == state; });
-        row.push_back(std::to_string(state));
-        std::string str = "";
-        for (const auto& item : currentIt->items_) {
-            str += item.ToString();
-            str += "\n";
-        }
-        row.push_back(str);
-        table.add_row(row);
-    }
-    table.column(0)
-        .format()
-        .font_align(tabulate::FontAlign::center)
-        .font_color(tabulate::Color::cyan);
-    table.row(0).format().font_align(tabulate::FontAlign::center);
-    table.column(1).format().font_color(tabulate::Color::yellow);
-    std::cout << table << "\n";
-}
-
-void SLR1Parser::DebugActions() {
-    std::vector<std::string> columns;
-    columns.reserve(gr_.st_.terminals_.size() + gr_.st_.non_terminals_.size());
-    tabulate::Table        table;
-    tabulate::Table::Row_t header = {"State"};
-    for (const auto& s : gr_.st_.terminals_) {
-        if (s == gr_.st_.EPSILON_) {
-            continue;
-        }
-        columns.push_back(s);
-    }
-    columns.insert(columns.end(), gr_.st_.non_terminals_.begin(),
-                   gr_.st_.non_terminals_.end());
-    header.insert(header.end(), columns.begin(), columns.end());
-    table.add_row(header);
-
-    for (unsigned state = 0; state < states_.size(); ++state) {
-        tabulate::Table::Row_t row_data{std::to_string(state)};
-
-        const auto  action_entry = actions_.find(state);
-        const auto  trans_entry  = transitions_.find(state);
-        const auto& transitions  = trans_entry->second;
-        for (const auto& symbol : columns) {
-            std::string cell        = "-";
-            const bool  is_terminal = gr_.st_.IsTerminal(symbol);
-
-            if (!is_terminal) {
-                if (trans_entry != transitions_.end()) {
-                    const auto it = transitions.find(symbol);
-                    if (it != transitions.end()) {
-                        cell = std::to_string(it->second);
-                    }
-                }
-            } else {
-                if (action_entry != actions_.end()) {
-                    const auto action_it = action_entry->second.find(symbol);
-                    if (action_it != action_entry->second.end()) {
-                        switch (action_it->second.action) {
-                        case Action::Accept:
-                            cell = "A";
-                            break;
-                        case Action::Reduce:
-                            cell = "R";
-                            break;
-                        case Action::Shift:
-                            if (trans_entry != transitions_.end()) {
-                                const auto shift_it = transitions.find(symbol);
-                                if (shift_it != transitions.end()) {
-                                    cell =
-                                        "S" + std::to_string(shift_it->second);
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                }
-            }
-            row_data.push_back(cell);
-        }
-        table.add_row(row_data);
-    }
-    table.format().font_align(tabulate::FontAlign::center);
-    table.column(0).format().font_color(tabulate::Color::cyan);
-    table.row(0).format().font_color(tabulate::Color::magenta);
-    std::cout << table << std::endl;
-
-    tabulate::Table reduce_table;
-    reduce_table.add_row({"State", "Symbol", "Production Rule"});
-
-    const auto state_color  = tabulate::Color::cyan;
-    const auto symbol_color = tabulate::Color::yellow;
-    const auto rule_color   = tabulate::Color::magenta;
-
-    for (const auto& [state, actions] : actions_) {
-        for (const auto& [symbol, action] : actions) {
-            if (action.action == Action::Reduce) {
-                tabulate::Table::Row_t row;
-                std::string            rule;
-                rule += action.item->antecedent_ + " -> ";
-                for (const auto& sym : action.item->consequent_) {
-                    rule += sym + " ";
-                }
-                row.push_back(std::to_string(state));
-                row.push_back(symbol);
-                row.push_back(rule);
-                reduce_table.add_row(row);
-            }
-        }
-    }
-    reduce_table.format().font_align(tabulate::FontAlign::center);
-    reduce_table.column(0).format().font_color(state_color);
-    reduce_table.column(1).format().font_color(symbol_color);
-    reduce_table.column(2).format().font_color(rule_color);
-
-    std::cout << "\n\n";
-    std::cout << "Reduce Actions:" << std::endl;
-    std::cout << reduce_table << std::endl;
 }
 
 void SLR1Parser::MakeInitialState() {
