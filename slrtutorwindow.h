@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QPropertyAnimation>
 #include <QPushButton>
+#include <QRegularExpression>
 #include <QScrollBar>
 #include <QShortcut>
 #include <QTableWidget>
@@ -263,6 +264,8 @@ private:
         = nullptr; // For interrupting userResponse animation if they spam enter key
 
     TutorialManager *tm;
+
+    QRegularExpression re{"^\\s+|\\s+$"};
 };
 
 #endif // SLRTUTORWINDOW_H

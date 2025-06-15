@@ -93,7 +93,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     updateProgressPanel();
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
-    currentState = StateSlr::A;
+    currentState = StateSlr::H;
     addMessage(generateQuestion(), false);
 
     // ====== Signal Connections ==================================
@@ -2026,12 +2026,12 @@ QString SLRTutorWindow::feedback() {
         return feedbackForG();
 
     case StateSlr::H:
-        return "La tabla no es correcta.";
+        return tr("La tabla no es correcta.");
 
         // ====== Undefined state fallback =========================
     default:
-        return "Error interno. Estado actual desconocido a la hora de dar "
-               "retroalimentación.";
+        return tr("Error interno. Estado actual desconocido a la hora de dar "
+                  "retroalimentación.");
     }
 }
 
@@ -2116,9 +2116,7 @@ QString SLRTutorWindow::feedbackForC() {
 QString SLRTutorWindow::feedbackForCA() {
     QStringList expected = solutionForCA();
     QString     text     = ui->userResponse->toPlainText().trimmed();
-    QStringList resp =
-        text.split(',', Qt::SkipEmptyParts)
-            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QStringList resp = text.split(',', Qt::SkipEmptyParts).replaceInStrings(re, "");
     QSet<QString> setResp(resp.begin(), resp.end());
     QSet<QString> duplicates;
     for (const QString& part : std::as_const(resp)) {

@@ -1549,11 +1549,10 @@ QString LLTutorWindow::feedbackForB() {
            "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
            "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
 
-    QStringList resp =
-        ui->userResponse->toPlainText()
-            .trimmed()
-            .split(',', Qt::SkipEmptyParts)
-            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QStringList resp = ui->userResponse->toPlainText()
+                           .trimmed()
+                           .split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(re, "");
     QSet<QString> setSol = solutionForB();
     QSet<QString> setResp(resp.begin(), resp.end());
 
@@ -1639,11 +1638,10 @@ QString LLTutorWindow::feedbackForB2() {
            "los símbolos directores.\n%2")
             .arg(nt, TeachFollow(nt));
 
-    QStringList resp =
-        ui->userResponse->toPlainText()
-            .trimmed()
-            .split(',', Qt::SkipEmptyParts)
-            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QStringList resp = ui->userResponse->toPlainText()
+                           .trimmed()
+                           .split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(re, "");
     QSet<QString> setSol = solutionForB2();
     QSet<QString> setResp(resp.begin(), resp.end());
 
@@ -1682,11 +1680,10 @@ QString LLTutorWindow::feedbackForBPrime() {
             .arg(TeachPredictionSymbols(rule.first,
                                         qvectorToStdVector(rule.second)));
 
-    QStringList resp =
-        ui->userResponse->toPlainText()
-            .trimmed()
-            .split(',', Qt::SkipEmptyParts)
-            .replaceInStrings(QRegularExpression("^\\s+|\\s+$"), "");
+    QStringList resp = ui->userResponse->toPlainText()
+                           .trimmed()
+                           .split(',', Qt::SkipEmptyParts)
+                           .replaceInStrings(re, "");
     QSet<QString> setSol = solutionForB();
     QSet<QString> setResp(resp.begin(), resp.end());
 

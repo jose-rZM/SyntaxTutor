@@ -214,6 +214,8 @@ private:
         = nullptr; // For interrupting userResponse animation if they spam enter key
 
     TutorialManager *tm = nullptr;
+
+    QRegularExpression re{"^\\s+|\\s+$"};
 };
 
 #endif // LLTUTORWINDOW_H
