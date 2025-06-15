@@ -54,6 +54,7 @@ jobs:
             --rc branch_coverage=1 \
             --filter branch \
             --exclude '/usr/*' \
+            --exclude '*tests.cpp' \
             --ignore-errors inconsistent,source \
             --output-file coverage.info
           lcov --rc branch_coverage=1 --filter branch --remove coverage.info '*tests.cpp' --output-file coverage.info
