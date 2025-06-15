@@ -102,14 +102,6 @@ Grammar GrammarFactory::GenSLR1Grammar(int level) {
     return gr;
 }
 
-void GrammarFactory::SanityChecks(Grammar& gr) {
-    std::cout << "Sanity check (Is Infinite?) : " << IsInfinite(gr) << "\n";
-    std::cout << "Sanity check (Has Unreachable Symbols?) : "
-              << HasUnreachableSymbols(gr) << "\n";
-    std::cout << "Sanity check (Has Direct Left Recursion?) : "
-              << HasDirectLeftRecursion(gr) << "\n";
-}
-
 Grammar GrammarFactory::Lv1() {
     std::random_device                    rd;
     std::mt19937                          gen(rd());
@@ -442,20 +434,6 @@ void GrammarFactory::RemoveLeftRecursion(Grammar& grammar) {
     grammar.g_ = std::move(new_rules);
 }
 
-void GrammarFactory::RemoveUnitRules(Grammar& grammar) const {
-    for (const auto& [nt, prods] : grammar.g_) {
-        for (const auto& prod : prods) {
-            if (prod.size() == 1 && !grammar.st_.IsTerminal(prod[0])) {
-                grammar.g_[nt] = grammar.g_.at(prod[0]);
-                if (HasUnreachableSymbols(grammar)) {
-                    grammar.g_.erase(prod[0]);
-                    grammar.st_.non_terminals_.erase(prod[0]);
-                }
-            }
-        }
-    }
-}
-
 void GrammarFactory::LeftFactorize(Grammar& grammar) {
     bool changed;
     do {
@@ -568,28 +546,6 @@ GrammarFactory::FactoryItem::FactoryItem(
         }
     }
     g_ = grammar;
-}
-
-bool GrammarFactory::FactoryItem::HasEmptyProduction(
-    const std::string& antecedent) {
-    auto& rules = g_.at(antecedent);
-    return std::ranges::find_if(rules, [&](const auto& rule) {
-               return rule[0] == st_.EPSILON_;
-           }) != rules.end();
-}
-
-void GrammarFactory::FactoryItem::Debug() {
-    std::cout << "Grammar:\n";
-    for (const auto& entry : g_) {
-        std::cout << entry.first << " -> ";
-        for (const std::vector<std::string>& prod : entry.second) {
-            for (const std::string& symbol : prod) {
-                std::cout << symbol << " ";
-            }
-            std::cout << "| ";
-        }
-        std::cout << "\n";
-    }
 }
 
 void GrammarFactory::NormalizeNonTerminals(FactoryItem& item,

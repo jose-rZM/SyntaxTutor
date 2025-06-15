@@ -13,10 +13,6 @@ struct Grammar {
         const std::unordered_map<std::string, std::vector<production>>&
             grammar);
 
-    /**
-     * @brief Augment the grammar by adding the rule S' -> S, where S' is the new axiom and S is the old one.
-     */
-    void TransformToAugmentedGrammar();
 
     /**
      * @brief Sets the axiom (entry point) of the grammar.
@@ -61,23 +57,6 @@ struct Grammar {
      * rules, the axiom, and other relevant details.
      */
     void Debug() const; //NOSONAR
-
-    /**
-     * @brief Checks if a rule exhibits left recursion.
-     *
-     * @param antecedent The left-hand side (LHS) symbol of the rule.
-     * @param consequent The right-hand side (RHS) vector of tokens of the rule.
-     * @return true if the rule has left recursion (e.g., A -> A + A), otherwise
-     * false.
-     *
-     * Left recursion is identified when the antecedent of a rule appears as the
-     * first symbol in its consequent, which may cause issues in top-down
-     * parsing algorithms.
-     */
-    bool HasLeftRecursion(const std::string&              antecedent,
-                          const std::vector<std::string>& consequent) const;
-
-    std::string GenerateNewNonTerminal(const std::string& base);
 
     void AddProduction(const std::string&              antecedent,
                        const std::vector<std::string>& consequent);

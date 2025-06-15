@@ -36,20 +36,6 @@ struct GrammarFactory {
          * @param grammar The grammar to initialize the FactoryItem with.
          */
         explicit FactoryItem(const std::unordered_map<std::string, std::vector<production>> &grammar);
-
-        /**
-         * @brief Checks if a grammar has an empty production for a given
-         * non-terminal.
-         * @param antecedent The non-terminal symbol to check for empty
-         * productions.
-         * @return true if there is an empty production, false otherwise.
-         */
-        bool HasEmptyProduction(const std::string& antecedent);
-
-        /**
-         * @brief Debugging function to print the grammar item.
-         */
-        void Debug();
     };
 
     /**
@@ -80,12 +66,6 @@ struct GrammarFactory {
      * @return A random SLR(1) grammar.
      */
     Grammar GenSLR1Grammar(int level);
-    /**
-     * @brief Performs sanity checks on a grammar and print the results to
-     * stdout.
-     * @param gr Grammar to check.
-     */
-    void SanityChecks(Grammar& gr);
 
     /**
      * @brief Generates a Level 1 grammar.
@@ -227,18 +207,6 @@ struct GrammarFactory {
      * @param grammar The grammar to remove left recursion
      */
     void RemoveLeftRecursion(Grammar& grammar);
-
-    /**
-     * @brief Removes unit rules of the type A -> B, where A and B are non
-     * terminal symbols. Unit rules can introduce some redundancy depending on
-     * the grammar. It is performed by adding all the productions of B to A.
-     * This process could lead to B being unreachable, if that is the case
-     * unreachable symbols are removed. For example: A -> a A | B; B -> c |
-     * EPSILON would be A -> a A | c | EPSILON;. B becomes unreachable once A ->
-     * B it is removed, so B is removed alongside its productions.
-     * @param grammar. The grammar to remove unit rules.
-     */
-    void RemoveUnitRules(Grammar& grammar) const;
 
     /**
      * @brief Perfoms left factorization. A grammar could be left factorized if

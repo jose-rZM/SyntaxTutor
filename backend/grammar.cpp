@@ -75,24 +75,6 @@ void Grammar::Debug() const //NOSONAR
 // LCOV_EXCL_STOP
 // GCOVR_EXCL_STOP
 
-bool Grammar::HasLeftRecursion(const std::string& antecedent,
-                               const std::vector<std::string>& consequent) const
-{
-    return consequent.at(0) == antecedent;
-}
-
-std::string Grammar::GenerateNewNonTerminal(const std::string& base) {
-    unsigned    i = 1;
-    std::string new_nt;
-
-    do {
-        new_nt = base + "'" + std::to_string(i);
-        i++;
-    } while (st_.non_terminals_.contains(new_nt));
-    st_.non_terminals_.insert(new_nt);
-    return new_nt;
-}
-
 void Grammar::AddProduction(const std::string&              antecedent,
                             const std::vector<std::string>& consequent) {
     g_[antecedent].push_back(consequent);
