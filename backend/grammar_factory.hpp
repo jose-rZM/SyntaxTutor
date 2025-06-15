@@ -265,13 +265,45 @@ struct GrammarFactory {
     std::string GenerateNewNonTerminal(Grammar&           grammar,
                                        const std::string& base);
 
+    /**
+    * @brief Replaces all non-terminal symbols in a grammar item with a single target non-terminal.
+    *
+    * This function is used during grammar combination to normalize the non-terminal
+    * symbols in a given FactoryItem, so that they are consistent and compatible
+    * with another item.
+    *
+    * @param item The grammar item whose non-terminals will be renamed.
+    * @param nt The new non-terminal symbol that will replace all existing ones.
+    */
     void NormalizeNonTerminals(FactoryItem& item, const std::string& nt) const;
 
+    /**
+    * @brief Adjusts the terminal symbols between two grammar items.
+    *
+    * This function modifies the terminal symbols of a base grammar item so that
+    * they do not conflict with those of the item being combined. It also renames
+    * terminals to ensure consistency and inserts the target non-terminal where appropriate.
+    *
+    * @param base The base grammar item to adjust.
+    * @param cmb The grammar item being combined with the base.
+    * @param target_nt The target non-terminal symbol used for replacement.
+    */
     void AdjustTerminals(FactoryItem& base, const FactoryItem& cmb,
                          const std::string& target_nt) const;
 
+    /**
+    * @brief Merges the grammar rules of two grammar items into a single grammar.
+    *
+    * This function performs a raw combination of the production rules from both
+    * grammar items, resulting in a single grammar map that contains all productions.
+    *
+    * @param base The first grammar item.
+    * @param cmb The second grammar item.
+    * @return A merged grammar map containing all production rules from both inputs.
+    */
     std::unordered_map<std::string, std::vector<production>>
     Merge(const FactoryItem& base, const FactoryItem& cmb) const;
+
     /**
      * @brief A vector of FactoryItem objects representing different level 1
      * grammar items created by the Init method.

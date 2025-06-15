@@ -9,6 +9,14 @@
 #include "lr0_item.hpp"
 #include "state.hpp"
 
+/**
+ * @class SLR1Parser
+ * @brief Implements an SLR(1) parser for context-free grammars.
+ *
+ * This class builds an SLR(1) parsing table and LR(0) automaton from a given grammar.
+ * It provides methods for computing closure sets, GOTO transitions, constructing states,
+ * and performing syntax analysis using the generated table.
+ */
 class SLR1Parser {
   public:
     /**
@@ -112,8 +120,19 @@ class SLR1Parser {
     void ClosureUtil(std::unordered_set<Lr0Item>& items, unsigned int size,
                      std::unordered_set<std::string>& visited);
 
+    /**
+    * @brief Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol.
+    *
+    * This function is equivalent to the δ(I, X) function in LR parsing, where it computes
+    * the set of items reached from a state I via symbol X.
+    *
+    * @param items The current set of LR(0) items (state).
+    * @param str The grammar symbol used for the transition.
+    * @return The resulting item set after the GOTO transition.
+    */
     std::unordered_set<Lr0Item> Delta(const std::unordered_set<Lr0Item>& items,
                                       const std::string&                 str);
+
     /**
      * @brief Resolves LR conflicts in a given state.
      *
@@ -246,6 +265,15 @@ class SLR1Parser {
      */
     bool MakeParser();
 
+    /**
+    * @brief Returns a string representation of a set of LR(0) items.
+    *
+    * This function converts a set of LR(0) items into a human-readable string,
+    * including dot positions, to help visualize parser states.
+    *
+    * @param items The set of LR(0) items to print.
+    * @return A formatted string representation of the items.
+    */
     std::string PrintItems(const std::unordered_set<Lr0Item>& items) const;
 
     /// @brief The grammar being processed by the parser.

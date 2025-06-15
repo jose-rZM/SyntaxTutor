@@ -4,8 +4,26 @@
 #include <unordered_map>
 #include <vector>
 
+/**
+ * @typedef production
+ * @brief Represents the right-hand side of a grammar rule.
+ *
+ * A production is a sequence of grammar symbols (terminals or non-terminals)
+ * that can be derived from a non-terminal symbol in the grammar.
+ *
+ * For example, in the rule A → a B c, the production would be:
+ * {"a", "B", "c"}
+ */
 using production = std::vector<std::string>;
 
+/**
+ * @struct Grammar
+ * @brief Represents a context-free grammar, including its rules, symbol table, and starting symbol.
+ *
+ * This structure encapsulates all components required to define and manipulate a grammar,
+ * including production rules, the associated symbol table, and metadata such as the start symbol.
+ * It supports construction, transformation, and analysis of grammars.
+ */
 struct Grammar {
 
     Grammar();
@@ -58,9 +76,29 @@ struct Grammar {
      */
     void Debug() const; //NOSONAR
 
+    /**
+    * @brief Adds a production rule to the grammar and updates the symbol table.
+    *
+    * This function inserts a new production of the form A → α into the grammar,
+    * where `antecedent` is the non-terminal A and `consequent` is the sequence α.
+    * It also updates the internal symbol table to reflect any new symbols introduced.
+    *
+    * @param antecedent The left-hand side non-terminal of the production.
+    * @param consequent The right-hand side sequence of grammar symbols.
+    */
     void AddProduction(const std::string&              antecedent,
                        const std::vector<std::string>& consequent);
 
+    /**
+    * @brief Splits a string into grammar symbols using the current symbol table.
+    *
+    * This function tokenizes the input string `s` into a sequence of grammar symbols
+    * based on the known entries in the symbol table. It uses a greedy approach,
+    * matching the longest valid symbol at each step.
+    *
+    * @param s The input string to split.
+    * @return A vector of grammar symbols extracted from the string.
+    */
     std::vector<std::string> Split(const std::string& s);
 
     /**
@@ -74,5 +112,8 @@ struct Grammar {
      */
     std::string axiom_;
 
+    /**
+     * @brief Symbol table of the grammar.
+     */
     SymbolTable st_;
 };

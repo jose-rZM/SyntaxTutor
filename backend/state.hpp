@@ -6,10 +6,29 @@
 #include <numeric>
 #include <unordered_set>
 
+/**
+ * @struct state
+ * @brief Represents a state in the LR(0) automaton.
+ *
+ * Each state consists of a unique identifier and a set of LR(0) items
+ * that define its core. States are used to build the SLR(1) parsing table.
+ */
 struct state {
+    /**
+     * @brief The set of LR(0) items that make up this state.
+     */
     std::unordered_set<Lr0Item> items_;
-    unsigned int                id_;
 
+    /**
+     * @brief Unique identifier of the state.
+     */
+    unsigned int id_;
+
+    /**
+     * @brief Equality operator for comparing states based on their items.
+     * @param other The state to compare with.
+     * @return true if both states have the same item set; false otherwise.
+     */
     bool operator==(const state& other) const { return other.items_ == items_; }
 };
 
