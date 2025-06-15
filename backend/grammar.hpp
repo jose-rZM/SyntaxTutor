@@ -8,7 +8,7 @@ using production = std::vector<std::string>;
 
 struct Grammar {
 
-    Grammar() = default;
+    Grammar();
     explicit Grammar(
         const std::unordered_map<std::string, std::vector<production>>&
             grammar);

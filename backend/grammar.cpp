@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <vector>
 
+Grammar::Grammar() = default;
+
 Grammar::Grammar(
     const std::unordered_map<std::string, std::vector<production>>& grammar) {
     for (const auto& [nt, prods] : grammar) {
