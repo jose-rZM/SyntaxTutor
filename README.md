@@ -1,57 +1,35 @@
-# SyntaxTutor
+# SyntaxTutor: An interactive Tool for Learning Syntax Analysis
 
-SyntaxTutor es una aplicación de escritorio escrita en C++20 y Qt 6. Su objetivo es ayudar a comprender el análisis sintáctico mediante un tutor interactivo para los algoritmos LL(1) y SLR(1).
+SyntaxTutor is an educational application designed to help compiler students understand LL(1) and SLR(1) parsing algorithms. Through a visual and interactive interface, it guides users step-by-step through the computation of FIRST, FOLLOW, CLOSURE, GOTO, predictive parsing tables, and LR automata, offering real-time pedagogical feedback.
 
-## Funcionalidades principales
+Rather than acting as a mere calculator, SyntaxTutor functions as a learning companion. It explains the reasoning behind each step, highlights common mistakes, and encourages students to engage with the theory behind the algorithms.
 
-- Generación de gramáticas de distintos niveles de dificultad.
-- Tutor interactivo para practicar la construcción de tablas LL(1) y SLR(1).
-- Puntuación y progreso por niveles.
-- Exportación de las conversaciones a PDF.
-- Interfaz disponible en español e inglés.
+## 🎯 Key Features
+- **Educational Focus**: built to teach, not just compute.
+- **Visualization**: derivation trees, intermediate steps, sets, and tables.
+- **Exportable Results**: useful for reports or coursework.
 
-## Compilación
+## 🛠️ Technologies Used
+- **C++**: efficient implementation of parsing algorithms
+- **Qt6**: modern, cross-platform graphical user interface.
+- **Modular architecture**: clean separation between logic and UI, designed for easy extensibility.
 
-Para compilar la aplicación se necesita Qt 6 (qmake6) y un compilador C++20 compatible.
+## 📦 Downloads
+Precompiled builds of SyntaxTutor are available in the Releases tab:
+- 🐧 Linux (X11): executable AppImage
+- 🪟 Windows: ZIP archive with the .exe
+- 🍎 macOS: .app bundles for both Apple Silicon (ARM) and Intel
 
-### Linux
+> [!WARNING]
+> The Windows and macOS versions are not digitally signed. Your operating system may display a warning when running the application. You can bypass it manually if you trust the source.
 
-```bash
-qmake6 SyntaxTutor.pro -config release
+## 🛠️ Building from Source
+To build SyntaxTutor from source, you just need:
+- Qt6 (including `qmake6`)
+- A C++20-compliant compiler
+```
+qmake6
 make
-```
-
-### macOS
-
-```bash
-qmake6 SyntaxTutor.pro -config release
-make
-```
-
-### Windows (MSVC)
-
-```cmd
-qmake6 SyntaxTutor.pro -config release
-nmake
-```
-
-El binario resultante se llamará `SyntaxTutor` (o `SyntaxTutor.exe` en Windows).
-
-## Ejecución de pruebas
-
-El archivo `backend/tests.cpp` contiene un conjunto de pruebas basado en Google Test. Para compilarlas se deben tener instaladas las bibliotecas de gtest. Un ejemplo de compilación es:
-
-```bash
-g++ -std=c++20 backend/grammar.cpp backend/grammar_factory.cpp \
-    backend/ll1_parser.cpp backend/lr0_item.cpp backend/slr1_parser.cpp \
-    backend/symbol_table.cpp backend/tests.cpp -Ibackend \
-    -lgtest -lgtest_main -o test_runner
-./test_runner
-```
-
-## Dependencias
-
-- **Qt 6** – Framework principal de la interfaz.
-- **Google Test** – Utilizado únicamente para `backend/tests.cpp`.
-- Archivos de traducción: `translations/st_es.qm` y `translations/st_en.qm`.
-
+````
+This will generate the executable in te project directory.
+  
