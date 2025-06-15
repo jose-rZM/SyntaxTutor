@@ -26,7 +26,7 @@ jobs:
           cd /usr/src/gtest && sudo cmake . && sudo make && sudo cp lib/*.a /usr/lib
           cd $GITHUB_WORKSPACE
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
-            g++ -std=gnu++2a -O0 -g --coverage -fprofile-arcs -ftest-coverage \
+            g++ -std=gnu++2a -O0 -g --coverage -ftest-coverage \
             backend/grammar.cpp \
             backend/grammar_factory.cpp \
             backend/ll1_parser.cpp \
@@ -41,33 +41,12 @@ jobs:
       - name: Run tests and dump XML
         run: ./test_runner
 
-        
-      - name: Install lcov & generate SonarQube XML coverage
+      - name: Install gcovr & generate SonarQube XML coverage
         run: |
           sudo apt-get update
-          sudo apt-get install -y lcov python3-pip
-          lcov --capture \
-            --directory . \
-            --branch-coverage \
-            --rc branch_coverage=1 \
-            --filter branch \
-            --exclude '/usr/*' \
-            --exclude '*tests.cpp' \
-            --ignore-errors inconsistent,source \
-            --output-file coverage.info
-          lcov --rc branch_coverage=1 --filter branch --remove coverage.info --output-file coverage.info
+          sudo apt-get install -y gcovr
+          gcovr -r . --filter '.*backend/.*' --sonarqube --output coverage.xml
           
-      - name: Install lcov-to-cobertura converter
-        run: |
-          pip3 install lcov_cobertura
-
-      - name: Convert LCOV to Cobertura XML
-        run: |
-          lcov_cobertura coverage.info \
-            --base-dir . \
-            --excludes '.*tests.cpp' \
-            --output coverage.xml \
-            --demangle
             
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
@@ -76,6 +55,6 @@ jobs:
         with:
           args: >
             --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
-            --define sonar.cfamily.cobertura.reportPaths=coverage.xml
+            --define sonar.coverageReportPaths=coverage.xml
             --define sonar.qualitygate.breakBuild=false
 
