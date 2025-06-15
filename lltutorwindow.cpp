@@ -1154,14 +1154,13 @@ void LLTutorWindow::updateState(bool isCorrect) {
             userSD[key] = solutionForB().values().join(", ");
             userCAB[sortedGrammar.at(currentRule).second.join(' ')] =
                 solutionForB1().values().join(", ");
-            userSIG[sortedGrammar.at(currentRule).first] =
-                solutionForB2().values().join(", ");
+            if (sortedGrammar.at(currentRule).first.toStdString() != ll1.gr_.axiom_) {
+                userSIG[sortedGrammar.at(currentRule).first] = solutionForB2().values().join(", ");
+            }
             updateProgressPanel();
             currentRule++;
-            currentState =
-                static_cast<qsizetype>(currentRule) >= sortedGrammar.size()
-                    ? State::C
-                    : State::B;
+            currentState = static_cast<qsizetype>(currentRule) >= sortedGrammar.size() ? State::C
+                                                                                       : State::B;
         } else {
             currentState = State::B1;
         }
