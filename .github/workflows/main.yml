@@ -3,6 +3,10 @@ name: Build & Deploy Qt6 App
 on:
   push:
     branches: [ main ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - '**/*.h'
   workflow_dispatch:
 
 permissions:
