@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>LLTableDialog</name>
+    <message>
+        <location filename="../lltabledialog.cpp" line="88"/>
+        <source>Finalizar</source>
+        <translation>Finish</translation>
+    </message>
+    <message>
+        <location filename="../lltabledialog.cpp" line="118"/>
+        <source>Completar tabla LL(1)</source>
+        <translation>Complete LL(1) table</translation>
+    </message>
+</context>
+<context>
     <name>LLTutorWindow</name>
     <message>
         <location filename="../lltutorwindow.ui" line="14"/>
@@ -1106,6 +1119,24 @@ That is, for each rule A → X and A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <location filename="../mainwindow.ui" line="520"/>
         <source>Referencia SLR(1)</source>
         <translation>SLR(1) Quick Reference</translation>
+    </message>
+</context>
+<context>
+    <name>SLRTableDialog</name>
+    <message>
+        <location filename="../slrtabledialog.cpp" line="16"/>
+        <source>State %1</source>
+        <translation>State %1</translation>
+    </message>
+    <message>
+        <location filename="../slrtabledialog.cpp" line="24"/>
+        <source>Finalizar</source>
+        <translation>Finish</translation>
+    </message>
+    <message>
+        <location filename="../slrtabledialog.cpp" line="35"/>
+        <source>Completar tabla SLR</source>
+        <translation>Complete SLR table</translation>
     </message>
 </context>
 <context>

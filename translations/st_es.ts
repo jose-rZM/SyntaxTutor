@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="es_ES">
 <context>
+    <name>LLTableDialog</name>
+    <message>
+        <location filename="../lltabledialog.cpp" line="88"/>
+        <source>Finalizar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../lltabledialog.cpp" line="118"/>
+        <source>Completar tabla LL(1)</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>LLTutorWindow</name>
     <message>
         <location filename="../lltutorwindow.ui" line="14"/>
@@ -940,6 +953,24 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     <message>
         <location filename="../mainwindow.cpp" line="711"/>
         <source>Para aplicar el cambio de idioma, es necesario reiniciar la aplicación.</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>SLRTableDialog</name>
+    <message>
+        <location filename="../slrtabledialog.cpp" line="16"/>
+        <source>State %1</source>
+        <translation>Estado %1</translation>
+    </message>
+    <message>
+        <location filename="../slrtabledialog.cpp" line="24"/>
+        <source>Finalizar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../slrtabledialog.cpp" line="35"/>
+        <source>Completar tabla SLR</source>
         <translation></translation>
     </message>
 </context>
