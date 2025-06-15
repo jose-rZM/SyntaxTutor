@@ -327,7 +327,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     mainLayout->setSpacing(2);
     mainLayout->setContentsMargins(10, 5, 10, 5);
 
-    QLabel* header = new QLabel(isUser ? "Usuario" : "Tutor");
+    QLabel* header = new QLabel(isUser ? tr("Usuario") : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
     header->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
@@ -443,6 +443,7 @@ void LLTutorWindow::showTableForCPrime() {
         }
         colHeaders << QString::fromStdString(symbol);
     }
+    colHeaders.sort();
     static const char* darkQss = R"(
     QDialog, QWidget {
         background-color: #2b2b2b;
@@ -604,6 +605,7 @@ void LLTutorWindow::showTable() {
         }
         colHeaders << QString::fromStdString(symbol);
     }
+    colHeaders.sort();
     static const char* darkQss = R"(
     QDialog, QWidget {
         background-color: #2b2b2b;
@@ -763,7 +765,6 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
     }
 
     if (lltries <= kMaxHighlightTries) {
-        // convertir (NT,T) -> (fila,col)
         QList<QPair<int, int>> coords;
         for (auto& [nt, t] : lastWrongCells) {
             int r = sortedNonTerminals.indexOf(nt);
@@ -772,13 +773,13 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
                 coords.append({r, c});
         }
         currentDlg->highlightIncorrectCells(coords);
-        QMessageBox::information(
-            currentDlg, "Errores",
-            "Las celdas marcadas en rojo son incorrectas.");
+        QMessageBox::information(currentDlg,
+                                 tr("Errores"),
+                                 tr("Las celdas marcadas en rojo son incorrectas."));
     } else if (lltries < kMaxTotalTries) {
-        QMessageBox::information(
-            currentDlg, "Vuelve a intentarlo",
-            "Recuerda las reglas de colocación de producciones.");
+        QMessageBox::information(currentDlg,
+                                 tr("Vuelve a intentarlo"),
+                                 tr("Recuerda las reglas de colocación de producciones."));
     } else {
         if (currentDlg)
             currentDlg->accept();
