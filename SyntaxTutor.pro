@@ -35,7 +35,6 @@ HEADERS += \
     backend/slr1_parser.hpp \
     backend/state.hpp \
     backend/symbol_table.hpp \
-    backend/tabulate.hpp \
     customtextedit.h \
     lltabledialog.h \
     lltutorwindow.h \
