@@ -93,7 +93,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     updateProgressPanel();
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
-    currentState = StateSlr::H;
+    currentState = StateSlr::A;
     addMessage(generateQuestion(), false);
 
     // ====== Signal Connections ==================================
