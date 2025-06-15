@@ -112,7 +112,6 @@ TEST(GrammarTest, RecursiveArithmeticGrammar) {
     ASSERT_TRUE(gr.st_.non_terminals_.contains("F"));
 }
 
-
 TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
     std::unordered_map<std::string, std::vector<production>> g;
     {
@@ -141,6 +140,27 @@ TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
     ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("B"));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("C"));
+}
+
+TEST(GrammarTest, AxiomIsInsertedAtConstruction) {
+    using production = std::vector<std::string>;
+    std::unordered_map<std::string, std::vector<production>> init {
+        { "A", { {"a"},   { "EPSILON" } } }
+    };
+
+    Grammar gr(init);
+
+    EXPECT_EQ(gr.axiom_, "S");
+
+    ASSERT_TRUE(gr.g_.count("S"));
+    auto prods = gr.g_.at("S");
+    ASSERT_EQ(prods.size(), 1u);
+    EXPECT_EQ(prods[0].size(), 2u);
+    EXPECT_EQ(prods[0][0], "A");
+    EXPECT_EQ(prods[0][1], "$");
+
+    EXPECT_TRUE(gr.st_.In("S"));
+    EXPECT_FALSE(gr.st_.IsTerminal("S"));
 }
 
 TEST(GrammarSplitTest, SplitEpsilonReturnsSingleton) {
@@ -190,6 +210,56 @@ TEST(GrammarSplitTest, SplitInvalidSubstringReturnsEmpty) {
     EXPECT_TRUE(result.empty());
 }
 
+TEST(GrammarSplitBranchTest, PrefersLongestAmongMultipleSymbols) {
+    std::unordered_map<std::string, std::vector<production>> rules {
+        { "A", {{"a"}} },
+        { "B", {{"ab"}} },
+        { "C", {{"aba"}} }
+    };
+    Grammar gr(rules);
+
+    auto result = gr.Split("aba");
+    ASSERT_EQ(result.size(), 1u);
+    EXPECT_EQ(result[0], "aba");
+}
+
+TEST(GrammarSplitBranchTest, SplitMixSingleAndDouble) {
+    std::unordered_map<std::string, std::vector<production>> rules {
+        { "X", {{"x"}} },
+        { "Y", {{"yz"}} }
+    };
+    Grammar gr(rules);
+
+    auto result = gr.Split("xyz");
+    ASSERT_EQ(result.size(), 2u);
+    EXPECT_EQ(result[0], "x");
+    EXPECT_EQ(result[1], "yz");
+}
+
+TEST(GrammarSplitBranchTest, SplitTrailingInvalidReturnsEmpty) {
+    std::unordered_map<std::string, std::vector<production>> rules {
+        { "A", {{"a"}} },
+        { "B", {{"b"}} }
+    };
+    Grammar gr(rules);
+
+    auto result = gr.Split("abX");
+    EXPECT_TRUE(result.empty());
+}
+
+TEST(GrammarSplitBranchTest, SplitRepeatingLongestSymbols) {
+    std::unordered_map<std::string, std::vector<production>> rules {
+        { "T", {{"t"}} },
+        { "U", {{"tu"}} },
+        { "V", {{"tuv"}} }
+    };
+    Grammar gr(rules);
+
+    auto result = gr.Split("tuvtuv");
+    ASSERT_EQ(result.size(), 2u);
+    EXPECT_EQ(result[0], "tuv");
+    EXPECT_EQ(result[1], "tuv");
+}
 
 TEST(GrammarMiscTest, SetAxiomChangesAxiom) {
     std::unordered_map<std::string, std::vector<production>> g({
@@ -246,6 +316,42 @@ TEST(GrammarMiscTest, FilterRulesByConsequentFindsAllOccurrences) {
     }
     EXPECT_TRUE(foundA);
     EXPECT_TRUE(foundC);
+}
+
+TEST(GrammarFactoryInitTest, CreatesNineBaseItems) {
+    GrammarFactory factory;
+    factory.Init();
+    ASSERT_EQ(factory.items.size(), 9u);
+}
+
+TEST(GrammarFactoryInitTest, BaseItemsHaveExpectedProductions) {
+    GrammarFactory factory;
+    factory.Init();
+    ASSERT_EQ(factory.items.size(), 9u);
+
+    std::vector<std::vector<std::vector<std::string>>> expected = {
+        { {"a","b","A"}, {"a"} },
+        { {"a","b","A"}, {"a","b"} },
+        { {"a","A","b"}, {"EPSILON"} },
+        { {"A","a"},    {"EPSILON"} },
+        { {"a","A"},    {"EPSILON"} },
+        { {"a","A","c"},{"b"} },
+        { {"a","A","a"},{"b"} },
+        { {"A","a"},    {"b"} },
+        { {"b","A"},    {"a"} }
+    };
+
+    for (size_t i = 0; i < expected.size(); ++i) {
+        const auto& map_i = factory.items[i];
+        ASSERT_TRUE(map_i.g_.contains("A"));
+
+        const auto& prods = map_i.g_.at("A");
+        ASSERT_EQ(prods.size(), expected[i].size());
+
+        for (size_t j = 0; j < prods.size(); ++j) {
+            EXPECT_EQ(prods[j], expected[i][j]);
+        }
+    }
 }
 
 TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
@@ -326,6 +432,54 @@ TEST(GrammarFactoryTest, GeneratedLv3LL1GrammarIsAlwaysLL1)
     }
 }
 
+TEST(GrammarFactoryTest, GeneratedLv4LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 10; ++i) {
+        Grammar g = factory.GenLL1Grammar(4);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv5LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 10; ++i) {
+        Grammar g = factory.GenLL1Grammar(5);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv6LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 10; ++i) {
+        Grammar g = factory.GenLL1Grammar(6);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv7LL1GrammarIsAlwaysLL1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 3; ++i) {
+        Grammar g = factory.GenLL1Grammar(7);
+        LL1Parser ll1(g);
+        ASSERT_TRUE(ll1.CreateLL1Table());
+    }
+}
+
 TEST(GrammarFactoryTest, GeneratedLv1SLR1GrammarIsAlwaysSLR1)
 {
     GrammarFactory factory;
@@ -357,6 +511,54 @@ TEST(GrammarFactoryTest, GeneratedLv3SLR1GrammarIsAlwaysSLR1)
     factory.Init();
     for (int i = 0; i < 100; ++i) {
         Grammar g = factory.GenSLR1Grammar(3);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv4SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 20; ++i) {
+        Grammar g = factory.GenSLR1Grammar(4);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv5SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 10; ++i) {
+        Grammar g = factory.GenSLR1Grammar(5);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv6SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 5; ++i) {
+        Grammar g = factory.GenSLR1Grammar(6);
+        SLR1Parser slr1(g);
+        ASSERT_TRUE(slr1.MakeParser());
+    }
+}
+
+TEST(GrammarFactoryTest, GeneratedLv7SLR1GrammarIsAlwaysSLR1)
+{
+    GrammarFactory factory;
+
+    factory.Init();
+    for (int i = 0; i < 5; ++i) {
+        Grammar g = factory.GenSLR1Grammar(7);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
@@ -2451,6 +2653,24 @@ TEST(LL1__Test, AllFollowSets2) {
     EXPECT_EQ(result, expected);
 }
 
+TEST(LL1__Test, FirstAndFollowSetsFilledWhenEmpty) {
+    GrammarFactory factory;
+    factory.Init();
+
+    Grammar g = factory.GenLL1Grammar(1);
+    LL1Parser ll1(g);
+    ll1.first_sets_.clear();
+    ll1.follow_sets_.clear();
+    
+    ASSERT_TRUE(ll1.first_sets_.empty());
+    ASSERT_TRUE(ll1.follow_sets_.empty());
+
+    ll1.CreateLL1Table();
+
+    ASSERT_FALSE(ll1.first_sets_.empty());
+    ASSERT_FALSE(ll1.follow_sets_.empty());
+}
+
 TEST(SLR1_ClosureTest, BasicClosure) {
     Grammar g;
     g.st_.PutSymbol("S", false);
@@ -3249,6 +3469,37 @@ TEST(StateTest, EqualityAndHash) {
     EXPECT_EQ(set.count(s2), 1u);
 }
 
+TEST(StateTest, EmptyStatesAreEqual) {
+    state s1, s2;
+    EXPECT_TRUE(s1 == s2);
+}
+
+TEST(StateTest, StatesDifferWhenItemsDiffer) {
+    state s1, s2;
+    s1.items_.insert({"A", {"a"}, 0, "EPSILON", "$"});
+    EXPECT_FALSE(s1 == s2);
+    s2.items_.insert({"A", {"a"}, 0, "EPSILON", "$"});
+    EXPECT_TRUE(s1 == s2);
+}
+
+TEST(StateTest, HashOfEmptyStateIsZero) {
+    state s;
+    size_t h = std::hash<state>()(s);
+    EXPECT_EQ(h, 0u);
+}
+
+TEST(StateTest, HashOfNonEmptyStateIsConsistent) {
+    state s1, s2;
+    s1.items_.insert({"A", {"a"}, 0, "EPSILON", "$"});
+    s1.items_.insert({"B", {"b"}, 1, "EPSILON", "$"});
+    s2.items_ = s1.items_;      
+
+    size_t h1 = std::hash<state>()(s1);
+    size_t h2 = std::hash<state>()(s2);
+    EXPECT_NE(h1, 0u);          
+    EXPECT_EQ(h1, h2);          
+}
+
 TEST(SLR1ParserTest, AllItemsGeneratesEveryItem) {
     Grammar g;
     g.st_.PutSymbol("S", false);
@@ -3316,6 +3567,71 @@ TEST(GrammarFactoryTest, HigherLevelGrammarsExist) {
     EXPECT_GE(factory.Lv6().g_.size(), 6u);
     EXPECT_GE(factory.Lv7().g_.size(), 7u);
 }
+
+TEST(SymbolTableTest, PutSymbol_AddsTerminal) {
+    SymbolTable st;
+    std::string id = "foo";
+
+    st.PutSymbol(id, true);
+
+    EXPECT_TRUE(st.In(id));
+
+    EXPECT_TRUE(st.IsTerminal(id));
+
+    EXPECT_TRUE(st.IsTerminalWthoEol(id));
+}
+
+TEST(SymbolTableTest, PutSymbol_AddsNonTerminal) {
+    SymbolTable st;
+    std::string id = "bar";
+
+    st.PutSymbol(id, false);
+
+    EXPECT_TRUE(st.In(id));
+
+    EXPECT_FALSE(st.IsTerminal(id));
+
+    EXPECT_FALSE(st.IsTerminalWthoEol(id));
+}
+
+TEST(SymbolTableTest, In_DetectsOnlyInserted) {
+    SymbolTable st;
+    EXPECT_FALSE(st.In("x"));
+
+    st.PutSymbol("x", true);
+    EXPECT_TRUE(st.In("x"));
+
+    EXPECT_FALSE(st.In("y"));
+}
+
+TEST(SymbolTableTest, IsTerminal_OnlyTrueForTerminals) {
+    SymbolTable st;
+    st.PutSymbol("t", true);
+    st.PutSymbol("nt", false);
+
+    EXPECT_TRUE(st.IsTerminal("t"));
+    EXPECT_FALSE(st.IsTerminal("nt"));
+    EXPECT_FALSE(st.IsTerminal("missing"));
+}
+
+TEST(SymbolTableTest, IsTerminalWthoEol_ExcludesEpsilon) {
+    SymbolTable st;
+    st.PutSymbol(st.EPSILON_, true);
+
+    EXPECT_TRUE(st.IsTerminal(st.EPSILON_));
+    EXPECT_FALSE(st.IsTerminalWthoEol(st.EPSILON_));
+}
+
+TEST(SymbolTableTest, IsTerminalWthoEol_OnlyTrueForNonEpsilonTerminals) {
+    SymbolTable st;
+    st.PutSymbol("a", true);
+    EXPECT_TRUE(st.IsTerminalWthoEol("a"));
+
+    st.PutSymbol("B", false);
+    EXPECT_FALSE(st.IsTerminalWthoEol("B"));
+    EXPECT_FALSE(st.IsTerminalWthoEol("C"));
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
