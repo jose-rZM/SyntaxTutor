@@ -391,7 +391,6 @@ void MainWindow::setupTutorial() {
                     tm, &TutorialManager::stepStarted, this, [this](int idx2) {
                         if (idx2 == 3) {
                             Grammar grammarSLR = factory.GenSLR1Grammar(3);
-                            grammarSLR.TransformToAugmentedGrammar();
                             auto* slrTutor =
                                 new SLRTutorWindow(grammarSLR, tm, nullptr);
                             slrTutor->setWindowFlags(Qt::Window |
