@@ -363,9 +363,24 @@ void SLRTutorWindow::showTable() {
     for (const auto& symbol : slr1.gr_.st_.non_terminals_) {
         colHeaders << QString::fromStdString(symbol);
     }
+    std::sort(colHeaders.begin(), colHeaders.end(), [](const QString& a, const QString& b) {
+        auto rank = [](const QString& s) -> int {
+            if (s == "$")
+                return 1;
+            if (!s.isEmpty() && s[0].isLower())
+                return 0;
+            return 2;
+        };
 
-    auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
-                                      colHeaders, this, &rawTable);
+        int ra = rank(a);
+        int rb = rank(b);
+        return (ra != rb) ? (ra < rb) : (a < b);
+    });
+    auto* dialog = new SLRTableDialog(slr1.states_.size(),
+                                      colHeaders.size(),
+                                      colHeaders,
+                                      this,
+                                      &rawTable);
     static const char* darkQss = R"(
     QDialog, QWidget {
         background-color: #2b2b2b;
@@ -1871,6 +1886,7 @@ QStringList SLRTutorWindow::solutionForCA() {
     if (acceptingItem) {
         result.append(QString::fromStdString(slr1.gr_.st_.EOL_));
     }
+    followSymbols.sort();
     return result;
 }
 
