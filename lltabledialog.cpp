@@ -85,7 +85,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
 
     table->horizontalHeader()->setStretchLastSection(true);
 
-    submitButton           = new QPushButton("Finalizar", this);
+    submitButton = new QPushButton(tr("Finalizar"), this);
     QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
@@ -115,7 +115,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     layout->setContentsMargins(10, 10, 10, 10);
     setLayout(layout);
 
-    setWindowTitle("Completar tabla LL(1)");
+    setWindowTitle(tr("Completar tabla LL(1)"));
 
     // Total width = columns + vertical header
     int width = table->verticalHeader()->width();

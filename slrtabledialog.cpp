@@ -13,7 +13,7 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
 
     QStringList rowLabels;
     for (int i = 0; i < rowCount; ++i)
-        rowLabels << QString("State %1").arg(i);
+        rowLabels << tr("State %1").arg(i);
     table->setVerticalHeaderLabels(rowLabels);
 
     table->resizeColumnsToContents();
@@ -21,7 +21,7 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
 
     table->horizontalHeader()->setStretchLastSection(true);
 
-    submitButton = new QPushButton("Finalizar", this);
+    submitButton = new QPushButton(tr("Finalizar"), this);
     submitButton->setFont(QFontDatabase::font("Noto Sans", "Bold", 12));
     submitButton->setCursor(Qt::PointingHandCursor);
     connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
@@ -32,7 +32,7 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     layout->setContentsMargins(10, 10, 10, 10);
     setLayout(layout);
 
-    setWindowTitle("Completar tabla SLR");
+    setWindowTitle(tr("Completar tabla SLR"));
 
     int width = table->verticalHeader()->width();
 
