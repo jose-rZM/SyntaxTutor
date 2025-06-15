@@ -3,12 +3,19 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - '**/*.h'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     env:
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
