@@ -13,7 +13,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
 #ifdef QT_DEBUG
-    ll1.PrintTable();
+    grammar.Debug();
 #endif
     fillSortedGrammar();
 

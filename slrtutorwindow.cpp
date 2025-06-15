@@ -14,8 +14,6 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 
 #ifdef QT_DEBUG
     grammar.Debug();
-    slr1.DebugStates();
-    slr1.DebugActions();
 #endif
 
     // ====== Conflict & Reduction State Identification =========
