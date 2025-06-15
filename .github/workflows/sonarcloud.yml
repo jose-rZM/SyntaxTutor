@@ -26,7 +26,7 @@ jobs:
           cd /usr/src/gtest && sudo cmake . && sudo make && sudo cp lib/*.a /usr/lib
           cd $GITHUB_WORKSPACE
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
-            g++ -std=gnu++2a -O0 -g --coverage -ftest-coverage \
+            g++ -std=gnu++2a -O0 -g --coverage -fprofile-arcs -ftest-coverage \
             backend/grammar.cpp \
             backend/grammar_factory.cpp \
             backend/ll1_parser.cpp \
@@ -45,7 +45,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gcovr
-          gcovr -r . --filter '.*backend/.*' --exclude-conditions --sonarqube --output coverage.xml
+          gcovr -r . --filter '.*backend/.*' --exclude-unreachable-branches --exclude-throw-branches --sonarqube --output coverage.xml
           
             
       - name: SonarQube Scan
