@@ -583,7 +583,7 @@ void MainWindow::on_actionReferencia_SLR_1_triggered() {
       <ul>
         <li>Si existe el ítem <code>A → α∙aβ</code> en I, entonces <code>Action[I,a] = s<sub>j</sub></code> (shift al estado j = Goto(I,a)).</li>
         <li>Si existe el ítem <code>A → α∙</code> en I, entonces <code>Action[I,a] = r<sub>k</sub></code> (reduce usando la producción k = A→α) <em>para todo</em> <code>a ∈ SIG(A)</code>.</li>
-        <li><code>Action[I,$] = acc</code> si <code>S' → S∙</code> está en I (aceptación).</li>
+        <li><code>Action[I,$] = acc</code> si <code>S → A·$</code> está en I (aceptación).</li>
       </ul>
     </li>
     <li><b>Transiciones (Goto):</b>  
