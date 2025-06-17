@@ -464,7 +464,7 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
 
     about.setTextFormat(Qt::RichText);
     about.setText(
-        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0</b> ") +
+        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.1</b> ") +
         qApp->applicationVersion() + tr("</p>") +
         tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>") +
         tr("<p><b>Autor:</b> José R.</p>") +
