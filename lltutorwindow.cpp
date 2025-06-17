@@ -237,16 +237,21 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
         R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
     html += "<tr><th>" + tr("No terminal / Símbolo") + "</th>";
     for (const auto& s : ll1.gr_.st_.terminals_) {
+        if (s == ll1.gr_.st_.EPSILON_) {
+            continue;
+        }
         html += "<th>" + QString::fromStdString(s) + "</th>";
     }
     html += "</tr>";
     for (const auto& nt : std::as_const(sortedNonTerminals)) {
         html += "<tr><td align='center'>" + nt + "</td>";
         for (const auto& s : ll1.gr_.st_.terminals_) {
+            if (s == ll1.gr_.st_.EPSILON_) {
+                continue;
+            }
             html += "<td align='center'>";
             if (ll1.ll1_t_[nt.toStdString()].contains(s)) {
-                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0])
-                            .join(' ');
+                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0]).join(' ');
             } else {
                 html += "-";
             }
@@ -2177,7 +2182,7 @@ bool LLTutorWindow::eventFilter(QObject* obj, QEvent* event) {
 void LLTutorWindow::showTreeGraphics(
     std::unique_ptr<LLTutorWindow::TreeNode> root) {
     QDialog* dialog = new QDialog(this);
-    dialog->setWindowTitle("Árbol de derivación CABECERA");
+    dialog->setWindowTitle(tr("Árbol de derivación CABECERA"));
 
     QGraphicsScene* scene = new QGraphicsScene(dialog);
 
