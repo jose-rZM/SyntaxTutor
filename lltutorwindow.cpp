@@ -251,7 +251,8 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
             }
             html += "<td align='center'>";
             if (ll1.ll1_t_[nt.toStdString()].contains(s)) {
-                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0]).join(' ');
+                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0])
+                            .join(' ');
             } else {
                 html += "-";
             }
@@ -1159,13 +1160,17 @@ void LLTutorWindow::updateState(bool isCorrect) {
             userSD[key] = solutionForB().values().join(", ");
             userCAB[sortedGrammar.at(currentRule).second.join(' ')] =
                 solutionForB1().values().join(", ");
-            if (sortedGrammar.at(currentRule).first.toStdString() != ll1.gr_.axiom_) {
-                userSIG[sortedGrammar.at(currentRule).first] = solutionForB2().values().join(", ");
+            if (sortedGrammar.at(currentRule).first.toStdString() !=
+                ll1.gr_.axiom_) {
+                userSIG[sortedGrammar.at(currentRule).first] =
+                    solutionForB2().values().join(", ");
             }
             updateProgressPanel();
             currentRule++;
-            currentState = static_cast<qsizetype>(currentRule) >= sortedGrammar.size() ? State::C
-                                                                                       : State::B;
+            currentState =
+                static_cast<qsizetype>(currentRule) >= sortedGrammar.size()
+                    ? State::C
+                    : State::B;
         } else {
             currentState = State::B1;
         }
