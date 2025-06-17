@@ -2422,11 +2422,12 @@ QString SLRTutorWindow::feedbackForF() {
 
 QString SLRTutorWindow::feedbackForFA() {
     unsigned stId    = currentConflictStateId;
-    QString  txtBase = tr("En el estado I%1 se produce un conflicto LR(0). Un "
-                           "ítem completo compite con otro "
-                           "desplazable. Debes escribir los terminales en los "
-                           "que la tabla aplicará REDUCE.\n")
-                          .arg(stId);
+    QString txtBase
+        = tr("En el estado I%1 se produce un conflicto LR(0). Un "
+             "ítem completo compite con otro "
+             "desplazable. Debes escribir los terminales en los "
+             "que la tabla aplicará REDUCE. Los puedes calcular calculando SIG del antecedente\n")
+              .arg(stId);
 
     QStringList   sol = solutionForFA().values();
     QSet<QString> solSet(sol.begin(), sol.end());
