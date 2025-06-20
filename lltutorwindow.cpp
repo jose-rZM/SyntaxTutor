@@ -3,6 +3,7 @@
 #include "ui_lltutorwindow.h"
 #include <QAbstractButton>
 #include <QFontDatabase>
+#include <QInputDialog>
 #include <QRandomGenerator>
 #include <QRegularExpression>
 
@@ -72,6 +73,11 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     // ====== Signal Connections ================================
     connect(ui->userResponse, &CustomTextEdit::sendRequested, this,
             &LLTutorWindow::on_confirmButton_clicked);
+#ifdef QT_DEBUG
+    auto* debugShortcut = new QShortcut(QKeySequence("Ctrl+Shift+S"), this);
+    connect(debugShortcut, &QShortcut::activated, this,
+            &LLTutorWindow::openDebugMenu);
+#endif
 
     if (tm) {
         setupTutorial();
@@ -1942,6 +1948,36 @@ void LLTutorWindow::on_userResponse_textChanged() {
     // Establece también el máximo para limitar el crecimiento
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
 }
+
+#ifdef QT_DEBUG
+void LLTutorWindow::forceChangeState(State state) {
+    currentState = state;
+    if (currentState == State::C || currentState == State::C_prime) {
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true);
+    } else {
+        ui->userResponse->setDisabled(false);
+        ui->confirmButton->setDisabled(false);
+    }
+
+    addMessage(generateQuestion(), false);
+}
+
+void LLTutorWindow::openDebugMenu() {
+    QStringList states{"A",  "A1", "A2", "A'", "B",  "B1",
+                       "B2", "B'", "C",  "C'", "fin"};
+    bool        ok = false;
+    QString     item =
+        QInputDialog::getItem(this, tr("Cambiar estado"), tr("Estado"), states,
+                              static_cast<int>(currentState), false, &ok);
+    if (ok && !item.isEmpty()) {
+        int idx = states.indexOf(item);
+        if (idx >= 0 && idx < states.size()) {
+            forceChangeState(static_cast<State>(idx));
+        }
+    }
+}
+#endif
 
 void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
                                    std::unordered_set<std::string>& first_set,
