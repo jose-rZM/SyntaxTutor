@@ -201,6 +201,9 @@ public:
 private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
+#ifdef QT_DEBUG
+    void openDebugMenu();
+#endif
 
 signals:
     void sessionFinished(int cntRight, int cntWrong);
@@ -295,6 +298,9 @@ private:
     TutorialManager *tm;
 
     QRegularExpression re{"^\\s+|\\s+$"};
+#ifdef QT_DEBUG
+    void forceChangeState(StateSlr state);
+#endif
 };
 
 #endif // SLRTUTORWINDOW_H

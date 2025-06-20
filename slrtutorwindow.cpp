@@ -3,6 +3,7 @@
 #include "ui_slrtutorwindow.h"
 #include <QEasingCurve>
 #include <QFontDatabase>
+#include <QInputDialog>
 #include <sstream>
 
 SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
@@ -99,6 +100,11 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // ====== Signal Connections ==================================
     connect(ui->userResponse, &CustomTextEdit::sendRequested, this,
             &SLRTutorWindow::on_confirmButton_clicked);
+#ifdef QT_DEBUG
+    auto* debugShortcut = new QShortcut(QKeySequence("Ctrl+Shift+S"), this);
+    connect(debugShortcut, &QShortcut::activated, this,
+            &SLRTutorWindow::openDebugMenu);
+#endif
 
     if (tm) {
         setupTutorial();
@@ -2723,6 +2729,63 @@ void SLRTutorWindow::on_userResponse_textChanged() {
 
     ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
 }
+
+#ifdef QT_DEBUG
+void SLRTutorWindow::forceChangeState(StateSlr state)
+{
+    currentState = state;
+    if (currentState == StateSlr::H || currentState == StateSlr::H_prime) {
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true);
+    } else {
+        ui->userResponse->setDisabled(false);
+        ui->confirmButton->setDisabled(false);
+    }
+
+    addMessage(generateQuestion(), false);
+}
+
+void SLRTutorWindow::openDebugMenu()
+{
+    QStringList states{tr("A: ítem inicial"),
+                       tr("A1: axioma"),
+                       tr("A2: símbolo tras punto"),
+                       tr("A3: reglas del símbolo"),
+                       tr("A4: cierre inicial"),
+                       tr("A': estado inicial"),
+                       tr("B: conteo de estados"),
+                       tr("C: analizar estado"),
+                       tr("CA: símbolos tras punto"),
+                       tr("CB: transición δ"),
+                       tr("D: tamaño SLR"),
+                       tr("D1: n.º estados"),
+                       tr("D2: terminales y no terminales"),
+                       tr("D': tamaño final"),
+                       tr("E: estados con ítems"),
+                       tr("E1: IDs de estados"),
+                       tr("E2: ítems por estado"),
+                       tr("F: conflictos LR0"),
+                       tr("FA: reducción en conflictos"),
+                       tr("G: aplicar REDUCTION"),
+                       tr("H: mostrar tabla"),
+                       tr("H': asistente tabla"),
+                       tr("fin: terminar")};
+    bool ok = false;
+    QString item = QInputDialog::getItem(this,
+                                         tr("Cambiar estado"),
+                                         tr("Estado"),
+                                         states,
+                                         static_cast<int>(currentState),
+                                         false,
+                                         &ok);
+    if (ok && !item.isEmpty()) {
+        int idx = states.indexOf(item);
+        if (idx >= 0 && idx < states.size()) {
+            forceChangeState(static_cast<StateSlr>(idx));
+        }
+    }
+}
+#endif
 
 QString
 SLRTutorWindow::TeachClosure(const std::unordered_set<Lr0Item>& initialItems) {

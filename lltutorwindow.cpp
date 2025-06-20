@@ -1950,7 +1950,8 @@ void LLTutorWindow::on_userResponse_textChanged() {
 }
 
 #ifdef QT_DEBUG
-void LLTutorWindow::forceChangeState(State state) {
+void LLTutorWindow::forceChangeState(State state)
+{
     currentState = state;
     if (currentState == State::C || currentState == State::C_prime) {
         ui->userResponse->setDisabled(true);
@@ -1963,13 +1964,27 @@ void LLTutorWindow::forceChangeState(State state) {
     addMessage(generateQuestion(), false);
 }
 
-void LLTutorWindow::openDebugMenu() {
-    QStringList states{"A",  "A1", "A2", "A'", "B",  "B1",
-                       "B2", "B'", "C",  "C'", "fin"};
-    bool        ok = false;
-    QString     item =
-        QInputDialog::getItem(this, tr("Cambiar estado"), tr("Estado"), states,
-                              static_cast<int>(currentState), false, &ok);
+void LLTutorWindow::openDebugMenu()
+{
+    QStringList states{tr("A: tamaño LL(1)"),
+                       tr("A1: no terminales"),
+                       tr("A2: terminales"),
+                       tr("A': tamaño final"),
+                       tr("B: símbolos directores"),
+                       tr("B1: conjunto CAB"),
+                       tr("B2: conjunto SIG"),
+                       tr("B': SD final"),
+                       tr("C: rellenar tabla"),
+                       tr("C': tabla final"),
+                       tr("fin: terminar")};
+    bool ok = false;
+    QString item = QInputDialog::getItem(this,
+                                         tr("Cambiar estado"),
+                                         tr("Estado"),
+                                         states,
+                                         static_cast<int>(currentState),
+                                         false,
+                                         &ok);
     if (ok && !item.isEmpty()) {
         int idx = states.indexOf(item);
         if (idx >= 0 && idx < states.size()) {
