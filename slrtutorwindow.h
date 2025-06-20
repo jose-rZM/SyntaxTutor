@@ -13,6 +13,7 @@
 #include <QRegularExpression>
 #include <QScrollBar>
 #include <QShortcut>
+#include <QRandomGenerator>
 #include <QTableWidget>
 #include <QTextDocument>
 #include <QTextEdit>
@@ -110,6 +111,10 @@ public:
     void exportConversationToPdf(const QString &filePath); /// < Export full interaction
     void showTable();                                      /// < Render SLR(1) table
     void launchSLRWizard();
+    void handleTableSubmission(const QVector<QVector<QString>> &raw,
+                               const QStringList &colHeaders);
+    QVector<QVector<QString>>
+    buildCorrectTable(const QStringList &colHeaders);
     void updateProgressPanel();     /// < Refresh visual progress
     void addUserState(unsigned id); /// < Register a user-created state
     void addUserTransition(unsigned fromId,
@@ -203,6 +208,8 @@ private slots:
     void on_userResponse_textChanged();
 #ifdef QT_DEBUG
     void openDebugMenu();
+    void toggleAutoMode();
+    void autoStep();
 #endif
 
 signals:
@@ -296,6 +303,10 @@ private:
         = nullptr; // For interrupting userResponse animation if they spam enter key
 
     TutorialManager *tm;
+
+    bool autoMode = false;
+    QTimer *autoTimer = nullptr;
+    SLRTableDialog *currentDlg = nullptr;
 
     QRegularExpression re{"^\\s+|\\s+$"};
 #ifdef QT_DEBUG

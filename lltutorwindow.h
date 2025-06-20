@@ -187,6 +187,8 @@ class LLTutorWindow : public QMainWindow {
     void on_userResponse_textChanged();
 #ifdef QT_DEBUG
     void openDebugMenu();
+    void toggleAutoMode();
+    void autoStep();
 #endif
 
   signals:
@@ -257,11 +259,17 @@ class LLTutorWindow : public QMainWindow {
     void
     fillSortedGrammar(); // Populate sortedGrammar from internal representation
 
+    QVector<QVector<QString>>
+    buildCorrectTable(const QStringList& colHeaders);
+
     QPropertyAnimation* m_shakeAnimation =
         nullptr; // For interrupting userResponse animation if they spam enter
                  // key
 
     TutorialManager* tm = nullptr;
+
+    bool    autoMode   = false;
+    QTimer* autoTimer  = nullptr;
 
     QRegularExpression re{"^\\s+|\\s+$"};
 

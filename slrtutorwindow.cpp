@@ -104,6 +104,8 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     auto* debugShortcut = new QShortcut(QKeySequence("Ctrl+Shift+S"), this);
     connect(debugShortcut, &QShortcut::activated, this,
             &SLRTutorWindow::openDebugMenu);
+    auto* autoShortcut = new QShortcut(QKeySequence("Ctrl+Shift+A"), this);
+    connect(autoShortcut, &QShortcut::activated, this, &SLRTutorWindow::toggleAutoMode);
 #endif
 
     if (tm) {
@@ -385,6 +387,7 @@ void SLRTutorWindow::showTable() {
               });
     auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
                                       colHeaders, this, &rawTable);
+    currentDlg = dialog;
     static const char* darkQss = R"(
     QDialog, QWidget {
         background-color: #2b2b2b;
@@ -422,52 +425,9 @@ void SLRTutorWindow::showTable() {
     dialog->setStyleSheet(darkQss);
 
     connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
-        rawTable = dialog->getTableData();
-
-        slrtable.clear();
-
-        const int nTerm =
-            slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
-                ? slr1.gr_.st_.terminals_.size() - 1
-                : slr1.gr_.st_.terminals_.size();
-        for (int state = 0; state < rawTable.size(); ++state) {
-            for (int j = 0; j < rawTable[state].size(); ++j) {
-                QString cell = rawTable[state][j].trimmed();
-                if (cell.isEmpty())
-                    continue;
-
-                const QString sym = colHeaders[j];
-
-                if (j < nTerm) {
-                    // --- Action with terminal ---
-                    if (cell.startsWith('s', Qt::CaseInsensitive)) {
-                        int toState          = cell.mid(1).toInt();
-                        slrtable[state][sym] = ActionEntry::makeShift(toState);
-                    } else if (cell.startsWith('r', Qt::CaseInsensitive)) {
-                        int prodIdx          = cell.mid(1).toInt();
-                        slrtable[state][sym] = ActionEntry::makeReduce(prodIdx);
-                    } else if (cell.compare("acc", Qt::CaseInsensitive) == 0) {
-                        slrtable[state][sym] = ActionEntry::makeAccept();
-                    } else {
-                        qWarning() << "Entrada no reconocida en Action["
-                                   << state << "][" << sym << "]:" << cell;
-                    }
-                } else {
-                    // --- Goto with non-terminal ---
-                    bool ok      = false;
-                    int  toState = cell.toInt(&ok);
-                    if (ok) {
-                        slrtable[state][sym] = ActionEntry::makeGoto(toState);
-                    } else {
-                        qWarning() << "Goto inválido en [" << state << "]["
-                                   << sym << "]:" << cell;
-                    }
-                }
-            }
-        }
-
-        on_confirmButton_clicked();
+        handleTableSubmission(dialog->getTableData(), colHeaders);
         dialog->deleteLater();
+        currentDlg = nullptr;
     });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
@@ -549,6 +509,7 @@ void SLRTutorWindow::showTable() {
             showTable();
         }
         dialog->deleteLater();
+        currentDlg = nullptr;
     });
     dialog->show();
 }
@@ -2686,6 +2647,123 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     return result;
 }
 
+void SLRTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
+                                           const QStringList&               colHeaders)
+{
+    rawTable = raw;
+    slrtable.clear();
+    const int nTerm =
+        slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
+            ? slr1.gr_.st_.terminals_.size() - 1
+            : slr1.gr_.st_.terminals_.size();
+    for (int state = 0; state < rawTable.size(); ++state) {
+        for (int j = 0; j < rawTable[state].size(); ++j) {
+            QString cell = rawTable[state][j].trimmed();
+            if (cell.isEmpty())
+                continue;
+            const QString sym = colHeaders[j];
+            if (j < nTerm) {
+                if (cell.startsWith('s', Qt::CaseInsensitive)) {
+                    int toState          = cell.mid(1).toInt();
+                    slrtable[state][sym] = ActionEntry::makeShift(toState);
+                } else if (cell.startsWith('r', Qt::CaseInsensitive)) {
+                    int prodIdx          = cell.mid(1).toInt();
+                    slrtable[state][sym] = ActionEntry::makeReduce(prodIdx);
+                } else if (cell.compare("acc", Qt::CaseInsensitive) == 0) {
+                    slrtable[state][sym] = ActionEntry::makeAccept();
+                } else {
+                    qWarning() << "Entrada no reconocida en Action[" << state
+                               << "][" << sym << "]:" << cell;
+                }
+            } else {
+                bool ok      = false;
+                int  toState = cell.toInt(&ok);
+                if (ok) {
+                    slrtable[state][sym] = ActionEntry::makeGoto(toState);
+                } else {
+                    qWarning() << "Goto inválido en [" << state << "][" << sym
+                               << "]:" << cell;
+                }
+            }
+        }
+    }
+
+    on_confirmButton_clicked();
+    if (currentDlg) {
+        currentDlg->deleteLater();
+        currentDlg = nullptr;
+    }
+}
+
+QVector<QVector<QString>>
+SLRTutorWindow::buildCorrectTable(const QStringList& colHeaders)
+{
+    QVector<QVector<QString>> tableData(
+        slr1.states_.size(), QVector<QString>(colHeaders.size()));
+
+    QHash<QString, int> colMap;
+    for (int c = 0; c < colHeaders.size(); ++c)
+        colMap[colHeaders[c]] = c;
+
+    for (const state& st : slr1.states_) {
+        int row = st.id_;
+
+        auto actIt = slr1.actions_.find(row);
+        if (actIt != slr1.actions_.end()) {
+            for (const auto& [sym, act] : actIt->second) {
+                QString qs = QString::fromStdString(sym);
+                int     col = colMap.value(qs, -1);
+                if (col < 0)
+                    continue;
+                switch (act.action) {
+                case SLR1Parser::Action::Shift: {
+                    auto tIt = slr1.transitions_.at(row).find(sym);
+                    if (tIt != slr1.transitions_.at(row).end())
+                        tableData[row][col] =
+                            QStringLiteral("s") + QString::number(tIt->second);
+                    break;
+                }
+                case SLR1Parser::Action::Reduce: {
+                    const Lr0Item* item = act.item;
+                    int            idx  = -1;
+                    for (int k = 0; k < sortedGrammar.size(); ++k) {
+                        if (sortedGrammar[k].first.toStdString() ==
+                                item->antecedent_ &&
+                            stdVectorToQVector(item->consequent_) ==
+                                sortedGrammar[k].second) {
+                            idx = k;
+                            break;
+                        }
+                    }
+                    if (idx >= 0)
+                        tableData[row][col] =
+                            QStringLiteral("r") + QString::number(idx);
+                    break;
+                }
+                case SLR1Parser::Action::Accept:
+                    tableData[row][col] = QStringLiteral("acc");
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        auto trIt = slr1.transitions_.find(row);
+        if (trIt != slr1.transitions_.end()) {
+            for (const auto& [sym, to] : trIt->second) {
+                if (slr1.gr_.st_.IsTerminal(sym))
+                    continue;
+                QString qs = QString::fromStdString(sym);
+                int     col = colMap.value(qs, -1);
+                if (col >= 0)
+                    tableData[row][col] = QString::number(to);
+            }
+        }
+    }
+    return tableData;
+}
+
 void SLRTutorWindow::fillSortedGrammar() {
     QVector<QPair<QString, QVector<QString>>> rules;
     QPair<QString, QVector<QString>>          rule;
@@ -2783,6 +2861,196 @@ void SLRTutorWindow::openDebugMenu()
         if (idx >= 0 && idx < states.size()) {
             forceChangeState(static_cast<StateSlr>(idx));
         }
+    }
+}
+
+void SLRTutorWindow::toggleAutoMode()
+{
+    autoMode = !autoMode;
+    if (autoMode) {
+        if (!autoTimer) {
+            autoTimer = new QTimer(this);
+            connect(autoTimer, &QTimer::timeout, this,
+                    &SLRTutorWindow::autoStep);
+        }
+        autoTimer->start(1500);
+    } else if (autoTimer) {
+        autoTimer->stop();
+    }
+}
+
+void SLRTutorWindow::autoStep()
+{
+    if (!autoMode)
+        return;
+
+    if (currentState == StateSlr::fin) {
+        autoTimer->stop();
+        return;
+    }
+
+    bool    correct = QRandomGenerator::global()->bounded(100) < 80;
+    QString answer;
+
+    auto itemToStr = [](const Lr0Item& it) {
+        QString res = QString::fromStdString(it.antecedent_) + " ->";
+        for (size_t i = 0; i < it.consequent_.size(); ++i) {
+            res += ' ';
+            if (i == it.dot_)
+                res += '.';
+            res += QString::fromStdString(it.consequent_[i]);
+        }
+        if (it.dot_ == it.consequent_.size())
+            res += " .";
+        return res;
+    };
+
+    auto itemsToStr = [&](const std::unordered_set<Lr0Item>& set) {
+        QStringList lines;
+        for (const auto& it : set)
+            lines << itemToStr(it);
+        return lines.join("\n");
+    };
+
+    if (currentState == StateSlr::H && currentDlg) {
+        QStringList colHeaders;
+        for (const auto& sym : slr1.gr_.st_.terminals_) {
+            if (sym == slr1.gr_.st_.EPSILON_)
+                continue;
+            colHeaders << QString::fromStdString(sym);
+        }
+        for (const auto& sym : slr1.gr_.st_.non_terminals_)
+            colHeaders << QString::fromStdString(sym);
+        std::sort(colHeaders.begin(), colHeaders.end(), [](const QString& a, const QString& b) {
+            auto rank = [](const QString& s) {
+                if (s == "$") return 1;
+                if (!s.isEmpty() && s[0].isLower()) return 0;
+                return 2;
+            };
+            int ra = rank(a), rb = rank(b);
+            return ra != rb ? ra < rb : a < b;
+        });
+
+        QVector<QVector<QString>> tableData = buildCorrectTable(colHeaders);
+        if (!correct && !tableData.isEmpty() && !tableData[0].isEmpty()) {
+            int r = QRandomGenerator::global()->bounded(tableData.size());
+            int c = QRandomGenerator::global()->bounded(tableData[0].size());
+            tableData[r][c] = QStringLiteral("x");
+        }
+
+        handleTableSubmission(tableData, colHeaders);
+    } else if (currentState != StateSlr::H && currentState != StateSlr::H_prime) {
+        switch (currentState) {
+        case StateSlr::A:
+            answer = correct ? itemsToStr(solutionForA()) : "x";
+            break;
+        case StateSlr::A1:
+            answer = correct ? solutionForA1() : "x";
+            break;
+        case StateSlr::A2:
+            answer = correct ? solutionForA2() : "x";
+            break;
+        case StateSlr::A3: {
+            if (correct) {
+                QStringList lines;
+                auto rules = solutionForA3();
+                for (const auto& pr : rules) {
+                    QStringList parts;
+                    parts << QString::fromStdString(pr.first) << "->";
+                    for (const auto& s : pr.second)
+                        parts << QString::fromStdString(s);
+                    lines << parts.join(' ');
+                }
+                answer = lines.join("\n");
+            } else {
+                answer = "x";
+            }
+            break;
+        }
+        case StateSlr::A4:
+            answer = correct ? itemsToStr(solutionForA4()) : "x";
+            break;
+        case StateSlr::A_prime:
+            answer = correct ? itemsToStr(solutionForA()) : "x";
+            break;
+        case StateSlr::B:
+            answer = correct ? QString::number(solutionForB()) : "0";
+            break;
+        case StateSlr::C:
+            answer = correct ? QString::number(solutionForC()) : "0";
+            break;
+        case StateSlr::CA:
+            answer = correct ? solutionForCA().join(',') : "x";
+            break;
+        case StateSlr::CB:
+            if (correct) {
+                if (followSymbols.at(currentFollowSymbolsIdx).toStdString() ==
+                    slr1.gr_.st_.EPSILON_)
+                    answer = "";
+                else
+                    answer = itemsToStr(solutionForCB());
+            } else {
+                answer = "x";
+            }
+            break;
+        case StateSlr::D:
+            answer = correct ? solutionForD() : "0,0";
+            break;
+        case StateSlr::D1:
+            answer = correct ? solutionForD1() : "0";
+            break;
+        case StateSlr::D2:
+            answer = correct ? solutionForD2() : "0";
+            break;
+        case StateSlr::D_prime:
+            answer = correct ? solutionForD() : "0,0";
+            break;
+        case StateSlr::E:
+            answer = correct ? QString::number(solutionForE()) : "0";
+            break;
+        case StateSlr::E1: {
+            if (correct) {
+                QStringList ids;
+                for (unsigned v : solutionForE1())
+                    ids << QString::number(v);
+                answer = ids.join(',');
+            } else
+                answer = "x";
+            break;
+        }
+        case StateSlr::E2: {
+            if (correct) {
+                QStringList pairs;
+                auto map = solutionForE2();
+                for (auto it = map.cbegin(); it != map.cend(); ++it)
+                    pairs << QString("%1:%2").arg(it.key()).arg(it.value());
+                answer = pairs.join(',');
+            } else
+                answer = "x";
+            break;
+        }
+        case StateSlr::F: {
+            if (correct) {
+                QStringList ids;
+                for (unsigned v : solutionForF())
+                    ids << QString::number(v);
+                answer = ids.join(',');
+            } else
+                answer = "x";
+            break;
+        }
+        case StateSlr::FA:
+            answer = correct ? QStringList(solutionForFA().values()).join(',') : "x";
+            break;
+        case StateSlr::G:
+            answer = correct ? QStringList(solutionForG().values()).join(',') : "x";
+            break;
+        default:
+            break;
+        }
+
+        ui->userResponse->setText(answer);
+        on_confirmButton_clicked();
     }
 }
 #endif

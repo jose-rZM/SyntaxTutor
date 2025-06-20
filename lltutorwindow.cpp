@@ -77,6 +77,9 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     auto* debugShortcut = new QShortcut(QKeySequence("Ctrl+Shift+S"), this);
     connect(debugShortcut, &QShortcut::activated, this,
             &LLTutorWindow::openDebugMenu);
+    auto* autoShortcut = new QShortcut(QKeySequence("Ctrl+Shift+A"), this);
+    connect(autoShortcut, &QShortcut::activated, this,
+            &LLTutorWindow::toggleAutoMode);
 #endif
 
     if (tm) {
@@ -1918,6 +1921,32 @@ LLTutorWindow::qsetToStdUnorderedSet(const QSet<QString>& qset) {
     return result;
 }
 
+QVector<QVector<QString>>
+LLTutorWindow::buildCorrectTable(const QStringList& colHeaders)
+{
+    QVector<QVector<QString>> tableData;
+    tableData.resize(sortedNonTerminals.size());
+    for (int i = 0; i < sortedNonTerminals.size(); ++i) {
+        tableData[i].resize(colHeaders.size());
+        const QString nt = sortedNonTerminals[i];
+        auto         itN = ll1.ll1_t_.find(nt.toStdString());
+        if (itN == ll1.ll1_t_.end())
+            continue;
+
+        for (int j = 0; j < colHeaders.size(); ++j) {
+            const QString t = colHeaders[j];
+            auto         itT = itN->second.find(t.toStdString());
+            if (itT == itN->second.end() || itT->second.empty())
+                continue;
+
+            tableData[i][j] =
+                QStringList::fromVector(stdVectorToQVector(itT->second.at(0)))
+                    .join(" ");
+        }
+    }
+    return tableData;
+}
+
 void LLTutorWindow::on_userResponse_textChanged() {
     QTextDocument* doc = ui->userResponse->document();
     QFontMetrics   fm(ui->userResponse->font());
@@ -1990,6 +2019,99 @@ void LLTutorWindow::openDebugMenu()
         if (idx >= 0 && idx < states.size()) {
             forceChangeState(static_cast<State>(idx));
         }
+    }
+}
+
+void LLTutorWindow::toggleAutoMode()
+{
+    autoMode = !autoMode;
+    if (autoMode) {
+        if (!autoTimer) {
+            autoTimer = new QTimer(this);
+            connect(autoTimer, &QTimer::timeout, this,
+                    &LLTutorWindow::autoStep);
+        }
+        autoTimer->start(1500);
+    } else if (autoTimer) {
+        autoTimer->stop();
+    }
+}
+
+void LLTutorWindow::autoStep()
+{
+    if (!autoMode)
+        return;
+
+    if (currentState == State::fin) {
+        autoTimer->stop();
+        return;
+    }
+
+    bool    correct = QRandomGenerator::global()->bounded(100) < 80;
+    QString answer;
+
+    if (currentState == State::C && currentDlg) {
+        QStringList colHeaders;
+        for (const auto& symbol : ll1.gr_.st_.terminals_) {
+            if (symbol == ll1.gr_.st_.EPSILON_)
+                continue;
+            colHeaders << QString::fromStdString(symbol);
+        }
+        colHeaders.sort();
+
+        QVector<QVector<QString>> tableData = buildCorrectTable(colHeaders);
+        if (!correct && !tableData.isEmpty() && !tableData[0].isEmpty()) {
+            int r = QRandomGenerator::global()->bounded(tableData.size());
+            int c = QRandomGenerator::global()->bounded(tableData[0].size());
+            tableData[r][c] = QStringLiteral("x");
+        }
+
+        handleTableSubmission(tableData, colHeaders);
+    } else if (currentState != State::C && currentState != State::C_prime) {
+        switch (currentState) {
+        case State::A:
+            answer = correct ? solutionForA().join(",") : "0,0";
+            break;
+        case State::A1:
+            answer = correct ? solutionForA1() : "0";
+            break;
+        case State::A2:
+            answer = correct ? solutionForA2() : "0";
+            break;
+        case State::B:
+            answer = correct ? solutionForB().values().join(",") : "x";
+            break;
+        case State::B1:
+            answer = correct ? solutionForB1().values().join(",") : "x";
+            break;
+        case State::B2:
+            answer = correct ? solutionForB2().values().join(",") : "x";
+            break;
+        case State::B_prime:
+            answer = correct ? solutionForB().values().join(",") : "x";
+            break;
+        default:
+            break;
+        }
+
+        ui->userResponse->setText(answer);
+        on_confirmButton_clicked();
+    } else {
+        addMessage(correct ? tr("[Tabla correcta]") : tr("[Tabla incorrecta]"),
+                   true);
+        if (!correct) {
+            ui->cntWrong->setText(QString::number(++cntWrongAnswers));
+            animateLabelPop(ui->cross);
+            animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
+            addMessage(feedback(), false);
+        } else {
+            ui->cntRight->setText(QString::number(++cntRightAnswers));
+            animateLabelPop(ui->tick);
+            animateLabelColor(ui->tick, QColor::fromRgb(0, 204, 102));
+        }
+        updateState(correct);
+        if (currentState != State::fin)
+            addMessage(generateQuestion(), false);
     }
 }
 #endif
