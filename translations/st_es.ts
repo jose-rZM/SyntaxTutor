@@ -1295,7 +1295,7 @@ Formato: a,b,c — vacío si no se aplica en ninguno.</source>
     <message>
         <location filename="../slrtutorwindow.cpp" line="2053"/>
         <source>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · S. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</source>
-        <translation></translation>
+        <translation type="unfinished">El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · A $. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</translation>
     </message>
     <message>
         <location filename="../slrtutorwindow.cpp" line="2061"/>

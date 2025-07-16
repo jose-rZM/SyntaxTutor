@@ -1558,7 +1558,7 @@ Format: a,b,c (empty if none).</translation>
     <message>
         <location filename="../slrtutorwindow.cpp" line="2053"/>
         <source>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · S. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</source>
-        <translation>The initial state is constructed from the closure of the item associated with the axiom: S -&gt; · S. This represents that nothing has been read yet and we want to derive from the initial symbol.</translation>
+        <translation type="unfinished">The initial state is constructed from the closure of the item associated with the axiom: S -&gt; · A $. This represents that nothing has been read yet and we want to derive from the initial symbol.</translation>
     </message>
     <message>
         <location filename="../slrtutorwindow.cpp" line="2061"/>
