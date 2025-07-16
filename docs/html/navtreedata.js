@@ -27,13 +27,16 @@ var NAVTREE =
   [ "SyntaxTutor", "index.html", [
     [ "SyntaxTutor: An interactive Tool for Learning Syntax Analysis", "index.html", "index" ],
     [ "Changelog", "md_CHANGELOG.html", [
-      [ "[1.0.1] - 2025-06-17", "md_CHANGELOG.html#autotoc_md1", [
-        [ "Added", "md_CHANGELOG.html#autotoc_md2", null ],
-        [ "Fixed", "md_CHANGELOG.html#autotoc_md3", null ],
-        [ "Quality", "md_CHANGELOG.html#autotoc_md4", null ]
+      [ "[1.0.2] - 2025-07-16", "md_CHANGELOG.html#autotoc_md1", [
+        [ "Fixed", "md_CHANGELOG.html#autotoc_md2", null ]
       ] ],
-      [ "[1.0.0] - 2025-06-15", "md_CHANGELOG.html#autotoc_md5", [
-        [ "Initial Release", "md_CHANGELOG.html#autotoc_md6", null ]
+      [ "[1.0.1] - 2025-06-17", "md_CHANGELOG.html#autotoc_md3", [
+        [ "Added", "md_CHANGELOG.html#autotoc_md4", null ],
+        [ "Fixed", "md_CHANGELOG.html#autotoc_md5", null ],
+        [ "Quality", "md_CHANGELOG.html#autotoc_md6", null ]
+      ] ],
+      [ "[1.0.0] - 2025-06-15", "md_CHANGELOG.html#autotoc_md7", [
+        [ "Initial Release", "md_CHANGELOG.html#autotoc_md8", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [

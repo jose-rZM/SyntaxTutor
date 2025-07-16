@@ -1,7 +1,7 @@
 var searchData=
 [
   ['s_5faction_0',['s_action',['../structSLR1Parser_1_1s__action.html',1,'SLR1Parser']]],
-  ['screenshots_1',['🖼️ Interface Screenshots',['../index.html#autotoc_md13',1,'']]],
+  ['screenshots_1',['🖼️ Interface Screenshots',['../index.html#autotoc_md15',1,'']]],
   ['sendrequested_2',['sendRequested',['../classCustomTextEdit.html#a418fa720fd5e46a1f856e859c4989892',1,'CustomTextEdit']]],
   ['sessionfinished_3',['sessionFinished',['../classLLTutorWindow.html#a10877112f1a6d1ab4417cf872a3f21b5',1,'LLTutorWindow::sessionFinished()'],['../classSLRTutorWindow.html#ac3773d3a51fbd153e764e8de31c2fec7',1,'SLRTutorWindow::sessionFinished()']]],
   ['setaxiom_4',['SetAxiom',['../structGrammar.html#a27ecdbca735ffb275a2bad9d1ea539c3',1,'Grammar']]],
@@ -12,7 +12,7 @@ var searchData=
   ['showtable_9',['showTable',['../classLLTutorWindow.html#a4f1547926d1d6034d3d3cd0ba53131a3',1,'LLTutorWindow::showTable()'],['../classSLRTutorWindow.html#af3fcadd81454b1201d6451ba5b1fc514',1,'SLRTutorWindow::showTable()']]],
   ['showtableforcprime_10',['showTableForCPrime',['../classLLTutorWindow.html#a0ae4c32d3c142d9488145d0f368a2940',1,'LLTutorWindow']]],
   ['showtreegraphics_11',['showTreeGraphics',['../classLLTutorWindow.html#a228cec185a4a62f5ac0de6b3275b88f6',1,'LLTutorWindow']]],
-  ['slr_201_20learning_20mode_12',['🧠 SLR(1) Learning Mode',['../index.html#autotoc_md16',1,'']]],
+  ['slr_201_20learning_20mode_12',['🧠 SLR(1) Learning Mode',['../index.html#autotoc_md18',1,'']]],
   ['slr1_5fparser_2ecpp_13',['slr1_parser.cpp',['../slr1__parser_8cpp.html',1,'']]],
   ['slr1_5fparser_2ehpp_14',['slr1_parser.hpp',['../slr1__parser_8hpp.html',1,'']]],
   ['slr1finished_15',['slr1Finished',['../classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf',1,'TutorialManager']]],
@@ -49,7 +49,7 @@ var searchData=
   ['solutionforfa_46',['solutionForFA',['../classSLRTutorWindow.html#a1f0f3520f3d618a6c5e777a86f31e5ad',1,'SLRTutorWindow']]],
   ['solutionforg_47',['solutionForG',['../classSLRTutorWindow.html#a38744c85866ae1c8df6a0f01a61bb0aa',1,'SLRTutorWindow']]],
   ['solvelrconflicts_48',['SolveLRConflicts',['../classSLR1Parser.html#a6a31a57223b052028c74f5d70db41c16',1,'SLR1Parser']]],
-  ['source_49',['🛠️ Building from Source',['../index.html#autotoc_md23',1,'']]],
+  ['source_49',['🛠️ Building from Source',['../index.html#autotoc_md25',1,'']]],
   ['split_50',['Split',['../structGrammar.html#add2f414fe2ddf7e578a70c255daa1996',1,'Grammar']]],
   ['st_5f_51',['st_',['../structGrammar.html#aa78dffbcc2b215a3184e588cbb272097',1,'Grammar::st_'],['../structGrammarFactory_1_1FactoryItem.html#a81f9c40d0e12aed4e8dec48750b94d5e',1,'GrammarFactory::FactoryItem::st_'],['../structSymbolTable.html#a53cb720edec40638f422b1003bd1d461',1,'SymbolTable::st_']]],
   ['start_52',['start',['../classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30',1,'TutorialManager']]],

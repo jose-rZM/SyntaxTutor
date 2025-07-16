@@ -6,13 +6,13 @@ var searchData=
   ['a3_3',['A3',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da6593d7b12fd418cdb35bbf438de72f66',1,'slrtutorwindow.h']]],
   ['a4_4',['A4',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da0c2f3adf2a48bab3adb470f4da57f3d0',1,'slrtutorwindow.h']]],
   ['a_5fprime_5',['A_prime',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8adbb308b04e4006cecc1b9346c85f7f1e',1,'A_prime:&#160;lltutorwindow.h'],['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473dadbb308b04e4006cecc1b9346c85f7f1e',1,'A_prime:&#160;slrtutorwindow.h']]],
-  ['academic_20context_6',['🎓 Academic Context',['../index.html#autotoc_md9',1,'']]],
+  ['academic_20context_6',['🎓 Academic Context',['../index.html#autotoc_md11',1,'']]],
   ['accept_7',['Accept',['../classSLR1Parser.html#ada5e4f3519f68c6b1857742b016c0895ac4408d335012a56ff58937d78050efad',1,'SLR1Parser']]],
   ['action_8',['Action',['../classSLR1Parser.html#ada5e4f3519f68c6b1857742b016c0895',1,'SLR1Parser']]],
   ['action_9',['action',['../structSLR1Parser_1_1s__action.html#aafdb6192300f887f99d4d7ea14201509',1,'SLR1Parser::s_action']]],
   ['action_5ftable_10',['action_table',['../classSLR1Parser.html#a8eae4c68e04f33947c69190bacd1a3bd',1,'SLR1Parser']]],
   ['actions_5f_11',['actions_',['../classSLR1Parser.html#a55ff1960d521b27fec21ca54d1e3d066',1,'SLR1Parser']]],
-  ['added_12',['Added',['../md_CHANGELOG.html#autotoc_md2',1,'']]],
+  ['added_12',['Added',['../md_CHANGELOG.html#autotoc_md4',1,'']]],
   ['addmessage_13',['addMessage',['../classLLTutorWindow.html#ad444321598f7c59c43a8ba36d05dee82',1,'LLTutorWindow::addMessage()'],['../classSLRTutorWindow.html#afbe6fdd9c0ace30a6b4e752fc8cec071',1,'SLRTutorWindow::addMessage()']]],
   ['addproduction_14',['AddProduction',['../structGrammar.html#aa8ba510e14b7d86c9f030611343ed130',1,'Grammar']]],
   ['addstep_15',['addStep',['../classTutorialManager.html#a7b05249eda87d17113d5e91c0b9da529',1,'TutorialManager']]],
@@ -27,6 +27,6 @@ var searchData=
   ['animatelabelcolor_24',['animateLabelColor',['../classLLTutorWindow.html#a2885a07a8cdc6c3c34503ab3c4cc588b',1,'LLTutorWindow::animateLabelColor()'],['../classSLRTutorWindow.html#ac6424e0da7c4efcc0d4252d3893534b7',1,'SLRTutorWindow::animateLabelColor()']]],
   ['animatelabelpop_25',['animateLabelPop',['../classLLTutorWindow.html#ab7cdd1cdd4224c5b02bcfabc51a9d266',1,'LLTutorWindow::animateLabelPop()'],['../classSLRTutorWindow.html#a8ab34eb8e961b0eea0ade0caea85e3c0',1,'SLRTutorWindow::animateLabelPop()']]],
   ['antecedent_5f_26',['antecedent_',['../structLr0Item.html#a044c53ff5c3c36622594d47375ce971d',1,'Lr0Item']]],
-  ['assisted_20mode_3a_20guided_20table_20completion_27',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md17',1,'']]],
+  ['assisted_20mode_3a_20guided_20table_20completion_27',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md19',1,'']]],
   ['axiom_5f_28',['axiom_',['../structGrammar.html#a8bdbc1072253034fab2c1269a4660f57',1,'Grammar']]]
 ];

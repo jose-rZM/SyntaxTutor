@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['table_20completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md17',1,'']]],
+  ['table_20completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md19',1,'']]],
   ['target_1',['target',['../structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9',1,'TutorialStep']]],
   ['teachclosure_2',['TeachClosure',['../classSLRTutorWindow.html#a7f5f278e44249cbde487af1c43dbff3a',1,'SLRTutorWindow']]],
   ['teachclosurestep_3',['TeachClosureStep',['../classSLRTutorWindow.html#aae8ec8f3ea6caa8f7f7c4e2df47cc0d8',1,'SLRTutorWindow']]],
@@ -9,7 +9,7 @@ var searchData=
   ['teachfollow_6',['TeachFollow',['../classLLTutorWindow.html#a9c2b0b4bfa0ae92b7ae8a86b78d9d4a9',1,'LLTutorWindow']]],
   ['teachll1table_7',['TeachLL1Table',['../classLLTutorWindow.html#a186542bdd21f445a34e18d1b88c8554c',1,'LLTutorWindow']]],
   ['teachpredictionsymbols_8',['TeachPredictionSymbols',['../classLLTutorWindow.html#a742bc2a8d3b097d7f1b0d22be6ec68e6',1,'LLTutorWindow']]],
-  ['technologies_20used_9',['🛠️ Technologies Used',['../index.html#autotoc_md19',1,'']]],
+  ['technologies_20used_9',['🛠️ Technologies Used',['../index.html#autotoc_md21',1,'']]],
   ['terminal_10',['TERMINAL',['../symbol__table_8hpp.html#a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6',1,'symbol_table.hpp']]],
   ['terminal_5falphabet_5f_11',['terminal_alphabet_',['../structGrammarFactory.html#a10f99aa4bba42948fb99d9f1b4ae21c5',1,'GrammarFactory']]],
   ['terminals_5f_12',['terminals_',['../structSymbolTable.html#af03e7da4aa005c758792b7779be9cf85',1,'SymbolTable']]],
