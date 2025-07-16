@@ -1,4 +1,7 @@
 <map id="LLTutorWindow::TeachFirstTree" name="LLTutorWindow::TeachFirstTree">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,223,57"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="77,30,71,20,75,11,90,5,114,3,140,5,153,12,151,16,138,10,114,8,91,10,79,15,76,20,81,27"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,223,76"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a550c58032dbf18f48ac4d97d65ed6ec9" title=" " alt="" coords="271,5,477,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,45,255,41,255,46,223,51"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#aeeae3a71bd29bcf5ff97d6ea28211e81" title=" " alt="" coords="271,75,477,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,74,255,79,255,84,222,79"/>
 </map>

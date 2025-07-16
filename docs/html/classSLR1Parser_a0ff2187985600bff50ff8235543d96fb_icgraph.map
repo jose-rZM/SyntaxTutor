@@ -1,6 +1,6 @@
 <map id="SLR1Parser::Closure" name="SLR1Parser::Closure">
 <area shape="rect" id="Node000001" title="Computes the closure of a set of LR(0) items." alt="" coords="794,57,946,85"/>
-<area shape="rect" id="Node000002" href="$classSLR1Parser.html#aee48bcbf0a93badeb5271a7299cc458b" title="Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol." alt="" coords="574,5,711,33"/>
+<area shape="rect" id="Node000002" href="$classSLR1Parser.html#aee48bcbf0a93badeb5271a7299cc458b" title="Computes the GOTO transition ( ) for a given set of LR(0) items and a symbol. This function is equiva..." alt="" coords="574,5,711,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="791,56,706,36,707,31,792,51"/>
 <area shape="rect" id="Node000003" href="$classSLR1Parser.html#a95d3b55554e24aa03f6a73d7b895e78b" title="Creates the initial state of the parser&#39;s state machine." alt="" coords="538,57,746,85"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="779,74,747,74,747,68,779,68"/>

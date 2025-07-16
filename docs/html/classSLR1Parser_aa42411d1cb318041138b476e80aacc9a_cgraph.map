@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,32,181,60"/>
 <area shape="rect" id="Node000002" href="$classSLR1Parser.html#af0a486daf0c5083b113e557d68732481" title="Computes the FIRST sets for all non&#45;terminal symbols in the grammar." alt="" coords="236,5,452,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,34,220,30,221,35,182,39"/>
-<area shape="rect" id="Node000004" href="$classSLR1Parser.html#a06a9888464cfe48152d72311e25ad79a" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar." alt="" coords="229,57,460,85"/>
+<area shape="rect" id="Node000004" href="$classSLR1Parser.html#a06a9888464cfe48152d72311e25ad79a" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar. The FOLLOW set of a non&#45;termina..." alt="" coords="229,57,460,85"/>
 <area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="182,52,213,55,213,61,181,57"/>
 <area shape="rect" id="Node000003" href="$classSLR1Parser.html#a02df38d4f96383ea85d23f56472c57a0" title="Calculates the FIRST set for a given production rule in a grammar." alt="" coords="508,32,637,60"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="453,29,493,34,493,39,452,34"/>

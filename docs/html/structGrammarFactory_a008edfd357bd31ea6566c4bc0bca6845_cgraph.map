@@ -8,7 +8,7 @@
 <area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="137,371,175,489,210,579,257,679,317,783,389,883,430,930,474,972,522,1011,573,1043,610,1058,661,1068,788,1079,930,1079,1062,1074,1062,1080,930,1085,788,1084,660,1074,609,1063,571,1048,519,1015,470,976,426,933,384,887,312,786,253,682,205,581,170,491,132,373"/>
 <area shape="rect" id="Node000011" href="$structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883" title="Checks if a grammar is infinite, meaning there are non&#45;terminal symbols that can never derive a termi..." alt="" coords="1371,1109,1566,1137"/>
 <area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="135,372,153,496,188,691,211,794,239,888,270,966,286,995,304,1017,349,1059,393,1088,435,1108,478,1119,525,1124,575,1126,695,1125,950,1125,1356,1122,1356,1127,950,1130,695,1130,575,1131,524,1130,477,1124,433,1113,390,1093,346,1063,300,1021,282,998,265,968,234,890,206,795,183,692,147,497,130,373"/>
-<area shape="rect" id="Node000012" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Perfoms left factorization. A grammar could be left factorized if it have productions with the same p..." alt="" coords="302,344,524,372"/>
+<area shape="rect" id="Node000012" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Performs left factorization. A grammar can be left factorized if it has productions with the same pre..." alt="" coords="302,344,524,372"/>
 <area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="254,355,286,355,286,360,254,360"/>
 <area shape="rect" id="Node000017" href="$structGrammarFactory.html#a5c57d8d96992059e78a68e5bd5ec5260" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="317,596,508,624"/>
 <area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="149,370,386,583,383,587,145,374"/>
@@ -16,7 +16,7 @@
 <area shape="poly" id="edge53_Node000001_Node000029" title=" " alt="" coords="184,341,312,306,313,311,185,346"/>
 <area shape="rect" id="Node000003" href="$classLL1Parser.html#a2f702d940802a8b02538cb173a6c7e5e" title="Computes the FIRST sets for all non&#45;terminal symbols in the grammar." alt="" coords="593,5,799,33"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="453,81,571,43,607,34,608,39,573,48,455,86"/>
-<area shape="rect" id="Node000005" href="$classLL1Parser.html#a02ee1f3ebc4cedacbb11204e3e8cbfdc" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar." alt="" coords="586,57,807,85"/>
+<area shape="rect" id="Node000005" href="$classLL1Parser.html#a02ee1f3ebc4cedacbb11204e3e8cbfdc" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar. The FOLLOW set of a non&#45;termina..." alt="" coords="586,57,807,85"/>
 <area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="509,86,570,80,570,86,509,91"/>
 <area shape="rect" id="Node000006" href="$classLL1Parser.html#a5e5817b02a5ea7faa4480cb64ad31dd2" title="Computes the prediction symbols for a given production rule." alt="" coords="590,109,803,137"/>
 <area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="509,104,574,110,574,115,509,109"/>

@@ -3,7 +3,7 @@
 <area shape="poly" id="edge8_Node000001_Node000001" title=" " alt="" coords="907,44,894,38,870,36,847,38,835,43,832,48,837,55,833,58,826,48,831,39,846,33,870,31,896,33,910,40"/>
 <area shape="rect" id="Node000002" href="$classLL1Parser.html#a2f702d940802a8b02538cb173a6c7e5e" title="Computes the FIRST sets for all non&#45;terminal symbols in the grammar." alt="" coords="548,109,755,137"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="795,92,714,111,712,106,794,86"/>
-<area shape="rect" id="Node000006" href="$classLL1Parser.html#a02ee1f3ebc4cedacbb11204e3e8cbfdc" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar." alt="" coords="541,57,762,85"/>
+<area shape="rect" id="Node000006" href="$classLL1Parser.html#a02ee1f3ebc4cedacbb11204e3e8cbfdc" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar. The FOLLOW set of a non&#45;termina..." alt="" coords="541,57,762,85"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="795,74,763,74,763,68,795,68"/>
 <area shape="rect" id="Node000007" href="$classLL1Parser.html#a5e5817b02a5ea7faa4480cb64ad31dd2" title="Computes the prediction symbols for a given production rule." alt="" coords="545,5,758,33"/>
 <area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="794,56,712,36,714,31,795,51"/>

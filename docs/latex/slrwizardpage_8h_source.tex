@@ -11,63 +11,58 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QWizard>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QWizardPage>}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6}{SLRWizardPage}}\ :\ \textcolor{keyword}{public}\ QWizardPage}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6}{SLRWizardPage}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structstate}{state}},}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ \&symbol,}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ \&explanation,}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ \&expected,}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ :\ QWizardPage(parent)}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ ,\ m\_state(\mbox{\hyperlink{structstate}{state}})}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ ,\ m\_symbol(symbol)}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ ,\ m\_expected(expected)}
-\DoxyCodeLine{00043\ \ \ \ \ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ setTitle(tr(\textcolor{stringliteral}{"{}Estado\ \%1,\ símbolo\ '\%2'"{}}).arg(\mbox{\hyperlink{structstate}{state}}).arg(symbol));}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ QLabel\ *lbl\ =\ \textcolor{keyword}{new}\ QLabel(explanation,\ \textcolor{keyword}{this});}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ lbl-\/>setWordWrap(\textcolor{keyword}{true});}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6}{SLRWizardPage}}\ :\ \textcolor{keyword}{public}\ QWizardPage\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classSLRWizardPage_ac06ec88e5ba53403211fff75cf4327b6}{SLRWizardPage}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structstate}{state}},\ \textcolor{keyword}{const}\ QString\&\ symbol,\ \textcolor{keyword}{const}\ QString\&\ explanation,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\&\ expected,\ QWidget*\ parent\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ :\ QWizardPage(parent),\ m\_state(\mbox{\hyperlink{structstate}{state}}),\ m\_symbol(symbol),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ m\_expected(expected)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ setTitle(tr(\textcolor{stringliteral}{"{}Estado\ \%1,\ símbolo\ '\%2'"{}}).arg(\mbox{\hyperlink{structstate}{state}}).arg(symbol));}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ QLabel*\ lbl\ =\ \textcolor{keyword}{new}\ QLabel(explanation,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ lbl-\/>setWordWrap(\textcolor{keyword}{true});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ m\_edit\ =\ \textcolor{keyword}{new}\ QLineEdit(\textcolor{keyword}{this});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ m\_edit-\/>setPlaceholderText(}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}Escribe\ tu\ respuesta\ (p.ej.\ s3,\ r2,\ acc,\ 5)"{}}));}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ m\_edit\ =\ \textcolor{keyword}{new}\ QLineEdit(\textcolor{keyword}{this});}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ m\_edit-\/>setPlaceholderText(tr(\textcolor{stringliteral}{"{}Escribe\ tu\ respuesta\ (p.ej.\ s3,\ r2,\ acc,\ 5)"{}}));}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ QVBoxLayout\ *layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ layout-\/>addWidget(lbl);}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ layout-\/>addWidget(m\_edit);}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ setLayout(layout);}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ connect(m\_edit,\ \&QLineEdit::textChanged,\ \textcolor{keyword}{this},\ \&SLRWizardPage::onTextChanged);}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ \textcolor{keyword}{private}\ slots:}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ onTextChanged(\textcolor{keyword}{const}\ QString\ \&text)}
-\DoxyCodeLine{00065\ \ \ \ \ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ correct\ =\ (text.trimmed()\ ==\ m\_expected);}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ setComplete(correct);}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (correct)\ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ setSubTitle(tr(\textcolor{stringliteral}{"{}✔\ Respuesta\ correcta,\ pasa\ a\ la\ siguiente\ pregunta"{}}));}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ setSubTitle(}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}✘\ Incorrecto,\ revisa\ el\ enunciado.\ Consulta\ los\ estados\ que\ has\ construido."{}}));}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ wizard()-\/>button(QWizard::NextButton)-\/>setEnabled(correct);}
-\DoxyCodeLine{00075\ \ \ \ \ \}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ setComplete(\textcolor{keywordtype}{bool}\ complete)}
-\DoxyCodeLine{00083\ \ \ \ \ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ m\_isComplete\ =\ complete;}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ emit\ completeChanged();}
-\DoxyCodeLine{00086\ \ \ \ \ \}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{bool}\ isComplete()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ m\_isComplete;\ \}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{int}\ m\_state;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00095\ \ \ \ \ QString\ m\_symbol;\ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00096\ \ \ \ \ QString\ m\_expected;\ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00097\ \ \ \ \ QLineEdit\ *m\_edit;\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isComplete\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ QVBoxLayout*\ layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ layout-\/>addWidget(lbl);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ layout-\/>addWidget(m\_edit);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ setLayout(layout);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ connect(m\_edit,\ \&QLineEdit::textChanged,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&SLRWizardPage::onTextChanged);}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ onTextChanged(\textcolor{keyword}{const}\ QString\&\ text)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ correct\ =\ (text.trimmed()\ ==\ m\_expected);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ setComplete(correct);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (correct)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ setSubTitle(}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}✔\ Respuesta\ correcta,\ pasa\ a\ la\ siguiente\ pregunta"{}}));}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ setSubTitle(tr(\textcolor{stringliteral}{"{}✘\ Incorrecto,\ revisa\ el\ enunciado.\ Consulta\ los\ "{}}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}estados\ que\ has\ construido."{}}));}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ wizard()-\/>button(QWizard::NextButton)-\/>setEnabled(correct);}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ setComplete(\textcolor{keywordtype}{bool}\ complete)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ m\_isComplete\ =\ complete;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ emit\ completeChanged();}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ isComplete()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ m\_isComplete;\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ m\_state;\ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ QString\ \ \ \ m\_symbol;\ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ QString\ \ \ \ m\_expected;\ }
+\DoxyCodeLine{00096\ \ \ \ \ QLineEdit*\ m\_edit;\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ m\_isComplete\ =}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{false};\ }
 \DoxyCodeLine{00099\ \};}
 \DoxyCodeLine{00100\ }
 \DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRWIZARDPAGE\_H}}

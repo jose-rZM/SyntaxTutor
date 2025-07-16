@@ -1,5 +1,5 @@
 <map id="SLR1Parser::s_action" name="SLR1Parser::s_action">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,98,162,126"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,106,162,134"/>
 <area shape="rect" id="Node000002" href="$structLr0Item.html" title="Represents an LR(0) item used in LR automata construction." alt="" coords="48,5,119,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,48,86,98,81,98,81,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,49,86,105,81,105,81,49"/>
 </map>

@@ -36,7 +36,7 @@ std\+::string \mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}{consequent\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The sequence of symbols on the right-\/hand side of the production. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{structLr0Item_a3eac80af8491180b91b09ab815144b01}{epsilon\+\_\+}}
-\begin{DoxyCompactList}\small\item\em The symbol representing the empty string (ε). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The symbol representing the empty string ( \epsilon). \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{structLr0Item_ae2d19acc432c32741350ff5da9a98316}{eol\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The symbol representing end-\/of-\/line or end-\/of-\/input (\$). \end{DoxyCompactList}\item 
 unsigned int \mbox{\hyperlink{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}{dot\+\_\+}} = 0
@@ -46,8 +46,13 @@ unsigned int \mbox{\hyperlink{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}{d
 \doxysubsection{Detailed Description}
 Represents an LR(0) item used in LR automata construction. 
 
-An LR(0) item has a production of the form A → α·β, where the dot indicates the current parsing position. This structure tracks the antecedent (left-\/hand side), consequent (right-\/hand side), the dot position, and special symbols like EPSILON and end-\/of-\/line (\$). 
+An LR(0) item has a production of the form  A \rightarrow \alpha \bullet
+\beta, where the dot indicates the current parsing position.
 
+This structure tracks the antecedent (left-\/hand side), consequent (right-\/hand side), the dot position, and special symbols like EPSILON and end-\/of-\/line (\$). 
+
+\label{doc-constructors}
+\Hypertarget{structLr0Item_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}\index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
 \index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
@@ -102,6 +107,8 @@ Constructs an LR(0) item with a custom dot position.
 \end{DoxyParams}
 
 
+\label{doc-func-members}
+\Hypertarget{structLr0Item_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{structLr0Item_ac342e279b0a266a84f984b82604532e6}\index{Lr0Item@{Lr0Item}!AdvanceDot@{AdvanceDot}}
 \index{AdvanceDot@{AdvanceDot}!Lr0Item@{Lr0Item}}
@@ -217,6 +224,8 @@ Here is the caller graph for this function\+:\nopagebreak
 \end{figure}
 
 
+\label{doc-variable-members}
+\Hypertarget{structLr0Item_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{structLr0Item_a044c53ff5c3c36622594d47375ce971d}\index{Lr0Item@{Lr0Item}!antecedent\_@{antecedent\_}}
 \index{antecedent\_@{antecedent\_}!Lr0Item@{Lr0Item}}
@@ -266,7 +275,7 @@ std\+::string Lr0\+Item\+::epsilon\+\_\+}
 
 
 
-The symbol representing the empty string (ε). 
+The symbol representing the empty string ( \epsilon). 
 
 
 

@@ -1,5 +1,5 @@
 <map id="LL1Parser::ComputeFollowSets" name="LL1Parser::ComputeFollowSets">
-<area shape="rect" id="Node000001" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar." alt="" coords="541,32,762,60"/>
+<area shape="rect" id="Node000001" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar. The FOLLOW set of a non&#45;termina..." alt="" coords="541,32,762,60"/>
 <area shape="rect" id="Node000002" href="$classLL1Parser.html#a7b33aead1b94c61884afb06f204fd3e4" title="Creates the LL(1) parsing table for the grammar." alt="" coords="302,5,493,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="525,35,493,32,494,27,526,30"/>
 <area shape="rect" id="Node000004" href="$classLL1Parser.html#a9d31e18fd46ed0c7560f03a7e2f0cbeb" title="Constructs an LL1Parser with a grammar object and an input file." alt="" coords="320,57,475,85"/>

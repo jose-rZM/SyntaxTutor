@@ -1,5 +1,5 @@
 <map id="SLRTutorWindow::solutionForG" name="SLRTutorWindow::solutionForG">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,225,33"/>
-<area shape="rect" id="Node000002" href="$structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4" title="Checks whether the dot has reached the end of the production." alt="" coords="273,5,426,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,16,257,16,257,22,225,22"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,14,225,42"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a81410ccd351a369f2198021c717e4f11" title=" " alt="" coords="273,5,462,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,25,257,25,257,30,225,30"/>
 </map>

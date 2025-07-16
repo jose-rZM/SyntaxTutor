@@ -1,7 +1,14 @@
 <map id="TutorialManager::stepStarted" name="TutorialManager::stepStarted">
-<area shape="rect" id="Node000001" title="Emitted when a new tutorial step starts." alt="" coords="458,5,667,33"/>
-<area shape="rect" id="Node000002" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="218,5,410,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="443,22,410,22,410,16,443,16"/>
-<area shape="rect" id="Node000003" href="$classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30" title="Starts the tutorial from the beginning." alt="" coords="5,5,170,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="202,22,170,22,170,16,202,16"/>
+<area shape="rect" id="Node000001" title="Emitted when a new tutorial step starts." alt="" coords="757,35,967,62"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="517,35,709,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="742,51,710,51,710,46,742,46"/>
+<area shape="rect" id="Node000003" href="$classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="256,35,469,62"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="502,60,469,60,469,55,502,55"/>
+<area shape="rect" id="Node000006" href="$classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30" title="Starts the tutorial from the beginning." alt="" coords="280,87,444,114"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="528,69,433,89,432,83,527,63"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="485,37,517,37,517,42,485,42"/>
+<area shape="rect" id="Node000004" href="$classTutorialManager.html#ab1a4a56a7150cf6f216a831e09dd7209" title="Clears all steps in the tutorial." alt="" coords="5,5,208,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="240,37,208,33,208,28,240,32"/>
+<area shape="rect" id="Node000005" href="$classTutorialManager.html#a57817e60d063bad9ac188e1cf9c86588" title="Sets the root window (used for repositioning the overlay)." alt="" coords="14,57,199,102"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="241,66,200,71,199,65,240,60"/>
 </map>

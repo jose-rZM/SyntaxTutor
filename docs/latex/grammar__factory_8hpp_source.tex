@@ -43,49 +43,48 @@
 \DoxyCodeLine{00136\ }
 \DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\ \mbox{\hyperlink{structGrammarFactory_a0048c0c61b253a0f2d29bcce7c6ead44}{CreateLv2Item}}();}
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/\ SANITY\ CHECKS\ -\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db}{HasUnreachableSymbols}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883}{IsInfinite}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00169\ }
-\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f}{HasDirectLeftRecursion}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5}{HasIndirectLeftRecursion}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a545a96027491b8858aa2621f6476385f}{HasCycle}}(\textcolor{keyword}{const}\ std::unordered\_map<std::string,\ std::unordered\_set<std::string>>\&\ graph)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00197\ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549}{NullableSymbols}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00198\ }
-\DoxyCodeLine{00199\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/\ TRANSFORMATIONS\ -\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54}{RemoveLeftRecursion}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar);}
-\DoxyCodeLine{00210\ }
-\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c}{LeftFactorize}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar);}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db}{HasUnreachableSymbols}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883}{IsInfinite}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f}{HasDirectLeftRecursion}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5}{HasIndirectLeftRecursion}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_a545a96027491b8858aa2621f6476385f}{HasCycle}}(\textcolor{keyword}{const}\ std::unordered\_map<std::string,\ std::unordered\_set<std::string>>\&\ graph)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00199\ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549}{NullableSymbols}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54}{RemoveLeftRecursion}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar);}
 \DoxyCodeLine{00222\ }
-\DoxyCodeLine{00234\ \ \ \ \ std::vector<std::string>}
-\DoxyCodeLine{00235\ \ \ \ \ \mbox{\hyperlink{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003}{LongestCommonPrefix}}(\textcolor{keyword}{const}\ std::vector<production>\&\ productions);}
-\DoxyCodeLine{00236\ }
-\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9}{StartsWith}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}}\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prod,}
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ prefix);}
-\DoxyCodeLine{00252\ }
-\DoxyCodeLine{00265\ \ \ \ \ std::string\ \mbox{\hyperlink{structGrammarFactory_aca2925bbcb27fa32b0b53d626dfd7b7e}{GenerateNewNonTerminal}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ \ \ \ \ \ \ \ \ \ \ grammar,}
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ base);}
-\DoxyCodeLine{00267\ }
-\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464}{NormalizeNonTerminals}}(\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ item,\ \textcolor{keyword}{const}\ std::string\&\ nt)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00279\ }
-\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd}{AdjustTerminals}}(\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ base,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ cmb,}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ target\_nt)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00293\ }
-\DoxyCodeLine{00304\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<production>>}
-\DoxyCodeLine{00305\ \ \ \ \ \mbox{\hyperlink{structGrammarFactory_a44b66cee9f82b5643992e1290f3653bb}{Merge}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ base,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ cmb)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00306\ }
-\DoxyCodeLine{00311\ \ \ \ \ std::vector<FactoryItem>\ \mbox{\hyperlink{structGrammarFactory_a4abe0dd76b57891bf88d72f96e609400}{items}};}
-\DoxyCodeLine{00312\ }
-\DoxyCodeLine{00316\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structGrammarFactory_a10f99aa4bba42948fb99d9f1b4ae21c5}{terminal\_alphabet\_}}\{\textcolor{stringliteral}{"{}a"{}},\ \textcolor{stringliteral}{"{}b"{}},\ \textcolor{stringliteral}{"{}c"{}},\ \textcolor{stringliteral}{"{}d"{}},\ \textcolor{stringliteral}{"{}e"{}},\ \textcolor{stringliteral}{"{}f"{}},}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}g"{}},\ \textcolor{stringliteral}{"{}h"{}},\ \textcolor{stringliteral}{"{}i"{}},\ \textcolor{stringliteral}{"{}j"{}},\ \textcolor{stringliteral}{"{}k"{}},\ \textcolor{stringliteral}{"{}l"{}}\};}
-\DoxyCodeLine{00318\ }
-\DoxyCodeLine{00322\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structGrammarFactory_af83e177b6eab8c0ebf3baa719845090d}{non\_terminal\_alphabet\_}}\{\textcolor{stringliteral}{"{}A"{}},\ \textcolor{stringliteral}{"{}B"{}},\ \textcolor{stringliteral}{"{}C"{}},\ \textcolor{stringliteral}{"{}D"{}},}
-\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}E"{}},\ \textcolor{stringliteral}{"{}F"{}},\ \textcolor{stringliteral}{"{}G"{}}\};}
-\DoxyCodeLine{00324\ \};}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c}{LeftFactorize}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00258\ \ \ \ \ std::vector<std::string>}
+\DoxyCodeLine{00259\ \ \ \ \ \mbox{\hyperlink{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003}{LongestCommonPrefix}}(\textcolor{keyword}{const}\ std::vector<production>\&\ productions);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9}{StartsWith}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}}\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prod,}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ prefix);}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00289\ \ \ \ \ std::string\ \mbox{\hyperlink{structGrammarFactory_aca2925bbcb27fa32b0b53d626dfd7b7e}{GenerateNewNonTerminal}}(\mbox{\hyperlink{structGrammar}{Grammar}}\&\ \ \ \ \ \ \ \ \ \ \ grammar,}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ base);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a7eb4aeb1e55ff7e38e9f5b8a1fbfd464}{NormalizeNonTerminals}}(\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ item,\ \textcolor{keyword}{const}\ std::string\&\ nt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd}{AdjustTerminals}}(\mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ base,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ cmb,}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ target\_nt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00328\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<production>>}
+\DoxyCodeLine{00329\ \ \ \ \ \mbox{\hyperlink{structGrammarFactory_a44b66cee9f82b5643992e1290f3653bb}{Merge}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ base,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammarFactory_1_1FactoryItem}{FactoryItem}}\&\ cmb)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00335\ \ \ \ \ std::vector<FactoryItem>\ \mbox{\hyperlink{structGrammarFactory_a4abe0dd76b57891bf88d72f96e609400}{items}};}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00340\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structGrammarFactory_a10f99aa4bba42948fb99d9f1b4ae21c5}{terminal\_alphabet\_}}\{\textcolor{stringliteral}{"{}a"{}},\ \textcolor{stringliteral}{"{}b"{}},\ \textcolor{stringliteral}{"{}c"{}},\ \textcolor{stringliteral}{"{}d"{}},\ \textcolor{stringliteral}{"{}e"{}},\ \textcolor{stringliteral}{"{}f"{}},}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}g"{}},\ \textcolor{stringliteral}{"{}h"{}},\ \textcolor{stringliteral}{"{}i"{}},\ \textcolor{stringliteral}{"{}j"{}},\ \textcolor{stringliteral}{"{}k"{}},\ \textcolor{stringliteral}{"{}l"{}}\};}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00346\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structGrammarFactory_af83e177b6eab8c0ebf3baa719845090d}{non\_terminal\_alphabet\_}}\{\textcolor{stringliteral}{"{}A"{}},\ \textcolor{stringliteral}{"{}B"{}},\ \textcolor{stringliteral}{"{}C"{}},\ \textcolor{stringliteral}{"{}D"{}},}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}E"{}},\ \textcolor{stringliteral}{"{}F"{}},\ \textcolor{stringliteral}{"{}G"{}}\};}
+\DoxyCodeLine{00348\ \};}
 
 \end{DoxyCode}

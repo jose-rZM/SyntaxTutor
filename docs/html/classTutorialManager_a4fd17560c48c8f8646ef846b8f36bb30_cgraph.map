@@ -1,11 +1,12 @@
 <map id="TutorialManager::start" name="TutorialManager::start">
-<area shape="rect" id="Node000001" title="Starts the tutorial from the beginning." alt="" coords="5,57,170,85"/>
-<area shape="rect" id="Node000002" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="218,57,410,85"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,68,202,68,202,74,170,74"/>
+<area shape="rect" id="Node000001" title="Starts the tutorial from the beginning." alt="" coords="5,32,170,60"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="218,32,410,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,43,202,43,202,48,170,48"/>
 <area shape="rect" id="Node000003" href="$classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="458,5,671,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,54,479,34,480,39,385,59"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="410,42,487,33,487,38,411,47"/>
 <area shape="rect" id="Node000004" href="$classTutorialManager.html#aba61470a5090632d6df51b167e740054" title="Emitted when a new tutorial step starts." alt="" coords="460,57,669,85"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="410,68,445,68,445,74,410,74"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="411,53,445,56,444,62,410,58"/>
 <area shape="rect" id="Node000005" href="$classTutorialManager.html#ac3e8c34792596992dc52d21de5198030" title="Emitted when the full tutorial is finished." alt="" coords="474,109,655,154"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="375,83,460,103,458,109,374,88"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="356,58,459,94,480,101,478,106,457,99,354,63"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="458,24,392,32,391,27,457,19"/>
 </map>

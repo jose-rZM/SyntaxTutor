@@ -1,5 +1,7 @@
 <map id="LLTutorWindow::feedbackForAPrime" name="LLTutorWindow::feedbackForAPrime">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,212,50"/>
-<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#aa2741ddaaebe054599186f68169852c4" title=" " alt="" coords="260,14,467,42"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,25,244,25,244,30,212,30"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,28,212,72"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#ac45e43831b3af81f0b667592e69b2137" title=" " alt="" coords="260,5,516,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,36,244,32,244,38,212,41"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a560702b183dbcfed68850b0df1ec6641" title=" " alt="" coords="274,57,502,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,58,259,63,258,68,212,63"/>
 </map>
