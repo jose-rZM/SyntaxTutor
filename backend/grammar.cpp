@@ -19,8 +19,8 @@
 #include "grammar.hpp"
 #include "symbol_table.hpp"
 #include <algorithm>
-#include <ranges>
 #include <iostream>
+#include <ranges>
 #include <unordered_map>
 #include <vector>
 
@@ -41,28 +41,25 @@ Grammar::Grammar(
             }
         }
     }
-    axiom_ = "S";
-    g_ = grammar;
+    axiom_     = "S";
+    g_         = grammar;
     g_[axiom_] = {{"A", st_.EOL_}};
     st_.PutSymbol(axiom_, false);
 }
 
-void Grammar::SetAxiom(const std::string& axiom)
-{
+void Grammar::SetAxiom(const std::string& axiom) {
     axiom_ = axiom;
 }
 
-bool Grammar::HasEmptyProduction(const std::string& antecedent) const
-{
+bool Grammar::HasEmptyProduction(const std::string& antecedent) const {
     auto rules{g_.at(std::string{antecedent})};
     return std::ranges::find_if(rules, [&](const auto& rule) {
                return rule[0] == st_.EPSILON_;
            }) != rules.end();
 }
 
-std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByConsequent(
-    const std::string& arg) const
-{
+std::vector<std::pair<const std::string, production>>
+Grammar::FilterRulesByConsequent(const std::string& arg) const {
     std::vector<std::pair<const std::string, production>> rules;
     for (const auto& [nt, prods] : g_) {
         for (const production& prod : prods) {
@@ -76,7 +73,7 @@ std::vector<std::pair<const std::string, production>> Grammar::FilterRulesByCons
 
 // GCOVR_EXCL_START
 // LCOV_EXCL_START
-void Grammar::Debug() const //NOSONAR
+void Grammar::Debug() const // NOSONAR
 {
     std::cout << "Grammar:\n";
     for (const auto& entry : g_) {
@@ -103,9 +100,9 @@ std::vector<std::string> Grammar::Split(const std::string& s) {
         return {st_.EPSILON_};
     }
     std::vector<std::string> splitted;
-    std::string str;
-    unsigned start{0};
-    unsigned end{1};
+    std::string              str;
+    unsigned                 start{0};
+    unsigned                 end{1};
 
     while (end <= s.size()) {
         str = s.substr(start, end - start);
@@ -113,8 +110,7 @@ std::vector<std::string> Grammar::Split(const std::string& s) {
         if (st_.In(str)) {
             unsigned lookahead = end + 1;
             while (lookahead <= s.size()) {
-                if (std::string extended =
-                        s.substr(start, lookahead - start);
+                if (std::string extended = s.substr(start, lookahead - start);
                     st_.In(extended)) {
                     end = lookahead;
                 }
@@ -122,7 +118,7 @@ std::vector<std::string> Grammar::Split(const std::string& s) {
             }
             splitted.push_back(s.substr(start, end - start));
             start = end;
-            end = start + 1;
+            end   = start + 1;
         } else {
             ++end;
         }

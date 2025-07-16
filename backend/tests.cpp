@@ -21,8 +21,8 @@
 #include "ll1_parser.hpp"
 #include "slr1_parser.hpp"
 #include <algorithm>
-#include <ranges>
 #include <gtest/gtest.h>
+#include <ranges>
 namespace testing {
 namespace internal {
 template <> void PrintTo(const Lr0Item& item, std::ostream* os) {
@@ -38,15 +38,14 @@ void SortProductions(Grammar& grammar) {
 }
 
 TEST(GrammarTest, SimpleGrammar) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"a"}}}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a"}}}});
 
     Grammar gr(g);
 
     std::unordered_map<std::string, std::vector<production>> expected;
-    expected["S"] = { {"A", "$"} };
-    expected["A"] = { {"a"} };
+    expected["S"] = {{"A", "$"}};
+    expected["A"] = {{"a"}};
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_TRUE(gr.g_.contains("S"));
@@ -56,18 +55,16 @@ TEST(GrammarTest, SimpleGrammar) {
     ASSERT_TRUE(gr.st_.terminals_.contains("$"));
 }
 
-
 TEST(GrammarTest, GrammarWithEpsilon) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{ "EPSILON" }}}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"EPSILON"}}}});
 
-    Grammar gr(g);
+    Grammar           gr(g);
     const std::string eps = gr.st_.EPSILON_;
 
     std::unordered_map<std::string, std::vector<production>> expected;
-    expected["S"] = { {"A", "$"} };
-    expected["A"] = { {eps} };
+    expected["S"] = {{"A", "$"}};
+    expected["A"] = {{eps}};
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_EQ(gr.g_, expected);
@@ -75,19 +72,16 @@ TEST(GrammarTest, GrammarWithEpsilon) {
     ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
 }
 
-
 TEST(GrammarTest, MultipleProductionsMixedSymbols) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", { {"a", "B"}, {"b"} }},
-        {"B", { {"c"} }}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a", "B"}, {"b"}}}, {"B", {{"c"}}}});
 
     Grammar gr(g);
 
     std::unordered_map<std::string, std::vector<production>> expected;
-    expected["S"] = { {"A", "$"} };
-    expected["A"] = { {"a", "B"}, {"b"} };
-    expected["B"] = { {"c"} };
+    expected["S"] = {{"A", "$"}};
+    expected["A"] = {{"a", "B"}, {"b"}};
+    expected["B"] = {{"c"}};
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_TRUE(gr.g_.contains("S"));
@@ -100,21 +94,19 @@ TEST(GrammarTest, MultipleProductionsMixedSymbols) {
     ASSERT_TRUE(gr.st_.non_terminals_.contains("B"));
 }
 
-
 TEST(GrammarTest, RecursiveArithmeticGrammar) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", { {"A", "p", "T"}, {"T"} }},
-        {"T", { {"T", "m", "F"}, {"F"} }},
-        {"F", { {"a", "A", "c"}, {"i"} }}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"A", "p", "T"}, {"T"}}},
+         {"T", {{"T", "m", "F"}, {"F"}}},
+         {"F", {{"a", "A", "c"}, {"i"}}}});
 
     Grammar gr(g);
 
     std::unordered_map<std::string, std::vector<production>> expected;
-    expected["S"] = { {"A", "$"} };                    
-    expected["A"] = { {"A", "p", "T"}, {"T"} };
-    expected["T"] = { {"T", "m", "F"}, {"F"} };
-    expected["F"] = { {"a", "A", "c"}, {"i"} };
+    expected["S"] = {{"A", "$"}};
+    expected["A"] = {{"A", "p", "T"}, {"T"}};
+    expected["T"] = {{"T", "m", "F"}, {"F"}};
+    expected["F"] = {{"a", "A", "c"}, {"i"}};
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_TRUE(gr.g_.contains("S"));
@@ -133,19 +125,19 @@ TEST(GrammarTest, RecursiveArithmeticGrammar) {
 TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
     std::unordered_map<std::string, std::vector<production>> g;
     {
-        g["A"] = { {"a"}, {"EPSILON"} };
-        g["B"] = { {"b", "B"}, {"b"} };
-        g["C"] = { {"c"} };
+        g["A"] = {{"a"}, {"EPSILON"}};
+        g["B"] = {{"b", "B"}, {"b"}};
+        g["C"] = {{"c"}};
     }
 
-    Grammar gr(g);
+    Grammar           gr(g);
     const std::string eps = gr.st_.EPSILON_;
 
     std::unordered_map<std::string, std::vector<production>> expected;
-    expected["S"]  = { {"A", "$"} };       
-    expected["A"]  = { {"a"}, {eps} };
-    expected["B"]  = { {"b", "B"}, {"b"} };
-    expected["C"]  = { {"c"} };
+    expected["S"] = {{"A", "$"}};
+    expected["A"] = {{"a"}, {eps}};
+    expected["B"] = {{"b", "B"}, {"b"}};
+    expected["C"] = {{"c"}};
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_TRUE(gr.g_.contains("S"));
@@ -162,9 +154,8 @@ TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
 
 TEST(GrammarTest, AxiomIsInsertedAtConstruction) {
     using production = std::vector<std::string>;
-    std::unordered_map<std::string, std::vector<production>> init {
-        { "A", { {"a"},   { "EPSILON" } } }
-    };
+    std::unordered_map<std::string, std::vector<production>> init{
+        {"A", {{"a"}, {"EPSILON"}}}};
 
     Grammar gr(init);
 
@@ -182,10 +173,9 @@ TEST(GrammarTest, AxiomIsInsertedAtConstruction) {
 }
 
 TEST(GrammarSplitTest, SplitEpsilonReturnsSingleton) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"a"}}}
-    });
-    Grammar gr(g);
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a"}}}});
+    Grammar           gr(g);
     const std::string eps = gr.st_.EPSILON_;
 
     auto result = gr.Split(eps);
@@ -194,10 +184,8 @@ TEST(GrammarSplitTest, SplitEpsilonReturnsSingleton) {
 }
 
 TEST(GrammarSplitTest, SplitSingleCharSymbols) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"a", "B"}}},   
-        {"B", {{"b"}}}         
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a", "B"}}}, {"B", {{"b"}}}});
     Grammar gr(g);
 
     auto result = gr.Split("ab");
@@ -207,9 +195,8 @@ TEST(GrammarSplitTest, SplitSingleCharSymbols) {
 }
 
 TEST(GrammarSplitTest, SplitLongestMatchPrefersLongerSymbol) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"ab"}}}   
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"ab"}}}});
     Grammar gr(g);
 
     auto result = gr.Split("ab");
@@ -218,10 +205,8 @@ TEST(GrammarSplitTest, SplitLongestMatchPrefersLongerSymbol) {
 }
 
 TEST(GrammarSplitTest, SplitInvalidSubstringReturnsEmpty) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"a"}}},
-        {"B", {{"b"}}}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a"}}}, {"B", {{"b"}}}});
     Grammar gr(g);
 
     auto result = gr.Split("ac");
@@ -229,11 +214,8 @@ TEST(GrammarSplitTest, SplitInvalidSubstringReturnsEmpty) {
 }
 
 TEST(GrammarSplitBranchTest, PrefersLongestAmongMultipleSymbols) {
-    std::unordered_map<std::string, std::vector<production>> rules {
-        { "A", {{"a"}} },
-        { "B", {{"ab"}} },
-        { "C", {{"aba"}} }
-    };
+    std::unordered_map<std::string, std::vector<production>> rules{
+        {"A", {{"a"}}}, {"B", {{"ab"}}}, {"C", {{"aba"}}}};
     Grammar gr(rules);
 
     auto result = gr.Split("aba");
@@ -242,10 +224,8 @@ TEST(GrammarSplitBranchTest, PrefersLongestAmongMultipleSymbols) {
 }
 
 TEST(GrammarSplitBranchTest, SplitMixSingleAndDouble) {
-    std::unordered_map<std::string, std::vector<production>> rules {
-        { "X", {{"x"}} },
-        { "Y", {{"yz"}} }
-    };
+    std::unordered_map<std::string, std::vector<production>> rules{
+        {"X", {{"x"}}}, {"Y", {{"yz"}}}};
     Grammar gr(rules);
 
     auto result = gr.Split("xyz");
@@ -255,10 +235,8 @@ TEST(GrammarSplitBranchTest, SplitMixSingleAndDouble) {
 }
 
 TEST(GrammarSplitBranchTest, SplitTrailingInvalidReturnsEmpty) {
-    std::unordered_map<std::string, std::vector<production>> rules {
-        { "A", {{"a"}} },
-        { "B", {{"b"}} }
-    };
+    std::unordered_map<std::string, std::vector<production>> rules{
+        {"A", {{"a"}}}, {"B", {{"b"}}}};
     Grammar gr(rules);
 
     auto result = gr.Split("abX");
@@ -266,11 +244,8 @@ TEST(GrammarSplitBranchTest, SplitTrailingInvalidReturnsEmpty) {
 }
 
 TEST(GrammarSplitBranchTest, SplitRepeatingLongestSymbols) {
-    std::unordered_map<std::string, std::vector<production>> rules {
-        { "T", {{"t"}} },
-        { "U", {{"tu"}} },
-        { "V", {{"tuv"}} }
-    };
+    std::unordered_map<std::string, std::vector<production>> rules{
+        {"T", {{"t"}}}, {"U", {{"tu"}}}, {"V", {{"tuv"}}}};
     Grammar gr(rules);
 
     auto result = gr.Split("tuvtuv");
@@ -280,9 +255,8 @@ TEST(GrammarSplitBranchTest, SplitRepeatingLongestSymbols) {
 }
 
 TEST(GrammarMiscTest, SetAxiomChangesAxiom) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"a"}}}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a"}}}});
     Grammar gr(g);
 
     ASSERT_EQ(gr.axiom_, "S");
@@ -290,19 +264,14 @@ TEST(GrammarMiscTest, SetAxiomChangesAxiom) {
     EXPECT_EQ(gr.axiom_, "X");
 }
 
-
 TEST(GrammarMiscTest, HasEmptyProductionDetectsEpsilon) {
-    std::unordered_map<std::string, std::vector<production>> g_initial({
-        {"A", {{"a"}}},
-        {"B", {{"b"}}}
-    });
-    Grammar temp(g_initial);
+    std::unordered_map<std::string, std::vector<production>> g_initial(
+        {{"A", {{"a"}}}, {"B", {{"b"}}}});
+    Grammar           temp(g_initial);
     const std::string eps = temp.st_.EPSILON_;
 
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{eps}, {"x"}}},
-        {"B", {{"b"}}}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{eps}, {"x"}}}, {"B", {{"b"}}}});
     Grammar gr(g);
 
     EXPECT_TRUE(gr.HasEmptyProduction("A"));
@@ -310,11 +279,8 @@ TEST(GrammarMiscTest, HasEmptyProductionDetectsEpsilon) {
 }
 
 TEST(GrammarMiscTest, FilterRulesByConsequentFindsAllOccurrences) {
-    std::unordered_map<std::string, std::vector<production>> g({
-        {"A", {{"a", "B"}}},
-        {"B", {{"b"}}},
-        {"C", {{"B", "c"}}}
-    });
+    std::unordered_map<std::string, std::vector<production>> g(
+        {{"A", {{"a", "B"}}}, {"B", {{"b"}}}, {"C", {{"B", "c"}}}});
     Grammar gr(g);
 
     auto rules = gr.FilterRulesByConsequent("B");
@@ -323,12 +289,14 @@ TEST(GrammarMiscTest, FilterRulesByConsequentFindsAllOccurrences) {
 
     bool foundA = false, foundC = false;
     for (auto& p : rules) {
-        const std::string& lhs = p.first;
-        const production& prod = p.second;
-        if (lhs == "A" && prod.size() == 2 && prod[0] == "a" && prod[1] == "B") {
+        const std::string& lhs  = p.first;
+        const production&  prod = p.second;
+        if (lhs == "A" && prod.size() == 2 && prod[0] == "a" &&
+            prod[1] == "B") {
             foundA = true;
         }
-        if (lhs == "C" && prod.size() == 2 && prod[0] == "B" && prod[1] == "c") {
+        if (lhs == "C" && prod.size() == 2 && prod[0] == "B" &&
+            prod[1] == "c") {
             foundC = true;
         }
     }
@@ -348,16 +316,15 @@ TEST(GrammarFactoryInitTest, BaseItemsHaveExpectedProductions) {
     ASSERT_EQ(factory.items.size(), 9u);
 
     std::vector<std::vector<std::vector<std::string>>> expected = {
-        { {"a","b","A"}, {"a"} },
-        { {"a","b","A"}, {"a","b"} },
-        { {"a","A","b"}, {"EPSILON"} },
-        { {"A","a"},    {"EPSILON"} },
-        { {"a","A"},    {"EPSILON"} },
-        { {"a","A","c"},{"b"} },
-        { {"a","A","a"},{"b"} },
-        { {"A","a"},    {"b"} },
-        { {"b","A"},    {"a"} }
-    };
+        {{"a", "b", "A"}, {"a"}},
+        {{"a", "b", "A"}, {"a", "b"}},
+        {{"a", "A", "b"}, {"EPSILON"}},
+        {{"A", "a"}, {"EPSILON"}},
+        {{"a", "A"}, {"EPSILON"}},
+        {{"a", "A", "c"}, {"b"}},
+        {{"a", "A", "a"}, {"b"}},
+        {{"A", "a"}, {"b"}},
+        {{"b", "A"}, {"a"}}};
 
     for (size_t i = 0; i < expected.size(); ++i) {
         const auto& map_i = factory.items[i];
@@ -381,14 +348,14 @@ TEST(GrammarFactoryTest, Lv1GrammarIsOneBaseGrammar) {
     ASSERT_FALSE(g.g_.empty());
     ASSERT_GE(g.g_.size(), 2);
     g.g_.erase("S");
-    bool ret = std::ranges::any_of(factory.items, [&g](const GrammarFactory::FactoryItem &item) {
-        return item.g_ == g.g_;
-    });
+    bool ret = std::ranges::any_of(
+        factory.items, [&g](const GrammarFactory::FactoryItem& item) {
+            return item.g_ == g.g_;
+        });
     ASSERT_TRUE(ret);
 }
 
-TEST(GrammarFactoryTest, Lv2GrammarHaveSizeGt3)
-{
+TEST(GrammarFactoryTest, Lv2GrammarHaveSizeGt3) {
     GrammarFactory factory;
 
     factory.Init();
@@ -400,8 +367,7 @@ TEST(GrammarFactoryTest, Lv2GrammarHaveSizeGt3)
     ASSERT_TRUE(g.g_.contains("B"));
 }
 
-TEST(GrammarFactoryTest, Lv3GrammarHaveSizeGt4)
-{
+TEST(GrammarFactoryTest, Lv3GrammarHaveSizeGt4) {
     GrammarFactory factory;
 
     factory.Init();
@@ -414,169 +380,155 @@ TEST(GrammarFactoryTest, Lv3GrammarHaveSizeGt4)
     ASSERT_TRUE(g.g_.contains("C"));
 }
 
-TEST(GrammarFactoryTest, GeneratedLv1LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv1LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 100; ++i) {
-        Grammar g = factory.GenLL1Grammar(1);
+        Grammar   g = factory.GenLL1Grammar(1);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv2LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv2LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 100; ++i) {
-        Grammar g = factory.GenLL1Grammar(2);
+        Grammar   g = factory.GenLL1Grammar(2);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv3LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv3LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 100; ++i) {
-        Grammar g = factory.GenLL1Grammar(3);
+        Grammar   g = factory.GenLL1Grammar(3);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv4LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv4LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 10; ++i) {
-        Grammar g = factory.GenLL1Grammar(4);
+        Grammar   g = factory.GenLL1Grammar(4);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv5LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv5LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 10; ++i) {
-        Grammar g = factory.GenLL1Grammar(5);
+        Grammar   g = factory.GenLL1Grammar(5);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv6LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv6LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 10; ++i) {
-        Grammar g = factory.GenLL1Grammar(6);
+        Grammar   g = factory.GenLL1Grammar(6);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv7LL1GrammarIsAlwaysLL1)
-{
+TEST(GrammarFactoryTest, GeneratedLv7LL1GrammarIsAlwaysLL1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 3; ++i) {
-        Grammar g = factory.GenLL1Grammar(7);
+        Grammar   g = factory.GenLL1Grammar(7);
         LL1Parser ll1(g);
         ASSERT_TRUE(ll1.CreateLL1Table());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv1SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv1SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 100; ++i) {
-        Grammar g = factory.GenSLR1Grammar(1);
+        Grammar    g = factory.GenSLR1Grammar(1);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv2SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv2SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 100; ++i) {
-        Grammar g = factory.GenSLR1Grammar(2);
+        Grammar    g = factory.GenSLR1Grammar(2);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv3SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv3SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 100; ++i) {
-        Grammar g = factory.GenSLR1Grammar(3);
+        Grammar    g = factory.GenSLR1Grammar(3);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv4SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv4SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 20; ++i) {
-        Grammar g = factory.GenSLR1Grammar(4);
+        Grammar    g = factory.GenSLR1Grammar(4);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv5SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv5SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 10; ++i) {
-        Grammar g = factory.GenSLR1Grammar(5);
+        Grammar    g = factory.GenSLR1Grammar(5);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv6SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv6SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 5; ++i) {
-        Grammar g = factory.GenSLR1Grammar(6);
+        Grammar    g = factory.GenSLR1Grammar(6);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv7SLR1GrammarIsAlwaysSLR1)
-{
+TEST(GrammarFactoryTest, GeneratedLv7SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
     factory.Init();
     for (int i = 0; i < 5; ++i) {
-        Grammar g = factory.GenSLR1Grammar(7);
+        Grammar    g = factory.GenSLR1Grammar(7);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
@@ -586,9 +538,7 @@ TEST(GrammarFactoryTest, NormalizeNonTerminals_Basic) {
     GrammarFactory factory;
 
     std::unordered_map<std::string, std::vector<production>> g{
-        {"A", {{"a", "B"}, {"b"}}},
-        {"B", {{"c"}}}
-    };
+        {"A", {{"a", "B"}, {"b"}}}, {"B", {{"c"}}}};
 
     GrammarFactory::FactoryItem item(g);
 
@@ -596,11 +546,11 @@ TEST(GrammarFactoryTest, NormalizeNonTerminals_Basic) {
 
     ASSERT_EQ(item.g_.size(), 1u);
     ASSERT_TRUE(item.g_.contains("X"));
-    production             p1{"a", "X"};
-    production             p2{"b"};
-    production             p3{"c"};
+    production              p1{"a", "X"};
+    production              p2{"b"};
+    production              p3{"c"};
     std::vector<production> expected{p1, p2, p3};
-    auto                     result   = item.g_["X"];
+    auto                    result = item.g_["X"];
     ASSERT_EQ(result.size(), expected.size());
     for (const auto& prod : expected) {
         auto it = std::find(result.begin(), result.end(), prod);
@@ -613,8 +563,10 @@ TEST(GrammarFactoryTest, NormalizeNonTerminals_Basic) {
 TEST(GrammarFactoryTest, AdjustTerminals_ReplacesCorrectly) {
     GrammarFactory factory;
 
-    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
-    std::unordered_map<std::string, std::vector<production>> cmb_g{{"B", {{"b"}}}};
+    std::unordered_map<std::string, std::vector<production>> base_g{
+        {"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g{
+        {"B", {{"b"}}}};
 
     GrammarFactory::FactoryItem base(base_g);
     GrammarFactory::FactoryItem cmb(cmb_g);
@@ -631,8 +583,10 @@ TEST(GrammarFactoryTest, AdjustTerminals_ReplacesCorrectly) {
 TEST(GrammarFactoryTest, Merge_AppendsProductions) {
     GrammarFactory factory;
 
-    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
-    std::unordered_map<std::string, std::vector<production>> cmb_g{{"A", {{"b"}}}};
+    std::unordered_map<std::string, std::vector<production>> base_g{
+        {"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> cmb_g{
+        {"A", {{"b"}}}};
 
     GrammarFactory::FactoryItem base(base_g);
     GrammarFactory::FactoryItem cmb(cmb_g);
@@ -660,13 +614,8 @@ TEST(GrammarFactoryTest, NormalizeNonTerminals_MultipleSymbols) {
 
     ASSERT_EQ(item.g_.size(), 1u);
     ASSERT_TRUE(item.g_.contains("N"));
-    std::vector<production> expected{
-        {"a", "N"},
-        {"b", "N"},
-        {"c"},
-        {"d", "N"}
-    };
-    auto result = item.g_["N"];
+    std::vector<production> expected{{"a", "N"}, {"b", "N"}, {"c"}, {"d", "N"}};
+    auto                    result = item.g_["N"];
     ASSERT_EQ(result.size(), expected.size());
     for (const auto& prod : expected) {
         auto it = std::find(result.begin(), result.end(), prod);
@@ -679,10 +628,11 @@ TEST(GrammarFactoryTest, NormalizeNonTerminals_MultipleSymbols) {
 TEST(GrammarFactoryTest, AdjustTerminals_EarlyReturnWhenAlphabetEmpty) {
     GrammarFactory factory;
 
-    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> base_g{
+        {"A", {{"a"}}}};
     std::unordered_map<std::string, std::vector<production>> cmb_g;
-    for (const std::string& t :
-         std::vector<std::string>{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"}) {
+    for (const std::string& t : std::vector<std::string>{
+             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"}) {
         cmb_g["B"].push_back({t});
     }
 
@@ -700,10 +650,11 @@ TEST(GrammarFactoryTest, AdjustTerminals_EarlyReturnWhenAlphabetEmpty) {
 TEST(GrammarFactoryTest, AdjustTerminals_DeterministicReplacement) {
     GrammarFactory factory;
 
-    std::unordered_map<std::string, std::vector<production>> base_g{{"A", {{"a"}}}};
+    std::unordered_map<std::string, std::vector<production>> base_g{
+        {"A", {{"a"}}}};
     std::unordered_map<std::string, std::vector<production>> cmb_g;
-    for (const std::string& t :
-         std::vector<std::string>{"a", "b", "d", "e", "f", "g", "h", "i", "j", "k", "l"}) {
+    for (const std::string& t : std::vector<std::string>{
+             "a", "b", "d", "e", "f", "g", "h", "i", "j", "k", "l"}) {
         cmb_g["B"].push_back({t});
     }
 
@@ -724,14 +675,9 @@ TEST(GrammarFactoryTest, Merge_MultipleNonTerminals) {
     GrammarFactory factory;
 
     std::unordered_map<std::string, std::vector<production>> base_g{
-        {"A", {{"a"}}},
-        {"B", {{"b"}}}
-    };
+        {"A", {{"a"}}}, {"B", {{"b"}}}};
     std::unordered_map<std::string, std::vector<production>> cmb_g{
-        {"B", {{"x"}}},
-        {"C", {{"c"}}},
-        {"D", {{"d"}}}
-    };
+        {"B", {{"x"}}}, {"C", {{"c"}}}, {"D", {{"d"}}}};
 
     GrammarFactory::FactoryItem base(base_g);
     GrammarFactory::FactoryItem cmb(cmb_g);
@@ -1770,10 +1716,8 @@ TEST(GrammarTest, LeftFactorize_SingleProduction) {
 
 TEST(LL1__Test, CreateLL1Table_NoConflict) {
     std::unordered_map<std::string, std::vector<production>> G = {
-        {"A", {{"a"}}},
-        {"B", {{"b"}}}
-    };
-    Grammar g(G);
+        {"A", {{"a"}}}, {"B", {{"b"}}}};
+    Grammar   g(G);
     LL1Parser ll1(g);
 
     bool ok = ll1.CreateLL1Table();
@@ -1782,9 +1726,8 @@ TEST(LL1__Test, CreateLL1Table_NoConflict) {
 
 TEST(LL1__Test, CreateLL1Table_DirectConflict) {
     std::unordered_map<std::string, std::vector<production>> G = {
-        {"A", {{"a"}, {"a"}}}
-    };
-    Grammar g(G);
+        {"A", {{"a"}, {"a"}}}};
+    Grammar   g(G);
     LL1Parser ll1(g);
 
     bool ok = ll1.CreateLL1Table();
@@ -1792,7 +1735,7 @@ TEST(LL1__Test, CreateLL1Table_DirectConflict) {
 }
 
 TEST(LL1__Test, First_EmptyRuleYieldsEpsilon) {
-    Grammar g;
+    Grammar   g;
     LL1Parser ll1(g);
 
     std::unordered_set<std::string> result;
@@ -1803,7 +1746,7 @@ TEST(LL1__Test, First_EmptyRuleYieldsEpsilon) {
 }
 
 TEST(LL1__Test, First_RuleStartingWithEOLYieldsEpsilon) {
-    Grammar g;
+    Grammar   g;
     LL1Parser ll1(g);
 
     std::unordered_set<std::string> result;
@@ -1817,7 +1760,7 @@ TEST(LL1__Test, First_LeadingEpsilonSkipsToNext) {
     Grammar g;
     g.st_.PutSymbol("a", true);
 
-    LL1Parser ll1(g);
+    LL1Parser                       ll1(g);
     std::unordered_set<std::string> result;
     ll1.First({{"EPSILON", "a"}}, result);
 
@@ -1829,7 +1772,7 @@ TEST(LL1__Test, First_SingleTerminal) {
     Grammar g;
     g.st_.PutSymbol("x", true);
 
-    LL1Parser ll1(g);
+    LL1Parser                       ll1(g);
     std::unordered_set<std::string> result;
     ll1.First({{"x"}}, result);
 
@@ -1850,19 +1793,17 @@ TEST(LL1__Test, First_NonterminalWithEmptyFirstSets) {
 
 TEST(LL1__Test, CreateLL1Table_UsesFollowForNullable) {
     std::unordered_map<std::string, std::vector<production>> G = {
-        {"A", {{"EPSILON"}, {"a"}}}
-    };
+        {"A", {{"EPSILON"}, {"a"}}}};
 
-    Grammar g(G);
+    Grammar   g(G);
     LL1Parser ll1(g);
 
     bool ok = ll1.CreateLL1Table();
     EXPECT_TRUE(ok);
 }
 
-
 TEST(LL1__Test, ComputeFollowSets_Sequence) {
-    Grammar g; 
+    Grammar g;
     g.st_.PutSymbol("A", false);
     g.st_.PutSymbol("B", false);
     g.st_.PutSymbol("a", true);
@@ -1903,16 +1844,17 @@ TEST(LL1__Test, ComputeFollowSets_NullableAtEnd) {
 }
 
 TEST(LL1__Test, ComputeFollowSets_NullableInMiddle) {
-    Grammar g;
+    Grammar                  g;
     std::vector<std::string> syms{"A", "B", "C", "a", "c"};
     for (auto& sym : syms) {
-        g.st_.PutSymbol(sym, sym[0]>='a' && sym[0]<='z');
-        if (sym=="A"||sym=="B"||sym=="C") g.st_.non_terminals_.insert(sym);
+        g.st_.PutSymbol(sym, sym[0] >= 'a' && sym[0] <= 'z');
+        if (sym == "A" || sym == "B" || sym == "C")
+            g.st_.non_terminals_.insert(sym);
     }
     g.st_.PutSymbol(g.st_.EPSILON_, true);
 
     g.axiom_ = "S";
-    g.AddProduction("S", {"A","B","C"});
+    g.AddProduction("S", {"A", "B", "C"});
     g.AddProduction("A", {"a"});
     g.AddProduction("B", {g.st_.EPSILON_});
     g.AddProduction("C", {"c"});
@@ -1926,7 +1868,7 @@ TEST(LL1__Test, ComputeFollowSets_NullableInMiddle) {
 }
 
 TEST(LL1__Test, Follow_UnknownNonTerminalReturnsEmpty) {
-    Grammar g;
+    Grammar   g;
     LL1Parser ll1(g);
     EXPECT_TRUE(ll1.Follow("X").empty());
 }
@@ -2675,11 +2617,11 @@ TEST(LL1__Test, FirstAndFollowSetsFilledWhenEmpty) {
     GrammarFactory factory;
     factory.Init();
 
-    Grammar g = factory.GenLL1Grammar(1);
+    Grammar   g = factory.GenLL1Grammar(1);
     LL1Parser ll1(g);
     ll1.first_sets_.clear();
     ll1.follow_sets_.clear();
-    
+
     ASSERT_TRUE(ll1.first_sets_.empty());
     ASSERT_TRUE(ll1.follow_sets_.empty());
 
@@ -2793,12 +2735,10 @@ TEST(SLR1_ClosureTest, CompleteItemClosure) {
     slr1.Closure(items);
 
     std::unordered_set<Lr0Item> expected = {
-        {"A", {g.st_.EPSILON_}, 1, g.st_.EPSILON_, g.st_.EOL_}    
-    };
-    
+        {"A", {g.st_.EPSILON_}, 1, g.st_.EPSILON_, g.st_.EOL_}};
+
     EXPECT_EQ(items, expected);
 }
-
 
 TEST(SLR1_ClosureTest, NoAdditionalClosureNeeded) {
     Grammar g;
@@ -3039,11 +2979,11 @@ TEST(SLR1_Delta, DeltaFunctionToBasicItemSet) {
         {"S", {"A", "B", g.st_.EOL_}, 0, g.st_.EPSILON_, g.st_.EOL_}};
 
     auto result = slr1.Delta(items, "A");
-    
+
     std::unordered_set<Lr0Item> expected = {
         {"S", {"A", "B", g.st_.EOL_}, 1, g.st_.EPSILON_, g.st_.EOL_},
         {"B", {"b"}, g.st_.EPSILON_, g.st_.EOL_}};
-    
+
     EXPECT_EQ(result, expected);
 }
 
@@ -3068,9 +3008,9 @@ TEST(SLR1_Delta, DeltaFunctionWhenSymbolDoesNotExists) {
         {"S", {"A", "B", g.st_.EOL_}, 0, g.st_.EPSILON_, g.st_.EOL_}};
 
     auto result = slr1.Delta(items, "Z");
-    
+
     std::unordered_set<Lr0Item> expected = {};
-    
+
     EXPECT_EQ(result, expected);
 }
 
@@ -3095,9 +3035,9 @@ TEST(SLR1_Delta, DeltaFunctionWhenSymbolDoesNotExistsAndIsEpsilon) {
         {"S", {"A", "B", g.st_.EOL_}, 0, g.st_.EPSILON_, g.st_.EOL_}};
 
     auto result = slr1.Delta(items, g.st_.EPSILON_);
-    
+
     std::unordered_set<Lr0Item> expected = {};
-    
+
     EXPECT_EQ(result, expected);
 }
 
@@ -3128,9 +3068,9 @@ TEST(SLR1_Delta, DeltaFunctionWhenItemIsComplete) {
         {"A", {"a", "A"}, 2, g.st_.EPSILON_, g.st_.EOL_}};
 
     auto result = slr1.Delta(items, "A");
-    
+
     std::unordered_set<Lr0Item> expected = {};
-    
+
     EXPECT_EQ(result, expected);
 }
 
@@ -3161,9 +3101,9 @@ TEST(SLR1_Delta, DeltaFunctionWhenItemAmdSymbolAreEpsilon) {
         {"A", {g.st_.EPSILON_}, g.st_.EPSILON_, g.st_.EOL_}};
 
     auto result = slr1.Delta(items, g.st_.EPSILON_);
-    
+
     std::unordered_set<Lr0Item> expected = {};
-    
+
     EXPECT_EQ(result, expected);
 }
 
@@ -3501,7 +3441,7 @@ TEST(StateTest, StatesDifferWhenItemsDiffer) {
 }
 
 TEST(StateTest, HashOfEmptyStateIsZero) {
-    state s;
+    state  s;
     size_t h = std::hash<state>()(s);
     EXPECT_EQ(h, 0u);
 }
@@ -3510,12 +3450,12 @@ TEST(StateTest, HashOfNonEmptyStateIsConsistent) {
     state s1, s2;
     s1.items_.insert({"A", {"a"}, 0, "EPSILON", "$"});
     s1.items_.insert({"B", {"b"}, 1, "EPSILON", "$"});
-    s2.items_ = s1.items_;      
+    s2.items_ = s1.items_;
 
     size_t h1 = std::hash<state>()(s1);
     size_t h2 = std::hash<state>()(s2);
-    EXPECT_NE(h1, 0u);          
-    EXPECT_EQ(h1, h2);          
+    EXPECT_NE(h1, 0u);
+    EXPECT_EQ(h1, h2);
 }
 
 TEST(SLR1ParserTest, AllItemsGeneratesEveryItem) {
@@ -3526,7 +3466,7 @@ TEST(SLR1ParserTest, AllItemsGeneratesEveryItem) {
     g.AddProduction("S", {"a", g.st_.EOL_});
 
     SLR1Parser slr1(g);
-    auto items = slr1.AllItems();
+    auto       items = slr1.AllItems();
 
     std::unordered_set<Lr0Item> expected = {
         {"S", {"a", g.st_.EOL_}, 0, g.st_.EPSILON_, g.st_.EOL_},
@@ -3536,27 +3476,24 @@ TEST(SLR1ParserTest, AllItemsGeneratesEveryItem) {
 }
 
 TEST(GrammarFactoryHelperTest, LongestCommonPrefix) {
-    GrammarFactory factory;
-    std::vector<production> prods{
-        {"a", "b", "c"},
-        {"a", "b", "d"},
-        {"a", "b"}
-    };
-    auto prefix = factory.LongestCommonPrefix(prods);
+    GrammarFactory          factory;
+    std::vector<production> prods{{"a", "b", "c"}, {"a", "b", "d"}, {"a", "b"}};
+    auto                    prefix = factory.LongestCommonPrefix(prods);
     std::vector<std::string> expected{"a", "b"};
     EXPECT_EQ(prefix, expected);
 }
 
-TEST(GrammarFactoryHelperTest, StartsWithReturnsFalseWhenProdIsShorterThanPrefix) {
+TEST(GrammarFactoryHelperTest,
+     StartsWithReturnsFalseWhenProdIsShorterThanPrefix) {
     GrammarFactory factory;
-    production prod{"a", "b"};
+    production     prod{"a", "b"};
     EXPECT_FALSE(factory.StartsWith(prod, {"a", "b", "c"}));
     EXPECT_FALSE(factory.StartsWith(prod, {"a", "c", "b"}));
 }
 
 TEST(GrammarFactoryHelperTest, StartsWithAndGenerateNonTerminal) {
     GrammarFactory factory;
-    production prod{"a", "b", "c"};
+    production     prod{"a", "b", "c"};
     EXPECT_TRUE(factory.StartsWith(prod, {"a", "b"}));
     EXPECT_FALSE(factory.StartsWith(prod, {"a", "c"}));
 
@@ -3568,19 +3505,13 @@ TEST(GrammarFactoryHelperTest, StartsWithAndGenerateNonTerminal) {
 }
 
 TEST(GrammarFactoryHelperTest, HasCycleDetection) {
-    GrammarFactory factory;
+    GrammarFactory                                                   factory;
     std::unordered_map<std::string, std::unordered_set<std::string>> cyc{
-        {"A", {"B"}},
-        {"B", {"C"}},
-        {"C", {"A"}}
-    };
+        {"A", {"B"}}, {"B", {"C"}}, {"C", {"A"}}};
     EXPECT_TRUE(factory.HasCycle(cyc));
 
     std::unordered_map<std::string, std::unordered_set<std::string>> acyc{
-        {"A", {"B"}},
-        {"B", {"C"}},
-        {"C", {}}
-    };
+        {"A", {"B"}}, {"B", {"C"}}, {"C", {}}};
     EXPECT_FALSE(factory.HasCycle(acyc));
 }
 

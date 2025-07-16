@@ -80,18 +80,21 @@ struct Lr0Item {
             unsigned int dot, std::string epsilon, std::string eol);
 
     /**
-     * @brief Returns the symbol immediately after the dot, or empty if the dot is at the end.
+     * @brief Returns the symbol immediately after the dot, or empty if the dot
+     * is at the end.
      * @return The symbol after the dot, or an empty string.
      */
     std::string NextToDot() const;
 
     /**
-     * @brief Prints the LR(0) item to the standard output in a human-readable format.
+     * @brief Prints the LR(0) item to the standard output in a human-readable
+     * format.
      */
     void PrintItem() const;
 
     /**
-     * @brief Converts the item to a string representation, including the dot position.
+     * @brief Converts the item to a string representation, including the dot
+     * position.
      * @return A string representation of the item.
      */
     std::string ToString() const;
@@ -112,7 +115,7 @@ struct Lr0Item {
      * @param other The item to compare with.
      * @return true if both items are equal; false otherwise.
      */
-    bool        operator==(const Lr0Item& other) const;
+    bool operator==(const Lr0Item& other) const;
 };
 
 namespace std {

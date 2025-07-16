@@ -35,11 +35,13 @@ using production = std::vector<std::string>;
 
 /**
  * @struct Grammar
- * @brief Represents a context-free grammar, including its rules, symbol table, and starting symbol.
+ * @brief Represents a context-free grammar, including its rules, symbol table,
+ * and starting symbol.
  *
- * This structure encapsulates all components required to define and manipulate a grammar,
- * including production rules, the associated symbol table, and metadata such as the start symbol.
- * It supports construction, transformation, and analysis of grammars.
+ * This structure encapsulates all components required to define and manipulate
+ * a grammar, including production rules, the associated symbol table, and
+ * metadata such as the start symbol. It supports construction, transformation,
+ * and analysis of grammars.
  */
 struct Grammar {
 
@@ -47,7 +49,6 @@ struct Grammar {
     explicit Grammar(
         const std::unordered_map<std::string, std::vector<production>>&
             grammar);
-
 
     /**
      * @brief Sets the axiom (entry point) of the grammar.
@@ -82,8 +83,8 @@ struct Grammar {
      * Searches for rules in which the specified token is part of the consequent
      * and returns those rules.
      */
-    std::vector<std::pair<const std::string, production>> FilterRulesByConsequent(
-        const std::string& arg) const;
+    std::vector<std::pair<const std::string, production>>
+    FilterRulesByConsequent(const std::string& arg) const;
 
     /**
      * @brief Prints the current grammar structure to standard output.
@@ -91,31 +92,34 @@ struct Grammar {
      * This function provides a debug view of the grammar by printing out all
      * rules, the axiom, and other relevant details.
      */
-    void Debug() const; //NOSONAR
+    void Debug() const; // NOSONAR
 
     /**
-    * @brief Adds a production rule to the grammar and updates the symbol table.
-    *
-    * This function inserts a new production of the form A → α into the grammar,
-    * where `antecedent` is the non-terminal A and `consequent` is the sequence α.
-    * It also updates the internal symbol table to reflect any new symbols introduced.
-    *
-    * @param antecedent The left-hand side non-terminal of the production.
-    * @param consequent The right-hand side sequence of grammar symbols.
-    */
+     * @brief Adds a production rule to the grammar and updates the symbol
+     * table.
+     *
+     * This function inserts a new production of the form A → α into the
+     * grammar, where `antecedent` is the non-terminal A and `consequent` is the
+     * sequence α. It also updates the internal symbol table to reflect any new
+     * symbols introduced.
+     *
+     * @param antecedent The left-hand side non-terminal of the production.
+     * @param consequent The right-hand side sequence of grammar symbols.
+     */
     void AddProduction(const std::string&              antecedent,
                        const std::vector<std::string>& consequent);
 
     /**
-    * @brief Splits a string into grammar symbols using the current symbol table.
-    *
-    * This function tokenizes the input string `s` into a sequence of grammar symbols
-    * based on the known entries in the symbol table. It uses a greedy approach,
-    * matching the longest valid symbol at each step.
-    *
-    * @param s The input string to split.
-    * @return A vector of grammar symbols extracted from the string.
-    */
+     * @brief Splits a string into grammar symbols using the current symbol
+     * table.
+     *
+     * This function tokenizes the input string `s` into a sequence of grammar
+     * symbols based on the known entries in the symbol table. It uses a greedy
+     * approach, matching the longest valid symbol at each step.
+     *
+     * @param s The input string to split.
+     * @return A vector of grammar symbols extracted from the string.
+     */
     std::vector<std::string> Split(const std::string& s);
 
     /**

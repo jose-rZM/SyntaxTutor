@@ -26,15 +26,10 @@
 #include "lr0_item.hpp"
 #include "symbol_table.hpp"
 
-Lr0Item::Lr0Item(std::string antecedent,
-                 std::vector<std::string> consequent,
-                 std::string epsilon,
-                 std::string eol)
-    : antecedent_(std::move(antecedent))
-    , consequent_(std::move(consequent))
-    , epsilon_(std::move(epsilon))
-    , eol_(std::move(eol))
-{
+Lr0Item::Lr0Item(std::string antecedent, std::vector<std::string> consequent,
+                 std::string epsilon, std::string eol)
+    : antecedent_(std::move(antecedent)), consequent_(std::move(consequent)),
+      epsilon_(std::move(epsilon)), eol_(std::move(eol)) {
     if (this->consequent_.size() == 1 && this->consequent_[0] == epsilon_) {
         dot_ = 1;
     }
@@ -50,7 +45,8 @@ Lr0Item::Lr0Item(std::string antecedent, std::vector<std::string> consequent,
 }
 
 std::string Lr0Item::NextToDot() const {
-    if (dot_ == consequent_.size() || (dot_ < consequent_.size() && consequent_[dot_] == eol_)) {
+    if (dot_ == consequent_.size() ||
+        (dot_ < consequent_.size() && consequent_[dot_] == eol_)) {
         return epsilon_;
     }
     return consequent_[dot_];
@@ -63,8 +59,9 @@ void Lr0Item::AdvanceDot() {
 }
 
 bool Lr0Item::IsComplete() const {
-    return dot_ >= consequent_.size() || (consequent_.size() == 1 && consequent_[0] == epsilon_)
-           || (dot_ < consequent_.size() && consequent_[dot_] == eol_);
+    return dot_ >= consequent_.size() ||
+           (consequent_.size() == 1 && consequent_[0] == epsilon_) ||
+           (dot_ < consequent_.size() && consequent_[dot_] == eol_);
 }
 
 // GCOVR_EXCL_START

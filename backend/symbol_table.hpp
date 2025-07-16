@@ -34,12 +34,13 @@ enum class symbol_type { NO_TERMINAL, TERMINAL };
 
 /**
  * @struct SymbolTable
- * @brief Stores and manages grammar symbols, including their classification and special markers.
+ * @brief Stores and manages grammar symbols, including their classification and
+ * special markers.
  *
  * This structure holds information about all terminals and non-terminals used
- * in a grammar, as well as special symbols such as EPSILON and the end-of-line marker ($).
- * It supports symbol classification, membership checks, and filtered views
- * such as terminals excluding $.
+ * in a grammar, as well as special symbols such as EPSILON and the end-of-line
+ * marker ($). It supports symbol classification, membership checks, and
+ * filtered views such as terminals excluding $.
  */
 struct SymbolTable {
     /// @brief End-of-line symbol used in parsing, initialized as "$".
@@ -51,8 +52,8 @@ struct SymbolTable {
 
     /// @brief Main symbol table, mapping identifiers to a pair of symbol type
     /// and its regex.
-    std::unordered_map<std::string, symbol_type> st_{{EOL_, symbol_type::TERMINAL},
-                                                     {EPSILON_, symbol_type::TERMINAL}};
+    std::unordered_map<std::string, symbol_type> st_{
+        {EOL_, symbol_type::TERMINAL}, {EPSILON_, symbol_type::TERMINAL}};
 
     /**
      * @brief Set of all terminal symbols (including EOL).

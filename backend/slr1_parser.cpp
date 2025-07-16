@@ -18,11 +18,11 @@
 
 #include <algorithm>
 #include <iostream>
-#include <ranges>
 #include <map>
 #include <queue>
-#include <string>
+#include <ranges>
 #include <sstream>
+#include <string>
 #include <unordered_set>
 #include <vector>
 
@@ -128,11 +128,11 @@ bool SLR1Parser::MakeParser() {
         }
         const state& qi = *it;
         std::ranges::for_each(qi.items_, [&](const Lr0Item& item) -> void {
-                          std::string next = item.NextToDot();
-                          if (next != gr_.st_.EPSILON_ && next != gr_.st_.EOL_) {
-                              nextSymbols.insert(next);
-                          }
-                      });
+            std::string next = item.NextToDot();
+            if (next != gr_.st_.EPSILON_ && next != gr_.st_.EOL_) {
+                nextSymbols.insert(next);
+            }
+        });
         for (const std::string& symbol : nextSymbols) {
             state newState;
             newState.id_ = i;
@@ -198,9 +198,9 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
                 visited.cend()) {
             const std::vector<production>& rules = gr_.g_.at(next);
             std::ranges::for_each(rules, [&](const auto& rule) -> void {
-                              newItems.insert({item.NextToDot(), rule,
-                                               gr_.st_.EPSILON_, gr_.st_.EOL_});
-                          });
+                newItems.insert(
+                    {item.NextToDot(), rule, gr_.st_.EPSILON_, gr_.st_.EOL_});
+            });
             visited.insert(next);
         }
     }
@@ -208,7 +208,6 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
     if (size != items.size())
         ClosureUtil(items, items.size(), visited);
 }
-
 
 std::unordered_set<Lr0Item>
 SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
@@ -239,7 +238,8 @@ SLR1Parser::Delta(const std::unordered_set<Lr0Item>& items,
 
 // GCOVR_EXCL_START
 // LCOV_EXCL_START
-std::string SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) const {
+std::string
+SLR1Parser::PrintItems(const std::unordered_set<Lr0Item>& items) const {
     std::ostringstream output;
     for (const auto& item : items) {
         output << "  - ";

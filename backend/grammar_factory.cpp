@@ -20,10 +20,10 @@
 #include "ll1_parser.hpp"
 #include "slr1_parser.hpp"
 #include <algorithm>
-#include <ranges>
 #include <iostream>
 #include <queue>
 #include <random>
+#include <ranges>
 
 void GrammarFactory::Init() {
     items.emplace_back(
@@ -394,7 +394,8 @@ GrammarFactory::NullableSymbols(const Grammar& grammar) const {
                 } else {
                     bool all_nullable = true;
                     for (const std::string& sym : prod) {
-                        if (!nullable.contains(sym) && sym != grammar.st_.EOL_) {
+                        if (!nullable.contains(sym) &&
+                            sym != grammar.st_.EOL_) {
                             all_nullable = false;
                             break;
                         }
@@ -476,7 +477,8 @@ void GrammarFactory::LeftFactorize(Grammar& grammar) {
 
                     std::vector<std::string> new_production = common_prefix;
                     new_production.push_back(new_non_terminal);
-                    factored_productions.emplace_back(std::move(new_production));
+                    factored_productions.emplace_back(
+                        std::move(new_production));
 
                     std::vector<production> new_remaining_productions;
                     for (const auto& prod : remaining_productions) {
@@ -486,9 +488,11 @@ void GrammarFactory::LeftFactorize(Grammar& grammar) {
                                 prod.end());
                             if (remaining_part.empty()) {
                                 remaining_part.push_back(grammar.st_.EPSILON_);
-                                grammar.st_.PutSymbol(grammar.st_.EPSILON_, true);
+                                grammar.st_.PutSymbol(grammar.st_.EPSILON_,
+                                                      true);
                             }
-                            new_remaining_productions.emplace_back(std::move(remaining_part));
+                            new_remaining_productions.emplace_back(
+                                std::move(remaining_part));
                         } else {
                             factored_productions.emplace_back(prod);
                         }
@@ -566,8 +570,8 @@ GrammarFactory::FactoryItem::FactoryItem(
     g_ = grammar;
 }
 
-void GrammarFactory::NormalizeNonTerminals(FactoryItem& item,
-                                            const std::string& nt) const {
+void GrammarFactory::NormalizeNonTerminals(FactoryItem&       item,
+                                           const std::string& nt) const {
     std::unordered_map<std::string, std::vector<production>> updated;
     for (auto& [old_nt, prods] : item.g_) {
         for (auto& prod : prods) {
@@ -600,7 +604,7 @@ void GrammarFactory::AdjustTerminals(FactoryItem& base, const FactoryItem& cmb,
     }
     std::vector<std::string> remaining(alphabet.begin(), alphabet.end());
     std::uniform_int_distribution<size_t> dist(0, remaining.size() - 1);
-    std::string new_terminal = remaining[dist(gen)];
+    std::string                           new_terminal = remaining[dist(gen)];
 
     std::vector<std::string> base_terms(base.st_.terminals_wtho_eol_.begin(),
                                         base.st_.terminals_wtho_eol_.end());
@@ -622,8 +626,8 @@ void GrammarFactory::AdjustTerminals(FactoryItem& base, const FactoryItem& cmb,
     base_terms.assign(base.st_.terminals_wtho_eol_.begin(),
                       base.st_.terminals_wtho_eol_.end());
     base_dist = std::uniform_int_distribution<size_t>(0, base_terms.size() - 1);
-    to_replace = *std::next(base.st_.terminals_wtho_eol_.begin(),
-                            base_dist(gen));
+    to_replace =
+        *std::next(base.st_.terminals_wtho_eol_.begin(), base_dist(gen));
     for (auto& [nt, prods] : base.g_) {
         for (auto& prod : prods) {
             for (auto& symbol : prod) {
