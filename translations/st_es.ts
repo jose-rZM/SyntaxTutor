@@ -738,7 +738,7 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     </message>
     <message>
         <location filename="../mainwindow.ui" line="482"/>
-        <location filename="../mainwindow.cpp" line="633"/>
+        <location filename="../mainwindow.cpp" line="635"/>
         <source>Idioma</source>
         <translation></translation>
     </message>
@@ -749,7 +749,7 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     </message>
     <message>
         <location filename="../mainwindow.ui" line="510"/>
-        <location filename="../mainwindow.cpp" line="460"/>
+        <location filename="../mainwindow.cpp" line="459"/>
         <source>Sobre la aplicación</source>
         <translation></translation>
     </message>
@@ -764,58 +764,58 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="147"/>
+        <location filename="../mainwindow.cpp" line="149"/>
         <source>+1 Nivel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
-        <location filename="../mainwindow.cpp" line="284"/>
+        <location filename="../mainwindow.cpp" line="253"/>
+        <location filename="../mainwindow.cpp" line="286"/>
         <source>Puntos: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="340"/>
+        <location filename="../mainwindow.cpp" line="342"/>
         <source>&lt;h3&gt;LL(1)&lt;/h3&gt;&lt;p&gt;Con este botón puedes lanzar el tutor LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="343"/>
+        <location filename="../mainwindow.cpp" line="345"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Con este, el SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="347"/>
+        <location filename="../mainwindow.cpp" line="349"/>
         <source>&lt;p&gt;También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad repercute en la longitud de la gramática.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="352"/>
+        <location filename="../mainwindow.cpp" line="354"/>
         <source>&lt;p&gt;Ahora se abrirá la ventana LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="379"/>
+        <location filename="../mainwindow.cpp" line="381"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Pasemos al tutor SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="381"/>
+        <location filename="../mainwindow.cpp" line="383"/>
         <source>&lt;p&gt;Esta vez se usará una gramática más compleja (Nivel 3).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="384"/>
+        <location filename="../mainwindow.cpp" line="386"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="419"/>
+        <location filename="../mainwindow.cpp" line="421"/>
         <source>&lt;h2&gt;Nivel&lt;/h2&gt;&lt;p&gt;¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios o avances en el estudio, ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un total de 10. ¡Intenta llegar al máximo!&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="428"/>
+        <location filename="../mainwindow.cpp" line="430"/>
         <source>&lt;h2&gt;¡Tutorial completado!&lt;/h2&gt;&lt;p&gt;Ya puedes comenzar a practicar.&lt;/p&gt;</source>
         <translation></translation>
     </message>
@@ -825,52 +825,52 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="466"/>
-        <source>&lt;p&gt;&lt;b&gt;Versión: 1.0.1&lt;/b&gt; </source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="467"/>
         <source>&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="468"/>
-        <source>&lt;p&gt;Trabajo Fin de Grado – Analizador sintáctico interactivo.&lt;/p&gt;</source>
-        <translation></translation>
+        <location filename="../mainwindow.cpp" line="466"/>
+        <source>&lt;p&gt;&lt;b&gt;Versión: 1.0.2&lt;/b&gt; </source>
+        <translation>&lt;p&gt;&lt;b&gt;Versión: 1.0.2&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="469"/>
+        <location filename="../mainwindow.cpp" line="468"/>
+        <source>&lt;p&gt;Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="470"/>
         <source>&lt;p&gt;&lt;b&gt;Autor:&lt;/b&gt; José R.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="469"/>
+        <location filename="../mainwindow.cpp" line="471"/>
         <source>&lt;p&gt;&lt;b&gt;Licencia:&lt;/b&gt; GPLv3&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="470"/>
+        <location filename="../mainwindow.cpp" line="472"/>
         <source>&lt;p&gt;Desarrollado con &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; y C++20.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="472"/>
+        <location filename="../mainwindow.cpp" line="474"/>
         <source>&lt;p&gt;&lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub - jose-rZM&lt;/a&gt;&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="474"/>
+        <location filename="../mainwindow.cpp" line="476"/>
         <source>&lt;p&gt;2025 Universidad de Málaga&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="511"/>
+        <location filename="../mainwindow.cpp" line="513"/>
         <source>Referencia rápida LL(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="513"/>
+        <location filename="../mainwindow.cpp" line="515"/>
         <source>
       &lt;h3&gt;Referencia LL(1)&lt;/h3&gt;
       &lt;ul&gt;
@@ -896,12 +896,12 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="569"/>
+        <location filename="../mainwindow.cpp" line="571"/>
         <source>Referencia rápida SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="571"/>
+        <location filename="../mainwindow.cpp" line="573"/>
         <source>
       &lt;h3&gt;Referencia SLR(1)&lt;/h3&gt;
       &lt;ul&gt;
@@ -931,32 +931,32 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="634"/>
+        <location filename="../mainwindow.cpp" line="636"/>
         <source>Selecciona el idioma de la aplicación:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="636"/>
+        <location filename="../mainwindow.cpp" line="638"/>
         <source>Español</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="639"/>
+        <location filename="../mainwindow.cpp" line="641"/>
         <source>Inglés</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="642"/>
+        <location filename="../mainwindow.cpp" line="644"/>
         <source>Cancelar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="708"/>
+        <location filename="../mainwindow.cpp" line="710"/>
         <source>Reiniciar requerido</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="709"/>
+        <location filename="../mainwindow.cpp" line="711"/>
         <source>Para aplicar el cambio de idioma, es necesario reiniciar la aplicación.</source>
         <translation></translation>
     </message>
@@ -1293,11 +1293,6 @@ Formato: a,b,c — vacío si no se aplica en ninguno.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrtutorwindow.cpp" line="2053"/>
-        <source>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · S. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../slrtutorwindow.cpp" line="2061"/>
         <source>El axioma es el símbolo desde el que comienza toda la derivación. En esta gramática, el axioma es: %1.</source>
         <translation></translation>
@@ -1552,6 +1547,11 @@ No has listado ningún estado conflictivo. </source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../slrtutorwindow.cpp" line="2053"/>
+        <source>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · A $. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</source>
+        <translation>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · A $. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</translation>
+    </message>
+    <message>
         <location filename="../slrtutorwindow.cpp" line="2425"/>
         <source>En el estado I%1 se produce un conflicto LR(0). Un ítem completo compite con otro desplazable. Debes escribir los terminales en los que la tabla aplicará REDUCE. Los puedes calcular calculando SIG del antecedente.
 </source>
@@ -1759,27 +1759,27 @@ No has listado ningún estado conflictivo. </source>
 <context>
     <name>SLRWizard</name>
     <message>
-        <location filename="../slrwizard.h" line="45"/>
+        <location filename="../slrwizard.h" line="46"/>
         <source>Ayuda interactiva: Tabla SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizard.h" line="69"/>
+        <location filename="../slrwizard.h" line="73"/>
         <source>Estado %1: existe transición δ(%1, &apos;%2&apos;). ¿A qué estado harías shift?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizard.h" line="92"/>
+        <location filename="../slrwizard.h" line="99"/>
         <source>Estado %1: contiene el ítem [%2 → ...·] y &apos;%3&apos; ∈ SIG(%2). ¿Qué regla usas para reducir (0, 1, ...)?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizard.h" line="101"/>
+        <location filename="../slrwizard.h" line="111"/>
         <source>Estado %1: contiene [S → A · $]. ¿Qué palabra clave usas para aceptar?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizard.h" line="118"/>
+        <location filename="../slrwizard.h" line="129"/>
         <source>Estado %1: δ(%1, &apos;%2&apos;) existe. ¿A qué estado va la transición? (pon solo el número)</source>
         <translation></translation>
     </message>
@@ -1787,22 +1787,22 @@ No has listado ningún estado conflictivo. </source>
 <context>
     <name>SLRWizardPage</name>
     <message>
-        <location filename="../slrwizardpage.h" line="44"/>
+        <location filename="../slrwizardpage.h" line="40"/>
         <source>Estado %1, símbolo &apos;%2&apos;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizardpage.h" line="50"/>
+        <location filename="../slrwizardpage.h" line="47"/>
         <source>Escribe tu respuesta (p.ej. s3, r2, acc, 5)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizardpage.h" line="69"/>
+        <location filename="../slrwizardpage.h" line="68"/>
         <source>✔ Respuesta correcta, pasa a la siguiente pregunta</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../slrwizardpage.h" line="72"/>
+        <location filename="../slrwizardpage.h" line="70"/>
         <source>✘ Incorrecto, revisa el enunciado. Consulta los estados que has construido.</source>
         <translation></translation>
     </message>
