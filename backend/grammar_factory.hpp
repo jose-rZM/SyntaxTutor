@@ -144,8 +144,6 @@ struct GrammarFactory {
      */
     FactoryItem CreateLv2Item();
 
-    // -------- SANITY CHECKS --------
-
     /**
      * @brief Checks if a grammar contains unreachable symbols (non-terminals
      * that cannot be derived from the start symbol).
@@ -158,9 +156,13 @@ struct GrammarFactory {
      * @brief Checks if a grammar is infinite, meaning there are non-terminal
      * symbols that can never derive a terminal string. This happens when a
      * production leads to an infinite recursion or an endless derivation
-     * without reaching terminal symbols. For example, a production like: S -> A
+     * without reaching terminal symbols.
+     * For example, a production like:
+     * \code
+     * S -> A
      * A -> a A | B
      * B -> c B
+     * \endcode
      * could lead to an infinite derivation of non-terminals.
      * @param grammar The grammar to check.
      * @return true if the grammar has infinite derivations, false otherwise.
@@ -196,28 +198,50 @@ struct GrammarFactory {
      */
     std::unordered_set<std::string> NullableSymbols(const Grammar& grammar) const;
 
-    // -------- TRANSFORMATIONS --------
     /**
-     * @brief Removes direct left recursion in a grammar. A grammar has direct
-     * left recursion when one of its productions is A -> A a, where A is a non
-     * terminal symbol and "a" the rest of the production. The procedure removes
-     * direct left recursion by adding a new non terminal. So, if the
-     * productions with left recursion are A -> A a | b, the result would be A
-     * -> b A'; A'-> a A' | EPSILON
-     * @param grammar The grammar to remove left recursion
+     * @brief Removes direct left recursion in a grammar.
+     * A grammar has direct left recursion when one of its productions is
+     * \code
+     * A -> A a
+     * \endcode
+     * where A is a non-terminal symbol and "a" the rest of the production.
+     * The procedure removes direct left recursion by adding a new
+     * non-terminal. So, if the productions with left recursion are:
+     * \code
+     * A -> A a | b
+     * \endcode
+     * the result would be:
+     * \code
+     * A  -> b A'
+     * A' -> a A' | epsilon
+     * \endcode
+     * @param grammar The grammar to remove left recursion.
      */
+
     void RemoveLeftRecursion(Grammar& grammar);
 
     /**
-     * @brief Perfoms left factorization. A grammar could be left factorized if
-     * it have productions with the same prefix for one non terminal. For
-     * example, A -> a x | a y; could be left factorized because it has "a" as
-     * the common prefix. The left factorization is done by adding a new non
-     * terminal symbol that contains the uncommon part, and by unifying the
-     * common prefix in a one producion. So, A -> a x | a y would be A -> a A';
-     * A' -> x | y.
+     * @brief Performs left factorization.
+     * A grammar can be left factorized if it has productions with the
+     * same prefix for one non-terminal. For example:
+     * \code
+     * A -> a x | a y
+     * \endcode
+     * could be left factorized because it has "a" as the common prefix.
+     * The left factorization is done by adding a new non-terminal symbol
+     * that contains the uncommon part, and by unifying the common prefix in one
+     * production. So:
+     * \code
+     * A -> a x | a y
+     * \endcode
+     * would become:
+     * \code
+     * A  -> a A'
+     * A' -> x | y
+     * \endcode
      * @param grammar The grammar to be left factorized.
      */
+
     void LeftFactorize(Grammar& grammar);
 
     /**

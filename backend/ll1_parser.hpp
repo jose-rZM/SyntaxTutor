@@ -46,10 +46,10 @@ class LL1Parser {
      * production, indicating no conflicts. If conflicts are found, the function
      * will return `false`, signaling that the grammar is not LL(1).
      *
-     * - For each production rule `A -> α`, the function calculates the director
-     * symbols using the `director_symbols` function.
+     * - For each production rule \f(A \rightarrow \alpha\f), the function
+     * calculates the prediction symbols using the `PredictionSymbols` function.
      * - It then fills the parsing table at the cell corresponding to the
-     * non-terminal `A` and each director symbol in the set.
+     * non-terminal `A` and each prediction symbol in the set.
      * - If a cell already contains a production, this indicates a conflict,
      * meaning the grammar is not LL(1).
      *
@@ -103,27 +103,25 @@ class LL1Parser {
     /**
      * @brief Computes the FOLLOW sets for all non-terminal symbols in the
      * grammar.
-     *
-     * The FOLLOW set of a non-terminal symbol A contains all terminal symbols
-     * that can appear immediately after A in any sentential form derived from
-     * the grammar's start symbol. Additionally, if A can be the last symbol in
-     * a derivation, the end-of-input marker (`$`) is included in its FOLLOW
-     * set.
-     *
+     * The FOLLOW set of a non-terminal symbol A contains all terminal
+     * symbols that can appear immediately after A in any sentential form
+     * derived from the grammar's start symbol. Additionally, if A can be the
+     * last symbol in a derivation, the end-of-input marker (`\$`) is included
+     * in its FOLLOW set.
      * This function computes the FOLLOW sets using the following rules:
-     * 1. Initialize FOLLOW(S) = { $ }, where S is the start symbol.
-     * 2. For each production rule of the form A → αBβ:
-     *    - Add FIRST(β) (excluding ε) to FOLLOW(B).
-     *    - If ε ∈ FIRST(β), add FOLLOW(A) to FOLLOW(B).
+     * 1. Initialize FOLLOW(S) = { \f( \$ \f) }, where S is the start symbol.
+     * 2. For each production rule of the form \f( A \rightarrow \alpha B \beta
+     * \f):
+     *    - Add \f( FIRST(\beta) \setminus \{\epsilon\} \f) to \f( FOLLOW(B)
+     * \f).
+     *    - If \f( \epsilon \in FIRST(\beta) \f), add \f( FOLLOW(A) \f) to
+     *      \f( FOLLOW(B) \f).
      * 3. Repeat step 2 until no changes occur in any FOLLOW set.
-     *
-     * The computed FOLLOW sets are cached in the `follow_sets_` member variable
-     * for later use by the parser.
-     *
-     * @note This function assumes that the FIRST sets for all symbols have
-     * already been computed and are available in the `first_sets_` member
+     * The computed FOLLOW sets are cached in the `follow_sets_` member
+     * variable for later use by the parser.
+     * @note This function assumes that the FIRST sets for all symbols
+     * have already been computed and are available in the `first_sets_` member
      * variable.
-     *
      * @see First
      * @see follow_sets_
      */
@@ -148,20 +146,19 @@ class LL1Parser {
     /**
      * @brief Computes the prediction symbols for a given
      * production rule.
-     *
-     * The prediction symbols for a rule,
-     * determine the set of input symbols that can trigger this rule in the
-     * parsing table. This function calculates the prediction symbols based on
-     * the FIRST set of the consequent and, if epsilon (the empty symbol) is in
-     * the FIRST set, also includes the FOLLOW set of the antecedent.
-     *
-     * - If the FIRST set of the consequent does not contain epsilon, the
-     * prediction symbols are simply the FIRST symbols of the consequent.
+     *      * The prediction symbols for a rule determine the set of input
+     * symbols that can trigger this rule in the parsing table. This function
+     * calculates the prediction symbols based on the FIRST set of the
+     * consequent and, if epsilon (the empty symbol) is in the FIRST set, also
+     * includes the FOLLOW set of the antecedent.
+     *      * - If the FIRST set of the consequent does not contain epsilon, the
+     *   prediction symbols are simply the FIRST symbols of the consequent.
      * - If the FIRST set of the consequent contains epsilon, the prediction
-     * symbols are computed as (FIRST(consequent) - {epsilon}) ∪
-     * FOLLOW(antecedent).
-     *
-     * @param antecedent The left-hand side non-terminal symbol of the rule.
+     *   symbols are computed as
+     *   \f( FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
+     * FOLLOW(\text{antecedent}) \f).
+     *      * @param antecedent The left-hand side non-terminal symbol of the
+     * rule.
      * @param consequent A vector of symbols on the right-hand side of the rule
      * (production body).
      * @return An unordered set of strings containing the prediction symbols for
