@@ -85,10 +85,10 @@ Precompiled builds of SyntaxTutor are available in the Releases tab:
 To build SyntaxTutor from source, you just need:
 - Qt6 (including `qmake6`)
 - A C++20-compliant compiler
-```
+```bash
 qmake6
 make
-````
+```
 ---
 
 ### 📚 Documentation
