@@ -106,6 +106,78 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
             &SLRTutorWindow::openDebugMenu);
     auto* autoShortcut = new QShortcut(QKeySequence("Ctrl+Shift+A"), this);
     connect(autoShortcut, &QShortcut::activated, this, &SLRTutorWindow::toggleAutoMode);
+    auto* printShortcut = new QShortcut(QKeySequence("Ctrl+Shift+P"), this);
+    connect(printShortcut, &QShortcut::activated, this, [this]() {
+        QMessageBox end(this);
+        end.setWindowTitle(tr("Fin del ejercicio"));
+        end.setText(tr("¿Exportar a PDF?"));
+        end.setInformativeText(tr("Se generará un PDF con toda la conversación, estados "
+                                  "calculados y la tabla SLR(1)."));
+        end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        end.setDefaultButton(QMessageBox::No);
+
+        QAbstractButton* yesBtn = end.button(QMessageBox::Yes);
+        QAbstractButton* noBtn = end.button(QMessageBox::No);
+
+        if (yesBtn) {
+            yesBtn->setText(tr("Sí"));
+            yesBtn->setCursor(Qt::PointingHandCursor);
+            yesBtn->setIcon(QIcon());
+            yesBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #00ADB5;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Noto Sans';
+      }
+      QPushButton:hover {
+        background-color: #00CED1;
+      }
+      QPushButton:pressed {
+        background-color: #007F86;
+      }
+        )");
+        }
+
+        if (noBtn) {
+            noBtn->setText(tr("No"));
+            noBtn->setCursor(Qt::PointingHandCursor);
+            noBtn->setIcon(QIcon());
+            noBtn->setStyleSheet(R"(
+      QPushButton {
+        background-color: #D9534F;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font: 'Noto Sans';
+        font-weight: bold;
+      }
+      QPushButton:hover {
+        background-color: #E14E50;
+      }
+      QPushButton:pressed {
+        background-color: #C12E2A;
+      }
+    )");
+        }
+
+        int ret = end.exec();
+        if (ret == QMessageBox::Yes) {
+            QString filePath = QFileDialog::getSaveFileName(this,
+                                                            tr("Guardar conversación"),
+                                                            "conver.pdf",
+                                                            tr("Archivo PDF (*.pdf)"));
+
+            if (!filePath.isEmpty()) {
+                exportConversationToPdf(filePath);
+            }
+        }
+        close();
+    });
 #endif
 
     if (tm) {
@@ -238,7 +310,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
         html += "</div>";
     }
 
-    html += "</body></html>";
     html += R"(<div class='page-break'></div>)";
 
     html += "<h2>" + tr("Estados del Autómata") + "</h2>";
@@ -350,6 +421,8 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     }
 
     html += "</table></div>";
+    html += "</body></html>";
+
     doc.setHtml(html);
 
     QPrinter printer(QPrinter::HighResolution);
@@ -2913,32 +2986,8 @@ void SLRTutorWindow::autoStep()
     };
 
     if (currentState == StateSlr::H && currentDlg) {
-        QStringList colHeaders;
-        for (const auto& sym : slr1.gr_.st_.terminals_) {
-            if (sym == slr1.gr_.st_.EPSILON_)
-                continue;
-            colHeaders << QString::fromStdString(sym);
-        }
-        for (const auto& sym : slr1.gr_.st_.non_terminals_)
-            colHeaders << QString::fromStdString(sym);
-        std::sort(colHeaders.begin(), colHeaders.end(), [](const QString& a, const QString& b) {
-            auto rank = [](const QString& s) {
-                if (s == "$") return 1;
-                if (!s.isEmpty() && s[0].isLower()) return 0;
-                return 2;
-            };
-            int ra = rank(a), rb = rank(b);
-            return ra != rb ? ra < rb : a < b;
-        });
-
-        QVector<QVector<QString>> tableData = buildCorrectTable(colHeaders);
-        if (!correct && !tableData.isEmpty() && !tableData[0].isEmpty()) {
-            int r = QRandomGenerator::global()->bounded(tableData.size());
-            int c = QRandomGenerator::global()->bounded(tableData[0].size());
-            tableData[r][c] = QStringLiteral("x");
-        }
-
-        handleTableSubmission(tableData, colHeaders);
+        toggleAutoMode();
+        return;
     } else if (currentState != StateSlr::H && currentState != StateSlr::H_prime) {
         switch (currentState) {
         case StateSlr::A:
