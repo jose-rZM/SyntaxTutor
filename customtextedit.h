@@ -3,17 +3,16 @@
 
 #include <QTextEdit>
 
-class CustomTextEdit : public QTextEdit
-{
+class CustomTextEdit : public QTextEdit {
     Q_OBJECT
-public:
-    explicit CustomTextEdit(QWidget *parent = nullptr);
+  public:
+    explicit CustomTextEdit(QWidget* parent = nullptr);
 
-signals:
+  signals:
     void sendRequested();
 
-protected:
-    void keyPressEvent(QKeyEvent *event) override;
+  protected:
+    void keyPressEvent(QKeyEvent* event) override;
 };
 
 #endif // CUSTOMTEXTEDIT_H

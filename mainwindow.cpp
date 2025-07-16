@@ -1,8 +1,8 @@
 #include "mainwindow.h"
-#include <QMessageBox>
-#include <QPixmap>
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
@@ -462,15 +462,17 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
         pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     about.setTextFormat(Qt::RichText);
-    about.setText(tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.2</b> ")
-                  + qApp->applicationVersion() + tr("</p>")
-                  + tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>")
-                  + tr("<p><b>Autor:</b> José R.</p>") + tr("<p><b>Licencia:</b> GPLv3</p>")
-                  + tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "
-                       "C++20.</p>")
-                  + tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - "
-                       "jose-rZM</a></p>")
-                  + tr("<p>2025 Universidad de Málaga</p>"));
+    about.setText(
+        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.2</b> ") +
+        qApp->applicationVersion() + tr("</p>") +
+        tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>") +
+        tr("<p><b>Autor:</b> José R.</p>") +
+        tr("<p><b>Licencia:</b> GPLv3</p>") +
+        tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "
+           "C++20.</p>") +
+        tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - "
+           "jose-rZM</a></p>") +
+        tr("<p>2025 Universidad de Málaga</p>"));
 
     about.setStandardButtons(QMessageBox::Close);
     auto* closeBtn = about.button(QMessageBox::Close);

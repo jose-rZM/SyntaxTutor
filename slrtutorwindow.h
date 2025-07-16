@@ -1,6 +1,10 @@
 #ifndef SLRTUTORWINDOW_H
 #define SLRTUTORWINDOW_H
 
+#include "UniqueQueue.h"
+#include "backend/grammar.hpp"
+#include "backend/slr1_parser.hpp"
+#include "slrtabledialog.h"
 #include <QAbstractItemView>
 #include <QDialog>
 #include <QFileDialog>
@@ -20,10 +24,6 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QtPrintSupport/QPrinter>
-#include "UniqueQueue.h"
-#include "backend/grammar.hpp"
-#include "backend/slr1_parser.hpp"
-#include "slrtabledialog.h"
 
 namespace Ui {
 class SLRTutorWindow;
@@ -67,17 +67,16 @@ class TutorialManager;
  * how to construct SLR(1) parsing tables, including closure, GOTO, automaton
  * construction, FOLLOW sets, and the final table.
  *
- * It supports animated feedback, pedagogical guidance, error correction, and export
- * of the tutoring session.
+ * It supports animated feedback, pedagogical guidance, error correction, and
+ * export of the tutoring session.
  *
  * The tutor follows a finite-state flow (`StateSlr`) to structure learning,
  * with corrective explanations and automatic evaluation at each step.
  */
-class SLRTutorWindow : public QMainWindow
-{
+class SLRTutorWindow : public QMainWindow {
     Q_OBJECT
 
-public:
+  public:
     // ====== Constructor / Destructor =============================
     /**
      * @brief Constructs the SLR(1) tutor window with a given grammar.
@@ -85,9 +84,8 @@ public:
      * @param tm Optional pointer to the tutorial manager (for guided tour).
      * @param parent Parent widget.
      */
-    explicit SLRTutorWindow(const Grammar &g,
-                            TutorialManager *tm = nullptr,
-                            QWidget *parent = nullptr);
+    explicit SLRTutorWindow(const Grammar& g, TutorialManager* tm = nullptr,
+                            QWidget* parent = nullptr);
     ~SLRTutorWindow();
 
     // ====== Core Flow Control =====================================
@@ -102,69 +100,72 @@ public:
      * @param isCorrect Whether the user's answer was correct.
      */
     void updateState(bool isCorrect);
-    QString FormatGrammar(const Grammar &grammar); /// < Utility for displaying grammar
-    void fillSortedGrammar();                      /// < Prepares grammar in display-friendly format
+    QString
+    FormatGrammar(const Grammar& grammar); /// < Utility for displaying grammar
+    void fillSortedGrammar(); /// < Prepares grammar in display-friendly format
 
     // ====== UI Interaction ========================================
-    void addMessage(const QString &text, bool isUser);     /// < Add message to chat
-    void exportConversationToPdf(const QString &filePath); /// < Export full interaction
-    void showTable();                                      /// < Render SLR(1) table
+    void addMessage(const QString& text, bool isUser); /// < Add message to chat
+    void exportConversationToPdf(
+        const QString& filePath); /// < Export full interaction
+    void showTable();             /// < Render SLR(1) table
     void launchSLRWizard();
     void updateProgressPanel();     /// < Refresh visual progress
     void addUserState(unsigned id); /// < Register a user-created state
-    void addUserTransition(unsigned fromId,
-                           const std::string &symbol,
+    void addUserTransition(unsigned fromId, const std::string& symbol,
                            unsigned toId); // Register a user-created transition
 
     // ====== Visual Feedback & Animations ==========================
-    void animateLabelPop(QLabel *label);
-    void animateLabelColor(QLabel *label, const QColor &flashColor);
+    void animateLabelPop(QLabel* label);
+    void animateLabelColor(QLabel* label, const QColor& flashColor);
     void wrongAnimation();             // Label animation for incorrect answer
-    void wrongUserResponseAnimation(); // Message widget animation for incorrect answer
+    void wrongUserResponseAnimation(); // Message widget animation for incorrect
+                                       // answer
     void markLastUserIncorrect();
 
     // ====== Response Verification ================================
-    bool verifyResponse(const QString &userResponse);
-    bool verifyResponseForA(const QString &userResponse);
-    bool verifyResponseForA1(const QString &userResponse);
-    bool verifyResponseForA2(const QString &userResponse);
-    bool verifyResponseForA3(const QString &userResponse);
-    bool verifyResponseForA4(const QString &userResponse);
-    bool verifyResponseForB(const QString &userResponse);
-    bool verifyResponseForC(const QString &userResponse);
-    bool verifyResponseForCA(const QString &userResponse);
-    bool verifyResponseForCB(const QString &userResponse);
-    bool verifyResponseForD(const QString &userResponse);
-    bool verifyResponseForD1(const QString &userResponse);
-    bool verifyResponseForD2(const QString &userResponse);
-    bool verifyResponseForE(const QString &userResponse);
-    bool verifyResponseForE1(const QString &userResponse);
-    bool verifyResponseForE2(const QString &userResponse);
-    bool verifyResponseForF(const QString &userResponse);
-    bool verifyResponseForFA(const QString &userResponse);
-    bool verifyResponseForG(const QString &userResponse);
+    bool verifyResponse(const QString& userResponse);
+    bool verifyResponseForA(const QString& userResponse);
+    bool verifyResponseForA1(const QString& userResponse);
+    bool verifyResponseForA2(const QString& userResponse);
+    bool verifyResponseForA3(const QString& userResponse);
+    bool verifyResponseForA4(const QString& userResponse);
+    bool verifyResponseForB(const QString& userResponse);
+    bool verifyResponseForC(const QString& userResponse);
+    bool verifyResponseForCA(const QString& userResponse);
+    bool verifyResponseForCB(const QString& userResponse);
+    bool verifyResponseForD(const QString& userResponse);
+    bool verifyResponseForD1(const QString& userResponse);
+    bool verifyResponseForD2(const QString& userResponse);
+    bool verifyResponseForE(const QString& userResponse);
+    bool verifyResponseForE1(const QString& userResponse);
+    bool verifyResponseForE2(const QString& userResponse);
+    bool verifyResponseForF(const QString& userResponse);
+    bool verifyResponseForFA(const QString& userResponse);
+    bool verifyResponseForG(const QString& userResponse);
     bool verifyResponseForH();
 
     // ====== Correct Solutions (Auto-generated) ====================
-    QString solution(const std::string &state);
+    QString                     solution(const std::string& state);
     std::unordered_set<Lr0Item> solutionForA();
-    QString solutionForA1();
-    QString solutionForA2();
-    std::vector<std::pair<std::string, std::vector<std::string>>> solutionForA3();
+    QString                     solutionForA1();
+    QString                     solutionForA2();
+    std::vector<std::pair<std::string, std::vector<std::string>>>
+                                solutionForA3();
     std::unordered_set<Lr0Item> solutionForA4();
-    unsigned solutionForB();
-    unsigned solutionForC();
-    QStringList solutionForCA();
+    unsigned                    solutionForB();
+    unsigned                    solutionForC();
+    QStringList                 solutionForCA();
     std::unordered_set<Lr0Item> solutionForCB();
-    QString solutionForD();
-    QString solutionForD1();
-    QString solutionForD2();
-    std::ptrdiff_t solutionForE();
-    QSet<unsigned> solutionForE1();
-    QMap<unsigned, unsigned> solutionForE2();
-    QSet<unsigned> solutionForF();
-    QSet<QString> solutionForFA();
-    QSet<QString> solutionForG();
+    QString                     solutionForD();
+    QString                     solutionForD1();
+    QString                     solutionForD2();
+    std::ptrdiff_t              solutionForE();
+    QSet<unsigned>              solutionForE1();
+    QMap<unsigned, unsigned>    solutionForE2();
+    QSet<unsigned>              solutionForF();
+    QSet<QString>               solutionForFA();
+    QSet<QString>               solutionForG();
 
     // ====== Pedagogical Feedback ==================================
     QString feedback(); // Delegates to appropriate feedback based on state
@@ -191,47 +192,47 @@ public:
     QString feedbackForF();
     QString feedbackForFA();
     QString feedbackForG();
-    QString TeachDeltaFunction(const std::unordered_set<Lr0Item> &items, const QString &symbol);
-    void TeachClosureStep(std::unordered_set<Lr0Item> &items,
-                          unsigned int size,
-                          std::unordered_set<std::string> &visited,
-                          int depth,
-                          QString &output);
-    QString TeachClosure(const std::unordered_set<Lr0Item> &initialItems);
-private slots:
+    QString TeachDeltaFunction(const std::unordered_set<Lr0Item>& items,
+                               const QString&                     symbol);
+    void TeachClosureStep(std::unordered_set<Lr0Item>& items, unsigned int size,
+                          std::unordered_set<std::string>& visited, int depth,
+                          QString& output);
+    QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
+  private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
 
-signals:
+  signals:
     void sessionFinished(int cntRight, int cntWrong);
 
-protected:
-    void closeEvent(QCloseEvent *event) override
-    {
+  protected:
+    void closeEvent(QCloseEvent* event) override {
         emit sessionFinished(cntRightAnswers, cntWrongAnswers);
         QWidget::closeEvent(event);
     }
 
-private:
+  private:
     // ====== Helper Functions ======================================
-    std::vector<std::string> qvectorToStdVector(const QVector<QString> &qvec);
-    QVector<QString> stdVectorToQVector(const std::vector<std::string> &vec);
-    QSet<QString> stdUnorderedSetToQSet(const std::unordered_set<std::string> &uset);
-    std::unordered_set<std::string> qsetToStdUnorderedSet(const QSet<QString> &qset);
-    std::unordered_set<Lr0Item> ingestUserItems(const QString &userResponse);
-    std::vector<std::pair<std::string, std::vector<std::string>>> ingestUserRules(
-        const QString &userResponse);
+    std::vector<std::string> qvectorToStdVector(const QVector<QString>& qvec);
+    QVector<QString> stdVectorToQVector(const std::vector<std::string>& vec);
+    QSet<QString>
+    stdUnorderedSetToQSet(const std::unordered_set<std::string>& uset);
+    std::unordered_set<std::string>
+    qsetToStdUnorderedSet(const QSet<QString>& qset);
+    std::unordered_set<Lr0Item> ingestUserItems(const QString& userResponse);
+    std::vector<std::pair<std::string, std::vector<std::string>>>
+         ingestUserRules(const QString& userResponse);
     void setupTutorial();
     // ====== Core Components ========================================
-    Ui::SLRTutorWindow *ui;
-    Grammar grammar;
-    SLR1Parser slr1;
+    Ui::SLRTutorWindow* ui;
+    Grammar             grammar;
+    SLR1Parser          slr1;
 
     // ====== State and Grammar Tracking =============================
-    StateSlr currentState;
-    QVector<QString> sortedNonTerminals;
+    StateSlr                                  currentState;
+    QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
-    QString formattedGrammar;
+    QString                                   formattedGrammar;
 
     unsigned cntRightAnswers = 0;
     unsigned cntWrongAnswers = 0;
@@ -239,28 +240,29 @@ private:
     // ====== State Machine Runtime Variables ========================
     std::unordered_set<state> userMadeStates; // All states the user has created
     std::unordered_map<unsigned, std::unordered_map<std::string, unsigned>>
-        userMadeTransitions;             // Transitions made by the user
-    UniqueQueue<unsigned> statesIdQueue; // States to be processed in B-C-CA-CB loop
+        userMadeTransitions; // Transitions made by the user
+    UniqueQueue<unsigned>
+             statesIdQueue; // States to be processed in B-C-CA-CB loop
     unsigned currentStateId = 0;
-    state currentSlrState;
+    state    currentSlrState;
 
-    QStringList followSymbols; // Used in CA-CB loop
-    qsizetype currentFollowSymbolsIdx = 0;
-    unsigned int nextStateId = 0;
+    QStringList  followSymbols; // Used in CA-CB loop
+    qsizetype    currentFollowSymbolsIdx = 0;
+    unsigned int nextStateId             = 0;
 
-    QVector<const state *> statesWithLr0Conflict; // Populated in F
-    std::queue<unsigned> conflictStatesIdQueue;
-    unsigned currentConflictStateId = 0;
-    state currentConflictState;
+    QVector<const state*> statesWithLr0Conflict; // Populated in F
+    std::queue<unsigned>  conflictStatesIdQueue;
+    unsigned              currentConflictStateId = 0;
+    state                 currentConflictState;
 
-    std::queue<unsigned> reduceStatesIdQueue; // States without conflicts but with reduce
+    std::queue<unsigned>
+             reduceStatesIdQueue; // States without conflicts but with reduce
     unsigned currentReduceStateId = 0;
-    state currentReduceState;
+    state    currentReduceState;
 
-    struct ActionEntry
-    {
+    struct ActionEntry {
         enum Type { Shift, Reduce, Accept, Goto } type;
-        int target;
+        int                target;
         static ActionEntry makeShift(int s) { return {Shift, s}; }
         static ActionEntry makeReduce(int r) { return {Reduce, r}; }
         static ActionEntry makeAccept() { return {Accept, 0}; }
@@ -268,31 +270,29 @@ private:
     };
 
     QMap<int, QMap<QString, ActionEntry>> slrtable;
-    QVector<QVector<QString>> rawTable;
+    QVector<QVector<QString>>             rawTable;
 
     // ====== Conversation Log =======================================
-    struct MessageLog
-    {
+    struct MessageLog {
         QString message;
-        bool isUser;
-        bool isCorrect = true;
+        bool    isUser;
+        bool    isCorrect = true;
 
-        MessageLog(const QString &message, bool isUser)
-            : message(message)
-            , isUser(isUser)
-        {}
+        MessageLog(const QString& message, bool isUser)
+            : message(message), isUser(isUser) {}
 
         void toggleIsCorrect() { isCorrect = false; }
     };
 
     QVector<MessageLog> conversationLog;
-    QWidget *lastUserMessage = nullptr;
-    qsizetype lastUserMessageLogIdx = -1;
+    QWidget*            lastUserMessage       = nullptr;
+    qsizetype           lastUserMessageLogIdx = -1;
 
-    QPropertyAnimation *m_shakeAnimation
-        = nullptr; // For interrupting userResponse animation if they spam enter key
+    QPropertyAnimation* m_shakeAnimation =
+        nullptr; // For interrupting userResponse animation if they spam enter
+                 // key
 
-    TutorialManager *tm;
+    TutorialManager* tm;
 
     QRegularExpression re{"^\\s+|\\s+$"};
 };
