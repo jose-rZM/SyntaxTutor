@@ -7,6 +7,14 @@ MainWindow::MainWindow(QWidget* parent)
       settings("UMA", "SyntaxTutor") {
     factory.Init();
     ui->setupUi(this);
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    QRect windowGeometry = this->frameGeometry();
+
+    int x = (screenGeometry.width() - windowGeometry.width()) / 2;
+    int y = (screenGeometry.height() - windowGeometry.height()) / 2;
+    this->move(x, y);
+
     Qt::WindowFlags f = windowFlags();
     f &= ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(f);
@@ -300,6 +308,7 @@ void MainWindow::on_pushButton_clicked() {
     this->hide();
     LLTutorWindow* tutor = new LLTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
+    tutor->move(this->pos());
     connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
     connect(tutor, &LLTutorWindow::sessionFinished, this,
             &MainWindow::handleTutorFinished);
@@ -311,7 +320,7 @@ void MainWindow::on_pushButton_2_clicked() {
     this->hide();
     SLRTutorWindow* tutor = new SLRTutorWindow(grammar, nullptr, this);
     tutor->setAttribute(Qt::WA_DeleteOnClose);
-
+    tutor->move(this->pos());
     connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
     connect(tutor, &SLRTutorWindow::sessionFinished, this,
             &MainWindow::handleTutorFinished);
