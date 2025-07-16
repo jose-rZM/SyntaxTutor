@@ -275,7 +275,7 @@ private:
     {
         QString message;
         bool isUser;
-        bool isCorrect;
+        bool isCorrect = true;
 
         MessageLog(const QString &message, bool isUser)
             : message(message)
