@@ -465,7 +465,8 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
     about.setText(
         tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.2</b> ") +
         qApp->applicationVersion() + tr("</p>") +
-        tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>") +
+        tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
+           "Sintácticos.</p>") +
         tr("<p><b>Autor:</b> José R.</p>") +
         tr("<p><b>Licencia:</b> GPLv3</p>") +
         tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "
