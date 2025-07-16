@@ -44,13 +44,13 @@ using \mbox{\hyperlink{classSLR1Parser_ab5eb4bb9299e7fc800a95a23910f5217}{transi
 \mbox{\hyperlink{classSLR1Parser_aa42411d1cb318041138b476e80aacc9a}{SLR1\+Parser}} (\mbox{\hyperlink{structGrammar}{Grammar}} gr)
 \item 
 std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \mbox{\hyperlink{classSLR1Parser_af1f26efc1c4f8826b2bd1477aa44868b}{All\+Items}} () const
-\begin{DoxyCompactList}\small\item\em Retrieves all LR(0) items in the grammar. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Retrieves all LR(0) items in the grammar. This function returns a set of all LR(0) items derived from the grammar\textquotesingle{}s productions. Each LR(0) item represents a production with a marker indicating the current position in the production (e.\+g., $ A \rightarrow \alpha \bullet \beta $). \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb}{Closure}} (std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items)
 \begin{DoxyCompactList}\small\item\em Computes the closure of a set of LR(0) items. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classSLR1Parser_a00101890c3c4d2871a8c100209abf122}{Closure\+Util}} (std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items, unsigned int size, std\+::unordered\+\_\+set$<$ std\+::string $>$ \&visited)
 \begin{DoxyCompactList}\small\item\em Helper function for computing the closure of LR(0) items. \end{DoxyCompactList}\item 
 std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \mbox{\hyperlink{classSLR1Parser_aee48bcbf0a93badeb5271a7299cc458b}{Delta}} (const std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ \&items, const std\+::string \&str)
-\begin{DoxyCompactList}\small\item\em Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Computes the GOTO transition ( \delta) for a given set of LR(0) items and a symbol. This function is equivalent to the \delta(I, X) function in LR parsing, where it computes the set of items reached from a state I via symbol X. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classSLR1Parser_a6a31a57223b052028c74f5d70db41c16}{Solve\+LRConflicts}} (const \mbox{\hyperlink{structstate}{state}} \&st)
 \begin{DoxyCompactList}\small\item\em Resolves LR conflicts in a given state. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First}} (std\+::span$<$ const std\+::string $>$ rule, std\+::unordered\+\_\+set$<$ std\+::string $>$ \&result)
@@ -58,7 +58,7 @@ void \mbox{\hyperlink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First}}
 void \mbox{\hyperlink{classSLR1Parser_af0a486daf0c5083b113e557d68732481}{Compute\+First\+Sets}} ()
 \begin{DoxyCompactList}\small\item\em Computes the FIRST sets for all non-\/terminal symbols in the grammar. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a}{Compute\+Follow\+Sets}} ()
-\begin{DoxyCompactList}\small\item\em Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. The FOLLOW set of a non-\/terminal symbol A contains all terminal symbols that can appear immediately after A in any sentential form derived from the grammar\textquotesingle{}s start symbol. Additionally, if A can be the last symbol in a derivation, the end-\/of-\/input marker ({\ttfamily \textbackslash{}\$}) is included in its FOLLOW set. This function computes the FOLLOW sets using the following rules\+: \end{DoxyCompactList}\item 
 std\+::unordered\+\_\+set$<$ std\+::string $>$ \mbox{\hyperlink{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb}{Follow}} (const std\+::string \&arg)
 \begin{DoxyCompactList}\small\item\em Computes the FOLLOW set for a given non-\/terminal symbol in the grammar. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b}{Make\+Initial\+State}} ()
@@ -89,6 +89,8 @@ Implements an SLR(1) parser for context-\/free grammars.
 
 This class builds an SLR(1) parsing table and LR(0) automaton from a given grammar. It provides methods for computing closure sets, GOTO transitions, constructing states, and performing syntax analysis using the generated table. 
 
+\label{doc-typedef-members}
+\Hypertarget{classSLR1Parser_doc-typedef-members}
 \doxysubsection{Member Typedef Documentation}
 \Hypertarget{classSLR1Parser_a8eae4c68e04f33947c69190bacd1a3bd}\index{SLR1Parser@{SLR1Parser}!action\_table@{action\_table}}
 \index{action\_table@{action\_table}!SLR1Parser@{SLR1Parser}}
@@ -136,6 +138,8 @@ The table is structured as\+:
 \item Inner map\+: Keys are symbols (std\+::string), and values are the next state IDs (unsigned int). 
 \end{DoxyItemize}
 
+\label{doc-enum-members}
+\Hypertarget{classSLR1Parser_doc-enum-members}
 \doxysubsection{Member Enumeration Documentation}
 \Hypertarget{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895}\index{SLR1Parser@{SLR1Parser}!Action@{Action}}
 \index{Action@{Action}!SLR1Parser@{SLR1Parser}}
@@ -173,6 +177,8 @@ Empty&\\
 \end{DoxyEnumFields}
 
 
+\label{doc-constructors}
+\Hypertarget{classSLR1Parser_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classSLR1Parser_af61cf9a5210b5df543a0ffcff96ce295}\index{SLR1Parser@{SLR1Parser}!SLR1Parser@{SLR1Parser}}
 \index{SLR1Parser@{SLR1Parser}!SLR1Parser@{SLR1Parser}}
@@ -195,6 +201,8 @@ Here is the call graph for this function\+:\nopagebreak
 \end{figure}
 
 
+\label{doc-func-members}
+\Hypertarget{classSLR1Parser_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classSLR1Parser_af1f26efc1c4f8826b2bd1477aa44868b}\index{SLR1Parser@{SLR1Parser}!AllItems@{AllItems}}
 \index{AllItems@{AllItems}!SLR1Parser@{SLR1Parser}}
@@ -204,9 +212,7 @@ std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ SLR
 
 
 
-Retrieves all LR(0) items in the grammar. 
-
-This function returns a set of all LR(0) items derived from the grammar\textquotesingle{}s productions. Each LR(0) item represents a production with a marker indicating the current position in the production (e.\+g., A → α•β).
+Retrieves all LR(0) items in the grammar. This function returns a set of all LR(0) items derived from the grammar\textquotesingle{}s productions. Each LR(0) item represents a production with a marker indicating the current position in the production (e.\+g., $ A \rightarrow \alpha \bullet \beta $). 
 
 \begin{DoxyReturn}{Returns}
 A set of all LR(0) items in the grammar. 
@@ -309,32 +315,26 @@ void SLR1\+Parser\+::\+Compute\+Follow\+Sets (\begin{DoxyParamCaption}{}{}\end{D
 
 
 
-Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. 
+Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. The FOLLOW set of a non-\/terminal symbol A contains all terminal symbols that can appear immediately after A in any sentential form derived from the grammar\textquotesingle{}s start symbol. Additionally, if A can be the last symbol in a derivation, the end-\/of-\/input marker ({\ttfamily \textbackslash{}\$}) is included in its FOLLOW set. This function computes the FOLLOW sets using the following rules\+: 
 
-The FOLLOW set of a non-\/terminal symbol A contains all terminal symbols that can appear immediately after A in any sentential form derived from the grammar\textquotesingle{}s start symbol. Additionally, if A can be the last symbol in a derivation, the end-\/of-\/input marker ({\ttfamily \$}) is included in its FOLLOW set.
 
-This function computes the FOLLOW sets using the following rules\+:
 \begin{DoxyEnumerate}
 \item Initialize FOLLOW(\+S) = \{ \$ \}, where S is the start symbol.
-\item For each production rule of the form A → α\+Bβ\+:
+\item For each production rule of the form  A \rightarrow \alpha B \beta\+:
 \begin{DoxyItemize}
-\item Add FIRST(β) (excluding ε) to FOLLOW(\+B).
-\item If ε ∈ FIRST(β), add FOLLOW(\+A) to FOLLOW(\+B).
+\item Add FIRST(\beta) \setminus \{\epsilon\} to  FOLLOW(B).
+\item If \epsilon \in FIRST(\beta), add FOLLOW(A) to FOLLOW(B).
 \end{DoxyItemize}
-\item Repeat step 2 until no changes occur in any FOLLOW set.
-\end{DoxyEnumerate}
-
-The computed FOLLOW sets are cached in the {\ttfamily follow\+\_\+sets\+\_\+} member variable for later use by the parser.
-
-\begin{DoxyNote}{Note}
-This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily first\+\_\+sets\+\_\+} member variable.
+\item Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the {\ttfamily follow\+\_\+sets\+\_\+} member variable for later use by the parser. \begin{DoxyNote}{Note}
+This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily first\+\_\+sets\+\_\+} member variable. 
 \end{DoxyNote}
 \begin{DoxySeeAlso}{See also}
 \doxylink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First} 
 
 \doxylink{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}{follow\+\_\+sets\+\_\+} 
 \end{DoxySeeAlso}
-Here is the call graph for this function\+:\nopagebreak
+
+\end{DoxyEnumerate}Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -356,9 +356,7 @@ std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{structLr0Item}{Lr0\+Item}} $>$ SLR
 
 
 
-Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol. 
-
-This function is equivalent to the δ(\+I, X) function in LR parsing, where it computes the set of items reached from a state I via symbol X.
+Computes the GOTO transition ( \delta) for a given set of LR(0) items and a symbol. This function is equivalent to the \delta(I, X) function in LR parsing, where it computes the set of items reached from a state I via symbol X. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -560,6 +558,8 @@ Here is the call graph for this function\+:\nopagebreak
 \end{figure}
 
 
+\label{doc-variable-members}
+\Hypertarget{classSLR1Parser_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}\index{SLR1Parser@{SLR1Parser}!actions\_@{actions\_}}
 \index{actions\_@{actions\_}!SLR1Parser@{SLR1Parser}}

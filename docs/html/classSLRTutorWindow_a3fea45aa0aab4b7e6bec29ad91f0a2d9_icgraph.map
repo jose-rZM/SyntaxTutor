@@ -1,5 +1,7 @@
 <map id="SLRTutorWindow::verifyResponseForA" name="SLRTutorWindow::verifyResponseForA">
-<area shape="rect" id="Node000001" title=" " alt="" coords="292,5,559,33"/>
-<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#ad2558a64cf4a24f493aa732558ba9e20" title=" " alt="" coords="5,5,244,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="276,22,244,22,244,16,276,16"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="509,14,776,42"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a71213d42e715ca1c1e5a02b078bc9b24" title=" " alt="" coords="243,14,461,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="493,30,461,30,461,25,493,25"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#ac4017a716f065b29ea2957f8af15643c" title=" " alt="" coords="5,5,195,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="227,30,195,30,195,25,227,25"/>
 </map>

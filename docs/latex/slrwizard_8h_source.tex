@@ -4,128 +4,136 @@
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SLRWIZARD\_H}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SLRWIZARD\_H}}
 \DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QLabel>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QWizard>}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QWizardPage>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slr1__parser_8hpp}{backend/slr1\_parser.hpp}}"{}}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slrwizardpage_8h}{slrwizardpage.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slr1__parser_8hpp}{backend/slr1\_parser.hpp}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slrwizardpage_8h}{slrwizardpage.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QWizard>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QWizardPage>}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSLRWizard_a1833672694f25771c1b66c4e2b935610}{SLRWizard}}\ :\ \textcolor{keyword}{public}\ QWizard}
-\DoxyCodeLine{00026\ \{}
-\DoxyCodeLine{00027\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classSLRWizard_a1833672694f25771c1b66c4e2b935610}{SLRWizard}}(\mbox{\hyperlink{classSLR1Parser}{SLR1Parser}}\ \&parser,}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<QVector<QString>>\ \&rawTable,}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\ \&colHeaders,}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<QPair<QString,\ QVector<QString>>>\ \&sortedGrammar,}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ :\ QWizard(parent)}
-\DoxyCodeLine{00044\ \ \ \ \ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ setWindowTitle(tr(\textcolor{stringliteral}{"{}Ayuda\ interactiva:\ Tabla\ SLR(1)"{}}));}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nTerm\ =\ parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}.contains(parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c}{EPSILON\_}})}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}.size()\ -\/\ 1}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}.size();}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRWizardPage}{SLRWizardPage}}\ *last\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Generar\ explicación\ y\ páginas}}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rows\ =\ rawTable.size();}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cols\ =\ colHeaders.size();}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ rows;\ ++i)\ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ cols;\ ++j)\ \{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ sym\ =\ colHeaders[j];}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ expected;}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ explanation;}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ <\ nTerm)\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itAct\ =\ parser.\mbox{\hyperlink{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}{actions\_}}.at(i).find(sym.toStdString());}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structSLR1Parser_1_1s__action}{SLR1Parser::s\_action}}\ act}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (itAct\ !=\ parser.\mbox{\hyperlink{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}{actions\_}}.at(i).end()}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ itAct-\/>second}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structSLR1Parser_1_1s__action}{SLR1Parser::s\_action}}\{nullptr,\ SLR1Parser::Action::Empty\});}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_aafdb6192300f887f99d4d7ea14201509}{action}})\ \{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895a825a3d98017bab11815ad2817201324c}{SLR1Parser::Action::Shift}}:\ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ to\ =\ parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.at(i).at(sym.toStdString());}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ QString(\textcolor{stringliteral}{"{}s\%1"{}}).arg(to);}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ existe\ transición\ δ(\%1,\ '\%2').\ ¿A\ qué\ "{}}}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}estado\ harías\ shift?"{}})}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8}{SLR1Parser::Action::Reduce}}:\ \{}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ -\/1;}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ sortedGrammar.size();\ ++k)\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \&rule\ =\ sortedGrammar[k];}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rule.first.toStdString()\ ==\ act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}}}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{classSLRWizard_ada2751317642cb02e08bb1a3575627cd}{stdVectorToQVector}}(act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}{consequent\_}})\ ==\ rule.second)\ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ k;}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ QString(\textcolor{stringliteral}{"{}r\%1"{}}).arg(idx);}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ explicación\ con\ FOLLOW}}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}};}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}}\ =\ parser.\mbox{\hyperlink{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb}{Follow}}(act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}});}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringList\ followList;}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&t\ :\ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}})}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ followList\ <<\ QString::fromStdString(t);}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ el\ ítem\ [\%2\ →\ ...·]\ y\ '\%3'\ ∈\ "{}}}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SIG(\%2).\ ¿Qué\ regla\ usas\ para\ reducir\ (0,\ 1,\ ...)?"{}})}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QString::fromStdString(act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}}))}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(colHeaders[j]);}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ac4408d335012a56ff58937d78050efad}{SLR1Parser::Action::Accept}}:}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ \textcolor{stringliteral}{"{}acc"{}};}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ [S\ →\ A\ ·\ \$].\ ¿Qué\ palabra\ clave\ "{}}}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}usas\ para\ aceptar?"{}})}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i);}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ace2c8aed9c2fa0cfbed56cbda4d8bf07}{SLR1Parser::Action::Empty}}:}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSLRWizard_a1833672694f25771c1b66c4e2b935610}{SLRWizard}}\ :\ \textcolor{keyword}{public}\ QWizard\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classSLRWizard_a1833672694f25771c1b66c4e2b935610}{SLRWizard}}(\mbox{\hyperlink{classSLR1Parser}{SLR1Parser}}\&\ parser,\ \textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ rawTable,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ colHeaders,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<QPair<QString,\ QVector<QString>>>\&\ sortedGrammar,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ :\ QWizard(parent)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ setWindowTitle(tr(\textcolor{stringliteral}{"{}Ayuda\ interactiva:\ Tabla\ SLR(1)"{}}));}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nTerm\ =}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}.contains(parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c}{EPSILON\_}})}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}.size()\ -\/\ 1}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ parser.\mbox{\hyperlink{classSLR1Parser_aad08331c9b94d48dbdda2e8783ea583a}{gr\_}}.\mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}}.\mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}.size();}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRWizardPage}{SLRWizardPage}}*\ last\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Generar\ explicación\ y\ páginas}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rows\ =\ rawTable.size();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cols\ =\ colHeaders.size();}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ rows;\ ++i)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ cols;\ ++j)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ sym\ =\ colHeaders[j];}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ expected;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ explanation;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ <\ nTerm)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itAct\ =\ parser.\mbox{\hyperlink{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}{actions\_}}.at(i).find(sym.toStdString());}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structSLR1Parser_1_1s__action}{SLR1Parser::s\_action}}\ act\ =}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (itAct\ !=\ parser.\mbox{\hyperlink{classSLR1Parser_a55ff1960d521b27fec21ca54d1e3d066}{actions\_}}.at(i).end()}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ itAct-\/>second}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structSLR1Parser_1_1s__action}{SLR1Parser::s\_action}}\{nullptr,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SLR1Parser::Action::Empty\});}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_aafdb6192300f887f99d4d7ea14201509}{action}})\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895a825a3d98017bab11815ad2817201324c}{SLR1Parser::Action::Shift}}:\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ to\ =}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.at(i).at(sym.toStdString());}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ QString(\textcolor{stringliteral}{"{}s\%1"{}}).arg(to);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ existe\ transición\ δ(\%1,\ "{}}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}'\%2').\ ¿A\ qué\ "{}}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}estado\ harías\ shift?"{}})}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8}{SLR1Parser::Action::Reduce}}:\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ -\/1;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ sortedGrammar.size();\ ++k)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ rule\ =\ sortedGrammar[k];}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rule.first.toStdString()\ ==}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}}\ \&\&}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRWizard_ada2751317642cb02e08bb1a3575627cd}{stdVectorToQVector}}(act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}{consequent\_}})\ ==}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rule.second)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ k;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ QString(\textcolor{stringliteral}{"{}r\%1"{}}).arg(idx);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ explicación\ con\ FOLLOW}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}}\ =\ parser.\mbox{\hyperlink{classSLR1Parser_af2549ef0375afbb8fd53fa2abafe60bb}{Follow}}(act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringList\ followList;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ t\ :\ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}})}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ followList\ <<\ QString::fromStdString(t);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ el\ ítem\ [\%2\ →\ "{}}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}...·]\ y\ '\%3'\ ∈\ "{}}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SIG(\%2).\ ¿Qué\ regla\ usas\ para\ "{}}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}reducir\ (0,\ 1,\ ...)?"{}})}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QString::fromStdString(}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ act.\mbox{\hyperlink{structSLR1Parser_1_1s__action_a571ec039a96e95bfa657a7bb5bc5b9bb}{item}}-\/>\mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}}))}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(colHeaders[j]);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GOTO\ sobre\ no\ terminal}}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ nonT\ =\ sym.toStdString();}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.contains(i))\ \{}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itGo\ =\ parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.at(i).find(nonT);}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (itGo\ !=\ parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.at(i).end())\ \{}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ QString::number(itGo-\/>second);}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ δ(\%1,\ '\%2')\ existe.\ ¿A\ qué\ estado\ va\ "{}}}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}la\ transición?\ (pon\ solo\ el\ número)"{}})}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRWizardPage}{SLRWizardPage}}\ *page\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classSLRWizardPage}{SLRWizardPage}}(i,\ sym,\ explanation,\ expected,\ \textcolor{keyword}{this});}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\ =\ page;}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addPage(page);}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (last)\ \{}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ last-\/>setFinalPage(\textcolor{keyword}{true});}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00135\ \ \ \ \ \}}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00142\ \ \ \ \ QVector<QString>\ \mbox{\hyperlink{classSLRWizard_ada2751317642cb02e08bb1a3575627cd}{stdVectorToQVector}}(\textcolor{keyword}{const}\ std::vector<std::string>\ \&vec)}
-\DoxyCodeLine{00143\ \ \ \ \ \{}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ QVector<QString>\ result;}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ result.reserve(vec.size());}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&str\ :\ vec)\ \{}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ result.push\_back(QString::fromStdString(str));}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
-\DoxyCodeLine{00150\ \ \ \ \ \}}
-\DoxyCodeLine{00151\ \};}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRWIZARD\_H}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ac4408d335012a56ff58937d78050efad}{SLR1Parser::Action::Accept}}:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ \textcolor{stringliteral}{"{}acc"{}};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ [S\ →\ A\ ·\ \$].\ "{}}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}¿Qué\ palabra\ clave\ "{}}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}usas\ para\ aceptar?"{}})}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classSLR1Parser_ada5e4f3519f68c6b1857742b016c0895ace2c8aed9c2fa0cfbed56cbda4d8bf07}{SLR1Parser::Action::Empty}}:}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GOTO\ sobre\ no\ terminal}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ nonT\ =\ sym.toStdString();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.contains(i))\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itGo\ =\ parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.at(i).find(nonT);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (itGo\ !=\ parser.\mbox{\hyperlink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\_}}.at(i).end())\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ QString::number(itGo-\/>second);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ δ(\%1,\ '\%2')\ existe.\ ¿A\ "{}}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}qué\ estado\ va\ "{}}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}la\ transición?\ (pon\ solo\ el\ número)"{}})}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRWizardPage}{SLRWizardPage}}*\ page\ =}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{classSLRWizardPage}{SLRWizardPage}}(i,\ sym,\ explanation,\ expected,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\ =\ page;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addPage(page);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (last)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ last-\/>setFinalPage(\textcolor{keyword}{true});}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00156\ \ \ \ \ QVector<QString>\ \mbox{\hyperlink{classSLRWizard_ada2751317642cb02e08bb1a3575627cd}{stdVectorToQVector}}(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec)\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ QVector<QString>\ result;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ result.reserve(vec.size());}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ str\ :\ vec)\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ result.push\_back(QString::fromStdString(str));}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRWIZARD\_H}}
 
 \end{DoxyCode}

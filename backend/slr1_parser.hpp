@@ -83,11 +83,10 @@ class SLR1Parser {
 
     /**
      * @brief Retrieves all LR(0) items in the grammar.
-     *
-     * This function returns a set of all LR(0) items derived from the grammar's
-     * productions. Each LR(0) item represents a production with a marker
-     * indicating the current position in the production (e.g., A → α•β).
-     *
+     * This function returns a set of all LR(0) items derived from the
+     * grammar's productions. Each LR(0) item represents a production with a
+     * marker indicating the current position in the production (e.g.,
+     * \f$ A \rightarrow \alpha \bullet \beta \f$).
      * @return A set of all LR(0) items in the grammar.
      */
     std::unordered_set<Lr0Item> AllItems() const;
@@ -121,15 +120,15 @@ class SLR1Parser {
                      std::unordered_set<std::string>& visited);
 
     /**
-    * @brief Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol.
-    *
-    * This function is equivalent to the δ(I, X) function in LR parsing, where it computes
-    * the set of items reached from a state I via symbol X.
-    *
-    * @param items The current set of LR(0) items (state).
-    * @param str The grammar symbol used for the transition.
-    * @return The resulting item set after the GOTO transition.
-    */
+     * @brief Computes the GOTO transition (\f( \delta \f)) for a given set of
+     * LR(0) items and a symbol.
+     * This function is equivalent to the \f( \delta(I, X) \f) function
+     * in LR parsing, where it computes the set of items reached from a state
+     * \f( I \f) via symbol \f( X \f).
+     * @param items The current set of LR(0) items (state).
+     * @param str The grammar symbol used for the transition.
+     * @return The resulting item set after the GOTO transition.
+     */
     std::unordered_set<Lr0Item> Delta(const std::unordered_set<Lr0Item>& items,
                                       const std::string&                 str);
 
@@ -175,6 +174,7 @@ class SLR1Parser {
      */
     void First(std::span<const std::string>     rule,
                std::unordered_set<std::string>& result);
+
     /**
      * @brief Computes the FIRST sets for all non-terminal symbols in the
      * grammar.
@@ -190,27 +190,25 @@ class SLR1Parser {
     /**
      * @brief Computes the FOLLOW sets for all non-terminal symbols in the
      * grammar.
-     *
-     * The FOLLOW set of a non-terminal symbol A contains all terminal symbols
-     * that can appear immediately after A in any sentential form derived from
-     * the grammar's start symbol. Additionally, if A can be the last symbol in
-     * a derivation, the end-of-input marker (`$`) is included in its FOLLOW
-     * set.
-     *
+     * The FOLLOW set of a non-terminal symbol A contains all terminal
+     * symbols that can appear immediately after A in any sentential form
+     * derived from the grammar's start symbol. Additionally, if A can be the
+     * last symbol in a derivation, the end-of-input marker (`\$`) is included
+     * in its FOLLOW set.
      * This function computes the FOLLOW sets using the following rules:
-     * 1. Initialize FOLLOW(S) = { $ }, where S is the start symbol.
-     * 2. For each production rule of the form A → αBβ:
-     *    - Add FIRST(β) (excluding ε) to FOLLOW(B).
-     *    - If ε ∈ FIRST(β), add FOLLOW(A) to FOLLOW(B).
+     * 1. Initialize FOLLOW(S) = { \f( \$ \f) }, where S is the start symbol.
+     * 2. For each production rule of the form \f( A \rightarrow \alpha B \beta
+     * \f):
+     *    - Add \f( FIRST(\beta) \setminus \{\epsilon\} \f) to \f( FOLLOW(B)
+     * \f).
+     *    - If \f( \epsilon \in FIRST(\beta) \f), add \f( FOLLOW(A) \f) to
+     *      \f( FOLLOW(B) \f).
      * 3. Repeat step 2 until no changes occur in any FOLLOW set.
-     *
-     * The computed FOLLOW sets are cached in the `follow_sets_` member variable
-     * for later use by the parser.
-     *
-     * @note This function assumes that the FIRST sets for all symbols have
-     * already been computed and are available in the `first_sets_` member
+     * The computed FOLLOW sets are cached in the `follow_sets_` member
+     * variable for later use by the parser.
+     * @note This function assumes that the FIRST sets for all symbols
+     * have already been computed and are available in the `first_sets_` member
      * variable.
-     *
      * @see First
      * @see follow_sets_
      */

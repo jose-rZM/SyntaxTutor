@@ -1,0 +1,10 @@
+<map id="TutorialManager::hideOverlay" name="TutorialManager::hideOverlay">
+<area shape="rect" id="Node000001" title="Hides the tutorial overlay immediately." alt="" coords="5,36,219,64"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="267,36,459,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,56,251,56,251,61,219,61"/>
+<area shape="poly" id="edge2_Node000002_Node000001" title=" " alt="" coords="266,44,234,44,234,38,266,38"/>
+<area shape="rect" id="Node000003" href="$classTutorialManager.html#aba61470a5090632d6df51b167e740054" title="Emitted when a new tutorial step starts." alt="" coords="507,5,716,33"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="459,35,491,31,492,37,460,41"/>
+<area shape="rect" id="Node000004" href="$classTutorialManager.html#ac3e8c34792596992dc52d21de5198030" title="Emitted when the full tutorial is finished." alt="" coords="521,57,702,102"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="460,59,506,64,505,69,459,64"/>
+</map>

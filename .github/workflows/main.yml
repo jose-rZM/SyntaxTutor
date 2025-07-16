@@ -117,7 +117,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macos-intel
+          name: SyntaxTutor-macos-intel 
           path: SyntaxTutor-intel.zip  
   build-macos:
     runs-on: macos-latest
@@ -221,7 +221,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: macos-artifacts
+          name: SyntaxTutor-macos-arm64
           path: |
             SyntaxTutor.app
             
@@ -266,7 +266,7 @@ jobs:
       - name: Upload Windows ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: windows-deploy
+          name: SyntaxTutor-windows-x64
           path: deploy
 
   build-linux:
@@ -321,5 +321,5 @@ jobs:
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v4
         with:
-          name: linux-appimage
+          name: SyntaxTutor-linux-x86_64
           path: '*.AppImage'

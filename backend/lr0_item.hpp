@@ -7,10 +7,14 @@
  * @struct Lr0Item
  * @brief Represents an LR(0) item used in LR automata construction.
  *
- * An LR(0) item has a production of the form A → α·β, where the dot indicates the current parsing position.
- * This structure tracks the antecedent (left-hand side), consequent (right-hand side), the dot position,
- * and special symbols like EPSILON and end-of-line ($).
+ * An LR(0) item has a production of the form \f( A \rightarrow \alpha \bullet
+ * \beta \f), where the dot indicates the current parsing position.
+ *
+ * This structure tracks the antecedent (left-hand side), consequent (right-hand
+ * side), the dot position, and special symbols like EPSILON and end-of-line
+ * ($).
  */
+
 struct Lr0Item {
     /**
      * @brief The non-terminal on the left-hand side of the production.
@@ -23,7 +27,7 @@ struct Lr0Item {
     std::vector<std::string> consequent_;
 
     /**
-     * @brief The symbol representing the empty string (ε).
+     * @brief The symbol representing the empty string (\f(\epsilon\f)).
      */
     std::string epsilon_;
 

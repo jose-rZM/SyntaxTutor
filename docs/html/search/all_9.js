@@ -1,16 +1,18 @@
 var searchData=
 [
-  ['id_5f_0',['id_',['../structstate.html#ae4175bd8db542097060d70960296505d',1,'state']]],
-  ['in_1',['In',['../structSymbolTable.html#a6fc61b8d63539a3a85042874db6c6d6b',1,'SymbolTable']]],
-  ['init_2',['Init',['../structGrammarFactory.html#a7c7e94a38b31ab06b0b0276cb2530936',1,'GrammarFactory']]],
-  ['initstyleoption_3',['initStyleOption',['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override'],['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override']]],
-  ['interactive_20tool_20for_20learning_20syntax_20analysis_4',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['interface_20screenshots_5',['🖼️ Interface Screenshots',['../index.html#autotoc_md6',1,'']]],
-  ['iscomplete_6',['IsComplete',['../structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4',1,'Lr0Item']]],
-  ['isinfinite_7',['IsInfinite',['../structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883',1,'GrammarFactory']]],
-  ['isterminal_8',['IsTerminal',['../structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21',1,'SymbolTable']]],
-  ['isterminalwthoeol_9',['IsTerminalWthoEol',['../structSymbolTable.html#a59a554074a649b1e6e55d4149b62743c',1,'SymbolTable']]],
-  ['item_10',['item',['../structSLR1Parser_1_1s__action.html#a571ec039a96e95bfa657a7bb5bc5b9bb',1,'SLR1Parser::s_action']]],
-  ['items_11',['items',['../structGrammarFactory.html#a4abe0dd76b57891bf88d72f96e609400',1,'GrammarFactory']]],
-  ['items_5f_12',['items_',['../structstate.html#a54da669fd7d80f2459478e228a5f8af6',1,'state']]]
+  ['g_0',['G',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473dadfcf28d0734569a6a693bc8194de62bf',1,'slrtutorwindow.h']]],
+  ['g_5f_1',['g_',['../structGrammar.html#ac16e6ae6c52586612ecf1ceb19fb1dd5',1,'Grammar::g_'],['../structGrammarFactory_1_1FactoryItem.html#a5e63b86c5b47a6c2f4f572d7a71cf296',1,'GrammarFactory::FactoryItem::g_']]],
+  ['generatenewnonterminal_2',['GenerateNewNonTerminal',['../structGrammarFactory.html#aca2925bbcb27fa32b0b53d626dfd7b7e',1,'GrammarFactory']]],
+  ['generatequestion_3',['generateQuestion',['../classLLTutorWindow.html#af2fd68df43d6ce1b4fe3aff2443c8d4e',1,'LLTutorWindow::generateQuestion()'],['../classSLRTutorWindow.html#a255a5ab1aeae5b5123df8b271f11a245',1,'SLRTutorWindow::generateQuestion()']]],
+  ['genll1grammar_4',['GenLL1Grammar',['../structGrammarFactory.html#a008edfd357bd31ea6566c4bc0bca6845',1,'GrammarFactory']]],
+  ['genslr1grammar_5',['GenSLR1Grammar',['../structGrammarFactory.html#a9d305dd64af208b12d6153e1ab63bc38',1,'GrammarFactory']]],
+  ['gettabledata_6',['getTableData',['../classLLTableDialog.html#a75f516c03d82c5ee7f5fbcc9cab7783a',1,'LLTableDialog::getTableData()'],['../classSLRTableDialog.html#a5e5ba1b836c93aa1290ca3026718cff9',1,'SLRTableDialog::getTableData()']]],
+  ['gr_5f_7',['gr_',['../classLL1Parser.html#a8148d39b8f39a98b4210490346beb3b4',1,'LL1Parser::gr_'],['../classSLR1Parser.html#aad08331c9b94d48dbdda2e8783ea583a',1,'SLR1Parser::gr_']]],
+  ['grammar_8',['Grammar',['../structGrammar.html',1,'Grammar'],['../structGrammar.html#aa201250a002a7d07d398fee189a74427',1,'Grammar::Grammar()'],['../structGrammar.html#aadc4653fd0a6173388fe4692772c59ad',1,'Grammar::Grammar(const std::unordered_map&lt; std::string, std::vector&lt; production &gt; &gt; &amp;grammar)']]],
+  ['grammar_2ecpp_9',['grammar.cpp',['../grammar_8cpp.html',1,'']]],
+  ['grammar_2ehpp_10',['grammar.hpp',['../grammar_8hpp.html',1,'']]],
+  ['grammar_5ffactory_2ecpp_11',['grammar_factory.cpp',['../grammar__factory_8cpp.html',1,'']]],
+  ['grammar_5ffactory_2ehpp_12',['grammar_factory.hpp',['../grammar__factory_8hpp.html',1,'']]],
+  ['grammarfactory_13',['GrammarFactory',['../structGrammarFactory.html',1,'']]],
+  ['guided_20table_20completion_14',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md19',1,'']]]
 ];

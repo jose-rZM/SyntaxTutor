@@ -17,7 +17,7 @@
 <area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="443,1020,494,1040,552,1058,692,1085,820,1101,820,1106,691,1090,550,1063,492,1045,441,1025"/>
 <area shape="rect" id="Node000009" href="$classSLR1Parser.html#af0a486daf0c5083b113e557d68732481" title="Computes the FIRST sets for all non&#45;terminal symbols in the grammar." alt="" coords="558,917,775,945"/>
 <area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="445,991,550,955,582,947,584,952,552,960,447,997"/>
-<area shape="rect" id="Node000011" href="$classSLR1Parser.html#a06a9888464cfe48152d72311e25ad79a" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar." alt="" coords="551,1021,782,1049"/>
+<area shape="rect" id="Node000011" href="$classSLR1Parser.html#a06a9888464cfe48152d72311e25ad79a" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar. The FOLLOW set of a non&#45;termina..." alt="" coords="551,1021,782,1049"/>
 <area shape="poly" id="edge13_Node000005_Node000011" title=" " alt="" coords="497,1015,536,1019,535,1024,497,1020"/>
 <area shape="rect" id="Node000012" href="$classSLR1Parser.html#a95d3b55554e24aa03f6a73d7b895e78b" title="Creates the initial state of the parser&#39;s state machine." alt="" coords="562,1123,771,1150"/>
 <area shape="poly" id="edge15_Node000005_Node000012" title=" " alt="" coords="428,1021,481,1061,552,1102,587,1115,585,1120,550,1107,478,1065,424,1025"/>

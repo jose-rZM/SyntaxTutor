@@ -44,7 +44,7 @@ void \mbox{\hyperlink{structGrammarFactory_a7c7e94a38b31ab06b0b0276cb2530936}{In
 bool \mbox{\hyperlink{structGrammarFactory_a289b675f7307cbbd986d3684ceefc8db}{Has\+Unreachable\+Symbols}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
 \begin{DoxyCompactList}\small\item\em Checks if a grammar contains unreachable symbols (non-\/terminals that cannot be derived from the start symbol). \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{structGrammarFactory_a7bebc5a4fe3d80cf038767fe99b88883}{Is\+Infinite}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
-\begin{DoxyCompactList}\small\item\em Checks if a grammar is infinite, meaning there are non-\/terminal symbols that can never derive a terminal string. This happens when a production leads to an infinite recursion or an endless derivation without reaching terminal symbols. For example, a production like\+: S -\/\texorpdfstring{$>$}{>} A A -\/\texorpdfstring{$>$}{>} a A \texorpdfstring{$\vert$}{|} B B -\/\texorpdfstring{$>$}{>} c B could lead to an infinite derivation of non-\/terminals. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks if a grammar is infinite, meaning there are non-\/terminal symbols that can never derive a terminal string. This happens when a production leads to an infinite recursion or an endless derivation without reaching terminal symbols. For example, a production like\+: \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{structGrammarFactory_a6bf9e0a5e0808f56165d488abde34c5f}{Has\+Direct\+Left\+Recursion}} (const \mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
 \begin{DoxyCompactList}\small\item\em Checks if a grammar contains direct left recursion (a non-\/terminal can produce itself on the left side of a production in one step). \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{structGrammarFactory_af8f0bc614939cd7268fb61c70d10fcb5}{Has\+Indirect\+Left\+Recursion}} (const \mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
@@ -54,9 +54,9 @@ bool \mbox{\hyperlink{structGrammarFactory_a545a96027491b8858aa2621f6476385f}{Ha
 std\+::unordered\+\_\+set$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_a9e9e0dd8e183913fed41772c540ec549}{Nullable\+Symbols}} (const \mbox{\hyperlink{structGrammar}{Grammar}} \&grammar) const
 \begin{DoxyCompactList}\small\item\em Find nullable symbols in a grammar. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structGrammarFactory_a4f167379fa626f0734d6e99b34b96a54}{Remove\+Left\+Recursion}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar)
-\begin{DoxyCompactList}\small\item\em Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its productions is A -\/\texorpdfstring{$>$}{>} A a, where A is a non terminal symbol and "{}a"{} the rest of the production. The procedure removes direct left recursion by adding a new non terminal. So, if the productions with left recursion are A -\/\texorpdfstring{$>$}{>} A a \texorpdfstring{$\vert$}{|} b, the result would be A -\/\texorpdfstring{$>$}{>} b A\textquotesingle{}; A\textquotesingle{}-\/\texorpdfstring{$>$}{>} a A\textquotesingle{} \texorpdfstring{$\vert$}{|} EPSILON. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its productions is. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{structGrammarFactory_a0248fb175bd5ddaae30e82e7d1b3304c}{Left\+Factorize}} (\mbox{\hyperlink{structGrammar}{Grammar}} \&grammar)
-\begin{DoxyCompactList}\small\item\em Perfoms left factorization. A grammar could be left factorized if it have productions with the same prefix for one non terminal. For example, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y; could be left factorized because it has "{}a"{} as the common prefix. The left factorization is done by adding a new non terminal symbol that contains the uncommon part, and by unifying the common prefix in a one producion. So, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y would be A -\/\texorpdfstring{$>$}{>} a A\textquotesingle{}; A\textquotesingle{} -\/\texorpdfstring{$>$}{>} x \texorpdfstring{$\vert$}{|} y. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Performs left factorization. A grammar can be left factorized if it has productions with the same prefix for one non-\/terminal. For example\+: \end{DoxyCompactList}\item 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_ab6c2988168d6b13fc7d166f22c708003}{Longest\+Common\+Prefix}} (const std\+::vector$<$ \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ \&productions)
 \begin{DoxyCompactList}\small\item\em Finds the longest common prefix among a set of productions. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{structGrammarFactory_ab4d6073366842e8539dace5eb00564e9}{Starts\+With}} (const \mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} \&prod, const std\+::vector$<$ std\+::string $>$ \&prefix)
@@ -83,6 +83,8 @@ std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structGrammarFactory_af83e17
 \doxysubsection{Detailed Description}
 Responsible for creating and managing grammar items and performing checks on grammars. 
 
+\label{doc-func-members}
+\Hypertarget{structGrammarFactory_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{structGrammarFactory_a384f98c92be56b27c65e20edebd32bcd}\index{GrammarFactory@{GrammarFactory}!AdjustTerminals@{AdjustTerminals}}
 \index{AdjustTerminals@{AdjustTerminals}!GrammarFactory@{GrammarFactory}}
@@ -345,9 +347,16 @@ bool Grammar\+Factory\+::\+Is\+Infinite (\begin{DoxyParamCaption}\item[{\mbox{\h
 
 
 
-Checks if a grammar is infinite, meaning there are non-\/terminal symbols that can never derive a terminal string. This happens when a production leads to an infinite recursion or an endless derivation without reaching terminal symbols. For example, a production like\+: S -\/\texorpdfstring{$>$}{>} A A -\/\texorpdfstring{$>$}{>} a A \texorpdfstring{$\vert$}{|} B B -\/\texorpdfstring{$>$}{>} c B could lead to an infinite derivation of non-\/terminals. 
+Checks if a grammar is infinite, meaning there are non-\/terminal symbols that can never derive a terminal string. This happens when a production leads to an infinite recursion or an endless derivation without reaching terminal symbols. For example, a production like\+: 
 
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{S\ -\/>\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ -\/>\ a\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ |\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571}{B}}}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571}{B}}\ -\/>\ c\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571}{B}}}
+
+\end{DoxyCode}
+ could lead to an infinite derivation of non-\/terminals. 
 \begin{DoxyParams}{Parameters}
 {\em grammar} & The grammar to check. \\
 \hline
@@ -377,9 +386,25 @@ void Grammar\+Factory\+::\+Left\+Factorize (\begin{DoxyParamCaption}\item[{\mbox
 
 
 
-Perfoms left factorization. A grammar could be left factorized if it have productions with the same prefix for one non terminal. For example, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y; could be left factorized because it has "{}a"{} as the common prefix. The left factorization is done by adding a new non terminal symbol that contains the uncommon part, and by unifying the common prefix in a one producion. So, A -\/\texorpdfstring{$>$}{>} a x \texorpdfstring{$\vert$}{|} a y would be A -\/\texorpdfstring{$>$}{>} a A\textquotesingle{}; A\textquotesingle{} -\/\texorpdfstring{$>$}{>} x \texorpdfstring{$\vert$}{|} y. 
+Performs left factorization. A grammar can be left factorized if it has productions with the same prefix for one non-\/terminal. For example\+: 
 
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ -\/>\ a\ x\ |\ a\ y}
+
+\end{DoxyCode}
+ could be left factorized because it has "{}a"{} as the common prefix. The left factorization is done by adding a new non-\/terminal symbol that contains the uncommon part, and by unifying the common prefix in one production. So\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ -\/>\ a\ x\ |\ a\ y}
+
+\end{DoxyCode}
+ would become\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ \ -\/>\ a\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\textcolor{stringliteral}{'}}
+\DoxyCodeLine{\textcolor{stringliteral}{A'}\ -\/>\ x\ |\ y}
+
+\end{DoxyCode}
+ 
 \begin{DoxyParams}{Parameters}
 {\em grammar} & The grammar to be left factorized. \\
 \hline
@@ -742,11 +767,27 @@ void Grammar\+Factory\+::\+Remove\+Left\+Recursion (\begin{DoxyParamCaption}\ite
 
 
 
-Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its productions is A -\/\texorpdfstring{$>$}{>} A a, where A is a non terminal symbol and "{}a"{} the rest of the production. The procedure removes direct left recursion by adding a new non terminal. So, if the productions with left recursion are A -\/\texorpdfstring{$>$}{>} A a \texorpdfstring{$\vert$}{|} b, the result would be A -\/\texorpdfstring{$>$}{>} b A\textquotesingle{}; A\textquotesingle{}-\/\texorpdfstring{$>$}{>} a A\textquotesingle{} \texorpdfstring{$\vert$}{|} EPSILON. 
+Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its productions is. 
 
 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ -\/>\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ a}
+
+\end{DoxyCode}
+ where A is a non-\/terminal symbol and "{}a"{} the rest of the production. The procedure removes direct left recursion by adding a new non-\/terminal. So, if the productions with left recursion are\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ -\/>\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ a\ |\ b}
+
+\end{DoxyCode}
+ the result would be\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\ \ -\/>\ b\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\textcolor{stringliteral}{'}}
+\DoxyCodeLine{\textcolor{stringliteral}{A'}\ -\/>\ a\ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}}\textcolor{stringliteral}{'\ |\ epsilon}}
+
+\end{DoxyCode}
+ 
 \begin{DoxyParams}{Parameters}
-{\em grammar} & The grammar to remove left recursion \\
+{\em grammar} & The grammar to remove left recursion. \\
 \hline
 \end{DoxyParams}
 Here is the call graph for this function\+:\nopagebreak
@@ -794,6 +835,8 @@ Here is the caller graph for this function\+:\nopagebreak
 \end{figure}
 
 
+\label{doc-variable-members}
+\Hypertarget{structGrammarFactory_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{structGrammarFactory_a4abe0dd76b57891bf88d72f96e609400}\index{GrammarFactory@{GrammarFactory}!items@{items}}
 \index{items@{items}!GrammarFactory@{GrammarFactory}}

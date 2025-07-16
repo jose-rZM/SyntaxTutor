@@ -1,5 +1,12 @@
 <map id="TutorialManager::clearSteps" name="TutorialManager::clearSteps">
-<area shape="rect" id="Node000001" title="Clears all steps in the tutorial." alt="" coords="5,5,208,33"/>
-<area shape="rect" id="Node000002" href="$classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="256,5,469,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,16,240,16,240,22,208,22"/>
+<area shape="rect" id="Node000001" title="Clears all steps in the tutorial." alt="" coords="5,36,208,64"/>
+<area shape="rect" id="Node000002" href="$classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="256,36,469,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,47,240,47,240,52,208,52"/>
+<area shape="rect" id="Node000003" href="$classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="517,36,709,64"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="470,56,501,56,501,61,470,61"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="516,44,485,44,485,38,516,38"/>
+<area shape="rect" id="Node000004" href="$classTutorialManager.html#aba61470a5090632d6df51b167e740054" title="Emitted when a new tutorial step starts." alt="" coords="757,5,967,33"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="709,35,741,31,742,37,710,41"/>
+<area shape="rect" id="Node000005" href="$classTutorialManager.html#ac3e8c34792596992dc52d21de5198030" title="Emitted when the full tutorial is finished." alt="" coords="771,57,953,102"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="710,59,756,64,756,69,709,64"/>
 </map>

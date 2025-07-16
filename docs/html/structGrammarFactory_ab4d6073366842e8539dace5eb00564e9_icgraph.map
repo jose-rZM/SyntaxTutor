@@ -1,6 +1,6 @@
 <map id="GrammarFactory::StartsWith" name="GrammarFactory::StartsWith">
 <area shape="rect" id="Node000001" title="Checks if a production starts with a given prefix." alt="" coords="572,5,778,33"/>
-<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Perfoms left factorization. A grammar could be left factorized if it have productions with the same p..." alt="" coords="302,5,524,33"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Performs left factorization. A grammar can be left factorized if it has productions with the same pre..." alt="" coords="302,5,524,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="557,22,524,22,524,16,557,16"/>
 <area shape="rect" id="Node000003" href="$structGrammarFactory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="5,5,254,33"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="286,22,254,22,254,16,286,16"/>

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2025-07-16
+### Fixed
+- Fixed issue when exporting PDF in SLR mode.
+- Fixed some feedback in SLR mode
+
 ## [1.0.1] - 2025-06-17
 ### Added
 - Added `Doxyfile` for automatic documentation generation with Doxygen.

@@ -1,6 +1,5 @@
 #pragma once
 #include "lr0_item.hpp"
-#include <algorithm>
 #include <cstddef>
 #include <functional>
 #include <numeric>

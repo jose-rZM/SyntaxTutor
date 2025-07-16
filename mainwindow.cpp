@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
@@ -452,9 +454,6 @@ void MainWindow::setupTutorial() {
     });
 }
 
-#include <QMessageBox>
-#include <QPixmap>
-
 void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
     QMessageBox about(this);
     about.setWindowTitle(tr("Sobre la aplicación"));
@@ -464,9 +463,10 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
 
     about.setTextFormat(Qt::RichText);
     about.setText(
-        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.1</b> ") +
+        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.2</b> ") +
         qApp->applicationVersion() + tr("</p>") +
-        tr("<p>Trabajo Fin de Grado – Analizador sintáctico interactivo.</p>") +
+        tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
+           "Sintácticos.</p>") +
         tr("<p><b>Autor:</b> José R.</p>") +
         tr("<p><b>Licencia:</b> GPLv3</p>") +
         tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "

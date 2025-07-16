@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['d_0',['D',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473daf623e75af30e62bbd73d6df5b50bb7b5',1,'slrtutorwindow.h']]],
-  ['d1_1',['D1',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da4a4079e06eb2f7ba7a12821c7c58a3f6',1,'slrtutorwindow.h']]],
-  ['d2_2',['D2',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473dac4d62b6dcca08e5caf06c01889282859',1,'slrtutorwindow.h']]],
-  ['d_5fprime_3',['D_prime',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da7ca5dc50827bbc9567c75cc4344c86eb',1,'slrtutorwindow.h']]],
-  ['debug_4',['Debug',['../structGrammar.html#a95e0f2efad2652f2048670b87894d033',1,'Grammar']]],
-  ['delta_5',['Delta',['../classSLR1Parser.html#aee48bcbf0a93badeb5271a7299cc458b',1,'SLR1Parser']]],
-  ['dot_5f_6',['dot_',['../structLr0Item.html#a1458f46f5cd2c1c02868a4b95e6f9437',1,'Lr0Item']]],
-  ['downloads_7',['📦 Downloads',['../index.html#autotoc_md14',1,'']]],
-  ['drawtree_8',['drawTree',['../classLLTutorWindow.html#a36728cc5c78e316c2140422b828cc733',1,'LLTutorWindow']]]
+  ['b_0',['B',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571',1,'B:&#160;lltutorwindow.h'],['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da9d5ed678fe57bcca610140957afab571',1,'B:&#160;slrtutorwindow.h']]],
+  ['b1_1',['B1',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac9512565ef6194ca664dc41ec0de7a53',1,'lltutorwindow.h']]],
+  ['b2_2',['B2',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abbd97b00c539801e32317ab550867ec4',1,'lltutorwindow.h']]],
+  ['b_5fprime_3',['B_prime',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abf4117e13eb3260dd9c0659f69d76cb5',1,'lltutorwindow.h']]],
+  ['building_20from_20source_4',['🛠️ Building from Source',['../index.html#autotoc_md25',1,'']]],
+  ['buildtreenode_5',['buildTreeNode',['../classLLTutorWindow.html#acd631fc33e5dbb6197bfc7b3d2b451f2',1,'LLTutorWindow']]]
 ];

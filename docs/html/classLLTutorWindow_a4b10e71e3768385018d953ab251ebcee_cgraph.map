@@ -1,28 +1,14 @@
 <map id="LLTutorWindow::LLTutorWindow" name="LLTutorWindow::LLTutorWindow">
-<area shape="rect" id="Node000001" title="Constructs the LL(1) tutor window with a given grammar." alt="" coords="5,95,229,122"/>
-<area shape="poly" id="edge13_Node000001_Node000001" title=" " alt="" coords="70,96,62,86,68,76,87,70,117,68,150,71,168,77,166,82,149,76,117,73,88,75,71,80,67,85,74,92"/>
-<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#ad444321598f7c59c43a8ba36d05dee82" title=" " alt="" coords="567,5,775,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,92,199,58,237,41,276,29,346,15,418,8,551,7,551,13,418,14,347,21,277,34,239,46,201,63,142,96"/>
-<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#ab53c5ad90f32ca16f43ee28656a7a39b" title="Formats a grammar for display in the chat interface." alt="" coords="281,43,515,70"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,91,304,71,305,76,196,97"/>
-<area shape="rect" id="Node000004" href="$classLLTutorWindow.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="277,95,519,122"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,106,261,106,261,111,229,111"/>
-<area shape="rect" id="Node000010" href="$classCustomTextEdit.html#a418fa720fd5e46a1f856e859c4989892" title=" " alt="" coords="282,147,514,174"/>
-<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="196,120,305,141,304,146,195,126"/>
-<area shape="rect" id="Node000011" href="$classLLTutorWindow.html#ad7528d4e40e7d041d4ae4049ccf4c222" title=" " alt="" coords="284,198,512,243"/>
-<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="145,120,205,151,278,183,298,191,296,196,276,188,203,156,143,125"/>
-<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="473,92,518,79,625,37,627,42,520,84,474,97"/>
-<area shape="rect" id="Node000005" href="$classLLTutorWindow.html#a4f1547926d1d6034d3d3cd0ba53131a3" title="&lt; Export chat to PDF" alt="" coords="823,87,1018,114"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="519,104,808,100,808,105,519,109"/>
-<area shape="rect" id="Node000009" href="$classLLTutorWindow.html#a0ae4c32d3c142d9488145d0f368a2940" title="Display the full LL(1) table in C&#39; ex." alt="" coords="574,133,768,178"/>
-<area shape="poly" id="edge10_Node000004_Node000009" title=" " alt="" coords="483,120,559,133,558,139,483,126"/>
-<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="879,88,872,78,877,68,894,62,921,60,949,62,965,69,963,74,948,68,920,65,895,67,880,72,877,77,883,85"/>
-<area shape="rect" id="Node000006" href="$classLLTutorWindow.html#a76a825d9c56a31849e340be7b45f6674" title=" " alt="" coords="1066,73,1270,118"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="1018,96,1050,95,1050,100,1018,101"/>
-<area shape="rect" id="Node000008" href="$classLLTableDialog.html#a5aafabe038ddf5f3cf382f4263d1ce79" title="Signal emitted when the user submits the table." alt="" coords="1076,141,1260,169"/>
-<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="987,112,1088,135,1087,140,986,117"/>
-<area shape="rect" id="Node000007" href="$classLLTutorWindow.html#a667223abed46d411250b3a8e2c6baadd" title=" " alt="" coords="1318,81,1574,109"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="1271,92,1303,92,1303,98,1271,98"/>
-<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="768,131,839,116,840,121,770,136"/>
-<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="769,152,1060,152,1060,158,769,158"/>
+<area shape="rect" id="Node000001" title="Constructs the LL(1) tutor window with a given grammar." alt="" coords="5,109,229,137"/>
+<area shape="poly" id="edge4_Node000001_Node000001" title=" " alt="" coords="70,111,62,100,68,91,87,85,117,83,150,85,168,92,166,97,149,90,117,88,88,90,71,95,67,100,74,107"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#ad444321598f7c59c43a8ba36d05dee82" title=" " alt="" coords="294,5,502,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,107,201,75,276,43,303,35,305,40,278,48,204,80,144,111"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#ab53c5ad90f32ca16f43ee28656a7a39b" title="Formats a grammar for display in the chat interface." alt="" coords="281,57,515,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,106,304,86,305,91,196,111"/>
+<area shape="rect" id="Node000004" href="$classLLTutorWindow.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="277,109,519,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,120,261,120,261,126,229,126"/>
+<area shape="rect" id="Node000005" href="$classCustomTextEdit.html#a418fa720fd5e46a1f856e859c4989892" title=" " alt="" coords="282,161,514,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="196,135,305,155,304,161,195,140"/>
+<area shape="rect" id="Node000006" href="$classLLTutorWindow.html#ad7528d4e40e7d041d4ae4049ccf4c222" title=" " alt="" coords="284,213,512,258"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="145,135,205,166,278,198,298,205,296,210,276,203,203,171,143,140"/>
 </map>

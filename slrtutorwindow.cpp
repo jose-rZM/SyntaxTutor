@@ -2052,7 +2052,7 @@ QString SLRTutorWindow::feedback() {
 QString SLRTutorWindow::feedbackForA() {
     return tr("El estado inicial se construye a partir del cierre del ítem "
               "asociado al axioma: S -> · "
-              "S. Esto representa que aún no se ha leído nada y se quiere "
+              "A $. Esto representa que aún no se ha leído nada y se quiere "
               "derivar desde el símbolo "
               "inicial.");
 }

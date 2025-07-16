@@ -1,6 +1,6 @@
 <map id="GrammarFactory::GenerateNewNonTerminal" name="GrammarFactory::GenerateNewNonTerminal">
 <area shape="rect" id="Node000001" title="Generates a new non&#45;terminal symbol that is unique in the grammar." alt="" coords="572,28,770,72"/>
-<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Perfoms left factorization. A grammar could be left factorized if it have productions with the same p..." alt="" coords="302,5,524,33"/>
+<area shape="rect" id="Node000002" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Performs left factorization. A grammar can be left factorized if it has productions with the same pre..." alt="" coords="302,5,524,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="556,39,524,35,525,30,557,34"/>
 <area shape="rect" id="Node000004" href="$structGrammarFactory.html#a4f167379fa626f0734d6e99b34b96a54" title="Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its produ..." alt="" coords="304,57,522,102"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="557,65,522,69,522,64,556,60"/>

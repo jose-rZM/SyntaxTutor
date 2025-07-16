@@ -1,5 +1,5 @@
 <map id="SLR1Parser::Delta" name="SLR1Parser::Delta">
-<area shape="rect" id="Node000001" title="Computes the GOTO transition (δ) for a given set of LR(0) items and a symbol." alt="" coords="5,56,143,84"/>
+<area shape="rect" id="Node000001" title="Computes the GOTO transition ( ) for a given set of LR(0) items and a symbol. This function is equiva..." alt="" coords="5,56,143,84"/>
 <area shape="rect" id="Node000002" href="$classSLR1Parser.html#a0ff2187985600bff50ff8235543d96fb" title="Computes the closure of a set of LR(0) items." alt="" coords="191,29,342,57"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,58,175,53,176,58,144,63"/>
 <area shape="rect" id="Node000004" href="$structLr0Item.html#a485ab0289f3353b47ea38dcee418a0b6" title="Returns the symbol immediately after the dot, or empty if the dot is at the end." alt="" coords="193,81,340,109"/>

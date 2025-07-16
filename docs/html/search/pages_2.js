@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['interactive_20tool_20for_20learning_20syntax_20analysis_0',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]]
+  ['2_202025_2007_2016_0',['[1.0.2] - 2025-07-16',['../md_CHANGELOG.html#autotoc_md1',1,'']]],
+  ['2025_2006_2015_1',['[1.0.0] - 2025-06-15',['../md_CHANGELOG.html#autotoc_md7',1,'']]],
+  ['2025_2006_2017_2',['[1.0.1] - 2025-06-17',['../md_CHANGELOG.html#autotoc_md3',1,'']]],
+  ['2025_2007_2016_3',['[1.0.2] - 2025-07-16',['../md_CHANGELOG.html#autotoc_md1',1,'']]]
 ];
