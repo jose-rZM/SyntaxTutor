@@ -64,7 +64,7 @@ class LL1Parser {
      * production, indicating no conflicts. If conflicts are found, the function
      * will return `false`, signaling that the grammar is not LL(1).
      *
-     * - For each production rule \f(A \rightarrow \alpha\f), the function
+     * - For each production rule @f$A \rightarrow \alpha@f$, the function
      * calculates the prediction symbols using the `PredictionSymbols` function.
      * - It then fills the parsing table at the cell corresponding to the
      * non-terminal `A` and each prediction symbol in the set.
@@ -127,13 +127,13 @@ class LL1Parser {
      * last symbol in a derivation, the end-of-input marker (`\$`) is included
      * in its FOLLOW set.
      * This function computes the FOLLOW sets using the following rules:
-     * 1. Initialize FOLLOW(S) = { \f( \$ \f) }, where S is the start symbol.
-     * 2. For each production rule of the form \f( A \rightarrow \alpha B \beta
-     * \f):
-     *    - Add \f( FIRST(\beta) \setminus \{\epsilon\} \f) to \f( FOLLOW(B)
-     * \f).
-     *    - If \f( \epsilon \in FIRST(\beta) \f), add \f( FOLLOW(A) \f) to
-     *      \f( FOLLOW(B) \f).
+     * 1. Initialize FOLLOW(S) = { @f$ \$ @f$ }, where S is the start symbol.
+     * 2. For each production rule of the form @f$ A \rightarrow \alpha B \beta
+     * @f$:
+     *    - Add @f$ FIRST(\beta) \setminus \{\epsilon\} @f$ to @f$ FOLLOW(B)
+     * @f$.
+     *    - If @f$ \epsilon \in FIRST(\beta) @f$, add @f$ FOLLOW(A) @f$ to
+     *      @f$ FOLLOW(B) @f$.
      * 3. Repeat step 2 until no changes occur in any FOLLOW set.
      * The computed FOLLOW sets are cached in the `follow_sets_` member
      * variable for later use by the parser.
@@ -173,8 +173,8 @@ class LL1Parser {
      *   prediction symbols are simply the FIRST symbols of the consequent.
      * - If the FIRST set of the consequent contains epsilon, the prediction
      *   symbols are computed as
-     *   \f( FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
-     * FOLLOW(\text{antecedent}) \f).
+     *   @f$ FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
+     * FOLLOW(\text{antecedent}) @f$.
      *      * @param antecedent The left-hand side non-terminal symbol of the
      * rule.
      * @param consequent A vector of symbols on the right-hand side of the rule

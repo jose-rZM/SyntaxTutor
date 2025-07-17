@@ -138,11 +138,11 @@ class SLR1Parser {
                      std::unordered_set<std::string>& visited);
 
     /**
-     * @brief Computes the GOTO transition (\f( \delta \f)) for a given set of
+     * @brief Computes the GOTO transition (@f$ \delta @f$) for a given set of
      * LR(0) items and a symbol.
-     * This function is equivalent to the \f( \delta(I, X) \f) function
+     * This function is equivalent to the @f$ \delta(I, X) @f$ function
      * in LR parsing, where it computes the set of items reached from a state
-     * \f( I \f) via symbol \f( X \f).
+     * @f$ I @f$ via symbol @f$ X @f$.
      * @param items The current set of LR(0) items (state).
      * @param str The grammar symbol used for the transition.
      * @return The resulting item set after the GOTO transition.
@@ -214,13 +214,13 @@ class SLR1Parser {
      * last symbol in a derivation, the end-of-input marker (`\$`) is included
      * in its FOLLOW set.
      * This function computes the FOLLOW sets using the following rules:
-     * 1. Initialize FOLLOW(S) = { \f( \$ \f) }, where S is the start symbol.
-     * 2. For each production rule of the form \f( A \rightarrow \alpha B \beta
-     * \f):
-     *    - Add \f( FIRST(\beta) \setminus \{\epsilon\} \f) to \f( FOLLOW(B)
-     * \f).
-     *    - If \f( \epsilon \in FIRST(\beta) \f), add \f( FOLLOW(A) \f) to
-     *      \f( FOLLOW(B) \f).
+     * 1. Initialize FOLLOW(S) = { @f$ \$ @f$ }, where S is the start symbol.
+     * 2. For each production rule of the form @f$ A \rightarrow \alpha B \beta
+     * @f$:
+     *    - Add @f$ FIRST(\beta) \setminus \{\epsilon\} @f$ to @f$ FOLLOW(B)
+     * @f$.
+     *    - If @f$ \epsilon \in FIRST(\beta) @f$, add @f$ FOLLOW(A) @f$ to
+     *      @f$ FOLLOW(B) @f$.
      * 3. Repeat step 2 until no changes occur in any FOLLOW set.
      * The computed FOLLOW sets are cached in the `follow_sets_` member
      * variable for later use by the parser.
