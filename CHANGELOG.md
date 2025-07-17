@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [1.0.2] - 2025-07-16
+### Added
+- User manual in Spanish (`manual/user_manual_es.pdf`)
+- User manual in English (`manual/user_manual_en.pdf`)
+- Developer manual (`manual/developer_manual.pdf`)
+- Script to customize titlepage (`manual/patch_refman_title.sh`)
+
 ### Fixed
 - Fixed issue when exporting PDF in SLR mode.
 - Fixed some feedback in SLR mode
