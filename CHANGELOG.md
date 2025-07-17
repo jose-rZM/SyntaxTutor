@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.2] - 2025-07-16
 ### Added
-- User manual in Spanish (`manual/user_manual_es.pdf`)
-- User manual in English (`manual/user_manual_en.pdf`)
-- Developer manual (`manual/developer_manual.pdf`)
+- User manual in Spanish (`manual/SyntaxTutor-Manual-ES.pdf`)
+- User manual in English (`manual/SyntaxTutor-Manual-EN.pdf`)
+- Developer manual (`manual/SyntaxTutor-Developer-Manual.pdf`)
 - Script to customize titlepage (`manual/patch_refman_title.sh`)
 
 ### Fixed
