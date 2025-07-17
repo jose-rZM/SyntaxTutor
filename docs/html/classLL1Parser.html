@@ -288,10 +288,12 @@ Here is the caller graph for this function:</div>
 
 <p>Computes the FOLLOW sets for all non-terminal symbols in the grammar. The FOLLOW set of a non-terminal symbol A contains all terminal symbols that can appear immediately after A in any sentential form derived from the grammar's start symbol. Additionally, if A can be the last symbol in a derivation, the end-of-input marker (<span class="tt">\$</span>) is included in its FOLLOW set. This function computes the FOLLOW sets using the following rules: </p>
 <ol type="1">
-<li>Initialize FOLLOW(S) = { \(\$\) }, where S is the start symbol.</li>
-<li>For each production rule of the form  \(A \rightarrow \alpha B \beta\):<ul>
-<li>Add \(FIRST(\beta) \setminus \{\epsilon\}\) to  \(FOLLOW(B)\).</li>
-<li>If \(\epsilon \in FIRST(\beta)\), add \(FOLLOW(A)\) to \(FOLLOW(B)\).</li>
+<li>Initialize FOLLOW(S) = { \( \$ \) }, where S is the start symbol.</li>
+<li>For each production rule of the form  \( A \rightarrow \alpha B \beta
+\):<ul>
+<li>Add \( FIRST(\beta) \setminus \{\epsilon\} \) to  \( FOLLOW(B)
+\).</li>
+<li>If \( \epsilon \in FIRST(\beta) \), add \( FOLLOW(A) \) to \( FOLLOW(B) \).</li>
 </ul>
 </li>
 <li>Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the <span class="tt">follow_sets_</span> member variable for later use by the parser. <dl class="section note"><dt>Note</dt><dd>This function assumes that the FIRST sets for all symbols have already been computed and are available in the <span class="tt">first_sets_</span> member variable. </dd></dl>
@@ -519,8 +521,8 @@ Here is the caller graph for this function:</div>
 <li>The prediction symbols for a rule determine the set of input symbols that can trigger this rule in the parsing table. This function calculates the prediction symbols based on the FIRST set of the consequent and, if epsilon (the empty symbol) is in the FIRST set, also includes the FOLLOW set of the antecedent.</li>
 <li>- If the FIRST set of the consequent does not contain epsilon, the prediction symbols are simply the FIRST symbols of the consequent.</li>
 </ul>
-<p>If the FIRST set of the consequent contains epsilon, the prediction symbols are computed as  \(FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
-FOLLOW(\text{antecedent})\).</p><ul>
+<p>If the FIRST set of the consequent contains epsilon, the prediction symbols are computed as  \( FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
+FOLLOW(\text{antecedent}) \).</p><ul>
 <li><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">antecedent</td><td>The left-hand side non-terminal symbol of the rule. </td></tr>

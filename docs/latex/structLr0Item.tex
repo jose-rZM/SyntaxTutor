@@ -1,5 +1,5 @@
 \doxysection{Lr0\+Item Struct Reference}
-\hypertarget{structLr0Item}{}\label{structLr0Item}\index{Lr0Item@{Lr0Item}}
+\label{structLr0Item}\index{Lr0Item@{Lr0Item}}
 
 
 Represents an LR(0) item used in LR automata construction.  
@@ -36,7 +36,7 @@ std\+::string \mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}{consequent\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The sequence of symbols on the right-\/hand side of the production. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{structLr0Item_a3eac80af8491180b91b09ab815144b01}{epsilon\+\_\+}}
-\begin{DoxyCompactList}\small\item\em The symbol representing the empty string ( \epsilon). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The symbol representing the empty string ( $\epsilon$). \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{structLr0Item_ae2d19acc432c32741350ff5da9a98316}{eol\+\_\+}}
 \begin{DoxyCompactList}\small\item\em The symbol representing end-\/of-\/line or end-\/of-\/input (\$). \end{DoxyCompactList}\item 
 unsigned int \mbox{\hyperlink{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}{dot\+\_\+}} = 0
@@ -46,15 +46,14 @@ unsigned int \mbox{\hyperlink{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}{d
 \doxysubsection{Detailed Description}
 Represents an LR(0) item used in LR automata construction. 
 
-An LR(0) item has a production of the form  A \rightarrow \alpha \bullet
-\beta, where the dot indicates the current parsing position.
+An LR(0) item has a production of the form  $ A \rightarrow \alpha \bullet
+\beta $, where the dot indicates the current parsing position.
 
 This structure tracks the antecedent (left-\/hand side), consequent (right-\/hand side), the dot position, and special symbols like EPSILON and end-\/of-\/line (\$). 
 
 \label{doc-constructors}
-\Hypertarget{structLr0Item_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}\index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
+\index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
 \index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{Lr0Item()}{Lr0Item()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3} 
@@ -79,10 +78,10 @@ Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=330pt]{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3_icgraph}
+\includegraphics[width=294pt]{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{structLr0Item_a148948dd1d6c8afc1b2de9b1b163cead}\index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
+\index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
 \index{Lr0Item@{Lr0Item}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{Lr0Item()}{Lr0Item()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{structLr0Item_a148948dd1d6c8afc1b2de9b1b163cead} 
@@ -108,9 +107,8 @@ Constructs an LR(0) item with a custom dot position.
 
 
 \label{doc-func-members}
-\Hypertarget{structLr0Item_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{structLr0Item_ac342e279b0a266a84f984b82604532e6}\index{Lr0Item@{Lr0Item}!AdvanceDot@{AdvanceDot}}
+\index{Lr0Item@{Lr0Item}!AdvanceDot@{AdvanceDot}}
 \index{AdvanceDot@{AdvanceDot}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{AdvanceDot()}{AdvanceDot()}}
 {\footnotesize\ttfamily \label{structLr0Item_ac342e279b0a266a84f984b82604532e6} 
@@ -127,7 +125,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{structLr0Item_ac342e279b0a266a84f984b82604532e6_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{structLr0Item_a4db23e1d025750a6ca817aa4998a03f4}\index{Lr0Item@{Lr0Item}!IsComplete@{IsComplete}}
+\index{Lr0Item@{Lr0Item}!IsComplete@{IsComplete}}
 \index{IsComplete@{IsComplete}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{IsComplete()}{IsComplete()}}
 {\footnotesize\ttfamily \label{structLr0Item_a4db23e1d025750a6ca817aa4998a03f4} 
@@ -147,7 +145,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{structLr0Item_a4db23e1d025750a6ca817aa4998a03f4_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{structLr0Item_a485ab0289f3353b47ea38dcee418a0b6}\index{Lr0Item@{Lr0Item}!NextToDot@{NextToDot}}
+\index{Lr0Item@{Lr0Item}!NextToDot@{NextToDot}}
 \index{NextToDot@{NextToDot}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{NextToDot()}{NextToDot()}}
 {\footnotesize\ttfamily \label{structLr0Item_a485ab0289f3353b47ea38dcee418a0b6} 
@@ -164,10 +162,10 @@ Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{structLr0Item_a485ab0289f3353b47ea38dcee418a0b6_icgraph}
+\includegraphics[width=349pt]{structLr0Item_a485ab0289f3353b47ea38dcee418a0b6_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{structLr0Item_a21198c89325c73ee25a8d960cff7d1fa}\index{Lr0Item@{Lr0Item}!operator==@{operator==}}
+\index{Lr0Item@{Lr0Item}!operator==@{operator==}}
 \index{operator==@{operator==}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
 {\footnotesize\ttfamily \label{structLr0Item_a21198c89325c73ee25a8d960cff7d1fa} 
@@ -189,10 +187,10 @@ Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=330pt]{structLr0Item_a21198c89325c73ee25a8d960cff7d1fa_cgraph}
+\includegraphics[width=294pt]{structLr0Item_a21198c89325c73ee25a8d960cff7d1fa_cgraph}
 \end{center}
 \end{figure}
-\Hypertarget{structLr0Item_a6142b6f8428fbf567eda36c751594033}\index{Lr0Item@{Lr0Item}!PrintItem@{PrintItem}}
+\index{Lr0Item@{Lr0Item}!PrintItem@{PrintItem}}
 \index{PrintItem@{PrintItem}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{PrintItem()}{PrintItem()}}
 {\footnotesize\ttfamily \label{structLr0Item_a6142b6f8428fbf567eda36c751594033} 
@@ -202,7 +200,7 @@ void Lr0\+Item\+::\+Print\+Item (\begin{DoxyParamCaption}{}{}\end{DoxyParamCapti
 
 Prints the LR(0) item to the standard output in a human-\/readable format. 
 
-\Hypertarget{structLr0Item_af04204a80422464f843b7a8ef4a22965}\index{Lr0Item@{Lr0Item}!ToString@{ToString}}
+\index{Lr0Item@{Lr0Item}!ToString@{ToString}}
 \index{ToString@{ToString}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
 {\footnotesize\ttfamily \label{structLr0Item_af04204a80422464f843b7a8ef4a22965} 
@@ -225,9 +223,8 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 \label{doc-variable-members}
-\Hypertarget{structLr0Item_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{structLr0Item_a044c53ff5c3c36622594d47375ce971d}\index{Lr0Item@{Lr0Item}!antecedent\_@{antecedent\_}}
+\index{Lr0Item@{Lr0Item}!antecedent\_@{antecedent\_}}
 \index{antecedent\_@{antecedent\_}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{antecedent\_}{antecedent\_}}
 {\footnotesize\ttfamily \label{structLr0Item_a044c53ff5c3c36622594d47375ce971d} 
@@ -237,7 +234,7 @@ std\+::string Lr0\+Item\+::antecedent\+\_\+}
 
 The non-\/terminal on the left-\/hand side of the production. 
 
-\Hypertarget{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}\index{Lr0Item@{Lr0Item}!consequent\_@{consequent\_}}
+\index{Lr0Item@{Lr0Item}!consequent\_@{consequent\_}}
 \index{consequent\_@{consequent\_}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{consequent\_}{consequent\_}}
 {\footnotesize\ttfamily \label{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd} 
@@ -247,7 +244,7 @@ std\+::vector$<$std\+::string$>$ Lr0\+Item\+::consequent\+\_\+}
 
 The sequence of symbols on the right-\/hand side of the production. 
 
-\Hypertarget{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}\index{Lr0Item@{Lr0Item}!dot\_@{dot\_}}
+\index{Lr0Item@{Lr0Item}!dot\_@{dot\_}}
 \index{dot\_@{dot\_}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{dot\_}{dot\_}}
 {\footnotesize\ttfamily \label{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437} 
@@ -257,7 +254,7 @@ unsigned int Lr0\+Item\+::dot\+\_\+ = 0}
 
 The position of the dot (·) in the production. 
 
-\Hypertarget{structLr0Item_ae2d19acc432c32741350ff5da9a98316}\index{Lr0Item@{Lr0Item}!eol\_@{eol\_}}
+\index{Lr0Item@{Lr0Item}!eol\_@{eol\_}}
 \index{eol\_@{eol\_}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{eol\_}{eol\_}}
 {\footnotesize\ttfamily \label{structLr0Item_ae2d19acc432c32741350ff5da9a98316} 
@@ -267,7 +264,7 @@ std\+::string Lr0\+Item\+::eol\+\_\+}
 
 The symbol representing end-\/of-\/line or end-\/of-\/input (\$). 
 
-\Hypertarget{structLr0Item_a3eac80af8491180b91b09ab815144b01}\index{Lr0Item@{Lr0Item}!epsilon\_@{epsilon\_}}
+\index{Lr0Item@{Lr0Item}!epsilon\_@{epsilon\_}}
 \index{epsilon\_@{epsilon\_}!Lr0Item@{Lr0Item}}
 \doxysubsubsection{\texorpdfstring{epsilon\_}{epsilon\_}}
 {\footnotesize\ttfamily \label{structLr0Item_a3eac80af8491180b91b09ab815144b01} 
@@ -275,7 +272,7 @@ std\+::string Lr0\+Item\+::epsilon\+\_\+}
 
 
 
-The symbol representing the empty string ( \epsilon). 
+The symbol representing the empty string ( $\epsilon$). 
 
 
 

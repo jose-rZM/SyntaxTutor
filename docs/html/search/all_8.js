@@ -3,7 +3,7 @@ var searchData=
   ['f_0',['F',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012',1,'slrtutorwindow.h']]],
   ['fa_1',['FA',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473daceaaf344427537ca0d8f1dbd83dcb44b',1,'slrtutorwindow.h']]],
   ['factoryitem_2',['FactoryItem',['../structGrammarFactory_1_1FactoryItem.html',1,'GrammarFactory::FactoryItem'],['../structGrammarFactory_1_1FactoryItem.html#ae7d899f0b7b5334fdc11ef605d520dc7',1,'GrammarFactory::FactoryItem::FactoryItem()']]],
-  ['features_3',['🎯 Key Features',['../index.html#autotoc_md13',1,'']]],
+  ['features_3',['🎯 Key Features',['../index.html#autotoc_md14',1,'']]],
   ['feedback_4',['feedback',['../classLLTutorWindow.html#a94ddf1d30839b7191479c24588a760bc',1,'LLTutorWindow::feedback()'],['../classSLRTutorWindow.html#a0688f86822e79e77b8d8c75c0b6d11a0',1,'SLRTutorWindow::feedback()']]],
   ['feedbackfora_5',['feedbackForA',['../classLLTutorWindow.html#a7aaded0d4be413f66c9468b5ceff3314',1,'LLTutorWindow::feedbackForA()'],['../classSLRTutorWindow.html#a3f8550628cfe1972953e7d84df29e1c0',1,'SLRTutorWindow::feedbackForA()']]],
   ['feedbackfora1_6',['feedbackForA1',['../classLLTutorWindow.html#a6bf3862eff44655b4127d0fb750abe9c',1,'LLTutorWindow::feedbackForA1()'],['../classSLRTutorWindow.html#adced8fed7316c1fcadec47b3d2e3c4b0',1,'SLRTutorWindow::feedbackForA1()']]],
@@ -38,11 +38,11 @@ var searchData=
   ['finishslr1_35',['finishSLR1',['../classTutorialManager.html#afffc44cf7c78c43e9f5c982389284272',1,'TutorialManager']]],
   ['first_36',['First',['../classLL1Parser.html#af556dd5a7357b97ec5d078983db62553',1,'LL1Parser::First()'],['../classSLR1Parser.html#a02df38d4f96383ea85d23f56472c57a0',1,'SLR1Parser::First()']]],
   ['first_5fsets_5f_37',['first_sets_',['../classLL1Parser.html#a99111137eeeeb3d44b7b20417297df9b',1,'LL1Parser::first_sets_'],['../classSLR1Parser.html#a4b9b4f88bfef3c3e77f791446f3d820c',1,'SLR1Parser::first_sets_']]],
-  ['fixed_38',['Fixed',['../md_CHANGELOG.html#autotoc_md2',1,'Fixed'],['../md_CHANGELOG.html#autotoc_md5',1,'Fixed']]],
+  ['fixed_38',['Fixed',['../md_CHANGELOG.html#autotoc_md3',1,'Fixed'],['../md_CHANGELOG.html#autotoc_md6',1,'Fixed']]],
   ['follow_39',['Follow',['../classLL1Parser.html#a0f9dc60f3f6a8332b0ed727d4c8fd40f',1,'LL1Parser::Follow()'],['../classSLR1Parser.html#af2549ef0375afbb8fd53fa2abafe60bb',1,'SLR1Parser::Follow()']]],
   ['follow_5fsets_5f_40',['follow_sets_',['../classLL1Parser.html#a9faec5578f60af3641a5bb6bde66aa8f',1,'LL1Parser::follow_sets_'],['../classSLR1Parser.html#a1412b54cd36ecf31bf48ee0e239d9671',1,'SLR1Parser::follow_sets_']]],
   ['for_20learning_20syntax_20analysis_41',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
   ['formatgrammar_42',['FormatGrammar',['../classLLTutorWindow.html#ab53c5ad90f32ca16f43ee28656a7a39b',1,'LLTutorWindow::FormatGrammar()'],['../classSLRTutorWindow.html#a9c12c155646a012d248808ee8c2486e9',1,'SLRTutorWindow::FormatGrammar()']]],
-  ['from_20source_43',['🛠️ Building from Source',['../index.html#autotoc_md25',1,'']]],
+  ['from_20source_43',['🛠️ Building from Source',['../index.html#autotoc_md26',1,'']]],
   ['front_44',['front',['../classUniqueQueue.html#a50ab8ce73ca5c552e1e2182192d2d315',1,'UniqueQueue']]]
 ];

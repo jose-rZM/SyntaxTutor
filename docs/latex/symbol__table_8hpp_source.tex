@@ -1,37 +1,55 @@
 \doxysection{symbol\+\_\+table.\+hpp}
-\hypertarget{symbol__table_8hpp_source}{}\label{symbol__table_8hpp_source}\index{backend/symbol\_table.hpp@{backend/symbol\_table.hpp}}
+\label{symbol__table_8hpp_source}\index{backend/symbol\_table.hpp@{backend/symbol\_table.hpp}}
 \mbox{\hyperlink{symbol__table_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <utility>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231}{symbol\_type}}\ \{\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231ae5e0e3ea5a4ed4670f1b5c09d66811f8}{NO\_TERMINAL}},\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}{TERMINAL}}\ \};}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structSymbolTable}{SymbolTable}}\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ std::string\ \mbox{\hyperlink{structSymbolTable_a8e879b4cb01fba401514f22097e6cdc0}{EOL\_}}\{\textcolor{stringliteral}{"{}\$"{}}\};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00032\ \ \ \ \ std::string\ \mbox{\hyperlink{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c}{EPSILON\_}}\{\textcolor{stringliteral}{"{}EPSILON"{}}\};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00036\ \ \ \ \ std::unordered\_map<std::string,\ symbol\_type>\ \mbox{\hyperlink{structSymbolTable_a53cb720edec40638f422b1003bd1d461}{st\_}}\{\{\mbox{\hyperlink{structSymbolTable_a8e879b4cb01fba401514f22097e6cdc0}{EOL\_}},\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}{symbol\_type::TERMINAL}}\},}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c}{EPSILON\_}},\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}{symbol\_type::TERMINAL}}\}\};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00042\ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}{terminals\_}}\{\mbox{\hyperlink{structSymbolTable_a8e879b4cb01fba401514f22097e6cdc0}{EOL\_}}\};}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00047\ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{structSymbolTable_aa84ec2ac248fdfa1dd191e81bf0ac9a4}{terminals\_wtho\_eol\_}}\{\};}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{enum\ class}\ symbol\_type\ \{\ NO\_TERMINAL,\ TERMINAL\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }SymbolTable\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ std::string\ EOL\_\{\textcolor{stringliteral}{"{}\$"{}}\};}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00052\ \ \ \ \ std::unordered\_set<std::string>\ \mbox{\hyperlink{structSymbolTable_aedcb06cb69a7352063d5ea7c477a4c3a}{non\_terminals\_}};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structSymbolTable_aba5ea04e1b9eec27e041bb9422121340}{PutSymbol}}(\textcolor{keyword}{const}\ std::string\&\ identifier,\ \textcolor{keywordtype}{bool}\ isTerminal);}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structSymbolTable_a6fc61b8d63539a3a85042874db6c6d6b}{In}}(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structSymbolTable_a160522330493cdaff35979ed6d2dfa21}{IsTerminal}}(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structSymbolTable_a59a554074a649b1e6e55d4149b62743c}{IsTerminalWthoEol}}(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00051\ \ \ \ \ std::string\ EPSILON\_\{\textcolor{stringliteral}{"{}EPSILON"{}}\};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00055\ \ \ \ \ std::unordered\_map<std::string,\ symbol\_type>\ st\_\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \{EOL\_,\ symbol\_type::TERMINAL\},\ \{EPSILON\_,\ symbol\_type::TERMINAL\}\};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ \ \ \ \ std::unordered\_set<std::string>\ terminals\_\{EOL\_\};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \ \ \ \ std::unordered\_set<std::string>\ terminals\_wtho\_eol\_\{\};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ \ \ \ \ std::unordered\_set<std::string>\ non\_terminals\_;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ PutSymbol(\textcolor{keyword}{const}\ std::string\&\ identifier,\ \textcolor{keywordtype}{bool}\ isTerminal);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ In(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsTerminal(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsTerminalWthoEol(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ \};}
 
 \end{DoxyCode}

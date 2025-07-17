@@ -1,73 +1,91 @@
 \doxysection{tutorialmanager.\+h}
-\hypertarget{tutorialmanager_8h_source}{}\label{tutorialmanager_8h_source}\mbox{\hyperlink{tutorialmanager_8h}{Go to the documentation of this file.}}
+\label{tutorialmanager_8h_source}\mbox{\hyperlink{tutorialmanager_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TUTORIALMANAGER\_H}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TUTORIALMANAGER\_H}}
-\DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QEvent>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QFrame>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QObject>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QString>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QTextBrowser>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QVector>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <QWidget>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structTutorialStep}{TutorialStep}}\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ QWidget*\ \mbox{\hyperlink{structTutorialStep_ab7ebd119569066e3a922e7ea52d8fdc9}{target}};\ \ \ }
-\DoxyCodeLine{00022\ \ \ \ \ QString\ \ \mbox{\hyperlink{structTutorialStep_ac9fe036c9f6e4981b7d3240932aefea2}{htmlText}};\ }
-\DoxyCodeLine{00023\ \};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTutorialManager_ae02b2f24d983da558e4ec9ae9292460d}{TutorialManager}}\ :\ \textcolor{keyword}{public}\ QObject\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classTutorialManager_ae02b2f24d983da558e4ec9ae9292460d}{TutorialManager}}(QWidget*\ rootWindow);}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_a7b05249eda87d17113d5e91c0b9da529}{addStep}}(QWidget*\ target,\ \textcolor{keyword}{const}\ QString\&\ htmlText);}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_a4fd17560c48c8f8646ef846b8f36bb30}{start}}();}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_a57817e60d063bad9ac188e1cf9c86588}{setRootWindow}}(QWidget*\ newRoot);}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ TUTORIALMANAGER\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ TUTORIALMANAGER\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <QEvent>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <QFrame>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QTextBrowser>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QVector>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }TutorialStep\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ QWidget*\ target;\ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ QString\ \ htmlText;\ }
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }TutorialManager\ :\ \textcolor{keyword}{public}\ QObject\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ TutorialManager(QWidget*\ rootWindow);}
 \DoxyCodeLine{00062\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209}{clearSteps}}();}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887}{hideOverlay}}();}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_ac86a5d7a9645910bf065c0573810ab1a}{finishLL1}}();}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_afffc44cf7c78c43e9f5c982389284272}{finishSLR1}}();}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classTutorialManager_add968041547b7ec3c9e1ef0f19d5005a}{eventFilter}}(QObject*\ obj,\ QEvent*\ ev)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ addStep(QWidget*\ target,\ \textcolor{keyword}{const}\ QString\&\ htmlText);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ start();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ setRootWindow(QWidget*\ newRoot);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ clearSteps();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ hideOverlay();}
 \DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ signals:}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_aba61470a5090632d6df51b167e740054}{stepStarted}}(\textcolor{keywordtype}{int}\ index);}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_ac3e8c34792596992dc52d21de5198030}{tutorialFinished}}();}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ finishLL1();}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ finishSLR1();}
 \DoxyCodeLine{00102\ }
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_abf8b24c8df5d32737916275846e6af6a}{ll1Finished}}();}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_a43ead2fd97e8b0783026004724988cdf}{slr1Finished}}();}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{public}\ slots:}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3}{nextStep}}();}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ showOverlay();}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ repositionOverlay();}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_root;\ \ }
-\DoxyCodeLine{00131\ \ \ \ \ QVector<TutorialStep>\ m\_steps;\ }
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_index\ =\ -\/1;\ }
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ QWidget*\ m\_overlay\ =\ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00135\ \ \ \ \ QFrame*\ \ m\_highlight\ =}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00137\ \ \ \ \ QTextBrowser*\ m\_textBox\ =\ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00138\ \ \ \ \ QPushButton*\ \ m\_nextBtn\ =\ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00139\ \};}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TUTORIALMANAGER\_H}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ eventFilter(QObject*\ obj,\ QEvent*\ ev)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ signals:}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ stepStarted(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ tutorialFinished();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ ll1Finished();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ slr1Finished();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ nextStep();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ showOverlay();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ repositionOverlay();}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_root;\ \ }
+\DoxyCodeLine{00149\ \ \ \ \ QVector<TutorialStep>\ m\_steps;\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_index\ =\ -\/1;\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ QWidget*\ m\_overlay\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00153\ \ \ \ \ QFrame*\ \ m\_highlight\ =}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00155\ \ \ \ \ QTextBrowser*\ m\_textBox\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00156\ \ \ \ \ QPushButton*\ \ m\_nextBtn\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TUTORIALMANAGER\_H}}
 
 \end{DoxyCode}

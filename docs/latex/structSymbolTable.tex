@@ -1,5 +1,5 @@
 \doxysection{Symbol\+Table Struct Reference}
-\hypertarget{structSymbolTable}{}\label{structSymbolTable}\index{SymbolTable@{SymbolTable}}
+\label{structSymbolTable}\index{SymbolTable@{SymbolTable}}
 
 
 Stores and manages grammar symbols, including their classification and special markers.  
@@ -43,9 +43,8 @@ Stores and manages grammar symbols, including their classification and special m
 This structure holds information about all terminals and non-\/terminals used in a grammar, as well as special symbols such as EPSILON and the end-\/of-\/line marker (\$). It supports symbol classification, membership checks, and filtered views such as terminals excluding \$. 
 
 \label{doc-func-members}
-\Hypertarget{structSymbolTable_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{structSymbolTable_a6fc61b8d63539a3a85042874db6c6d6b}\index{SymbolTable@{SymbolTable}!In@{In}}
+\index{SymbolTable@{SymbolTable}!In@{In}}
 \index{In@{In}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{In()}{In()}}
 {\footnotesize\ttfamily \label{structSymbolTable_a6fc61b8d63539a3a85042874db6c6d6b} 
@@ -63,7 +62,7 @@ Checks if a symbol exists in the symbol table.
 \begin{DoxyReturn}{Returns}
 true if the symbol is present, otherwise false. 
 \end{DoxyReturn}
-\Hypertarget{structSymbolTable_a160522330493cdaff35979ed6d2dfa21}\index{SymbolTable@{SymbolTable}!IsTerminal@{IsTerminal}}
+\index{SymbolTable@{SymbolTable}!IsTerminal@{IsTerminal}}
 \index{IsTerminal@{IsTerminal}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{IsTerminal()}{IsTerminal()}}
 {\footnotesize\ttfamily \label{structSymbolTable_a160522330493cdaff35979ed6d2dfa21} 
@@ -88,7 +87,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{structSymbolTable_a160522330493cdaff35979ed6d2dfa21_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{structSymbolTable_a59a554074a649b1e6e55d4149b62743c}\index{SymbolTable@{SymbolTable}!IsTerminalWthoEol@{IsTerminalWthoEol}}
+\index{SymbolTable@{SymbolTable}!IsTerminalWthoEol@{IsTerminalWthoEol}}
 \index{IsTerminalWthoEol@{IsTerminalWthoEol}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{IsTerminalWthoEol()}{IsTerminalWthoEol()}}
 {\footnotesize\ttfamily \label{structSymbolTable_a59a554074a649b1e6e55d4149b62743c} 
@@ -106,7 +105,7 @@ Checks if a symbol is a terminal excluding EOL.
 \begin{DoxyReturn}{Returns}
 true if the symbol is terminal, otherwise false. 
 \end{DoxyReturn}
-\Hypertarget{structSymbolTable_aba5ea04e1b9eec27e041bb9422121340}\index{SymbolTable@{SymbolTable}!PutSymbol@{PutSymbol}}
+\index{SymbolTable@{SymbolTable}!PutSymbol@{PutSymbol}}
 \index{PutSymbol@{PutSymbol}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{PutSymbol()}{PutSymbol()}}
 {\footnotesize\ttfamily \label{structSymbolTable_aba5ea04e1b9eec27e041bb9422121340} 
@@ -133,9 +132,8 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 \label{doc-variable-members}
-\Hypertarget{structSymbolTable_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{structSymbolTable_a8e879b4cb01fba401514f22097e6cdc0}\index{SymbolTable@{SymbolTable}!EOL\_@{EOL\_}}
+\index{SymbolTable@{SymbolTable}!EOL\_@{EOL\_}}
 \index{EOL\_@{EOL\_}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{EOL\_}{EOL\_}}
 {\footnotesize\ttfamily \label{structSymbolTable_a8e879b4cb01fba401514f22097e6cdc0} 
@@ -145,7 +143,7 @@ std\+::string Symbol\+Table\+::\+EOL\+\_\+ \{"{}\$"{}\}}
 
 End-\/of-\/line symbol used in parsing, initialized as "{}\$"{}. 
 
-\Hypertarget{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c}\index{SymbolTable@{SymbolTable}!EPSILON\_@{EPSILON\_}}
+\index{SymbolTable@{SymbolTable}!EPSILON\_@{EPSILON\_}}
 \index{EPSILON\_@{EPSILON\_}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{EPSILON\_}{EPSILON\_}}
 {\footnotesize\ttfamily \label{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c} 
@@ -155,7 +153,7 @@ std\+::string Symbol\+Table\+::\+EPSILON\+\_\+ \{"{}EPSILON"{}\}}
 
 Epsilon symbol, representing empty transitions, initialized as "{}\+EPSILON"{}. 
 
-\Hypertarget{structSymbolTable_aedcb06cb69a7352063d5ea7c477a4c3a}\index{SymbolTable@{SymbolTable}!non\_terminals\_@{non\_terminals\_}}
+\index{SymbolTable@{SymbolTable}!non\_terminals\_@{non\_terminals\_}}
 \index{non\_terminals\_@{non\_terminals\_}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{non\_terminals\_}{non\_terminals\_}}
 {\footnotesize\ttfamily \label{structSymbolTable_aedcb06cb69a7352063d5ea7c477a4c3a} 
@@ -165,7 +163,7 @@ std\+::unordered\+\_\+set$<$std\+::string$>$ Symbol\+Table\+::non\+\_\+terminals
 
 Set of all non-\/terminal symbols. 
 
-\Hypertarget{structSymbolTable_a53cb720edec40638f422b1003bd1d461}\index{SymbolTable@{SymbolTable}!st\_@{st\_}}
+\index{SymbolTable@{SymbolTable}!st\_@{st\_}}
 \index{st\_@{st\_}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{st\_}{st\_}}
 {\footnotesize\ttfamily \label{structSymbolTable_a53cb720edec40638f422b1003bd1d461} 
@@ -173,15 +171,15 @@ std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{symbol__table_8hpp_a
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\{\{\mbox{\hyperlink{structSymbolTable_a8e879b4cb01fba401514f22097e6cdc0}{EOL\_}},\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}{symbol\_type::TERMINAL}}\},}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{structSymbolTable_aca380193dec2ad34e29b41631bb9ab8c}{EPSILON\_}},\ \mbox{\hyperlink{symbol__table_8hpp_a9e6705a3296471be728a3b6570b56231a6c7748bd0ad3fbdff996e81581ad64d6}{symbol\_type::TERMINAL}}\}\}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{EOL\_,\ symbol\_type::TERMINAL\},\ \{EPSILON\_,\ symbol\_type::TERMINAL\}\}}
 
 \end{DoxyCode}
 
 
 Main symbol table, mapping identifiers to a pair of symbol type and its regex. 
 
-\Hypertarget{structSymbolTable_af03e7da4aa005c758792b7779be9cf85}\index{SymbolTable@{SymbolTable}!terminals\_@{terminals\_}}
+\index{SymbolTable@{SymbolTable}!terminals\_@{terminals\_}}
 \index{terminals\_@{terminals\_}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{terminals\_}{terminals\_}}
 {\footnotesize\ttfamily \label{structSymbolTable_af03e7da4aa005c758792b7779be9cf85} 
@@ -191,7 +189,7 @@ std\+::unordered\+\_\+set$<$std\+::string$>$ Symbol\+Table\+::terminals\+\_\+ \{
 
 Set of all terminal symbols (including EOL). 
 
-\Hypertarget{structSymbolTable_aa84ec2ac248fdfa1dd191e81bf0ac9a4}\index{SymbolTable@{SymbolTable}!terminals\_wtho\_eol\_@{terminals\_wtho\_eol\_}}
+\index{SymbolTable@{SymbolTable}!terminals\_wtho\_eol\_@{terminals\_wtho\_eol\_}}
 \index{terminals\_wtho\_eol\_@{terminals\_wtho\_eol\_}!SymbolTable@{SymbolTable}}
 \doxysubsubsection{\texorpdfstring{terminals\_wtho\_eol\_}{terminals\_wtho\_eol\_}}
 {\footnotesize\ttfamily \label{structSymbolTable_aa84ec2ac248fdfa1dd191e81bf0ac9a4} 

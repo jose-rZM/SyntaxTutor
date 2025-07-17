@@ -14,5 +14,5 @@ var searchData=
   ['grammar_5ffactory_2ecpp_11',['grammar_factory.cpp',['../grammar__factory_8cpp.html',1,'']]],
   ['grammar_5ffactory_2ehpp_12',['grammar_factory.hpp',['../grammar__factory_8hpp.html',1,'']]],
   ['grammarfactory_13',['GrammarFactory',['../structGrammarFactory.html',1,'']]],
-  ['guided_20table_20completion_14',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md19',1,'']]]
+  ['guided_20table_20completion_14',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md20',1,'']]]
 ];

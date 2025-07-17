@@ -1,33 +1,51 @@
 \doxysection{slrtabledialog.\+h}
-\hypertarget{slrtabledialog_8h_source}{}\label{slrtabledialog_8h_source}\mbox{\hyperlink{slrtabledialog_8h}{Go to the documentation of this file.}}
+\label{slrtabledialog_8h_source}\mbox{\hyperlink{slrtabledialog_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SLRTABLEDIALOG\_H}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SLRTABLEDIALOG\_H}}
-\DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QDialog>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QGuiApplication>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QHeaderView>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QScreen>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSLRTableDialog_a3a1232ffe9a2226e5692000944058c3f}{SLRTableDialog}}\ :\ \textcolor{keyword}{public}\ QDialog\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{classSLRTableDialog_a3a1232ffe9a2226e5692000944058c3f}{SLRTableDialog}}(\textcolor{keywordtype}{int}\ rowCount,\ \textcolor{keywordtype}{int}\ colCount,\ \textcolor{keyword}{const}\ QStringList\&\ colHeaders,}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent\ \ \ \ \ \ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QVector<QVector<QString>>*\ initialData\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00041\ \ \ \ \ QVector<QVector<QString>>\ \mbox{\hyperlink{classSLRTableDialog_a5e5ba1b836c93aa1290ca3026718cff9}{getTableData}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTableDialog_aa20290eafe616ab7fa02467426895d84}{setInitialData}}(\textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ data);}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00054\ \ \ \ \ QTableWidget*\ table;\ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00055\ \ \ \ \ QPushButton*\ \ submitButton;\ }
-\DoxyCodeLine{00056\ \};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRTABLEDIALOG\_H}}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ SLRTABLEDIALOG\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ SLRTABLEDIALOG\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <QGuiApplication>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QHeaderView>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QScreen>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }SLRTableDialog\ :\ \textcolor{keyword}{public}\ QDialog\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ SLRTableDialog(\textcolor{keywordtype}{int}\ rowCount,\ \textcolor{keywordtype}{int}\ colCount,\ \textcolor{keyword}{const}\ QStringList\&\ colHeaders,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent\ \ \ \ \ \ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QVector<QVector<QString>>*\ initialData\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \ \ \ \ QVector<QVector<QString>>\ getTableData()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ setInitialData(\textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ data);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ QTableWidget*\ table;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ QPushButton*\ \ submitButton;\ }
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRTABLEDIALOG\_H}}
 
 \end{DoxyCode}

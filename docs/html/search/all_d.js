@@ -2,10 +2,10 @@ var searchData=
 [
   ['label_0',['label',['../structLLTutorWindow_1_1TreeNode.html#af1b18b00420bce09ed3805bf111d9c53',1,'LLTutorWindow::TreeNode']]],
   ['launchslrwizard_1',['launchSLRWizard',['../classSLRTutorWindow.html#a39d32d1bbff324558de7daeadc1e6189',1,'SLRTutorWindow']]],
-  ['learning_20mode_2',['Learning Mode',['../index.html#autotoc_md17',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md18',1,'🧠 SLR(1) Learning Mode']]],
+  ['learning_20mode_2',['Learning Mode',['../index.html#autotoc_md18',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md19',1,'🧠 SLR(1) Learning Mode']]],
   ['learning_20syntax_20analysis_3',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
   ['leftfactorize_4',['LeftFactorize',['../structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c',1,'GrammarFactory']]],
-  ['ll_201_20learning_20mode_5',['📘 LL(1) Learning Mode',['../index.html#autotoc_md17',1,'']]],
+  ['ll_201_20learning_20mode_5',['📘 LL(1) Learning Mode',['../index.html#autotoc_md18',1,'']]],
   ['ll1_5fparser_2ecpp_6',['ll1_parser.cpp',['../ll1__parser_8cpp.html',1,'']]],
   ['ll1_5fparser_2ehpp_7',['ll1_parser.hpp',['../ll1__parser_8hpp.html',1,'']]],
   ['ll1_5ft_5f_8',['ll1_t_',['../classLL1Parser.html#a29cba4eed3d7b262f17509779934f1fd',1,'LL1Parser']]],

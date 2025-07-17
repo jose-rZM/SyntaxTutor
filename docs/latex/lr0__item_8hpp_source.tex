@@ -1,47 +1,64 @@
 \doxysection{lr0\+\_\+item.\+hpp}
-\hypertarget{lr0__item_8hpp_source}{}\label{lr0__item_8hpp_source}\index{backend/lr0\_item.hpp@{backend/lr0\_item.hpp}}
+\label{lr0__item_8hpp_source}\index{backend/lr0\_item.hpp@{backend/lr0\_item.hpp}}
 \mbox{\hyperlink{lr0__item_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_a044c53ff5c3c36622594d47375ce971d}{antecedent\_}};}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00027\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structLr0Item_a5b5fcd03eb29accd92b22e6bb05d26cd}{consequent\_}};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00032\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_a3eac80af8491180b91b09ab815144b01}{epsilon\_}};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00037\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_ae2d19acc432c32741350ff5da9a98316}{eol\_}};}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structLr0Item_a1458f46f5cd2c1c02868a4b95e6f9437}{dot\_}}\ =\ 0;}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}(std::string\ antecedent,\ std::vector<std::string>\ consequent,}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ epsilon,\ std::string\ eol);}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}(std::string\ antecedent,\ std::vector<std::string>\ consequent,}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dot,\ std::string\ epsilon,\ std::string\ eol);}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00069\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_a485ab0289f3353b47ea38dcee418a0b6}{NextToDot}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }Lr0Item\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ std::string\ antecedent\_;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \ \ std::vector<std::string>\ consequent\_;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \ \ std::string\ epsilon\_;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \ \ \ \ std::string\ eol\_;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dot\_\ =\ 0;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00068\ \ \ \ \ Lr0Item(std::string\ antecedent,\ std::vector<std::string>\ consequent,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ epsilon,\ std::string\ eol);}
 \DoxyCodeLine{00070\ }
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structLr0Item_a6142b6f8428fbf567eda36c751594033}{PrintItem}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00080\ \ \ \ \ std::string\ \mbox{\hyperlink{structLr0Item_af04204a80422464f843b7a8ef4a22965}{ToString}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00079\ \ \ \ \ Lr0Item(std::string\ antecedent,\ std::vector<std::string>\ consequent,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dot,\ std::string\ epsilon,\ std::string\ eol);}
 \DoxyCodeLine{00081\ }
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structLr0Item_ac342e279b0a266a84f984b82604532e6}{AdvanceDot}}();}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structLr0Item_a4db23e1d025750a6ca817aa4998a03f4}{IsComplete}}()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structLr0Item_a21198c89325c73ee25a8d960cff7d1fa}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3}{Lr0Item}}\&\ other)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00099\ \};}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \textcolor{keyword}{namespace\ }std\ \{}
-\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{structLr0Item}{Lr0Item}}>\ \{}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{structLr0Item}{Lr0Item}}\&\ item)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00104\ \};}
-\DoxyCodeLine{00105\ \}\ \textcolor{comment}{//\ namespace\ std}}
+\DoxyCodeLine{00087\ \ \ \ \ std::string\ NextToDot()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ PrintItem()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00100\ \ \ \ \ std::string\ ToString()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ AdvanceDot();}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsComplete()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ Lr0Item\&\ other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<Lr0Item>\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ Lr0Item\&\ item)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ \}\ \textcolor{comment}{//\ namespace\ std}}
 
 \end{DoxyCode}

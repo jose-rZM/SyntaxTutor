@@ -1,42 +1,58 @@
 \doxysection{grammar.\+hpp}
-\hypertarget{grammar_8hpp_source}{}\label{grammar_8hpp_source}\index{backend/grammar.hpp@{backend/grammar.hpp}}
+\label{grammar_8hpp_source}\index{backend/grammar.hpp@{backend/grammar.hpp}}
 \mbox{\hyperlink{grammar_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{symbol__table_8hpp}{symbol\_table.hpp}}"{}}}
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00006\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }\mbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}}\ =\ std::vector<std::string>;}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structGrammar_aa201250a002a7d07d398fee189a74427}{Grammar}}\ \{}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{structGrammar_aa201250a002a7d07d398fee189a74427}{Grammar}}();}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structGrammar_aa201250a002a7d07d398fee189a74427}{Grammar}}(}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ std::vector<production>>\&}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ grammar);}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammar_a27ecdbca735ffb275a2bad9d1ea539c3}{SetAxiom}}(\textcolor{keyword}{const}\ std::string\&\ axiom);}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structGrammar_a833632e1ccfa0f84222a4b7168cf975e}{HasEmptyProduction}}(\textcolor{keyword}{const}\ std::string\&\ antecedent)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00068\ \ \ \ \ std::vector<std::pair<const\ std::string,\ production>>\ \mbox{\hyperlink{structGrammar_a561bf0737bee1806306e3a33becde483}{FilterRulesByConsequent}}(}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ arg)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammar_a95e0f2efad2652f2048670b87894d033}{Debug}}()\ \textcolor{keyword}{const};\ \textcolor{comment}{//NOSONAR}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structGrammar_aa8ba510e14b7d86c9f030611343ed130}{AddProduction}}(\textcolor{keyword}{const}\ std::string\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ antecedent,}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ consequent);}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00102\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structGrammar_add2f414fe2ddf7e578a70c255daa1996}{Split}}(\textcolor{keyword}{const}\ std::string\&\ s);}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00108\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<production>>\ \mbox{\hyperlink{structGrammar_ac16e6ae6c52586612ecf1ceb19fb1dd5}{g\_}};}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00113\ \ \ \ \ std::string\ \mbox{\hyperlink{structGrammar_a8bdbc1072253034fab2c1269a4660f57}{axiom\_}};}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{structSymbolTable}{SymbolTable}}\ \mbox{\hyperlink{structGrammar_aa78dffbcc2b215a3184e588cbb272097}{st\_}};}
-\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}symbol\_table.hpp"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{using\ }production\ =\ std::vector<std::string>;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }Grammar\ \{}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ Grammar();}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{explicit}\ Grammar(}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ std::vector<production>>\&}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ grammar);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAxiom(\textcolor{keyword}{const}\ std::string\&\ axiom);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasEmptyProduction(\textcolor{keyword}{const}\ std::string\&\ antecedent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00086\ \ \ \ \ std::vector<std::pair<const\ std::string,\ production>>}
+\DoxyCodeLine{00087\ \ \ \ \ FilterRulesByConsequent(\textcolor{keyword}{const}\ std::string\&\ arg)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ Debug()\ \textcolor{keyword}{const};\ \textcolor{comment}{//\ NOSONAR}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ AddProduction(\textcolor{keyword}{const}\ std::string\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ antecedent,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ consequent);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00123\ \ \ \ \ std::vector<std::string>\ Split(\textcolor{keyword}{const}\ std::string\&\ s);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00129\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<production>>\ g\_;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00134\ \ \ \ \ std::string\ axiom\_;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00139\ \ \ \ \ SymbolTable\ st\_;}
+\DoxyCodeLine{00140\ \};}
 
 \end{DoxyCode}

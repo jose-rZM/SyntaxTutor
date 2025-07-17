@@ -1,33 +1,51 @@
 \doxysection{state.\+hpp}
-\hypertarget{state_8hpp_source}{}\label{state_8hpp_source}\index{backend/state.hpp@{backend/state.hpp}}
+\label{state_8hpp_source}\index{backend/state.hpp@{backend/state.hpp}}
 \mbox{\hyperlink{state_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lr0__item_8hpp}{lr0\_item.hpp}}"{}}}
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cstddef>}}
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <functional>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <numeric>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstate}{state}}\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ std::unordered\_set<Lr0Item>\ \mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}};}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structstate_ae4175bd8db542097060d70960296505d}{id\_}};}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}lr0\_item.hpp"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structstate_a463398083f82b863b2ea8d793073f186}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structstate}{state}}\&\ other)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ other.\mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}}\ ==\ \mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}};\ \}}
-\DoxyCodeLine{00032\ \};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }std\ \{}
-\DoxyCodeLine{00035\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<state>\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ state\&\ st)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ seed\ =}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ std::accumulate(st.\mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}}.begin(),\ st.\mbox{\hyperlink{structstate_a54da669fd7d80f2459478e228a5f8af6}{items\_}}.end(),\ 0,}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{size\_t}\ acc,\ \textcolor{keyword}{const}\ Lr0Item\&\ item)\ \{}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ acc\ \string^\ (std::hash<Lr0Item>()(item));}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ seed;}
-\DoxyCodeLine{00043\ \ \ \ \ \}}
-\DoxyCodeLine{00044\ \};}
-\DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ std}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }state\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ std::unordered\_set<Lr0Item>\ items\_;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ id\_;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ state\&\ other)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ other.items\_\ ==\ items\_;\ \}}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }hash<state>\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ state\&\ st)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ seed\ =}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::accumulate(st.items\_.begin(),\ st.items\_.end(),\ 0,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{size\_t}\ acc,\ \textcolor{keyword}{const}\ Lr0Item\&\ item)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ acc\ \string^\ (std::hash<Lr0Item>()(item));}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ seed;}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ \}\ \textcolor{comment}{//\ namespace\ std}}
 
 \end{DoxyCode}

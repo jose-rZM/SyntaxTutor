@@ -6,8 +6,8 @@ var searchData=
   ['d_5fprime_3',['D_prime',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da7ca5dc50827bbc9567c75cc4344c86eb',1,'slrtutorwindow.h']]],
   ['debug_4',['Debug',['../structGrammar.html#a95e0f2efad2652f2048670b87894d033',1,'Grammar']]],
   ['delta_5',['Delta',['../classSLR1Parser.html#aee48bcbf0a93badeb5271a7299cc458b',1,'SLR1Parser']]],
-  ['documentation_6',['📚 Documentation',['../index.html#autotoc_md27',1,'']]],
+  ['documentation_6',['📚 Documentation',['../index.html#autotoc_md28',1,'']]],
   ['dot_5f_7',['dot_',['../structLr0Item.html#a1458f46f5cd2c1c02868a4b95e6f9437',1,'Lr0Item']]],
-  ['downloads_8',['📦 Downloads',['../index.html#autotoc_md23',1,'']]],
+  ['downloads_8',['📦 Downloads',['../index.html#autotoc_md24',1,'']]],
   ['drawtree_9',['drawTree',['../classLLTutorWindow.html#a36728cc5c78e316c2140422b828cc733',1,'LLTutorWindow']]]
 ];

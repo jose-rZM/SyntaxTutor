@@ -1,107 +1,125 @@
 \doxysection{mainwindow.\+h}
-\hypertarget{mainwindow_8h_source}{}\label{mainwindow_8h_source}\mbox{\hyperlink{mainwindow_8h}{Go to the documentation of this file.}}
+\label{mainwindow_8h_source}\mbox{\hyperlink{mainwindow_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MAINWINDOW\_H}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MAINWINDOW\_H}}
-\DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{grammar_8hpp}{backend/grammar.hpp}}"{}}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{grammar__factory_8hpp}{backend/grammar\_factory.hpp}}"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lltutorwindow_8h}{lltutorwindow.h}}"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slrtutorwindow_8h}{slrtutorwindow.h}}"{}}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tutorialmanager_8h}{tutorialmanager.h}}"{}}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QSettings>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ QVector<QString>\ levelColors\ =\ \{}
-\DoxyCodeLine{00013\ \ \ \ \ \textcolor{stringliteral}{"{}\#2C3E50"{}},\ \textcolor{comment}{//\ 1:\ Navy\ oscuro}}
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{stringliteral}{"{}\#2980B9"{}},\ \textcolor{comment}{//\ 2:\ Azul\ brillante}}
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{stringliteral}{"{}\#16A085"{}},\ \textcolor{comment}{//\ 3:\ Teal}}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{stringliteral}{"{}\#27AE60"{}},\ \textcolor{comment}{//\ 4:\ Verde\ esmeralda}}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{stringliteral}{"{}\#8E44AD"{}},\ \textcolor{comment}{//\ 5:\ Púrpura\ medio}}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{stringliteral}{"{}\#9B59B6"{}},\ \textcolor{comment}{//\ 6:\ Púrpura\ claro}}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{stringliteral}{"{}\#E67E22"{}},\ \textcolor{comment}{//\ 7:\ Naranja}}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{stringliteral}{"{}\#D35400"{}},\ \textcolor{comment}{//\ 8:\ Naranja\ oscuro}}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{stringliteral}{"{}\#CD7F32"{}},\ \textcolor{comment}{//\ 9:\ Bronce}}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{stringliteral}{"{}\#FFD700"{}}\ \ \textcolor{comment}{//\ 10:\ Oro\ puro}}
-\DoxyCodeLine{00023\ \};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ QT\_BEGIN\_NAMESPACE}
-\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }Ui\ \{}
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }MainWindow;}
-\DoxyCodeLine{00028\ \}}
-\DoxyCodeLine{00029\ QT\_END\_NAMESPACE}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMainWindow_a996c5a2b6f77944776856f08ec30858d}{MainWindow}}\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
-\DoxyCodeLine{00042\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00043\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{classMainWindow_a982f606d82b1f4947002336aa03ebec2}{userLevel}}\ READ\ \mbox{\hyperlink{classMainWindow_a982f606d82b1f4947002336aa03ebec2}{userLevel}}\ WRITE\ \mbox{\hyperlink{classMainWindow_a3913d62afef85cd18073399c78045041}{setUserLevel}}\ NOTIFY}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classMainWindow_abed50644ed307d4ab90a27bd13b30fcf}{userLevelChanged}})}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classMainWindow_a996c5a2b6f77944776856f08ec30858d}{MainWindow}}(QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}{\string~MainWindow}}();}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{classMainWindow_a5873fede0f60801fad0e4fac382a492d}{thresholdFor}}(\textcolor{keywordtype}{unsigned}\ level)\ \{\ \textcolor{keywordflow}{return}\ BASE\_THRESHOLD\ *\ level;\ \}}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{classMainWindow_a336fbbdf2d2bdc8b4fd39eb9e8b74da7}{userLevel}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_userLevel;\ \};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMainWindow_a3913d62afef85cd18073399c78045041}{setUserLevel}}(\textcolor{keywordtype}{unsigned}\ lvl)\ \{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ clamped\ =\ qMin(lvl,\ MAX\_LEVEL);}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_userLevel\ ==\ clamped)}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ m\_userLevel\ =\ clamped;}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ emit\ \mbox{\hyperlink{classMainWindow_abed50644ed307d4ab90a27bd13b30fcf}{userLevelChanged}}(clamped);}
-\DoxyCodeLine{00078\ \ \ \ \ \}}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{private}\ slots:}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_lv1Button\_clicked(\textcolor{keywordtype}{bool}\ checked);}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_lv2Button\_clicked(\textcolor{keywordtype}{bool}\ checked);}
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_lv3Button\_clicked(\textcolor{keywordtype}{bool}\ checked);}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_clicked();}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_2\_clicked();}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ MAINWINDOW\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MAINWINDOW\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}backend/grammar.hpp"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}backend/grammar\_factory.hpp"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}lltutorwindow.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}slrtutorwindow.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}tutorialmanager.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QSettings>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ QVector<QString>\ levelColors\ =\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{stringliteral}{"{}\#2C3E50"{}},\ \textcolor{comment}{//\ 1:\ Navy\ oscuro}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{stringliteral}{"{}\#2980B9"{}},\ \textcolor{comment}{//\ 2:\ Azul\ brillante}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{stringliteral}{"{}\#16A085"{}},\ \textcolor{comment}{//\ 3:\ Teal}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{stringliteral}{"{}\#27AE60"{}},\ \textcolor{comment}{//\ 4:\ Verde\ esmeralda}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{stringliteral}{"{}\#8E44AD"{}},\ \textcolor{comment}{//\ 5:\ Púrpura\ medio}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{stringliteral}{"{}\#9B59B6"{}},\ \textcolor{comment}{//\ 6:\ Púrpura\ claro}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{stringliteral}{"{}\#E67E22"{}},\ \textcolor{comment}{//\ 7:\ Naranja}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{stringliteral}{"{}\#D35400"{}},\ \textcolor{comment}{//\ 8:\ Naranja\ oscuro}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{stringliteral}{"{}\#CD7F32"{}},\ \textcolor{comment}{//\ 9:\ Bronce}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{stringliteral}{"{}\#FFD700"{}}\ \ \textcolor{comment}{//\ 10:\ Oro\ puro}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00044\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }MainWindow;}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }MainWindow\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00061\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{unsigned}\ userLevel\ READ\ userLevel\ WRITE\ setUserLevel\ NOTIFY}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ userLevelChanged)}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ MainWindow(QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \ \ \string~MainWindow();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ thresholdFor(\textcolor{keywordtype}{unsigned}\ level)\ \{\ \textcolor{keywordflow}{return}\ BASE\_THRESHOLD\ *\ level;\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ userLevel()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_userLevel;\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ setUserLevel(\textcolor{keywordtype}{unsigned}\ lvl)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ clamped\ =\ qMin(lvl,\ MAX\_LEVEL);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_userLevel\ ==\ clamped)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ m\_userLevel\ =\ clamped;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ emit\ userLevelChanged(clamped);}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
 \DoxyCodeLine{00097\ }
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_tutorial\_clicked();}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_actionSobre\_la\_aplicaci\_n\_triggered();}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_actionReferencia\_LL\_1\_triggered();}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_actionReferencia\_SLR\_1\_triggered();}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_idiom\_clicked();}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ signals:}
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMainWindow_abed50644ed307d4ab90a27bd13b30fcf}{userLevelChanged}}(\textcolor{keywordtype}{unsigned}\ lvl);}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMainWindow_a86775822330a07b3884915eb88833954}{userLevelUp}}(\textcolor{keywordtype}{unsigned}\ newLevel);}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_lv1Button\_clicked(\textcolor{keywordtype}{bool}\ checked);}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_lv2Button\_clicked(\textcolor{keywordtype}{bool}\ checked);}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_lv3Button\_clicked(\textcolor{keywordtype}{bool}\ checked);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_clicked();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_2\_clicked();}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_tutorial\_clicked();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_actionSobre\_la\_aplicaci\_n\_triggered();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_actionReferencia\_LL\_1\_triggered();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_actionReferencia\_SLR\_1\_triggered();}
 \DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTutorial();}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ restartTutorial();}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ handleTutorFinished(\textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_idiom\_clicked();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ signals:}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ userLevelChanged(\textcolor{keywordtype}{unsigned}\ lvl);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ userLevelUp(\textcolor{keywordtype}{unsigned}\ newLevel);}
 \DoxyCodeLine{00153\ }
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ saveSettings();}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{void}\ loadSettings();}
-\DoxyCodeLine{00163\ }
-\DoxyCodeLine{00164\ \ \ \ \ Ui::MainWindow*\ \ ui;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00165\ \ \ \ \ \mbox{\hyperlink{structGrammarFactory}{GrammarFactory}}\ \ \ factory;\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ level\ =\ 1;\ \ \ \ \ \ \ }
-\DoxyCodeLine{00167\ \ \ \ \ \mbox{\hyperlink{classTutorialManager}{TutorialManager}}*\ tm\ \ \ \ =\ \textcolor{keyword}{nullptr};\ }
-\DoxyCodeLine{00168\ }
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ MAX\_LEVEL\ =\ 10;\ \ }
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ MAX\_SCORE\ =\ 999;\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTutorial();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{void}\ restartTutorial();}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ handleTutorFinished(\textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
 \DoxyCodeLine{00171\ }
-\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ m\_userLevel\ =\ 1;\ }
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ userScore\ \ \ =\ 0;\ }
-\DoxyCodeLine{00174\ \ \ \ \ QSettings\ settings;\ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00175\ }
-\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ BASE\_THRESHOLD\ =\ 10;\ }
-\DoxyCodeLine{00177\ \};}
-\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MAINWINDOW\_H}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ saveSettings();}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{void}\ loadSettings();}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ Ui::MainWindow*\ \ ui;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00183\ \ \ \ \ GrammarFactory\ \ \ factory;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ level\ =\ 1;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00185\ \ \ \ \ TutorialManager*\ tm\ \ \ \ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ MAX\_LEVEL\ =\ 10;\ \ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{unsigned}\ MAX\_SCORE\ =\ 999;\ }
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ m\_userLevel\ =\ 1;\ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ userScore\ \ \ =\ 0;\ }
+\DoxyCodeLine{00192\ \ \ \ \ QSettings\ settings;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ BASE\_THRESHOLD\ =\ 10;\ }
+\DoxyCodeLine{00195\ \};}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MAINWINDOW\_H}}
 
 \end{DoxyCode}

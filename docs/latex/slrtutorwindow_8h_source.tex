@@ -1,277 +1,295 @@
 \doxysection{slrtutorwindow.\+h}
-\hypertarget{slrtutorwindow_8h_source}{}\label{slrtutorwindow_8h_source}\mbox{\hyperlink{slrtutorwindow_8h}{Go to the documentation of this file.}}
+\label{slrtutorwindow_8h_source}\mbox{\hyperlink{slrtutorwindow_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SLRTUTORWINDOW\_H}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SLRTUTORWINDOW\_H}}
-\DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{UniqueQueue_8h}{UniqueQueue.h}}"{}}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{grammar_8hpp}{backend/grammar.hpp}}"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slr1__parser_8hpp}{backend/slr1\_parser.hpp}}"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{slrtabledialog_8h}{slrtabledialog.h}}"{}}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <QAbstractItemView>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <QDialog>}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <QFileDialog>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <QGraphicsColorizeEffect>}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QListWidgetItem>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QPropertyAnimation>}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QRegularExpression>}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QScrollBar>}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QShortcut>}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <QTextDocument>}}
-\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <QTextEdit>}}
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <QTime>}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QTimer>}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QtPrintSupport/QPrinter>}}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{namespace\ }Ui\ \{}
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }SLRTutorWindow;}
-\DoxyCodeLine{00030\ \}}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \textcolor{comment}{//\ ======\ SLR(1)\ Tutor\ States\ =====================================}}
-\DoxyCodeLine{00033\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473d}{StateSlr}}\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29}{A}},}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a27f237e6b7f96587b6202ff3607ad88a}{A1}},}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac6bdf6f65f3845da9085e9ae5790b494}{A2}},}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da6593d7b12fd418cdb35bbf438de72f66}{A3}},}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da0c2f3adf2a48bab3adb470f4da57f3d0}{A4}},}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8adbb308b04e4006cecc1b9346c85f7f1e}{A\_prime}},}
-\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571}{B}},}
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0d61f8370cad1d412f80b84d143e1257}{C}},}
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3e8d115eb4b32b9e9479f387dbe14ee1}{CA}},}
-\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da834cb54b61bbed9d4296c995e4c5d8b2}{CB}},}
-\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daf623e75af30e62bbd73d6df5b50bb7b5}{D}},}
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da4a4079e06eb2f7ba7a12821c7c58a3f6}{D1}},}
-\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac4d62b6dcca08e5caf06c01889282859}{D2}},}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da7ca5dc50827bbc9567c75cc4344c86eb}{D\_prime}},}
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da3a3ea00cfc35332cedf6e5e9a32e94da}{E}},}
-\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da48ed5d2db39237d7ae5e829b17581629}{E1}},}
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da560fce20abef5cd3f8e4d13c94669a46}{E2}},}
-\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da800618943025315f869e4e1f09471012}{F}},}
-\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473daceaaf344427537ca0d8f1dbd83dcb44b}{FA}},}
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dadfcf28d0734569a6a693bc8194de62bf}{G}},}
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473dac1d9f50f86825a1a2302ec2449c17196}{H}},}
-\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473da07f25294fd107fcdf475aa6de0b89d9d}{H\_prime}},}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{lltutorwindow_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad79695776a5b40f7cadbee1f91a85c82}{fin}}}
-\DoxyCodeLine{00057\ \};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTutorialManager}{TutorialManager}};}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \textcolor{comment}{//\ ======\ Main\ Tutor\ Class\ for\ SLR(1)\ =============================}}
-\DoxyCodeLine{00076\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSLRTutorWindow_aaac1ba2b4d368f05e1b973d7fa6c5acb}{SLRTutorWindow}}\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
-\DoxyCodeLine{00077\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ SLRTUTORWINDOW\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ SLRTUTORWINDOW\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}UniqueQueue.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}backend/grammar.hpp"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}backend/slr1\_parser.hpp"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}slrtabledialog.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QAbstractItemView>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QFileDialog>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QGraphicsColorizeEffect>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QListWidgetItem>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <QPropertyAnimation>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <QRegularExpression>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <QScrollBar>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <QShortcut>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <QTextDocument>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <QTextEdit>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <QTime>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <QtPrintSupport/QPrinter>}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }SLRTutorWindow;}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ ======\ SLR(1)\ Tutor\ States\ =====================================}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{enum\ class}\ StateSlr\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ A,}
+\DoxyCodeLine{00053\ \ \ \ \ A1,}
+\DoxyCodeLine{00054\ \ \ \ \ A2,}
+\DoxyCodeLine{00055\ \ \ \ \ A3,}
+\DoxyCodeLine{00056\ \ \ \ \ A4,}
+\DoxyCodeLine{00057\ \ \ \ \ A\_prime,}
+\DoxyCodeLine{00058\ \ \ \ \ B,}
+\DoxyCodeLine{00059\ \ \ \ \ C,}
+\DoxyCodeLine{00060\ \ \ \ \ CA,}
+\DoxyCodeLine{00061\ \ \ \ \ CB,}
+\DoxyCodeLine{00062\ \ \ \ \ D,}
+\DoxyCodeLine{00063\ \ \ \ \ D1,}
+\DoxyCodeLine{00064\ \ \ \ \ D2,}
+\DoxyCodeLine{00065\ \ \ \ \ D\_prime,}
+\DoxyCodeLine{00066\ \ \ \ \ E,}
+\DoxyCodeLine{00067\ \ \ \ \ E1,}
+\DoxyCodeLine{00068\ \ \ \ \ E2,}
+\DoxyCodeLine{00069\ \ \ \ \ F,}
+\DoxyCodeLine{00070\ \ \ \ \ FA,}
+\DoxyCodeLine{00071\ \ \ \ \ G,}
+\DoxyCodeLine{00072\ \ \ \ \ H,}
+\DoxyCodeLine{00073\ \ \ \ \ H\_prime,}
+\DoxyCodeLine{00074\ \ \ \ \ fin}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }TutorialManager;}
 \DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ ======\ Constructor\ /\ Destructor\ =============================}}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classSLRTutorWindow_aaac1ba2b4d368f05e1b973d7fa6c5acb}{SLRTutorWindow}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ g,\ \mbox{\hyperlink{classTutorialManager}{TutorialManager}}*\ tm\ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_af7c638c7a83b0600593c8fe5f4c6cd78}{\string~SLRTutorWindow}}();}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ ======\ Core\ Flow\ Control\ =====================================}}
-\DoxyCodeLine{00096\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a255a5ab1aeae5b5123df8b271f11a245}{generateQuestion}}();}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_acef80f9051484e7bbc7ad003d4b8e180}{updateState}}(\textcolor{keywordtype}{bool}\ isCorrect);}
-\DoxyCodeLine{00103\ \ \ \ \ QString}
-\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a9c12c155646a012d248808ee8c2486e9}{FormatGrammar}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structGrammar}{Grammar}}\&\ grammar);\ }
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_afba6e8c97f7e826e100585b76327ec25}{fillSortedGrammar}}();\ }
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{comment}{//\ ======\ UI\ Interaction\ ========================================}}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_afbe6fdd9c0ace30a6b4e752fc8cec071}{addMessage}}(\textcolor{keyword}{const}\ QString\&\ text,\ \textcolor{keywordtype}{bool}\ isUser);\ }
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a33405c5d1473d6a244cd22ab7e3aa758}{exportConversationToPdf}}(}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\&\ filePath);\ }
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_af3fcadd81454b1201d6451ba5b1fc514}{showTable}}();\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a39d32d1bbff324558de7daeadc1e6189}{launchSLRWizard}}();}
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a359abee5231623a1e280c1d7c2497e5c}{updateProgressPanel}}();\ \ \ \ \ }
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a378858d91aa3551dc59e33ffd5b0065f}{addUserState}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id});\ }
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a60a2dd5a7a890a4844d40a400fa9426e}{addUserTransition}}(\textcolor{keywordtype}{unsigned}\ fromId,\ \textcolor{keyword}{const}\ std::string\&\ symbol,}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ toId);\ \textcolor{comment}{//\ Register\ a\ user-\/created\ transition}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ ======\ Visual\ Feedback\ \&\ Animations\ ==========================}}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a8ab34eb8e961b0eea0ade0caea85e3c0}{animateLabelPop}}(QLabel*\ label);}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_ac6424e0da7c4efcc0d4252d3893534b7}{animateLabelColor}}(QLabel*\ label,\ \textcolor{keyword}{const}\ QColor\&\ flashColor);}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a7aa89b93b35a2e55c5876294d71a04fb}{wrongAnimation}}();\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Label\ animation\ for\ incorrect\ answer}}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a2e86e3d8d79a7ec97ede0623b7bf9730}{wrongUserResponseAnimation}}();\ \textcolor{comment}{//\ Message\ widget\ animation\ for\ incorrect}}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ answer}}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_a5b5f59e1252f449360f34f3ba3552e1c}{markLastUserIncorrect}}();}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ ======\ Response\ Verification\ ================================}}
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_ad2558a64cf4a24f493aa732558ba9e20}{verifyResponse}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a3fea45aa0aab4b7e6bec29ad91f0a2d9}{verifyResponseForA}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a42fc498448d60836bc846f7538433174}{verifyResponseForA1}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_ad94197a77eca0485a4e6e1ef73330c89}{verifyResponseForA2}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a2bd2f1d11eef6ec50e455bda74a919d1}{verifyResponseForA3}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a7014c426c4e9b4a50a1fa7030e37f150}{verifyResponseForA4}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_aaa40c776379db2c369553a586461b965}{verifyResponseForB}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a15ec4f49b4838b8aa0df2e2226d4627a}{verifyResponseForC}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a4f19f7e2d207f0f9ebc89715a0a5ced0}{verifyResponseForCA}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a0f86f583bce2f5d45b83d0721eee6a13}{verifyResponseForCB}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_ab67bc48b847b74adedfb678363799f2e}{verifyResponseForD}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_aa8e3d1a0184100e4eb4a5f752991cebc}{verifyResponseForD1}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a3e843b7e6359884be6b106b1ccfdad0c}{verifyResponseForD2}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a81d8fe2deddadb995a98b8c6bb8588dc}{verifyResponseForE}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_ad8c5893e6903a57f19d07d608f050a8c}{verifyResponseForE1}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_abcc6a3527d120052efcbdcff69393db6}{verifyResponseForE2}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a94cf3c4a505eba3f6049c0b61a1647c6}{verifyResponseForF}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_ab2721b12dec64b3ccabeed023179156b}{verifyResponseForFA}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_a9e1790e9fe3aacc9ba5c932ba565bcd9}{verifyResponseForG}}(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSLRTutorWindow_afc86bdaf2c33cd5dfea3a02ca1bac7aa}{verifyResponseForH}}();}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{comment}{//\ ======\ Correct\ Solutions\ (Auto-\/generated)\ ====================}}
-\DoxyCodeLine{00149\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a154eed8af07ee1947f969745c16109d0}{solution}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structstate}{state}});}
-\DoxyCodeLine{00150\ \ \ \ \ std::unordered\_set<Lr0Item>\ \mbox{\hyperlink{classSLRTutorWindow_a71213d42e715ca1c1e5a02b078bc9b24}{solutionForA}}();}
-\DoxyCodeLine{00151\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a95f4621a5153d59e3623d1cf6421add7}{solutionForA1}}();}
-\DoxyCodeLine{00152\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a5ff056eb710cc8aaf8a81aac37713971}{solutionForA2}}();}
-\DoxyCodeLine{00153\ \ \ \ \ std::vector<std::pair<std::string,\ std::vector<std::string>>>}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_ab2b2565b40cd32e333af31719f3b63b0}{solutionForA3}}();}
-\DoxyCodeLine{00155\ \ \ \ \ std::unordered\_set<Lr0Item>\ \mbox{\hyperlink{classSLRTutorWindow_a29cdb46729530ef00da0fd07f9813ff2}{solutionForA4}}();}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_afe3f5f8121d5401c621cb4396fb067c2}{solutionForB}}();}
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a735621e8cd60c4b60c0f80978593438a}{solutionForC}}();}
-\DoxyCodeLine{00158\ \ \ \ \ QStringList\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_aaff00ffe414a36ba668d15716c45479c}{solutionForCA}}();}
-\DoxyCodeLine{00159\ \ \ \ \ std::unordered\_set<Lr0Item>\ \mbox{\hyperlink{classSLRTutorWindow_ac4017a716f065b29ea2957f8af15643c}{solutionForCB}}();}
-\DoxyCodeLine{00160\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a794d559b2350ae40655ff8192f9eacc0}{solutionForD}}();}
-\DoxyCodeLine{00161\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a6e31b87f3ded32f995df622b2b2fec52}{solutionForD1}}();}
-\DoxyCodeLine{00162\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a3057490ca57531863f10ff095674c2aa}{solutionForD2}}();}
-\DoxyCodeLine{00163\ \ \ \ \ std::ptrdiff\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a1ddc0f3362ec35ccbf7f3a326c50cfb6}{solutionForE}}();}
-\DoxyCodeLine{00164\ \ \ \ \ QSet<unsigned>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a81410ccd351a369f2198021c717e4f11}{solutionForE1}}();}
-\DoxyCodeLine{00165\ \ \ \ \ QMap<unsigned,\ unsigned>\ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a6f63d2a8ba634d3a23f04eab6aac1158}{solutionForE2}}();}
-\DoxyCodeLine{00166\ \ \ \ \ QSet<unsigned>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a9136988ee75fb53d4ed6a8d19d878aa5}{solutionForF}}();}
-\DoxyCodeLine{00167\ \ \ \ \ QSet<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a1f0f3520f3d618a6c5e777a86f31e5ad}{solutionForFA}}();}
-\DoxyCodeLine{00168\ \ \ \ \ QSet<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSLRTutorWindow_a38744c85866ae1c8df6a0f01a61bb0aa}{solutionForG}}();}
-\DoxyCodeLine{00169\ }
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ ======\ Pedagogical\ Feedback\ ==================================}}
-\DoxyCodeLine{00171\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a0688f86822e79e77b8d8c75c0b6d11a0}{feedback}}();\ \textcolor{comment}{//\ Delegates\ to\ appropriate\ feedback\ based\ on\ state}}
-\DoxyCodeLine{00172\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a3f8550628cfe1972953e7d84df29e1c0}{feedbackForA}}();}
-\DoxyCodeLine{00173\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_adced8fed7316c1fcadec47b3d2e3c4b0}{feedbackForA1}}();}
-\DoxyCodeLine{00174\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a72f11ac5dc89f324a52ff0a69df43547}{feedbackForA2}}();}
-\DoxyCodeLine{00175\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a5e493074a13f41bc59e9b36b7ebc59d7}{feedbackForA3}}();}
-\DoxyCodeLine{00176\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a97ed5d3888a693b0c82a88a04d4fc4ad}{feedbackForA4}}();}
-\DoxyCodeLine{00177\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a94af5aba02fef7c2496a96ef1cdcc2aa}{feedbackForAPrime}}();}
-\DoxyCodeLine{00178\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_adb5aef769d61e9e2d3794ac4106658f3}{feedbackForB}}();}
-\DoxyCodeLine{00179\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a56aac9bd1fe6a0f4b0ba09ead5a821a0}{feedbackForB1}}();}
-\DoxyCodeLine{00180\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a1fc8bf82f4cb442b751b22ddea3514c1}{feedbackForB2}}();}
-\DoxyCodeLine{00181\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_ab66b870e6d3751dc228688f5addf1e78}{feedbackForBPrime}}();}
-\DoxyCodeLine{00182\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_abe22ff89a00b192844adc59d064e3a0a}{feedbackForC}}();}
-\DoxyCodeLine{00183\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a79f71a84c1fb6fd18798d9b238384780}{feedbackForCA}}();}
-\DoxyCodeLine{00184\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_ae12625e4747be634f7acbacb9a5aefcc}{feedbackForCB}}();}
-\DoxyCodeLine{00185\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a0faefc7db5d1d814fd39292f3b5669d4}{feedbackForD}}();}
-\DoxyCodeLine{00186\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a1b5d5d7a6924120122b8ba8fc13e3f28}{feedbackForD1}}();}
-\DoxyCodeLine{00187\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a64d86b4e2ca1beacc5c2de6cbc35de91}{feedbackForD2}}();}
-\DoxyCodeLine{00188\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_abf1bd38094495acfe41a8d4f71bb43e3}{feedbackForDPrime}}();}
-\DoxyCodeLine{00189\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_af2505841179208ac64764eaebf25aa1a}{feedbackForE}}();}
-\DoxyCodeLine{00190\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_ab20064f5a66fa5e4c40591f03280417e}{feedbackForE1}}();}
-\DoxyCodeLine{00191\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a69e4d701acdccd4c603e46723bea08d0}{feedbackForE2}}();}
-\DoxyCodeLine{00192\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a9c31d3e02dc358a67ad4b4994114f29e}{feedbackForF}}();}
-\DoxyCodeLine{00193\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_ab726f1bcc94699c03fc5ec3a1ec67343}{feedbackForFA}}();}
-\DoxyCodeLine{00194\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a45bf0977171fb841be5d3a3bb78fda69}{feedbackForG}}();}
-\DoxyCodeLine{00195\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a45eddedb7792a98443718f224d06fc3a}{TeachDeltaFunction}}(\textcolor{keyword}{const}\ std::unordered\_set<Lr0Item>\&\ items,}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ symbol);}
-\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_aae8ec8f3ea6caa8f7f7c4e2df47cc0d8}{TeachClosureStep}}(std::unordered\_set<Lr0Item>\&\ items,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size,}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ visited,\ \textcolor{keywordtype}{int}\ depth,}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\&\ output);}
-\DoxyCodeLine{00200\ \ \ \ \ QString\ \mbox{\hyperlink{classSLRTutorWindow_a7f5f278e44249cbde487af1c43dbff3a}{TeachClosure}}(\textcolor{keyword}{const}\ std::unordered\_set<Lr0Item>\&\ initialItems);}
-\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{private}\ slots:}
-\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_confirmButton\_clicked();}
-\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_userResponse\_textChanged();}
-\DoxyCodeLine{00204\ }
-\DoxyCodeLine{00205\ \ \ signals:}
-\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_ac3773d3a51fbd153e764e8de31c2fec7}{sessionFinished}}(\textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
-\DoxyCodeLine{00207\ }
-\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSLRTutorWindow_afcbe8c07ade16d53d53cc87dcd40d44b}{closeEvent}}(QCloseEvent*\ event)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ emit\ \mbox{\hyperlink{classSLRTutorWindow_ac3773d3a51fbd153e764e8de31c2fec7}{sessionFinished}}(cntRightAnswers,\ cntWrongAnswers);}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ QWidget::closeEvent(event);}
-\DoxyCodeLine{00212\ \ \ \ \ \}}
-\DoxyCodeLine{00213\ }
-\DoxyCodeLine{00214\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ ======\ Helper\ Functions\ ======================================}}
-\DoxyCodeLine{00216\ \ \ \ \ std::vector<std::string>\ qvectorToStdVector(\textcolor{keyword}{const}\ QVector<QString>\&\ qvec);}
-\DoxyCodeLine{00217\ \ \ \ \ QVector<QString>\ stdVectorToQVector(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec);}
-\DoxyCodeLine{00218\ \ \ \ \ QSet<QString>}
-\DoxyCodeLine{00219\ \ \ \ \ stdUnorderedSetToQSet(\textcolor{keyword}{const}\ std::unordered\_set<std::string>\&\ uset);}
-\DoxyCodeLine{00220\ \ \ \ \ std::unordered\_set<std::string>}
-\DoxyCodeLine{00221\ \ \ \ \ qsetToStdUnorderedSet(\textcolor{keyword}{const}\ QSet<QString>\&\ qset);}
-\DoxyCodeLine{00222\ \ \ \ \ std::unordered\_set<Lr0Item>\ ingestUserItems(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00223\ \ \ \ \ std::vector<std::pair<std::string,\ std::vector<std::string>>>}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ ingestUserRules(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTutorial();}
-\DoxyCodeLine{00226\ \ \ \ \ \textcolor{comment}{//\ ======\ Core\ Components\ ========================================}}
-\DoxyCodeLine{00227\ \ \ \ \ Ui::SLRTutorWindow*\ ui;}
-\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{structGrammar}{Grammar}}\ \ \ \ \ \ \ \ \ \ \ \ \ grammar;}
-\DoxyCodeLine{00229\ \ \ \ \ \mbox{\hyperlink{classSLR1Parser}{SLR1Parser}}\ \ \ \ \ \ \ \ \ \ slr1;}
-\DoxyCodeLine{00230\ }
-\DoxyCodeLine{00231\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ and\ Grammar\ Tracking\ =============================}}
-\DoxyCodeLine{00232\ \ \ \ \ \mbox{\hyperlink{slrtutorwindow_8h_a62d8c04e822006d61f10fc42c058473d}{StateSlr}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentState;}
-\DoxyCodeLine{00233\ \ \ \ \ QVector<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sortedNonTerminals;}
-\DoxyCodeLine{00234\ \ \ \ \ QVector<QPair<QString,\ QVector<QString>>>\ sortedGrammar;}
-\DoxyCodeLine{00235\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formattedGrammar;}
-\DoxyCodeLine{00236\ }
-\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cntRightAnswers\ =\ 0;}
-\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cntWrongAnswers\ =\ 0;}
-\DoxyCodeLine{00239\ }
-\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ Machine\ Runtime\ Variables\ ========================}}
-\DoxyCodeLine{00241\ \ \ \ \ std::unordered\_set<state>\ userMadeStates;\ \textcolor{comment}{//\ All\ states\ the\ user\ has\ created}}
-\DoxyCodeLine{00242\ \ \ \ \ std::unordered\_map<unsigned,\ std::unordered\_map<std::string,\ unsigned>>}
-\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ userMadeTransitions;\ \textcolor{comment}{//\ Transitions\ made\ by\ the\ user}}
-\DoxyCodeLine{00244\ \ \ \ \ \mbox{\hyperlink{classUniqueQueue}{UniqueQueue<unsigned>}}}
-\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ statesIdQueue;\ \textcolor{comment}{//\ States\ to\ be\ processed\ in\ B-\/C-\/CA-\/CB\ loop}}
-\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ currentStateId\ =\ 0;}
-\DoxyCodeLine{00247\ \ \ \ \ \mbox{\hyperlink{structstate}{state}}\ \ \ \ currentSlrState;}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ ======\ Main\ Tutor\ Class\ for\ SLR(1)\ =============================}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{class\ }SLRTutorWindow\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ ======\ Constructor\ /\ Destructor\ =============================}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{explicit}\ SLRTutorWindow(\textcolor{keyword}{const}\ Grammar\&\ g,\ TutorialManager*\ tm\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00107\ \ \ \ \ \string~SLRTutorWindow();}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{//\ ======\ Core\ Flow\ Control\ =====================================}}
+\DoxyCodeLine{00114\ \ \ \ \ QString\ generateQuestion();}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ updateState(\textcolor{keywordtype}{bool}\ isCorrect);}
+\DoxyCodeLine{00121\ \ \ \ \ QString}
+\DoxyCodeLine{00122\ \ \ \ \ FormatGrammar(\textcolor{keyword}{const}\ Grammar\&\ grammar);\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ fillSortedGrammar();\ }
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ ======\ UI\ Interaction\ ========================================}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{void}\ addMessage(\textcolor{keyword}{const}\ QString\&\ text,\ \textcolor{keywordtype}{bool}\ isUser);\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ exportConversationToPdf(}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\&\ filePath);\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ showTable();\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ launchSLRWizard();}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ updateProgressPanel();\ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ addUserState(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id});\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ addUserTransition(\textcolor{keywordtype}{unsigned}\ fromId,\ \textcolor{keyword}{const}\ std::string\&\ symbol,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ toId);\ \textcolor{comment}{//\ Register\ a\ user-\/created\ transition}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ ======\ Visual\ Feedback\ \&\ Animations\ ==========================}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ animateLabelPop(QLabel*\ label);}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ animateLabelColor(QLabel*\ label,\ \textcolor{keyword}{const}\ QColor\&\ flashColor);}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ wrongAnimation();\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Label\ animation\ for\ incorrect\ answer}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ wrongUserResponseAnimation();\ \textcolor{comment}{//\ Message\ widget\ animation\ for\ incorrect}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ answer}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ markLastUserIncorrect();}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ ======\ Response\ Verification\ ================================}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponse(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA3(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA4(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForC(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForCA(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForCB(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForD(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForD1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForD2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForE(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForE1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForE2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForF(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForFA(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForG(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForH();}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{comment}{//\ ======\ Correct\ Solutions\ (Auto-\/generated)\ ====================}}
+\DoxyCodeLine{00167\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solution(\textcolor{keyword}{const}\ std::string\&\ state);}
+\DoxyCodeLine{00168\ \ \ \ \ std::unordered\_set<Lr0Item>\ solutionForA();}
+\DoxyCodeLine{00169\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForA1();}
+\DoxyCodeLine{00170\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForA2();}
+\DoxyCodeLine{00171\ \ \ \ \ std::vector<std::pair<std::string,\ std::vector<std::string>>>}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForA3();}
+\DoxyCodeLine{00173\ \ \ \ \ std::unordered\_set<Lr0Item>\ solutionForA4();}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForB();}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForC();}
+\DoxyCodeLine{00176\ \ \ \ \ QStringList\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForCA();}
+\DoxyCodeLine{00177\ \ \ \ \ std::unordered\_set<Lr0Item>\ solutionForCB();}
+\DoxyCodeLine{00178\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForD();}
+\DoxyCodeLine{00179\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForD1();}
+\DoxyCodeLine{00180\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForD2();}
+\DoxyCodeLine{00181\ \ \ \ \ std::ptrdiff\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForE();}
+\DoxyCodeLine{00182\ \ \ \ \ QSet<unsigned>\ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForE1();}
+\DoxyCodeLine{00183\ \ \ \ \ QMap<unsigned,\ unsigned>\ \ \ \ solutionForE2();}
+\DoxyCodeLine{00184\ \ \ \ \ QSet<unsigned>\ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForF();}
+\DoxyCodeLine{00185\ \ \ \ \ QSet<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForFA();}
+\DoxyCodeLine{00186\ \ \ \ \ QSet<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionForG();}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{//\ ======\ Pedagogical\ Feedback\ ==================================}}
+\DoxyCodeLine{00189\ \ \ \ \ QString\ feedback();\ \textcolor{comment}{//\ Delegates\ to\ appropriate\ feedback\ based\ on\ state}}
+\DoxyCodeLine{00190\ \ \ \ \ QString\ feedbackForA();}
+\DoxyCodeLine{00191\ \ \ \ \ QString\ feedbackForA1();}
+\DoxyCodeLine{00192\ \ \ \ \ QString\ feedbackForA2();}
+\DoxyCodeLine{00193\ \ \ \ \ QString\ feedbackForA3();}
+\DoxyCodeLine{00194\ \ \ \ \ QString\ feedbackForA4();}
+\DoxyCodeLine{00195\ \ \ \ \ QString\ feedbackForAPrime();}
+\DoxyCodeLine{00196\ \ \ \ \ QString\ feedbackForB();}
+\DoxyCodeLine{00197\ \ \ \ \ QString\ feedbackForB1();}
+\DoxyCodeLine{00198\ \ \ \ \ QString\ feedbackForB2();}
+\DoxyCodeLine{00199\ \ \ \ \ QString\ feedbackForBPrime();}
+\DoxyCodeLine{00200\ \ \ \ \ QString\ feedbackForC();}
+\DoxyCodeLine{00201\ \ \ \ \ QString\ feedbackForCA();}
+\DoxyCodeLine{00202\ \ \ \ \ QString\ feedbackForCB();}
+\DoxyCodeLine{00203\ \ \ \ \ QString\ feedbackForD();}
+\DoxyCodeLine{00204\ \ \ \ \ QString\ feedbackForD1();}
+\DoxyCodeLine{00205\ \ \ \ \ QString\ feedbackForD2();}
+\DoxyCodeLine{00206\ \ \ \ \ QString\ feedbackForDPrime();}
+\DoxyCodeLine{00207\ \ \ \ \ QString\ feedbackForE();}
+\DoxyCodeLine{00208\ \ \ \ \ QString\ feedbackForE1();}
+\DoxyCodeLine{00209\ \ \ \ \ QString\ feedbackForE2();}
+\DoxyCodeLine{00210\ \ \ \ \ QString\ feedbackForF();}
+\DoxyCodeLine{00211\ \ \ \ \ QString\ feedbackForFA();}
+\DoxyCodeLine{00212\ \ \ \ \ QString\ feedbackForG();}
+\DoxyCodeLine{00213\ \ \ \ \ QString\ TeachDeltaFunction(\textcolor{keyword}{const}\ std::unordered\_set<Lr0Item>\&\ items,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ symbol);}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{void}\ TeachClosureStep(std::unordered\_set<Lr0Item>\&\ items,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ visited,\ \textcolor{keywordtype}{int}\ depth,}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\&\ output);}
+\DoxyCodeLine{00218\ \ \ \ \ QString\ TeachClosure(\textcolor{keyword}{const}\ std::unordered\_set<Lr0Item>\&\ initialItems);}
+\DoxyCodeLine{00219\ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_confirmButton\_clicked();}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_userResponse\_textChanged();}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ signals:}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{void}\ sessionFinished(\textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{void}\ closeEvent(QCloseEvent*\ event)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ emit\ sessionFinished(cntRightAnswers,\ cntWrongAnswers);}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ QWidget::closeEvent(event);}
+\DoxyCodeLine{00230\ \ \ \ \ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{comment}{//\ ======\ Helper\ Functions\ ======================================}}
+\DoxyCodeLine{00234\ \ \ \ \ std::vector<std::string>\ qvectorToStdVector(\textcolor{keyword}{const}\ QVector<QString>\&\ qvec);}
+\DoxyCodeLine{00235\ \ \ \ \ QVector<QString>\ stdVectorToQVector(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec);}
+\DoxyCodeLine{00236\ \ \ \ \ QSet<QString>}
+\DoxyCodeLine{00237\ \ \ \ \ stdUnorderedSetToQSet(\textcolor{keyword}{const}\ std::unordered\_set<std::string>\&\ uset);}
+\DoxyCodeLine{00238\ \ \ \ \ std::unordered\_set<std::string>}
+\DoxyCodeLine{00239\ \ \ \ \ qsetToStdUnorderedSet(\textcolor{keyword}{const}\ QSet<QString>\&\ qset);}
+\DoxyCodeLine{00240\ \ \ \ \ std::unordered\_set<Lr0Item>\ ingestUserItems(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00241\ \ \ \ \ std::vector<std::pair<std::string,\ std::vector<std::string>>>}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ ingestUserRules(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTutorial();}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ ======\ Core\ Components\ ========================================}}
+\DoxyCodeLine{00245\ \ \ \ \ Ui::SLRTutorWindow*\ ui;}
+\DoxyCodeLine{00246\ \ \ \ \ Grammar\ \ \ \ \ \ \ \ \ \ \ \ \ grammar;}
+\DoxyCodeLine{00247\ \ \ \ \ SLR1Parser\ \ \ \ \ \ \ \ \ \ slr1;}
 \DoxyCodeLine{00248\ }
-\DoxyCodeLine{00249\ \ \ \ \ QStringList\ \ followSymbols;\ \textcolor{comment}{//\ Used\ in\ CA-\/CB\ loop}}
-\DoxyCodeLine{00250\ \ \ \ \ qsizetype\ \ \ \ currentFollowSymbolsIdx\ =\ 0;}
-\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nextStateId\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
-\DoxyCodeLine{00252\ }
-\DoxyCodeLine{00253\ \ \ \ \ QVector<const\ state*>\ statesWithLr0Conflict;\ \textcolor{comment}{//\ Populated\ in\ F}}
-\DoxyCodeLine{00254\ \ \ \ \ std::queue<unsigned>\ \ conflictStatesIdQueue;}
-\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ currentConflictStateId\ =\ 0;}
-\DoxyCodeLine{00256\ \ \ \ \ \mbox{\hyperlink{structstate}{state}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentConflictState;}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ and\ Grammar\ Tracking\ =============================}}
+\DoxyCodeLine{00250\ \ \ \ \ StateSlr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentState;}
+\DoxyCodeLine{00251\ \ \ \ \ QVector<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sortedNonTerminals;}
+\DoxyCodeLine{00252\ \ \ \ \ QVector<QPair<QString,\ QVector<QString>>>\ sortedGrammar;}
+\DoxyCodeLine{00253\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formattedGrammar;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cntRightAnswers\ =\ 0;}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cntWrongAnswers\ =\ 0;}
 \DoxyCodeLine{00257\ }
-\DoxyCodeLine{00258\ \ \ \ \ std::queue<unsigned>}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ reduceStatesIdQueue;\ \textcolor{comment}{//\ States\ without\ conflicts\ but\ with\ reduce}}
-\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ currentReduceStateId\ =\ 0;}
-\DoxyCodeLine{00261\ \ \ \ \ \mbox{\hyperlink{structstate}{state}}\ \ \ \ currentReduceState;}
-\DoxyCodeLine{00262\ }
-\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keyword}{struct\ }ActionEntry\ \{}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Type\ \{\ Shift,\ Reduce,\ Accept,\ Goto\ \}\ type;}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target;}
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeShift(\textcolor{keywordtype}{int}\ s)\ \{\ \textcolor{keywordflow}{return}\ \{Shift,\ s\};\ \}}
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeReduce(\textcolor{keywordtype}{int}\ r)\ \{\ \textcolor{keywordflow}{return}\ \{Reduce,\ r\};\ \}}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeAccept()\ \{\ \textcolor{keywordflow}{return}\ \{Accept,\ 0\};\ \}}
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeGoto(\textcolor{keywordtype}{int}\ g)\ \{\ \textcolor{keywordflow}{return}\ \{Goto,\ g\};\ \}}
-\DoxyCodeLine{00270\ \ \ \ \ \};}
-\DoxyCodeLine{00271\ }
-\DoxyCodeLine{00272\ \ \ \ \ QMap<int,\ QMap<QString,\ ActionEntry>>\ slrtable;}
-\DoxyCodeLine{00273\ \ \ \ \ QVector<QVector<QString>>\ \ \ \ \ \ \ \ \ \ \ \ \ rawTable;}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \ \ \textcolor{comment}{//\ ======\ Conversation\ Log\ =======================================}}
-\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{struct\ }MessageLog\ \{}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ QString\ message;}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isUser;}
-\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isCorrect\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ Machine\ Runtime\ Variables\ ========================}}
+\DoxyCodeLine{00259\ \ \ \ \ std::unordered\_set<state>\ userMadeStates;\ \textcolor{comment}{//\ All\ states\ the\ user\ has\ created}}
+\DoxyCodeLine{00260\ \ \ \ \ std::unordered\_map<unsigned,\ std::unordered\_map<std::string,\ unsigned>>}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ userMadeTransitions;\ \textcolor{comment}{//\ Transitions\ made\ by\ the\ user}}
+\DoxyCodeLine{00262\ \ \ \ \ UniqueQueue<unsigned>}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ statesIdQueue;\ \textcolor{comment}{//\ States\ to\ be\ processed\ in\ B-\/C-\/CA-\/CB\ loop}}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ currentStateId\ =\ 0;}
+\DoxyCodeLine{00265\ \ \ \ \ state\ \ \ \ currentSlrState;}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ QStringList\ \ followSymbols;\ \textcolor{comment}{//\ Used\ in\ CA-\/CB\ loop}}
+\DoxyCodeLine{00268\ \ \ \ \ qsizetype\ \ \ \ currentFollowSymbolsIdx\ =\ 0;}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nextStateId\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ QVector<const\ state*>\ statesWithLr0Conflict;\ \textcolor{comment}{//\ Populated\ in\ F}}
+\DoxyCodeLine{00272\ \ \ \ \ std::queue<unsigned>\ \ conflictStatesIdQueue;}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ currentConflictStateId\ =\ 0;}
+\DoxyCodeLine{00274\ \ \ \ \ state\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentConflictState;}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ std::queue<unsigned>}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ reduceStatesIdQueue;\ \textcolor{comment}{//\ States\ without\ conflicts\ but\ with\ reduce}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ currentReduceStateId\ =\ 0;}
+\DoxyCodeLine{00279\ \ \ \ \ state\ \ \ \ currentReduceState;}
 \DoxyCodeLine{00280\ }
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ MessageLog(\textcolor{keyword}{const}\ QString\&\ message,\ \textcolor{keywordtype}{bool}\ isUser)}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ :\ message(message),\ isUser(isUser)\ \{\}}
-\DoxyCodeLine{00283\ }
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ toggleIsCorrect()\ \{\ isCorrect\ =\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00285\ \ \ \ \ \};}
-\DoxyCodeLine{00286\ }
-\DoxyCodeLine{00287\ \ \ \ \ QVector<MessageLog>\ conversationLog;}
-\DoxyCodeLine{00288\ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ lastUserMessage\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00289\ \ \ \ \ qsizetype\ \ \ \ \ \ \ \ \ \ \ lastUserMessageLogIdx\ =\ -\/1;}
-\DoxyCodeLine{00290\ }
-\DoxyCodeLine{00291\ \ \ \ \ QPropertyAnimation*\ m\_shakeAnimation\ =}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ For\ interrupting\ userResponse\ animation\ if\ they\ spam\ enter}}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key}}
-\DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ \ \ \ \ TutorialManager*\ tm;}
-\DoxyCodeLine{00296\ }
-\DoxyCodeLine{00297\ \ \ \ \ QRegularExpression\ re\{\textcolor{stringliteral}{"{}\string^\(\backslash\)\(\backslash\)s+|\(\backslash\)\(\backslash\)s+\$"{}}\};}
-\DoxyCodeLine{00298\ \};}
-\DoxyCodeLine{00299\ }
-\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRTUTORWINDOW\_H}}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{struct\ }ActionEntry\ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ Type\ \{\ Shift,\ Reduce,\ Accept,\ Goto\ \}\ type;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeShift(\textcolor{keywordtype}{int}\ s)\ \{\ \textcolor{keywordflow}{return}\ \{Shift,\ s\};\ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeReduce(\textcolor{keywordtype}{int}\ r)\ \{\ \textcolor{keywordflow}{return}\ \{Reduce,\ r\};\ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeAccept()\ \{\ \textcolor{keywordflow}{return}\ \{Accept,\ 0\};\ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ActionEntry\ makeGoto(\textcolor{keywordtype}{int}\ g)\ \{\ \textcolor{keywordflow}{return}\ \{Goto,\ g\};\ \}}
+\DoxyCodeLine{00288\ \ \ \ \ \};}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ QMap<int,\ QMap<QString,\ ActionEntry>>\ slrtable;}
+\DoxyCodeLine{00291\ \ \ \ \ QVector<QVector<QString>>\ \ \ \ \ \ \ \ \ \ \ \ \ rawTable;}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{comment}{//\ ======\ Conversation\ Log\ =======================================}}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{struct\ }MessageLog\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ QString\ message;}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isUser;}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isCorrect\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ MessageLog(\textcolor{keyword}{const}\ QString\&\ message,\ \textcolor{keywordtype}{bool}\ isUser)}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ :\ message(message),\ isUser(isUser)\ \{\}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ toggleIsCorrect()\ \{\ isCorrect\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00303\ \ \ \ \ \};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ QVector<MessageLog>\ conversationLog;}
+\DoxyCodeLine{00306\ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ lastUserMessage\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00307\ \ \ \ \ qsizetype\ \ \ \ \ \ \ \ \ \ \ lastUserMessageLogIdx\ =\ -\/1;}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ QPropertyAnimation*\ m\_shakeAnimation\ =}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ For\ interrupting\ userResponse\ animation\ if\ they\ spam\ enter}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ TutorialManager*\ tm;}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ QRegularExpression\ re\{\textcolor{stringliteral}{"{}\string^\(\backslash\)\(\backslash\)s+|\(\backslash\)\(\backslash\)s+\$"{}}\};}
+\DoxyCodeLine{00316\ \};}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRTUTORWINDOW\_H}}
 
 \end{DoxyCode}

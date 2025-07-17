@@ -12,12 +12,15 @@
 \contentsline {section}{\numberline {1.6}🛠️ Building from Source}{9}{section.1.6}%
 \contentsline {subsection}{\numberline {1.6.1}📚 Documentation}{9}{subsection.1.6.1}%
 \contentsline {chapter}{\numberline {2}Changelog }{11}{chapter.2}%
-\contentsline {section}{\numberline {2.1}\mbox {[}1.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}1\mbox {]} -\/ 2025-\/06-\/17}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.1}\mbox {[}1.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}2\mbox {]} -\/ 2025-\/07-\/16}{11}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Added}{11}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Fixed}{11}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Quality}{11}{subsection.2.1.3}%
-\contentsline {section}{\numberline {2.2}\mbox {[}1.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0\mbox {]} -\/ 2025-\/06-\/15}{11}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Initial Release}{11}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.2}\mbox {[}1.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}1\mbox {]} -\/ 2025-\/06-\/17}{11}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Added}{11}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Fixed}{11}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Quality}{11}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}\mbox {[}1.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}0\mbox {]} -\/ 2025-\/06-\/15}{12}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Initial Release}{12}{subsection.2.3.1}%
 \contentsline {chapter}{\numberline {3}Hierarchical Index}{13}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Class Hierarchy}{13}{section.3.1}%
 \contentsline {chapter}{\numberline {4}Class Index}{15}{chapter.4}%
@@ -26,12 +29,12 @@
 \contentsline {section}{\numberline {5.1}File List}{17}{section.5.1}%
 \contentsline {chapter}{\numberline {6}Class Documentation}{19}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Center\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Align\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Delegate Class Reference}{19}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Member Function Documentation}{20}{subsection.6.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.1}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{20}{subsubsection.6.1.1.1}%
+\contentsline {subsection}{\numberline {6.1.1}Member Function Documentation}{19}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{19}{subsubsection.6.1.1.1}%
 \contentsline {subsubsection}{\numberline {6.1.1.2}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{20}{subsubsection.6.1.1.2}%
 \contentsline {section}{\numberline {6.2}Custom\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Text\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Edit Class Reference}{20}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Constructor \& Destructor Documentation}{21}{subsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.1.1}CustomTextEdit()}{21}{subsubsection.6.2.1.1}%
+\contentsline {subsection}{\numberline {6.2.1}Constructor \& Destructor Documentation}{20}{subsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.1.1}CustomTextEdit()}{20}{subsubsection.6.2.1.1}%
 \contentsline {subsection}{\numberline {6.2.2}Member Function Documentation}{21}{subsection.6.2.2}%
 \contentsline {subsubsection}{\numberline {6.2.2.1}keyPressEvent()}{21}{subsubsection.6.2.2.1}%
 \contentsline {subsubsection}{\numberline {6.2.2.2}sendRequested}{21}{subsubsection.6.2.2.2}%
@@ -41,9 +44,9 @@
 \contentsline {subsubsection}{\numberline {6.3.2.1}FactoryItem()}{22}{subsubsection.6.3.2.1}%
 \contentsline {subsection}{\numberline {6.3.3}Member Data Documentation}{22}{subsection.6.3.3}%
 \contentsline {subsubsection}{\numberline {6.3.3.1}g\_}{22}{subsubsection.6.3.3.1}%
-\contentsline {subsubsection}{\numberline {6.3.3.2}st\_}{23}{subsubsection.6.3.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.3.2}st\_}{22}{subsubsection.6.3.3.2}%
 \contentsline {section}{\numberline {6.4}Grammar Struct Reference}{23}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Detailed Description}{24}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.1}Detailed Description}{23}{subsection.6.4.1}%
 \contentsline {subsection}{\numberline {6.4.2}Constructor \& Destructor Documentation}{24}{subsection.6.4.2}%
 \contentsline {subsubsection}{\numberline {6.4.2.1}Grammar()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{24}{subsubsection.6.4.2.1}%
 \contentsline {subsubsection}{\numberline {6.4.2.2}Grammar()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{24}{subsubsection.6.4.2.2}%
@@ -51,13 +54,13 @@
 \contentsline {subsubsection}{\numberline {6.4.3.1}AddProduction()}{24}{subsubsection.6.4.3.1}%
 \contentsline {subsubsection}{\numberline {6.4.3.2}Debug()}{24}{subsubsection.6.4.3.2}%
 \contentsline {subsubsection}{\numberline {6.4.3.3}FilterRulesByConsequent()}{24}{subsubsection.6.4.3.3}%
-\contentsline {subsubsection}{\numberline {6.4.3.4}HasEmptyProduction()}{25}{subsubsection.6.4.3.4}%
+\contentsline {subsubsection}{\numberline {6.4.3.4}HasEmptyProduction()}{24}{subsubsection.6.4.3.4}%
 \contentsline {subsubsection}{\numberline {6.4.3.5}SetAxiom()}{25}{subsubsection.6.4.3.5}%
 \contentsline {subsubsection}{\numberline {6.4.3.6}Split()}{25}{subsubsection.6.4.3.6}%
 \contentsline {subsection}{\numberline {6.4.4}Member Data Documentation}{25}{subsection.6.4.4}%
 \contentsline {subsubsection}{\numberline {6.4.4.1}axiom\_}{25}{subsubsection.6.4.4.1}%
 \contentsline {subsubsection}{\numberline {6.4.4.2}g\_}{25}{subsubsection.6.4.4.2}%
-\contentsline {subsubsection}{\numberline {6.4.4.3}st\_}{26}{subsubsection.6.4.4.3}%
+\contentsline {subsubsection}{\numberline {6.4.4.3}st\_}{25}{subsubsection.6.4.4.3}%
 \contentsline {section}{\numberline {6.5}Grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Factory Struct Reference}{26}{section.6.5}%
 \contentsline {subsection}{\numberline {6.5.1}Detailed Description}{27}{subsection.6.5.1}%
 \contentsline {subsection}{\numberline {6.5.2}Member Function Documentation}{27}{subsection.6.5.2}%
@@ -98,12 +101,12 @@
 \contentsline {subsection}{\numberline {6.6.2}Member Function Documentation}{44}{subsection.6.6.2}%
 \contentsline {subsubsection}{\numberline {6.6.2.1}ComputeFirstSets()}{44}{subsubsection.6.6.2.1}%
 \contentsline {subsubsection}{\numberline {6.6.2.2}ComputeFollowSets()}{45}{subsubsection.6.6.2.2}%
-\contentsline {subsubsection}{\numberline {6.6.2.3}CreateLL1Table()}{46}{subsubsection.6.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.6.2.3}CreateLL1Table()}{45}{subsubsection.6.6.2.3}%
 \contentsline {subsubsection}{\numberline {6.6.2.4}First()}{46}{subsubsection.6.6.2.4}%
 \contentsline {subsubsection}{\numberline {6.6.2.5}Follow()}{47}{subsubsection.6.6.2.5}%
 \contentsline {subsubsection}{\numberline {6.6.2.6}PredictionSymbols()}{48}{subsubsection.6.6.2.6}%
-\contentsline {subsection}{\numberline {6.6.3}Member Data Documentation}{49}{subsection.6.6.3}%
-\contentsline {subsubsection}{\numberline {6.6.3.1}first\_sets\_}{49}{subsubsection.6.6.3.1}%
+\contentsline {subsection}{\numberline {6.6.3}Member Data Documentation}{48}{subsection.6.6.3}%
+\contentsline {subsubsection}{\numberline {6.6.3.1}first\_sets\_}{48}{subsubsection.6.6.3.1}%
 \contentsline {subsubsection}{\numberline {6.6.3.2}follow\_sets\_}{49}{subsubsection.6.6.3.2}%
 \contentsline {subsubsection}{\numberline {6.6.3.3}gr\_}{49}{subsubsection.6.6.3.3}%
 \contentsline {subsubsection}{\numberline {6.6.3.4}ll1\_t\_}{49}{subsubsection.6.6.3.4}%
@@ -111,359 +114,359 @@
 \contentsline {subsection}{\numberline {6.7.1}Detailed Description}{50}{subsection.6.7.1}%
 \contentsline {subsection}{\numberline {6.7.2}Constructor \& Destructor Documentation}{50}{subsection.6.7.2}%
 \contentsline {subsubsection}{\numberline {6.7.2.1}LLTableDialog()}{50}{subsubsection.6.7.2.1}%
-\contentsline {subsection}{\numberline {6.7.3}Member Function Documentation}{51}{subsection.6.7.3}%
-\contentsline {subsubsection}{\numberline {6.7.3.1}getTableData()}{51}{subsubsection.6.7.3.1}%
-\contentsline {subsubsection}{\numberline {6.7.3.2}highlightIncorrectCells()}{51}{subsubsection.6.7.3.2}%
+\contentsline {subsection}{\numberline {6.7.3}Member Function Documentation}{50}{subsection.6.7.3}%
+\contentsline {subsubsection}{\numberline {6.7.3.1}getTableData()}{50}{subsubsection.6.7.3.1}%
+\contentsline {subsubsection}{\numberline {6.7.3.2}highlightIncorrectCells()}{50}{subsubsection.6.7.3.2}%
 \contentsline {subsubsection}{\numberline {6.7.3.3}setInitialData()}{51}{subsubsection.6.7.3.3}%
 \contentsline {subsubsection}{\numberline {6.7.3.4}submitted}{51}{subsubsection.6.7.3.4}%
-\contentsline {section}{\numberline {6.8}LLTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{52}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Detailed Description}{55}{subsection.6.8.1}%
-\contentsline {subsection}{\numberline {6.8.2}Constructor \& Destructor Documentation}{55}{subsection.6.8.2}%
-\contentsline {subsubsection}{\numberline {6.8.2.1}LLTutorWindow()}{55}{subsubsection.6.8.2.1}%
-\contentsline {subsubsection}{\numberline {6.8.2.2}$\sim $LLTutorWindow()}{56}{subsubsection.6.8.2.2}%
-\contentsline {subsection}{\numberline {6.8.3}Member Function Documentation}{56}{subsection.6.8.3}%
-\contentsline {subsubsection}{\numberline {6.8.3.1}addMessage()}{56}{subsubsection.6.8.3.1}%
-\contentsline {subsubsection}{\numberline {6.8.3.2}addWidgetMessage()}{56}{subsubsection.6.8.3.2}%
-\contentsline {subsubsection}{\numberline {6.8.3.3}animateLabelColor()}{56}{subsubsection.6.8.3.3}%
-\contentsline {subsubsection}{\numberline {6.8.3.4}animateLabelPop()}{57}{subsubsection.6.8.3.4}%
-\contentsline {subsubsection}{\numberline {6.8.3.5}buildTreeNode()}{57}{subsubsection.6.8.3.5}%
-\contentsline {subsubsection}{\numberline {6.8.3.6}closeEvent()}{57}{subsubsection.6.8.3.6}%
-\contentsline {subsubsection}{\numberline {6.8.3.7}computeSubtreeWidth()}{57}{subsubsection.6.8.3.7}%
-\contentsline {subsubsection}{\numberline {6.8.3.8}drawTree()}{57}{subsubsection.6.8.3.8}%
-\contentsline {subsubsection}{\numberline {6.8.3.9}eventFilter()}{57}{subsubsection.6.8.3.9}%
-\contentsline {subsubsection}{\numberline {6.8.3.10}exportConversationToPdf()}{57}{subsubsection.6.8.3.10}%
-\contentsline {subsubsection}{\numberline {6.8.3.11}feedback()}{57}{subsubsection.6.8.3.11}%
-\contentsline {subsubsection}{\numberline {6.8.3.12}feedbackForA()}{58}{subsubsection.6.8.3.12}%
-\contentsline {subsubsection}{\numberline {6.8.3.13}feedbackForA1()}{58}{subsubsection.6.8.3.13}%
-\contentsline {subsubsection}{\numberline {6.8.3.14}feedbackForA2()}{58}{subsubsection.6.8.3.14}%
-\contentsline {subsubsection}{\numberline {6.8.3.15}feedbackForAPrime()}{58}{subsubsection.6.8.3.15}%
-\contentsline {subsubsection}{\numberline {6.8.3.16}feedbackForB()}{58}{subsubsection.6.8.3.16}%
-\contentsline {subsubsection}{\numberline {6.8.3.17}feedbackForB1()}{58}{subsubsection.6.8.3.17}%
-\contentsline {subsubsection}{\numberline {6.8.3.18}feedbackForB1TreeGraphics()}{59}{subsubsection.6.8.3.18}%
-\contentsline {subsubsection}{\numberline {6.8.3.19}feedbackForB1TreeWidget()}{59}{subsubsection.6.8.3.19}%
-\contentsline {subsubsection}{\numberline {6.8.3.20}feedbackForB2()}{59}{subsubsection.6.8.3.20}%
-\contentsline {subsubsection}{\numberline {6.8.3.21}feedbackForBPrime()}{59}{subsubsection.6.8.3.21}%
-\contentsline {subsubsection}{\numberline {6.8.3.22}feedbackForC()}{59}{subsubsection.6.8.3.22}%
-\contentsline {subsubsection}{\numberline {6.8.3.23}feedbackForCPrime()}{59}{subsubsection.6.8.3.23}%
-\contentsline {subsubsection}{\numberline {6.8.3.24}FormatGrammar()}{59}{subsubsection.6.8.3.24}%
-\contentsline {subsubsection}{\numberline {6.8.3.25}generateQuestion()}{60}{subsubsection.6.8.3.25}%
-\contentsline {subsubsection}{\numberline {6.8.3.26}handleTableSubmission()}{60}{subsubsection.6.8.3.26}%
-\contentsline {subsubsection}{\numberline {6.8.3.27}markLastUserIncorrect()}{60}{subsubsection.6.8.3.27}%
-\contentsline {subsubsection}{\numberline {6.8.3.28}sessionFinished}{61}{subsubsection.6.8.3.28}%
-\contentsline {subsubsection}{\numberline {6.8.3.29}showTable()}{61}{subsubsection.6.8.3.29}%
-\contentsline {subsubsection}{\numberline {6.8.3.30}showTableForCPrime()}{61}{subsubsection.6.8.3.30}%
-\contentsline {subsubsection}{\numberline {6.8.3.31}showTreeGraphics()}{61}{subsubsection.6.8.3.31}%
-\contentsline {subsubsection}{\numberline {6.8.3.32}solution()}{61}{subsubsection.6.8.3.32}%
-\contentsline {subsubsection}{\numberline {6.8.3.33}solutionForA()}{61}{subsubsection.6.8.3.33}%
-\contentsline {subsubsection}{\numberline {6.8.3.34}solutionForA1()}{61}{subsubsection.6.8.3.34}%
-\contentsline {subsubsection}{\numberline {6.8.3.35}solutionForA2()}{61}{subsubsection.6.8.3.35}%
-\contentsline {subsubsection}{\numberline {6.8.3.36}solutionForB()}{61}{subsubsection.6.8.3.36}%
-\contentsline {subsubsection}{\numberline {6.8.3.37}solutionForB1()}{62}{subsubsection.6.8.3.37}%
-\contentsline {subsubsection}{\numberline {6.8.3.38}solutionForB2()}{62}{subsubsection.6.8.3.38}%
-\contentsline {subsubsection}{\numberline {6.8.3.39}TeachFirstTree()}{62}{subsubsection.6.8.3.39}%
-\contentsline {subsubsection}{\numberline {6.8.3.40}TeachFollow()}{62}{subsubsection.6.8.3.40}%
-\contentsline {subsubsection}{\numberline {6.8.3.41}TeachLL1Table()}{63}{subsubsection.6.8.3.41}%
-\contentsline {subsubsection}{\numberline {6.8.3.42}TeachPredictionSymbols()}{63}{subsubsection.6.8.3.42}%
-\contentsline {subsubsection}{\numberline {6.8.3.43}updateProgressPanel()}{63}{subsubsection.6.8.3.43}%
-\contentsline {subsubsection}{\numberline {6.8.3.44}updateState()}{63}{subsubsection.6.8.3.44}%
-\contentsline {subsubsection}{\numberline {6.8.3.45}verifyResponse()}{63}{subsubsection.6.8.3.45}%
-\contentsline {subsubsection}{\numberline {6.8.3.46}verifyResponseForA()}{63}{subsubsection.6.8.3.46}%
-\contentsline {subsubsection}{\numberline {6.8.3.47}verifyResponseForA1()}{64}{subsubsection.6.8.3.47}%
-\contentsline {subsubsection}{\numberline {6.8.3.48}verifyResponseForA2()}{64}{subsubsection.6.8.3.48}%
-\contentsline {subsubsection}{\numberline {6.8.3.49}verifyResponseForB()}{64}{subsubsection.6.8.3.49}%
-\contentsline {subsubsection}{\numberline {6.8.3.50}verifyResponseForB1()}{64}{subsubsection.6.8.3.50}%
-\contentsline {subsubsection}{\numberline {6.8.3.51}verifyResponseForB2()}{64}{subsubsection.6.8.3.51}%
-\contentsline {subsubsection}{\numberline {6.8.3.52}verifyResponseForC()}{64}{subsubsection.6.8.3.52}%
-\contentsline {subsubsection}{\numberline {6.8.3.53}wrongAnimation()}{64}{subsubsection.6.8.3.53}%
-\contentsline {subsubsection}{\numberline {6.8.3.54}wrongUserResponseAnimation()}{64}{subsubsection.6.8.3.54}%
-\contentsline {section}{\numberline {6.9}Lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item Struct Reference}{64}{section.6.9}%
-\contentsline {subsection}{\numberline {6.9.1}Detailed Description}{65}{subsection.6.9.1}%
-\contentsline {subsection}{\numberline {6.9.2}Constructor \& Destructor Documentation}{65}{subsection.6.9.2}%
-\contentsline {subsubsection}{\numberline {6.9.2.1}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{65}{subsubsection.6.9.2.1}%
-\contentsline {subsubsection}{\numberline {6.9.2.2}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{66}{subsubsection.6.9.2.2}%
-\contentsline {subsection}{\numberline {6.9.3}Member Function Documentation}{66}{subsection.6.9.3}%
-\contentsline {subsubsection}{\numberline {6.9.3.1}AdvanceDot()}{66}{subsubsection.6.9.3.1}%
-\contentsline {subsubsection}{\numberline {6.9.3.2}IsComplete()}{66}{subsubsection.6.9.3.2}%
-\contentsline {subsubsection}{\numberline {6.9.3.3}NextToDot()}{67}{subsubsection.6.9.3.3}%
-\contentsline {subsubsection}{\numberline {6.9.3.4}operator==()}{67}{subsubsection.6.9.3.4}%
-\contentsline {subsubsection}{\numberline {6.9.3.5}PrintItem()}{68}{subsubsection.6.9.3.5}%
-\contentsline {subsubsection}{\numberline {6.9.3.6}ToString()}{68}{subsubsection.6.9.3.6}%
-\contentsline {subsection}{\numberline {6.9.4}Member Data Documentation}{68}{subsection.6.9.4}%
-\contentsline {subsubsection}{\numberline {6.9.4.1}antecedent\_}{68}{subsubsection.6.9.4.1}%
-\contentsline {subsubsection}{\numberline {6.9.4.2}consequent\_}{68}{subsubsection.6.9.4.2}%
-\contentsline {subsubsection}{\numberline {6.9.4.3}dot\_}{68}{subsubsection.6.9.4.3}%
-\contentsline {subsubsection}{\numberline {6.9.4.4}eol\_}{69}{subsubsection.6.9.4.4}%
-\contentsline {subsubsection}{\numberline {6.9.4.5}epsilon\_}{69}{subsubsection.6.9.4.5}%
-\contentsline {section}{\numberline {6.10}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{69}{section.6.10}%
-\contentsline {subsection}{\numberline {6.10.1}Detailed Description}{70}{subsection.6.10.1}%
-\contentsline {subsection}{\numberline {6.10.2}Constructor \& Destructor Documentation}{70}{subsection.6.10.2}%
-\contentsline {subsubsection}{\numberline {6.10.2.1}MainWindow()}{70}{subsubsection.6.10.2.1}%
-\contentsline {subsubsection}{\numberline {6.10.2.2}$\sim $MainWindow()}{71}{subsubsection.6.10.2.2}%
-\contentsline {subsection}{\numberline {6.10.3}Member Function Documentation}{71}{subsection.6.10.3}%
-\contentsline {subsubsection}{\numberline {6.10.3.1}setUserLevel()}{71}{subsubsection.6.10.3.1}%
-\contentsline {subsubsection}{\numberline {6.10.3.2}thresholdFor()}{71}{subsubsection.6.10.3.2}%
-\contentsline {subsubsection}{\numberline {6.10.3.3}userLevel()}{72}{subsubsection.6.10.3.3}%
-\contentsline {subsubsection}{\numberline {6.10.3.4}userLevelChanged}{72}{subsubsection.6.10.3.4}%
-\contentsline {subsubsection}{\numberline {6.10.3.5}userLevelUp}{72}{subsubsection.6.10.3.5}%
-\contentsline {subsection}{\numberline {6.10.4}Property Documentation}{72}{subsection.6.10.4}%
-\contentsline {subsubsection}{\numberline {6.10.4.1}userLevel}{72}{subsubsection.6.10.4.1}%
-\contentsline {section}{\numberline {6.11}SLR1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::s\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}action Struct Reference}{73}{section.6.11}%
-\contentsline {subsection}{\numberline {6.11.1}Member Data Documentation}{73}{subsection.6.11.1}%
-\contentsline {subsubsection}{\numberline {6.11.1.1}action}{73}{subsubsection.6.11.1.1}%
-\contentsline {subsubsection}{\numberline {6.11.1.2}item}{73}{subsubsection.6.11.1.2}%
-\contentsline {section}{\numberline {6.12}SLR1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser Class Reference}{73}{section.6.12}%
-\contentsline {subsection}{\numberline {6.12.1}Detailed Description}{75}{subsection.6.12.1}%
-\contentsline {subsection}{\numberline {6.12.2}Member Typedef Documentation}{75}{subsection.6.12.2}%
-\contentsline {subsubsection}{\numberline {6.12.2.1}action\_table}{75}{subsubsection.6.12.2.1}%
-\contentsline {subsubsection}{\numberline {6.12.2.2}transition\_table}{76}{subsubsection.6.12.2.2}%
-\contentsline {subsection}{\numberline {6.12.3}Member Enumeration Documentation}{76}{subsection.6.12.3}%
-\contentsline {subsubsection}{\numberline {6.12.3.1}Action}{76}{subsubsection.6.12.3.1}%
-\contentsline {subsection}{\numberline {6.12.4}Constructor \& Destructor Documentation}{76}{subsection.6.12.4}%
-\contentsline {subsubsection}{\numberline {6.12.4.1}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{76}{subsubsection.6.12.4.1}%
-\contentsline {subsubsection}{\numberline {6.12.4.2}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{76}{subsubsection.6.12.4.2}%
-\contentsline {subsection}{\numberline {6.12.5}Member Function Documentation}{77}{subsection.6.12.5}%
-\contentsline {subsubsection}{\numberline {6.12.5.1}AllItems()}{77}{subsubsection.6.12.5.1}%
-\contentsline {subsubsection}{\numberline {6.12.5.2}Closure()}{77}{subsubsection.6.12.5.2}%
-\contentsline {subsubsection}{\numberline {6.12.5.3}ClosureUtil()}{77}{subsubsection.6.12.5.3}%
-\contentsline {subsubsection}{\numberline {6.12.5.4}ComputeFirstSets()}{78}{subsubsection.6.12.5.4}%
-\contentsline {subsubsection}{\numberline {6.12.5.5}ComputeFollowSets()}{79}{subsubsection.6.12.5.5}%
-\contentsline {subsubsection}{\numberline {6.12.5.6}Delta()}{80}{subsubsection.6.12.5.6}%
-\contentsline {subsubsection}{\numberline {6.12.5.7}First()}{80}{subsubsection.6.12.5.7}%
-\contentsline {subsubsection}{\numberline {6.12.5.8}Follow()}{81}{subsubsection.6.12.5.8}%
-\contentsline {subsubsection}{\numberline {6.12.5.9}MakeInitialState()}{82}{subsubsection.6.12.5.9}%
-\contentsline {subsubsection}{\numberline {6.12.5.10}MakeParser()}{82}{subsubsection.6.12.5.10}%
-\contentsline {subsubsection}{\numberline {6.12.5.11}PrintItems()}{83}{subsubsection.6.12.5.11}%
-\contentsline {subsubsection}{\numberline {6.12.5.12}SolveLRConflicts()}{83}{subsubsection.6.12.5.12}%
-\contentsline {subsection}{\numberline {6.12.6}Member Data Documentation}{84}{subsection.6.12.6}%
-\contentsline {subsubsection}{\numberline {6.12.6.1}actions\_}{84}{subsubsection.6.12.6.1}%
-\contentsline {subsubsection}{\numberline {6.12.6.2}first\_sets\_}{84}{subsubsection.6.12.6.2}%
-\contentsline {subsubsection}{\numberline {6.12.6.3}follow\_sets\_}{84}{subsubsection.6.12.6.3}%
-\contentsline {subsubsection}{\numberline {6.12.6.4}gr\_}{84}{subsubsection.6.12.6.4}%
-\contentsline {subsubsection}{\numberline {6.12.6.5}states\_}{84}{subsubsection.6.12.6.5}%
-\contentsline {subsubsection}{\numberline {6.12.6.6}transitions\_}{84}{subsubsection.6.12.6.6}%
-\contentsline {section}{\numberline {6.13}SLRTable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog Class Reference}{85}{section.6.13}%
-\contentsline {subsection}{\numberline {6.13.1}Detailed Description}{85}{subsection.6.13.1}%
-\contentsline {subsection}{\numberline {6.13.2}Constructor \& Destructor Documentation}{86}{subsection.6.13.2}%
-\contentsline {subsubsection}{\numberline {6.13.2.1}SLRTableDialog()}{86}{subsubsection.6.13.2.1}%
-\contentsline {subsection}{\numberline {6.13.3}Member Function Documentation}{86}{subsection.6.13.3}%
-\contentsline {subsubsection}{\numberline {6.13.3.1}getTableData()}{86}{subsubsection.6.13.3.1}%
-\contentsline {subsubsection}{\numberline {6.13.3.2}setInitialData()}{86}{subsubsection.6.13.3.2}%
-\contentsline {section}{\numberline {6.14}SLRTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{86}{section.6.14}%
-\contentsline {subsection}{\numberline {6.14.1}Detailed Description}{89}{subsection.6.14.1}%
-\contentsline {subsection}{\numberline {6.14.2}Constructor \& Destructor Documentation}{89}{subsection.6.14.2}%
-\contentsline {subsubsection}{\numberline {6.14.2.1}SLRTutorWindow()}{89}{subsubsection.6.14.2.1}%
-\contentsline {subsubsection}{\numberline {6.14.2.2}$\sim $SLRTutorWindow()}{90}{subsubsection.6.14.2.2}%
-\contentsline {subsection}{\numberline {6.14.3}Member Function Documentation}{90}{subsection.6.14.3}%
-\contentsline {subsubsection}{\numberline {6.14.3.1}addMessage()}{90}{subsubsection.6.14.3.1}%
-\contentsline {subsubsection}{\numberline {6.14.3.2}addUserState()}{90}{subsubsection.6.14.3.2}%
-\contentsline {subsubsection}{\numberline {6.14.3.3}addUserTransition()}{91}{subsubsection.6.14.3.3}%
-\contentsline {subsubsection}{\numberline {6.14.3.4}animateLabelColor()}{91}{subsubsection.6.14.3.4}%
-\contentsline {subsubsection}{\numberline {6.14.3.5}animateLabelPop()}{91}{subsubsection.6.14.3.5}%
-\contentsline {subsubsection}{\numberline {6.14.3.6}closeEvent()}{91}{subsubsection.6.14.3.6}%
-\contentsline {subsubsection}{\numberline {6.14.3.7}exportConversationToPdf()}{91}{subsubsection.6.14.3.7}%
-\contentsline {subsubsection}{\numberline {6.14.3.8}feedback()}{91}{subsubsection.6.14.3.8}%
-\contentsline {subsubsection}{\numberline {6.14.3.9}feedbackForA()}{91}{subsubsection.6.14.3.9}%
-\contentsline {subsubsection}{\numberline {6.14.3.10}feedbackForA1()}{92}{subsubsection.6.14.3.10}%
-\contentsline {subsubsection}{\numberline {6.14.3.11}feedbackForA2()}{92}{subsubsection.6.14.3.11}%
-\contentsline {subsubsection}{\numberline {6.14.3.12}feedbackForA3()}{92}{subsubsection.6.14.3.12}%
-\contentsline {subsubsection}{\numberline {6.14.3.13}feedbackForA4()}{92}{subsubsection.6.14.3.13}%
-\contentsline {subsubsection}{\numberline {6.14.3.14}feedbackForAPrime()}{92}{subsubsection.6.14.3.14}%
-\contentsline {subsubsection}{\numberline {6.14.3.15}feedbackForB()}{92}{subsubsection.6.14.3.15}%
-\contentsline {subsubsection}{\numberline {6.14.3.16}feedbackForB1()}{92}{subsubsection.6.14.3.16}%
-\contentsline {subsubsection}{\numberline {6.14.3.17}feedbackForB2()}{92}{subsubsection.6.14.3.17}%
-\contentsline {subsubsection}{\numberline {6.14.3.18}feedbackForBPrime()}{92}{subsubsection.6.14.3.18}%
-\contentsline {subsubsection}{\numberline {6.14.3.19}feedbackForC()}{92}{subsubsection.6.14.3.19}%
-\contentsline {subsubsection}{\numberline {6.14.3.20}feedbackForCA()}{92}{subsubsection.6.14.3.20}%
-\contentsline {subsubsection}{\numberline {6.14.3.21}feedbackForCB()}{92}{subsubsection.6.14.3.21}%
-\contentsline {subsubsection}{\numberline {6.14.3.22}feedbackForD()}{92}{subsubsection.6.14.3.22}%
-\contentsline {subsubsection}{\numberline {6.14.3.23}feedbackForD1()}{92}{subsubsection.6.14.3.23}%
-\contentsline {subsubsection}{\numberline {6.14.3.24}feedbackForD2()}{92}{subsubsection.6.14.3.24}%
-\contentsline {subsubsection}{\numberline {6.14.3.25}feedbackForDPrime()}{92}{subsubsection.6.14.3.25}%
-\contentsline {subsubsection}{\numberline {6.14.3.26}feedbackForE()}{93}{subsubsection.6.14.3.26}%
-\contentsline {subsubsection}{\numberline {6.14.3.27}feedbackForE1()}{93}{subsubsection.6.14.3.27}%
-\contentsline {subsubsection}{\numberline {6.14.3.28}feedbackForE2()}{93}{subsubsection.6.14.3.28}%
-\contentsline {subsubsection}{\numberline {6.14.3.29}feedbackForF()}{93}{subsubsection.6.14.3.29}%
-\contentsline {subsubsection}{\numberline {6.14.3.30}feedbackForFA()}{93}{subsubsection.6.14.3.30}%
-\contentsline {subsubsection}{\numberline {6.14.3.31}feedbackForG()}{93}{subsubsection.6.14.3.31}%
-\contentsline {subsubsection}{\numberline {6.14.3.32}fillSortedGrammar()}{93}{subsubsection.6.14.3.32}%
-\contentsline {subsubsection}{\numberline {6.14.3.33}FormatGrammar()}{93}{subsubsection.6.14.3.33}%
-\contentsline {subsubsection}{\numberline {6.14.3.34}generateQuestion()}{93}{subsubsection.6.14.3.34}%
-\contentsline {subsubsection}{\numberline {6.14.3.35}launchSLRWizard()}{93}{subsubsection.6.14.3.35}%
-\contentsline {subsubsection}{\numberline {6.14.3.36}markLastUserIncorrect()}{93}{subsubsection.6.14.3.36}%
-\contentsline {subsubsection}{\numberline {6.14.3.37}sessionFinished}{93}{subsubsection.6.14.3.37}%
-\contentsline {subsubsection}{\numberline {6.14.3.38}showTable()}{94}{subsubsection.6.14.3.38}%
-\contentsline {subsubsection}{\numberline {6.14.3.39}solution()}{94}{subsubsection.6.14.3.39}%
-\contentsline {subsubsection}{\numberline {6.14.3.40}solutionForA()}{94}{subsubsection.6.14.3.40}%
-\contentsline {subsubsection}{\numberline {6.14.3.41}solutionForA1()}{95}{subsubsection.6.14.3.41}%
-\contentsline {subsubsection}{\numberline {6.14.3.42}solutionForA2()}{95}{subsubsection.6.14.3.42}%
-\contentsline {subsubsection}{\numberline {6.14.3.43}solutionForA3()}{95}{subsubsection.6.14.3.43}%
-\contentsline {subsubsection}{\numberline {6.14.3.44}solutionForA4()}{95}{subsubsection.6.14.3.44}%
-\contentsline {subsubsection}{\numberline {6.14.3.45}solutionForB()}{95}{subsubsection.6.14.3.45}%
-\contentsline {subsubsection}{\numberline {6.14.3.46}solutionForC()}{95}{subsubsection.6.14.3.46}%
-\contentsline {subsubsection}{\numberline {6.14.3.47}solutionForCA()}{95}{subsubsection.6.14.3.47}%
-\contentsline {subsubsection}{\numberline {6.14.3.48}solutionForCB()}{95}{subsubsection.6.14.3.48}%
-\contentsline {subsubsection}{\numberline {6.14.3.49}solutionForD()}{95}{subsubsection.6.14.3.49}%
-\contentsline {subsubsection}{\numberline {6.14.3.50}solutionForD1()}{95}{subsubsection.6.14.3.50}%
-\contentsline {subsubsection}{\numberline {6.14.3.51}solutionForD2()}{95}{subsubsection.6.14.3.51}%
-\contentsline {subsubsection}{\numberline {6.14.3.52}solutionForE()}{96}{subsubsection.6.14.3.52}%
-\contentsline {subsubsection}{\numberline {6.14.3.53}solutionForE1()}{96}{subsubsection.6.14.3.53}%
-\contentsline {subsubsection}{\numberline {6.14.3.54}solutionForE2()}{96}{subsubsection.6.14.3.54}%
-\contentsline {subsubsection}{\numberline {6.14.3.55}solutionForF()}{96}{subsubsection.6.14.3.55}%
-\contentsline {subsubsection}{\numberline {6.14.3.56}solutionForFA()}{96}{subsubsection.6.14.3.56}%
-\contentsline {subsubsection}{\numberline {6.14.3.57}solutionForG()}{96}{subsubsection.6.14.3.57}%
-\contentsline {subsubsection}{\numberline {6.14.3.58}TeachClosure()}{97}{subsubsection.6.14.3.58}%
-\contentsline {subsubsection}{\numberline {6.14.3.59}TeachClosureStep()}{97}{subsubsection.6.14.3.59}%
-\contentsline {subsubsection}{\numberline {6.14.3.60}TeachDeltaFunction()}{97}{subsubsection.6.14.3.60}%
-\contentsline {subsubsection}{\numberline {6.14.3.61}updateProgressPanel()}{97}{subsubsection.6.14.3.61}%
-\contentsline {subsubsection}{\numberline {6.14.3.62}updateState()}{97}{subsubsection.6.14.3.62}%
-\contentsline {subsubsection}{\numberline {6.14.3.63}verifyResponse()}{97}{subsubsection.6.14.3.63}%
-\contentsline {subsubsection}{\numberline {6.14.3.64}verifyResponseForA()}{97}{subsubsection.6.14.3.64}%
-\contentsline {subsubsection}{\numberline {6.14.3.65}verifyResponseForA1()}{98}{subsubsection.6.14.3.65}%
-\contentsline {subsubsection}{\numberline {6.14.3.66}verifyResponseForA2()}{98}{subsubsection.6.14.3.66}%
-\contentsline {subsubsection}{\numberline {6.14.3.67}verifyResponseForA3()}{98}{subsubsection.6.14.3.67}%
-\contentsline {subsubsection}{\numberline {6.14.3.68}verifyResponseForA4()}{98}{subsubsection.6.14.3.68}%
-\contentsline {subsubsection}{\numberline {6.14.3.69}verifyResponseForB()}{98}{subsubsection.6.14.3.69}%
-\contentsline {subsubsection}{\numberline {6.14.3.70}verifyResponseForC()}{98}{subsubsection.6.14.3.70}%
-\contentsline {subsubsection}{\numberline {6.14.3.71}verifyResponseForCA()}{98}{subsubsection.6.14.3.71}%
-\contentsline {subsubsection}{\numberline {6.14.3.72}verifyResponseForCB()}{98}{subsubsection.6.14.3.72}%
-\contentsline {subsubsection}{\numberline {6.14.3.73}verifyResponseForD()}{98}{subsubsection.6.14.3.73}%
-\contentsline {subsubsection}{\numberline {6.14.3.74}verifyResponseForD1()}{98}{subsubsection.6.14.3.74}%
-\contentsline {subsubsection}{\numberline {6.14.3.75}verifyResponseForD2()}{99}{subsubsection.6.14.3.75}%
-\contentsline {subsubsection}{\numberline {6.14.3.76}verifyResponseForE()}{99}{subsubsection.6.14.3.76}%
-\contentsline {subsubsection}{\numberline {6.14.3.77}verifyResponseForE1()}{99}{subsubsection.6.14.3.77}%
-\contentsline {subsubsection}{\numberline {6.14.3.78}verifyResponseForE2()}{99}{subsubsection.6.14.3.78}%
-\contentsline {subsubsection}{\numberline {6.14.3.79}verifyResponseForF()}{99}{subsubsection.6.14.3.79}%
-\contentsline {subsubsection}{\numberline {6.14.3.80}verifyResponseForFA()}{99}{subsubsection.6.14.3.80}%
-\contentsline {subsubsection}{\numberline {6.14.3.81}verifyResponseForG()}{99}{subsubsection.6.14.3.81}%
-\contentsline {subsubsection}{\numberline {6.14.3.82}verifyResponseForH()}{99}{subsubsection.6.14.3.82}%
-\contentsline {subsubsection}{\numberline {6.14.3.83}wrongAnimation()}{99}{subsubsection.6.14.3.83}%
-\contentsline {subsubsection}{\numberline {6.14.3.84}wrongUserResponseAnimation()}{99}{subsubsection.6.14.3.84}%
-\contentsline {section}{\numberline {6.15}SLRWizard Class Reference}{100}{section.6.15}%
-\contentsline {subsection}{\numberline {6.15.1}Detailed Description}{100}{subsection.6.15.1}%
-\contentsline {subsection}{\numberline {6.15.2}Constructor \& Destructor Documentation}{101}{subsection.6.15.2}%
-\contentsline {subsubsection}{\numberline {6.15.2.1}SLRWizard()}{101}{subsubsection.6.15.2.1}%
-\contentsline {subsection}{\numberline {6.15.3}Member Function Documentation}{101}{subsection.6.15.3}%
-\contentsline {subsubsection}{\numberline {6.15.3.1}stdVectorToQVector()}{101}{subsubsection.6.15.3.1}%
-\contentsline {section}{\numberline {6.16}SLRWizard\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Page Class Reference}{102}{section.6.16}%
-\contentsline {subsection}{\numberline {6.16.1}Detailed Description}{103}{subsection.6.16.1}%
-\contentsline {subsection}{\numberline {6.16.2}Constructor \& Destructor Documentation}{103}{subsection.6.16.2}%
-\contentsline {subsubsection}{\numberline {6.16.2.1}SLRWizardPage()}{103}{subsubsection.6.16.2.1}%
-\contentsline {section}{\numberline {6.17}state Struct Reference}{103}{section.6.17}%
-\contentsline {subsection}{\numberline {6.17.1}Detailed Description}{104}{subsection.6.17.1}%
-\contentsline {subsection}{\numberline {6.17.2}Member Function Documentation}{104}{subsection.6.17.2}%
-\contentsline {subsubsection}{\numberline {6.17.2.1}operator==()}{104}{subsubsection.6.17.2.1}%
-\contentsline {subsection}{\numberline {6.17.3}Member Data Documentation}{104}{subsection.6.17.3}%
-\contentsline {subsubsection}{\numberline {6.17.3.1}id\_}{104}{subsubsection.6.17.3.1}%
-\contentsline {subsubsection}{\numberline {6.17.3.2}items\_}{104}{subsubsection.6.17.3.2}%
-\contentsline {section}{\numberline {6.18}Symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Table Struct Reference}{104}{section.6.18}%
-\contentsline {subsection}{\numberline {6.18.1}Detailed Description}{105}{subsection.6.18.1}%
-\contentsline {subsection}{\numberline {6.18.2}Member Function Documentation}{105}{subsection.6.18.2}%
-\contentsline {subsubsection}{\numberline {6.18.2.1}In()}{105}{subsubsection.6.18.2.1}%
-\contentsline {subsubsection}{\numberline {6.18.2.2}IsTerminal()}{105}{subsubsection.6.18.2.2}%
-\contentsline {subsubsection}{\numberline {6.18.2.3}IsTerminalWthoEol()}{106}{subsubsection.6.18.2.3}%
-\contentsline {subsubsection}{\numberline {6.18.2.4}PutSymbol()}{106}{subsubsection.6.18.2.4}%
-\contentsline {subsection}{\numberline {6.18.3}Member Data Documentation}{106}{subsection.6.18.3}%
-\contentsline {subsubsection}{\numberline {6.18.3.1}EOL\_}{106}{subsubsection.6.18.3.1}%
-\contentsline {subsubsection}{\numberline {6.18.3.2}EPSILON\_}{107}{subsubsection.6.18.3.2}%
-\contentsline {subsubsection}{\numberline {6.18.3.3}non\_terminals\_}{107}{subsubsection.6.18.3.3}%
-\contentsline {subsubsection}{\numberline {6.18.3.4}st\_}{107}{subsubsection.6.18.3.4}%
-\contentsline {subsubsection}{\numberline {6.18.3.5}terminals\_}{107}{subsubsection.6.18.3.5}%
-\contentsline {subsubsection}{\numberline {6.18.3.6}terminals\_wtho\_eol\_}{107}{subsubsection.6.18.3.6}%
-\contentsline {section}{\numberline {6.19}LLTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Tree\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Node Struct Reference}{107}{section.6.19}%
-\contentsline {subsection}{\numberline {6.19.1}Detailed Description}{107}{subsection.6.19.1}%
-\contentsline {subsection}{\numberline {6.19.2}Member Data Documentation}{107}{subsection.6.19.2}%
-\contentsline {subsubsection}{\numberline {6.19.2.1}children}{107}{subsubsection.6.19.2.1}%
-\contentsline {subsubsection}{\numberline {6.19.2.2}label}{107}{subsubsection.6.19.2.2}%
-\contentsline {section}{\numberline {6.20}Tutorial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Manager Class Reference}{108}{section.6.20}%
-\contentsline {subsection}{\numberline {6.20.1}Detailed Description}{109}{subsection.6.20.1}%
-\contentsline {subsection}{\numberline {6.20.2}Constructor \& Destructor Documentation}{109}{subsection.6.20.2}%
-\contentsline {subsubsection}{\numberline {6.20.2.1}TutorialManager()}{109}{subsubsection.6.20.2.1}%
-\contentsline {subsection}{\numberline {6.20.3}Member Function Documentation}{109}{subsection.6.20.3}%
-\contentsline {subsubsection}{\numberline {6.20.3.1}addStep()}{109}{subsubsection.6.20.3.1}%
-\contentsline {subsubsection}{\numberline {6.20.3.2}clearSteps()}{110}{subsubsection.6.20.3.2}%
-\contentsline {subsubsection}{\numberline {6.20.3.3}eventFilter()}{110}{subsubsection.6.20.3.3}%
-\contentsline {subsubsection}{\numberline {6.20.3.4}finishLL1()}{110}{subsubsection.6.20.3.4}%
-\contentsline {subsubsection}{\numberline {6.20.3.5}finishSLR1()}{110}{subsubsection.6.20.3.5}%
-\contentsline {subsubsection}{\numberline {6.20.3.6}hideOverlay()}{110}{subsubsection.6.20.3.6}%
-\contentsline {subsubsection}{\numberline {6.20.3.7}ll1Finished}{111}{subsubsection.6.20.3.7}%
-\contentsline {subsubsection}{\numberline {6.20.3.8}nextStep}{111}{subsubsection.6.20.3.8}%
-\contentsline {subsubsection}{\numberline {6.20.3.9}setRootWindow()}{112}{subsubsection.6.20.3.9}%
-\contentsline {subsubsection}{\numberline {6.20.3.10}slr1Finished}{112}{subsubsection.6.20.3.10}%
-\contentsline {subsubsection}{\numberline {6.20.3.11}start()}{113}{subsubsection.6.20.3.11}%
-\contentsline {subsubsection}{\numberline {6.20.3.12}stepStarted}{113}{subsubsection.6.20.3.12}%
-\contentsline {subsubsection}{\numberline {6.20.3.13}tutorialFinished}{113}{subsubsection.6.20.3.13}%
-\contentsline {section}{\numberline {6.21}Tutorial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Step Struct Reference}{114}{section.6.21}%
-\contentsline {subsection}{\numberline {6.21.1}Detailed Description}{114}{subsection.6.21.1}%
-\contentsline {subsection}{\numberline {6.21.2}Member Data Documentation}{114}{subsection.6.21.2}%
-\contentsline {subsubsection}{\numberline {6.21.2.1}htmlText}{114}{subsubsection.6.21.2.1}%
-\contentsline {subsubsection}{\numberline {6.21.2.2}target}{114}{subsubsection.6.21.2.2}%
-\contentsline {section}{\numberline {6.22}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue$<$ T $>$ Class Template Reference}{114}{section.6.22}%
-\contentsline {subsection}{\numberline {6.22.1}Detailed Description}{115}{subsection.6.22.1}%
-\contentsline {subsection}{\numberline {6.22.2}Member Function Documentation}{115}{subsection.6.22.2}%
-\contentsline {subsubsection}{\numberline {6.22.2.1}clear()}{115}{subsubsection.6.22.2.1}%
-\contentsline {subsubsection}{\numberline {6.22.2.2}empty()}{115}{subsubsection.6.22.2.2}%
-\contentsline {subsubsection}{\numberline {6.22.2.3}front()}{115}{subsubsection.6.22.2.3}%
-\contentsline {subsubsection}{\numberline {6.22.2.4}pop()}{115}{subsubsection.6.22.2.4}%
-\contentsline {subsubsection}{\numberline {6.22.2.5}push()}{115}{subsubsection.6.22.2.5}%
-\contentsline {chapter}{\numberline {7}File Documentation}{117}{chapter.7}%
-\contentsline {section}{\numberline {7.1}backend/grammar.cpp File Reference}{117}{section.7.1}%
-\contentsline {section}{\numberline {7.2}backend/grammar.hpp File Reference}{117}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Typedef Documentation}{118}{subsection.7.2.1}%
-\contentsline {subsubsection}{\numberline {7.2.1.1}production}{118}{subsubsection.7.2.1.1}%
-\contentsline {section}{\numberline {7.3}grammar.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{118}{section.7.3}%
-\contentsline {section}{\numberline {7.4}backend/grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.cpp File Reference}{119}{section.7.4}%
-\contentsline {section}{\numberline {7.5}backend/grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.hpp File Reference}{119}{section.7.5}%
-\contentsline {section}{\numberline {7.6}grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{120}{section.7.6}%
-\contentsline {section}{\numberline {7.7}backend/ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.cpp File Reference}{121}{section.7.7}%
-\contentsline {section}{\numberline {7.8}backend/ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.hpp File Reference}{122}{section.7.8}%
-\contentsline {section}{\numberline {7.9}ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{123}{section.7.9}%
-\contentsline {section}{\numberline {7.10}backend/lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.cpp File Reference}{123}{section.7.10}%
-\contentsline {section}{\numberline {7.11}backend/lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.hpp File Reference}{124}{section.7.11}%
-\contentsline {section}{\numberline {7.12}lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{125}{section.7.12}%
-\contentsline {section}{\numberline {7.13}backend/slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.cpp File Reference}{126}{section.7.13}%
-\contentsline {section}{\numberline {7.14}backend/slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.hpp File Reference}{126}{section.7.14}%
-\contentsline {section}{\numberline {7.15}slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{127}{section.7.15}%
-\contentsline {section}{\numberline {7.16}backend/state.hpp File Reference}{128}{section.7.16}%
-\contentsline {section}{\numberline {7.17}state.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{129}{section.7.17}%
-\contentsline {section}{\numberline {7.18}backend/symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.cpp File Reference}{129}{section.7.18}%
-\contentsline {section}{\numberline {7.19}backend/symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.hpp File Reference}{129}{section.7.19}%
-\contentsline {subsection}{\numberline {7.19.1}Enumeration Type Documentation}{130}{subsection.7.19.1}%
-\contentsline {subsubsection}{\numberline {7.19.1.1}symbol\_type}{130}{subsubsection.7.19.1.1}%
-\contentsline {section}{\numberline {7.20}symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{130}{section.7.20}%
-\contentsline {section}{\numberline {7.21}CHANGELOG.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}md File Reference}{131}{section.7.21}%
-\contentsline {section}{\numberline {7.22}customtextedit.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{131}{section.7.22}%
-\contentsline {section}{\numberline {7.23}customtextedit.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{132}{section.7.23}%
+\contentsline {section}{\numberline {6.8}LLTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{51}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Detailed Description}{54}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Constructor \& Destructor Documentation}{54}{subsection.6.8.2}%
+\contentsline {subsubsection}{\numberline {6.8.2.1}LLTutorWindow()}{54}{subsubsection.6.8.2.1}%
+\contentsline {subsubsection}{\numberline {6.8.2.2}$\sim $LLTutorWindow()}{55}{subsubsection.6.8.2.2}%
+\contentsline {subsection}{\numberline {6.8.3}Member Function Documentation}{55}{subsection.6.8.3}%
+\contentsline {subsubsection}{\numberline {6.8.3.1}addMessage()}{55}{subsubsection.6.8.3.1}%
+\contentsline {subsubsection}{\numberline {6.8.3.2}addWidgetMessage()}{55}{subsubsection.6.8.3.2}%
+\contentsline {subsubsection}{\numberline {6.8.3.3}animateLabelColor()}{55}{subsubsection.6.8.3.3}%
+\contentsline {subsubsection}{\numberline {6.8.3.4}animateLabelPop()}{56}{subsubsection.6.8.3.4}%
+\contentsline {subsubsection}{\numberline {6.8.3.5}buildTreeNode()}{56}{subsubsection.6.8.3.5}%
+\contentsline {subsubsection}{\numberline {6.8.3.6}closeEvent()}{56}{subsubsection.6.8.3.6}%
+\contentsline {subsubsection}{\numberline {6.8.3.7}computeSubtreeWidth()}{56}{subsubsection.6.8.3.7}%
+\contentsline {subsubsection}{\numberline {6.8.3.8}drawTree()}{56}{subsubsection.6.8.3.8}%
+\contentsline {subsubsection}{\numberline {6.8.3.9}eventFilter()}{56}{subsubsection.6.8.3.9}%
+\contentsline {subsubsection}{\numberline {6.8.3.10}exportConversationToPdf()}{56}{subsubsection.6.8.3.10}%
+\contentsline {subsubsection}{\numberline {6.8.3.11}feedback()}{56}{subsubsection.6.8.3.11}%
+\contentsline {subsubsection}{\numberline {6.8.3.12}feedbackForA()}{57}{subsubsection.6.8.3.12}%
+\contentsline {subsubsection}{\numberline {6.8.3.13}feedbackForA1()}{57}{subsubsection.6.8.3.13}%
+\contentsline {subsubsection}{\numberline {6.8.3.14}feedbackForA2()}{57}{subsubsection.6.8.3.14}%
+\contentsline {subsubsection}{\numberline {6.8.3.15}feedbackForAPrime()}{57}{subsubsection.6.8.3.15}%
+\contentsline {subsubsection}{\numberline {6.8.3.16}feedbackForB()}{57}{subsubsection.6.8.3.16}%
+\contentsline {subsubsection}{\numberline {6.8.3.17}feedbackForB1()}{57}{subsubsection.6.8.3.17}%
+\contentsline {subsubsection}{\numberline {6.8.3.18}feedbackForB1TreeGraphics()}{58}{subsubsection.6.8.3.18}%
+\contentsline {subsubsection}{\numberline {6.8.3.19}feedbackForB1TreeWidget()}{58}{subsubsection.6.8.3.19}%
+\contentsline {subsubsection}{\numberline {6.8.3.20}feedbackForB2()}{58}{subsubsection.6.8.3.20}%
+\contentsline {subsubsection}{\numberline {6.8.3.21}feedbackForBPrime()}{58}{subsubsection.6.8.3.21}%
+\contentsline {subsubsection}{\numberline {6.8.3.22}feedbackForC()}{58}{subsubsection.6.8.3.22}%
+\contentsline {subsubsection}{\numberline {6.8.3.23}feedbackForCPrime()}{58}{subsubsection.6.8.3.23}%
+\contentsline {subsubsection}{\numberline {6.8.3.24}FormatGrammar()}{58}{subsubsection.6.8.3.24}%
+\contentsline {subsubsection}{\numberline {6.8.3.25}generateQuestion()}{59}{subsubsection.6.8.3.25}%
+\contentsline {subsubsection}{\numberline {6.8.3.26}handleTableSubmission()}{59}{subsubsection.6.8.3.26}%
+\contentsline {subsubsection}{\numberline {6.8.3.27}markLastUserIncorrect()}{59}{subsubsection.6.8.3.27}%
+\contentsline {subsubsection}{\numberline {6.8.3.28}sessionFinished}{60}{subsubsection.6.8.3.28}%
+\contentsline {subsubsection}{\numberline {6.8.3.29}showTable()}{60}{subsubsection.6.8.3.29}%
+\contentsline {subsubsection}{\numberline {6.8.3.30}showTableForCPrime()}{60}{subsubsection.6.8.3.30}%
+\contentsline {subsubsection}{\numberline {6.8.3.31}showTreeGraphics()}{60}{subsubsection.6.8.3.31}%
+\contentsline {subsubsection}{\numberline {6.8.3.32}solution()}{60}{subsubsection.6.8.3.32}%
+\contentsline {subsubsection}{\numberline {6.8.3.33}solutionForA()}{60}{subsubsection.6.8.3.33}%
+\contentsline {subsubsection}{\numberline {6.8.3.34}solutionForA1()}{60}{subsubsection.6.8.3.34}%
+\contentsline {subsubsection}{\numberline {6.8.3.35}solutionForA2()}{60}{subsubsection.6.8.3.35}%
+\contentsline {subsubsection}{\numberline {6.8.3.36}solutionForB()}{60}{subsubsection.6.8.3.36}%
+\contentsline {subsubsection}{\numberline {6.8.3.37}solutionForB1()}{61}{subsubsection.6.8.3.37}%
+\contentsline {subsubsection}{\numberline {6.8.3.38}solutionForB2()}{61}{subsubsection.6.8.3.38}%
+\contentsline {subsubsection}{\numberline {6.8.3.39}TeachFirstTree()}{61}{subsubsection.6.8.3.39}%
+\contentsline {subsubsection}{\numberline {6.8.3.40}TeachFollow()}{61}{subsubsection.6.8.3.40}%
+\contentsline {subsubsection}{\numberline {6.8.3.41}TeachLL1Table()}{62}{subsubsection.6.8.3.41}%
+\contentsline {subsubsection}{\numberline {6.8.3.42}TeachPredictionSymbols()}{62}{subsubsection.6.8.3.42}%
+\contentsline {subsubsection}{\numberline {6.8.3.43}updateProgressPanel()}{62}{subsubsection.6.8.3.43}%
+\contentsline {subsubsection}{\numberline {6.8.3.44}updateState()}{62}{subsubsection.6.8.3.44}%
+\contentsline {subsubsection}{\numberline {6.8.3.45}verifyResponse()}{62}{subsubsection.6.8.3.45}%
+\contentsline {subsubsection}{\numberline {6.8.3.46}verifyResponseForA()}{62}{subsubsection.6.8.3.46}%
+\contentsline {subsubsection}{\numberline {6.8.3.47}verifyResponseForA1()}{63}{subsubsection.6.8.3.47}%
+\contentsline {subsubsection}{\numberline {6.8.3.48}verifyResponseForA2()}{63}{subsubsection.6.8.3.48}%
+\contentsline {subsubsection}{\numberline {6.8.3.49}verifyResponseForB()}{63}{subsubsection.6.8.3.49}%
+\contentsline {subsubsection}{\numberline {6.8.3.50}verifyResponseForB1()}{63}{subsubsection.6.8.3.50}%
+\contentsline {subsubsection}{\numberline {6.8.3.51}verifyResponseForB2()}{63}{subsubsection.6.8.3.51}%
+\contentsline {subsubsection}{\numberline {6.8.3.52}verifyResponseForC()}{63}{subsubsection.6.8.3.52}%
+\contentsline {subsubsection}{\numberline {6.8.3.53}wrongAnimation()}{63}{subsubsection.6.8.3.53}%
+\contentsline {subsubsection}{\numberline {6.8.3.54}wrongUserResponseAnimation()}{63}{subsubsection.6.8.3.54}%
+\contentsline {section}{\numberline {6.9}Lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item Struct Reference}{63}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Detailed Description}{64}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Constructor \& Destructor Documentation}{64}{subsection.6.9.2}%
+\contentsline {subsubsection}{\numberline {6.9.2.1}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{64}{subsubsection.6.9.2.1}%
+\contentsline {subsubsection}{\numberline {6.9.2.2}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{65}{subsubsection.6.9.2.2}%
+\contentsline {subsection}{\numberline {6.9.3}Member Function Documentation}{65}{subsection.6.9.3}%
+\contentsline {subsubsection}{\numberline {6.9.3.1}AdvanceDot()}{65}{subsubsection.6.9.3.1}%
+\contentsline {subsubsection}{\numberline {6.9.3.2}IsComplete()}{65}{subsubsection.6.9.3.2}%
+\contentsline {subsubsection}{\numberline {6.9.3.3}NextToDot()}{66}{subsubsection.6.9.3.3}%
+\contentsline {subsubsection}{\numberline {6.9.3.4}operator==()}{66}{subsubsection.6.9.3.4}%
+\contentsline {subsubsection}{\numberline {6.9.3.5}PrintItem()}{67}{subsubsection.6.9.3.5}%
+\contentsline {subsubsection}{\numberline {6.9.3.6}ToString()}{67}{subsubsection.6.9.3.6}%
+\contentsline {subsection}{\numberline {6.9.4}Member Data Documentation}{67}{subsection.6.9.4}%
+\contentsline {subsubsection}{\numberline {6.9.4.1}antecedent\_}{67}{subsubsection.6.9.4.1}%
+\contentsline {subsubsection}{\numberline {6.9.4.2}consequent\_}{67}{subsubsection.6.9.4.2}%
+\contentsline {subsubsection}{\numberline {6.9.4.3}dot\_}{67}{subsubsection.6.9.4.3}%
+\contentsline {subsubsection}{\numberline {6.9.4.4}eol\_}{68}{subsubsection.6.9.4.4}%
+\contentsline {subsubsection}{\numberline {6.9.4.5}epsilon\_}{68}{subsubsection.6.9.4.5}%
+\contentsline {section}{\numberline {6.10}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{68}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Detailed Description}{69}{subsection.6.10.1}%
+\contentsline {subsection}{\numberline {6.10.2}Constructor \& Destructor Documentation}{69}{subsection.6.10.2}%
+\contentsline {subsubsection}{\numberline {6.10.2.1}MainWindow()}{69}{subsubsection.6.10.2.1}%
+\contentsline {subsubsection}{\numberline {6.10.2.2}$\sim $MainWindow()}{70}{subsubsection.6.10.2.2}%
+\contentsline {subsection}{\numberline {6.10.3}Member Function Documentation}{70}{subsection.6.10.3}%
+\contentsline {subsubsection}{\numberline {6.10.3.1}setUserLevel()}{70}{subsubsection.6.10.3.1}%
+\contentsline {subsubsection}{\numberline {6.10.3.2}thresholdFor()}{70}{subsubsection.6.10.3.2}%
+\contentsline {subsubsection}{\numberline {6.10.3.3}userLevel()}{70}{subsubsection.6.10.3.3}%
+\contentsline {subsubsection}{\numberline {6.10.3.4}userLevelChanged}{70}{subsubsection.6.10.3.4}%
+\contentsline {subsubsection}{\numberline {6.10.3.5}userLevelUp}{71}{subsubsection.6.10.3.5}%
+\contentsline {subsection}{\numberline {6.10.4}Property Documentation}{71}{subsection.6.10.4}%
+\contentsline {subsubsection}{\numberline {6.10.4.1}userLevel}{71}{subsubsection.6.10.4.1}%
+\contentsline {section}{\numberline {6.11}SLR1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::s\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}action Struct Reference}{71}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Member Data Documentation}{72}{subsection.6.11.1}%
+\contentsline {subsubsection}{\numberline {6.11.1.1}action}{72}{subsubsection.6.11.1.1}%
+\contentsline {subsubsection}{\numberline {6.11.1.2}item}{72}{subsubsection.6.11.1.2}%
+\contentsline {section}{\numberline {6.12}SLR1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser Class Reference}{72}{section.6.12}%
+\contentsline {subsection}{\numberline {6.12.1}Detailed Description}{74}{subsection.6.12.1}%
+\contentsline {subsection}{\numberline {6.12.2}Member Typedef Documentation}{74}{subsection.6.12.2}%
+\contentsline {subsubsection}{\numberline {6.12.2.1}action\_table}{74}{subsubsection.6.12.2.1}%
+\contentsline {subsubsection}{\numberline {6.12.2.2}transition\_table}{74}{subsubsection.6.12.2.2}%
+\contentsline {subsection}{\numberline {6.12.3}Member Enumeration Documentation}{75}{subsection.6.12.3}%
+\contentsline {subsubsection}{\numberline {6.12.3.1}Action}{75}{subsubsection.6.12.3.1}%
+\contentsline {subsection}{\numberline {6.12.4}Constructor \& Destructor Documentation}{75}{subsection.6.12.4}%
+\contentsline {subsubsection}{\numberline {6.12.4.1}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{75}{subsubsection.6.12.4.1}%
+\contentsline {subsubsection}{\numberline {6.12.4.2}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{75}{subsubsection.6.12.4.2}%
+\contentsline {subsection}{\numberline {6.12.5}Member Function Documentation}{75}{subsection.6.12.5}%
+\contentsline {subsubsection}{\numberline {6.12.5.1}AllItems()}{75}{subsubsection.6.12.5.1}%
+\contentsline {subsubsection}{\numberline {6.12.5.2}Closure()}{76}{subsubsection.6.12.5.2}%
+\contentsline {subsubsection}{\numberline {6.12.5.3}ClosureUtil()}{76}{subsubsection.6.12.5.3}%
+\contentsline {subsubsection}{\numberline {6.12.5.4}ComputeFirstSets()}{77}{subsubsection.6.12.5.4}%
+\contentsline {subsubsection}{\numberline {6.12.5.5}ComputeFollowSets()}{77}{subsubsection.6.12.5.5}%
+\contentsline {subsubsection}{\numberline {6.12.5.6}Delta()}{78}{subsubsection.6.12.5.6}%
+\contentsline {subsubsection}{\numberline {6.12.5.7}First()}{79}{subsubsection.6.12.5.7}%
+\contentsline {subsubsection}{\numberline {6.12.5.8}Follow()}{80}{subsubsection.6.12.5.8}%
+\contentsline {subsubsection}{\numberline {6.12.5.9}MakeInitialState()}{81}{subsubsection.6.12.5.9}%
+\contentsline {subsubsection}{\numberline {6.12.5.10}MakeParser()}{81}{subsubsection.6.12.5.10}%
+\contentsline {subsubsection}{\numberline {6.12.5.11}PrintItems()}{82}{subsubsection.6.12.5.11}%
+\contentsline {subsubsection}{\numberline {6.12.5.12}SolveLRConflicts()}{82}{subsubsection.6.12.5.12}%
+\contentsline {subsection}{\numberline {6.12.6}Member Data Documentation}{83}{subsection.6.12.6}%
+\contentsline {subsubsection}{\numberline {6.12.6.1}actions\_}{83}{subsubsection.6.12.6.1}%
+\contentsline {subsubsection}{\numberline {6.12.6.2}first\_sets\_}{83}{subsubsection.6.12.6.2}%
+\contentsline {subsubsection}{\numberline {6.12.6.3}follow\_sets\_}{83}{subsubsection.6.12.6.3}%
+\contentsline {subsubsection}{\numberline {6.12.6.4}gr\_}{83}{subsubsection.6.12.6.4}%
+\contentsline {subsubsection}{\numberline {6.12.6.5}states\_}{83}{subsubsection.6.12.6.5}%
+\contentsline {subsubsection}{\numberline {6.12.6.6}transitions\_}{83}{subsubsection.6.12.6.6}%
+\contentsline {section}{\numberline {6.13}SLRTable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog Class Reference}{84}{section.6.13}%
+\contentsline {subsection}{\numberline {6.13.1}Detailed Description}{84}{subsection.6.13.1}%
+\contentsline {subsection}{\numberline {6.13.2}Constructor \& Destructor Documentation}{84}{subsection.6.13.2}%
+\contentsline {subsubsection}{\numberline {6.13.2.1}SLRTableDialog()}{84}{subsubsection.6.13.2.1}%
+\contentsline {subsection}{\numberline {6.13.3}Member Function Documentation}{85}{subsection.6.13.3}%
+\contentsline {subsubsection}{\numberline {6.13.3.1}getTableData()}{85}{subsubsection.6.13.3.1}%
+\contentsline {subsubsection}{\numberline {6.13.3.2}setInitialData()}{85}{subsubsection.6.13.3.2}%
+\contentsline {section}{\numberline {6.14}SLRTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{85}{section.6.14}%
+\contentsline {subsection}{\numberline {6.14.1}Detailed Description}{88}{subsection.6.14.1}%
+\contentsline {subsection}{\numberline {6.14.2}Constructor \& Destructor Documentation}{88}{subsection.6.14.2}%
+\contentsline {subsubsection}{\numberline {6.14.2.1}SLRTutorWindow()}{88}{subsubsection.6.14.2.1}%
+\contentsline {subsubsection}{\numberline {6.14.2.2}$\sim $SLRTutorWindow()}{89}{subsubsection.6.14.2.2}%
+\contentsline {subsection}{\numberline {6.14.3}Member Function Documentation}{89}{subsection.6.14.3}%
+\contentsline {subsubsection}{\numberline {6.14.3.1}addMessage()}{89}{subsubsection.6.14.3.1}%
+\contentsline {subsubsection}{\numberline {6.14.3.2}addUserState()}{89}{subsubsection.6.14.3.2}%
+\contentsline {subsubsection}{\numberline {6.14.3.3}addUserTransition()}{89}{subsubsection.6.14.3.3}%
+\contentsline {subsubsection}{\numberline {6.14.3.4}animateLabelColor()}{89}{subsubsection.6.14.3.4}%
+\contentsline {subsubsection}{\numberline {6.14.3.5}animateLabelPop()}{89}{subsubsection.6.14.3.5}%
+\contentsline {subsubsection}{\numberline {6.14.3.6}closeEvent()}{90}{subsubsection.6.14.3.6}%
+\contentsline {subsubsection}{\numberline {6.14.3.7}exportConversationToPdf()}{90}{subsubsection.6.14.3.7}%
+\contentsline {subsubsection}{\numberline {6.14.3.8}feedback()}{90}{subsubsection.6.14.3.8}%
+\contentsline {subsubsection}{\numberline {6.14.3.9}feedbackForA()}{90}{subsubsection.6.14.3.9}%
+\contentsline {subsubsection}{\numberline {6.14.3.10}feedbackForA1()}{90}{subsubsection.6.14.3.10}%
+\contentsline {subsubsection}{\numberline {6.14.3.11}feedbackForA2()}{90}{subsubsection.6.14.3.11}%
+\contentsline {subsubsection}{\numberline {6.14.3.12}feedbackForA3()}{90}{subsubsection.6.14.3.12}%
+\contentsline {subsubsection}{\numberline {6.14.3.13}feedbackForA4()}{90}{subsubsection.6.14.3.13}%
+\contentsline {subsubsection}{\numberline {6.14.3.14}feedbackForAPrime()}{90}{subsubsection.6.14.3.14}%
+\contentsline {subsubsection}{\numberline {6.14.3.15}feedbackForB()}{91}{subsubsection.6.14.3.15}%
+\contentsline {subsubsection}{\numberline {6.14.3.16}feedbackForB1()}{91}{subsubsection.6.14.3.16}%
+\contentsline {subsubsection}{\numberline {6.14.3.17}feedbackForB2()}{91}{subsubsection.6.14.3.17}%
+\contentsline {subsubsection}{\numberline {6.14.3.18}feedbackForBPrime()}{91}{subsubsection.6.14.3.18}%
+\contentsline {subsubsection}{\numberline {6.14.3.19}feedbackForC()}{91}{subsubsection.6.14.3.19}%
+\contentsline {subsubsection}{\numberline {6.14.3.20}feedbackForCA()}{91}{subsubsection.6.14.3.20}%
+\contentsline {subsubsection}{\numberline {6.14.3.21}feedbackForCB()}{91}{subsubsection.6.14.3.21}%
+\contentsline {subsubsection}{\numberline {6.14.3.22}feedbackForD()}{91}{subsubsection.6.14.3.22}%
+\contentsline {subsubsection}{\numberline {6.14.3.23}feedbackForD1()}{91}{subsubsection.6.14.3.23}%
+\contentsline {subsubsection}{\numberline {6.14.3.24}feedbackForD2()}{91}{subsubsection.6.14.3.24}%
+\contentsline {subsubsection}{\numberline {6.14.3.25}feedbackForDPrime()}{91}{subsubsection.6.14.3.25}%
+\contentsline {subsubsection}{\numberline {6.14.3.26}feedbackForE()}{91}{subsubsection.6.14.3.26}%
+\contentsline {subsubsection}{\numberline {6.14.3.27}feedbackForE1()}{91}{subsubsection.6.14.3.27}%
+\contentsline {subsubsection}{\numberline {6.14.3.28}feedbackForE2()}{91}{subsubsection.6.14.3.28}%
+\contentsline {subsubsection}{\numberline {6.14.3.29}feedbackForF()}{91}{subsubsection.6.14.3.29}%
+\contentsline {subsubsection}{\numberline {6.14.3.30}feedbackForFA()}{91}{subsubsection.6.14.3.30}%
+\contentsline {subsubsection}{\numberline {6.14.3.31}feedbackForG()}{92}{subsubsection.6.14.3.31}%
+\contentsline {subsubsection}{\numberline {6.14.3.32}fillSortedGrammar()}{92}{subsubsection.6.14.3.32}%
+\contentsline {subsubsection}{\numberline {6.14.3.33}FormatGrammar()}{92}{subsubsection.6.14.3.33}%
+\contentsline {subsubsection}{\numberline {6.14.3.34}generateQuestion()}{92}{subsubsection.6.14.3.34}%
+\contentsline {subsubsection}{\numberline {6.14.3.35}launchSLRWizard()}{92}{subsubsection.6.14.3.35}%
+\contentsline {subsubsection}{\numberline {6.14.3.36}markLastUserIncorrect()}{92}{subsubsection.6.14.3.36}%
+\contentsline {subsubsection}{\numberline {6.14.3.37}sessionFinished}{92}{subsubsection.6.14.3.37}%
+\contentsline {subsubsection}{\numberline {6.14.3.38}showTable()}{92}{subsubsection.6.14.3.38}%
+\contentsline {subsubsection}{\numberline {6.14.3.39}solution()}{93}{subsubsection.6.14.3.39}%
+\contentsline {subsubsection}{\numberline {6.14.3.40}solutionForA()}{93}{subsubsection.6.14.3.40}%
+\contentsline {subsubsection}{\numberline {6.14.3.41}solutionForA1()}{93}{subsubsection.6.14.3.41}%
+\contentsline {subsubsection}{\numberline {6.14.3.42}solutionForA2()}{93}{subsubsection.6.14.3.42}%
+\contentsline {subsubsection}{\numberline {6.14.3.43}solutionForA3()}{93}{subsubsection.6.14.3.43}%
+\contentsline {subsubsection}{\numberline {6.14.3.44}solutionForA4()}{93}{subsubsection.6.14.3.44}%
+\contentsline {subsubsection}{\numberline {6.14.3.45}solutionForB()}{93}{subsubsection.6.14.3.45}%
+\contentsline {subsubsection}{\numberline {6.14.3.46}solutionForC()}{94}{subsubsection.6.14.3.46}%
+\contentsline {subsubsection}{\numberline {6.14.3.47}solutionForCA()}{94}{subsubsection.6.14.3.47}%
+\contentsline {subsubsection}{\numberline {6.14.3.48}solutionForCB()}{94}{subsubsection.6.14.3.48}%
+\contentsline {subsubsection}{\numberline {6.14.3.49}solutionForD()}{94}{subsubsection.6.14.3.49}%
+\contentsline {subsubsection}{\numberline {6.14.3.50}solutionForD1()}{94}{subsubsection.6.14.3.50}%
+\contentsline {subsubsection}{\numberline {6.14.3.51}solutionForD2()}{94}{subsubsection.6.14.3.51}%
+\contentsline {subsubsection}{\numberline {6.14.3.52}solutionForE()}{94}{subsubsection.6.14.3.52}%
+\contentsline {subsubsection}{\numberline {6.14.3.53}solutionForE1()}{94}{subsubsection.6.14.3.53}%
+\contentsline {subsubsection}{\numberline {6.14.3.54}solutionForE2()}{95}{subsubsection.6.14.3.54}%
+\contentsline {subsubsection}{\numberline {6.14.3.55}solutionForF()}{95}{subsubsection.6.14.3.55}%
+\contentsline {subsubsection}{\numberline {6.14.3.56}solutionForFA()}{95}{subsubsection.6.14.3.56}%
+\contentsline {subsubsection}{\numberline {6.14.3.57}solutionForG()}{95}{subsubsection.6.14.3.57}%
+\contentsline {subsubsection}{\numberline {6.14.3.58}TeachClosure()}{95}{subsubsection.6.14.3.58}%
+\contentsline {subsubsection}{\numberline {6.14.3.59}TeachClosureStep()}{95}{subsubsection.6.14.3.59}%
+\contentsline {subsubsection}{\numberline {6.14.3.60}TeachDeltaFunction()}{95}{subsubsection.6.14.3.60}%
+\contentsline {subsubsection}{\numberline {6.14.3.61}updateProgressPanel()}{95}{subsubsection.6.14.3.61}%
+\contentsline {subsubsection}{\numberline {6.14.3.62}updateState()}{95}{subsubsection.6.14.3.62}%
+\contentsline {subsubsection}{\numberline {6.14.3.63}verifyResponse()}{96}{subsubsection.6.14.3.63}%
+\contentsline {subsubsection}{\numberline {6.14.3.64}verifyResponseForA()}{96}{subsubsection.6.14.3.64}%
+\contentsline {subsubsection}{\numberline {6.14.3.65}verifyResponseForA1()}{96}{subsubsection.6.14.3.65}%
+\contentsline {subsubsection}{\numberline {6.14.3.66}verifyResponseForA2()}{96}{subsubsection.6.14.3.66}%
+\contentsline {subsubsection}{\numberline {6.14.3.67}verifyResponseForA3()}{96}{subsubsection.6.14.3.67}%
+\contentsline {subsubsection}{\numberline {6.14.3.68}verifyResponseForA4()}{96}{subsubsection.6.14.3.68}%
+\contentsline {subsubsection}{\numberline {6.14.3.69}verifyResponseForB()}{96}{subsubsection.6.14.3.69}%
+\contentsline {subsubsection}{\numberline {6.14.3.70}verifyResponseForC()}{97}{subsubsection.6.14.3.70}%
+\contentsline {subsubsection}{\numberline {6.14.3.71}verifyResponseForCA()}{97}{subsubsection.6.14.3.71}%
+\contentsline {subsubsection}{\numberline {6.14.3.72}verifyResponseForCB()}{97}{subsubsection.6.14.3.72}%
+\contentsline {subsubsection}{\numberline {6.14.3.73}verifyResponseForD()}{97}{subsubsection.6.14.3.73}%
+\contentsline {subsubsection}{\numberline {6.14.3.74}verifyResponseForD1()}{97}{subsubsection.6.14.3.74}%
+\contentsline {subsubsection}{\numberline {6.14.3.75}verifyResponseForD2()}{97}{subsubsection.6.14.3.75}%
+\contentsline {subsubsection}{\numberline {6.14.3.76}verifyResponseForE()}{97}{subsubsection.6.14.3.76}%
+\contentsline {subsubsection}{\numberline {6.14.3.77}verifyResponseForE1()}{97}{subsubsection.6.14.3.77}%
+\contentsline {subsubsection}{\numberline {6.14.3.78}verifyResponseForE2()}{97}{subsubsection.6.14.3.78}%
+\contentsline {subsubsection}{\numberline {6.14.3.79}verifyResponseForF()}{97}{subsubsection.6.14.3.79}%
+\contentsline {subsubsection}{\numberline {6.14.3.80}verifyResponseForFA()}{98}{subsubsection.6.14.3.80}%
+\contentsline {subsubsection}{\numberline {6.14.3.81}verifyResponseForG()}{98}{subsubsection.6.14.3.81}%
+\contentsline {subsubsection}{\numberline {6.14.3.82}verifyResponseForH()}{98}{subsubsection.6.14.3.82}%
+\contentsline {subsubsection}{\numberline {6.14.3.83}wrongAnimation()}{98}{subsubsection.6.14.3.83}%
+\contentsline {subsubsection}{\numberline {6.14.3.84}wrongUserResponseAnimation()}{98}{subsubsection.6.14.3.84}%
+\contentsline {section}{\numberline {6.15}SLRWizard Class Reference}{98}{section.6.15}%
+\contentsline {subsection}{\numberline {6.15.1}Detailed Description}{99}{subsection.6.15.1}%
+\contentsline {subsection}{\numberline {6.15.2}Constructor \& Destructor Documentation}{99}{subsection.6.15.2}%
+\contentsline {subsubsection}{\numberline {6.15.2.1}SLRWizard()}{99}{subsubsection.6.15.2.1}%
+\contentsline {subsection}{\numberline {6.15.3}Member Function Documentation}{100}{subsection.6.15.3}%
+\contentsline {subsubsection}{\numberline {6.15.3.1}stdVectorToQVector()}{100}{subsubsection.6.15.3.1}%
+\contentsline {section}{\numberline {6.16}SLRWizard\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Page Class Reference}{100}{section.6.16}%
+\contentsline {subsection}{\numberline {6.16.1}Detailed Description}{101}{subsection.6.16.1}%
+\contentsline {subsection}{\numberline {6.16.2}Constructor \& Destructor Documentation}{101}{subsection.6.16.2}%
+\contentsline {subsubsection}{\numberline {6.16.2.1}SLRWizardPage()}{101}{subsubsection.6.16.2.1}%
+\contentsline {section}{\numberline {6.17}state Struct Reference}{101}{section.6.17}%
+\contentsline {subsection}{\numberline {6.17.1}Detailed Description}{102}{subsection.6.17.1}%
+\contentsline {subsection}{\numberline {6.17.2}Member Function Documentation}{102}{subsection.6.17.2}%
+\contentsline {subsubsection}{\numberline {6.17.2.1}operator==()}{102}{subsubsection.6.17.2.1}%
+\contentsline {subsection}{\numberline {6.17.3}Member Data Documentation}{102}{subsection.6.17.3}%
+\contentsline {subsubsection}{\numberline {6.17.3.1}id\_}{102}{subsubsection.6.17.3.1}%
+\contentsline {subsubsection}{\numberline {6.17.3.2}items\_}{102}{subsubsection.6.17.3.2}%
+\contentsline {section}{\numberline {6.18}Symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Table Struct Reference}{102}{section.6.18}%
+\contentsline {subsection}{\numberline {6.18.1}Detailed Description}{103}{subsection.6.18.1}%
+\contentsline {subsection}{\numberline {6.18.2}Member Function Documentation}{103}{subsection.6.18.2}%
+\contentsline {subsubsection}{\numberline {6.18.2.1}In()}{103}{subsubsection.6.18.2.1}%
+\contentsline {subsubsection}{\numberline {6.18.2.2}IsTerminal()}{103}{subsubsection.6.18.2.2}%
+\contentsline {subsubsection}{\numberline {6.18.2.3}IsTerminalWthoEol()}{104}{subsubsection.6.18.2.3}%
+\contentsline {subsubsection}{\numberline {6.18.2.4}PutSymbol()}{104}{subsubsection.6.18.2.4}%
+\contentsline {subsection}{\numberline {6.18.3}Member Data Documentation}{105}{subsection.6.18.3}%
+\contentsline {subsubsection}{\numberline {6.18.3.1}EOL\_}{105}{subsubsection.6.18.3.1}%
+\contentsline {subsubsection}{\numberline {6.18.3.2}EPSILON\_}{105}{subsubsection.6.18.3.2}%
+\contentsline {subsubsection}{\numberline {6.18.3.3}non\_terminals\_}{105}{subsubsection.6.18.3.3}%
+\contentsline {subsubsection}{\numberline {6.18.3.4}st\_}{105}{subsubsection.6.18.3.4}%
+\contentsline {subsubsection}{\numberline {6.18.3.5}terminals\_}{105}{subsubsection.6.18.3.5}%
+\contentsline {subsubsection}{\numberline {6.18.3.6}terminals\_wtho\_eol\_}{105}{subsubsection.6.18.3.6}%
+\contentsline {section}{\numberline {6.19}LLTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Tree\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Node Struct Reference}{105}{section.6.19}%
+\contentsline {subsection}{\numberline {6.19.1}Detailed Description}{105}{subsection.6.19.1}%
+\contentsline {subsection}{\numberline {6.19.2}Member Data Documentation}{105}{subsection.6.19.2}%
+\contentsline {subsubsection}{\numberline {6.19.2.1}children}{105}{subsubsection.6.19.2.1}%
+\contentsline {subsubsection}{\numberline {6.19.2.2}label}{106}{subsubsection.6.19.2.2}%
+\contentsline {section}{\numberline {6.20}Tutorial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Manager Class Reference}{106}{section.6.20}%
+\contentsline {subsection}{\numberline {6.20.1}Detailed Description}{107}{subsection.6.20.1}%
+\contentsline {subsection}{\numberline {6.20.2}Constructor \& Destructor Documentation}{107}{subsection.6.20.2}%
+\contentsline {subsubsection}{\numberline {6.20.2.1}TutorialManager()}{107}{subsubsection.6.20.2.1}%
+\contentsline {subsection}{\numberline {6.20.3}Member Function Documentation}{107}{subsection.6.20.3}%
+\contentsline {subsubsection}{\numberline {6.20.3.1}addStep()}{107}{subsubsection.6.20.3.1}%
+\contentsline {subsubsection}{\numberline {6.20.3.2}clearSteps()}{108}{subsubsection.6.20.3.2}%
+\contentsline {subsubsection}{\numberline {6.20.3.3}eventFilter()}{108}{subsubsection.6.20.3.3}%
+\contentsline {subsubsection}{\numberline {6.20.3.4}finishLL1()}{108}{subsubsection.6.20.3.4}%
+\contentsline {subsubsection}{\numberline {6.20.3.5}finishSLR1()}{108}{subsubsection.6.20.3.5}%
+\contentsline {subsubsection}{\numberline {6.20.3.6}hideOverlay()}{108}{subsubsection.6.20.3.6}%
+\contentsline {subsubsection}{\numberline {6.20.3.7}ll1Finished}{109}{subsubsection.6.20.3.7}%
+\contentsline {subsubsection}{\numberline {6.20.3.8}nextStep}{109}{subsubsection.6.20.3.8}%
+\contentsline {subsubsection}{\numberline {6.20.3.9}setRootWindow()}{110}{subsubsection.6.20.3.9}%
+\contentsline {subsubsection}{\numberline {6.20.3.10}slr1Finished}{110}{subsubsection.6.20.3.10}%
+\contentsline {subsubsection}{\numberline {6.20.3.11}start()}{111}{subsubsection.6.20.3.11}%
+\contentsline {subsubsection}{\numberline {6.20.3.12}stepStarted}{111}{subsubsection.6.20.3.12}%
+\contentsline {subsubsection}{\numberline {6.20.3.13}tutorialFinished}{111}{subsubsection.6.20.3.13}%
+\contentsline {section}{\numberline {6.21}Tutorial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Step Struct Reference}{112}{section.6.21}%
+\contentsline {subsection}{\numberline {6.21.1}Detailed Description}{112}{subsection.6.21.1}%
+\contentsline {subsection}{\numberline {6.21.2}Member Data Documentation}{112}{subsection.6.21.2}%
+\contentsline {subsubsection}{\numberline {6.21.2.1}htmlText}{112}{subsubsection.6.21.2.1}%
+\contentsline {subsubsection}{\numberline {6.21.2.2}target}{112}{subsubsection.6.21.2.2}%
+\contentsline {section}{\numberline {6.22}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue$<$ T $>$ Class Template Reference}{112}{section.6.22}%
+\contentsline {subsection}{\numberline {6.22.1}Detailed Description}{113}{subsection.6.22.1}%
+\contentsline {subsection}{\numberline {6.22.2}Member Function Documentation}{113}{subsection.6.22.2}%
+\contentsline {subsubsection}{\numberline {6.22.2.1}clear()}{113}{subsubsection.6.22.2.1}%
+\contentsline {subsubsection}{\numberline {6.22.2.2}empty()}{113}{subsubsection.6.22.2.2}%
+\contentsline {subsubsection}{\numberline {6.22.2.3}front()}{113}{subsubsection.6.22.2.3}%
+\contentsline {subsubsection}{\numberline {6.22.2.4}pop()}{113}{subsubsection.6.22.2.4}%
+\contentsline {subsubsection}{\numberline {6.22.2.5}push()}{113}{subsubsection.6.22.2.5}%
+\contentsline {chapter}{\numberline {7}File Documentation}{115}{chapter.7}%
+\contentsline {section}{\numberline {7.1}backend/grammar.cpp File Reference}{115}{section.7.1}%
+\contentsline {section}{\numberline {7.2}backend/grammar.hpp File Reference}{115}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Typedef Documentation}{116}{subsection.7.2.1}%
+\contentsline {subsubsection}{\numberline {7.2.1.1}production}{116}{subsubsection.7.2.1.1}%
+\contentsline {section}{\numberline {7.3}grammar.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{116}{section.7.3}%
+\contentsline {section}{\numberline {7.4}backend/grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.cpp File Reference}{117}{section.7.4}%
+\contentsline {section}{\numberline {7.5}backend/grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.hpp File Reference}{118}{section.7.5}%
+\contentsline {section}{\numberline {7.6}grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{118}{section.7.6}%
+\contentsline {section}{\numberline {7.7}backend/ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.cpp File Reference}{120}{section.7.7}%
+\contentsline {section}{\numberline {7.8}backend/ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.hpp File Reference}{120}{section.7.8}%
+\contentsline {section}{\numberline {7.9}ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{121}{section.7.9}%
+\contentsline {section}{\numberline {7.10}backend/lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.cpp File Reference}{122}{section.7.10}%
+\contentsline {section}{\numberline {7.11}backend/lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.hpp File Reference}{122}{section.7.11}%
+\contentsline {section}{\numberline {7.12}lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{123}{section.7.12}%
+\contentsline {section}{\numberline {7.13}backend/slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.cpp File Reference}{124}{section.7.13}%
+\contentsline {section}{\numberline {7.14}backend/slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.hpp File Reference}{124}{section.7.14}%
+\contentsline {section}{\numberline {7.15}slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{125}{section.7.15}%
+\contentsline {section}{\numberline {7.16}backend/state.hpp File Reference}{126}{section.7.16}%
+\contentsline {section}{\numberline {7.17}state.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{127}{section.7.17}%
+\contentsline {section}{\numberline {7.18}backend/symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.cpp File Reference}{128}{section.7.18}%
+\contentsline {section}{\numberline {7.19}backend/symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.hpp File Reference}{128}{section.7.19}%
+\contentsline {subsection}{\numberline {7.19.1}Enumeration Type Documentation}{129}{subsection.7.19.1}%
+\contentsline {subsubsection}{\numberline {7.19.1.1}symbol\_type}{129}{subsubsection.7.19.1.1}%
+\contentsline {section}{\numberline {7.20}symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{129}{section.7.20}%
+\contentsline {section}{\numberline {7.21}CHANGELOG.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}md File Reference}{130}{section.7.21}%
+\contentsline {section}{\numberline {7.22}customtextedit.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{130}{section.7.22}%
+\contentsline {section}{\numberline {7.23}customtextedit.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{131}{section.7.23}%
 \contentsline {section}{\numberline {7.24}customtextedit.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{132}{section.7.24}%
-\contentsline {section}{\numberline {7.25}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{133}{section.7.25}%
-\contentsline {section}{\numberline {7.26}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{133}{section.7.26}%
-\contentsline {section}{\numberline {7.27}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{134}{section.7.27}%
-\contentsline {section}{\numberline {7.28}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{135}{section.7.28}%
-\contentsline {section}{\numberline {7.29}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{135}{section.7.29}%
-\contentsline {subsection}{\numberline {7.29.1}Enumeration Type Documentation}{136}{subsection.7.29.1}%
-\contentsline {subsubsection}{\numberline {7.29.1.1}State}{136}{subsubsection.7.29.1.1}%
-\contentsline {section}{\numberline {7.30}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{137}{section.7.30}%
+\contentsline {section}{\numberline {7.25}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{132}{section.7.25}%
+\contentsline {section}{\numberline {7.26}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{132}{section.7.26}%
+\contentsline {section}{\numberline {7.27}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{133}{section.7.27}%
+\contentsline {section}{\numberline {7.28}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{134}{section.7.28}%
+\contentsline {section}{\numberline {7.29}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{134}{section.7.29}%
+\contentsline {subsection}{\numberline {7.29.1}Enumeration Type Documentation}{135}{subsection.7.29.1}%
+\contentsline {subsubsection}{\numberline {7.29.1.1}State}{135}{subsubsection.7.29.1.1}%
+\contentsline {section}{\numberline {7.30}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{136}{section.7.30}%
 \contentsline {section}{\numberline {7.31}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{139}{section.7.31}%
-\contentsline {subsection}{\numberline {7.31.1}Function Documentation}{140}{subsection.7.31.1}%
-\contentsline {subsubsection}{\numberline {7.31.1.1}loadFonts()}{140}{subsubsection.7.31.1.1}%
-\contentsline {subsubsection}{\numberline {7.31.1.2}main()}{140}{subsubsection.7.31.1.2}%
+\contentsline {subsection}{\numberline {7.31.1}Function Documentation}{139}{subsection.7.31.1}%
+\contentsline {subsubsection}{\numberline {7.31.1.1}loadFonts()}{139}{subsubsection.7.31.1.1}%
+\contentsline {subsubsection}{\numberline {7.31.1.2}main()}{139}{subsubsection.7.31.1.2}%
 \contentsline {section}{\numberline {7.32}mainwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{140}{section.7.32}%
 \contentsline {section}{\numberline {7.33}mainwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{140}{section.7.33}%
 \contentsline {section}{\numberline {7.34}mainwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{141}{section.7.34}%
 \contentsline {section}{\numberline {7.35}README.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}md File Reference}{142}{section.7.35}%
 \contentsline {section}{\numberline {7.36}slrtabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{142}{section.7.36}%
 \contentsline {section}{\numberline {7.37}slrtabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{143}{section.7.37}%
-\contentsline {section}{\numberline {7.38}slrtabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{144}{section.7.38}%
+\contentsline {section}{\numberline {7.38}slrtabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{143}{section.7.38}%
 \contentsline {section}{\numberline {7.39}slrtutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{144}{section.7.39}%
-\contentsline {section}{\numberline {7.40}slrtutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{145}{section.7.40}%
-\contentsline {subsection}{\numberline {7.40.1}Enumeration Type Documentation}{146}{subsection.7.40.1}%
-\contentsline {subsubsection}{\numberline {7.40.1.1}StateSlr}{146}{subsubsection.7.40.1.1}%
-\contentsline {section}{\numberline {7.41}slrtutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{147}{section.7.41}%
+\contentsline {section}{\numberline {7.40}slrtutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{144}{section.7.40}%
+\contentsline {subsection}{\numberline {7.40.1}Enumeration Type Documentation}{145}{subsection.7.40.1}%
+\contentsline {subsubsection}{\numberline {7.40.1.1}StateSlr}{145}{subsubsection.7.40.1.1}%
+\contentsline {section}{\numberline {7.41}slrtutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{146}{section.7.41}%
 \contentsline {section}{\numberline {7.42}slrwizard.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{150}{section.7.42}%
-\contentsline {section}{\numberline {7.43}slrwizard.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{151}{section.7.43}%
-\contentsline {section}{\numberline {7.44}slrwizardpage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{153}{section.7.44}%
+\contentsline {section}{\numberline {7.43}slrwizard.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{150}{section.7.43}%
+\contentsline {section}{\numberline {7.44}slrwizardpage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{152}{section.7.44}%
 \contentsline {section}{\numberline {7.45}slrwizardpage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{153}{section.7.45}%
 \contentsline {section}{\numberline {7.46}tutorialmanager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{154}{section.7.46}%
-\contentsline {section}{\numberline {7.47}tutorialmanager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{155}{section.7.47}%
+\contentsline {section}{\numberline {7.47}tutorialmanager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{154}{section.7.47}%
 \contentsline {section}{\numberline {7.48}tutorialmanager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{155}{section.7.48}%
 \contentsline {section}{\numberline {7.49}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{156}{section.7.49}%
 \contentsline {section}{\numberline {7.50}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{157}{section.7.50}%

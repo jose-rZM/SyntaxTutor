@@ -1,5 +1,5 @@
 \doxysection{LL1\+Parser Class Reference}
-\hypertarget{classLL1Parser}{}\label{classLL1Parser}\index{LL1Parser@{LL1Parser}}
+\label{classLL1Parser}\index{LL1Parser@{LL1Parser}}
 
 
 {\ttfamily \#include $<$ll1\+\_\+parser.\+hpp$>$}
@@ -10,7 +10,7 @@ Collaboration diagram for LL1\+Parser\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=158pt]{classLL1Parser__coll__graph}
+\includegraphics[width=122pt]{classLL1Parser__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -46,15 +46,14 @@ std\+::unordered\+\_\+map$<$ std\+::string, std\+::unordered\+\_\+set$<$ std\+::
 
 
 \label{doc-constructors}
-\Hypertarget{classLL1Parser_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classLL1Parser_a465f1e33d92dae2869755e11846aed59}\index{LL1Parser@{LL1Parser}!LL1Parser@{LL1Parser}}
+\index{LL1Parser@{LL1Parser}!LL1Parser@{LL1Parser}}
 \index{LL1Parser@{LL1Parser}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{LL1Parser()}{LL1Parser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{classLL1Parser_a465f1e33d92dae2869755e11846aed59} 
 LL1\+Parser\+::\+LL1\+Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\Hypertarget{classLL1Parser_a9d31e18fd46ed0c7560f03a7e2f0cbeb}\index{LL1Parser@{LL1Parser}!LL1Parser@{LL1Parser}}
+\index{LL1Parser@{LL1Parser}!LL1Parser@{LL1Parser}}
 \index{LL1Parser@{LL1Parser}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{LL1Parser()}{LL1Parser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{classLL1Parser_a9d31e18fd46ed0c7560f03a7e2f0cbeb} 
@@ -79,9 +78,8 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 \label{doc-func-members}
-\Hypertarget{classLL1Parser_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classLL1Parser_a2f702d940802a8b02538cb173a6c7e5e}\index{LL1Parser@{LL1Parser}!ComputeFirstSets@{ComputeFirstSets}}
+\index{LL1Parser@{LL1Parser}!ComputeFirstSets@{ComputeFirstSets}}
 \index{ComputeFirstSets@{ComputeFirstSets}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{ComputeFirstSets()}{ComputeFirstSets()}}
 {\footnotesize\ttfamily \label{classLL1Parser_a2f702d940802a8b02538cb173a6c7e5e} 
@@ -95,7 +93,7 @@ This function calculates the FIRST set for each non-\/terminal symbol in the gra
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classLL1Parser_a2f702d940802a8b02538cb173a6c7e5e_cgraph}
+\includegraphics[width=324pt]{classLL1Parser_a2f702d940802a8b02538cb173a6c7e5e_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:\nopagebreak
@@ -105,7 +103,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classLL1Parser_a2f702d940802a8b02538cb173a6c7e5e_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{classLL1Parser_a02ee1f3ebc4cedacbb11204e3e8cbfdc}\index{LL1Parser@{LL1Parser}!ComputeFollowSets@{ComputeFollowSets}}
+\index{LL1Parser@{LL1Parser}!ComputeFollowSets@{ComputeFollowSets}}
 \index{ComputeFollowSets@{ComputeFollowSets}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{ComputeFollowSets()}{ComputeFollowSets()}}
 {\footnotesize\ttfamily \label{classLL1Parser_a02ee1f3ebc4cedacbb11204e3e8cbfdc} 
@@ -117,11 +115,13 @@ Computes the FOLLOW sets for all non-\/terminal symbols in the grammar. The FOLL
 
 
 \begin{DoxyEnumerate}
-\item Initialize FOLLOW(\+S) = \{ \$ \}, where S is the start symbol.
-\item For each production rule of the form  A \rightarrow \alpha B \beta\+:
+\item Initialize FOLLOW(\+S) = \{ $ \$ $ \}, where S is the start symbol.
+\item For each production rule of the form  $ A \rightarrow \alpha B \beta
+$\+:
 \begin{DoxyItemize}
-\item Add FIRST(\beta) \setminus \{\epsilon\} to  FOLLOW(B).
-\item If \epsilon \in FIRST(\beta), add FOLLOW(A) to FOLLOW(B).
+\item Add $ FIRST(\beta) \setminus \{\epsilon\} $ to  $ FOLLOW(B)
+$.
+\item If $ \epsilon \in FIRST(\beta) $, add $ FOLLOW(A) $ to $ FOLLOW(B) $.
 \end{DoxyItemize}
 \item Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the {\ttfamily follow\+\_\+sets\+\_\+} member variable for later use by the parser. \begin{DoxyNote}{Note}
 This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily first\+\_\+sets\+\_\+} member variable. 
@@ -136,7 +136,7 @@ This function assumes that the FIRST sets for all symbols have already been comp
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classLL1Parser_a02ee1f3ebc4cedacbb11204e3e8cbfdc_cgraph}
+\includegraphics[width=336pt]{classLL1Parser_a02ee1f3ebc4cedacbb11204e3e8cbfdc_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:\nopagebreak
@@ -146,7 +146,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classLL1Parser_a02ee1f3ebc4cedacbb11204e3e8cbfdc_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{classLL1Parser_a7b33aead1b94c61884afb06f204fd3e4}\index{LL1Parser@{LL1Parser}!CreateLL1Table@{CreateLL1Table}}
+\index{LL1Parser@{LL1Parser}!CreateLL1Table@{CreateLL1Table}}
 \index{CreateLL1Table@{CreateLL1Table}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{CreateLL1Table()}{CreateLL1Table()}}
 {\footnotesize\ttfamily \label{classLL1Parser_a7b33aead1b94c61884afb06f204fd3e4} 
@@ -160,7 +160,7 @@ This function constructs the LL(1) parsing table by iterating over each producti
 
 
 \begin{DoxyItemize}
-\item For each production rule A \rightarrow \alpha, the function calculates the prediction symbols using the {\ttfamily Prediction\+Symbols} function.
+\item For each production rule $A \rightarrow \alpha$, the function calculates the prediction symbols using the {\ttfamily Prediction\+Symbols} function.
 \item It then fills the parsing table at the cell corresponding to the non-\/terminal {\ttfamily A} and each prediction symbol in the set.
 \item If a cell already contains a production, this indicates a conflict, meaning the grammar is not LL(1).
 \end{DoxyItemize}
@@ -182,7 +182,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classLL1Parser_a7b33aead1b94c61884afb06f204fd3e4_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{classLL1Parser_af556dd5a7357b97ec5d078983db62553}\index{LL1Parser@{LL1Parser}!First@{First}}
+\index{LL1Parser@{LL1Parser}!First@{First}}
 \index{First@{First}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{First()}{First()}}
 {\footnotesize\ttfamily \label{classLL1Parser_af556dd5a7357b97ec5d078983db62553} 
@@ -212,7 +212,7 @@ Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=170pt]{classLL1Parser_af556dd5a7357b97ec5d078983db62553_cgraph}
+\includegraphics[width=134pt]{classLL1Parser_af556dd5a7357b97ec5d078983db62553_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:\nopagebreak
@@ -222,7 +222,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classLL1Parser_af556dd5a7357b97ec5d078983db62553_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{classLL1Parser_a0f9dc60f3f6a8332b0ed727d4c8fd40f}\index{LL1Parser@{LL1Parser}!Follow@{Follow}}
+\index{LL1Parser@{LL1Parser}!Follow@{Follow}}
 \index{Follow@{Follow}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{Follow()}{Follow()}}
 {\footnotesize\ttfamily \label{classLL1Parser_a0f9dc60f3f6a8332b0ed727d4c8fd40f} 
@@ -249,7 +249,7 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classLL1Parser_a0f9dc60f3f6a8332b0ed727d4c8fd40f_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{classLL1Parser_a5e5817b02a5ea7faa4480cb64ad31dd2}\index{LL1Parser@{LL1Parser}!PredictionSymbols@{PredictionSymbols}}
+\index{LL1Parser@{LL1Parser}!PredictionSymbols@{PredictionSymbols}}
 \index{PredictionSymbols@{PredictionSymbols}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{PredictionSymbols()}{PredictionSymbols()}}
 {\footnotesize\ttfamily \label{classLL1Parser_a5e5817b02a5ea7faa4480cb64ad31dd2} 
@@ -265,8 +265,8 @@ Computes the prediction symbols for a given production rule.
 \item -\/ If the FIRST set of the consequent does not contain epsilon, the prediction symbols are simply the FIRST symbols of the consequent.
 \end{DoxyItemize}
 
-If the FIRST set of the consequent contains epsilon, the prediction symbols are computed as  FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
-FOLLOW(\text{antecedent}).
+If the FIRST set of the consequent contains epsilon, the prediction symbols are computed as  $ FIRST(\text{consequent}) \setminus \{\epsilon\} \cup
+FOLLOW(\text{antecedent}) $.
 \begin{DoxyItemize}
 \item 
 \begin{DoxyParams}{Parameters}
@@ -283,7 +283,7 @@ An unordered set of strings containing the prediction symbols for the specified 
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classLL1Parser_a5e5817b02a5ea7faa4480cb64ad31dd2_cgraph}
+\includegraphics[width=341pt]{classLL1Parser_a5e5817b02a5ea7faa4480cb64ad31dd2_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:\nopagebreak
@@ -296,9 +296,8 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 \label{doc-variable-members}
-\Hypertarget{classLL1Parser_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{classLL1Parser_a99111137eeeeb3d44b7b20417297df9b}\index{LL1Parser@{LL1Parser}!first\_sets\_@{first\_sets\_}}
+\index{LL1Parser@{LL1Parser}!first\_sets\_@{first\_sets\_}}
 \index{first\_sets\_@{first\_sets\_}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{first\_sets\_}{first\_sets\_}}
 {\footnotesize\ttfamily \label{classLL1Parser_a99111137eeeeb3d44b7b20417297df9b} 
@@ -308,7 +307,7 @@ std\+::unordered\+\_\+map$<$std\+::string, std\+::unordered\+\_\+set$<$std\+::st
 
 FIRST sets for each non-\/terminal in the grammar. 
 
-\Hypertarget{classLL1Parser_a9faec5578f60af3641a5bb6bde66aa8f}\index{LL1Parser@{LL1Parser}!follow\_sets\_@{follow\_sets\_}}
+\index{LL1Parser@{LL1Parser}!follow\_sets\_@{follow\_sets\_}}
 \index{follow\_sets\_@{follow\_sets\_}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{follow\_sets\_}{follow\_sets\_}}
 {\footnotesize\ttfamily \label{classLL1Parser_a9faec5578f60af3641a5bb6bde66aa8f} 
@@ -318,7 +317,7 @@ std\+::unordered\+\_\+map$<$std\+::string, std\+::unordered\+\_\+set$<$std\+::st
 
 FOLLOW sets for each non-\/terminal in the grammar. 
 
-\Hypertarget{classLL1Parser_a8148d39b8f39a98b4210490346beb3b4}\index{LL1Parser@{LL1Parser}!gr\_@{gr\_}}
+\index{LL1Parser@{LL1Parser}!gr\_@{gr\_}}
 \index{gr\_@{gr\_}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{gr\_}{gr\_}}
 {\footnotesize\ttfamily \label{classLL1Parser_a8148d39b8f39a98b4210490346beb3b4} 
@@ -328,7 +327,7 @@ FOLLOW sets for each non-\/terminal in the grammar.
 
 \doxylink{structGrammar}{Grammar} object associated with this parser. 
 
-\Hypertarget{classLL1Parser_a29cba4eed3d7b262f17509779934f1fd}\index{LL1Parser@{LL1Parser}!ll1\_t\_@{ll1\_t\_}}
+\index{LL1Parser@{LL1Parser}!ll1\_t\_@{ll1\_t\_}}
 \index{ll1\_t\_@{ll1\_t\_}!LL1Parser@{LL1Parser}}
 \doxysubsubsection{\texorpdfstring{ll1\_t\_}{ll1\_t\_}}
 {\footnotesize\ttfamily \label{classLL1Parser_a29cba4eed3d7b262f17509779934f1fd} 

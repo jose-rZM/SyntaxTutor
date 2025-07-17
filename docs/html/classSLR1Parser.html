@@ -152,7 +152,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a00101890c3c4d2871a8c100209abf122" id="r_a00101890c3c4d2871a8c100209abf122"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00101890c3c4d2871a8c100209abf122">ClosureUtil</a> (std::unordered_set&lt; <a class="el" href="structLr0Item.html">Lr0Item</a> &gt; &amp;items, unsigned int size, std::unordered_set&lt; std::string &gt; &amp;visited)</td></tr>
 <tr class="memdesc:a00101890c3c4d2871a8c100209abf122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function for computing the closure of LR(0) items.  <br /></td></tr>
 <tr class="memitem:aee48bcbf0a93badeb5271a7299cc458b" id="r_aee48bcbf0a93badeb5271a7299cc458b"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; <a class="el" href="structLr0Item.html">Lr0Item</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee48bcbf0a93badeb5271a7299cc458b">Delta</a> (const std::unordered_set&lt; <a class="el" href="structLr0Item.html">Lr0Item</a> &gt; &amp;items, const std::string &amp;str)</td></tr>
-<tr class="memdesc:aee48bcbf0a93badeb5271a7299cc458b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the GOTO transition ( \(\delta\)) for a given set of LR(0) items and a symbol. This function is equivalent to the \(\delta(I, X)\) function in LR parsing, where it computes the set of items reached from a state \(I\) via symbol \(X\).  <br /></td></tr>
+<tr class="memdesc:aee48bcbf0a93badeb5271a7299cc458b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the GOTO transition ( \( \delta \)) for a given set of LR(0) items and a symbol. This function is equivalent to the \( \delta(I, X) \) function in LR parsing, where it computes the set of items reached from a state \( I \) via symbol \( X \).  <br /></td></tr>
 <tr class="memitem:a6a31a57223b052028c74f5d70db41c16" id="r_a6a31a57223b052028c74f5d70db41c16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a31a57223b052028c74f5d70db41c16">SolveLRConflicts</a> (const <a class="el" href="structstate.html">state</a> &amp;st)</td></tr>
 <tr class="memdesc:a6a31a57223b052028c74f5d70db41c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves LR conflicts in a given state.  <br /></td></tr>
 <tr class="memitem:a02df38d4f96383ea85d23f56472c57a0" id="r_a02df38d4f96383ea85d23f56472c57a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02df38d4f96383ea85d23f56472c57a0">First</a> (std::span&lt; const std::string &gt; rule, std::unordered_set&lt; std::string &gt; &amp;result)</td></tr>
@@ -542,10 +542,12 @@ Here is the caller graph for this function:</div>
 
 <p>Computes the FOLLOW sets for all non-terminal symbols in the grammar. The FOLLOW set of a non-terminal symbol A contains all terminal symbols that can appear immediately after A in any sentential form derived from the grammar's start symbol. Additionally, if A can be the last symbol in a derivation, the end-of-input marker (<span class="tt">\$</span>) is included in its FOLLOW set. This function computes the FOLLOW sets using the following rules: </p>
 <ol type="1">
-<li>Initialize FOLLOW(S) = { \(\$\) }, where S is the start symbol.</li>
-<li>For each production rule of the form  \(A \rightarrow \alpha B \beta\):<ul>
-<li>Add \(FIRST(\beta) \setminus \{\epsilon\}\) to  \(FOLLOW(B)\).</li>
-<li>If \(\epsilon \in FIRST(\beta)\), add \(FOLLOW(A)\) to \(FOLLOW(B)\).</li>
+<li>Initialize FOLLOW(S) = { \( \$ \) }, where S is the start symbol.</li>
+<li>For each production rule of the form  \( A \rightarrow \alpha B \beta
+\):<ul>
+<li>Add \( FIRST(\beta) \setminus \{\epsilon\} \) to  \( FOLLOW(B)
+\).</li>
+<li>If \( \epsilon \in FIRST(\beta) \), add \( FOLLOW(A) \) to \( FOLLOW(B) \).</li>
 </ul>
 </li>
 <li>Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the <span class="tt">follow_sets_</span> member variable for later use by the parser. <dl class="section note"><dt>Note</dt><dd>This function assumes that the FIRST sets for all symbols have already been computed and are available in the <span class="tt">first_sets_</span> member variable. </dd></dl>
@@ -601,7 +603,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Computes the GOTO transition ( \(\delta\)) for a given set of LR(0) items and a symbol. This function is equivalent to the \(\delta(I, X)\) function in LR parsing, where it computes the set of items reached from a state \(I\) via symbol \(X\). </p>
+<p>Computes the GOTO transition ( \( \delta \)) for a given set of LR(0) items and a symbol. This function is equivalent to the \( \delta(I, X) \) function in LR parsing, where it computes the set of items reached from a state \( I \) via symbol \( X \). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">items</td><td>The current set of LR(0) items (state). </td></tr>

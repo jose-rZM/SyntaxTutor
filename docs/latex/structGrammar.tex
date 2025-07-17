@@ -1,5 +1,5 @@
 \doxysection{Grammar Struct Reference}
-\hypertarget{structGrammar}{}\label{structGrammar}\index{Grammar@{Grammar}}
+\label{structGrammar}\index{Grammar@{Grammar}}
 
 
 Represents a context-\/free grammar, including its rules, symbol table, and starting symbol.  
@@ -15,7 +15,7 @@ Collaboration diagram for Grammar\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=158pt]{structGrammar__coll__graph}
+\includegraphics[width=122pt]{structGrammar__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -54,15 +54,14 @@ Represents a context-\/free grammar, including its rules, symbol table, and star
 This structure encapsulates all components required to define and manipulate a grammar, including production rules, the associated symbol table, and metadata such as the start symbol. It supports construction, transformation, and analysis of grammars. 
 
 \label{doc-constructors}
-\Hypertarget{structGrammar_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{structGrammar_aa201250a002a7d07d398fee189a74427}\index{Grammar@{Grammar}!Grammar@{Grammar}}
+\index{Grammar@{Grammar}!Grammar@{Grammar}}
 \index{Grammar@{Grammar}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{Grammar()}{Grammar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{structGrammar_aa201250a002a7d07d398fee189a74427} 
 Grammar\+::\+Grammar (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-\Hypertarget{structGrammar_aadc4653fd0a6173388fe4692772c59ad}\index{Grammar@{Grammar}!Grammar@{Grammar}}
+\index{Grammar@{Grammar}!Grammar@{Grammar}}
 \index{Grammar@{Grammar}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{Grammar()}{Grammar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{structGrammar_aadc4653fd0a6173388fe4692772c59ad} 
@@ -71,9 +70,8 @@ Grammar\+::\+Grammar (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\
 
 
 \label{doc-func-members}
-\Hypertarget{structGrammar_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{structGrammar_aa8ba510e14b7d86c9f030611343ed130}\index{Grammar@{Grammar}!AddProduction@{AddProduction}}
+\index{Grammar@{Grammar}!AddProduction@{AddProduction}}
 \index{AddProduction@{AddProduction}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{AddProduction()}{AddProduction()}}
 {\footnotesize\ttfamily \label{structGrammar_aa8ba510e14b7d86c9f030611343ed130} 
@@ -92,7 +90,7 @@ This function inserts a new production of the form A → α into the grammar, wh
 {\em consequent} & The right-\/hand side sequence of grammar symbols. \\
 \hline
 \end{DoxyParams}
-\Hypertarget{structGrammar_a95e0f2efad2652f2048670b87894d033}\index{Grammar@{Grammar}!Debug@{Debug}}
+\index{Grammar@{Grammar}!Debug@{Debug}}
 \index{Debug@{Debug}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{Debug()}{Debug()}}
 {\footnotesize\ttfamily \label{structGrammar_a95e0f2efad2652f2048670b87894d033} 
@@ -102,7 +100,7 @@ void Grammar\+::\+Debug (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) con
 
 Prints the current grammar structure to standard output. 
 
-This function provides a debug view of the grammar by printing out all rules, the axiom, and other relevant details. \Hypertarget{structGrammar_a561bf0737bee1806306e3a33becde483}\index{Grammar@{Grammar}!FilterRulesByConsequent@{FilterRulesByConsequent}}
+This function provides a debug view of the grammar by printing out all rules, the axiom, and other relevant details. \index{Grammar@{Grammar}!FilterRulesByConsequent@{FilterRulesByConsequent}}
 \index{FilterRulesByConsequent@{FilterRulesByConsequent}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{FilterRulesByConsequent()}{FilterRulesByConsequent()}}
 {\footnotesize\ttfamily \label{structGrammar_a561bf0737bee1806306e3a33becde483} 
@@ -120,7 +118,7 @@ Filters grammar rules that contain a specific token in their consequent.
 \begin{DoxyReturn}{Returns}
 std\+::vector of pairs where each pair contains an antecedent and its respective production that includes the specified token.
 \end{DoxyReturn}
-Searches for rules in which the specified token is part of the consequent and returns those rules. \Hypertarget{structGrammar_a833632e1ccfa0f84222a4b7168cf975e}\index{Grammar@{Grammar}!HasEmptyProduction@{HasEmptyProduction}}
+Searches for rules in which the specified token is part of the consequent and returns those rules. \index{Grammar@{Grammar}!HasEmptyProduction@{HasEmptyProduction}}
 \index{HasEmptyProduction@{HasEmptyProduction}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{HasEmptyProduction()}{HasEmptyProduction()}}
 {\footnotesize\ttfamily \label{structGrammar_a833632e1ccfa0f84222a4b7168cf975e} 
@@ -138,7 +136,7 @@ Checks if a given antecedent has an empty production.
 \begin{DoxyReturn}{Returns}
 true if there exists an empty production for the antecedent, otherwise false.
 \end{DoxyReturn}
-An empty production is represented as {\ttfamily \texorpdfstring{$<$}{<}antecedent\texorpdfstring{$>$}{>} -\/\texorpdfstring{$>$}{>} ;}, indicating that the antecedent can produce an empty string. \Hypertarget{structGrammar_a27ecdbca735ffb275a2bad9d1ea539c3}\index{Grammar@{Grammar}!SetAxiom@{SetAxiom}}
+An empty production is represented as {\ttfamily \texorpdfstring{$<$}{<}antecedent\texorpdfstring{$>$}{>} -\/\texorpdfstring{$>$}{>} ;}, indicating that the antecedent can produce an empty string. \index{Grammar@{Grammar}!SetAxiom@{SetAxiom}}
 \index{SetAxiom@{SetAxiom}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{SetAxiom()}{SetAxiom()}}
 {\footnotesize\ttfamily \label{structGrammar_a27ecdbca735ffb275a2bad9d1ea539c3} 
@@ -153,7 +151,7 @@ Sets the axiom (entry point) of the grammar.
 {\em axiom} & The entry point or start symbol of the grammar.\\
 \hline
 \end{DoxyParams}
-Defines the starting point for the grammar, which is used in parsing algorithms and must be a non-\/terminal symbol present in the grammar. \Hypertarget{structGrammar_add2f414fe2ddf7e578a70c255daa1996}\index{Grammar@{Grammar}!Split@{Split}}
+Defines the starting point for the grammar, which is used in parsing algorithms and must be a non-\/terminal symbol present in the grammar. \index{Grammar@{Grammar}!Split@{Split}}
 \index{Split@{Split}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{Split()}{Split()}}
 {\footnotesize\ttfamily \label{structGrammar_add2f414fe2ddf7e578a70c255daa1996} 
@@ -176,9 +174,8 @@ A vector of grammar symbols extracted from the string.
 
 
 \label{doc-variable-members}
-\Hypertarget{structGrammar_doc-variable-members}
 \doxysubsection{Member Data Documentation}
-\Hypertarget{structGrammar_a8bdbc1072253034fab2c1269a4660f57}\index{Grammar@{Grammar}!axiom\_@{axiom\_}}
+\index{Grammar@{Grammar}!axiom\_@{axiom\_}}
 \index{axiom\_@{axiom\_}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{axiom\_}{axiom\_}}
 {\footnotesize\ttfamily \label{structGrammar_a8bdbc1072253034fab2c1269a4660f57} 
@@ -188,7 +185,7 @@ std\+::string Grammar\+::axiom\+\_\+}
 
 The axiom or entry point of the grammar. 
 
-\Hypertarget{structGrammar_ac16e6ae6c52586612ecf1ceb19fb1dd5}\index{Grammar@{Grammar}!g\_@{g\_}}
+\index{Grammar@{Grammar}!g\_@{g\_}}
 \index{g\_@{g\_}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{g\_}{g\_}}
 {\footnotesize\ttfamily \label{structGrammar_ac16e6ae6c52586612ecf1ceb19fb1dd5} 
@@ -198,7 +195,7 @@ std\+::unordered\+\_\+map$<$std\+::string, std\+::vector$<$\mbox{\hyperlink{gram
 
 Stores the grammar rules with each antecedent mapped to a list of productions. 
 
-\Hypertarget{structGrammar_aa78dffbcc2b215a3184e588cbb272097}\index{Grammar@{Grammar}!st\_@{st\_}}
+\index{Grammar@{Grammar}!st\_@{st\_}}
 \index{st\_@{st\_}!Grammar@{Grammar}}
 \doxysubsubsection{\texorpdfstring{st\_}{st\_}}
 {\footnotesize\ttfamily \label{structGrammar_aa78dffbcc2b215a3184e588cbb272097} 

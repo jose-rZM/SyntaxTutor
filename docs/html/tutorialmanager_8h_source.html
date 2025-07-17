@@ -106,95 +106,113 @@ $(function(){initNavTree('tutorialmanager_8h_source.html','',''); });
   <div class="headertitle"><div class="title">tutorialmanager.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="tutorialmanager_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef TUTORIALMANAGER_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define TUTORIALMANAGER_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;QEvent&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;QFrame&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;QPushButton&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;QTextBrowser&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;QVector&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;QWidget&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structTutorialStep.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structTutorialStep.html">TutorialStep</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9">   21</a></span>    QWidget* <a class="code hl_variable" href="structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9">target</a>;   </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2">   22</a></span>    QString  <a class="code hl_variable" href="structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2">htmlText</a>; </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+<a href="tutorialmanager_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * SyntaxTutor - Interactive Tutorial About Syntax Analyzers</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * Copyright (C) 2025 Jose R. (jose-rzm)</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * This program is free software: you can redistribute it and/or modify it</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * under the terms of the GNU General Public License as published by</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * (at your option) any later version.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * This program is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * GNU General Public License for more details.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * You should have received a copy of the GNU General Public License</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef TUTORIALMANAGER_H</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define TUTORIALMANAGER_H</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;QEvent&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;QFrame&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;QPushButton&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;QTextBrowser&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;QVector&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;QWidget&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structTutorialStep.html">   38</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structTutorialStep.html">TutorialStep</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9">   39</a></span>    QWidget* <a class="code hl_variable" href="structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9">target</a>;   </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2">   40</a></span>    QString  <a class="code hl_variable" href="structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2">htmlText</a>; </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classTutorialManager.html">   35</a></span><span class="keyword">class </span><a class="code hl_function" href="classTutorialManager.html#ae02b2f24d983da558e4ec9ae9292460d">TutorialManager</a> : <span class="keyword">public</span> QObject {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    Q_OBJECT</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_function" href="classTutorialManager.html#ae02b2f24d983da558e4ec9ae9292460d">TutorialManager</a>(QWidget* rootWindow);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#a7b05249eda87d17113d5e91c0b9da529">addStep</a>(QWidget* target, <span class="keyword">const</span> QString&amp; htmlText);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30">start</a>();</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#a57817e60d063bad9ac188e1cf9c86588">setRootWindow</a>(QWidget* newRoot);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classTutorialManager.html">   53</a></span><span class="keyword">class </span><a class="code hl_function" href="classTutorialManager.html#ae02b2f24d983da558e4ec9ae9292460d">TutorialManager</a> : <span class="keyword">public</span> QObject {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    Q_OBJECT</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_function" href="classTutorialManager.html#ae02b2f24d983da558e4ec9ae9292460d">TutorialManager</a>(QWidget* rootWindow);</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#ab1a4a56a7150cf6f216a831e09dd7209">clearSteps</a>();</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887">hideOverlay</a>();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#ac86a5d7a9645910bf065c0573810ab1a">finishLL1</a>();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#afffc44cf7c78c43e9f5c982389284272">finishSLR1</a>();</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classTutorialManager.html#add968041547b7ec3c9e1ef0f19d5005a">eventFilter</a>(QObject* obj, QEvent* ev) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  signals:</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classTutorialManager.html#aba61470a5090632d6df51b167e740054">   96</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#aba61470a5090632d6df51b167e740054">stepStarted</a>(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classTutorialManager.html#ac3e8c34792596992dc52d21de5198030">  101</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#ac3e8c34792596992dc52d21de5198030">tutorialFinished</a>();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classTutorialManager.html#abf8b24c8df5d32737916275846e6af6a">  106</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#abf8b24c8df5d32737916275846e6af6a">ll1Finished</a>();</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf">  111</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf">slr1Finished</a>();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  <span class="keyword">public</span> slots:</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordtype">void</span> <a class="code hl_slot" href="classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3">nextStep</a>();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordtype">void</span> showOverlay();</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordtype">void</span> repositionOverlay();</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    QWidget*              m_root;  </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    QVector&lt;TutorialStep&gt; m_steps; </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordtype">int</span>                   m_index = -1; </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    QWidget* m_overlay = <span class="keyword">nullptr</span>; </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    QFrame*  m_highlight =</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keyword">nullptr</span>; </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    QTextBrowser* m_textBox = <span class="keyword">nullptr</span>; </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    QPushButton*  m_nextBtn = <span class="keyword">nullptr</span>; </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>};</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#a7b05249eda87d17113d5e91c0b9da529">addStep</a>(QWidget* target, <span class="keyword">const</span> QString&amp; htmlText);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30">start</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#a57817e60d063bad9ac188e1cf9c86588">setRootWindow</a>(QWidget* newRoot);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#ab1a4a56a7150cf6f216a831e09dd7209">clearSteps</a>();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887">hideOverlay</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#ac86a5d7a9645910bf065c0573810ab1a">finishLL1</a>();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classTutorialManager.html#afffc44cf7c78c43e9f5c982389284272">finishSLR1</a>();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classTutorialManager.html#add968041547b7ec3c9e1ef0f19d5005a">eventFilter</a>(QObject* obj, QEvent* ev) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  signals:</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classTutorialManager.html#aba61470a5090632d6df51b167e740054">  114</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#aba61470a5090632d6df51b167e740054">stepStarted</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classTutorialManager.html#ac3e8c34792596992dc52d21de5198030">  119</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#ac3e8c34792596992dc52d21de5198030">tutorialFinished</a>();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classTutorialManager.html#abf8b24c8df5d32737916275846e6af6a">  124</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#abf8b24c8df5d32737916275846e6af6a">ll1Finished</a>();</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf">  129</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf">slr1Finished</a>();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  <span class="keyword">public</span> slots:</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordtype">void</span> <a class="code hl_slot" href="classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3">nextStep</a>();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordtype">void</span> showOverlay();</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">void</span> repositionOverlay();</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    QWidget*              m_root;  </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    QVector&lt;TutorialStep&gt; m_steps; </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordtype">int</span>                   m_index = -1; </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    QWidget* m_overlay = <span class="keyword">nullptr</span>; </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    QFrame*  m_highlight =</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keyword">nullptr</span>; </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    QTextBrowser* m_textBox = <span class="keyword">nullptr</span>; </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    QPushButton*  m_nextBtn = <span class="keyword">nullptr</span>; </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>};</div>
 </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">#endif </span><span class="comment">// TUTORIALMANAGER_H</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">#endif </span><span class="comment">// TUTORIALMANAGER_H</span></div>
 <div class="ttc" id="aclassTutorialManager_html_a43ead2fd97e8b0783026004724988cdf"><div class="ttname"><a href="classTutorialManager.html#a43ead2fd97e8b0783026004724988cdf">TutorialManager::slr1Finished</a></div><div class="ttdeci">void slr1Finished()</div><div class="ttdoc">Emitted when the SLR(1) tutorial ends.</div></div>
-<div class="ttc" id="aclassTutorialManager_html_a4fd17560c48c8f8646ef846b8f36bb30"><div class="ttname"><a href="classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30">TutorialManager::start</a></div><div class="ttdeci">void start()</div><div class="ttdoc">Starts the tutorial from the beginning.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:69</div></div>
-<div class="ttc" id="aclassTutorialManager_html_a57817e60d063bad9ac188e1cf9c86588"><div class="ttname"><a href="classTutorialManager.html#a57817e60d063bad9ac188e1cf9c86588">TutorialManager::setRootWindow</a></div><div class="ttdeci">void setRootWindow(QWidget *newRoot)</div><div class="ttdoc">Sets the root window (used for repositioning the overlay).</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:32</div></div>
-<div class="ttc" id="aclassTutorialManager_html_a7b05249eda87d17113d5e91c0b9da529"><div class="ttname"><a href="classTutorialManager.html#a7b05249eda87d17113d5e91c0b9da529">TutorialManager::addStep</a></div><div class="ttdeci">void addStep(QWidget *target, const QString &amp;htmlText)</div><div class="ttdoc">Adds a new step to the tutorial sequence.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:65</div></div>
-<div class="ttc" id="aclassTutorialManager_html_aaa497afd5ce20be6249e2660f74b6dc3"><div class="ttname"><a href="classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3">TutorialManager::nextStep</a></div><div class="ttdeci">void nextStep()</div><div class="ttdoc">Advances to the next tutorial step.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:74</div></div>
-<div class="ttc" id="aclassTutorialManager_html_ab1a4a56a7150cf6f216a831e09dd7209"><div class="ttname"><a href="classTutorialManager.html#ab1a4a56a7150cf6f216a831e09dd7209">TutorialManager::clearSteps</a></div><div class="ttdeci">void clearSteps()</div><div class="ttdoc">Clears all steps in the tutorial.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:25</div></div>
-<div class="ttc" id="aclassTutorialManager_html_ab9e00263109c4e1ab6b66617ce2f1887"><div class="ttname"><a href="classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887">TutorialManager::hideOverlay</a></div><div class="ttdeci">void hideOverlay()</div><div class="ttdoc">Hides the tutorial overlay immediately.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:119</div></div>
+<div class="ttc" id="aclassTutorialManager_html_a4fd17560c48c8f8646ef846b8f36bb30"><div class="ttname"><a href="classTutorialManager.html#a4fd17560c48c8f8646ef846b8f36bb30">TutorialManager::start</a></div><div class="ttdeci">void start()</div><div class="ttdoc">Starts the tutorial from the beginning.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:87</div></div>
+<div class="ttc" id="aclassTutorialManager_html_a57817e60d063bad9ac188e1cf9c86588"><div class="ttname"><a href="classTutorialManager.html#a57817e60d063bad9ac188e1cf9c86588">TutorialManager::setRootWindow</a></div><div class="ttdeci">void setRootWindow(QWidget *newRoot)</div><div class="ttdoc">Sets the root window (used for repositioning the overlay).</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:50</div></div>
+<div class="ttc" id="aclassTutorialManager_html_a7b05249eda87d17113d5e91c0b9da529"><div class="ttname"><a href="classTutorialManager.html#a7b05249eda87d17113d5e91c0b9da529">TutorialManager::addStep</a></div><div class="ttdeci">void addStep(QWidget *target, const QString &amp;htmlText)</div><div class="ttdoc">Adds a new step to the tutorial sequence.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:83</div></div>
+<div class="ttc" id="aclassTutorialManager_html_aaa497afd5ce20be6249e2660f74b6dc3"><div class="ttname"><a href="classTutorialManager.html#aaa497afd5ce20be6249e2660f74b6dc3">TutorialManager::nextStep</a></div><div class="ttdeci">void nextStep()</div><div class="ttdoc">Advances to the next tutorial step.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:92</div></div>
+<div class="ttc" id="aclassTutorialManager_html_ab1a4a56a7150cf6f216a831e09dd7209"><div class="ttname"><a href="classTutorialManager.html#ab1a4a56a7150cf6f216a831e09dd7209">TutorialManager::clearSteps</a></div><div class="ttdeci">void clearSteps()</div><div class="ttdoc">Clears all steps in the tutorial.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:43</div></div>
+<div class="ttc" id="aclassTutorialManager_html_ab9e00263109c4e1ab6b66617ce2f1887"><div class="ttname"><a href="classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887">TutorialManager::hideOverlay</a></div><div class="ttdeci">void hideOverlay()</div><div class="ttdoc">Hides the tutorial overlay immediately.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:137</div></div>
 <div class="ttc" id="aclassTutorialManager_html_aba61470a5090632d6df51b167e740054"><div class="ttname"><a href="classTutorialManager.html#aba61470a5090632d6df51b167e740054">TutorialManager::stepStarted</a></div><div class="ttdeci">void stepStarted(int index)</div><div class="ttdoc">Emitted when a new tutorial step starts.</div></div>
 <div class="ttc" id="aclassTutorialManager_html_abf8b24c8df5d32737916275846e6af6a"><div class="ttname"><a href="classTutorialManager.html#abf8b24c8df5d32737916275846e6af6a">TutorialManager::ll1Finished</a></div><div class="ttdeci">void ll1Finished()</div><div class="ttdoc">Emitted when the LL(1) tutorial ends.</div></div>
 <div class="ttc" id="aclassTutorialManager_html_ac3e8c34792596992dc52d21de5198030"><div class="ttname"><a href="classTutorialManager.html#ac3e8c34792596992dc52d21de5198030">TutorialManager::tutorialFinished</a></div><div class="ttdeci">void tutorialFinished()</div><div class="ttdoc">Emitted when the full tutorial is finished.</div></div>
-<div class="ttc" id="aclassTutorialManager_html_ac86a5d7a9645910bf065c0573810ab1a"><div class="ttname"><a href="classTutorialManager.html#ac86a5d7a9645910bf065c0573810ab1a">TutorialManager::finishLL1</a></div><div class="ttdeci">void finishLL1()</div><div class="ttdoc">Ends the LL(1) tutorial sequence and emits its corresponding signal.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:9</div></div>
-<div class="ttc" id="aclassTutorialManager_html_add968041547b7ec3c9e1ef0f19d5005a"><div class="ttname"><a href="classTutorialManager.html#add968041547b7ec3c9e1ef0f19d5005a">TutorialManager::eventFilter</a></div><div class="ttdeci">bool eventFilter(QObject *obj, QEvent *ev) override</div><div class="ttdoc">Intercepts UI events to handle overlay behavior.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:17</div></div>
-<div class="ttc" id="aclassTutorialManager_html_ae02b2f24d983da558e4ec9ae9292460d"><div class="ttname"><a href="classTutorialManager.html#ae02b2f24d983da558e4ec9ae9292460d">TutorialManager::TutorialManager</a></div><div class="ttdeci">TutorialManager(QWidget *rootWindow)</div><div class="ttdoc">Constructs a TutorialManager for a given window.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:4</div></div>
-<div class="ttc" id="aclassTutorialManager_html_afffc44cf7c78c43e9f5c982389284272"><div class="ttname"><a href="classTutorialManager.html#afffc44cf7c78c43e9f5c982389284272">TutorialManager::finishSLR1</a></div><div class="ttdeci">void finishSLR1()</div><div class="ttdoc">Ends the SLR(1) tutorial sequence and emits its corresponding signal.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:13</div></div>
-<div class="ttc" id="astructTutorialStep_html"><div class="ttname"><a href="structTutorialStep.html">TutorialStep</a></div><div class="ttdoc">Represents a single step in the tutorial sequence.</div><div class="ttdef"><b>Definition</b> tutorialmanager.h:20</div></div>
-<div class="ttc" id="astructTutorialStep_html_ab7ebd119569066e3a922e7ea52d8fdc9"><div class="ttname"><a href="structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9">TutorialStep::target</a></div><div class="ttdeci">QWidget * target</div><div class="ttdoc">Widget to highlight during the tutorial step.</div><div class="ttdef"><b>Definition</b> tutorialmanager.h:21</div></div>
-<div class="ttc" id="astructTutorialStep_html_ac9fe036c9f6e4981b7d3240932aefea2"><div class="ttname"><a href="structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2">TutorialStep::htmlText</a></div><div class="ttdeci">QString htmlText</div><div class="ttdoc">HTML text to show as instruction or explanation.</div><div class="ttdef"><b>Definition</b> tutorialmanager.h:22</div></div>
+<div class="ttc" id="aclassTutorialManager_html_ac86a5d7a9645910bf065c0573810ab1a"><div class="ttname"><a href="classTutorialManager.html#ac86a5d7a9645910bf065c0573810ab1a">TutorialManager::finishLL1</a></div><div class="ttdeci">void finishLL1()</div><div class="ttdoc">Ends the LL(1) tutorial sequence and emits its corresponding signal.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:27</div></div>
+<div class="ttc" id="aclassTutorialManager_html_add968041547b7ec3c9e1ef0f19d5005a"><div class="ttname"><a href="classTutorialManager.html#add968041547b7ec3c9e1ef0f19d5005a">TutorialManager::eventFilter</a></div><div class="ttdeci">bool eventFilter(QObject *obj, QEvent *ev) override</div><div class="ttdoc">Intercepts UI events to handle overlay behavior.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:35</div></div>
+<div class="ttc" id="aclassTutorialManager_html_ae02b2f24d983da558e4ec9ae9292460d"><div class="ttname"><a href="classTutorialManager.html#ae02b2f24d983da558e4ec9ae9292460d">TutorialManager::TutorialManager</a></div><div class="ttdeci">TutorialManager(QWidget *rootWindow)</div><div class="ttdoc">Constructs a TutorialManager for a given window.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:22</div></div>
+<div class="ttc" id="aclassTutorialManager_html_afffc44cf7c78c43e9f5c982389284272"><div class="ttname"><a href="classTutorialManager.html#afffc44cf7c78c43e9f5c982389284272">TutorialManager::finishSLR1</a></div><div class="ttdeci">void finishSLR1()</div><div class="ttdoc">Ends the SLR(1) tutorial sequence and emits its corresponding signal.</div><div class="ttdef"><b>Definition</b> tutorialmanager.cpp:31</div></div>
+<div class="ttc" id="astructTutorialStep_html"><div class="ttname"><a href="structTutorialStep.html">TutorialStep</a></div><div class="ttdoc">Represents a single step in the tutorial sequence.</div><div class="ttdef"><b>Definition</b> tutorialmanager.h:38</div></div>
+<div class="ttc" id="astructTutorialStep_html_ab7ebd119569066e3a922e7ea52d8fdc9"><div class="ttname"><a href="structTutorialStep.html#ab7ebd119569066e3a922e7ea52d8fdc9">TutorialStep::target</a></div><div class="ttdeci">QWidget * target</div><div class="ttdoc">Widget to highlight during the tutorial step.</div><div class="ttdef"><b>Definition</b> tutorialmanager.h:39</div></div>
+<div class="ttc" id="astructTutorialStep_html_ac9fe036c9f6e4981b7d3240932aefea2"><div class="ttname"><a href="structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2">TutorialStep::htmlText</a></div><div class="ttdeci">QString htmlText</div><div class="ttdoc">HTML text to show as instruction or explanation.</div><div class="ttdef"><b>Definition</b> tutorialmanager.h:40</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
