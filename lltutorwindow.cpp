@@ -1290,6 +1290,14 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
 
 bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
     QStringList userResp = userResponse.split(',', Qt::SkipEmptyParts);
+    if (userResp.size() != 2)
+        return false;
+    for (QString& part : userResp) {
+        part = part.trimmed();
+        if (part.isEmpty()) {
+            return false;
+        }
+    }
     return userResp == solutionForA();
 }
 

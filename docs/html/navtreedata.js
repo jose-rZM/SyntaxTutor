@@ -27,17 +27,21 @@ var NAVTREE =
   [ "SyntaxTutor", "index.html", [
     [ "SyntaxTutor: An interactive Tool for Learning Syntax Analysis", "index.html", "index" ],
     [ "Changelog", "md_CHANGELOG.html", [
-      [ "[1.0.2] - 2025-07-16", "md_CHANGELOG.html#autotoc_md1", [
+      [ "[1.0.3] - 2025-11-04", "md_CHANGELOG.html#autotoc_md1", [
         [ "Added", "md_CHANGELOG.html#autotoc_md2", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md3", null ]
       ] ],
-      [ "[1.0.1] - 2025-06-17", "md_CHANGELOG.html#autotoc_md4", [
+      [ "[1.0.2] - 2025-07-16", "md_CHANGELOG.html#autotoc_md4", [
         [ "Added", "md_CHANGELOG.html#autotoc_md5", null ],
-        [ "Fixed", "md_CHANGELOG.html#autotoc_md6", null ],
-        [ "Quality", "md_CHANGELOG.html#autotoc_md7", null ]
+        [ "Fixed", "md_CHANGELOG.html#autotoc_md6", null ]
       ] ],
-      [ "[1.0.0] - 2025-06-15", "md_CHANGELOG.html#autotoc_md8", [
-        [ "Initial Release", "md_CHANGELOG.html#autotoc_md9", null ]
+      [ "[1.0.1] - 2025-06-17", "md_CHANGELOG.html#autotoc_md7", [
+        [ "Added", "md_CHANGELOG.html#autotoc_md8", null ],
+        [ "Fixed", "md_CHANGELOG.html#autotoc_md9", null ],
+        [ "Quality", "md_CHANGELOG.html#autotoc_md10", null ]
+      ] ],
+      [ "[1.0.0] - 2025-06-15", "md_CHANGELOG.html#autotoc_md11", [
+        [ "Initial Release", "md_CHANGELOG.html#autotoc_md12", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [

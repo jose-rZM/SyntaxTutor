@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2025-11-04
+Minor usability improvements in user input handling.
+### Added
+- Allow the user to write `A -> .` instead of `A -> EPSILON .`
+
+### Fixed
+- Accept input containing spaces in responses sush as `x, y`
+
 ## [1.0.2] - 2025-07-16
 ### Added
 - User manual in Spanish (`manual/SyntaxTutor-Manual-ES.pdf`)

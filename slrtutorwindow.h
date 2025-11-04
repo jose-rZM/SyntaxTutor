@@ -175,7 +175,7 @@ class SLRTutorWindow : public QMainWindow {
     unsigned                    solutionForC();
     QStringList                 solutionForCA();
     std::unordered_set<Lr0Item> solutionForCB();
-    QString                     solutionForD();
+    QStringList                 solutionForD();
     QString                     solutionForD1();
     QString                     solutionForD2();
     std::ptrdiff_t              solutionForE();

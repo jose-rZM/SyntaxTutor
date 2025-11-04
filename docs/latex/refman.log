@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex 2025.4.5)  17 JUL 2025 09:26
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex 2025.8.24)  4 NOV 2025 21:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1948,39 +1948,52 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 15.
+(Font)              using `TU/phv/bx/n' instead on input line 12.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 20.
+(Font)              using `TU/phv/bx/n' instead on input line 16.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 21.
+(Font)              using `TU/phv/bx/n' instead on input line 17.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 26.
+(Font)              using `TU/phv/bx/n' instead on input line 24.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 32.
+(Font)              using `TU/phv/bx/n' instead on input line 29.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 38.
+(Font)              using `TU/phv/bx/n' instead on input line 30.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 39.
+(Font)              using `TU/phv/bx/n' instead on input line 35.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 41.
 
 
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 43.
+(Font)              using `TU/phv/bx/n' instead on input line 45.
 
-[11])
+[11]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 47.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 48.
+
+)
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -3806,104 +3819,96 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 309.
 
+File: classLLTutorWindow_a94ddf1d30839b7191479c24588a760bc_cgraph.pdf Graphic f
+ile (type pdf)
+<use classLLTutorWindow_a94ddf1d30839b7191479c24588a760bc_cgraph.pdf>
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 315.
-
-
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 319.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 319.
+(Font)              using `TU/phv/bx/n' instead on input line 322.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 319.
+(Font)              using `TU/phv/bx/n' instead on input line 322.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 322.
 
 [56]
-File: classLLTutorWindow_a7aaded0d4be413f66c9468b5ceff3314_cgraph.pdf Graphic f
-ile (type pdf)
-<use classLLTutorWindow_a7aaded0d4be413f66c9468b5ceff3314_cgraph.pdf>
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 322.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 328.
 
-File: classLLTutorWindow_a6bf3862eff44655b4127d0fb750abe9c_cgraph.pdf Graphic f
-ile (type pdf)
-<use classLLTutorWindow_a6bf3862eff44655b4127d0fb750abe9c_cgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 341.
+(Font)              using `TU/phv/bx/n' instead on input line 334.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 347.
-
-File: classLLTutorWindow_a7657ba7f2b7c8caef186fe3b6acf671c_cgraph.pdf Graphic f
-ile (type pdf)
-<use classLLTutorWindow_a7657ba7f2b7c8caef186fe3b6acf671c_cgraph.pdf>
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 360.
+(Font)              using `TU/phv/bx/n' instead on input line 340.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 366.
+(Font)              using `TU/phv/bx/n' instead on input line 346.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 372.
-
-
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 376.
+(Font)              using `TU/phv/bx/n' instead on input line 352.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 376.
+(Font)              using `TU/phv/bx/n' instead on input line 358.
 
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 376.
-
-[57]
 File: classLLTutorWindow_a550c58032dbf18f48ac4d97d65ed6ec9_icgraph.pdf Graphic 
 file (type pdf)
 <use classLLTutorWindow_a550c58032dbf18f48ac4d97d65ed6ec9_icgraph.pdf>
 
-
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 385.
+(Font)              using `TU/phv/bx/n' instead on input line 371.
 
 File: classLLTutorWindow_aeeae3a71bd29bcf5ff97d6ea28211e81_icgraph.pdf Graphic 
 file (type pdf)
 <use classLLTutorWindow_aeeae3a71bd29bcf5ff97d6ea28211e81_icgraph.pdf>
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 398.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 404.
+(Font)              using `TU/phv/bx/n' instead on input line 384.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 410.
+(Font)              using `TU/phv/bx/n' instead on input line 384.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 416.
+(Font)              using `TU/phv/bx/n' instead on input line 384.
+
+[57]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 384.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 422.
+(Font)              using `TU/phv/bx/n' instead on input line 390.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 396.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 402.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 408.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -3914,7 +3919,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
 
 
-Underfull \hbox (badness 10000) detected at line 435
+Underfull \hbox (badness 10000) detected at line 421
 [][][]
  []
 
@@ -3922,26 +3927,25 @@ File: classLLTutorWindow_ab53c5ad90f32ca16f43ee28656a7a39b_icgraph.pdf Graphic
 file (type pdf)
 <use classLLTutorWindow_ab53c5ad90f32ca16f43ee28656a7a39b_icgraph.pdf>
 
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 433.
+
+
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 447.
+(Font)              using `TU/phv/bx/n' instead on input line 441.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 447.
+(Font)              using `TU/phv/bx/n' instead on input line 441.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 447.
+(Font)              using `TU/phv/bx/n' instead on input line 441.
 
 [58]
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 447.
-
-
-Underfull \hbox (badness 10000) detected at line 455
+Underfull \hbox (badness 10000) detected at line 441
 [][][]
  []
 
@@ -3950,143 +3954,128 @@ file (type pdf)
 <use classLLTutorWindow_af2fd68df43d6ce1b4fe3aff2443c8d4e_icgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 467.
+(Font)              using `TU/phv/bx/n' instead on input line 453.
 
 File: classLLTutorWindow_a76a825d9c56a31849e340be7b45f6674_cgraph.pdf Graphic f
 ile (type pdf)
 <use classLLTutorWindow_a76a825d9c56a31849e340be7b45f6674_cgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 480.
+(Font)              using `TU/phv/bx/n' instead on input line 466.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 490.
+(Font)              using `TU/phv/bx/n' instead on input line 476.
 
-
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 493.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 493.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 493.
-
-[59]
 File: classLLTutorWindow_a10877112f1a6d1ab4417cf872a3f21b5_icgraph.pdf Graphic 
 file (type pdf)
 <use classLLTutorWindow_a10877112f1a6d1ab4417cf872a3f21b5_icgraph.pdf>
 
-
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 503.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 513.
+(Font)              using `TU/phv/bx/n' instead on input line 489.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 523.
+(Font)              using `TU/phv/bx/n' instead on input line 499.
+
+
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 529.
+(Font)              using `TU/phv/bx/n' instead on input line 505.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 535.
+(Font)              using `TU/phv/bx/n' instead on input line 505.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 541.
+(Font)              using `TU/phv/bx/n' instead on input line 505.
+
+[59]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 509.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 547.
+(Font)              using `TU/phv/bx/n' instead on input line 515.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 553.
+(Font)              using `TU/phv/bx/n' instead on input line 521.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 527.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 533.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 539.
 
 File: classLLTutorWindow_ad8e8d1afe579c1416fb5cedd2b60a84a_icgraph.pdf Graphic 
 file (type pdf)
 <use classLLTutorWindow_ad8e8d1afe579c1416fb5cedd2b60a84a_icgraph.pdf>
 
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 552.
+
+File: classLLTutorWindow_a919d50eb83ab03bfe05645ba8a16eb3e_icgraph.pdf Graphic 
+file (type pdf)
+<use classLLTutorWindow_a919d50eb83ab03bfe05645ba8a16eb3e_icgraph.pdf>
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 565.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 566.
+(Font)              using `TU/phv/bx/n' instead on input line 571.
+
+
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 566.
+(Font)              using `TU/phv/bx/n' instead on input line 574.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 566.
+(Font)              using `TU/phv/bx/n' instead on input line 574.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 574.
 
 [60]
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 566.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 572.
-
-File: classLLTutorWindow_aae56758be5ab1d25104df692506b8369_icgraph.pdf Graphic 
-file (type pdf)
-<use classLLTutorWindow_aae56758be5ab1d25104df692506b8369_icgraph.pdf>
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 585.
-
 File: classLLTutorWindow_aa6fe4466c5724c64ee3627897a396c26_cgraph.pdf Graphic f
 ile (type pdf)
 <use classLLTutorWindow_aa6fe4466c5724c64ee3627897a396c26_cgraph.pdf>
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 598.
-
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 604.
-
-
+(Font)              using `TU/phv/bx/n' instead on input line 584.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 610.
+(Font)              using `TU/phv/bx/n' instead on input line 590.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 610.
+(Font)              using `TU/phv/bx/n' instead on input line 596.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 610.
-
-[61]
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 610.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 616.
+(Font)              using `TU/phv/bx/n' instead on input line 602.
 
 File: classLLTutorWindow_ad7528d4e40e7d041d4ae4049ccf4c222_icgraph.pdf Graphic 
 file (type pdf)
 <use classLLTutorWindow_ad7528d4e40e7d041d4ae4049ccf4c222_icgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 629.
+(Font)              using `TU/phv/bx/n' instead on input line 615.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -4097,21 +4086,43 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
 
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 644.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 650.
+(Font)              using `TU/phv/bx/n' instead on input line 627.
 
-File: classLLTutorWindow_ac45e43831b3af81f0b667592e69b2137_icgraph.pdf Graphic 
-file (type pdf)
-<use classLLTutorWindow_ac45e43831b3af81f0b667592e69b2137_icgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 663.
+(Font)              using `TU/phv/bx/n' instead on input line 627.
 
 
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 627.
+
+[61]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 630.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 636.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 642.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 648.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 654.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 660.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -4119,44 +4130,15 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 666.
+(Font)              using `TU/phv/bx/n' instead on input line 672.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 666.
-
-[62]
-File: classLLTutorWindow_a560702b183dbcfed68850b0df1ec6641_icgraph.pdf Graphic 
-file (type pdf)
-<use classLLTutorWindow_a560702b183dbcfed68850b0df1ec6641_icgraph.pdf>
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 676.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 682.
+(Font)              using `TU/phv/bx/n' instead on input line 678.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 688.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 694.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 700.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 706.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 716.
 
 ) (./structLr0Item.tex
 
@@ -4164,24 +4146,24 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
 
 
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 10.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 10.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 10.
+
+[62]
+
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 12.
 
-
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 16.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 16.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 16.
-
-[63]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 31.
@@ -4207,8 +4189,6 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
 
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 76.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -4218,7 +4198,11 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 76.
 
-[64]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 76.
+
+[63]
 File: structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3_icgraph.pdf Graphic file 
 (type pdf)
 <use structLr0Item_a3e7a247e1ac8db4ae651fa7796ed40c3_icgraph.pdf>
@@ -4264,7 +4248,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 138.
 
-[65]
+[64]
 Underfull \hbox (badness 10000) detected at line 138
 [][][]
  []
@@ -4318,7 +4302,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 195.
 
-[66]
+[65]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 195.
@@ -4373,7 +4357,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 275.
 
-[67]) (./classMainWindow.tex
+[66]) (./classMainWindow.tex
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
@@ -4404,7 +4388,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 45.
 
-[68]
+[67]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 50.
@@ -4453,7 +4437,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 106.
 
-[69]
+[68]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 106.
@@ -4523,7 +4507,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 181.
 
-[70]
+[69]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 181.
@@ -4568,7 +4552,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 16.
 
-[71]
+[70]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 16.
@@ -4610,7 +4594,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 25.
 
-[72]
+[71]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 26.
@@ -4637,7 +4621,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 77.
 
-[73]
+[72]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 87.
@@ -4684,7 +4668,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 155.
 
-[74]
+[73]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
@@ -4739,7 +4723,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 226.
 
-[75]
+[74]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
@@ -4783,7 +4767,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 275.
 
-[76]
+[75]
 File: classSLR1Parser_a00101890c3c4d2871a8c100209abf122_icgraph.pdf Graphic fil
 e (type pdf)
 <use classSLR1Parser_a00101890c3c4d2871a8c100209abf122_icgraph.pdf>
@@ -4816,7 +4800,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 315.
 
-[77]
+[76]
 Underfull \hbox (badness 10000) detected at line 326
 [][][]
  []
@@ -4858,7 +4842,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 365.
 
-[78]
+[77]
 Underfull \hbox (badness 10000) detected at line 366
 [][][]
  []
@@ -4895,7 +4879,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 409.
 
-[79]
+[78]
 File: classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0_icgraph.pdf Graphic fil
 e (type pdf)
 <use classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0_icgraph.pdf>
@@ -4938,7 +4922,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 453.
 
-[80]
+[79]
 Underfull \hbox (badness 10000) detected at line 455
 [][][]
  []
@@ -4980,7 +4964,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 503.
 
-[81]
+[80]
 File: classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed_icgraph.pdf Graphic fil
 e (type pdf)
 <use classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed_icgraph.pdf>
@@ -5028,7 +5012,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 546.
 
-[82]
+[81]
 Underfull \hbox (badness 10000) detected at line 547
 [][][]
  []
@@ -5083,7 +5067,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 10.
 
-[83]
+[82]
 File: classSLRTableDialog__inherit__graph.pdf Graphic file (type pdf)
 <use classSLRTableDialog__inherit__graph.pdf>
 File: classSLRTableDialog__coll__graph.pdf Graphic file (type pdf)
@@ -5133,7 +5117,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 70.
 
-[84]
+[83]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 74.
@@ -5182,7 +5166,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 30.
 
-[85]
+[84]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 30.
@@ -5205,21 +5189,21 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 94.
 
+[85]
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 202.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 202.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 202.
+
 [86]
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 202.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 202.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 202.
-
-[87]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 206.
@@ -5264,7 +5248,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 259.
 
-[88]
+[87]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 259.
@@ -5314,7 +5298,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 321.
 
-[89]
+[88]
 File: classSLRTutorWindow_afcbe8c07ade16d53d53cc87dcd40d44b_cgraph.pdf Graphic 
 file (type pdf)
 <use classSLRTutorWindow_afcbe8c07ade16d53d53cc87dcd40d44b_cgraph.pdf>
@@ -5372,7 +5356,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 396.
 
-[90]
+[89]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 396.
@@ -5451,7 +5435,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 492.
 
-[91]
+[90]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 492.
@@ -5505,7 +5489,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 567.
 
-[92]
+[91]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 567.
@@ -5514,144 +5498,147 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 573.
 
-File: classSLRTutorWindow_a71213d42e715ca1c1e5a02b078bc9b24_cgraph.pdf Graphic 
-file (type pdf)
-<use classSLRTutorWindow_a71213d42e715ca1c1e5a02b078bc9b24_cgraph.pdf>
-File: classSLRTutorWindow_a71213d42e715ca1c1e5a02b078bc9b24_icgraph.pdf Graphic
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 579.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 585.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 591.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 597.
+
+File: classSLRTutorWindow_a29cdb46729530ef00da0fd07f9813ff2_icgraph.pdf Graphic
  file (type pdf)
-<use classSLRTutorWindow_a71213d42e715ca1c1e5a02b078bc9b24_icgraph.pdf>
+<use classSLRTutorWindow_a29cdb46729530ef00da0fd07f9813ff2_icgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 593.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 599.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 605.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 611.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 617.
+(Font)              using `TU/phv/bx/n' instead on input line 610.
 
 File: classSLRTutorWindow_afe3f5f8121d5401c621cb4396fb067c2_icgraph.pdf Graphic
  file (type pdf)
 <use classSLRTutorWindow_afe3f5f8121d5401c621cb4396fb067c2_icgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 630.
+(Font)              using `TU/phv/bx/n' instead on input line 623.
 
-
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 636.
-
+File: classSLRTutorWindow_a735621e8cd60c4b60c0f80978593438a_icgraph.pdf Graphic
+ file (type pdf)
+<use classSLRTutorWindow_a735621e8cd60c4b60c0f80978593438a_icgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 636.
 
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 636.
-
-[93]
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 636.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 642.
 
-File: classSLRTutorWindow_ac4017a716f065b29ea2957f8af15643c_cgraph.pdf Graphic 
-file (type pdf)
-<use classSLRTutorWindow_ac4017a716f065b29ea2957f8af15643c_cgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 655.
+(Font)              using `TU/phv/bx/n' instead on input line 642.
 
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 642.
+
+[92]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 642.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 648.
+
+File: classSLRTutorWindow_a5c30bd1c6b1ccb2795d84292ff8f2d5d_cgraph.eps Graphic 
+file (type eps)
+<classSLRTutorWindow_a5c30bd1c6b1ccb2795d84292ff8f2d5d_cgraph.eps>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 661.
 
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 667.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 673.
-
-File: classSLRTutorWindow_a1ddc0f3362ec35ccbf7f3a326c50cfb6_cgraph.pdf Graphic 
-file (type pdf)
-<use classSLRTutorWindow_a1ddc0f3362ec35ccbf7f3a326c50cfb6_cgraph.pdf>
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 686.
-
-File: classSLRTutorWindow_a81410ccd351a369f2198021c717e4f11_icgraph.pdf Graphic
+File: classSLRTutorWindow_a6e31b87f3ded32f995df622b2b2fec52_cgraph.eps Graphic 
+file (type eps)
+<classSLRTutorWindow_a6e31b87f3ded32f995df622b2b2fec52_cgraph.eps>
+File: classSLRTutorWindow_a6e31b87f3ded32f995df622b2b2fec52_icgraph.pdf Graphic
  file (type pdf)
-<use classSLRTutorWindow_a81410ccd351a369f2198021c717e4f11_icgraph.pdf>
+<use classSLRTutorWindow_a6e31b87f3ded32f995df622b2b2fec52_icgraph.pdf>
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 681.
+
+File: classSLRTutorWindow_a3057490ca57531863f10ff095674c2aa_cgraph.eps Graphic 
+file (type eps)
+<classSLRTutorWindow_a3057490ca57531863f10ff095674c2aa_cgraph.eps>
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 694.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 700.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 706.
+
 
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 699.
+(Font)              using `TU/phv/bx/n' instead on input line 712.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 699.
+(Font)              using `TU/phv/bx/n' instead on input line 712.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 699.
+(Font)              using `TU/phv/bx/n' instead on input line 712.
 
-[94]
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 699.
-
+[93]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 705.
+(Font)              using `TU/phv/bx/n' instead on input line 712.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 711.
+(Font)              using `TU/phv/bx/n' instead on input line 718.
 
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 717.
-
-File: classSLRTutorWindow_a38744c85866ae1c8df6a0f01a61bb0aa_cgraph.pdf Graphic 
+File: classSLRTutorWindow_a1f0f3520f3d618a6c5e777a86f31e5ad_cgraph.pdf Graphic 
 file (type pdf)
-<use classSLRTutorWindow_a38744c85866ae1c8df6a0f01a61bb0aa_cgraph.pdf>
+<use classSLRTutorWindow_a1f0f3520f3d618a6c5e777a86f31e5ad_cgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 730.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 736.
+(Font)              using `TU/phv/bx/n' instead on input line 731.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 742.
+(Font)              using `TU/phv/bx/n' instead on input line 737.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 748.
+(Font)              using `TU/phv/bx/n' instead on input line 743.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 754.
+(Font)              using `TU/phv/bx/n' instead on input line 749.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 755.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 761.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -5668,28 +5655,25 @@ file (type pdf)
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 776.
+(Font)              using `TU/phv/bx/n' instead on input line 783.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 776.
+(Font)              using `TU/phv/bx/n' instead on input line 783.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 776.
+(Font)              using `TU/phv/bx/n' instead on input line 783.
 
-[95]
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 776.
-
+[94]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 782.
+(Font)              using `TU/phv/bx/n' instead on input line 783.
 
-File: classSLRTutorWindow_a3fea45aa0aab4b7e6bec29ad91f0a2d9_icgraph.pdf Graphic
- file (type pdf)
-<use classSLRTutorWindow_a3fea45aa0aab4b7e6bec29ad91f0a2d9_icgraph.pdf>
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 789.
+
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 795.
@@ -5719,24 +5703,24 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 831.
 
 
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 834.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 834.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 834.
-
-[96]
-
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 837.
 
+
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 843.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 843.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 843.
+
+[95]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 843.
@@ -5757,51 +5741,54 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 867.
 
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 873.
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 879.
-
-File: classSLRTutorWindow_a94cf3c4a505eba3f6049c0b61a1647c6_cgraph.pdf Graphic 
+File: classSLRTutorWindow_ad8c5893e6903a57f19d07d608f050a8c_cgraph.pdf Graphic 
 file (type pdf)
-<use classSLRTutorWindow_a94cf3c4a505eba3f6049c0b61a1647c6_cgraph.pdf>
+<use classSLRTutorWindow_ad8c5893e6903a57f19d07d608f050a8c_cgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 892.
+(Font)              using `TU/phv/bx/n' instead on input line 880.
 
-
-
-
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 898.
-
+File: classSLRTutorWindow_abcc6a3527d120052efcbdcff69393db6_cgraph.pdf Graphic 
+file (type pdf)
+<use classSLRTutorWindow_abcc6a3527d120052efcbdcff69393db6_cgraph.pdf>
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 898.
+(Font)              using `TU/phv/bx/n' instead on input line 893.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 898.
+(Font)              using `TU/phv/bx/n' instead on input line 899.
 
-[97]
 
-LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 898.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 904.
+(Font)              using `TU/phv/bx/n' instead on input line 902.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 910.
+(Font)              using `TU/phv/bx/n' instead on input line 902.
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
-(Font)              using `TU/phv/bx/n' instead on input line 916.
+(Font)              using `TU/phv/bx/n' instead on input line 902.
+
+[96]
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 905.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 911.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 917.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 923.
 
 ) (./classSLRWizard.tex
 
@@ -5830,7 +5817,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 34.
 
-[98]
+[97]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 39.
@@ -5876,7 +5863,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 92.
 
-[99]
+[98]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
@@ -5916,7 +5903,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 30.
 
-[100]
+[99]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 30.
@@ -5964,7 +5951,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 16.
 
-[101]
+[100]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 17.
@@ -6029,7 +6016,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 20.
 
-[102]
+[101]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 23.
@@ -6085,7 +6072,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 79.
 
-[103]
+[102]
 Underfull \hbox (badness 10000) detected at line 80
 [][][]
  []
@@ -6147,7 +6134,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 144.
 
-[104]
+[103]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 148.
@@ -6211,7 +6198,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 42.
 
-[105]) (./classTutorialManager.tex
+[104]) (./classTutorialManager.tex
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
@@ -6246,7 +6233,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 50.
 
-[106]
+[105]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 65.
@@ -6305,7 +6292,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 123.
 
-[107]
+[106]
 File: classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209_cgraph.pdf Graphic
  file (type pdf)
 <use classTutorialManager_ab1a4a56a7150cf6f216a831e09dd7209_cgraph.pdf>
@@ -6349,7 +6336,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 193.
 
-[108]
+[107]
 File: classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887_icgraph.pdf Graphi
 c file (type pdf)
 <use classTutorialManager_ab9e00263109c4e1ab6b66617ce2f1887_icgraph.pdf>
@@ -6382,7 +6369,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 234.
 
-[109]
+[108]
 File: classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3_icgraph.pdf Graphi
 c file (type pdf)
 <use classTutorialManager_aaa497afd5ce20be6249e2660f74b6dc3_icgraph.pdf>
@@ -6423,7 +6410,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 282.
 
-[110]
+[109]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 282.
@@ -6467,7 +6454,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 336.
 
-[111]) (./structTutorialStep.tex
+[110]) (./structTutorialStep.tex
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 1.
@@ -6519,7 +6506,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 22.
 
-[112]
+[111]
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 27.
@@ -6592,7 +6579,7 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 110.
 
-[113])
+[112])
 
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -6606,7 +6593,23 @@ LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 272.
 
-[114]
+[113]
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 272.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 272.
+
+
+LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
+(Font)              using `TU/phv/bx/n' instead on input line 272.
+
+[114
+
+]
 Chapter 7.
 
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
@@ -6632,9 +6635,7 @@ File: grammar_8hpp__incl.pdf Graphic file (type pdf)
 LaTeX Font Warning: Font shape `TU/phv/b/n' undefined
 (Font)              using `TU/phv/bx/n' instead on input line 14.
 
-[115
-
-]
+[115]
 File: grammar_8hpp__dep__incl.pdf Graphic file (type pdf)
 <use grammar_8hpp__dep__incl.pdf>
 
@@ -7794,15 +7795,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: D045F6FDE4EC0601DD0EB29BF08BFF34;78380.
+(rerunfilecheck)             Checksum: 9D15DC722B7A1164BED35B20B8E354F1;78718.
  ) 
 Here is how much of TeX's memory you used:
- 27527 strings out of 475794
- 594762 string characters out of 5774744
- 1197444 words of memory out of 5000000
- 49870 multiletter control sequences out of 15000+600000
+ 27601 strings out of 475794
+ 599638 string characters out of 5774743
+ 1198571 words of memory out of 5000000
+ 49943 multiletter control sequences out of 15000+600000
  566793 words of font info for 97 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 101i,17n,117p,651b,671s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,16n,117p,651b,671s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on refman.pdf (172 pages).

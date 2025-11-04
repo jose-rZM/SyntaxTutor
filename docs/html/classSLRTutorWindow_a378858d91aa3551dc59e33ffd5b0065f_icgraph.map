@@ -1,5 +1,7 @@
 <map id="SLRTutorWindow::addUserState" name="SLRTutorWindow::addUserState">
-<area shape="rect" id="Node000001" title="&lt; Refresh visual progress" alt="" coords="320,5,545,33"/>
-<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a94cf3c4a505eba3f6049c0b61a1647c6" title=" " alt="" coords="5,5,272,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,22,272,22,272,16,304,16"/>
+<area shape="rect" id="Node000001" title="&lt; Refresh visual progress" alt="" coords="292,48,517,76"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#ad8c5893e6903a57f19d07d608f050a8c" title=" " alt="" coords="5,5,244,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="276,49,244,45,244,40,276,44"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#abcc6a3527d120052efcbdcff69393db6" title=" " alt="" coords="5,75,244,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="276,81,244,85,244,80,276,76"/>
 </map>

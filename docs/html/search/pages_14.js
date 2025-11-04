@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🎯_20key_20features_0',['🎯 Key Features',['../index.html#autotoc_md14',1,'']]]
+  ['🎓_20academic_20context_0',['🎓 Academic Context',['../index.html#autotoc_md15',1,'']]]
 ];

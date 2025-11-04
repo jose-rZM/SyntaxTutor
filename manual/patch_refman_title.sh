@@ -25,7 +25,7 @@ BEGIN { in_titlepage = 0 }
         print "    \\rule{0.7\\linewidth}{0.5pt}"
         print "    \\vfill"
         print "    \\begin{flushright}"
-        print "    \\textbf{Version:} 1.0.2\\\\"
+        print "    \\textbf{Version:} 1.0.3\\\\"
         print "    \\textbf{Date:} 2025\\\\"
         print "    \\textbf{Author:} jose-rzm at GitHub"
         print "    \\end{flushright}"

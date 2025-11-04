@@ -1,61 +1,7 @@
 <map id="LLTutorWindow::feedback" name="LLTutorWindow::feedback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,229,192,257"/>
-<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a7aaded0d4be413f66c9468b5ceff3314" title=" " alt="" coords="244,5,459,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,228,125,192,153,146,191,97,238,56,263,43,289,35,291,40,265,48,241,60,195,101,158,149,130,195,111,230"/>
-<area shape="rect" id="Node000004" href="$classLLTutorWindow.html#a6bf3862eff44655b4127d0fb750abe9c" title=" " alt="" coords="240,57,463,85"/>
-<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="107,227,158,164,195,127,238,96,252,89,254,94,241,100,199,131,162,167,111,231"/>
-<area shape="rect" id="Node000005" href="$classLLTutorWindow.html#a40be883da3ead13b1d4e758cf3461fcf" title=" " alt="" coords="240,109,463,137"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="115,227,168,187,202,165,239,146,256,140,257,145,241,151,205,169,171,191,118,231"/>
-<area shape="rect" id="Node000006" href="$classLLTutorWindow.html#a7657ba7f2b7c8caef186fe3b6acf671c" title=" " alt="" coords="248,161,454,206"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="159,226,239,207,240,212,160,231"/>
-<area shape="rect" id="Node000007" href="$classLLTutorWindow.html#abfa66b3379ae723e980e3761accb4d15" title=" " alt="" coords="244,281,459,309"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="170,255,266,275,265,280,169,260"/>
-<area shape="rect" id="Node000010" href="$classLLTutorWindow.html#a64d3c8b71cd2f4af660864d5249fe0f1" title=" " alt="" coords="240,229,463,257"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="192,240,224,240,224,246,192,246"/>
-<area shape="rect" id="Node000019" href="$classLLTutorWindow.html#a5d825a4466624c17320c0eb7fda2de5d" title=" " alt="" coords="240,401,463,429"/>
-<area shape="poly" id="edge24_Node000001_Node000019" title=" " alt="" coords="111,256,161,320,198,357,241,388,251,393,249,398,238,392,195,361,157,324,107,259"/>
-<area shape="rect" id="Node000022" href="$classLLTutorWindow.html#ac949d35e0528713e92fd7bff0455e117" title=" " alt="" coords="248,333,454,378"/>
-<area shape="poly" id="edge28_Node000001_Node000022" title=" " alt="" coords="124,255,176,286,241,318,257,325,255,330,239,323,174,291,121,260"/>
-<area shape="rect" id="Node000024" href="$classLLTutorWindow.html#aa99f846df304d622218e16da4b69c22b" title=" " alt="" coords="244,453,459,481"/>
-<area shape="poly" id="edge31_Node000001_Node000024" title=" " alt="" coords="108,256,125,293,154,343,193,395,216,418,241,438,251,444,248,449,238,443,212,422,189,398,149,346,121,296,103,258"/>
-<area shape="rect" id="Node000025" href="$classLLTutorWindow.html#a041b2683adaf4232bf83f9a08b13d526" title=" " alt="" coords="248,505,454,550"/>
-<area shape="poly" id="edge32_Node000001_Node000025" title=" " alt="" coords="106,257,121,302,148,365,188,432,213,463,241,490,247,494,243,499,238,495,209,467,184,435,143,367,116,304,101,258"/>
-<area shape="poly" id="edge2_Node000002_Node000001" title=" " alt="" coords="245,34,241,36,195,77,158,126,130,175,111,216,106,214,125,172,154,123,192,73,238,32,242,29"/>
-<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#aa2741ddaaebe054599186f68169852c4" title=" " alt="" coords="522,45,729,73"/>
-<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="451,31,511,40,510,45,451,36"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="431,158,462,146,585,79,587,84,464,151,433,163"/>
-<area shape="rect" id="Node000008" href="$classLLTutorWindow.html#ad8e8d1afe579c1416fb5cedd2b60a84a" title=" " alt="" coords="522,281,729,309"/>
-<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="459,292,506,292,506,298,459,298"/>
-<area shape="rect" id="Node000009" href="$classLLTutorWindow.html#a68732a0b7ca355349e1cfff4e03665f0" title=" " alt="" coords="820,371,999,398"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="699,307,740,318,861,362,859,367,739,323,697,312"/>
-<area shape="rect" id="Node000011" href="$classLLTutorWindow.html#a550c58032dbf18f48ac4d97d65ed6ec9" title=" " alt="" coords="522,137,728,182"/>
-<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="421,226,462,215,546,185,548,190,464,220,422,231"/>
-<area shape="rect" id="Node000016" href="$classLLTutorWindow.html#aeeae3a71bd29bcf5ff97d6ea28211e81" title=" " alt="" coords="522,213,728,258"/>
-<area shape="poly" id="edge20_Node000010_Node000016" title=" " alt="" coords="463,237,506,236,506,241,463,243"/>
-<area shape="rect" id="Node000012" href="$classLLTutorWindow.html#acd631fc33e5dbb6197bfc7b3d2b451f2" title=" " alt="" coords="800,145,1019,173"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="729,156,785,156,785,162,729,162"/>
-<area shape="rect" id="Node000013" href="$classLLTutorWindow.html#a228cec185a4a62f5ac0de6b3275b88f6" title=" " alt="" coords="787,69,1032,97"/>
-<area shape="poly" id="edge15_Node000011_Node000013" title=" " alt="" coords="696,134,787,107,823,98,824,104,788,112,698,139"/>
-<area shape="poly" id="edge14_Node000012_Node000012" title=" " alt="" coords="865,146,858,136,863,127,881,121,910,119,940,121,957,128,955,133,939,126,909,124,882,126,867,131,863,136,869,143"/>
-<area shape="rect" id="Node000014" href="$classLLTutorWindow.html#a36728cc5c78e316c2140422b828cc733" title=" " alt="" coords="1080,69,1265,97"/>
-<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="1032,80,1064,80,1064,86,1032,86"/>
-<area shape="poly" id="edge19_Node000014_Node000014" title=" " alt="" coords="1129,70,1121,60,1127,51,1144,45,1172,43,1202,45,1219,52,1217,56,1201,50,1172,48,1145,50,1130,55,1127,60,1133,67"/>
-<area shape="rect" id="Node000015" href="$classLLTutorWindow.html#a9502636394b205fc022204b066ad41b7" title=" " alt="" coords="1313,61,1546,106"/>
-<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="1266,80,1297,80,1297,86,1266,86"/>
-<area shape="poly" id="edge18_Node000015_Node000015" title=" " alt="" coords="1381,61,1379,51,1388,42,1404,36,1430,34,1457,37,1474,43,1472,48,1456,42,1430,39,1406,41,1390,46,1384,52,1386,60"/>
-<area shape="rect" id="Node000017" href="$classLLTutorWindow.html#a682ffc33558706d371fd4c83ea1428f1" title="&lt; Add text message to chat" alt="" coords="811,273,1008,318"/>
-<area shape="poly" id="edge21_Node000016_Node000017" title=" " alt="" coords="730,254,797,269,796,274,728,260"/>
-<area shape="rect" id="Node000018" href="$classLLTutorWindow.html#aa6fe4466c5724c64ee3627897a396c26" title=" " alt="" coords="801,221,1018,249"/>
-<area shape="poly" id="edge22_Node000016_Node000018" title=" " alt="" coords="729,232,786,232,786,238,729,238"/>
-<area shape="poly" id="edge23_Node000018_Node000018" title=" " alt="" coords="865,222,858,212,863,203,881,197,910,195,940,197,957,204,955,209,939,202,909,200,882,202,867,207,863,212,869,219"/>
-<area shape="rect" id="Node000020" href="$classLLTutorWindow.html#aae56758be5ab1d25104df692506b8369" title=" " alt="" coords="518,401,733,429"/>
-<area shape="poly" id="edge25_Node000019_Node000020" title=" " alt="" coords="463,412,502,412,502,418,463,418"/>
-<area shape="rect" id="Node000021" href="$classLLTutorWindow.html#a9c2b0b4bfa0ae92b7ae8a86b78d9d4a9" title=" " alt="" coords="522,453,728,481"/>
-<area shape="poly" id="edge27_Node000019_Node000021" title=" " alt="" coords="429,427,534,447,533,452,428,432"/>
-<area shape="poly" id="edge26_Node000020_Node000009" title=" " alt="" coords="733,401,804,393,805,398,734,406"/>
-<area shape="poly" id="edge29_Node000022_Node000008" title=" " alt="" coords="454,330,543,310,544,316,455,335"/>
-<area shape="rect" id="Node000023" href="$classLLTutorWindow.html#a742bc2a8d3b097d7f1b0d22be6ec68e6" title=" " alt="" coords="511,333,739,378"/>
-<area shape="poly" id="edge30_Node000022_Node000023" title=" " alt="" coords="455,352,495,352,495,358,455,358"/>
-<area shape="rect" id="Node000026" href="$classLLTutorWindow.html#a186542bdd21f445a34e18d1b88c8554c" title=" " alt="" coords="516,513,735,541"/>
-<area shape="poly" id="edge33_Node000025_Node000026" title=" " alt="" coords="455,524,500,524,500,530,455,530"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,192,60"/>
+<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#ad8e8d1afe579c1416fb5cedd2b60a84a" title=" " alt="" coords="244,5,451,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,33,228,29,228,35,192,38"/>
+<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a919d50eb83ab03bfe05645ba8a16eb3e" title=" " alt="" coords="240,57,455,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,53,224,56,224,61,192,58"/>
 </map>
