@@ -1641,15 +1641,25 @@ bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForD(const QString& userResponse) {
-    return userResponse == solutionForD();
+    QStringList responseParts = userResponse.split(',', Qt::KeepEmptyParts);
+    if (responseParts.size() != 2)
+        return false;
+    for (QString& part : responseParts) {
+        part = part.trimmed();
+        if (part.isEmpty()) {
+            return false;
+        }
+    }
+    QStringList expected = solutionForD();
+    return responseParts == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForD1(const QString& userResponse) {
-    return userResponse == solutionForD1();
+    return userResponse.trimmed() == solutionForD1();
 }
 
 bool SLRTutorWindow::verifyResponseForD2(const QString& userResponse) {
-    return userResponse == solutionForD2();
+    return userResponse.trimmed() == solutionForD2();
 }
 
 bool SLRTutorWindow::verifyResponseForE(const QString& userResponse) {
@@ -1913,8 +1923,10 @@ std::unordered_set<Lr0Item> SLRTutorWindow::solutionForCB() {
     return st;
 }
 
-QString SLRTutorWindow::solutionForD() {
-    return QString("%1,%2").arg(solutionForD1()).arg(solutionForD2());
+QStringList SLRTutorWindow::solutionForD() {
+    QString n_states  = solutionForD1();
+    QString n_symbols = solutionForD2();
+    return {n_states, n_symbols};
 }
 
 QString SLRTutorWindow::solutionForD1() {
