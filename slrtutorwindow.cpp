@@ -2608,6 +2608,17 @@ SLRTutorWindow::ingestUserItems(const QString& userResponse) {
         std::vector<std::string> splitted_before_dot{grammar.Split(before_dot)};
         std::vector<std::string> splitted_after_dot{grammar.Split(after_dot)};
 
+        if (!before_dot.empty() && splitted_before_dot.empty()) {
+            return {};
+        }
+        if (!after_dot.empty() && splitted_after_dot.empty()) {
+            return {};
+        }
+
+        if (before_dot.empty() && after_dot.empty()) {
+            splitted_before_dot = {grammar.st_.EPSILON_};
+        }
+
         std::vector<std::string> splitted{splitted_before_dot.begin(),
                                           splitted_before_dot.end()};
         splitted.insert(splitted.end(), splitted_after_dot.begin(),
