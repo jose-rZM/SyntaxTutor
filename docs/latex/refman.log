@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex 2025.8.24)  4 NOV 2025 21:42
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex 2025.8.24)  4 NOV 2025 21:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -7794,20 +7794,14 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `refman.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `refman.out':
-(rerunfilecheck)             Before: D045F6FDE4EC0601DD0EB29BF08BFF34;78380
-(rerunfilecheck)             After:  9D15DC722B7A1164BED35B20B8E354F1;78718.
+Package rerunfilecheck Info: File `refman.out' has not changed.
+(rerunfilecheck)             Checksum: 9D15DC722B7A1164BED35B20B8E354F1;78718.
  ) 
 Here is how much of TeX's memory you used:
- 27607 strings out of 475794
- 599765 string characters out of 5774743
- 1197433 words of memory out of 5000000
- 49949 multiletter control sequences out of 15000+600000
+ 27601 strings out of 475794
+ 599638 string characters out of 5774743
+ 1198571 words of memory out of 5000000
+ 49943 multiletter control sequences out of 15000+600000
  566793 words of font info for 97 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  101i,16n,117p,651b,671s stack positions out of 10000i,1000n,20000p,200000b,200000s
