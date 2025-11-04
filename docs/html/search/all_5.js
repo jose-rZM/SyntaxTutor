@@ -1,27 +1,9 @@
 var searchData=
 [
-  ['c_0',['C',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a0d61f8370cad1d412f80b84d143e1257',1,'C:&#160;lltutorwindow.h'],['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da0d61f8370cad1d412f80b84d143e1257',1,'C:&#160;slrtutorwindow.h']]],
-  ['c_5fprime_1',['C_prime',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8aba5fd286c2b0f34d0933d1ef7c57cb8a',1,'lltutorwindow.h']]],
-  ['ca_2',['CA',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da3e8d115eb4b32b9e9479f387dbe14ee1',1,'slrtutorwindow.h']]],
-  ['cb_3',['CB',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da834cb54b61bbed9d4296c995e4c5d8b2',1,'slrtutorwindow.h']]],
-  ['centeraligndelegate_4',['CenterAlignDelegate',['../classCenterAlignDelegate.html',1,'']]],
-  ['changelog_5',['Changelog',['../md_CHANGELOG.html',1,'']]],
-  ['changelog_2emd_6',['CHANGELOG.md',['../CHANGELOG_8md.html',1,'']]],
-  ['children_7',['children',['../structLLTutorWindow_1_1TreeNode.html#ab3d7c4ef7302e923d1375646f8526512',1,'LLTutorWindow::TreeNode']]],
-  ['clear_8',['clear',['../classUniqueQueue.html#a00d514eb64338cf61e2f014043589ff2',1,'UniqueQueue']]],
-  ['clearsteps_9',['clearSteps',['../classTutorialManager.html#ab1a4a56a7150cf6f216a831e09dd7209',1,'TutorialManager']]],
-  ['closeevent_10',['closeEvent',['../classLLTutorWindow.html#a672ef2276b662e3b6151af0511bccd5e',1,'LLTutorWindow::closeEvent()'],['../classSLRTutorWindow.html#afcbe8c07ade16d53d53cc87dcd40d44b',1,'SLRTutorWindow::closeEvent()']]],
-  ['closure_11',['Closure',['../classSLR1Parser.html#a0ff2187985600bff50ff8235543d96fb',1,'SLR1Parser']]],
-  ['closureutil_12',['ClosureUtil',['../classSLR1Parser.html#a00101890c3c4d2871a8c100209abf122',1,'SLR1Parser']]],
-  ['completion_13',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md20',1,'']]],
-  ['computefirstsets_14',['ComputeFirstSets',['../classLL1Parser.html#a2f702d940802a8b02538cb173a6c7e5e',1,'LL1Parser::ComputeFirstSets()'],['../classSLR1Parser.html#af0a486daf0c5083b113e557d68732481',1,'SLR1Parser::ComputeFirstSets()']]],
-  ['computefollowsets_15',['ComputeFollowSets',['../classLL1Parser.html#a02ee1f3ebc4cedacbb11204e3e8cbfdc',1,'LL1Parser::ComputeFollowSets()'],['../classSLR1Parser.html#a06a9888464cfe48152d72311e25ad79a',1,'SLR1Parser::ComputeFollowSets()']]],
-  ['computesubtreewidth_16',['computeSubtreeWidth',['../classLLTutorWindow.html#a9502636394b205fc022204b066ad41b7',1,'LLTutorWindow']]],
-  ['consequent_5f_17',['consequent_',['../structLr0Item.html#a5b5fcd03eb29accd92b22e6bb05d26cd',1,'Lr0Item']]],
-  ['context_18',['🎓 Academic Context',['../index.html#autotoc_md12',1,'']]],
-  ['createll1table_19',['CreateLL1Table',['../classLL1Parser.html#a7b33aead1b94c61884afb06f204fd3e4',1,'LL1Parser']]],
-  ['createlv2item_20',['CreateLv2Item',['../structGrammarFactory.html#a0048c0c61b253a0f2d29bcce7c6ead44',1,'GrammarFactory']]],
-  ['customtextedit_21',['CustomTextEdit',['../classCustomTextEdit.html',1,'CustomTextEdit'],['../classCustomTextEdit.html#a18556a723c91a01bd82d10c1cf41d325',1,'CustomTextEdit::CustomTextEdit()']]],
-  ['customtextedit_2ecpp_22',['customtextedit.cpp',['../customtextedit_8cpp.html',1,'']]],
-  ['customtextedit_2eh_23',['customtextedit.h',['../customtextedit_8h.html',1,'']]]
+  ['b_0',['B',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a9d5ed678fe57bcca610140957afab571',1,'B:&#160;lltutorwindow.h'],['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da9d5ed678fe57bcca610140957afab571',1,'B:&#160;slrtutorwindow.h']]],
+  ['b1_1',['B1',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac9512565ef6194ca664dc41ec0de7a53',1,'lltutorwindow.h']]],
+  ['b2_2',['B2',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abbd97b00c539801e32317ab550867ec4',1,'lltutorwindow.h']]],
+  ['b_5fprime_3',['B_prime',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abf4117e13eb3260dd9c0659f69d76cb5',1,'lltutorwindow.h']]],
+  ['building_20from_20source_4',['🛠️ Building from Source',['../index.html#autotoc_md29',1,'']]],
+  ['buildtreenode_5',['buildTreeNode',['../classLLTutorWindow.html#acd631fc33e5dbb6197bfc7b3d2b451f2',1,'LLTutorWindow']]]
 ];

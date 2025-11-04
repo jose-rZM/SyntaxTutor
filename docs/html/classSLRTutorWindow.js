@@ -50,7 +50,7 @@ var classSLRTutorWindow =
     [ "solutionForC", "classSLRTutorWindow.html#a735621e8cd60c4b60c0f80978593438a", null ],
     [ "solutionForCA", "classSLRTutorWindow.html#aaff00ffe414a36ba668d15716c45479c", null ],
     [ "solutionForCB", "classSLRTutorWindow.html#ac4017a716f065b29ea2957f8af15643c", null ],
-    [ "solutionForD", "classSLRTutorWindow.html#a794d559b2350ae40655ff8192f9eacc0", null ],
+    [ "solutionForD", "classSLRTutorWindow.html#a5c30bd1c6b1ccb2795d84292ff8f2d5d", null ],
     [ "solutionForD1", "classSLRTutorWindow.html#a6e31b87f3ded32f995df622b2b2fec52", null ],
     [ "solutionForD2", "classSLRTutorWindow.html#a3057490ca57531863f10ff095674c2aa", null ],
     [ "solutionForE", "classSLRTutorWindow.html#a1ddc0f3362ec35ccbf7f3a326c50cfb6", null ],

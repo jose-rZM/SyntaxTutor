@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['features_0',['🎯 Key Features',['../index.html#autotoc_md14',1,'']]],
-  ['fixed_1',['Fixed',['../md_CHANGELOG.html#autotoc_md3',1,'Fixed'],['../md_CHANGELOG.html#autotoc_md6',1,'Fixed']]],
-  ['for_20learning_20syntax_20analysis_2',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['from_20source_3',['🛠️ Building from Source',['../index.html#autotoc_md26',1,'']]]
+  ['documentation_0',['📚 Documentation',['../index.html#autotoc_md31',1,'']]],
+  ['downloads_1',['📦 Downloads',['../index.html#autotoc_md27',1,'']]]
 ];

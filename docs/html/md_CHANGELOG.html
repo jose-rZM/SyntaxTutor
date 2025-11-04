@@ -37,7 +37,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SyntaxTutor
+   <div id="projectname">SyntaxTutor<span id="projectnumber">&#160;1.0.3</span>
    </div>
    <div id="projectbrief">Educational app designed to help compiler students understand LL(1) and SLR(1) parsing algorithms.</div>
   </td>
@@ -109,46 +109,59 @@ $(function(){initNavTree('md_CHANGELOG.html','',''); });
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
 <p>All notable changes to this project will be documented in this file.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
-[1.0.2] - 2025-07-16</h1>
+[1.0.3] - 2025-11-04</h1>
+<p>Minor usability improvements in user input handling. </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 Added</h2>
 <ul>
-<li>User manual in Spanish (<span class="tt">manual/user_manual_es.pdf</span>)</li>
-<li>User manual in English (<span class="tt">manual/user_manual_en.pdf</span>)</li>
-<li>Developer manual (<span class="tt">manual/developer_manual.pdf</span>)</li>
-<li>Script to customize titlepage (<span class="tt">manual/patch_refman_title.sh</span>)</li>
+<li>Allow the user to write <span class="tt">A -&gt; .</span> instead of <span class="tt">A -&gt; EPSILON .</span></li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Fixed</h2>
+<ul>
+<li>Accept input containing spaces in responses sush as <span class="tt">x, y</span></li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+[1.0.2] - 2025-07-16</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Added</h2>
+<ul>
+<li>User manual in Spanish (<span class="tt">manual/SyntaxTutor-Manual-ES.pdf</span>)</li>
+<li>User manual in English (<span class="tt">manual/SyntaxTutor-Manual-EN.pdf</span>)</li>
+<li>Developer manual (<span class="tt">manual/SyntaxTutor-Developer-Manual.pdf</span>)</li>
+<li>Script to customize titlepage (<span class="tt">manual/patch_refman_title.sh</span>)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Fixed</h2>
 <ul>
 <li>Fixed issue when exporting PDF in SLR mode.</li>
 <li>Fixed some feedback in SLR mode</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
 [1.0.1] - 2025-06-17</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
 Added</h2>
 <ul>
 <li>Added <span class="tt">Doxyfile</span> for automatic documentation generation with Doxygen.</li>
 <li>Completed missing translations for multilingual support (English/Spanish).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Fixed</h2>
 <ul>
 <li>Corrected a typo in the SLR(1) Quick Reference view.</li>
 <li>EPSILON is no longer shown when exporting LL(1) parse tables to PDF.</li>
 <li>Improved feedback message for the FA question in the SLR module.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 Quality</h2>
 <ul>
 <li>All changes successfully passed CI (GitHub Actions).</li>
 <li>Test suite: 158 tests passed (100% success rate).</li>
 <li>Maintained high test coverage across modules (most above 90%).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
 [1.0.0] - 2025-06-15</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
 Initial Release</h2>
 <ul>
 <li>First public version of SyntaxTutor.</li>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['_7elltutorwindow_0',['~LLTutorWindow',['../classLLTutorWindow.html#a1e16db0de448a62b18f8bf3292c67992',1,'LLTutorWindow']]],
-  ['_7emainwindow_1',['~MainWindow',['../classMainWindow.html#ae98d00a93bc118200eeef9f9bba1dba7',1,'MainWindow']]],
-  ['_7eslrtutorwindow_2',['~SLRTutorWindow',['../classSLRTutorWindow.html#af7c638c7a83b0600593c8fe5f4c6cd78',1,'SLRTutorWindow']]]
+  ['wronganimation_0',['wrongAnimation',['../classLLTutorWindow.html#a036d7aa67c17138ba886a5eaa2637f57',1,'LLTutorWindow::wrongAnimation()'],['../classSLRTutorWindow.html#a7aa89b93b35a2e55c5876294d71a04fb',1,'SLRTutorWindow::wrongAnimation()']]],
+  ['wronguserresponseanimation_1',['wrongUserResponseAnimation',['../classLLTutorWindow.html#a0bd49524c3c4503736f0ce4bed45b8ab',1,'LLTutorWindow::wrongUserResponseAnimation()'],['../classSLRTutorWindow.html#a2e86e3d8d79a7ec97ede0623b7bf9730',1,'SLRTutorWindow::wrongUserResponseAnimation()']]]
 ];

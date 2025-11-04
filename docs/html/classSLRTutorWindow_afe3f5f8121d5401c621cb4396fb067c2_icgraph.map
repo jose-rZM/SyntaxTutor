@@ -1,5 +1,7 @@
 <map id="SLRTutorWindow::solutionForB" name="SLRTutorWindow::solutionForB">
-<area shape="rect" id="Node000001" title=" " alt="" coords="271,5,489,33"/>
-<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a1ddc0f3362ec35ccbf7f3a326c50cfb6" title=" " alt="" coords="5,5,223,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,22,223,22,223,16,255,16"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="480,14,698,42"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a6e31b87f3ded32f995df622b2b2fec52" title=" " alt="" coords="243,5,432,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="464,30,432,30,432,25,464,25"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#a1f0f3520f3d618a6c5e777a86f31e5ad" title=" " alt="" coords="5,5,195,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="227,30,195,30,195,25,227,25"/>
 </map>
