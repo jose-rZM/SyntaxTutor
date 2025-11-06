@@ -26,12 +26,7 @@
 
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
                              QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::LLTutorWindow),
-      grammar({{"S", {{"A", "$"}}},
-               {"A", {{"g", "A", "g"}, {"B"}}},
-               {"B", {{"C", "B'"}}},
-               {"B'", {{"j", "B"}, {"EPSILON"}}},
-               {"C", {{"a", "C", "a"}, {"b"}}}}),
+    : QMainWindow(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
       ll1(this->grammar), tm(tm) {
     // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
@@ -87,7 +82,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     updateProgressPanel();
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
-    currentState = State::C;
+    currentState = State::A;
     addMessage(generateQuestion(), false);
 
     ui->userResponse->clear();
