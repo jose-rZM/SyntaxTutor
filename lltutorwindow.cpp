@@ -518,17 +518,18 @@ void LLTutorWindow::showTableForCPrime() {
 
                     for (int j = 0; j < rawTable[i].size(); ++j) {
                         const QString& colHeader   = colHeaders[j];
-                        const QString& cellContent = rawTable[i][j];
-
-                        if (!cellContent.isEmpty()) {
-                            QStringList production = stdVectorToQVector(
-                                ll1.gr_.Split(cellContent.toStdString()));
-                            if (production.empty() && !cellContent.isEmpty()) {
-                                // Split could not process the string
-                                production = {cellContent};
-                            }
-                            lltable[rowHeader][colHeader] = production;
+                        QString&       cell        = rawTable[i][j];
+                        cell.remove(kWhitespace);
+                        if (cell.isEmpty()) {
+                            continue;
                         }
+                        QStringList production = stdVectorToQVector(
+                            ll1.gr_.Split(cell.toStdString()));
+                        if (production.empty()) {
+                            // Split could not process the string
+                            production = {cell};
+                        }
+                            lltable[rowHeader][colHeader] = production;
                     }
                 }
                 on_confirmButton_clicked();
@@ -765,14 +766,15 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
     for (int i = 0; i < raw.size(); ++i) {
         const auto& rowH = sortedNonTerminals[i];
         for (int j = 0; j < raw[i].size(); ++j) {
-            const auto& colH  = colHeaders[j];
-            const auto& cells = raw[i][j];
-            if (cells.isEmpty())
+            const auto& colH = colHeaders[j];
+            QString&    cell = rawTable[i][j];
+            cell.remove(kWhitespace);
+            if (cell.isEmpty())
                 continue;
             QStringList prod =
-                stdVectorToQVector(ll1.gr_.Split(cells.toStdString()));
+                stdVectorToQVector(ll1.gr_.Split(cell.toStdString()));
             if (prod.empty())
-                prod = {cells};
+                prod = {cell};
             lltable[rowH][colH] = prod;
         }
     }
@@ -1587,7 +1589,7 @@ QString LLTutorWindow::feedbackForB() {
     QStringList resp = ui->userResponse->toPlainText()
                            .trimmed()
                            .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(re, "");
+                           .replaceInStrings(kRe, "");
     QSet<QString> setSol = solutionForB();
     QSet<QString> setResp(resp.begin(), resp.end());
 
@@ -1676,7 +1678,7 @@ QString LLTutorWindow::feedbackForB2() {
     QStringList resp = ui->userResponse->toPlainText()
                            .trimmed()
                            .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(re, "");
+                           .replaceInStrings(kRe, "");
     QSet<QString> setSol = solutionForB2();
     QSet<QString> setResp(resp.begin(), resp.end());
 
@@ -1718,7 +1720,7 @@ QString LLTutorWindow::feedbackForBPrime() {
     QStringList resp = ui->userResponse->toPlainText()
                            .trimmed()
                            .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(re, "");
+                           .replaceInStrings(kRe, "");
     QSet<QString> setSol = solutionForB();
     QSet<QString> setResp(resp.begin(), resp.end());
 
