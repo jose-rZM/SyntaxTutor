@@ -278,7 +278,8 @@ class LLTutorWindow : public QMainWindow {
 
     TutorialManager* tm = nullptr;
 
-    QRegularExpression re{"^\\s+|\\s+$"};
+    const QRegularExpression kRe{"^\\s+|\\s+$"};
+    const QRegularExpression kWhitespace{"\\s+"};
 };
 
 #endif // LLTUTORWINDOW_H
