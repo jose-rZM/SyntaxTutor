@@ -327,7 +327,6 @@ jobs:
           path: '*.AppImage'
 
   publish-prerelease:
-    if: startsWith(github.ref, 'refs/heads/release/')
     name: Publish prerelease
     runs-on: ubuntu-latest
     needs:
