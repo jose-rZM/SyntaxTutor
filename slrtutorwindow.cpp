@@ -444,7 +444,8 @@ void SLRTutorWindow::showTable() {
                 : slr1.gr_.st_.terminals_.size();
         for (int state = 0; state < rawTable.size(); ++state) {
             for (int j = 0; j < rawTable[state].size(); ++j) {
-                QString cell = rawTable[state][j].trimmed();
+                QString cell = rawTable[state][j];
+                cell.remove(kWhitespace);
                 if (cell.isEmpty())
                     continue;
 
@@ -1173,6 +1174,14 @@ QString SLRTutorWindow::generateQuestion() {
     }
 
     case StateSlr::H: {
+        addMessage(
+            tr("Rellena la tabla SLR(1). En el panel derecho tienes los "
+               "estados y transiciones que has ido construyendo.\nFormato:\n- "
+               "sX: desplazamiento a estado X si el símbolo es terminal\n- X: "
+               "desplazamiento a "
+               "estado X si es sobre un símbolo no terminal\n- rX: reducir "
+               "usando la regla número X\n- acc: aceptar"),
+            false);
         lastUserMessage = nullptr;
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true); // handled externally

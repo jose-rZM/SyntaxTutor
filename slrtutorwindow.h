@@ -312,7 +312,8 @@ class SLRTutorWindow : public QMainWindow {
 
     TutorialManager* tm;
 
-    QRegularExpression re{"^\\s+|\\s+$"};
+    QRegularExpression       re{"^\\s+|\\s+$"};
+    const QRegularExpression kWhitespace{"\\s+"};
 };
 
 #endif // SLRTUTORWINDOW_H
