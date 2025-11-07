@@ -2,10 +2,31 @@
 
 REFMAN="docs/latex/refman.tex"
 TMP="docs/latex/refman_tmp.tex"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REFMAN="${REPO_ROOT}/docs/latex/refman.tex"
+TMP="${REPO_ROOT}/docs/latex/refman_tmp.tex"
+VERSION_FILE="${REPO_ROOT}/VERSION"
 
-echo "Patching $REFMAN..."
+if [[ -n "${SYNTAXTUTOR_VERSION}" ]]; then
+    VERSION="${SYNTAXTUTOR_VERSION}"
+elif [[ -f "${VERSION_FILE}" ]]; then
+    VERSION="$(tr -d '\n\r ' < "${VERSION_FILE}")"
+else
+    echo "Unable to determine SyntaxTutor version. Set SYNTAXTUTOR_VERSION or create VERSION file." >&2
+    exit 1
+fi
 
-awk '
+if [[ -z "${VERSION}" ]]; then
+    echo "Empty version string." >&2
+    exit 1
+fi
+
+RELEASE_DATE="${SYNTAXTUTOR_RELEASE_DATE:-$(date +%Y-%m-%d)}"
+
+echo "Patching ${REFMAN} with version ${VERSION} (${RELEASE_DATE})..."
+
+awk -v version="${VERSION}" -v release_date="${RELEASE_DATE}" '
 BEGIN { in_titlepage = 0 }
 {
     if ($0 ~ /\\begin{titlepage}/) {
@@ -25,8 +46,8 @@ BEGIN { in_titlepage = 0 }
         print "    \\rule{0.7\\linewidth}{0.5pt}"
         print "    \\vfill"
         print "    \\begin{flushright}"
-        print "    \\textbf{Version:} 1.0.3\\\\"
-        print "    \\textbf{Date:} 2025\\\\"
+        print "    \\textbf{Version:} " version "\\\\"
+        print "    \\textbf{Date:} " release_date "\\\\"
         print "    \\textbf{Author:} jose-rzm at GitHub"
         print "    \\end{flushright}"
         print "    \\vfill"
@@ -40,6 +61,6 @@ BEGIN { in_titlepage = 0 }
     }
     if (!in_titlepage) print $0
 }
-' "$REFMAN" > "$TMP" && mv "$TMP" "$REFMAN"
+' "${REFMAN}" > "${TMP}" && mv "${TMP}" "${REFMAN}"
 
 echo "Titlepage updated."

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "appversion.h"
 #include "mainwindow.h"
 
 #include <QApplication>
@@ -35,6 +36,7 @@ int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
     QCoreApplication::setApplicationName("SyntaxTutor");
     QGuiApplication::setApplicationDisplayName("SyntaxTutor");
+    QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
     QSettings   settings("UMA", "SyntaxTutor");
     QString     langCode = settings.value("lang/language", "es").toString();
     QTranslator translator;

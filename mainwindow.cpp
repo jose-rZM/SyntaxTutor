@@ -480,9 +480,10 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
         pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     about.setTextFormat(Qt::RichText);
+    const auto versionLine =
+        tr("<p><b>Versión:</b> %1</p>").arg(qApp->applicationVersion());
     about.setText(
-        tr("<h2>SyntaxTutor</h2>") + tr("<p><b>Versión: 1.0.3</b> ") +
-        qApp->applicationVersion() + tr("</p>") +
+        tr("<h2>SyntaxTutor</h2>") + versionLine +
         tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
            "Sintácticos.</p>") +
         tr("<p><b>Autor:</b> José R.</p>") +
