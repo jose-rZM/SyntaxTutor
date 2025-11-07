@@ -1,7 +1,5 @@
 #!/bin/bash
 
-REFMAN="docs/latex/refman.tex"
-TMP="docs/latex/refman_tmp.tex"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 REFMAN="${REPO_ROOT}/docs/latex/refman.tex"
@@ -34,7 +32,7 @@ BEGIN { in_titlepage = 0 }
         print "\\begin{titlepage}"
         print "    \\centering"
         print "    \\vspace*{1cm}"
-        print "    \\includegraphics[width=0.25\\textwidth]{img/logouma.png}\\\\"
+        print "    \\includegraphics[width=0.25\\textwidth]{logouma.png}\\\\"
         print "    \\vspace{0.5cm}"
         print "    {\\scshape\\Large University of Malaga\\\\}"
         print "    {\\scshape School of Computer Science and Engineering\\\\}"
@@ -51,7 +49,7 @@ BEGIN { in_titlepage = 0 }
         print "    \\textbf{Author:} jose-rzm at GitHub"
         print "    \\end{flushright}"
         print "    \\vfill"
-        print "    \\includegraphics[width=0.15\\textwidth]{img/syntaxtutor.png}"
+        print "    \\includegraphics[width=0.15\\textwidth]{syntaxtutor.png}"
         next
     }
     if ($0 ~ /\\end{titlepage}/) {
