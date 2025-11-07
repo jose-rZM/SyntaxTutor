@@ -2,7 +2,9 @@ name: Build & Deploy Qt6 App
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - release/**
     paths:
       - '**/*.cpp'
       - '**/*.hpp'
@@ -19,12 +21,12 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-        
+
       - name: Install dbus
         run: |
           brew update
           brew install dbus
-  
+
       - name: Install Qt6
         run: |
           brew install qt@6
@@ -38,7 +40,7 @@ jobs:
       - name: Verify arch
         run: |
           lipo -info SyntaxTutor.app/Contents/MacOS/SyntaxTutor
-        
+
       - name: Prepare icons
         run: |
           mkdir -p MyIcon.iconset
@@ -59,12 +61,12 @@ jobs:
       - name: Prepare .app bundle
         run: |
           APP="SyntaxTutor.app"
-          
+
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
           mkdir -p "$APP/Contents/Resources"
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
           chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
-          
+
           cat > "$APP/Contents/Info.plist" << 'EOF'
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
@@ -117,8 +119,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SyntaxTutor-macos-intel 
-          path: SyntaxTutor-intel.zip  
+          name: SyntaxTutor-macos-intel
+          path: SyntaxTutor-intel.zip
   build-macos:
     runs-on: macos-latest
     steps:
@@ -129,7 +131,7 @@ jobs:
         run: |
           brew update
           brew install dbus
-          
+
       - name: Install Qt6
         run: |
           brew install qt@6
@@ -224,7 +226,7 @@ jobs:
           name: SyntaxTutor-macos-arm64
           path: |
             SyntaxTutor.app
-            
+
   build-windows:
     runs-on: windows-latest
     steps:
@@ -237,7 +239,7 @@ jobs:
           version: '6.8.3'
           target: 'desktop'
           arch: 'win64_msvc2022_64'
-          
+
       - name: Setup MSVC env
         uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -280,7 +282,7 @@ jobs:
         with:
           version: 6.8.2
           cache: true
-          
+
       - name: Configure with qmake
         run: |
           qmake6 -r -config release
@@ -294,7 +296,7 @@ jobs:
           export APPIMAGE_EXTRACT_AND_RUN=1
           export LD_VER=continuous
           APPDIR=SyntaxTutor.AppDir
-          
+
           wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/${LD_VER}/linuxdeploy-x86_64.AppImage \
             -O /usr/local/bin/linuxdeploy && \
           chmod +x /usr/local/bin/linuxdeploy && \
@@ -304,7 +306,7 @@ jobs:
 
           mkdir -p $APPDIR/usr/bin \
              $APPDIR/usr/share/icons/hicolor/256x256/apps
-          
+
           cp SyntaxTutor $APPDIR/usr/bin/ && \
             printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > $APPDIR/SyntaxTutor.desktop && \
             chmod +x $APPDIR/SyntaxTutor.desktop && \
@@ -323,3 +325,92 @@ jobs:
         with:
           name: SyntaxTutor-linux-x86_64
           path: '*.AppImage'
+
+  publish-prerelease:
+    if: startsWith(github.ref, 'refs/heads/release/')
+    name: Publish prerelease
+    runs-on: ubuntu-latest
+    needs:
+      - build-macos-intel
+      - build-macos
+      - build-windows
+      - build-linux
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Determine release version
+        id: version
+        run: |
+          VERSION=$(tr -d ' \r\n' < VERSION)
+          if [ -z "$VERSION" ]; then
+            echo "VERSION file is empty" >&2
+            exit 1
+          fi
+          echo "value=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Download macOS (Intel) artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SyntaxTutor-macos-intel
+          path: dist/macos-intel
+
+      - name: Download macOS (Apple Silicon) artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SyntaxTutor-macos-arm64
+          path: dist/macos-arm64
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SyntaxTutor-windows-x64
+          path: dist/windows-x64
+
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SyntaxTutor-linux-x86_64
+          path: dist/linux-x86_64
+
+      - name: Prepare release assets
+        run: |
+          set -euo pipefail
+          mkdir -p dist/uploads
+
+          if [ -f dist/macos-intel/SyntaxTutor-intel.zip ]; then
+            cp dist/macos-intel/SyntaxTutor-intel.zip dist/uploads/
+          fi
+
+          if [ -d dist/macos-arm64/SyntaxTutor.app ]; then
+            (cd dist/macos-arm64 && zip -qry ../uploads/SyntaxTutor-macos-arm64.zip SyntaxTutor.app)
+          fi
+
+          if [ -d dist/windows-x64/deploy ]; then
+            (cd dist/windows-x64 && zip -qry ../uploads/SyntaxTutor-windows-x64.zip deploy)
+          fi
+
+          LINUX_APPIMAGE=$(find dist/linux-x86_64 -maxdepth 1 -type f -name '*.AppImage' | head -n 1)
+          if [ -n "$LINUX_APPIMAGE" ]; then
+            cp "$LINUX_APPIMAGE" dist/uploads/
+          fi
+
+          echo "Prepared artifacts:" >&2
+          ls -al dist/uploads >&2
+
+      - name: Publish GitHub prerelease
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.value }}
+          name: SyntaxTutor v${{ steps.version.outputs.value }} (prerelease)
+          body: |
+            Automated prerelease for commit ${{ github.sha }}.
+          prerelease: true
+          files: dist/uploads/*
+          fail_on_unmatched_files: true
+          draft: false
+          allowUpdates: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
