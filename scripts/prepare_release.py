@@ -79,7 +79,7 @@ def update_version_file(version: str, dry_run: bool) -> None:
 
 def update_appversion_header(version: str, dry_run: bool) -> None:
     template = f"""#ifndef APPVERSION_H
-    #define APPVERSION_H
+#define APPVERSION_H
 
 #include <QString>
 
