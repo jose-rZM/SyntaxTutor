@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - 2025-11-07
+Minor usability improvements in user input handling and enhancements to the pre-release workflow to simlify future releases.
+### Added
+- Tutorial hint explaining the expected format used in SLR table question (H)
+
+### Fixed
+- Remove all spaces in LL/SLR table questions (C-C' and H steps)
+
 ## [1.0.3] - 2025-11-04
 Minor usability improvements in user input handling.
 ### Added
