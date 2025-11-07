@@ -148,6 +148,7 @@ def run_command(
     cwd: Optional[Path] = None,
     env=None,
     dry_run: bool,
+    allow_failure=False
 ) -> None:
     command = [str(c) for c in command]
     display = " ".join(command)
@@ -158,10 +159,15 @@ def run_command(
 
     print(f"> Running: {display}{location}")
     try:
-        subprocess.run(command, cwd=cwd, env=env, check=True)
+        result = subprocess.run(command, cwd=cwd, env=env)
     except FileNotFoundError as exc:
         raise SystemExit(f"Command not found: {command[0]}") from exc
-
+    
+    if result.returncode != 0:
+        if allow_failure:
+            print(f"> Warning: command exited with code {result.returncode}, but allow_failure set to true...")
+        else:
+            raise SystemExit(f"Command failed: {display}{location}")
 
 def _check_tool(cmd: str) -> None:
     if shutil.which(cmd) is None:
@@ -170,7 +176,7 @@ def _check_tool(cmd: str) -> None:
 
 def build_documentation(version: str, release_date: str, dry_run: bool) -> None:
     _check_tool("doxygen")
-    _check_tool("xelatex")
+    _check_tool("pdflatex")
 
     run_command(["doxygen", "Doxyfile"], cwd=REPO_ROOT, dry_run=dry_run)
 
@@ -188,12 +194,21 @@ def build_documentation(version: str, release_date: str, dry_run: bool) -> None:
 
     run_command([PATCH_REFMAN], cwd=REPO_ROOT, env=env, dry_run=dry_run)
 
-    for _ in range(2):
-        run_command(
-            ["xelatex", "-interaction=nonstopmode", "refman.tex"],
-            cwd=LATEX_DIR,
-            dry_run=dry_run,
-        )
+    run_command(
+        ["pdflatex", "-interaction=nonstopmode", "refman.tex"],
+        cwd=LATEX_DIR,
+        dry_run=dry_run,
+        allow_failure=True)
+
+    run_command(
+        ["makeindex", "refman.idx"], cwd=LATEX_DIR, dry_run=dry_run, allow_failure=True)
+
+    run_command(
+        ["pdflatex", "-interaction=nonstopmode", "refman.tex"],
+        cwd=LATEX_DIR,
+        dry_run=dry_run,
+        allow_failure=True)
+
 
     pdf_source = LATEX_DIR / "refman.pdf"
     if dry_run:
