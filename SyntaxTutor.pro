@@ -28,6 +28,7 @@ SOURCES += \
 
 HEADERS += \
     UniqueQueue.h \
+    appversion.h \
     backend/grammar.hpp \
     backend/grammar_factory.hpp \
     backend/ll1_parser.hpp \
