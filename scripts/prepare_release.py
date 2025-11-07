@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 from typing import Optional, Sequence, Union
 
-# ---------- Rutas del repositorio ----------
+# ---------- Paths ----------
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VERSION_FILE = REPO_ROOT / "VERSION"
 APPVERSION_HEADER = REPO_ROOT / "appversion.h"
@@ -28,49 +28,49 @@ SEMVER_RE = re.compile(r"^\d+(?:\.\d+){1,3}$")
 def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     today = _dt.date.today().isoformat()
     parser = argparse.ArgumentParser(
-        description="Prepara una release: versionado, Doxygen y manual PDF."
+        description="Prepare a release."
     )
-    parser.add_argument("version", help="Versión de release (p. ej. 1.1.0)")
+    parser.add_argument("version", help="Release version (p. ej. 1.1.0)")
     parser.add_argument(
         "--date",
         default=today,
-        help="Fecha de release para CHANGELOG y manual (ISO, por defecto hoy)",
+        help="Release date for CHANGELOG and manual (ISO, today by default)",
     )
     parser.add_argument(
         "--skip-docs",
         action="store_true",
-        help="No regenerar Doxygen ni el manual de desarrollador",
+        help="Skip docs and developer manual generation",
     )
     parser.add_argument(
         "--skip-changelog",
         action="store_true",
-        help="No insertar entrada de plantilla en CHANGELOG.md",
+        help="Skip CHANGELOG entry generation",
     )
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Simular acciones sin modificar archivos ni ejecutar comandos",
+        help="Simulate actions without writing to any file",
     )
     return parser.parse_args(argv)
 
 
-# ---------- Utilidades ----------
+# ---------- Tools ----------
 def validate_version(version: str) -> None:
     if not SEMVER_RE.match(version):
         raise SystemExit(
-            f"Versión inválida '{version}'. Usa semver: 1.1.0, 2.0, 1.0.3, etc."
+            f"Invalid version number '{version}'"
         )
 
 
 def write_file(path: Path, content: str, dry_run: bool) -> None:
     if dry_run:
-        print(f"[dry-run] Escribir en {path}:")
+        print(f"[dry-run] Write in {path}:")
         for line in content.splitlines():
             print(f"    {line}")
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8", newline="\n")
-    print(f"✔ Actualizado {path.relative_to(REPO_ROOT)}")
+    print(f"Updated {path.relative_to(REPO_ROOT)}")
 
 
 def update_version_file(version: str, dry_run: bool) -> None:
@@ -78,7 +78,8 @@ def update_version_file(version: str, dry_run: bool) -> None:
 
 
 def update_appversion_header(version: str, dry_run: bool) -> None:
-    template = f"""#pragma once
+    template = f"""#ifndef APPVERSION_H
+    #define APPVERSION_H
 
 #include <QString>
 
@@ -91,13 +92,14 @@ inline const char* raw() {{
     return "{version}";
 }}
 }} // namespace SyntaxTutor::Version
+#endif // APPVERSION_H
 """
     write_file(APPVERSION_HEADER, template, dry_run)
 
 
 def update_doxyfile(version: str, dry_run: bool) -> None:
     if not DOXYFILE.exists():
-        raise RuntimeError(f"No se encontró {DOXYFILE}")
+        raise RuntimeError(f"{DOXYFILE} not found")
     contents = DOXYFILE.read_text(encoding="utf-8")
     new_contents, count = re.subn(
         r"^(PROJECT_NUMBER\s*=\s*).*$",
@@ -106,7 +108,7 @@ def update_doxyfile(version: str, dry_run: bool) -> None:
         flags=re.MULTILINE,
     )
     if count == 0:
-        raise RuntimeError("Entrada PROJECT_NUMBER no encontrada en Doxyfile")
+        raise RuntimeError("PROJECT_NUMBER not found in Doxyfile")
     write_file(DOXYFILE, new_contents, dry_run)
 
 
@@ -118,17 +120,17 @@ def ensure_changelog_entry(version: str, release_date: str, dry_run: bool) -> No
         contents = "# Changelog\n\n"
 
     if heading in contents:
-        print(f"ℹ CHANGELOG ya contiene una entrada para {version}")
+        print(f"ℹ CHANGELOG already contains {version}")
         return
 
     entry = (
         f"{heading}\n"
         "### Added\n"
-        "- _Describe nuevas funcionalidades._\n\n"
+        "- _Description._\n\n"
         "### Changed\n"
-        "- _Modificaciones destacables._\n\n"
+        "- _Description._\n\n"
         "### Fixed\n"
-        "- _Bugs resueltos._\n\n"
+        "- _Description._\n\n"
     )
 
     insert_at = contents.find("## [")
@@ -151,14 +153,14 @@ def run_command(
     display = " ".join(command)
     location = f" (cwd={cwd})" if cwd else ""
     if dry_run:
-        print(f"[dry-run] Ejecutar: {display}{location}")
+        print(f"[dry-run] Run: {display}{location}")
         return
 
-    print(f"▶ Ejecutando: {display}{location}")
+    print(f"> Running: {display}{location}")
     try:
         subprocess.run(command, cwd=cwd, env=env, check=True)
     except FileNotFoundError as exc:
-        raise SystemExit(f"Comando no encontrado: {command[0]}") from exc
+        raise SystemExit(f"Command not found: {command[0]}") from exc
 
 
 def _check_tool(cmd: str) -> None:
@@ -167,7 +169,6 @@ def _check_tool(cmd: str) -> None:
 
 
 def build_documentation(version: str, release_date: str, dry_run: bool) -> None:
-    # Requisitos previos
     _check_tool("doxygen")
     _check_tool("xelatex")
 
@@ -177,18 +178,16 @@ def build_documentation(version: str, release_date: str, dry_run: bool) -> None:
     env["SYNTAXTUTOR_VERSION"] = version
     env["SYNTAXTUTOR_RELEASE_DATE"] = release_date
 
-    # Asegura que el script exista y sea ejecutable (en *nix)
     if not PATCH_REFMAN.exists():
-        raise SystemExit(f"No se encontró {PATCH_REFMAN}")
+        raise SystemExit(f"Not found {PATCH_REFMAN}")
     if os.name != "nt" and not os.access(PATCH_REFMAN, os.X_OK):
         if dry_run:
-            print(f"[dry-run] Haría ejecutable {PATCH_REFMAN}")
+            print(f"[dry-run] Make it executable {PATCH_REFMAN}")
         else:
             PATCH_REFMAN.chmod(PATCH_REFMAN.stat().st_mode | 0o111)
 
     run_command([PATCH_REFMAN], cwd=REPO_ROOT, env=env, dry_run=dry_run)
 
-    # Compilar dos veces para referencias estables
     for _ in range(2):
         run_command(
             ["xelatex", "-interaction=nonstopmode", "refman.tex"],
@@ -198,15 +197,15 @@ def build_documentation(version: str, release_date: str, dry_run: bool) -> None:
 
     pdf_source = LATEX_DIR / "refman.pdf"
     if dry_run:
-        print(f"[dry-run] Mover {pdf_source} -> {DEVELOPER_MANUAL}")
+        print(f"[dry-run] Move {pdf_source} to {DEVELOPER_MANUAL}")
         return
 
     if not pdf_source.exists():
-        raise SystemExit(f"Esperaba {pdf_source} tras compilar con xelatex")
+        raise SystemExit(f"Expected {pdf_source}")
 
     DEVELOPER_MANUAL.parent.mkdir(parents=True, exist_ok=True)
     shutil.move(str(pdf_source), DEVELOPER_MANUAL)
-    print(f"✔ Actualizado {DEVELOPER_MANUAL.relative_to(REPO_ROOT)}")
+    print(f"Updated {DEVELOPER_MANUAL.relative_to(REPO_ROOT)}")
 
 
 # ---------- main ----------
@@ -225,7 +224,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     except RuntimeError as exc:
         raise SystemExit(str(exc)) from exc
 
-    print("Release preparada correctamente.")
+    print("Done.")
     return 0
 
 
