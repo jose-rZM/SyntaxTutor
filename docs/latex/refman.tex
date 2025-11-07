@@ -13,14 +13,6 @@
   \fi
   % Set document class depending on configuration
   \documentclass[twoside]{book}
-  %% moved from doxygen.sty due to workaround for LaTex 2019 version and unmaintained tabu package
-  \usepackage{ifthen}
-  \ifx\requestedLaTeXdate\undefined
-    \usepackage{array}
-  \else
-    \usepackage{array}[=2016-10-06]
-  \fi
-  %%
   % Packages required by doxygen
   \makeatletter
   \providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
@@ -213,7 +205,7 @@
 \begin{titlepage}
     \centering
     \vspace*{1cm}
-    \includegraphics[width=0.25\textwidth]{img/logouma.png}\\
+    \includegraphics[width=0.25\textwidth]{logouma.png}\\
     \vspace{0.5cm}
     {\scshape\Large University of Malaga\\}
     {\scshape School of Computer Science and Engineering\\}
@@ -225,12 +217,12 @@
     \rule{0.7\linewidth}{0.5pt}
     \vfill
     \begin{flushright}
-    \textbf{Version:} 1.0.3\\
-    \textbf{Date:} 2025\\
+    \textbf{Version:} 1.0.4\\
+    \textbf{Date:} 2025-11-07\\
     \textbf{Author:} jose-rzm at GitHub
     \end{flushright}
     \vfill
-    \includegraphics[width=0.15\textwidth]{img/syntaxtutor.png}
+    \includegraphics[width=0.15\textwidth]{syntaxtutor.png}
 \end{titlepage}
   \clearemptydoublepage
   \pagenumbering{roman}
@@ -240,12 +232,21 @@
 %--- Begin generated contents ---
 \input{index}
 \input{md_CHANGELOG}
+\chapter{Directory Hierarchy}
+\input{dirs}
+\chapter{Namespace Index}
+\input{namespaces}
 \chapter{Hierarchical Index}
 \input{hierarchy}
 \chapter{Class Index}
 \input{annotated}
 \chapter{File Index}
 \input{files}
+\chapter{Directory Documentation}
+\input{dir_8c739bbef76d64b22d6b0911c526dd76}
+\chapter{Namespace Documentation}
+\input{namespaceSyntaxTutor}
+\input{namespaceSyntaxTutor_1_1Version}
 \chapter{Class Documentation}
 \input{classCenterAlignDelegate}
 \input{classCustomTextEdit}
@@ -270,6 +271,8 @@
 \input{structTutorialStep}
 \input{classUniqueQueue}
 \chapter{File Documentation}
+\input{appversion_8h}
+\input{appversion_8h_source}
 \input{grammar_8cpp}
 \input{grammar_8hpp}
 \input{grammar_8hpp_source}

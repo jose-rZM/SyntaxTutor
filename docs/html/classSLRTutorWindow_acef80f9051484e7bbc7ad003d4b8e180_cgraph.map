@@ -1,5 +1,7 @@
 <map id="SLRTutorWindow::updateState" name="SLRTutorWindow::updateState">
-<area shape="rect" id="Node000001" title="Updates tutor state based on whether the last answer was correct." alt="" coords="5,5,222,33"/>
-<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="270,5,475,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,16,254,16,254,22,222,22"/>
+<area shape="rect" id="Node000001" title="Updates tutor state based on whether the last answer was correct." alt="" coords="5,32,222,60"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#afbe6fdd9c0ace30a6b4e752fc8cec071" title="&lt; Prepares grammar in display&#45;friendly format" alt="" coords="270,5,489,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,32,254,29,254,34,223,38"/>
+<area shape="rect" id="Node000003" href="$classSLRTutorWindow.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="277,57,482,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,54,261,57,261,63,222,59"/>
 </map>

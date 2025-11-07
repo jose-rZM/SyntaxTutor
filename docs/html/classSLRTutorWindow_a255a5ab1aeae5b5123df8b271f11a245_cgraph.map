@@ -1,5 +1,0 @@
-<map id="SLRTutorWindow::generateQuestion" name="SLRTutorWindow::generateQuestion">
-<area shape="rect" id="Node000001" title="Generates a new question for the current tutor state." alt="" coords="5,5,201,50"/>
-<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="249,14,454,42"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,25,233,25,233,30,201,30"/>
-</map>

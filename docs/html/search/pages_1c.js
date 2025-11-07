@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['🧠_20slr_201_20learning_20mode_0',['🧠 SLR(1) Learning Mode',['../index.html#autotoc_md22',1,'']]]
+  ['🛠️_20building_20from_20source_0',['🛠️ Building from Source',['../index.html#autotoc_md32',1,'']]],
+  ['🛠️_20technologies_20used_1',['🛠️ Technologies Used',['../index.html#autotoc_md28',1,'']]]
 ];

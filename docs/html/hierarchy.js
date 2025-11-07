@@ -36,5 +36,5 @@ var hierarchy =
     [ "SymbolTable", "structSymbolTable.html", null ],
     [ "LLTutorWindow::TreeNode", "structLLTutorWindow_1_1TreeNode.html", null ],
     [ "TutorialStep", "structTutorialStep.html", null ],
-    [ "UniqueQueue< T >", "classUniqueQueue.html", null ]
+    [ "UniqueQueue&lt; T &gt;", "classUniqueQueue.html", null ]
 ];

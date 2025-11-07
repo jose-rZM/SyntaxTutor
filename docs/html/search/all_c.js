@@ -1,17 +1,14 @@
 var searchData=
 [
-  ['id_5f_0',['id_',['../structstate.html#ae4175bd8db542097060d70960296505d',1,'state']]],
-  ['in_1',['In',['../structSymbolTable.html#a6fc61b8d63539a3a85042874db6c6d6b',1,'SymbolTable']]],
-  ['init_2',['Init',['../structGrammarFactory.html#a7c7e94a38b31ab06b0b0276cb2530936',1,'GrammarFactory']]],
-  ['initial_20release_3',['Initial Release',['../md_CHANGELOG.html#autotoc_md12',1,'']]],
-  ['initstyleoption_4',['initStyleOption',['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override'],['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override']]],
-  ['interactive_20tool_20for_20learning_20syntax_20analysis_5',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['interface_20screenshots_6',['🖼️ Interface Screenshots',['../index.html#autotoc_md19',1,'']]],
-  ['iscomplete_7',['IsComplete',['../structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4',1,'Lr0Item']]],
-  ['isinfinite_8',['IsInfinite',['../structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883',1,'GrammarFactory']]],
-  ['isterminal_9',['IsTerminal',['../structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21',1,'SymbolTable']]],
-  ['isterminalwthoeol_10',['IsTerminalWthoEol',['../structSymbolTable.html#a59a554074a649b1e6e55d4149b62743c',1,'SymbolTable']]],
-  ['item_11',['item',['../structSLR1Parser_1_1s__action.html#a571ec039a96e95bfa657a7bb5bc5b9bb',1,'SLR1Parser::s_action']]],
-  ['items_12',['items',['../structGrammarFactory.html#a4abe0dd76b57891bf88d72f96e609400',1,'GrammarFactory']]],
-  ['items_5f_13',['items_',['../structstate.html#a54da669fd7d80f2459478e228a5f8af6',1,'state']]]
+  ['h_0',['H',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473dac1d9f50f86825a1a2302ec2449c17196',1,'slrtutorwindow.h']]],
+  ['h_5fprime_1',['H_prime',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da07f25294fd107fcdf475aa6de0b89d9d',1,'slrtutorwindow.h']]],
+  ['handletablesubmission_2',['handleTableSubmission',['../classLLTutorWindow.html#a76a825d9c56a31849e340be7b45f6674',1,'LLTutorWindow']]],
+  ['hascycle_3',['HasCycle',['../structGrammarFactory.html#a545a96027491b8858aa2621f6476385f',1,'GrammarFactory']]],
+  ['hasdirectleftrecursion_4',['HasDirectLeftRecursion',['../structGrammarFactory.html#a6bf9e0a5e0808f56165d488abde34c5f',1,'GrammarFactory']]],
+  ['hasemptyproduction_5',['HasEmptyProduction',['../structGrammar.html#a833632e1ccfa0f84222a4b7168cf975e',1,'Grammar']]],
+  ['hasindirectleftrecursion_6',['HasIndirectLeftRecursion',['../structGrammarFactory.html#af8f0bc614939cd7268fb61c70d10fcb5',1,'GrammarFactory']]],
+  ['hasunreachablesymbols_7',['HasUnreachableSymbols',['../structGrammarFactory.html#a289b675f7307cbbd986d3684ceefc8db',1,'GrammarFactory']]],
+  ['hideoverlay_8',['hideOverlay',['../classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887',1,'TutorialManager']]],
+  ['highlightincorrectcells_9',['highlightIncorrectCells',['../classLLTableDialog.html#ac1791cc427d1523730c6da5b8c2c9f4b',1,'LLTableDialog']]],
+  ['htmltext_10',['htmlText',['../structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2',1,'TutorialStep']]]
 ];

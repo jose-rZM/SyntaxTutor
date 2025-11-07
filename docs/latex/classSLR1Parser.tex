@@ -323,8 +323,8 @@ $\+:
 $.
 \item If $ \epsilon \in FIRST(\beta) $, add $ FOLLOW(A) $ to $ FOLLOW(B) $.
 \end{DoxyItemize}
-\item Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the {\ttfamily follow\+\_\+sets\+\_\+} member variable for later use by the parser. \begin{DoxyNote}{Note}
-This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily first\+\_\+sets\+\_\+} member variable. 
+\item Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the {\ttfamily \doxylink{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}{follow\+\_\+sets\+\_\+}} member variable for later use by the parser. \begin{DoxyNote}{Note}
+This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily \doxylink{classSLR1Parser_a4b9b4f88bfef3c3e77f791446f3d820c}{first\+\_\+sets\+\_\+}} member variable. 
 \end{DoxyNote}
 \begin{DoxySeeAlso}{See also}
 \doxylink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First} 
@@ -450,7 +450,7 @@ void SLR1\+Parser\+::\+Make\+Initial\+State (\begin{DoxyParamCaption}{}{}\end{Do
 
 Creates the initial state of the parser\textquotesingle{}s state machine. 
 
-This function initializes the starting state of the parser by computing the closure of the initial set of LR(0) items derived from the grammar\textquotesingle{}s start symbol. The initial state is added to the {\ttfamily states\+\_\+} set, and its transitions are prepared for further processing in the parser construction.
+This function initializes the starting state of the parser by computing the closure of the initial set of LR(0) items derived from the grammar\textquotesingle{}s start symbol. The initial state is added to the {\ttfamily \doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+}} set, and its transitions are prepared for further processing in the parser construction.
 
 \begin{DoxySeeAlso}{See also}
 \doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+} 

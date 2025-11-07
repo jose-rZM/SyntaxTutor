@@ -1,0 +1,1063 @@
+\begin{theindex}
+
+  \item {\texorpdfstring{$\sim$}{\string~}LLTutorWindow}
+    \subitem {LLTutorWindow}, \hyperpage{60}
+  \item {\texorpdfstring{$\sim$}{\string~}MainWindow}
+    \subitem {MainWindow}, \hyperpage{73}
+  \item {\texorpdfstring{$\sim$}{\string~}SLRTutorWindow}
+    \subitem {SLRTutorWindow}, \hyperpage{90}
+
+  \indexspace
+
+  \item {A}
+    \subitem {lltutorwindow.h}, \hyperpage{135}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {A1}
+    \subitem {lltutorwindow.h}, \hyperpage{135}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {A2}
+    \subitem {lltutorwindow.h}, \hyperpage{135}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {A3}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {A4}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {A\_prime}
+    \subitem {lltutorwindow.h}, \hyperpage{135}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {Accept}
+    \subitem {SLR1Parser}, \hyperpage{78}
+  \item {Action}
+    \subitem {SLR1Parser}, \hyperpage{78}
+  \item {action}
+    \subitem {SLR1Parser::s\_action}, \hyperpage{75}
+  \item {action\_table}
+    \subitem {SLR1Parser}, \hyperpage{77}
+  \item {actions\_}
+    \subitem {SLR1Parser}, \hyperpage{85}
+  \item {addMessage}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+    \subitem {SLRTutorWindow}, \hyperpage{91}
+  \item {AddProduction}
+    \subitem {Grammar}, \hyperpage{32}
+  \item {addStep}
+    \subitem {TutorialManager}, \hyperpage{109}
+  \item {addUserState}
+    \subitem {SLRTutorWindow}, \hyperpage{91}
+  \item {addUserTransition}
+    \subitem {SLRTutorWindow}, \hyperpage{91}
+  \item {addWidgetMessage}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+  \item {AdjustTerminals}
+    \subitem {GrammarFactory}, \hyperpage{35}
+  \item {AdvanceDot}
+    \subitem {Lr0Item}, \hyperpage{69}
+  \item {AllItems}
+    \subitem {SLR1Parser}, \hyperpage{79}
+  \item {animateLabelColor}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+    \subitem {SLRTutorWindow}, \hyperpage{91}
+  \item {animateLabelPop}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+    \subitem {SLRTutorWindow}, \hyperpage{91}
+  \item {antecedent\_}
+    \subitem {Lr0Item}, \hyperpage{71}
+  \item {appversion.h}, \hyperpage{115}
+  \item {axiom\_}
+    \subitem {Grammar}, \hyperpage{33}
+
+  \indexspace
+
+  \item {B}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {B1}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+  \item {B2}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+  \item {B\_prime}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+  \item {backend Directory Reference}, \hyperpage{23}
+  \item {backend/grammar.cpp}, \hyperpage{116}
+  \item {backend/grammar.hpp}, \hyperpage{116, 117}
+  \item {backend/grammar\_factory.cpp}, \hyperpage{118}
+  \item {backend/grammar\_factory.hpp}, \hyperpage{118, 119}
+  \item {backend/ll1\_parser.cpp}, \hyperpage{121}
+  \item {backend/ll1\_parser.hpp}, \hyperpage{121, 122}
+  \item {backend/lr0\_item.cpp}, \hyperpage{123}
+  \item {backend/lr0\_item.hpp}, \hyperpage{123, 124}
+  \item {backend/slr1\_parser.cpp}, \hyperpage{125}
+  \item {backend/slr1\_parser.hpp}, \hyperpage{125, 126}
+  \item {backend/state.hpp}, \hyperpage{127, 128}
+  \item {backend/symbol\_table.cpp}, \hyperpage{129}
+  \item {backend/symbol\_table.hpp}, \hyperpage{129, 130}
+  \item {buildTreeNode}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+
+  \indexspace
+
+  \item {C}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {C\_prime}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+  \item {CA}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {CB}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {CenterAlignDelegate}, \hyperpage{27}
+    \subitem {initStyleOption}, \hyperpage{27}
+  \item {Changelog}, \hyperpage{11}
+  \item {CHANGELOG.md}, \hyperpage{130}
+  \item {children}
+    \subitem {LLTutorWindow::TreeNode}, \hyperpage{107}
+  \item {clear}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{113}
+  \item {clearSteps}
+    \subitem {TutorialManager}, \hyperpage{109}
+  \item {closeEvent}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+    \subitem {SLRTutorWindow}, \hyperpage{91}
+  \item {Closure}
+    \subitem {SLR1Parser}, \hyperpage{79}
+  \item {ClosureUtil}
+    \subitem {SLR1Parser}, \hyperpage{79}
+  \item {ComputeFirstSets}
+    \subitem {LL1Parser}, \hyperpage{51}
+    \subitem {SLR1Parser}, \hyperpage{80}
+  \item {ComputeFollowSets}
+    \subitem {LL1Parser}, \hyperpage{51}
+    \subitem {SLR1Parser}, \hyperpage{80}
+  \item {computeSubtreeWidth}
+    \subitem {LLTutorWindow}, \hyperpage{61}
+  \item {consequent\_}
+    \subitem {Lr0Item}, \hyperpage{71}
+  \item {CreateLL1Table}
+    \subitem {LL1Parser}, \hyperpage{52}
+  \item {CreateLv2Item}
+    \subitem {GrammarFactory}, \hyperpage{36}
+  \item {current}
+    \subitem {SyntaxTutor::Version}, \hyperpage{25}
+  \item {CustomTextEdit}, \hyperpage{28}
+    \subitem {CustomTextEdit}, \hyperpage{28}
+    \subitem {keyPressEvent}, \hyperpage{29}
+    \subitem {sendRequested}, \hyperpage{29}
+  \item {customtextedit.cpp}, \hyperpage{130}
+  \item {customtextedit.h}, \hyperpage{131}
+
+  \indexspace
+
+  \item {D}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {D1}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {D2}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {D\_prime}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {Debug}
+    \subitem {Grammar}, \hyperpage{32}
+  \item {Delta}
+    \subitem {SLR1Parser}, \hyperpage{81}
+  \item {dot\_}
+    \subitem {Lr0Item}, \hyperpage{71}
+  \item {drawTree}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+
+  \indexspace
+
+  \item {E}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {E1}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {E2}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {Empty}
+    \subitem {SLR1Parser}, \hyperpage{78}
+  \item {empty}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{113}
+  \item {EOL\_}
+    \subitem {SymbolTable}, \hyperpage{106}
+  \item {eol\_}
+    \subitem {Lr0Item}, \hyperpage{71}
+  \item {EPSILON\_}
+    \subitem {SymbolTable}, \hyperpage{106}
+  \item {epsilon\_}
+    \subitem {Lr0Item}, \hyperpage{71}
+  \item {eventFilter}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {TutorialManager}, \hyperpage{109}
+  \item {exportConversationToPdf}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+
+  \indexspace
+
+  \item {F}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {FA}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {FactoryItem}
+    \subitem {GrammarFactory::FactoryItem}, \hyperpage{30}
+  \item {feedback}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForA}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForA1}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForA2}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForA3}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForA4}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForAPrime}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForB}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForB1}
+    \subitem {LLTutorWindow}, \hyperpage{62}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForB1TreeGraphics}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+  \item {feedbackForB1TreeWidget}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+  \item {feedbackForB2}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForBPrime}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+    \subitem {SLRTutorWindow}, \hyperpage{92}
+  \item {feedbackForC}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForCA}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForCB}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForCPrime}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+  \item {feedbackForD}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForD1}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForD2}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForDPrime}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForE}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForE1}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForE2}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForF}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForFA}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {feedbackForG}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {fillSortedGrammar}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {FilterRulesByConsequent}
+    \subitem {Grammar}, \hyperpage{32}
+  \item {fin}
+    \subitem {lltutorwindow.h}, \hyperpage{136}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {finishLL1}
+    \subitem {TutorialManager}, \hyperpage{109}
+  \item {finishSLR1}
+    \subitem {TutorialManager}, \hyperpage{109}
+  \item {First}
+    \subitem {LL1Parser}, \hyperpage{52}
+    \subitem {SLR1Parser}, \hyperpage{81}
+  \item {first\_sets\_}
+    \subitem {LL1Parser}, \hyperpage{54}
+    \subitem {SLR1Parser}, \hyperpage{85}
+  \item {Follow}
+    \subitem {LL1Parser}, \hyperpage{53}
+    \subitem {SLR1Parser}, \hyperpage{82}
+  \item {follow\_sets\_}
+    \subitem {LL1Parser}, \hyperpage{54}
+    \subitem {SLR1Parser}, \hyperpage{85}
+  \item {FormatGrammar}
+    \subitem {LLTutorWindow}, \hyperpage{63}
+    \subitem {SLRTutorWindow}, \hyperpage{93}
+  \item {front}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{113}
+
+  \indexspace
+
+  \item {G}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {g\_}
+    \subitem {Grammar}, \hyperpage{33}
+    \subitem {GrammarFactory::FactoryItem}, \hyperpage{30}
+  \item {GenerateNewNonTerminal}
+    \subitem {GrammarFactory}, \hyperpage{36}
+  \item {generateQuestion}
+    \subitem {LLTutorWindow}, \hyperpage{64}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {GenLL1Grammar}
+    \subitem {GrammarFactory}, \hyperpage{37}
+  \item {GenSLR1Grammar}
+    \subitem {GrammarFactory}, \hyperpage{37}
+  \item {getTableData}
+    \subitem {LLTableDialog}, \hyperpage{56}
+    \subitem {SLRTableDialog}, \hyperpage{87}
+  \item {gr\_}
+    \subitem {LL1Parser}, \hyperpage{54}
+    \subitem {SLR1Parser}, \hyperpage{85}
+  \item {Grammar}, \hyperpage{30}
+    \subitem {AddProduction}, \hyperpage{32}
+    \subitem {axiom\_}, \hyperpage{33}
+    \subitem {Debug}, \hyperpage{32}
+    \subitem {FilterRulesByConsequent}, \hyperpage{32}
+    \subitem {g\_}, \hyperpage{33}
+    \subitem {Grammar}, \hyperpage{31}
+    \subitem {HasEmptyProduction}, \hyperpage{32}
+    \subitem {SetAxiom}, \hyperpage{33}
+    \subitem {Split}, \hyperpage{33}
+    \subitem {st\_}, \hyperpage{33}
+  \item {grammar.hpp}
+    \subitem {production}, \hyperpage{117}
+  \item {GrammarFactory}, \hyperpage{34}
+    \subitem {AdjustTerminals}, \hyperpage{35}
+    \subitem {CreateLv2Item}, \hyperpage{36}
+    \subitem {GenerateNewNonTerminal}, \hyperpage{36}
+    \subitem {GenLL1Grammar}, \hyperpage{37}
+    \subitem {GenSLR1Grammar}, \hyperpage{37}
+    \subitem {HasCycle}, \hyperpage{38}
+    \subitem {HasDirectLeftRecursion}, \hyperpage{38}
+    \subitem {HasIndirectLeftRecursion}, \hyperpage{39}
+    \subitem {HasUnreachableSymbols}, \hyperpage{39}
+    \subitem {Init}, \hyperpage{40}
+    \subitem {IsInfinite}, \hyperpage{40}
+    \subitem {items}, \hyperpage{49}
+    \subitem {LeftFactorize}, \hyperpage{40}
+    \subitem {LongestCommonPrefix}, \hyperpage{41}
+    \subitem {Lv1}, \hyperpage{42}
+    \subitem {Lv2}, \hyperpage{42}
+    \subitem {Lv3}, \hyperpage{42}
+    \subitem {Lv4}, \hyperpage{43}
+    \subitem {Lv5}, \hyperpage{43}
+    \subitem {Lv6}, \hyperpage{44}
+    \subitem {Lv7}, \hyperpage{44}
+    \subitem {Merge}, \hyperpage{45}
+    \subitem {non\_terminal\_alphabet\_}, \hyperpage{49}
+    \subitem {NormalizeNonTerminals}, \hyperpage{46}
+    \subitem {NullableSymbols}, \hyperpage{46}
+    \subitem {PickOne}, \hyperpage{47}
+    \subitem {RemoveLeftRecursion}, \hyperpage{47}
+    \subitem {StartsWith}, \hyperpage{48}
+    \subitem {terminal\_alphabet\_}, \hyperpage{49}
+  \item {GrammarFactory::FactoryItem}, \hyperpage{29}
+    \subitem {FactoryItem}, \hyperpage{30}
+    \subitem {g\_}, \hyperpage{30}
+    \subitem {st\_}, \hyperpage{30}
+
+  \indexspace
+
+  \item {H}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {H\_prime}
+    \subitem {slrtutorwindow.h}, \hyperpage{146}
+  \item {handleTableSubmission}
+    \subitem {LLTutorWindow}, \hyperpage{64}
+  \item {HasCycle}
+    \subitem {GrammarFactory}, \hyperpage{38}
+  \item {HasDirectLeftRecursion}
+    \subitem {GrammarFactory}, \hyperpage{38}
+  \item {HasEmptyProduction}
+    \subitem {Grammar}, \hyperpage{32}
+  \item {HasIndirectLeftRecursion}
+    \subitem {GrammarFactory}, \hyperpage{39}
+  \item {HasUnreachableSymbols}
+    \subitem {GrammarFactory}, \hyperpage{39}
+  \item {hideOverlay}
+    \subitem {TutorialManager}, \hyperpage{110}
+  \item {highlightIncorrectCells}
+    \subitem {LLTableDialog}, \hyperpage{56}
+  \item {htmlText}
+    \subitem {TutorialStep}, \hyperpage{112}
+
+  \indexspace
+
+  \item {id\_}
+    \subitem {state}, \hyperpage{104}
+  \item {In}
+    \subitem {SymbolTable}, \hyperpage{105}
+  \item {Init}
+    \subitem {GrammarFactory}, \hyperpage{40}
+  \item {initStyleOption}
+    \subitem {CenterAlignDelegate}, \hyperpage{27}
+  \item {IsComplete}
+    \subitem {Lr0Item}, \hyperpage{69}
+  \item {IsInfinite}
+    \subitem {GrammarFactory}, \hyperpage{40}
+  \item {IsTerminal}
+    \subitem {SymbolTable}, \hyperpage{105}
+  \item {IsTerminalWthoEol}
+    \subitem {SymbolTable}, \hyperpage{105}
+  \item {item}
+    \subitem {SLR1Parser::s\_action}, \hyperpage{75}
+  \item {items}
+    \subitem {GrammarFactory}, \hyperpage{49}
+  \item {items\_}
+    \subitem {state}, \hyperpage{104}
+
+  \indexspace
+
+  \item {keyPressEvent}
+    \subitem {CustomTextEdit}, \hyperpage{29}
+
+  \indexspace
+
+  \item {label}
+    \subitem {LLTutorWindow::TreeNode}, \hyperpage{107}
+  \item {launchSLRWizard}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {LeftFactorize}
+    \subitem {GrammarFactory}, \hyperpage{40}
+  \item {ll1\_t\_}
+    \subitem {LL1Parser}, \hyperpage{55}
+  \item {ll1Finished}
+    \subitem {TutorialManager}, \hyperpage{110}
+  \item {LL1Parser}, \hyperpage{49}
+    \subitem {ComputeFirstSets}, \hyperpage{51}
+    \subitem {ComputeFollowSets}, \hyperpage{51}
+    \subitem {CreateLL1Table}, \hyperpage{52}
+    \subitem {First}, \hyperpage{52}
+    \subitem {first\_sets\_}, \hyperpage{54}
+    \subitem {Follow}, \hyperpage{53}
+    \subitem {follow\_sets\_}, \hyperpage{54}
+    \subitem {gr\_}, \hyperpage{54}
+    \subitem {ll1\_t\_}, \hyperpage{55}
+    \subitem {LL1Parser}, \hyperpage{50}
+    \subitem {PredictionSymbols}, \hyperpage{53}
+  \item {LLTableDialog}, \hyperpage{55}
+    \subitem {getTableData}, \hyperpage{56}
+    \subitem {highlightIncorrectCells}, \hyperpage{56}
+    \subitem {LLTableDialog}, \hyperpage{56}
+    \subitem {setInitialData}, \hyperpage{56}
+    \subitem {submitted}, \hyperpage{57}
+  \item {lltabledialog.cpp}, \hyperpage{132}
+  \item {lltabledialog.h}, \hyperpage{132}
+  \item {LLTutorWindow}, \hyperpage{57}
+    \subitem {\texorpdfstring{$\sim$}{\string~}LLTutorWindow}, 
+		\hyperpage{60}
+    \subitem {addMessage}, \hyperpage{61}
+    \subitem {addWidgetMessage}, \hyperpage{61}
+    \subitem {animateLabelColor}, \hyperpage{61}
+    \subitem {animateLabelPop}, \hyperpage{61}
+    \subitem {buildTreeNode}, \hyperpage{61}
+    \subitem {closeEvent}, \hyperpage{61}
+    \subitem {computeSubtreeWidth}, \hyperpage{61}
+    \subitem {drawTree}, \hyperpage{62}
+    \subitem {eventFilter}, \hyperpage{62}
+    \subitem {exportConversationToPdf}, \hyperpage{62}
+    \subitem {feedback}, \hyperpage{62}
+    \subitem {feedbackForA}, \hyperpage{62}
+    \subitem {feedbackForA1}, \hyperpage{62}
+    \subitem {feedbackForA2}, \hyperpage{62}
+    \subitem {feedbackForAPrime}, \hyperpage{62}
+    \subitem {feedbackForB}, \hyperpage{62}
+    \subitem {feedbackForB1}, \hyperpage{62}
+    \subitem {feedbackForB1TreeGraphics}, \hyperpage{63}
+    \subitem {feedbackForB1TreeWidget}, \hyperpage{63}
+    \subitem {feedbackForB2}, \hyperpage{63}
+    \subitem {feedbackForBPrime}, \hyperpage{63}
+    \subitem {feedbackForC}, \hyperpage{63}
+    \subitem {feedbackForCPrime}, \hyperpage{63}
+    \subitem {FormatGrammar}, \hyperpage{63}
+    \subitem {generateQuestion}, \hyperpage{64}
+    \subitem {handleTableSubmission}, \hyperpage{64}
+    \subitem {LLTutorWindow}, \hyperpage{60}
+    \subitem {markLastUserIncorrect}, \hyperpage{64}
+    \subitem {sessionFinished}, \hyperpage{64}
+    \subitem {showTable}, \hyperpage{65}
+    \subitem {showTableForCPrime}, \hyperpage{65}
+    \subitem {showTreeGraphics}, \hyperpage{65}
+    \subitem {solution}, \hyperpage{65}
+    \subitem {solutionForA}, \hyperpage{65}
+    \subitem {solutionForA1}, \hyperpage{65}
+    \subitem {solutionForA2}, \hyperpage{65}
+    \subitem {solutionForB}, \hyperpage{65}
+    \subitem {solutionForB1}, \hyperpage{65}
+    \subitem {solutionForB2}, \hyperpage{66}
+    \subitem {TeachFirstTree}, \hyperpage{66}
+    \subitem {TeachFollow}, \hyperpage{66}
+    \subitem {TeachLL1Table}, \hyperpage{66}
+    \subitem {TeachPredictionSymbols}, \hyperpage{66}
+    \subitem {updateProgressPanel}, \hyperpage{66}
+    \subitem {updateState}, \hyperpage{66}
+    \subitem {verifyResponse}, \hyperpage{67}
+    \subitem {verifyResponseForA}, \hyperpage{67}
+    \subitem {verifyResponseForA1}, \hyperpage{67}
+    \subitem {verifyResponseForA2}, \hyperpage{67}
+    \subitem {verifyResponseForB}, \hyperpage{67}
+    \subitem {verifyResponseForB1}, \hyperpage{67}
+    \subitem {verifyResponseForB2}, \hyperpage{67}
+    \subitem {verifyResponseForC}, \hyperpage{67}
+    \subitem {wrongAnimation}, \hyperpage{67}
+    \subitem {wrongUserResponseAnimation}, \hyperpage{67}
+  \item {lltutorwindow.cpp}, \hyperpage{134}
+  \item {lltutorwindow.h}, \hyperpage{134}
+    \subitem {A}, \hyperpage{135}
+    \subitem {A1}, \hyperpage{135}
+    \subitem {A2}, \hyperpage{135}
+    \subitem {A\_prime}, \hyperpage{135}
+    \subitem {B}, \hyperpage{136}
+    \subitem {B1}, \hyperpage{136}
+    \subitem {B2}, \hyperpage{136}
+    \subitem {B\_prime}, \hyperpage{136}
+    \subitem {C}, \hyperpage{136}
+    \subitem {C\_prime}, \hyperpage{136}
+    \subitem {fin}, \hyperpage{136}
+    \subitem {State}, \hyperpage{135}
+  \item {LLTutorWindow::TreeNode}, \hyperpage{107}
+    \subitem {children}, \hyperpage{107}
+    \subitem {label}, \hyperpage{107}
+  \item {loadFonts}
+    \subitem {main.cpp}, \hyperpage{139}
+  \item {LongestCommonPrefix}
+    \subitem {GrammarFactory}, \hyperpage{41}
+  \item {Lr0Item}, \hyperpage{68}
+    \subitem {AdvanceDot}, \hyperpage{69}
+    \subitem {antecedent\_}, \hyperpage{71}
+    \subitem {consequent\_}, \hyperpage{71}
+    \subitem {dot\_}, \hyperpage{71}
+    \subitem {eol\_}, \hyperpage{71}
+    \subitem {epsilon\_}, \hyperpage{71}
+    \subitem {IsComplete}, \hyperpage{69}
+    \subitem {Lr0Item}, \hyperpage{69}
+    \subitem {NextToDot}, \hyperpage{70}
+    \subitem {operator==}, \hyperpage{70}
+    \subitem {PrintItem}, \hyperpage{70}
+    \subitem {ToString}, \hyperpage{70}
+  \item {Lv1}
+    \subitem {GrammarFactory}, \hyperpage{42}
+  \item {Lv2}
+    \subitem {GrammarFactory}, \hyperpage{42}
+  \item {Lv3}
+    \subitem {GrammarFactory}, \hyperpage{42}
+  \item {Lv4}
+    \subitem {GrammarFactory}, \hyperpage{43}
+  \item {Lv5}
+    \subitem {GrammarFactory}, \hyperpage{43}
+  \item {Lv6}
+    \subitem {GrammarFactory}, \hyperpage{44}
+  \item {Lv7}
+    \subitem {GrammarFactory}, \hyperpage{44}
+
+  \indexspace
+
+  \item {main}
+    \subitem {main.cpp}, \hyperpage{139}
+  \item {main.cpp}, \hyperpage{139}
+    \subitem {loadFonts}, \hyperpage{139}
+    \subitem {main}, \hyperpage{139}
+  \item {MainWindow}, \hyperpage{71}
+    \subitem {\texorpdfstring{$\sim$}{\string~}MainWindow}, 
+		\hyperpage{73}
+    \subitem {MainWindow}, \hyperpage{73}
+    \subitem {setUserLevel}, \hyperpage{73}
+    \subitem {thresholdFor}, \hyperpage{73}
+    \subitem {userLevel}, \hyperpage{74, 75}
+    \subitem {userLevelChanged}, \hyperpage{74}
+    \subitem {userLevelUp}, \hyperpage{74}
+  \item {mainwindow.cpp}, \hyperpage{140}
+  \item {mainwindow.h}, \hyperpage{140}
+  \item {MakeInitialState}
+    \subitem {SLR1Parser}, \hyperpage{83}
+  \item {MakeParser}
+    \subitem {SLR1Parser}, \hyperpage{83}
+  \item {markLastUserIncorrect}
+    \subitem {LLTutorWindow}, \hyperpage{64}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {Merge}
+    \subitem {GrammarFactory}, \hyperpage{45}
+
+  \indexspace
+
+  \item {nextStep}
+    \subitem {TutorialManager}, \hyperpage{110}
+  \item {NextToDot}
+    \subitem {Lr0Item}, \hyperpage{70}
+  \item {NO\_TERMINAL}
+    \subitem {symbol\_table.hpp}, \hyperpage{130}
+  \item {non\_terminal\_alphabet\_}
+    \subitem {GrammarFactory}, \hyperpage{49}
+  \item {non\_terminals\_}
+    \subitem {SymbolTable}, \hyperpage{106}
+  \item {NormalizeNonTerminals}
+    \subitem {GrammarFactory}, \hyperpage{46}
+  \item {NullableSymbols}
+    \subitem {GrammarFactory}, \hyperpage{46}
+
+  \indexspace
+
+  \item {operator==}
+    \subitem {Lr0Item}, \hyperpage{70}
+    \subitem {state}, \hyperpage{103}
+
+  \indexspace
+
+  \item {PickOne}
+    \subitem {GrammarFactory}, \hyperpage{47}
+  \item {pop}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{114}
+  \item {PredictionSymbols}
+    \subitem {LL1Parser}, \hyperpage{53}
+  \item {PrintItem}
+    \subitem {Lr0Item}, \hyperpage{70}
+  \item {PrintItems}
+    \subitem {SLR1Parser}, \hyperpage{84}
+  \item {production}
+    \subitem {grammar.hpp}, \hyperpage{117}
+  \item {push}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{114}
+  \item {PutSymbol}
+    \subitem {SymbolTable}, \hyperpage{105}
+
+  \indexspace
+
+  \item {raw}
+    \subitem {SyntaxTutor::Version}, \hyperpage{25}
+  \item {README.md}, \hyperpage{142}
+  \item {Reduce}
+    \subitem {SLR1Parser}, \hyperpage{78}
+  \item {RemoveLeftRecursion}
+    \subitem {GrammarFactory}, \hyperpage{47}
+
+  \indexspace
+
+  \item {sendRequested}
+    \subitem {CustomTextEdit}, \hyperpage{29}
+  \item {sessionFinished}
+    \subitem {LLTutorWindow}, \hyperpage{64}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {SetAxiom}
+    \subitem {Grammar}, \hyperpage{33}
+  \item {setInitialData}
+    \subitem {LLTableDialog}, \hyperpage{56}
+    \subitem {SLRTableDialog}, \hyperpage{87}
+  \item {setRootWindow}
+    \subitem {TutorialManager}, \hyperpage{111}
+  \item {setUserLevel}
+    \subitem {MainWindow}, \hyperpage{73}
+  \item {Shift}
+    \subitem {SLR1Parser}, \hyperpage{78}
+  \item {showTable}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {showTableForCPrime}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+  \item {showTreeGraphics}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+  \item {slr1Finished}
+    \subitem {TutorialManager}, \hyperpage{111}
+  \item {SLR1Parser}, \hyperpage{75}
+    \subitem {Accept}, \hyperpage{78}
+    \subitem {Action}, \hyperpage{78}
+    \subitem {action\_table}, \hyperpage{77}
+    \subitem {actions\_}, \hyperpage{85}
+    \subitem {AllItems}, \hyperpage{79}
+    \subitem {Closure}, \hyperpage{79}
+    \subitem {ClosureUtil}, \hyperpage{79}
+    \subitem {ComputeFirstSets}, \hyperpage{80}
+    \subitem {ComputeFollowSets}, \hyperpage{80}
+    \subitem {Delta}, \hyperpage{81}
+    \subitem {Empty}, \hyperpage{78}
+    \subitem {First}, \hyperpage{81}
+    \subitem {first\_sets\_}, \hyperpage{85}
+    \subitem {Follow}, \hyperpage{82}
+    \subitem {follow\_sets\_}, \hyperpage{85}
+    \subitem {gr\_}, \hyperpage{85}
+    \subitem {MakeInitialState}, \hyperpage{83}
+    \subitem {MakeParser}, \hyperpage{83}
+    \subitem {PrintItems}, \hyperpage{84}
+    \subitem {Reduce}, \hyperpage{78}
+    \subitem {Shift}, \hyperpage{78}
+    \subitem {SLR1Parser}, \hyperpage{78}
+    \subitem {SolveLRConflicts}, \hyperpage{84}
+    \subitem {states\_}, \hyperpage{85}
+    \subitem {transition\_table}, \hyperpage{77}
+    \subitem {transitions\_}, \hyperpage{85}
+  \item {SLR1Parser::s\_action}, \hyperpage{75}
+    \subitem {action}, \hyperpage{75}
+    \subitem {item}, \hyperpage{75}
+  \item {SLRTableDialog}, \hyperpage{85}
+    \subitem {getTableData}, \hyperpage{87}
+    \subitem {setInitialData}, \hyperpage{87}
+    \subitem {SLRTableDialog}, \hyperpage{86}
+  \item {slrtabledialog.cpp}, \hyperpage{142}
+  \item {slrtabledialog.h}, \hyperpage{142}
+  \item {SLRTutorWindow}, \hyperpage{87}
+    \subitem {\texorpdfstring{$\sim$}{\string~}SLRTutorWindow}, 
+		\hyperpage{90}
+    \subitem {addMessage}, \hyperpage{91}
+    \subitem {addUserState}, \hyperpage{91}
+    \subitem {addUserTransition}, \hyperpage{91}
+    \subitem {animateLabelColor}, \hyperpage{91}
+    \subitem {animateLabelPop}, \hyperpage{91}
+    \subitem {closeEvent}, \hyperpage{91}
+    \subitem {exportConversationToPdf}, \hyperpage{92}
+    \subitem {feedback}, \hyperpage{92}
+    \subitem {feedbackForA}, \hyperpage{92}
+    \subitem {feedbackForA1}, \hyperpage{92}
+    \subitem {feedbackForA2}, \hyperpage{92}
+    \subitem {feedbackForA3}, \hyperpage{92}
+    \subitem {feedbackForA4}, \hyperpage{92}
+    \subitem {feedbackForAPrime}, \hyperpage{92}
+    \subitem {feedbackForB}, \hyperpage{92}
+    \subitem {feedbackForB1}, \hyperpage{92}
+    \subitem {feedbackForB2}, \hyperpage{92}
+    \subitem {feedbackForBPrime}, \hyperpage{92}
+    \subitem {feedbackForC}, \hyperpage{93}
+    \subitem {feedbackForCA}, \hyperpage{93}
+    \subitem {feedbackForCB}, \hyperpage{93}
+    \subitem {feedbackForD}, \hyperpage{93}
+    \subitem {feedbackForD1}, \hyperpage{93}
+    \subitem {feedbackForD2}, \hyperpage{93}
+    \subitem {feedbackForDPrime}, \hyperpage{93}
+    \subitem {feedbackForE}, \hyperpage{93}
+    \subitem {feedbackForE1}, \hyperpage{93}
+    \subitem {feedbackForE2}, \hyperpage{93}
+    \subitem {feedbackForF}, \hyperpage{93}
+    \subitem {feedbackForFA}, \hyperpage{93}
+    \subitem {feedbackForG}, \hyperpage{93}
+    \subitem {fillSortedGrammar}, \hyperpage{93}
+    \subitem {FormatGrammar}, \hyperpage{93}
+    \subitem {generateQuestion}, \hyperpage{94}
+    \subitem {launchSLRWizard}, \hyperpage{94}
+    \subitem {markLastUserIncorrect}, \hyperpage{94}
+    \subitem {sessionFinished}, \hyperpage{94}
+    \subitem {showTable}, \hyperpage{94}
+    \subitem {SLRTutorWindow}, \hyperpage{90}
+    \subitem {solution}, \hyperpage{94}
+    \subitem {solutionForA}, \hyperpage{94}
+    \subitem {solutionForA1}, \hyperpage{94}
+    \subitem {solutionForA2}, \hyperpage{94}
+    \subitem {solutionForA3}, \hyperpage{95}
+    \subitem {solutionForA4}, \hyperpage{95}
+    \subitem {solutionForB}, \hyperpage{95}
+    \subitem {solutionForC}, \hyperpage{95}
+    \subitem {solutionForCA}, \hyperpage{95}
+    \subitem {solutionForCB}, \hyperpage{95}
+    \subitem {solutionForD}, \hyperpage{95}
+    \subitem {solutionForD1}, \hyperpage{95}
+    \subitem {solutionForD2}, \hyperpage{96}
+    \subitem {solutionForE}, \hyperpage{96}
+    \subitem {solutionForE1}, \hyperpage{96}
+    \subitem {solutionForE2}, \hyperpage{96}
+    \subitem {solutionForF}, \hyperpage{96}
+    \subitem {solutionForFA}, \hyperpage{96}
+    \subitem {solutionForG}, \hyperpage{96}
+    \subitem {TeachClosure}, \hyperpage{96}
+    \subitem {TeachClosureStep}, \hyperpage{97}
+    \subitem {TeachDeltaFunction}, \hyperpage{97}
+    \subitem {updateProgressPanel}, \hyperpage{97}
+    \subitem {updateState}, \hyperpage{97}
+    \subitem {verifyResponse}, \hyperpage{97}
+    \subitem {verifyResponseForA}, \hyperpage{97}
+    \subitem {verifyResponseForA1}, \hyperpage{97}
+    \subitem {verifyResponseForA2}, \hyperpage{97}
+    \subitem {verifyResponseForA3}, \hyperpage{98}
+    \subitem {verifyResponseForA4}, \hyperpage{98}
+    \subitem {verifyResponseForB}, \hyperpage{98}
+    \subitem {verifyResponseForC}, \hyperpage{98}
+    \subitem {verifyResponseForCA}, \hyperpage{98}
+    \subitem {verifyResponseForCB}, \hyperpage{98}
+    \subitem {verifyResponseForD}, \hyperpage{98}
+    \subitem {verifyResponseForD1}, \hyperpage{98}
+    \subitem {verifyResponseForD2}, \hyperpage{98}
+    \subitem {verifyResponseForE}, \hyperpage{98}
+    \subitem {verifyResponseForE1}, \hyperpage{98}
+    \subitem {verifyResponseForE2}, \hyperpage{99}
+    \subitem {verifyResponseForF}, \hyperpage{99}
+    \subitem {verifyResponseForFA}, \hyperpage{99}
+    \subitem {verifyResponseForG}, \hyperpage{99}
+    \subitem {verifyResponseForH}, \hyperpage{99}
+    \subitem {wrongAnimation}, \hyperpage{99}
+    \subitem {wrongUserResponseAnimation}, \hyperpage{99}
+  \item {slrtutorwindow.cpp}, \hyperpage{144}
+  \item {slrtutorwindow.h}, \hyperpage{144}
+    \subitem {A}, \hyperpage{145}
+    \subitem {A1}, \hyperpage{145}
+    \subitem {A2}, \hyperpage{145}
+    \subitem {A3}, \hyperpage{145}
+    \subitem {A4}, \hyperpage{145}
+    \subitem {A\_prime}, \hyperpage{145}
+    \subitem {B}, \hyperpage{145}
+    \subitem {C}, \hyperpage{145}
+    \subitem {CA}, \hyperpage{145}
+    \subitem {CB}, \hyperpage{145}
+    \subitem {D}, \hyperpage{145}
+    \subitem {D1}, \hyperpage{145}
+    \subitem {D2}, \hyperpage{146}
+    \subitem {D\_prime}, \hyperpage{146}
+    \subitem {E}, \hyperpage{146}
+    \subitem {E1}, \hyperpage{146}
+    \subitem {E2}, \hyperpage{146}
+    \subitem {F}, \hyperpage{146}
+    \subitem {FA}, \hyperpage{146}
+    \subitem {fin}, \hyperpage{146}
+    \subitem {G}, \hyperpage{146}
+    \subitem {H}, \hyperpage{146}
+    \subitem {H\_prime}, \hyperpage{146}
+    \subitem {StateSlr}, \hyperpage{145}
+  \item {SLRWizard}, \hyperpage{100}
+    \subitem {SLRWizard}, \hyperpage{101}
+    \subitem {stdVectorToQVector}, \hyperpage{101}
+  \item {slrwizard.h}, \hyperpage{149}
+  \item {SLRWizardPage}, \hyperpage{102}
+    \subitem {SLRWizardPage}, \hyperpage{102}
+  \item {slrwizardpage.h}, \hyperpage{152}
+  \item {solution}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {solutionForA}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {solutionForA1}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {solutionForA2}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+    \subitem {SLRTutorWindow}, \hyperpage{94}
+  \item {solutionForA3}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForA4}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForB}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForB1}
+    \subitem {LLTutorWindow}, \hyperpage{65}
+  \item {solutionForB2}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+  \item {solutionForC}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForCA}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForCB}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForD}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForD1}
+    \subitem {SLRTutorWindow}, \hyperpage{95}
+  \item {solutionForD2}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {solutionForE}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {solutionForE1}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {solutionForE2}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {solutionForF}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {solutionForFA}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {solutionForG}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {SolveLRConflicts}
+    \subitem {SLR1Parser}, \hyperpage{84}
+  \item {Split}
+    \subitem {Grammar}, \hyperpage{33}
+  \item {st\_}
+    \subitem {Grammar}, \hyperpage{33}
+    \subitem {GrammarFactory::FactoryItem}, \hyperpage{30}
+    \subitem {SymbolTable}, \hyperpage{106}
+  \item {start}
+    \subitem {TutorialManager}, \hyperpage{111}
+  \item {StartsWith}
+    \subitem {GrammarFactory}, \hyperpage{48}
+  \item {State}
+    \subitem {lltutorwindow.h}, \hyperpage{135}
+  \item {state}, \hyperpage{103}
+    \subitem {id\_}, \hyperpage{104}
+    \subitem {items\_}, \hyperpage{104}
+    \subitem {operator==}, \hyperpage{103}
+  \item {states\_}
+    \subitem {SLR1Parser}, \hyperpage{85}
+  \item {StateSlr}
+    \subitem {slrtutorwindow.h}, \hyperpage{145}
+  \item {stdVectorToQVector}
+    \subitem {SLRWizard}, \hyperpage{101}
+  \item {stepStarted}
+    \subitem {TutorialManager}, \hyperpage{111}
+  \item {submitted}
+    \subitem {LLTableDialog}, \hyperpage{57}
+  \item {symbol\_table.hpp}
+    \subitem {NO\_TERMINAL}, \hyperpage{130}
+    \subitem {symbol\_type}, \hyperpage{130}
+    \subitem {TERMINAL}, \hyperpage{130}
+  \item {symbol\_type}
+    \subitem {symbol\_table.hpp}, \hyperpage{130}
+  \item {SymbolTable}, \hyperpage{104}
+    \subitem {EOL\_}, \hyperpage{106}
+    \subitem {EPSILON\_}, \hyperpage{106}
+    \subitem {In}, \hyperpage{105}
+    \subitem {IsTerminal}, \hyperpage{105}
+    \subitem {IsTerminalWthoEol}, \hyperpage{105}
+    \subitem {non\_terminals\_}, \hyperpage{106}
+    \subitem {PutSymbol}, \hyperpage{105}
+    \subitem {st\_}, \hyperpage{106}
+    \subitem {terminals\_}, \hyperpage{106}
+    \subitem {terminals\_wtho\_eol\_}, \hyperpage{106}
+  \item {SyntaxTutor}, \hyperpage{25}
+  \item {SyntaxTutor: An interactive Tool for Learning Syntax Analysis}, 
+		\hyperpage{1}
+  \item {SyntaxTutor::Version}, \hyperpage{25}
+    \subitem {current}, \hyperpage{25}
+    \subitem {raw}, \hyperpage{25}
+
+  \indexspace
+
+  \item {target}
+    \subitem {TutorialStep}, \hyperpage{112}
+  \item {TeachClosure}
+    \subitem {SLRTutorWindow}, \hyperpage{96}
+  \item {TeachClosureStep}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {TeachDeltaFunction}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {TeachFirstTree}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+  \item {TeachFollow}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+  \item {TeachLL1Table}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+  \item {TeachPredictionSymbols}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+  \item {TERMINAL}
+    \subitem {symbol\_table.hpp}, \hyperpage{130}
+  \item {terminal\_alphabet\_}
+    \subitem {GrammarFactory}, \hyperpage{49}
+  \item {terminals\_}
+    \subitem {SymbolTable}, \hyperpage{106}
+  \item {terminals\_wtho\_eol\_}
+    \subitem {SymbolTable}, \hyperpage{106}
+  \item {thresholdFor}
+    \subitem {MainWindow}, \hyperpage{73}
+  \item {ToString}
+    \subitem {Lr0Item}, \hyperpage{70}
+  \item {transition\_table}
+    \subitem {SLR1Parser}, \hyperpage{77}
+  \item {transitions\_}
+    \subitem {SLR1Parser}, \hyperpage{85}
+  \item {tutorialFinished}
+    \subitem {TutorialManager}, \hyperpage{112}
+  \item {TutorialManager}, \hyperpage{107}
+    \subitem {addStep}, \hyperpage{109}
+    \subitem {clearSteps}, \hyperpage{109}
+    \subitem {eventFilter}, \hyperpage{109}
+    \subitem {finishLL1}, \hyperpage{109}
+    \subitem {finishSLR1}, \hyperpage{109}
+    \subitem {hideOverlay}, \hyperpage{110}
+    \subitem {ll1Finished}, \hyperpage{110}
+    \subitem {nextStep}, \hyperpage{110}
+    \subitem {setRootWindow}, \hyperpage{111}
+    \subitem {slr1Finished}, \hyperpage{111}
+    \subitem {start}, \hyperpage{111}
+    \subitem {stepStarted}, \hyperpage{111}
+    \subitem {tutorialFinished}, \hyperpage{112}
+    \subitem {TutorialManager}, \hyperpage{108}
+  \item {tutorialmanager.cpp}, \hyperpage{154}
+  \item {tutorialmanager.h}, \hyperpage{154}
+  \item {TutorialStep}, \hyperpage{112}
+    \subitem {htmlText}, \hyperpage{112}
+    \subitem {target}, \hyperpage{112}
+
+  \indexspace
+
+  \item {UniqueQueue$<$ T $>$}, \hyperpage{113}
+    \subitem {clear}, \hyperpage{113}
+    \subitem {empty}, \hyperpage{113}
+    \subitem {front}, \hyperpage{113}
+    \subitem {pop}, \hyperpage{114}
+    \subitem {push}, \hyperpage{114}
+  \item {UniqueQueue.h}, \hyperpage{156}
+  \item {updateProgressPanel}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {updateState}
+    \subitem {LLTutorWindow}, \hyperpage{66}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {userLevel}
+    \subitem {MainWindow}, \hyperpage{74, 75}
+  \item {userLevelChanged}
+    \subitem {MainWindow}, \hyperpage{74}
+  \item {userLevelUp}
+    \subitem {MainWindow}, \hyperpage{74}
+
+  \indexspace
+
+  \item {verifyResponse}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {verifyResponseForA}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {verifyResponseForA1}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {verifyResponseForA2}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{97}
+  \item {verifyResponseForA3}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForA4}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForB}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForB1}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+  \item {verifyResponseForB2}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+  \item {verifyResponseForC}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForCA}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForCB}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForD}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForD1}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForD2}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForE}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForE1}
+    \subitem {SLRTutorWindow}, \hyperpage{98}
+  \item {verifyResponseForE2}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+  \item {verifyResponseForF}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+  \item {verifyResponseForFA}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+  \item {verifyResponseForG}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+  \item {verifyResponseForH}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+
+  \indexspace
+
+  \item {wrongAnimation}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+  \item {wrongUserResponseAnimation}
+    \subitem {LLTutorWindow}, \hyperpage{67}
+    \subitem {SLRTutorWindow}, \hyperpage{99}
+
+\end{theindex}

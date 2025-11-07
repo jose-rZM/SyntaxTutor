@@ -1,6 +1,7 @@
 var files_dup =
 [
     [ "backend", "dir_8c739bbef76d64b22d6b0911c526dd76.html", "dir_8c739bbef76d64b22d6b0911c526dd76" ],
+    [ "appversion.h", "appversion_8h.html", "appversion_8h" ],
     [ "customtextedit.cpp", "customtextedit_8cpp.html", null ],
     [ "customtextedit.h", "customtextedit_8h.html", "customtextedit_8h" ],
     [ "lltabledialog.cpp", "lltabledialog_8cpp.html", "lltabledialog_8cpp" ],

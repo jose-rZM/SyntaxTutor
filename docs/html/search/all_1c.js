@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🎓_20academic_20context_0',['🎓 Academic Context',['../index.html#autotoc_md15',1,'']]]
+  ['✨_20assisted_20mode_3a_20guided_20table_20completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md26',1,'']]]
 ];

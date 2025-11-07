@@ -1,9 +1,0 @@
-<map id="LLTutorWindow::showTreeGraphics" name="LLTutorWindow::showTreeGraphics">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,38,250,66"/>
-<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a36728cc5c78e316c2140422b828cc733" title=" " alt="" coords="298,38,483,66"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,49,282,49,282,54,250,54"/>
-<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="347,39,339,29,345,19,362,13,390,11,420,14,437,20,435,25,419,19,390,16,363,18,348,23,345,29,351,36"/>
-<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a9502636394b205fc022204b066ad41b7" title=" " alt="" coords="531,29,764,74"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="484,49,515,49,515,54,484,54"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="599,29,597,19,606,10,622,5,648,3,675,5,692,12,690,17,674,10,648,8,624,10,608,15,602,21,604,28"/>
-</map>
