@@ -20,8 +20,8 @@
 #define SLRTUTORWINDOW_H
 
 #include "UniqueQueue.h"
-#include "backend/grammar.hpp"
-#include "backend/slr1_parser.hpp"
+#include "grammar.hpp"
+#include "slr1_parser.hpp"
 #include "slrtabledialog.h"
 #include <QAbstractItemView>
 #include <QDialog>

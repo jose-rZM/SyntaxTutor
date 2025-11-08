@@ -19,7 +19,7 @@
 #ifndef SLRWIZARD_H
 #define SLRWIZARD_H
 
-#include "backend/slr1_parser.hpp"
+#include "slr1_parser.hpp"
 #include "slrwizardpage.h"
 #include <QLabel>
 #include <QLineEdit>

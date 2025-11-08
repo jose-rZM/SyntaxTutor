@@ -43,8 +43,8 @@
 #include <QVBoxLayout>
 #include <QtPrintSupport/QPrinter>
 
-#include "backend/grammar.hpp"
-#include "backend/ll1_parser.hpp"
+#include "grammar.hpp"
+#include "ll1_parser.hpp"
 #include "lltabledialog.h"
 
 class TutorialManager;

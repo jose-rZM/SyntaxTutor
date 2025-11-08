@@ -12,46 +12,53 @@ CONFIG += c++20
 
 DISTFILES += VERSION
 
+INCLUDEPATH += \
+    $$PWD/src \
+    $$PWD/src/app \
+    $$PWD/src/gui \
+    $$PWD/src/widgets \
+    $$PWD/src/backend
+
 SOURCES += \
-    backend/grammar.cpp \
-    backend/grammar_factory.cpp \
-    backend/ll1_parser.cpp \
-    backend/lr0_item.cpp \
-    backend/slr1_parser.cpp \
-    backend/symbol_table.cpp \
-    customtextedit.cpp \
-    lltabledialog.cpp \
-    lltutorwindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    slrtabledialog.cpp \
-    slrtutorwindow.cpp \
-    tutorialmanager.cpp
+    src/backend/grammar.cpp \
+    src/backend/grammar_factory.cpp \
+    src/backend/ll1_parser.cpp \
+    src/backend/lr0_item.cpp \
+    src/backend/slr1_parser.cpp \
+    src/backend/symbol_table.cpp \
+    src/widgets/customtextedit.cpp \
+    src/gui/lltabledialog.cpp \
+    src/gui/lltutorwindow.cpp \
+    src/app/main.cpp \
+    src/gui/mainwindow.cpp \
+    src/gui/slrtabledialog.cpp \
+    src/gui/slrtutorwindow.cpp \
+    src/widgets/tutorialmanager.cpp
 
 HEADERS += \
-    UniqueQueue.h \
-    appversion.h \
-    backend/grammar.hpp \
-    backend/grammar_factory.hpp \
-    backend/ll1_parser.hpp \
-    backend/lr0_item.hpp \
-    backend/slr1_parser.hpp \
-    backend/state.hpp \
-    backend/symbol_table.hpp \
-    customtextedit.h \
-    lltabledialog.h \
-    lltutorwindow.h \
-    mainwindow.h \
-    slrtabledialog.h \
-    slrtutorwindow.h \
-    slrwizard.h \
-    slrwizardpage.h \
-    tutorialmanager.h
+    src/gui/UniqueQueue.h \
+    src/appversion.h \
+    src/backend/grammar.hpp \
+    src/backend/grammar_factory.hpp \
+    src/backend/ll1_parser.hpp \
+    src/backend/lr0_item.hpp \
+    src/backend/slr1_parser.hpp \
+    src/backend/state.hpp \
+    src/backend/symbol_table.hpp \
+    src/widgets/customtextedit.h \
+    src/gui/lltabledialog.h \
+    src/gui/lltutorwindow.h \
+    src/gui/mainwindow.h \
+    src/gui/slrtabledialog.h \
+    src/gui/slrtutorwindow.h \
+    src/gui/slrwizard.h \
+    src/gui/slrwizardpage.h \
+    src/widgets/tutorialmanager.h
 
 FORMS += \
-    lltutorwindow.ui \
-    mainwindow.ui \
-    slrtutorwindow.ui
+    src/gui/lltutorwindow.ui \
+    src/gui/mainwindow.ui \
+    src/gui/slrtutorwindow.ui
 
 win32:CONFIG(release, debug|release) {
     msvc {

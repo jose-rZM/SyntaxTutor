@@ -19,8 +19,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "backend/grammar.hpp"
-#include "backend/grammar_factory.hpp"
+#include "grammar.hpp"
+#include "grammar_factory.hpp"
 #include "lltutorwindow.h"
 #include "slrtutorwindow.h"
 #include "tutorialmanager.h"

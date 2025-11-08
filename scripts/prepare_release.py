@@ -14,7 +14,7 @@ from typing import Optional, Sequence, Union
 # ---------- Paths ----------
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VERSION_FILE = REPO_ROOT / "VERSION"
-APPVERSION_HEADER = REPO_ROOT / "appversion.h"
+APPVERSION_HEADER = REPO_ROOT / "src/appversion.h"
 DOXYFILE = REPO_ROOT / "Doxyfile"
 CHANGELOG = REPO_ROOT / "CHANGELOG.md"
 PATCH_REFMAN = REPO_ROOT / "manual" / "patch_refman_title.sh"
@@ -162,7 +162,7 @@ def run_command(
         result = subprocess.run(command, cwd=cwd, env=env)
     except FileNotFoundError as exc:
         raise SystemExit(f"Command not found: {command[0]}") from exc
-    
+
     if result.returncode != 0:
         if allow_failure:
             print(f"> Warning: command exited with code {result.returncode}, but allow_failure set to true...")
