@@ -221,9 +221,9 @@ jobs:
           ditto -c -k --keepParent SyntaxTutor.app SyntaxTutor.zip
 
       - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         run: |
           zip -qry SyntaxTutor-macos-arm64.zip SyntaxTutor.app
-        uses: actions/upload-artifact@v4
         with:
           name: SyntaxTutor-macos-arm64
           path: SyntaxTutor-macos-arm64.zip
