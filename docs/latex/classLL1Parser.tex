@@ -6,7 +6,8 @@
 
 
 
-Collaboration diagram for LL1\+Parser\+:\nopagebreak
+Collaboration diagram for LL1\+Parser\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -68,7 +69,8 @@ Constructs an \doxylink{classLL1Parser}{LL1\+Parser} with a grammar object and a
 {\em gr} & \doxylink{structGrammar}{Grammar} object to parse with \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -89,14 +91,16 @@ void LL1\+Parser\+::\+Compute\+First\+Sets (\begin{DoxyParamCaption}{}{}\end{Dox
 
 Computes the FIRST sets for all non-\/terminal symbols in the grammar. 
 
-This function calculates the FIRST set for each non-\/terminal symbol in the grammar by iteratively applying a least fixed-\/point algorithm. This approach ensures that the FIRST sets are fully populated by repeatedly expanding and updating the sets until no further changes occur (i.\+e., a fixed-\/point is reached). Here is the call graph for this function\+:\nopagebreak
+This function calculates the FIRST set for each non-\/terminal symbol in the grammar by iteratively applying a least fixed-\/point algorithm. This approach ensures that the FIRST sets are fully populated by repeatedly expanding and updating the sets until no further changes occur (i.\+e., a fixed-\/point is reached). Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=324pt]{classLL1Parser_a2f702d940802a8b02538cb173a6c7e5e_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -132,14 +136,16 @@ This function assumes that the FIRST sets for all symbols have already been comp
 \doxylink{classLL1Parser_a9faec5578f60af3641a5bb6bde66aa8f}{follow\+\_\+sets\+\_\+} 
 \end{DoxySeeAlso}
 
-\end{DoxyEnumerate}Here is the call graph for this function\+:\nopagebreak
+\end{DoxyEnumerate}Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=336pt]{classLL1Parser_a02ee1f3ebc4cedacbb11204e3e8cbfdc_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -168,14 +174,16 @@ This function constructs the LL(1) parsing table by iterating over each producti
 \begin{DoxyReturn}{Returns}
 {\ttfamily true} if the table is created successfully, indicating the grammar is LL(1) compatible; {\ttfamily false} if any conflicts are detected, showing that the grammar does not meet LL(1) requirements. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classLL1Parser_a7b33aead1b94c61884afb06f204fd3e4_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -208,14 +216,16 @@ This function computes the FIRST set by examining each symbol in the production 
 {\em result} & A reference to an unordered set of strings where the computed FIRST set will be stored. The set will contain all terminal symbols that can start derivations of the rule, and possibly epsilon if the rule can derive an empty string. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=134pt]{classLL1Parser_af556dd5a7357b97ec5d078983db62553_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -242,7 +252,8 @@ The FOLLOW set for a non-\/terminal symbol includes all symbols that can appear 
 \begin{DoxyReturn}{Returns}
 An unordered set of strings containing symbols that form the FOLLOW set for {\ttfamily arg}. 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -279,14 +290,16 @@ FOLLOW(\text{antecedent}) $.
 An unordered set of strings containing the prediction symbols for the specified rule. 
 \end{DoxyReturn}
 
-\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=341pt]{classLL1Parser_a5e5817b02a5ea7faa4480cb64ad31dd2_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

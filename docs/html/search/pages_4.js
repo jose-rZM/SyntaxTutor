@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['4_202025_2011_2007_0',['[1.0.4] - 2025-11-07',['../md_CHANGELOG.html#autotoc_md1',1,'']]]
+  ['documentation_0',['📚 Documentation',['../index.html#autotoc_md18',1,'']]],
+  ['downloads_1',['📦 Downloads',['../index.html#autotoc_md14',1,'']]]
 ];

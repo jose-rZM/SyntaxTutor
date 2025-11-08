@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['e_0',['E',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da3a3ea00cfc35332cedf6e5e9a32e94da',1,'slrtutorwindow.h']]],
-  ['e1_1',['E1',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da48ed5d2db39237d7ae5e829b17581629',1,'slrtutorwindow.h']]],
-  ['e2_2',['E2',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da560fce20abef5cd3f8e4d13c94669a46',1,'slrtutorwindow.h']]],
-  ['empty_3',['Empty',['../classSLR1Parser.html#ada5e4f3519f68c6b1857742b016c0895ace2c8aed9c2fa0cfbed56cbda4d8bf07',1,'SLR1Parser']]],
-  ['empty_4',['empty',['../classUniqueQueue.html#af4cfcbfc8e87bbb41f52ea3fb3791390',1,'UniqueQueue']]],
-  ['eol_5f_5',['EOL_',['../structSymbolTable.html#a8e879b4cb01fba401514f22097e6cdc0',1,'SymbolTable']]],
-  ['eol_5f_6',['eol_',['../structLr0Item.html#ae2d19acc432c32741350ff5da9a98316',1,'Lr0Item']]],
-  ['epsilon_5f_7',['EPSILON_',['../structSymbolTable.html#aca380193dec2ad34e29b41631bb9ab8c',1,'SymbolTable']]],
-  ['epsilon_5f_8',['epsilon_',['../structLr0Item.html#a3eac80af8491180b91b09ab815144b01',1,'Lr0Item']]],
-  ['eventfilter_9',['eventFilter',['../classLLTutorWindow.html#ae84d8563c6b94776c73e299e7dfa7973',1,'LLTutorWindow::eventFilter()'],['../classTutorialManager.html#add968041547b7ec3c9e1ef0f19d5005a',1,'TutorialManager::eventFilter()']]],
-  ['exportconversationtopdf_10',['exportConversationToPdf',['../classLLTutorWindow.html#ad327a0a69d7d746652f27d68af18d891',1,'LLTutorWindow::exportConversationToPdf()'],['../classSLRTutorWindow.html#a33405c5d1473d6a244cd22ab7e3aa758',1,'SLRTutorWindow::exportConversationToPdf()']]]
+  ['id_5f_0',['id_',['../structstate.html#ae4175bd8db542097060d70960296505d',1,'state']]],
+  ['in_1',['In',['../structSymbolTable.html#a6fc61b8d63539a3a85042874db6c6d6b',1,'SymbolTable']]],
+  ['init_2',['Init',['../structGrammarFactory.html#a7c7e94a38b31ab06b0b0276cb2530936',1,'GrammarFactory']]],
+  ['initstyleoption_3',['initStyleOption',['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override'],['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override']]],
+  ['interactive_20tool_20for_20learning_20syntax_20analysis_4',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
+  ['interface_20screenshots_5',['🖼️ Interface Screenshots',['../index.html#autotoc_md6',1,'']]],
+  ['iscomplete_6',['IsComplete',['../structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4',1,'Lr0Item']]],
+  ['isinfinite_7',['IsInfinite',['../structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883',1,'GrammarFactory']]],
+  ['isterminal_8',['IsTerminal',['../structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21',1,'SymbolTable']]],
+  ['isterminalwthoeol_9',['IsTerminalWthoEol',['../structSymbolTable.html#a59a554074a649b1e6e55d4149b62743c',1,'SymbolTable']]],
+  ['item_10',['item',['../structSLR1Parser_1_1s__action.html#a571ec039a96e95bfa657a7bb5bc5b9bb',1,'SLR1Parser::s_action']]],
+  ['items_11',['items',['../structGrammarFactory.html#a4abe0dd76b57891bf88d72f96e609400',1,'GrammarFactory']]],
+  ['items_5f_12',['items_',['../structstate.html#a54da669fd7d80f2459478e228a5f8af6',1,'state']]]
 ];

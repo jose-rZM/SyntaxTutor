@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['changelog_0',['Changelog',['../md_CHANGELOG.html',1,'']]],
-  ['completion_1',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md26',1,'']]],
-  ['context_2',['🎓 Academic Context',['../index.html#autotoc_md18',1,'']]]
+  ['interactive_20tool_20for_20learning_20syntax_20analysis_0',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
+  ['interface_20screenshots_1',['🖼️ Interface Screenshots',['../index.html#autotoc_md6',1,'']]]
 ];

@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['h_0',['H',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473dac1d9f50f86825a1a2302ec2449c17196',1,'slrtutorwindow.h']]],
-  ['h_5fprime_1',['H_prime',['../slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da07f25294fd107fcdf475aa6de0b89d9d',1,'slrtutorwindow.h']]],
-  ['handletablesubmission_2',['handleTableSubmission',['../classLLTutorWindow.html#a76a825d9c56a31849e340be7b45f6674',1,'LLTutorWindow']]],
-  ['hascycle_3',['HasCycle',['../structGrammarFactory.html#a545a96027491b8858aa2621f6476385f',1,'GrammarFactory']]],
-  ['hasdirectleftrecursion_4',['HasDirectLeftRecursion',['../structGrammarFactory.html#a6bf9e0a5e0808f56165d488abde34c5f',1,'GrammarFactory']]],
-  ['hasemptyproduction_5',['HasEmptyProduction',['../structGrammar.html#a833632e1ccfa0f84222a4b7168cf975e',1,'Grammar']]],
-  ['hasindirectleftrecursion_6',['HasIndirectLeftRecursion',['../structGrammarFactory.html#af8f0bc614939cd7268fb61c70d10fcb5',1,'GrammarFactory']]],
-  ['hasunreachablesymbols_7',['HasUnreachableSymbols',['../structGrammarFactory.html#a289b675f7307cbbd986d3684ceefc8db',1,'GrammarFactory']]],
-  ['hideoverlay_8',['hideOverlay',['../classTutorialManager.html#ab9e00263109c4e1ab6b66617ce2f1887',1,'TutorialManager']]],
-  ['highlightincorrectcells_9',['highlightIncorrectCells',['../classLLTableDialog.html#ac1791cc427d1523730c6da5b8c2c9f4b',1,'LLTableDialog']]],
-  ['htmltext_10',['htmlText',['../structTutorialStep.html#ac9fe036c9f6e4981b7d3240932aefea2',1,'TutorialStep']]]
+  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['main_20menu_1',['🏠 Main Menu',['../index.html#autotoc_md7',1,'']]],
+  ['main_2ecpp_2',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['mainwindow_3',['MainWindow',['../classMainWindow.html',1,'MainWindow'],['../classMainWindow.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
+  ['mainwindow_2ecpp_4',['mainwindow.cpp',['../mainwindow_8cpp.html',1,'']]],
+  ['mainwindow_2eh_5',['mainwindow.h',['../mainwindow_8h.html',1,'']]],
+  ['makeinitialstate_6',['MakeInitialState',['../classSLR1Parser.html#a95d3b55554e24aa03f6a73d7b895e78b',1,'SLR1Parser']]],
+  ['makeparser_7',['MakeParser',['../classSLR1Parser.html#acdc3a5a98b2ba62767edcf72b2abd0ed',1,'SLR1Parser']]],
+  ['marklastuserincorrect_8',['markLastUserIncorrect',['../classLLTutorWindow.html#a22e82d473060950a7243252176bb4802',1,'LLTutorWindow::markLastUserIncorrect()'],['../classSLRTutorWindow.html#a5b5f59e1252f449360f34f3ba3552e1c',1,'SLRTutorWindow::markLastUserIncorrect()']]],
+  ['menu_9',['🏠 Main Menu',['../index.html#autotoc_md7',1,'']]],
+  ['merge_10',['Merge',['../structGrammarFactory.html#a44b66cee9f82b5643992e1290f3653bb',1,'GrammarFactory']]],
+  ['mode_11',['Mode',['../index.html#autotoc_md8',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md9',1,'🧠 SLR(1) Learning Mode']]],
+  ['mode_3a_20guided_20table_20completion_12',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md10',1,'']]]
 ];

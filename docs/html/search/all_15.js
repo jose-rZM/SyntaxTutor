@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['raw_0',['raw',['../namespaceSyntaxTutor_1_1Version.html#ab1f620a0c8bef9fff84bd6ecf4c52480',1,'SyntaxTutor::Version']]],
-  ['readme_2emd_1',['README.md',['../README_8md.html',1,'']]],
-  ['reduce_2',['Reduce',['../classSLR1Parser.html#ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'SLR1Parser']]],
-  ['release_3',['Initial Release',['../md_CHANGELOG.html#autotoc_md15',1,'']]],
-  ['removeleftrecursion_4',['RemoveLeftRecursion',['../structGrammarFactory.html#a4f167379fa626f0734d6e99b34b96a54',1,'GrammarFactory']]]
+  ['wronganimation_0',['wrongAnimation',['../classLLTutorWindow.html#a036d7aa67c17138ba886a5eaa2637f57',1,'LLTutorWindow::wrongAnimation()'],['../classSLRTutorWindow.html#a7aa89b93b35a2e55c5876294d71a04fb',1,'SLRTutorWindow::wrongAnimation()']]],
+  ['wronguserresponseanimation_1',['wrongUserResponseAnimation',['../classLLTutorWindow.html#a0bd49524c3c4503736f0ce4bed45b8ab',1,'LLTutorWindow::wrongUserResponseAnimation()'],['../classSLRTutorWindow.html#a2e86e3d8d79a7ec97ede0623b7bf9730',1,'SLRTutorWindow::wrongUserResponseAnimation()']]]
 ];

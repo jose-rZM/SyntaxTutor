@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['key_20features_0',['🎯 Key Features',['../index.html#autotoc_md20',1,'']]],
-  ['keypressevent_1',['keyPressEvent',['../classCustomTextEdit.html#ac87765b7ed4b3752474893bae4df08bf',1,'CustomTextEdit']]]
+  ['operator_3d_3d_0',['operator==',['../structLr0Item.html#a21198c89325c73ee25a8d960cff7d1fa',1,'Lr0Item::operator==()'],['../structstate.html#a463398083f82b863b2ea8d793073f186',1,'state::operator==()']]]
 ];

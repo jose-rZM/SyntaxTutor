@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['features_0',['🎯 Key Features',['../index.html#autotoc_md20',1,'']]],
-  ['fixed_1',['Fixed',['../md_CHANGELOG.html#autotoc_md3',1,'Fixed'],['../md_CHANGELOG.html#autotoc_md6',1,'Fixed'],['../md_CHANGELOG.html#autotoc_md9',1,'Fixed'],['../md_CHANGELOG.html#autotoc_md12',1,'Fixed']]],
-  ['for_20learning_20syntax_20analysis_2',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['from_20source_3',['🛠️ Building from Source',['../index.html#autotoc_md32',1,'']]]
+  ['learning_20mode_0',['Learning Mode',['../index.html#autotoc_md8',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md9',1,'🧠 SLR(1) Learning Mode']]],
+  ['learning_20syntax_20analysis_1',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
+  ['ll_201_20learning_20mode_2',['📘 LL(1) Learning Mode',['../index.html#autotoc_md8',1,'']]]
 ];

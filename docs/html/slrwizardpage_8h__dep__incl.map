@@ -1,7 +1,7 @@
-<map id="slrwizardpage.h" name="slrwizardpage.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="15,5,140,33"/>
-<area shape="rect" id="Node000002" href="$slrwizard_8h.html" title=" " alt="" coords="31,81,124,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,49,80,81,75,81,75,49"/>
-<area shape="rect" id="Node000003" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="5,157,150,184"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,124,80,156,75,156,75,124"/>
+<map id="gui/slrwizardpage.h" name="gui/slrwizardpage.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="15,5,164,33"/>
+<area shape="rect" id="Node000002" href="$slrwizard_8h.html" title=" " alt="" coords="31,81,148,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,49,92,81,87,81,87,49"/>
+<area shape="rect" id="Node000003" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="5,157,174,184"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,124,92,156,87,156,87,124"/>
 </map>

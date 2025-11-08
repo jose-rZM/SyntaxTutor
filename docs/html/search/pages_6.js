@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['building_20from_20source_0',['🛠️ Building from Source',['../index.html#autotoc_md32',1,'']]]
+  ['guided_20table_20completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md10',1,'']]]
 ];

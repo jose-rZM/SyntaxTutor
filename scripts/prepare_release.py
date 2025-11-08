@@ -17,7 +17,7 @@ VERSION_FILE = REPO_ROOT / "APP_VERSION"
 APPVERSION_HEADER = REPO_ROOT / "src/appversion.h"
 DOXYFILE = REPO_ROOT / "Doxyfile"
 CHANGELOG = REPO_ROOT / "CHANGELOG.md"
-PATCH_REFMAN = REPO_ROOT / "manual" / "patch_refman_title.sh"
+PATCH_REFMAN = REPO_ROOT / "scripts" / "patch_refman_title.sh"
 LATEX_DIR = REPO_ROOT / "docs" / "latex"
 DEVELOPER_MANUAL = REPO_ROOT / "manual" / "SyntaxTutor-Developer-Manual.pdf"
 

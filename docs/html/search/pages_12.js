@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['table_20completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md26',1,'']]],
-  ['technologies_20used_1',['🛠️ Technologies Used',['../index.html#autotoc_md28',1,'']]],
-  ['tool_20for_20learning_20syntax_20analysis_2',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]]
+  ['📘_20ll_201_20learning_20mode_0',['📘 LL(1) Learning Mode',['../index.html#autotoc_md8',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quality_0',['Quality',['../md_CHANGELOG.html#autotoc_md13',1,'']]]
+  ['🎓_20academic_20context_0',['🎓 Academic Context',['../index.html#autotoc_md2',1,'']]]
 ];

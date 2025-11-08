@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🎓_20academic_20context_0',['🎓 Academic Context',['../index.html#autotoc_md18',1,'']]]
+  ['📦_20downloads_0',['📦 Downloads',['../index.html#autotoc_md14',1,'']]]
 ];

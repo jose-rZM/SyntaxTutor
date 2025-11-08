@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['🏠_20main_20menu_0',['🏠 Main Menu',['../index.html#autotoc_md23',1,'']]]
+  ['🛠️_20building_20from_20source_0',['🛠️ Building from Source',['../index.html#autotoc_md16',1,'']]],
+  ['🛠️_20technologies_20used_1',['🛠️ Technologies Used',['../index.html#autotoc_md12',1,'']]]
 ];

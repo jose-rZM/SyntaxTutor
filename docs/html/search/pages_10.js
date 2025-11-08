@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['release_0',['Initial Release',['../md_CHANGELOG.html#autotoc_md15',1,'']]]
+  ['🎯_20key_20features_0',['🎯 Key Features',['../index.html#autotoc_md4',1,'']]]
 ];

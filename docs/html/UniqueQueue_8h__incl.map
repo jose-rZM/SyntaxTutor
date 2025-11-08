@@ -1,5 +1,5 @@
-<map id="UniqueQueue.h" name="UniqueQueue.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="31,5,153,33"/>
+<map id="gui/UniqueQueue.h" name="gui/UniqueQueue.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="19,5,165,33"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,81,67,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,35,57,70,53,67,80,32"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="91,81,205,109"/>
