@@ -216,14 +216,12 @@ jobs:
         run: |
           codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
 
-      - name: Create ZIP of .app
+      - name: Create ZIP of .app (arm64)
         run: |
-          ditto -c -k --keepParent SyntaxTutor.app SyntaxTutor.zip
+          zip -qry SyntaxTutor-macos-arm64.zip SyntaxTutor.app
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
-        run: |
-          zip -qry SyntaxTutor-macos-arm64.zip SyntaxTutor.app
         with:
           name: SyntaxTutor-macos-arm64
           path: SyntaxTutor-macos-arm64.zip
