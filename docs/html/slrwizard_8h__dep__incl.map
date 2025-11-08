@@ -1,5 +1,5 @@
-<map id="slrwizard.h" name="slrwizard.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="31,5,124,33"/>
-<area shape="rect" id="Node000002" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="5,81,150,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,49,80,81,75,81,75,49"/>
+<map id="gui/slrwizard.h" name="gui/slrwizard.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,5,148,33"/>
+<area shape="rect" id="Node000002" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="5,81,174,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,49,92,81,87,81,87,49"/>
 </map>

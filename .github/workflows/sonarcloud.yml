@@ -22,10 +22,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-          
+
       - name: Install Build Wrapper
         uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v5
-      
+
       - name: Build backend tests with coverage
         run: |
           sudo apt-get update
@@ -34,14 +34,14 @@ jobs:
           cd $GITHUB_WORKSPACE
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
             g++ -std=gnu++2a -O0 -g --coverage -fprofile-arcs -ftest-coverage \
-            backend/grammar.cpp \
-            backend/grammar_factory.cpp \
-            backend/ll1_parser.cpp \
-            backend/lr0_item.cpp \
-            backend/slr1_parser.cpp \
-            backend/symbol_table.cpp \
-            backend/tests.cpp \
-            -Ibackend/include \
+            src/backend/grammar.cpp \
+            src/backend/grammar_factory.cpp \
+            src/backend/ll1_parser.cpp \
+            src/backend/lr0_item.cpp \
+            src/backend/slr1_parser.cpp \
+            src/backend/symbol_table.cpp \
+            src/backend/tests.cpp \
+            -Isrc/backend \
             -lgtest -lgtest_main \
             -o test_runner
 
@@ -52,9 +52,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gcovr
-          gcovr -r . --filter '.*backend/.*' --exclude-unreachable-branches --exclude-throw-branches --sonarqube --output coverage.xml
-          
-            
+          gcovr -r . --filter '.*src/backend/.*' --exclude-unreachable-branches --exclude-throw-branches --sonarqube --output coverage.xml
+
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:

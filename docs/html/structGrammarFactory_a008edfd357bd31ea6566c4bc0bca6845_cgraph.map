@@ -1,13 +1,13 @@
 <map id="GrammarFactory::GenLL1Grammar" name="GrammarFactory::GenLL1Grammar">
 <area shape="rect" id="Node000001" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="5,344,254,372"/>
 <area shape="rect" id="Node000002" href="$classLL1Parser.html#a7b33aead1b94c61884afb06f204fd3e4" title="Creates the LL(1) parsing table for the grammar." alt="" coords="317,84,508,112"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,342,208,271,300,181,378,119,381,123,303,185,211,275,145,345"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,342,204,263,250,214,300,166,335,140,371,117,374,122,338,144,303,171,254,217,208,267,144,345"/>
 <area shape="rect" id="Node000008" href="$structGrammarFactory.html#a6bf9e0a5e0808f56165d488abde34c5f" title="Checks if a grammar contains direct left recursion (a non&#45;terminal can produce itself on the left sid..." alt="" coords="595,161,797,206"/>
 <area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="146,341,211,293,254,267,301,245,371,222,444,205,579,187,580,192,445,211,372,227,303,250,257,271,214,298,149,346"/>
 <area shape="rect" id="Node000009" href="$structGrammarFactory.html#a289b675f7307cbbd986d3684ceefc8db" title="Checks if a grammar contains unreachable symbols (non&#45;terminals that cannot be derived from the start..." alt="" coords="1078,1045,1323,1090"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="137,371,175,489,210,579,257,679,317,783,389,883,430,930,474,972,522,1011,573,1043,610,1058,661,1068,788,1079,930,1079,1062,1074,1062,1080,930,1085,788,1084,660,1074,609,1063,571,1048,519,1015,470,976,426,933,384,887,312,786,253,682,205,581,170,491,132,373"/>
-<area shape="rect" id="Node000011" href="$structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883" title="Checks if a grammar is infinite, meaning there are non&#45;terminal symbols that can never derive a termi..." alt="" coords="1371,1109,1566,1137"/>
-<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="135,372,153,496,188,691,211,794,239,888,270,966,286,995,304,1017,349,1059,393,1088,435,1108,478,1119,525,1124,575,1126,695,1125,950,1125,1356,1122,1356,1127,950,1130,695,1130,575,1131,524,1130,477,1124,433,1113,390,1093,346,1063,300,1021,282,998,265,968,234,890,206,795,183,692,147,497,130,373"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="137,371,175,490,210,579,257,680,316,784,388,884,429,931,474,974,522,1012,573,1045,610,1059,661,1070,788,1080,930,1080,1062,1075,1062,1080,930,1085,788,1085,660,1075,609,1064,571,1050,519,1016,470,978,426,934,384,888,312,787,252,682,205,582,170,492,132,373"/>
+<area shape="rect" id="Node000011" href="$structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883" title="Checks if a grammar is infinite, meaning there are non&#45;terminal symbols that can never derive a termi..." alt="" coords="1371,1111,1566,1138"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="135,372,153,496,188,692,211,795,239,889,270,967,286,997,304,1019,349,1060,393,1089,435,1108,479,1120,525,1125,575,1126,695,1125,950,1125,1356,1123,1356,1128,950,1130,695,1130,575,1131,524,1130,478,1125,433,1113,390,1094,346,1064,300,1022,282,1000,265,969,233,891,206,796,182,693,147,497,130,373"/>
 <area shape="rect" id="Node000012" href="$structGrammarFactory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Performs left factorization. A grammar can be left factorized if it has productions with the same pre..." alt="" coords="302,344,524,372"/>
 <area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="254,355,286,355,286,360,254,360"/>
 <area shape="rect" id="Node000017" href="$structGrammarFactory.html#a5c57d8d96992059e78a68e5bd5ec5260" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="317,596,508,624"/>
@@ -29,7 +29,7 @@
 <area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="803,120,866,120,866,126,803,126"/>
 <area shape="rect" id="Node000010" href="$structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21" title="Checks if a symbol is a terminal." alt="" coords="2396,1053,2576,1081"/>
 <area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="1323,1064,1694,1064,1942,1064,2381,1064,2381,1070,1942,1070,1694,1070,1323,1070"/>
-<area shape="poly" id="edge14_Node000011_Node000010" title=" " alt="" coords="1566,1119,1912,1110,2129,1099,2348,1083,2381,1080,2381,1085,2349,1088,2129,1104,1912,1115,1566,1125"/>
+<area shape="poly" id="edge14_Node000011_Node000010" title=" " alt="" coords="1566,1120,1912,1110,2129,1099,2348,1083,2381,1080,2381,1085,2349,1088,2129,1105,1912,1116,1566,1126"/>
 <area shape="rect" id="Node000013" href="$structGrammarFactory.html#aca2925bbcb27fa32b0b53d626dfd7b7e" title="Generates a new non&#45;terminal symbol that is unique in the grammar." alt="" coords="597,230,795,275"/>
 <area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="457,341,523,314,546,299,571,285,588,278,590,283,573,290,549,304,525,319,459,346"/>
 <area shape="rect" id="Node000014" href="$structGrammarFactory.html#ab6c2988168d6b13fc7d166f22c708003" title="Finds the longest common prefix among a set of productions." alt="" coords="572,350,820,395"/>
@@ -38,12 +38,12 @@
 <area shape="poly" id="edge18_Node000012_Node000015" title=" " alt="" coords="503,341,590,327,590,332,504,346"/>
 <area shape="rect" id="Node000016" href="$structGrammarFactory.html#ab4d6073366842e8539dace5eb00564e9" title="Checks if a production starts with a given prefix." alt="" coords="593,419,799,446"/>
 <area shape="poly" id="edge19_Node000012_Node000016" title=" " alt="" coords="457,370,573,405,605,412,604,418,571,410,455,375"/>
-<area shape="rect" id="Node000018" href="$structGrammarFactory.html#a4aa75c7d88bef418639ca3ba5ee3404b" title="Generates a Level 1 grammar." alt="" coords="616,1007,777,1034"/>
-<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="418,624,429,690,454,788,475,842,501,895,534,944,574,986,602,1003,599,1008,570,991,530,947,496,897,470,844,449,790,424,691,413,625"/>
+<area shape="rect" id="Node000018" href="$structGrammarFactory.html#a4aa75c7d88bef418639ca3ba5ee3404b" title="Generates a Level 1 grammar." alt="" coords="616,1008,777,1036"/>
+<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="418,624,429,690,454,789,475,843,501,896,534,945,574,988,602,1005,599,1009,570,992,529,948,496,898,470,845,449,790,423,691,413,625"/>
 <area shape="rect" id="Node000019" href="$structGrammarFactory.html#a5368eb47dd1f9d7de083c41c0250e7e4" title="Generates a Level 2 grammar by combining Level 1 items." alt="" coords="1614,732,1776,760"/>
-<area shape="poly" id="edge22_Node000017_Node000019" title=" " alt="" coords="493,622,572,634,865,669,1155,698,1599,736,1599,742,1155,704,865,674,572,639,493,627"/>
-<area shape="rect" id="Node000024" href="$structGrammarFactory.html#aa5d138c30fed1776d37e6fa63e1048fc" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="1614,656,1776,684"/>
-<area shape="poly" id="edge28_Node000017_Node000024" title=" " alt="" coords="509,613,572,617,1599,663,1598,669,572,622,509,618"/>
+<area shape="poly" id="edge22_Node000017_Node000019" title=" " alt="" coords="489,622,572,635,865,671,1155,700,1599,737,1598,742,1155,705,865,676,572,640,488,627"/>
+<area shape="rect" id="Node000024" href="$structGrammarFactory.html#aa5d138c30fed1776d37e6fa63e1048fc" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="1614,668,1776,696"/>
+<area shape="poly" id="edge28_Node000017_Node000024" title=" " alt="" coords="509,613,572,617,1599,674,1598,679,572,622,509,618"/>
 <area shape="rect" id="Node000025" href="$structGrammarFactory.html#a8e3ce26320d4bd74ba47a4f4d5c4ba4f" title="Generates a Level 4 grammar by combining Level 3 and Level 1 items." alt="" coords="1388,607,1549,634"/>
 <area shape="poly" id="edge33_Node000017_Node000025" title=" " alt="" coords="509,608,1372,617,1372,622,509,613"/>
 <area shape="rect" id="Node000026" href="$structGrammarFactory.html#a6c928859881a49c81ec6be76a36c74d7" title="Generates a Level 5 grammar by combining Level 4 and Level 1 items." alt="" coords="1120,556,1281,584"/>
@@ -61,14 +61,14 @@
 <area shape="rect" id="Node000023" href="$structGrammarFactory.html#a7eb4aeb1e55ff7e38e9f5b8a1fbfd464" title="Replaces all non&#45;terminal symbols in a grammar item with a single target non&#45;terminal." alt="" coords="2124,332,2330,376"/>
 <area shape="poly" id="edge26_Node000020_Node000023" title=" " alt="" coords="1952,692,2196,387,2200,390,1956,696"/>
 <area shape="poly" id="edge27_Node000023_Node000010" title=" " alt="" coords="2247,375,2297,453,2326,503,2351,555,2400,694,2439,832,2466,953,2482,1037,2477,1038,2461,954,2434,834,2395,695,2346,558,2321,505,2293,455,2242,378"/>
-<area shape="poly" id="edge30_Node000024_Node000020" title=" " alt="" coords="1777,680,1834,689,1833,694,1776,685"/>
-<area shape="poly" id="edge29_Node000024_Node000021" title=" " alt="" coords="1722,682,1769,707,1825,731,1889,752,1940,764,2059,789,2157,814,2156,819,2057,794,1939,769,1887,757,1823,736,1767,712,1720,687"/>
-<area shape="poly" id="edge31_Node000024_Node000022" title=" " alt="" coords="1776,661,1908,646,2057,623,2162,598,2164,603,2059,628,1909,652,1776,666"/>
-<area shape="poly" id="edge32_Node000024_Node000023" title=" " alt="" coords="1719,653,2173,382,2176,387,1722,658"/>
+<area shape="poly" id="edge30_Node000024_Node000020" title=" " alt="" coords="1777,688,1809,691,1808,697,1776,693"/>
+<area shape="poly" id="edge29_Node000024_Node000021" title=" " alt="" coords="1729,694,1825,731,1889,750,1941,762,2059,789,2157,814,2156,819,2057,794,1940,768,1888,756,1823,736,1727,699"/>
+<area shape="poly" id="edge31_Node000024_Node000022" title=" " alt="" coords="1776,669,1908,650,2057,623,2161,598,2162,603,2059,628,1909,655,1777,675"/>
+<area shape="poly" id="edge32_Node000024_Node000023" title=" " alt="" coords="1718,665,2175,382,2178,387,1721,670"/>
 <area shape="poly" id="edge34_Node000025_Node000021" title=" " alt="" coords="1481,633,1501,663,1532,701,1570,739,1616,769,1653,782,1702,794,1825,812,1963,823,2090,829,2090,834,1962,828,1825,817,1701,799,1651,787,1613,774,1567,743,1528,705,1497,666,1476,636"/>
 <area shape="poly" id="edge36_Node000025_Node000022" title=" " alt="" coords="1550,614,2122,584,2122,590,1550,619"/>
 <area shape="poly" id="edge37_Node000025_Node000023" title=" " alt="" coords="1510,604,2146,379,2147,384,1512,609"/>
-<area shape="poly" id="edge35_Node000025_Node000024" title=" " alt="" coords="1536,632,1614,650,1613,655,1535,638"/>
+<area shape="poly" id="edge35_Node000025_Node000024" title=" " alt="" coords="1523,632,1628,661,1626,666,1522,637"/>
 <area shape="poly" id="edge39_Node000026_Node000021" title=" " alt="" coords="1221,582,1283,628,1376,692,1491,757,1553,786,1615,810,1676,827,1739,840,1867,853,1989,854,2095,848,2095,854,1989,859,1867,858,1738,845,1675,832,1613,815,1551,791,1489,762,1374,696,1279,633,1218,586"/>
 <area shape="poly" id="edge41_Node000026_Node000022" title=" " alt="" coords="1281,568,2058,575,2122,576,2122,582,2058,580,1281,573"/>
 <area shape="poly" id="edge42_Node000026_Node000023" title=" " alt="" coords="1268,553,1823,434,2109,375,2110,380,1824,439,1269,558"/>

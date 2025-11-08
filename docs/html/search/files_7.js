@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['uniquequeue_2eh_0',['UniqueQueue.h',['../UniqueQueue_8h.html',1,'']]]
+  ['tutorialmanager_2ecpp_0',['tutorialmanager.cpp',['../tutorialmanager_8cpp.html',1,'']]],
+  ['tutorialmanager_2eh_1',['tutorialmanager.h',['../tutorialmanager_8h.html',1,'']]]
 ];

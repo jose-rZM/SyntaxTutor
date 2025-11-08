@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['used_0',['🛠️ Technologies Used',['../index.html#autotoc_md25',1,'']]]
+  ['📘_20ll_201_20learning_20mode_0',['📘 LL(1) Learning Mode',['../index.html#autotoc_md8',1,'']]]
 ];

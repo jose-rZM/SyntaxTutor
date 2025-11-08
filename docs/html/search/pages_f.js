@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['release_0',['Initial Release',['../md_CHANGELOG.html#autotoc_md12',1,'']]]
+  ['🎓_20academic_20context_0',['🎓 Academic Context',['../index.html#autotoc_md2',1,'']]]
 ];

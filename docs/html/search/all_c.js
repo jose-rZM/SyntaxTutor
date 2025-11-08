@@ -1,17 +1,16 @@
 var searchData=
 [
-  ['id_5f_0',['id_',['../structstate.html#ae4175bd8db542097060d70960296505d',1,'state']]],
-  ['in_1',['In',['../structSymbolTable.html#a6fc61b8d63539a3a85042874db6c6d6b',1,'SymbolTable']]],
-  ['init_2',['Init',['../structGrammarFactory.html#a7c7e94a38b31ab06b0b0276cb2530936',1,'GrammarFactory']]],
-  ['initial_20release_3',['Initial Release',['../md_CHANGELOG.html#autotoc_md12',1,'']]],
-  ['initstyleoption_4',['initStyleOption',['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override'],['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override']]],
-  ['interactive_20tool_20for_20learning_20syntax_20analysis_5',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['interface_20screenshots_6',['🖼️ Interface Screenshots',['../index.html#autotoc_md19',1,'']]],
-  ['iscomplete_7',['IsComplete',['../structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4',1,'Lr0Item']]],
-  ['isinfinite_8',['IsInfinite',['../structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883',1,'GrammarFactory']]],
-  ['isterminal_9',['IsTerminal',['../structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21',1,'SymbolTable']]],
-  ['isterminalwthoeol_10',['IsTerminalWthoEol',['../structSymbolTable.html#a59a554074a649b1e6e55d4149b62743c',1,'SymbolTable']]],
-  ['item_11',['item',['../structSLR1Parser_1_1s__action.html#a571ec039a96e95bfa657a7bb5bc5b9bb',1,'SLR1Parser::s_action']]],
-  ['items_12',['items',['../structGrammarFactory.html#a4abe0dd76b57891bf88d72f96e609400',1,'GrammarFactory']]],
-  ['items_5f_13',['items_',['../structstate.html#a54da669fd7d80f2459478e228a5f8af6',1,'state']]]
+  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['main_20menu_1',['🏠 Main Menu',['../index.html#autotoc_md7',1,'']]],
+  ['main_2ecpp_2',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['mainwindow_3',['MainWindow',['../classMainWindow.html',1,'MainWindow'],['../classMainWindow.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
+  ['mainwindow_2ecpp_4',['mainwindow.cpp',['../mainwindow_8cpp.html',1,'']]],
+  ['mainwindow_2eh_5',['mainwindow.h',['../mainwindow_8h.html',1,'']]],
+  ['makeinitialstate_6',['MakeInitialState',['../classSLR1Parser.html#a95d3b55554e24aa03f6a73d7b895e78b',1,'SLR1Parser']]],
+  ['makeparser_7',['MakeParser',['../classSLR1Parser.html#acdc3a5a98b2ba62767edcf72b2abd0ed',1,'SLR1Parser']]],
+  ['marklastuserincorrect_8',['markLastUserIncorrect',['../classLLTutorWindow.html#a22e82d473060950a7243252176bb4802',1,'LLTutorWindow::markLastUserIncorrect()'],['../classSLRTutorWindow.html#a5b5f59e1252f449360f34f3ba3552e1c',1,'SLRTutorWindow::markLastUserIncorrect()']]],
+  ['menu_9',['🏠 Main Menu',['../index.html#autotoc_md7',1,'']]],
+  ['merge_10',['Merge',['../structGrammarFactory.html#a44b66cee9f82b5643992e1290f3653bb',1,'GrammarFactory']]],
+  ['mode_11',['Mode',['../index.html#autotoc_md8',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md9',1,'🧠 SLR(1) Learning Mode']]],
+  ['mode_3a_20guided_20table_20completion_12',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md10',1,'']]]
 ];

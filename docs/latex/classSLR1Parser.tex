@@ -11,7 +11,8 @@ Implements an SLR(1) parser for context-\/free grammars.
 
 
 
-Collaboration diagram for SLR1\+Parser\+:\nopagebreak
+Collaboration diagram for SLR1\+Parser\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -189,7 +190,8 @@ SLR1\+Parser\+::\+SLR1\+Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaptio
 {\footnotesize\ttfamily \label{classSLR1Parser_aa42411d1cb318041138b476e80aacc9a} 
 SLR1\+Parser\+::\+SLR1\+Parser (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGrammar}{Grammar}}}]{gr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -230,14 +232,16 @@ This function computes the closure of a given set of LR(0) items by adding all i
 {\em items} & The set of LR(0) items for which to compute the closure. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=324pt]{classSLR1Parser_a0ff2187985600bff50ff8235543d96fb_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -265,14 +269,16 @@ This function recursively computes the closure of a set of LR(0) items by adding
 {\em visited} & A set of non-\/terminals that have already been processed. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=175pt]{classSLR1Parser_a00101890c3c4d2871a8c100209abf122_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -289,14 +295,16 @@ void SLR1\+Parser\+::\+Compute\+First\+Sets (\begin{DoxyParamCaption}{}{}\end{Do
 
 Computes the FIRST sets for all non-\/terminal symbols in the grammar. 
 
-This function calculates the FIRST set for each non-\/terminal symbol in the grammar by iteratively applying a least fixed-\/point algorithm. This approach ensures that the FIRST sets are fully populated by repeatedly expanding and updating the sets until no further changes occur (i.\+e., a fixed-\/point is reached). Here is the call graph for this function\+:\nopagebreak
+This function calculates the FIRST set for each non-\/terminal symbol in the grammar by iteratively applying a least fixed-\/point algorithm. This approach ensures that the FIRST sets are fully populated by repeatedly expanding and updating the sets until no further changes occur (i.\+e., a fixed-\/point is reached). Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=339pt]{classSLR1Parser_af0a486daf0c5083b113e557d68732481_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -323,8 +331,8 @@ $\+:
 $.
 \item If $ \epsilon \in FIRST(\beta) $, add $ FOLLOW(A) $ to $ FOLLOW(B) $.
 \end{DoxyItemize}
-\item Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the {\ttfamily follow\+\_\+sets\+\_\+} member variable for later use by the parser. \begin{DoxyNote}{Note}
-This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily first\+\_\+sets\+\_\+} member variable. 
+\item Repeat step 2 until no changes occur in any FOLLOW set. The computed FOLLOW sets are cached in the {\ttfamily \doxylink{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}{follow\+\_\+sets\+\_\+}} member variable for later use by the parser. \begin{DoxyNote}{Note}
+This function assumes that the FIRST sets for all symbols have already been computed and are available in the {\ttfamily \doxylink{classSLR1Parser_a4b9b4f88bfef3c3e77f791446f3d820c}{first\+\_\+sets\+\_\+}} member variable. 
 \end{DoxyNote}
 \begin{DoxySeeAlso}{See also}
 \doxylink{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0}{First} 
@@ -332,14 +340,16 @@ This function assumes that the FIRST sets for all symbols have already been comp
 \doxylink{classSLR1Parser_a1412b54cd36ecf31bf48ee0e239d9671}{follow\+\_\+sets\+\_\+} 
 \end{DoxySeeAlso}
 
-\end{DoxyEnumerate}Here is the call graph for this function\+:\nopagebreak
+\end{DoxyEnumerate}Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classSLR1Parser_a06a9888464cfe48152d72311e25ad79a_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -366,7 +376,8 @@ Computes the GOTO transition ( $ \delta $) for a given set of LR(0) items and a 
 \begin{DoxyReturn}{Returns}
 The resulting item set after the GOTO transition. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -399,14 +410,16 @@ This function computes the FIRST set by examining each symbol in the production 
 {\em result} & A reference to an unordered set of strings where the computed FIRST set will be stored. The set will contain all terminal symbols that can start derivations of the rule, and possibly epsilon if the rule can derive an empty string. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=141pt]{classSLR1Parser_a02df38d4f96383ea85d23f56472c57a0_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -433,7 +446,8 @@ The FOLLOW set for a non-\/terminal symbol includes all symbols that can appear 
 \begin{DoxyReturn}{Returns}
 An unordered set of strings containing symbols that form the FOLLOW set for {\ttfamily arg}. 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -450,21 +464,23 @@ void SLR1\+Parser\+::\+Make\+Initial\+State (\begin{DoxyParamCaption}{}{}\end{Do
 
 Creates the initial state of the parser\textquotesingle{}s state machine. 
 
-This function initializes the starting state of the parser by computing the closure of the initial set of LR(0) items derived from the grammar\textquotesingle{}s start symbol. The initial state is added to the {\ttfamily states\+\_\+} set, and its transitions are prepared for further processing in the parser construction.
+This function initializes the starting state of the parser by computing the closure of the initial set of LR(0) items derived from the grammar\textquotesingle{}s start symbol. The initial state is added to the {\ttfamily \doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+}} set, and its transitions are prepared for further processing in the parser construction.
 
 \begin{DoxySeeAlso}{See also}
 \doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+} 
 
 \doxylink{classSLR1Parser_ad91bcfafbf8b58cff15d3c1c7c401bbf}{transitions\+\_\+} 
 \end{DoxySeeAlso}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classSLR1Parser_a95d3b55554e24aa03f6a73d7b895e78b_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -493,14 +509,16 @@ This function builds the SLR(1) parsing tables by computing the canonical collec
 
 \doxylink{classSLR1Parser_ad86b57d534785a9863b925619b7e8a12}{states\+\_\+} 
 \end{DoxySeeAlso}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classSLR1Parser_acdc3a5a98b2ba62767edcf72b2abd0ed_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -547,7 +565,8 @@ This function attempts to resolve shift/reduce or reduce/reduce conflicts in a g
 \begin{DoxyReturn}{Returns}
 {\ttfamily true} if all conflicts are resolved, {\ttfamily false} if an unresolvable conflict is detected. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

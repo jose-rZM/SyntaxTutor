@@ -1,0 +1,5 @@
+<map id="SLRTutorWindow::addMessage" name="SLRTutorWindow::addMessage">
+<area shape="rect" id="Node000001" title="&lt; Prepares grammar in display&#45;friendly format" alt="" coords="270,5,489,33"/>
+<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#acef80f9051484e7bbc7ad003d4b8e180" title="Updates tutor state based on whether the last answer was correct." alt="" coords="5,5,222,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,22,222,22,222,16,254,16"/>
+</map>

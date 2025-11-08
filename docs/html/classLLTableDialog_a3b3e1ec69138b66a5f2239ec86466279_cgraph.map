@@ -1,9 +1,0 @@
-<map id="LLTableDialog::LLTableDialog" name="LLTableDialog::LLTableDialog">
-<area shape="rect" id="Node000001" title="Constructs the LL(1) table dialog with given headers and optional initial data." alt="" coords="5,57,213,85"/>
-<area shape="rect" id="Node000002" href="$classLLTableDialog.html#a75f516c03d82c5ee7f5fbcc9cab7783a" title="Returns the contents of the table filled by the user." alt="" coords="262,5,466,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,54,277,34,278,39,181,59"/>
-<area shape="rect" id="Node000003" href="$classLLTableDialog.html#af6ff62b64182502d4357c1cac30ac71f" title="Pre&#45;fills the table with existing user data." alt="" coords="261,57,467,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,68,245,68,245,74,213,74"/>
-<area shape="rect" id="Node000004" href="$classLLTableDialog.html#a5aafabe038ddf5f3cf382f4263d1ce79" title="Signal emitted when the user submits the table." alt="" coords="272,109,456,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,83,278,103,277,108,180,88"/>
-</map>

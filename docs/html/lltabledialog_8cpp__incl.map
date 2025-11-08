@@ -1,5 +1,5 @@
-<map id="lltabledialog.cpp" name="lltabledialog.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="572,5,701,33"/>
+<map id="gui/lltabledialog.cpp" name="gui/lltabledialog.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="560,5,713,33"/>
 <area shape="rect" id="Node000002" href="$lltabledialog_8h.html" title=" " alt="" coords="438,81,552,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="613,36,535,76,533,71,610,31"/>
 <area shape="rect" id="Node000012" title=" " alt="" coords="576,81,697,109"/>

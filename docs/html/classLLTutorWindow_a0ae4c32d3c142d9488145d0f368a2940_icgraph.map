@@ -1,8 +1,0 @@
-<map id="LLTutorWindow::showTableForCPrime" name="LLTutorWindow::showTableForCPrime">
-<area shape="rect" id="Node000001" title="Display the full LL(1) table in C&#39; ex." alt="" coords="567,21,761,66"/>
-<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="277,29,519,57"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="551,46,519,46,519,40,551,40"/>
-<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a4b10e71e3768385018d953ab251ebcee" title="Constructs the LL(1) tutor window with a given grammar." alt="" coords="5,29,229,57"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,46,229,46,229,40,261,40"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="166,17,149,10,117,8,88,10,71,15,67,20,74,27,70,31,62,20,68,11,87,5,117,3,150,5,168,12"/>
-</map>

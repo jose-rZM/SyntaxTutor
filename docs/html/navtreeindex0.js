@@ -1,8 +1,10 @@
 var NAVTREEINDEX0 =
 {
-"UniqueQueue_8h.html":[3,0,18],
-"UniqueQueue_8h_source.html":[3,0,18],
+"UniqueQueue_8h.html":[3,0,2,12],
+"UniqueQueue_8h_source.html":[3,0,2,12],
 "annotated.html":[2,0],
+"appversion_8h.html":[3,0,4],
+"appversion_8h_source.html":[3,0,4],
 "classCenterAlignDelegate.html":[2,0,0],
 "classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02":[2,0,0,0],
 "classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02":[2,0,0,1],
@@ -241,13 +243,11 @@ var NAVTREEINDEX0 =
 "classUniqueQueue.html#ae7a96bcd1dc074da3dd6f914e33c21a1":[2,0,18,4],
 "classUniqueQueue.html#af4cfcbfc8e87bbb41f52ea3fb3791390":[2,0,18,1],
 "classes.html":[2,1],
-"customtextedit_8cpp.html":[3,0,1],
-"customtextedit_8h.html":[3,0,2],
-"customtextedit_8h_source.html":[3,0,2],
-"dir_8c739bbef76d64b22d6b0911c526dd76.html":[3,0,0],
-"files.html":[3,0],
-"functions.html":[2,3,0],
-"functions.html":[2,3,0,0],
-"functions_b.html":[2,3,0,1],
-"functions_c.html":[2,3,0,2]
+"customtextedit_8cpp.html":[3,0,3,0],
+"customtextedit_8h.html":[3,0,3,1],
+"customtextedit_8h_source.html":[3,0,3,1],
+"dir_11bc0974ce736ce9a6fadebbeb7a8314.html":[3,0,2],
+"dir_8c739bbef76d64b22d6b0911c526dd76.html":[3,0,1],
+"dir_d422163b96683743ed3963d4aac17747.html":[3,0,0],
+"dir_fc86ce11cfb5284f2928e718eeab9679.html":[3,0,3]
 };

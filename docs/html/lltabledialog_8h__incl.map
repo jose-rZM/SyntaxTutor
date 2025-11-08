@@ -1,9 +1,9 @@
-<map id="lltabledialog.h" name="lltabledialog.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="438,5,552,33"/>
+<map id="gui/lltabledialog.h" name="gui/lltabledialog.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="426,5,564,33"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,81,79,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="439,30,287,50,94,83,93,78,286,45,438,25"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="426,31,278,52,94,83,93,78,277,47,425,26"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="103,81,229,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="438,36,241,80,239,74,437,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="437,36,241,80,240,74,435,31"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="254,81,364,109"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="463,36,357,78,355,73,461,31"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="388,81,442,109"/>
@@ -15,7 +15,7 @@
 <area shape="rect" id="Node000008" title=" " alt="" coords="678,81,753,109"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="536,31,664,74,662,79,534,36"/>
 <area shape="rect" id="Node000009" title=" " alt="" coords="777,81,888,109"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="554,30,762,76,761,81,552,36"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="557,31,762,75,761,81,555,36"/>
 <area shape="rect" id="Node000010" title=" " alt="" coords="913,81,1022,109"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="554,26,897,78,897,83,553,31"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="565,27,898,78,897,83,565,33"/>
 </map>

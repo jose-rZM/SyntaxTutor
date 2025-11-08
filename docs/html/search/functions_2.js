@@ -10,5 +10,6 @@ var searchData=
   ['computesubtreewidth_7',['computeSubtreeWidth',['../classLLTutorWindow.html#a9502636394b205fc022204b066ad41b7',1,'LLTutorWindow']]],
   ['createll1table_8',['CreateLL1Table',['../classLL1Parser.html#a7b33aead1b94c61884afb06f204fd3e4',1,'LL1Parser']]],
   ['createlv2item_9',['CreateLv2Item',['../structGrammarFactory.html#a0048c0c61b253a0f2d29bcce7c6ead44',1,'GrammarFactory']]],
-  ['customtextedit_10',['CustomTextEdit',['../classCustomTextEdit.html#a18556a723c91a01bd82d10c1cf41d325',1,'CustomTextEdit']]]
+  ['current_10',['current',['../namespaceSyntaxTutor_1_1Version.html#a665e768d4d2c12eda507ffb657c3400c',1,'SyntaxTutor::Version']]],
+  ['customtextedit_11',['CustomTextEdit',['../classCustomTextEdit.html#a18556a723c91a01bd82d10c1cf41d325',1,'CustomTextEdit']]]
 ];

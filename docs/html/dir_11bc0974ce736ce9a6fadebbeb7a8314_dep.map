@@ -1,0 +1,9 @@
+<map id="gui" name="gui">
+<area shape="rect" id="node1" href="dir_11bc0974ce736ce9a6fadebbeb7a8314.html" title="gui" alt="" coords="70,5,112,33"/>
+<area shape="rect" id="node2" href="dir_8c739bbef76d64b22d6b0911c526dd76.html" title="backend" alt="" coords="5,81,81,109"/>
+<area shape="poly" id="edge1" href="dir_000002_000001.html" alt="" coords="85,35,62,69,58,67,80,32"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000002_000001.html" title="7" alt="" coords="65,62,73,79"/>
+<area shape="rect" id="node3" href="dir_fc86ce11cfb5284f2928e718eeab9679.html" title="widgets" alt="" coords="104,81,176,109"/>
+<area shape="poly" id="edge2" href="dir_000002_000003.html" alt="" coords="102,32,125,66,121,69,98,35"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000002_000003.html" title="4" alt="" coords="124,52,132,69"/>
+</map>

@@ -1,7 +1,0 @@
-<map id="SLRTutorWindow::feedbackForCB" name="SLRTutorWindow::feedbackForCB">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,203,50"/>
-<area shape="rect" id="Node000002" href="$classSLRTutorWindow.html#a45eddedb7792a98443718f224d06fc3a" title=" " alt="" coords="251,5,460,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,25,235,25,235,30,203,30"/>
-<area shape="rect" id="Node000003" href="$structLr0Item.html#ac342e279b0a266a84f984b82604532e6" title="Advances the dot one position to the right." alt="" coords="508,14,666,42"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="461,25,492,25,492,30,461,30"/>
-</map>

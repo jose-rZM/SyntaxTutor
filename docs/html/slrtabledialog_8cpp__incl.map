@@ -1,5 +1,5 @@
-<map id="slrtabledialog.cpp" name="slrtabledialog.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="517,5,655,33"/>
+<map id="gui/slrtabledialog.cpp" name="gui/slrtabledialog.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="505,5,667,33"/>
 <area shape="rect" id="Node000002" href="$slrtabledialog_8h.html" title=" " alt="" coords="380,81,502,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="561,36,481,76,479,71,559,31"/>
 <area shape="rect" id="Node000010" title=" " alt="" coords="525,81,647,109"/>

@@ -1,0 +1,196 @@
+/*
+ * SyntaxTutor - Interactive Tutorial About Syntax Analyzers
+ * Copyright (C) 2025 Jose R. (jose-rzm)
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include "grammar.hpp"
+#include "grammar_factory.hpp"
+#include "lltutorwindow.h"
+#include "slrtutorwindow.h"
+#include "tutorialmanager.h"
+#include <QMainWindow>
+#include <QSettings>
+
+static const QVector<QString> levelColors = {
+    "#2C3E50", // 1: Navy oscuro
+    "#2980B9", // 2: Azul brillante
+    "#16A085", // 3: Teal
+    "#27AE60", // 4: Verde esmeralda
+    "#8E44AD", // 5: Púrpura medio
+    "#9B59B6", // 6: Púrpura claro
+    "#E67E22", // 7: Naranja
+    "#D35400", // 8: Naranja oscuro
+    "#CD7F32", // 9: Bronce
+    "#FFD700"  // 10: Oro puro
+};
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
+QT_END_NAMESPACE
+
+/**
+ * @class MainWindow
+ * @brief Main application window of SyntaxTutor, managing levels, exercises,
+ * and UI state.
+ *
+ * This class serves as the central hub of the application. It handles level
+ * selection, navigation to LL(1) and SLR(1) exercises, tutorial management,
+ * settings persistence, and emits signals for user progress. It also includes
+ * UI logic for dynamic behavior like unlocking levels and changing language.
+ */
+class MainWindow : public QMainWindow {
+    Q_OBJECT
+    Q_PROPERTY(unsigned userLevel READ userLevel WRITE setUserLevel NOTIFY
+                   userLevelChanged)
+
+  public:
+    /**
+     * @brief Constructs the main window.
+     * @param parent Parent widget.
+     */
+    MainWindow(QWidget* parent = nullptr);
+
+    /// Destructor.
+    ~MainWindow();
+
+    /**
+     * @brief Returns the required score threshold to unlock a level.
+     * @param level The level number.
+     * @return The score needed to unlock the given level.
+     */
+    unsigned thresholdFor(unsigned level) { return BASE_THRESHOLD * level; }
+
+    /**
+     * @brief Returns the current user level.
+     */
+    unsigned userLevel() const { return m_userLevel; };
+
+    /**
+     * @brief Sets the user level, clamping it to the allowed maximum.
+     * @param lvl New level to assign.
+     */
+    void setUserLevel(unsigned lvl) {
+        unsigned clamped = qMin(lvl, MAX_LEVEL);
+        if (m_userLevel == clamped)
+            return;
+        m_userLevel = clamped;
+        emit userLevelChanged(clamped);
+    }
+
+  private slots:
+    /**
+     * @brief Handles click event for Level buttons.
+     */
+    void on_lv1Button_clicked(bool checked);
+    void on_lv2Button_clicked(bool checked);
+    void on_lv3Button_clicked(bool checked);
+
+    /**
+     * @brief Opens the LL(1) exercise dialog.
+     */
+    void on_pushButton_clicked();
+
+    /**
+     * @brief Opens the SLR(1) exercise dialog.
+     */
+    void on_pushButton_2_clicked();
+
+    /**
+     * @brief Opens the tutorial view.
+     */
+    void on_tutorial_clicked();
+
+    /**
+     * @brief Shows the "About" information.
+     */
+    void on_actionSobre_la_aplicaci_n_triggered();
+
+    /**
+     * @brief Shows the LL(1) quick reference.
+     */
+    void on_actionReferencia_LL_1_triggered();
+
+    /**
+     * @brief Shows the SLR(1) quick reference.
+     */
+    void on_actionReferencia_SLR_1_triggered();
+
+    /**
+     * @brief Opens the language selection dialog.
+     */
+    void on_idiom_clicked();
+
+  signals:
+    /**
+     * @brief Emitted when the user's level changes.
+     * @param lvl New user level.
+     */
+    void userLevelChanged(unsigned lvl);
+
+    /**
+     * @brief Emitted when the user levels up.
+     * @param newLevel The new level achieved.
+     */
+    void userLevelUp(unsigned newLevel);
+
+  private:
+    /**
+     * @brief Initializes the tutorial system.
+     */
+    void setupTutorial();
+
+    /**
+     * @brief Restarts the tutorial from scratch.
+     */
+    void restartTutorial();
+
+    /**
+     * @brief Handles the result of a finished ll/slr tutor session.
+     * @param cntRight Number of correct answers.
+     * @param cntWrong Number of incorrect answers.
+     */
+    void handleTutorFinished(int cntRight, int cntWrong);
+
+    /**
+     * @brief Saves user settings (score, level, etc.).
+     */
+    void saveSettings();
+
+    /**
+     * @brief Loads previously saved user settings.
+     */
+    void loadSettings();
+
+    Ui::MainWindow*  ui;              ///< UI form generated by Qt Designer.
+    GrammarFactory   factory;         ///< Generator for random grammars.
+    int              level = 1;       ///< Current selected level (1–3).
+    TutorialManager* tm    = nullptr; ///< Manages step-by-step tutorial mode.
+
+    static constexpr unsigned MAX_LEVEL = 10;  ///< Maximum level supported.
+    static constexpr unsigned MAX_SCORE = 999; ///< Max user score for display.
+
+    unsigned  m_userLevel = 1; ///< Current level of the user.
+    unsigned  userScore   = 0; ///< Current accumulated score.
+    QSettings settings;        ///< Persistent storage for user preferences.
+
+    const unsigned BASE_THRESHOLD = 10; ///< Score needed per level.
+};
+#endif // MAINWINDOW_H

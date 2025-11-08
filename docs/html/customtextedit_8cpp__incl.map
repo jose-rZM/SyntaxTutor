@@ -1,5 +1,5 @@
-<map id="customtextedit.cpp" name="customtextedit.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="134,5,281,33"/>
+<map id="widgets/customtextedit.cpp" name="widgets/customtextedit.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="106,5,309,33"/>
 <area shape="rect" id="Node000002" href="$customtextedit_8h.html" title=" " alt="" coords="5,81,138,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,36,110,76,108,71,182,31"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="161,81,254,109"/>
