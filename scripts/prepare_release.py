@@ -13,7 +13,7 @@ from typing import Optional, Sequence, Union
 
 # ---------- Paths ----------
 REPO_ROOT = Path(__file__).resolve().parents[1]
-VERSION_FILE = REPO_ROOT / "VERSION"
+VERSION_FILE = REPO_ROOT / "APP_VERSION"
 APPVERSION_HEADER = REPO_ROOT / "src/appversion.h"
 DOXYFILE = REPO_ROOT / "Doxyfile"
 CHANGELOG = REPO_ROOT / "CHANGELOG.md"

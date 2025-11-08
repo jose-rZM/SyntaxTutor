@@ -4,14 +4,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 REFMAN="${REPO_ROOT}/docs/latex/refman.tex"
 TMP="${REPO_ROOT}/docs/latex/refman_tmp.tex"
-VERSION_FILE="${REPO_ROOT}/VERSION"
+VERSION_FILE="${REPO_ROOT}/APP_VERSION"
 
 if [[ -n "${SYNTAXTUTOR_VERSION}" ]]; then
     VERSION="${SYNTAXTUTOR_VERSION}"
 elif [[ -f "${VERSION_FILE}" ]]; then
     VERSION="$(tr -d '\n\r ' < "${VERSION_FILE}")"
 else
-    echo "Unable to determine SyntaxTutor version. Set SYNTAXTUTOR_VERSION or create VERSION file." >&2
+    echo "Unable to determine SyntaxTutor version. Set SYNTAXTUTOR_VERSION or create APP_VERSION file." >&2
     exit 1
 fi
 

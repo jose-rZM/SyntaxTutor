@@ -343,7 +343,7 @@ jobs:
       - name: Determine release version
         id: version
         run: |
-          VERSION=$(tr -d ' \r\n' < VERSION)
+          VERSION=$(tr -d ' \r\n' < APP_VERSION)
           if [ -z "$VERSION" ]; then
             echo "VERSION file is empty" >&2
             exit 1
