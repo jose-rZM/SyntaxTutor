@@ -158,6 +158,12 @@ class MainWindow : public QMainWindow {
     void setupTutorial();
 
     /**
+     * @brief Updates level-dependent styles (badge/progress bar).
+     * @param lvl Current user level.
+     */
+    void applyLevelStyling(unsigned lvl);
+
+    /**
      * @brief Restarts the tutorial from scratch.
      */
     void restartTutorial();
