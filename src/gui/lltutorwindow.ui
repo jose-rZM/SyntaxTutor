@@ -17,10 +17,6 @@
    <iconset resource="resources.qrc">
     <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: #1F1F1F;
-color: #E0E0E0;</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>

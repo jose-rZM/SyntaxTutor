@@ -1,0 +1,121 @@
+QMainWindow,
+QDialog {
+    background-color: #1F1F1F;
+    color: #E0E0E0;
+}
+
+QWidget#centralwidget {
+    background-color: #1F1F1F;
+    color: #E0E0E0;
+}
+
+QMenu#menuAcercaDe::item {
+    padding: 6px 24px;
+}
+
+QMenu#menuAcercaDe::item:selected {
+    background-color: #00ADB5;
+    color: white;
+}
+
+QMenu#menuAcercaDe::icon {
+    padding-left: 4px;
+}
+
+QLabel#labelScore {
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    font-family: "Noto Sans";
+}
+
+QPushButton#pushButton,
+QPushButton#pushButton_2 {
+    background-color: #00ADB5;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: "Noto Sans";
+    font-weight: bold;
+}
+
+QPushButton#pushButton:hover,
+QPushButton#pushButton_2:hover {
+    background-color: #00CED1;
+}
+
+QPushButton#pushButton:pressed,
+QPushButton#pushButton_2:pressed {
+    background-color: #007F86;
+}
+
+QPushButton#tutorial {
+    background-color: #2F2F2F;
+    color: #CCCCCC;
+    border: 1px solid #444444;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: "Noto Sans";
+}
+
+QPushButton#tutorial:hover {
+    background-color: #3A3A3A;
+    color: #FFFFFF;
+}
+
+QPushButton#tutorial:pressed {
+    background-color: #262626;
+}
+
+QRadioButton#lv1Button,
+QRadioButton#lv2Button,
+QRadioButton#lv3Button {
+    color: #DDDDDD;
+    font-size: 16px;
+    spacing: 6px;
+}
+
+QRadioButton#lv1Button::indicator,
+QRadioButton#lv2Button::indicator,
+QRadioButton#lv3Button::indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    border: 2px solid #555555;
+    background: transparent;
+}
+
+QRadioButton#lv1Button::indicator:checked,
+QRadioButton#lv2Button::indicator:checked,
+QRadioButton#lv3Button::indicator:checked {
+    background: #00ADB5;
+    border: 2px solid #00ADB5;
+}
+
+QRadioButton#lv1Button::indicator:checked + QLabel,
+QRadioButton#lv2Button::indicator:checked + QLabel,
+QRadioButton#lv3Button::indicator:checked + QLabel {
+    color: #00ADB5;
+}
+
+QPushButton#idiom {
+    background: transparent;
+    color: #CCCCCC;
+    border: 1px solid #00ADB5;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-family: "Noto Sans";
+    font-size: 12px;
+}
+
+QPushButton#idiom:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+}
+
+QPushButton#idiom:pressed {
+    background-color: rgba(255, 255, 255, 0.10);
+}
