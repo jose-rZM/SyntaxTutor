@@ -468,43 +468,8 @@ void LLTutorWindow::showTableForCPrime() {
         colHeaders << QString::fromStdString(symbol);
     }
     colHeaders.sort();
-    static const char* darkQss = R"(
-    QDialog, QWidget {
-        background-color: #2b2b2b;
-        color: #e0e0e0;
-    }
-    QTableWidget {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-        gridline-color: #555555;
-    }
-    QHeaderView::section {
-        background-color: #313436;
-        color: #E0E0E0;
-        padding: 4px;
-        border: 1px solid #555555;
-    }
-    QTableWidget::item:selected {
-        background-color: #50575F;
-        color: #ffffff;
-    }
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-    QPushButton:pressed {
-        background-color: #222831;
-    }
-    )";
-    auto*              dialog =
+    auto* dialog =
         new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
-    dialog->setStyleSheet(darkQss);
 
     connect(dialog, &LLTableDialog::submitted, this,
             [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
@@ -550,16 +515,6 @@ void LLTutorWindow::showTableForCPrime() {
         msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msg.setDefaultButton(QMessageBox::No);
 
-        msg.setStyleSheet(R"(
-            QMessageBox {
-                  background-color: #1F1F1F;
-                      color: #EEEEEE;
-                  font-family: 'Noto Sans';
-                }
-                QMessageBox QLabel {
-              color: #EEEEEE;
-            }
-        )");
         QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
         QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
@@ -567,46 +522,14 @@ void LLTutorWindow::showTableForCPrime() {
             yesBtn->setText(tr("Sí"));
             yesBtn->setCursor(Qt::PointingHandCursor);
             yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
+            yesBtn->setProperty("role", "primary");
         }
 
         if (noBtn) {
             noBtn->setText(tr("No"));
             noBtn->setCursor(Qt::PointingHandCursor);
             noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
+            noBtn->setProperty("role", "danger");
         }
 
         int ret = msg.exec();
@@ -631,43 +554,8 @@ void LLTutorWindow::showTable() {
         colHeaders << QString::fromStdString(symbol);
     }
     colHeaders.sort();
-    static const char* darkQss = R"(
-    QDialog, QWidget {
-        background-color: #2b2b2b;
-        color: #e0e0e0;
-    }
-    QTableWidget {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-        gridline-color: #555555;
-    }
-    QHeaderView::section {
-        background-color: #313436;
-        color: #E0E0E0;
-        padding: 4px;
-        border: 1px solid #555555;
-    }
-    QTableWidget::item:selected {
-        background-color: #50575F;
-        color: #ffffff;
-    }
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-    QPushButton:pressed {
-        background-color: #222831;
-    }
-    )";
-    auto*              dialog =
+    auto* dialog =
         new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
-    dialog->setStyleSheet(darkQss);
     currentDlg = dialog;
 
     connect(dialog, &LLTableDialog::submitted, this,
@@ -688,16 +576,6 @@ void LLTutorWindow::showTable() {
         msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msg.setDefaultButton(QMessageBox::No);
 
-        msg.setStyleSheet(R"(
-            QMessageBox {
-                  background-color: #1F1F1F;
-                      color: #EEEEEE;
-                  font-family: 'Noto Sans';
-                }
-                QMessageBox QLabel {
-              color: #EEEEEE;
-            }
-        )");
         QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
         QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
@@ -705,46 +583,14 @@ void LLTutorWindow::showTable() {
             yesBtn->setText(tr("Sí"));
             yesBtn->setCursor(Qt::PointingHandCursor);
             yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
+            yesBtn->setProperty("role", "primary");
         }
 
         if (noBtn) {
             noBtn->setText(tr("No"));
             noBtn->setCursor(Qt::PointingHandCursor);
             noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
+            noBtn->setProperty("role", "danger");
         }
 
         int ret = msg.exec();
@@ -1010,46 +856,14 @@ void LLTutorWindow::on_confirmButton_clicked() {
             yesBtn->setText(tr("Sí"));
             yesBtn->setCursor(Qt::PointingHandCursor);
             yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
+            yesBtn->setProperty("role", "primary");
         }
 
         if (noBtn) {
             noBtn->setText(tr("No"));
             noBtn->setCursor(Qt::PointingHandCursor);
             noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
+            noBtn->setProperty("role", "danger");
         }
 
         int ret = end.exec();

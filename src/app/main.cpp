@@ -22,6 +22,7 @@
 #include <QApplication>
 #include <QFont>
 #include <QFontDatabase>
+#include <QFile>
 #include <QImageReader>
 #include <QSettings>
 #include <QTranslator>
@@ -30,6 +31,14 @@ void loadFonts() {
     QFontDatabase::addApplicationFont(":/resources/NotoSans-Regular.ttf");
     QFontDatabase::addApplicationFont(":/resources/NotoSans-Italic.ttf");
     QFontDatabase::addApplicationFont(":/resources/NotoSans-Bold.ttf");
+}
+
+void applyAppStyle(QApplication& app) {
+    QFile qssFile(":/resources/styles/app.qss");
+    if (!qssFile.open(QFile::ReadOnly | QFile::Text)) {
+        return;
+    }
+    app.setStyleSheet(QString::fromUtf8(qssFile.readAll()));
 }
 
 int main(int argc, char* argv[]) {
@@ -56,6 +65,7 @@ int main(int argc, char* argv[]) {
     notoSans.setStyleStrategy(QFont::PreferQuality);
     QApplication::setFont(notoSans);
 #endif
+    applyAppStyle(a);
     MainWindow w;
     w.show();
     return a.exec();

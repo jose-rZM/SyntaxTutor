@@ -397,41 +397,6 @@ void SLRTutorWindow::showTable() {
               });
     auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
                                       colHeaders, this, &rawTable);
-    static const char* darkQss = R"(
-    QDialog, QWidget {
-        background-color: #2b2b2b;
-        color: #e0e0e0;
-    }
-    QTableWidget {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-        gridline-color: #555555;
-    }
-    QHeaderView::section {
-        background-color: #313436;
-        color: #E0E0E0;
-        padding: 4px;
-        border: 1px solid #555555;
-    }
-    QTableWidget::item:selected {
-        background-color: #50575F;
-        color: #ffffff;
-    }
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-    QPushButton:pressed {
-        background-color: #222831;
-    }
-    )";
-    dialog->setStyleSheet(darkQss);
 
     connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
         rawTable = dialog->getTableData();
@@ -496,16 +461,6 @@ void SLRTutorWindow::showTable() {
         msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msg.setDefaultButton(QMessageBox::No);
 
-        msg.setStyleSheet(R"(
-  QMessageBox {
-    background-color: #1F1F1F;
-    color: #EEEEEE;
-    font-family: 'Noto Sans';
-  }
-  QMessageBox QLabel {
-    color: #EEEEEE;
-  }
-)");
         QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
         QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
@@ -513,46 +468,14 @@ void SLRTutorWindow::showTable() {
             yesBtn->setText(tr("Sí"));
             yesBtn->setCursor(Qt::PointingHandCursor);
             yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
+            yesBtn->setProperty("role", "primary");
         }
 
         if (noBtn) {
             noBtn->setText(tr("No"));
             noBtn->setCursor(Qt::PointingHandCursor);
             noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
+            noBtn->setProperty("role", "danger");
         }
 
         int ret = msg.exec();
@@ -961,46 +884,14 @@ void SLRTutorWindow::on_confirmButton_clicked() {
             yesBtn->setText(tr("Sí"));
             yesBtn->setCursor(Qt::PointingHandCursor);
             yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
+            yesBtn->setProperty("role", "primary");
         }
 
         if (noBtn) {
             noBtn->setText(tr("No"));
             noBtn->setCursor(Qt::PointingHandCursor);
             noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
+            noBtn->setProperty("role", "danger");
         }
 
         int ret = end.exec();
@@ -1203,57 +1094,7 @@ QString SLRTutorWindow::generateQuestion() {
         }
         auto* wizard =
             new SLRWizard(slr1, rawTable, colHeaders, sortedGrammar, this);
-        wizard->setStyleSheet(R"(
-    * {
-        background-color: #2b2b2b;
-        color: #e0e0e0;
-    }
-    QWizard, QWizardPage {
-
-            background-color: #1F1F1F;
-            color: #E0E0E0;
-
-    }
-
-    QWizard::title {
-        color: #ffffff;
-        font-size: 18px;
-    }
-
-    QWizard::subTitle {
-        color: #cccccc;
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-
-    QLabel {
-        color: #e0e0e0;
-    }
-
-    QLineEdit {
-        background-color: #3c3f41;
-        color: #e0e0e0;
-        border: 1px solid #555555;
-        border-radius: 4px;
-        padding: 4px;
-    }
-
-    QWizard::WizardButton {
-        background-color: #444444;
-        color: #ffffff;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-    }
-
-    QWizard::WizardButton:hover {
-        background-color: #555555;
-    }
-
-    QWizard::WizardButton:pressed {
-            background-color: #333333;
-    }
-    )");
+        wizard->setProperty("wizardTheme", "slr");
         connect(wizard, &QWizard::accepted, this,
                 [this]() { on_confirmButton_clicked(); });
         connect(wizard, &QWizard::rejected, this, [this, wizard]() {
@@ -1269,16 +1110,6 @@ QString SLRTutorWindow::generateQuestion() {
             msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msg.setDefaultButton(QMessageBox::No);
 
-            msg.setStyleSheet(R"(
-  QMessageBox {
-    background-color: #1F1F1F;
-    color: #EEEEEE;
-    font-family: 'Noto Sans';
-  }
-  QMessageBox QLabel {
-    color: #EEEEEE;
-  }
-)");
             QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
             QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
@@ -1286,46 +1117,14 @@ QString SLRTutorWindow::generateQuestion() {
                 yesBtn->setText(tr("Sí"));
                 yesBtn->setCursor(Qt::PointingHandCursor);
                 yesBtn->setIcon(QIcon());
-                yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
+                yesBtn->setProperty("role", "primary");
             }
 
             if (noBtn) {
                 noBtn->setText(tr("No"));
                 noBtn->setCursor(Qt::PointingHandCursor);
                 noBtn->setIcon(QIcon());
-                noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
+                noBtn->setProperty("role", "danger");
             }
             int ret = msg.exec();
             if (ret == QMessageBox::Yes) {

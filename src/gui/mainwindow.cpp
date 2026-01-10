@@ -30,115 +30,15 @@ MainWindow::MainWindow(QWidget* parent)
     Qt::WindowFlags f = windowFlags();
     f &= ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(f);
-    ui->pushButton->setStyleSheet(R"(
-    QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-family: 'Noto Sans';
-        font-weight: bold;
-    }
-
-    QPushButton:hover {
-        background-color: #00CED1;
-    }
-
-    QPushButton:pressed {
-        background-color: #007F86;
-    }
-)");
-
-    ui->pushButton_2->setStyleSheet(R"(
-    QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-family: 'Noto Sans';
-        font-weight: bold;
-    }
-
-    QPushButton:hover {
-        background-color: #00CED1;
-    }
-
-    QPushButton:pressed {
-        background-color: #007F86;
-    }
-)");
 
     ui->pushButton->setCursor(Qt::PointingHandCursor);
     ui->pushButton_2->setCursor(Qt::PointingHandCursor);
     ui->menuAcercaDe->setObjectName("menuAcercaDe");
-    ui->menuAcercaDe->setStyleSheet(R"(
-  QMenu#menuAcercaDe::item {
-    padding: 6px 24px;
-  }
-  QMenu#menuAcercaDe::item:selected {
-    background-color: #00ADB5;
-    color: white;
-  }
-  QMenu#menuAcercaDe::icon {
-    padding-left: 4px;
-  }
-)");
 
     setupTutorial();
 
-    ui->labelScore->setStyleSheet(R"(
-    QLabel {
-        font-weight: bold;
-        font-size: 15px;
-        color: white;
-        font-family: 'Noto Sans';
-})");
-
-    connect(this, &MainWindow::userLevelChanged, this, [this](unsigned lvl) {
-        int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
-        QString c      = levelColors[idx];
-        QString border = QColor(c).darker(120).name();
-
-        ui->badgeNivel->setStyleSheet(QString(R"(
-    QLabel {
-    min-width: 24px;
-    min-height: 24px;
-    padding: 0px 6px;
-    font-weight: bold;
-    font-size: 12px;
-    background-color: %1;
-    color: white;
-    border-radius: 12px;
-    border: 1px solid %2;
-    qproperty-alignment: 'AlignCenter';
-}       
-    )")
-                                          .arg(c)
-                                          .arg(border));
-
-        ui->badgeNivel->setText(QString::number(lvl));
-        ui->progressBarNivel->setStyleSheet(QString(R"(
-    QProgressBar {
-        background-color: #2A2A2A;
-        border: 1px solid #666666;   
-        border-radius: 3px;
-        min-height: 5px;
-        max-height: 5px;
-        text-align: center;
-        color: transparent;
-    }
-    QProgressBar::chunk {
-        background-color: %1;
-        border-radius: 3px;
-        margin: 0px;
-    }
-)")
-                                                .arg(c));
-    });
+    connect(this, &MainWindow::userLevelChanged, this,
+            &MainWindow::applyLevelStyling);
 
     connect(this, &MainWindow::userLevelUp, this, [this]() {
         QPropertyAnimation* anim =
@@ -250,6 +150,48 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::applyLevelStyling(unsigned lvl) {
+    int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
+    QString c      = levelColors[idx];
+    QString border = QColor(c).darker(120).name();
+
+    ui->badgeNivel->setStyleSheet(QString(R"(
+    QLabel {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0px 6px;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: %1;
+    color: white;
+    border-radius: 12px;
+    border: 1px solid %2;
+    qproperty-alignment: 'AlignCenter';
+}       
+    )")
+                                      .arg(c)
+                                      .arg(border));
+
+    ui->badgeNivel->setText(QString::number(lvl));
+    ui->progressBarNivel->setStyleSheet(QString(R"(
+    QProgressBar {
+        background-color: #2A2A2A;
+        border: 1px solid #666666;   
+        border-radius: 3px;
+        min-height: 5px;
+        max-height: 5px;
+        text-align: center;
+        color: transparent;
+    }
+    QProgressBar::chunk {
+        background-color: %1;
+        border-radius: 3px;
+        margin: 0px;
+    }
+)")
+                                            .arg(c));
+}
+
 void MainWindow::on_lv1Button_clicked(bool checked) {
     if (checked)
         level = 1;
@@ -266,7 +208,11 @@ void MainWindow::on_lv3Button_clicked(bool checked) {
 }
 
 void MainWindow::loadSettings() {
+    unsigned prevLevel = userLevel();
     setUserLevel(settings.value("gamification/level", 1).toUInt());
+    if (prevLevel == userLevel()) {
+        applyLevelStyling(userLevel());
+    }
     userScore = settings.value("gamification/score", 0).toUInt();
     ui->labelScore->setText(tr("Puntos: %1").arg(userScore));
 
@@ -500,30 +446,6 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
         closeBtn->setCursor(Qt::PointingHandCursor);
         closeBtn->setIcon(QIcon());
     }
-    about.setStyleSheet(R"(
-      QMessageBox {
-        background-color: #1F1F1F;
-        color: white;
-        font-family: 'Noto Sans';
-      }
-    QMessageBox QLabel {
-        color: #EEEEEE;
-    }
-      QMessageBox QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-      QMessageBox QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QMessageBox QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
     about.exec();
 }
 
@@ -559,29 +481,6 @@ void MainWindow::on_actionReferencia_LL_1_triggered() {
         closeBtn->setCursor(Qt::PointingHandCursor);
         closeBtn->setIcon(QIcon());
     }
-    help.setStyleSheet(R"(
-      QMessageBox {
-        background-color: #1F1F1F;
-        font-family: 'Noto Sans';
-      }
-    QMessageBox QLabel {
-        color: #EEEEEE;
-    }
-      QMessageBox QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-      QMessageBox QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QMessageBox QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
     help.exec();
 }
 
@@ -621,30 +520,6 @@ void MainWindow::on_actionReferencia_SLR_1_triggered() {
         closeBtn->setCursor(Qt::PointingHandCursor);
         closeBtn->setIcon(QIcon());
     }
-    help.setStyleSheet(R"(
-      QMessageBox {
-        background-color: #1F1F1F;
-        color: white;
-        font-family: 'Noto Sans';
-      }
-    QMessageBox QLabel {
-        color: #EEEEEE;
-    }
-      QMessageBox QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-      QMessageBox QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QMessageBox QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
     help.exec();
 }
 
@@ -656,57 +531,15 @@ void MainWindow::on_idiom_clicked() {
     QPushButton* btnEs =
         msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
     btnEs->setObjectName("btnEs");
+    btnEs->setProperty("role", "primary");
     QPushButton* btnEn =
         msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
     btnEn->setObjectName("btnEn");
+    btnEn->setProperty("role", "primary");
     QPushButton* btnCanc =
         msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
     btnCanc->setObjectName("btnCanc");
-    msgBox.setStyleSheet(R"(
-        QMessageBox {
-            background-color: #1F1F1F;
-            color: #EEEEEE;
-            font-family: 'Noto Sans';
-            font-size: 13px;
-            border: 1px solid #444444;
-            border-radius: 4px;
-        }
-        QMessageBox QLabel {
-            color: #EEEEEE;
-        }
-
-        QPushButton#btnEs, QPushButton#btnEn {
-            background-color: #00ADB5;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Noto Sans';
-        }
-        QPushButton#btnEs:hover, QPushButton#btnEn:hover {
-            background-color: #00CED1;
-        }
-        QPushButton#btnEs:pressed, QPushButton#btnEn:pressed {
-            background-color: #007F86;
-        }
-
-        QPushButton#btnCanc {
-            background-color: #D9534F;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Noto Sans';
-        }
-        QPushButton#btnCanc:hover {
-            background-color: #E14E50;
-        }
-        QPushButton#btnCanc:pressed {
-            background-color: #C12E2A;
-        }
-    )");
+    btnCanc->setProperty("role", "danger");
     msgBox.exec();
 
     QString selectedLang;
@@ -730,34 +563,6 @@ void MainWindow::on_idiom_clicked() {
         info.setText(tr("Para aplicar el cambio de idioma, es necesario "
                         "reiniciar la aplicación."));
         info.setStandardButtons(QMessageBox::Ok);
-        info.setStyleSheet(R"(
-            QMessageBox {
-                background-color: #1F1F1F;
-                color: #EEEEEE;
-                font-family: 'Noto Sans';
-                font-size: 15px;
-                border: 1px solid #444444;
-                border-radius: 4px;
-            }
-            QMessageBox QLabel {
-                color: #EEEEEE;
-            }
-            QMessageBox QPushButton {
-                background-color: #00ADB5;
-                color: white;
-                border: none;
-                padding: 6px 14px;
-                border-radius: 4px;
-                font-weight: bold;
-                font-family: 'Noto Sans';
-            }
-            QMessageBox QPushButton:hover {
-                background-color: #00CED1;
-            }
-            QMessageBox QPushButton:pressed {
-                background-color: #007F86;
-            }
-        )");
         info.exec();
 
         qApp->quit();

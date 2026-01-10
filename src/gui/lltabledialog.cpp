@@ -35,53 +35,10 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
                              const QStringList& colHeaders, QWidget* parent,
                              QVector<QVector<QString>>* initialData)
     : QDialog(parent) {
+    setProperty("tableDialog", true);
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
     table->setItemDelegate(new CenterAlignDelegate(table));
     table->setAlternatingRowColors(true);
-    table->setStyleSheet(R"(
-    /* Fondo general y texto */
-    QTableWidget {
-        background-color: #1F1F1F;
-        color:            #EEEEEE;
-        gridline-color:   #444444;
-        font-family:      'Noto Sans';
-        font-size:        13px;
-    }
-    /* Cabeceras horizontales */
-    QHeaderView::section {
-        background-color: #2E2E2E;
-        color:            #00ADB5;
-        padding:          6px;
-        border:           1px solid #444444;
-    }
-    /* Cabeceras verticales */
-    QTableWidget QHeaderView::section:vertical {
-        background-color: #2E2E2E;
-        color:            #CCCCCC;
-        padding:          6px;
-        border:           1px solid #444444;
-    }
-    /* Botón esquina superior-izquierda */
-    QTableCornerButton::section {
-        background-color: #2E2E2E;
-        border: 1px solid #444444;
-    }
-    /* Filas alternadas */
-    QTableWidget {
-        alternate-background-color: #252525;
-    }
-    /* Selección de celda */
-    QTableWidget::item:selected {
-        background-color: #00ADB5;
-        color:            #FFFFFF;
-    }
-    /* Sin líneas en los bordes exterior */
-    QTableWidget {
-        show-decoration-selected: 1;
-        selection-background-color: #00ADB5;
-        selection-color: #FFFFFF;
-    }
-)");
     table->setHorizontalHeaderLabels(colHeaders);
     table->setVerticalHeaderLabels(rowHeaders);
     table->horizontalHeader()->setFont(
@@ -108,24 +65,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
     submitButton->setCursor(Qt::PointingHandCursor);
-    submitButton->setStyleSheet(R"(
-  QPushButton {
-    background-color: #00ADB5;
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: 'Noto Sans';
-    font-weight: bold;
-  }
-  QPushButton:hover {
-    background-color: #00CED1;
-  }
-  QPushButton:pressed {
-    background-color: #007F86;
-  }
-)");
+    submitButton->setProperty("role", "primary");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(table);

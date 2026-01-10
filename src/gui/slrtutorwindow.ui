@@ -17,10 +17,6 @@
    <iconset resource="resources.qrc">
     <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
   </property>
-  <property name="styleSheet">
-   <string notr="true">  background-color: #1F1F1F;
-    color: #E0E0E0;</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -131,42 +127,6 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="styleSheet">
-         <string notr="true"> QListWidget {
-        border: 1px solid #3a3a3a;
-        border-radius: 6px;
-        background-color: transparent;
-    }
-
-    QListWidget::viewport {
-        background-color: transparent;
-    }
-   QScrollBar:vertical {
-        background: #1e1e1e;
-        width: 10px;
-        margin: 2px 0 2px 0;
-        border-radius: 5px;
-    }
-
-    QScrollBar::handle:vertical {
-        background: #5c5c5c;
-        min-height: 20px;
-        border-radius: 5px;
-    }
-
-    QScrollBar::handle:vertical:hover {
-        background: #777;
-    }
-
-    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-        height: 0px;
-        background: none;
-    }
-
-    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-        background: none;
-    }</string>
-        </property>
        </widget>
       </item>
       <item>
@@ -183,10 +143,6 @@
           <bold>true</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">    padding: 12px;
-    border-radius: 6px;</string>
-        </property>
         <property name="text">
          <string>Gramática</string>
         </property>
@@ -197,43 +153,6 @@
       </item>
       <item>
        <widget class="QTextEdit" name="textEdit">
-        <property name="styleSheet">
-         <string notr="true">QTextEdit {
-background-color: #1e1e1e;
-color: #ffffff;
-border: 1px solid #3a3a3a;
-border-radius: 6px;
-padding: 8px;
-selection-background-color: #44475a;
-selection-color: #ffffff;
-font-family: Noto Sans
-}
-  QScrollBar:vertical {
-        background: #1e1e1e;
-        width: 10px;
-        margin: 2px 0 2px 0;
-        border-radius: 5px;
-    }
-
-    QScrollBar::handle:vertical {
-        background: #5c5c5c;
-        min-height: 20px;
-        border-radius: 5px;
-    }
-
-    QScrollBar::handle:vertical:hover {
-        background: #777;
-    }
-
-    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-        height: 0px;
-        background: none;
-    }
-
-    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-        background: none;
-    }</string>
-        </property>
         <property name="readOnly">
          <bool>true</bool>
         </property>
@@ -263,52 +182,12 @@ font-family: Noto Sans
           <height>100</height>
          </size>
         </property>
-        <property name="styleSheet">
-         <string notr="true">QTextEdit {
-	background-color: #2E2E2E;
-	color: #E0E0E0;
-	border: 1px solid #444;
-	border-radius: 6px;
-	padding: 6px 10px;
-	font-size: 16px;
-}
-
-QTextEdit:focus {
-		border-bottom: 2px solid #00ADB5;
-}</string>
-        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="confirmButton">
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-background-color: rgba(0, 173, 181, 0.85);    
-border: none;
-    border-radius: 20px; /* La mitad de width/height para que sea redondo */
-    min-width: 40px;
-    min-height: 40px;
-    max-width: 40px;
-    max-height: 40px;
-    padding: 0px;
-    icon-size: 24px 24px; /* Asegúrate de ajustar esto en C++ también si no reacciona */
-}
-
-QPushButton:hover {
-    background-color: #00C8D6;
-}
-
-QPushButton:pressed {
-    background-color: #009AA3;
-}
-
-QPushButton:disabled {
-    background-color: #888888;
-    color: #dddddd;
-}</string>
         </property>
         <property name="text">
          <string/>
