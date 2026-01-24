@@ -21,6 +21,7 @@
 #include "ui_lltutorwindow.h"
 #include <QAbstractButton>
 #include <QFontDatabase>
+#include <QHBoxLayout>
 #include <QRandomGenerator>
 #include <QRegularExpression>
 
@@ -885,43 +886,42 @@ void LLTutorWindow::on_confirmButton_clicked() {
          currentState == State::C || currentState == State::C_prime);
 
     if (currentState == State::fin) {
-        QMessageBox end(this);
-        end.setWindowTitle(tr("Fin del ejercicio"));
-        end.setText(tr("¿Exportar a PDF?"));
-        end.setInformativeText(
-            tr("Se generará un PDF con toda la conversación, funciones "
-               "calculadas (CAB, SIG, SD) y la tabla LL(1)."));
-        end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        end.setDefaultButton(QMessageBox::No);
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true);
+        addMessage(tr("Ejercicio terminado. ¿Quieres exportar la conversación "
+                      "o salir?"),
+                   false);
 
-        QAbstractButton* yesBtn = end.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = end.button(QMessageBox::No);
+        auto* actions = new QWidget();
+        auto* layout  = new QHBoxLayout(actions);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(10);
 
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setProperty("role", "primary");
-        }
+        auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+        exportBtn->setCursor(Qt::PointingHandCursor);
+        exportBtn->setProperty("role", "primary");
 
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setProperty("role", "danger");
-        }
+        auto* exitBtn = new QPushButton(tr("Salir"), actions);
+        exitBtn->setCursor(Qt::PointingHandCursor);
+        exitBtn->setProperty("role", "danger");
 
-        int ret = end.exec();
-        if (ret == QMessageBox::Yes) {
-            QString filePath = QFileDialog::getSaveFileName(
+        layout->addWidget(exportBtn);
+        layout->addWidget(exitBtn);
+
+        connect(exportBtn, &QPushButton::clicked, this, [this]() {
+            const QString filePath = QFileDialog::getSaveFileName(
                 this, tr("Guardar conversación"), "conver.pdf",
                 tr("Archivo PDF (*.pdf)"));
-
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
-        }
-        close();
+        });
+
+        connect(exitBtn, &QPushButton::clicked, this, [this]() { close(); });
+
+        addWidgetMessage(actions);
+        ui->listWidget->scrollToBottom();
+        return;
     }
     if (isCorrect || stateChanged || isTableState) {
         ui->userResponse->clear();
@@ -1107,8 +1107,6 @@ void LLTutorWindow::updateState(bool isCorrect) {
 
     // ====== Final state: ends the tutor ======
     case State::fin:
-        QMessageBox::information(this, "Fin", "fin");
-        close();
         break;
     }
     updatePlaceholder();

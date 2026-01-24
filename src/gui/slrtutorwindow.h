@@ -124,6 +124,7 @@ class SLRTutorWindow : public QMainWindow {
 
     // ====== UI Interaction ========================================
     void addMessage(const QString& text, bool isUser); /// < Add message to chat
+    void addWidgetMessage(QWidget* widget);
     void exportConversationToPdf(
         const QString& filePath); /// < Export full interaction
     void showTable();             /// < Render SLR(1) table
