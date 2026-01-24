@@ -403,10 +403,7 @@ void SLRTutorWindow::showTable() {
 
         slrtable.clear();
 
-        const int nTerm =
-            slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
-                ? slr1.gr_.st_.terminals_.size() - 1
-                : slr1.gr_.st_.terminals_.size();
+        const int nTerm = slr1.gr_.st_.terminals_.size();
         for (int state = 0; state < rawTable.size(); ++state) {
             for (int j = 0; j < rawTable[state].size(); ++j) {
                 QString cell = rawTable[state][j];
@@ -1742,9 +1739,7 @@ QString SLRTutorWindow::solutionForD1() {
 }
 
 QString SLRTutorWindow::solutionForD2() {
-    unsigned terminals = slr1.gr_.st_.terminals_.contains(slr1.gr_.st_.EPSILON_)
-                             ? slr1.gr_.st_.terminals_.size() - 1
-                             : slr1.gr_.st_.terminals_.size();
+    unsigned terminals     = slr1.gr_.st_.terminals_.size();
     unsigned non_terminals = slr1.gr_.st_.non_terminals_.size();
     return QString::number(terminals + non_terminals);
 }
@@ -2612,7 +2607,7 @@ void SLRTutorWindow::TeachClosureStep(std::unordered_set<Lr0Item>&     items,
         output += indent + "  - " + tr("Ítem: ") +
                   QString::fromStdString(item.ToString()) + "\n";
 
-        if (!slr1.gr_.st_.IsTerminal(next) && !visited.contains(next)) {
+        if (slr1.gr_.st_.IsNonTerminal(next) && !visited.contains(next)) {
             output += indent + tr("    - Encontrado un no terminal: %1\n")
                                    .arg(QString::fromStdString(next));
             output += indent + tr("    - Añade todas las producciones de %1 "

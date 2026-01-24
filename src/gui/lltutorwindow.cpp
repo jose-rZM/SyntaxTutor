@@ -482,8 +482,8 @@ void LLTutorWindow::showTableForCPrime() {
                     const QString& rowHeader = sortedNonTerminals[i];
 
                     for (int j = 0; j < rawTable[i].size(); ++j) {
-                        const QString& colHeader   = colHeaders[j];
-                        QString&       cell        = rawTable[i][j];
+                        const QString& colHeader = colHeaders[j];
+                        QString&       cell      = rawTable[i][j];
                         cell.remove(kWhitespace);
                         if (cell.isEmpty()) {
                             continue;
@@ -494,7 +494,7 @@ void LLTutorWindow::showTableForCPrime() {
                             // Split could not process the string
                             production = {cell};
                         }
-                            lltable[rowHeader][colHeader] = production;
+                        lltable[rowHeader][colHeader] = production;
                     }
                 }
                 on_confirmButton_clicked();
@@ -1204,9 +1204,7 @@ bool LLTutorWindow::verifyResponseForC() {
 
 QStringList LLTutorWindow::solutionForA() {
     int nt = grammar.st_.non_terminals_.size();
-    int t  = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
-                 ? grammar.st_.terminals_.size() - 1
-                 : grammar.st_.terminals_.size();
+    int t  = grammar.st_.terminals_.size();
     return {QString::number(nt), QString::number(t)};
 }
 
@@ -1217,9 +1215,7 @@ QString LLTutorWindow::solutionForA1() {
 }
 
 QString LLTutorWindow::solutionForA2() {
-    int t = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
-                ? grammar.st_.terminals_.size() - 2
-                : grammar.st_.terminals_.size() - 1;
+    int t = grammar.st_.terminals_wtho_eol_.size();
 
     QString solution(QString::number(t));
     return solution;
@@ -1363,25 +1359,15 @@ QString LLTutorWindow::feedbackForA2() {
         stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
 
-    if (ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)) {
-        l.removeOne(QString::fromStdString(ll1.gr_.st_.EPSILON_));
-        return tr("Los TERMINALES son todos los símbolos que aparecen en los "
-                  "consecuentes\n"
-                  "y que NO son no terminales, excluyendo el símbolo de fin de "
-                  "entrada ($). La "
-                  "cadena EPSILON, tampoco cuenta como símbolo terminal, pues "
-                  "es un metasímbolo "
-                  "que representa la cadena vacía.\n"
-                  "En esta gramática: %1")
-            .arg(l.join(", "));
-    } else {
-        return tr("Los TERMINALES son todos los símbolos que aparecen en los "
-                  "consecuentes\n"
-                  "y que NO son no terminales, excluyendo el símbolo de fin de "
-                  "entrada ($).\n"
-                  "En esta gramática: %1")
-            .arg(l.join(", "));
-    }
+    return tr("Los TERMINALES son todos los símbolos que aparecen en los "
+              "consecuentes\n"
+              "y que NO son no terminales, excluyendo el símbolo de fin de "
+              "entrada ($). La "
+              "cadena EPSILON tampoco cuenta como símbolo terminal, pues "
+              "es un metasímbolo "
+              "que representa la cadena vacía.\n"
+              "En esta gramática: %1")
+        .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
@@ -2317,9 +2303,7 @@ QString LLTutorWindow::TeachLL1Table() {
                      "cada terminal excepto epsilon más %2 (%3 columnas).\n")
                       .arg(ll1.gr_.st_.non_terminals_.size())
                       .arg(QString::fromStdString(ll1.gr_.st_.EOL_))
-                      .arg(ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)
-                               ? ll1.gr_.st_.terminals_.size() - 1
-                               : ll1.gr_.st_.terminals_.size());
+                      .arg(ll1.gr_.st_.terminals_.size());
 
         output += tr("5. Coloca α en la celda (A,β) si β ∈ SD(A → α), déjala "
                      "vacía en otro caso.\n");
