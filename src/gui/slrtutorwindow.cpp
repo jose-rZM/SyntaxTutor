@@ -21,6 +21,7 @@
 #include "ui_slrtutorwindow.h"
 #include <QEasingCurve>
 #include <QFontDatabase>
+#include <QRegularExpression>
 #include <sstream>
 
 namespace {
@@ -124,6 +125,19 @@ ParsedIdCounts ParseIdCountList(const QString& input) {
         parsed.map[id] = val;
     }
     return parsed;
+}
+
+bool NormalizeSlrCell(const QString& cell, QString* normalized) {
+    const QString trimmed = cell.trimmed();
+    if (trimmed.isEmpty()) {
+        normalized->clear();
+        return true;
+    }
+    if (trimmed.contains(QRegularExpression("\\s"))) {
+        return false;
+    }
+    *normalized = trimmed;
+    return true;
 }
 } // namespace
 
@@ -511,35 +525,42 @@ void SLRTutorWindow::showTable() {
         for (int state = 0; state < rawTable.size(); ++state) {
             for (int j = 0; j < rawTable[state].size(); ++j) {
                 QString cell = rawTable[state][j];
-                cell.remove(kWhitespace);
-                if (cell.isEmpty())
+                QString normalized;
+                if (!NormalizeSlrCell(cell, &normalized)) {
+                    qWarning() << "Formato inválido en tabla SLR:" << cell;
+                    continue;
+                }
+                if (normalized.isEmpty())
                     continue;
 
                 const QString sym = colHeaders[j];
 
                 if (j < nTerm) {
                     // --- Action with terminal ---
-                    if (cell.startsWith('s', Qt::CaseInsensitive)) {
-                        int toState          = cell.mid(1).toInt();
+                    if (normalized.startsWith('s', Qt::CaseInsensitive)) {
+                        int toState          = normalized.mid(1).toInt();
                         slrtable[state][sym] = ActionEntry::makeShift(toState);
-                    } else if (cell.startsWith('r', Qt::CaseInsensitive)) {
-                        int prodIdx          = cell.mid(1).toInt();
+                    } else if (normalized.startsWith('r',
+                                                     Qt::CaseInsensitive)) {
+                        int prodIdx          = normalized.mid(1).toInt();
                         slrtable[state][sym] = ActionEntry::makeReduce(prodIdx);
-                    } else if (cell.compare("acc", Qt::CaseInsensitive) == 0) {
+                    } else if (normalized.compare("acc", Qt::CaseInsensitive) ==
+                               0) {
                         slrtable[state][sym] = ActionEntry::makeAccept();
                     } else {
-                        qWarning() << "Entrada no reconocida en Action["
-                                   << state << "][" << sym << "]:" << cell;
+                        qWarning()
+                            << "Entrada no reconocida en Action[" << state
+                            << "][" << sym << "]:" << normalized;
                     }
                 } else {
                     // --- Goto with non-terminal ---
                     bool ok      = false;
-                    int  toState = cell.toInt(&ok);
+                    int  toState = normalized.toInt(&ok);
                     if (ok) {
                         slrtable[state][sym] = ActionEntry::makeGoto(toState);
                     } else {
                         qWarning() << "Goto inválido en [" << state << "]["
-                                   << sym << "]:" << cell;
+                                   << sym << "]:" << normalized;
                     }
                 }
             }

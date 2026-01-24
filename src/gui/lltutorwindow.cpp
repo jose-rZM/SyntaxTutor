@@ -25,12 +25,20 @@
 #include <QRegularExpression>
 
 namespace {
+const QRegularExpression kCellWhitespace("\\s+");
+
 struct ParsedSymbols {
     QStringList   list;
     QSet<QString> set;
     QSet<QString> duplicates;
     bool          separatorError = false;
 };
+
+QString NormalizeProductionCell(const QString& cell) {
+    QString normalized = cell.trimmed();
+    normalized.remove(kCellWhitespace);
+    return normalized;
+}
 
 ParsedSymbols ParseSymbolList(const QString& input) {
     ParsedSymbols parsed;
@@ -514,7 +522,7 @@ void LLTutorWindow::showTableForCPrime() {
                     for (int j = 0; j < rawTable[i].size(); ++j) {
                         const QString& colHeader = colHeaders[j];
                         QString&       cell      = rawTable[i][j];
-                        cell.remove(kWhitespace);
+                        cell = NormalizeProductionCell(cell);
                         if (cell.isEmpty()) {
                             continue;
                         }
@@ -644,7 +652,7 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         for (int j = 0; j < raw[i].size(); ++j) {
             const auto& colH = colHeaders[j];
             QString&    cell = rawTable[i][j];
-            cell.remove(kWhitespace);
+            cell             = NormalizeProductionCell(cell);
             if (cell.isEmpty())
                 continue;
             QStringList prod =
