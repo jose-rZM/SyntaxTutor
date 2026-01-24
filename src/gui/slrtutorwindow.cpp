@@ -23,6 +23,110 @@
 #include <QFontDatabase>
 #include <sstream>
 
+namespace {
+struct ParsedSymbols {
+    QStringList   list;
+    QSet<QString> set;
+    QSet<QString> duplicates;
+    bool          separatorError = false;
+};
+
+struct ParsedIdList {
+    QSet<unsigned> set;
+    QSet<unsigned> duplicates;
+    bool           separatorError = false;
+    bool           parseError     = false;
+};
+
+struct ParsedIdCounts {
+    QMap<unsigned, unsigned> map;
+    QSet<unsigned>           duplicates;
+    bool                     separatorError = false;
+    bool                     parseError     = false;
+    bool                     pairError      = false;
+};
+
+ParsedSymbols ParseSymbolList(const QString& input) {
+    ParsedSymbols parsed;
+    const QString text     = input.trimmed();
+    const bool    hasComma = text.contains(',');
+    parsed.separatorError  = !hasComma && text.contains(' ');
+
+    const QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    for (const QString& part : parts) {
+        const QString cleaned = part.trimmed();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        if (parsed.set.contains(cleaned)) {
+            parsed.duplicates.insert(cleaned);
+        }
+        parsed.set.insert(cleaned);
+        parsed.list.append(cleaned);
+    }
+    return parsed;
+}
+
+ParsedIdList ParseIdList(const QString& input) {
+    ParsedIdList  parsed;
+    const QString text     = input.trimmed();
+    const bool    hasComma = text.contains(',');
+    parsed.separatorError  = !hasComma && text.contains(' ');
+
+    const QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    for (const QString& part : parts) {
+        const QString cleaned = part.trimmed();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        bool     ok  = false;
+        unsigned val = cleaned.toUInt(&ok);
+        if (!ok) {
+            parsed.parseError = true;
+            continue;
+        }
+        if (parsed.set.contains(val)) {
+            parsed.duplicates.insert(val);
+        }
+        parsed.set.insert(val);
+    }
+    return parsed;
+}
+
+ParsedIdCounts ParseIdCountList(const QString& input) {
+    ParsedIdCounts parsed;
+    const QString  text     = input.trimmed();
+    const bool     hasComma = text.contains(',');
+    parsed.separatorError   = !hasComma && text.contains(' ');
+
+    const QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    for (const QString& part : parts) {
+        const QString cleaned = part.trimmed();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        const QStringList kv = cleaned.split(':', Qt::SkipEmptyParts);
+        if (kv.size() != 2) {
+            parsed.pairError = true;
+            continue;
+        }
+        bool     okId  = false;
+        bool     okVal = false;
+        unsigned id    = kv[0].trimmed().toUInt(&okId);
+        unsigned val   = kv[1].trimmed().toUInt(&okVal);
+        if (!okId || !okVal) {
+            parsed.parseError = true;
+            continue;
+        }
+        if (parsed.map.contains(id)) {
+            parsed.duplicates.insert(id);
+        }
+        parsed.map[id] = val;
+    }
+    return parsed;
+}
+} // namespace
+
 SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
                                QWidget* parent)
     : QMainWindow(parent), ui(new Ui::SLRTutorWindow), grammar(g), slr1(g),
@@ -1410,29 +1514,33 @@ bool SLRTutorWindow::verifyResponseForA4(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForB(const QString& userResponse) {
-    unsigned response = userResponse.toUInt();
+    QString  text     = userResponse.trimmed();
+    bool     ok       = false;
+    unsigned response = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
     return response == solutionForB();
 }
 
 bool SLRTutorWindow::verifyResponseForC(const QString& userResponse) {
-    unsigned response = userResponse.toUInt();
+    QString  text     = userResponse.trimmed();
+    bool     ok       = false;
+    unsigned response = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
     return response == solutionForC();
 }
 
 bool SLRTutorWindow::verifyResponseForCA(const QString& userResponse) {
-    QStringList   response = userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> responseSet;
-
-    for (const auto& s : std::as_const(response)) {
-        QString trimmed = s.trimmed();
-        if (responseSet.contains(trimmed)) {
-            return false;
-        }
-        responseSet.insert(trimmed);
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
     QStringList   expected = solutionForCA();
     QSet<QString> expectedSet(expected.begin(), expected.end());
-    return responseSet == expectedSet;
+    return parsed.set == expectedSet;
 }
 
 bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
@@ -1474,75 +1582,48 @@ bool SLRTutorWindow::verifyResponseForE(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForE1(const QString& userResponse) {
-    QSet<unsigned> expected = solutionForE1();
-    QStringList    parts    = userResponse.split(',', Qt::SkipEmptyParts);
-    QSet<unsigned> given;
-
-    for (const QString& s : std::as_const(parts)) {
-        bool     ok;
-        unsigned id = s.trimmed().toUInt(&ok);
-        if (!ok)
-            return false;
-        given.insert(id);
+    QSet<unsigned>     expected = solutionForE1();
+    const ParsedIdList parsed   = ParseIdList(userResponse);
+    if (parsed.separatorError || parsed.parseError) {
+        return false;
     }
-    return given == expected;
+    return parsed.set == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForE2(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(',', Qt::SkipEmptyParts);
     QMap<unsigned, unsigned> expected = solutionForE2();
-    QMap<unsigned, unsigned> given;
-
-    for (const QString& pair : std::as_const(userResponseSplitted)) {
-        auto kv = pair.split(':', Qt::SkipEmptyParts);
-        if (kv.size() != 2)
-            return false;
-
-        bool     ok1, ok2;
-        unsigned id  = kv[0].trimmed().toUInt(&ok1);
-        unsigned num = kv[1].trimmed().toUInt(&ok2);
-        if (!ok1 || !ok2)
-            return false;
-
-        given[id] = num;
+    const ParsedIdCounts     parsed   = ParseIdCountList(userResponse);
+    if (parsed.separatorError || parsed.parseError || parsed.pairError) {
+        return false;
     }
-    return given == expected;
+    return parsed.map == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForF(const QString& userResponse) {
-    QSet<unsigned> expected = solutionForF(); // ids con conflicto
-    QStringList    parts    = userResponse.split(',', Qt::SkipEmptyParts);
-    QSet<unsigned> given;
-    for (const QString& s : std::as_const(parts)) {
-        bool     ok;
-        unsigned id = s.trimmed().toUInt(&ok);
-        if (!ok)
-            return false;
-        given.insert(id);
+    QSet<unsigned>     expected = solutionForF(); // ids con conflicto
+    const ParsedIdList parsed   = ParseIdList(userResponse);
+    if (parsed.separatorError || parsed.parseError) {
+        return false;
     }
-    return given == expected;
+    return parsed.set == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForFA(const QString& userResponse) {
-    QStringList   resp = userResponse.split(',', Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(resp)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
     QSet<QString> expected = solutionForFA();
-    return userSet == expected;
+    return parsed.set == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForG(const QString& userResponse) {
-    QSet<QString> expected = solutionForG();
-    QStringList   resp     = userResponse.split(',', Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-
-    for (const auto& s : std::as_const(resp)) {
-        userSet.insert(s.trimmed());
+    QSet<QString>       expected = solutionForG();
+    const ParsedSymbols parsed   = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == expected;
+    return parsed.set == expected;
 }
 
 bool SLRTutorWindow::verifyResponseForH() {
@@ -1947,6 +2028,16 @@ QString SLRTutorWindow::feedbackForAPrime() {
 }
 
 QString SLRTutorWindow::feedbackForB() {
+    QString text = ui->userResponse->toPlainText().trimmed();
+    bool    ok   = false;
+    text.toUInt(&ok);
+    if (text.isEmpty()) {
+        return tr("No has indicado ningún número de estados.");
+    }
+    if (!ok) {
+        return tr("Formato inválido: escribe sólo dígitos para el número de "
+                  "estados.");
+    }
     return tr("Se ha(n) generado %1 estado(s) hasta ahora. Cada transición "
               "sobre un símbolo "
               "genera un nuevo estado si lleva a un conjunto distinto de "
@@ -1955,26 +2046,25 @@ QString SLRTutorWindow::feedbackForB() {
 }
 
 QString SLRTutorWindow::feedbackForC() {
+    QString text = ui->userResponse->toPlainText().trimmed();
+    bool    ok   = false;
+    text.toUInt(&ok);
+    if (text.isEmpty()) {
+        return tr("No has indicado ningún número de ítems.");
+    }
+    if (!ok) {
+        return tr("Formato inválido: escribe un número entero de ítems.");
+    }
     return tr("El estado I%2 contiene %1 ítem(s).")
         .arg(currentSlrState.items_.size())
         .arg(currentStateId);
 }
 
 QString SLRTutorWindow::feedbackForCA() {
-    QStringList expected = solutionForCA();
-    QString     text     = ui->userResponse->toPlainText().trimmed();
-    QStringList resp =
-        text.split(',', Qt::SkipEmptyParts).replaceInStrings(re, "");
-    QSet<QString> setResp(resp.begin(), resp.end());
-    QSet<QString> duplicates;
-    for (const QString& part : std::as_const(resp)) {
-        QString trimmed = part.trimmed();
-        if (resp.count(trimmed) > 1)
-            duplicates.insert(trimmed);
-        setResp.insert(trimmed);
-        resp.append(trimmed);
-    }
-    QSet<QString> setSol(expected.begin(), expected.end());
+    QStringList         expected = solutionForCA();
+    const QString       text     = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed   = ParseSymbolList(text);
+    QSet<QString>       setSol(expected.begin(), expected.end());
 
     QString base;
     if (std::ranges::any_of(currentSlrState.items_, [](const Lr0Item& item) {
@@ -1997,16 +2087,16 @@ QString SLRTutorWindow::feedbackForCA() {
     if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo.\n") + base;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("Recuerda separar los símbolos con comas.\n") + base;
     }
 
-    QSet<QString> missing = setSol - setResp;
-    QSet<QString> rest    = setResp - setSol;
+    QSet<QString> missing = setSol - parsed.set;
+    QSet<QString> rest    = parsed.set - setSol;
     QString       msg;
-    if (!duplicates.isEmpty()) {
+    if (!parsed.duplicates.isEmpty()) {
         msg += tr("Has repetido símbolos: %1.\n")
-                   .arg(QStringList(duplicates.values()).join(", "));
+                   .arg(QStringList(parsed.duplicates.values()).join(", "));
     }
     if (!missing.isEmpty()) {
         msg += tr("Te han faltado símbolos.\n");
@@ -2147,28 +2237,26 @@ QString SLRTutorWindow::feedbackForE() {
 QString SLRTutorWindow::feedbackForE1() {
     QSet<unsigned> sol = solutionForE1();
 
-    QString text = ui->userResponse->toPlainText().trimmed();
+    const QString text = ui->userResponse->toPlainText().trimmed();
     if (text.isEmpty()) {
         return tr("No has indicado ningún estado. Debes listar los IDs "
                   "separados por comas.\n"
                   "Recuerda que solo los estados con ítems completos pueden "
                   "hacer REDUCE.");
     }
-    QStringList    parts = text.split(',', Qt::SkipEmptyParts);
-    QSet<unsigned> user;
-    for (auto& p : parts) {
-        bool     ok = false;
-        unsigned v  = p.trimmed().toUInt(&ok);
-        if (!ok) {
-            return tr("Formato inválido: cada ID debe ser un número entero. "
-                      "Usa comas para separar.\n"
-                      "Ejemplo: 2,5,7");
-        }
-        user.insert(v);
+    const ParsedIdList parsed = ParseIdList(text);
+    if (parsed.separatorError) {
+        return tr("Formato inválido: separa los IDs con comas.\n"
+                  "Ejemplo: 2,5,7");
+    }
+    if (parsed.parseError) {
+        return tr("Formato inválido: cada ID debe ser un número entero. "
+                  "Usa comas para separar.\n"
+                  "Ejemplo: 2,5,7");
     }
 
-    QSet<unsigned> missing = sol - user;
-    QSet<unsigned> rest    = user - sol;
+    QSet<unsigned> missing = sol - parsed.set;
+    QSet<unsigned> rest    = parsed.set - sol;
     QString        msg;
     QStringList    missingList, restList;
     for (const unsigned val : std::as_const(missing)) {
@@ -2185,16 +2273,86 @@ QString SLRTutorWindow::feedbackForE1() {
         msg += tr("Has incluido estados sin ítems completos: ") +
                restList.join(", ") + ".\n";
     }
+    if (!parsed.duplicates.isEmpty()) {
+        QStringList dupList;
+        for (const unsigned val : std::as_const(parsed.duplicates)) {
+            dupList.append(QString::number(val));
+        }
+        msg += tr("Has repetido estados: ") + dupList.join(", ") + ".\n";
+    }
 
     return msg + tr("Solo los estados con ítems completos (punto al final) "
                     "pueden hacer REDUCE.");
 }
 
 QString SLRTutorWindow::feedbackForE2() {
-    QMap<unsigned int, unsigned int> sol = solutionForE2();
-    QStringList                      pairs;
-    for (auto it = sol.cbegin(); it != sol.cend(); ++it)
+    const QMap<unsigned, unsigned> sol = solutionForE2();
+    const QString        text   = ui->userResponse->toPlainText().trimmed();
+    const ParsedIdCounts parsed = ParseIdCountList(text);
+
+    if (text.isEmpty()) {
+        return tr("No has indicado ningún par id:n.\n"
+                  "Formato: id:n, id:n, ... (por ejemplo, 2:1, 5:2).");
+    }
+    if (parsed.separatorError) {
+        return tr("Formato inválido: separa los pares con comas.\n"
+                  "Ejemplo: 2:1, 5:2");
+    }
+    if (parsed.pairError) {
+        return tr("Formato inválido: cada par debe ser id:n.\n"
+                  "Ejemplo: 2:1, 5:2");
+    }
+    if (parsed.parseError) {
+        return tr("Formato inválido: id y n deben ser números enteros.\n"
+                  "Ejemplo: 2:1, 5:2");
+    }
+
+    QStringList missing;
+    QStringList wrongCounts;
+    QStringList extras;
+    for (auto it = sol.cbegin(); it != sol.cend(); ++it) {
+        if (!parsed.map.contains(it.key())) {
+            missing << QString::number(it.key());
+            continue;
+        }
+        if (parsed.map.value(it.key()) != it.value()) {
+            wrongCounts
+                << tr("%1 debería tener %2").arg(it.key()).arg(it.value());
+        }
+    }
+    for (auto it = parsed.map.cbegin(); it != parsed.map.cend(); ++it) {
+        if (!sol.contains(it.key())) {
+            extras << QString::number(it.key());
+        }
+    }
+
+    QString msg;
+    if (!missing.isEmpty()) {
+        msg += tr("Faltan estados: ") + missing.join(", ") + ".\n";
+    }
+    if (!wrongCounts.isEmpty()) {
+        msg += tr("Conteos incorrectos: ") + wrongCounts.join("; ") + ".\n";
+    }
+    if (!extras.isEmpty()) {
+        msg += tr("Has incluido estados sin ítems completos: ") +
+               extras.join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        QStringList dupList;
+        for (const unsigned val : std::as_const(parsed.duplicates)) {
+            dupList.append(QString::number(val));
+        }
+        msg += tr("Has repetido estados: ") + dupList.join(", ") + ".\n";
+    }
+
+    if (!msg.isEmpty()) {
+        return msg;
+    }
+
+    QStringList pairs;
+    for (auto it = sol.cbegin(); it != sol.cend(); ++it) {
         pairs << QString("%1:%2").arg(it.key()).arg(it.value());
+    }
     return tr("Detalle de ítems completos por estado → ") + pairs.join(", ");
 }
 
@@ -2206,23 +2364,20 @@ QString SLRTutorWindow::feedbackForF() {
 
     QSet<unsigned> sol = solutionForF();
 
-    QString text = ui->userResponse->toPlainText().trimmed();
+    const QString text = ui->userResponse->toPlainText().trimmed();
     if (text.isEmpty()) {
         return txt + tr("\nNo has listado ningún estado conflictivo. ");
     }
-    QStringList    parts = text.split(',', Qt::SkipEmptyParts);
-    QSet<unsigned> user;
-    for (auto& p : parts) {
-        bool     ok = false;
-        unsigned v  = p.trimmed().toUInt(&ok);
-        if (!ok) {
-            return tr("Formato inválido: usa números separados por comas.");
-        }
-        user.insert(v);
+    const ParsedIdList parsed = ParseIdList(text);
+    if (parsed.separatorError) {
+        return tr("Formato inválido: usa comas para separar los IDs.");
+    }
+    if (parsed.parseError) {
+        return tr("Formato inválido: usa números separados por comas.");
     }
 
-    QSet<unsigned> missing = sol - user;
-    QSet<unsigned> rest    = user - sol;
+    QSet<unsigned> missing = sol - parsed.set;
+    QSet<unsigned> rest    = parsed.set - sol;
     QString        msg;
     QStringList    missingList, restList;
     for (const unsigned val : std::as_const(missing)) {
@@ -2241,6 +2396,13 @@ QString SLRTutorWindow::feedbackForF() {
                    restList.join(", ") +
                    tr(". En esos estados no hay confusión sobre qué acción "
                       "aplicar.\n");
+        }
+        if (!parsed.duplicates.isEmpty()) {
+            QStringList dupList;
+            for (const unsigned val : std::as_const(parsed.duplicates)) {
+                dupList.append(QString::number(val));
+            }
+            msg += tr("Has repetido estados: ") + dupList.join(", ") + ".\n";
         }
     } else {
         msg += tr("No debería haber conflictos, pero has listado algunos.\n");
@@ -2265,18 +2427,17 @@ QString SLRTutorWindow::feedbackForFA() {
     QStringList   sol = solutionForFA().values();
     QSet<QString> solSet(sol.begin(), sol.end());
 
-    QString text = ui->userResponse->toPlainText().trimmed();
+    const QString       text   = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed = ParseSymbolList(text);
     if (text.isEmpty()) {
         return txtBase + tr("No has indicado ningún terminal.\n");
     }
-    QStringList   parts = text.split(',', Qt::SkipEmptyParts);
-    QSet<QString> user;
-    for (auto& p : parts) {
-        user.insert(p.trimmed());
+    if (parsed.separatorError) {
+        return txtBase + tr("Recuerda separar los terminales con comas.\n");
     }
 
-    QSet<QString> missing = solSet - user;
-    QSet<QString> rest    = user - solSet;
+    QSet<QString> missing = solSet - parsed.set;
+    QSet<QString> rest    = parsed.set - solSet;
     QString       msg;
     if (!missing.isEmpty()) {
         msg += tr("Te faltan estos terminales para REDUCE: ") +
@@ -2285,6 +2446,10 @@ QString SLRTutorWindow::feedbackForFA() {
     if (!rest.isEmpty()) {
         msg += tr("Estos no se usan para REDUCE en I%1: ").arg(stId) +
                QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     if (msg.isEmpty()) {
         msg = tr("Recuerda que solo se reduce en los terminales de SIG; en los "
@@ -2304,18 +2469,17 @@ QString SLRTutorWindow::feedbackForG() {
     QStringList   sol = solutionForG().values();
     QSet<QString> solSet(sol.begin(), sol.end());
 
-    QString text = ui->userResponse->toPlainText().trimmed();
+    const QString       text   = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed = ParseSymbolList(text);
     if (text.isEmpty()) {
         return txtBase + tr("No has listado ningún terminal para REDUCE.\n");
     }
-    QStringList   parts = text.split(',', Qt::SkipEmptyParts);
-    QSet<QString> user;
-    for (auto& p : parts) {
-        user.insert(p.trimmed());
+    if (parsed.separatorError) {
+        return txtBase + tr("Recuerda separar los terminales con comas.\n");
     }
 
-    QSet<QString> missing = solSet - user;
-    QSet<QString> rest    = user - solSet;
+    QSet<QString> missing = solSet - parsed.set;
+    QSet<QString> rest    = parsed.set - solSet;
     QString       msg;
     if (!missing.isEmpty()) {
         msg += tr("Faltan estos terminales: ") +
@@ -2325,6 +2489,10 @@ QString SLRTutorWindow::feedbackForG() {
         msg += tr("No deberías hacer REDUCE en: ") +
                QStringList(rest.values()).join(", ") +
                tr(". ¡No pertenecen al conjunto de símbolos siguientes!\n");
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     if (msg.isEmpty()) {
         msg = tr("Asegúrate de usar solo los terminales en SIG del antecedente "
@@ -2387,8 +2555,9 @@ SLRTutorWindow::ingestUserItems(const QString& userResponse) {
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
 
     for (const QString& line : std::as_const(lines)) {
-        std::string token    = line.trimmed().toStdString();
-        size_t      arrowpos = token.find("->");
+        QString     normalized = line.trimmed();
+        std::string token      = normalized.toStdString();
+        size_t      arrowpos   = token.find("->");
         if (arrowpos == std::string::npos) {
             return {};
         }
@@ -2453,7 +2622,8 @@ SLRTutorWindow::ingestUserRules(const QString& userResponse) {
 
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
     for (const QString& line : std::as_const(lines)) {
-        std::string token = line.trimmed().toStdString();
+        QString     normalized = line.trimmed();
+        std::string token      = normalized.toStdString();
 
         size_t arrowpos = token.find("->");
         if (arrowpos == std::string::npos) {
