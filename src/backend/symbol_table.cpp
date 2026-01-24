@@ -21,11 +21,32 @@
 #include <vector>
 
 void SymbolTable::PutSymbol(const std::string& identifier, bool isTerminal) {
+    if (identifier == EPSILON_) {
+        st_[identifier] = symbol_type::META;
+        meta_symbols_.insert(identifier);
+        terminals_.erase(identifier);
+        terminals_wtho_eol_.erase(identifier);
+        non_terminals_.erase(identifier);
+        return;
+    }
+
+    if (identifier == EOL_) {
+        st_[identifier] = symbol_type::TERMINAL;
+        terminals_.insert(identifier);
+        terminals_wtho_eol_.erase(identifier);
+        non_terminals_.erase(identifier);
+        meta_symbols_.erase(identifier);
+        return;
+    }
+
+    if (st_.contains(identifier)) {
+        return;
+    }
+
     if (isTerminal) {
         st_.insert({identifier, symbol_type::TERMINAL});
         terminals_.insert(identifier);
         terminals_wtho_eol_.insert(identifier);
-
     } else {
         st_.insert({identifier, symbol_type::NO_TERMINAL});
         non_terminals_.insert(identifier);
@@ -37,9 +58,20 @@ bool SymbolTable::In(const std::string& s) const {
 }
 
 bool SymbolTable::IsTerminal(const std::string& s) const {
-    return terminals_.contains(s);
+    auto it = st_.find(s);
+    return it != st_.end() && it->second == symbol_type::TERMINAL;
 }
 
 bool SymbolTable::IsTerminalWthoEol(const std::string& s) const {
-    return s != EPSILON_ && terminals_.contains(s);
+    return terminals_wtho_eol_.contains(s);
+}
+
+bool SymbolTable::IsNonTerminal(const std::string& s) const {
+    auto it = st_.find(s);
+    return it != st_.end() && it->second == symbol_type::NO_TERMINAL;
+}
+
+bool SymbolTable::IsMeta(const std::string& s) const {
+    auto it = st_.find(s);
+    return it != st_.end() && it->second == symbol_type::META;
 }

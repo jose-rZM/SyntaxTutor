@@ -27,10 +27,10 @@
  * @enum symbol_type
  * @brief Represents the type of a grammar symbol.
  *
- * This enum distinguishes between terminal and non-terminal symbols
+ * This enum distinguishes between terminal, non-terminal, and meta symbols
  * within the grammar and the symbol table.
  */
-enum class symbol_type { NO_TERMINAL, TERMINAL };
+enum class symbol_type { NO_TERMINAL, TERMINAL, META };
 
 /**
  * @struct SymbolTable
@@ -38,9 +38,9 @@ enum class symbol_type { NO_TERMINAL, TERMINAL };
  * special markers.
  *
  * This structure holds information about all terminals and non-terminals used
- * in a grammar, as well as special symbols such as EPSILON and the end-of-line
- * marker ($). It supports symbol classification, membership checks, and
- * filtered views such as terminals excluding $.
+ * in a grammar, as well as special symbols such as EPSILON (meta symbol) and
+ * the end-of-line marker ($). It supports symbol classification, membership
+ * checks, and filtered views such as terminals excluding $.
  */
 struct SymbolTable {
     /// @brief End-of-line symbol used in parsing, initialized as "$".
@@ -50,10 +50,9 @@ struct SymbolTable {
     /// "EPSILON".
     std::string EPSILON_{"EPSILON"};
 
-    /// @brief Main symbol table, mapping identifiers to a pair of symbol type
-    /// and its regex.
+    /// @brief Main symbol table, mapping identifiers to their symbol type.
     std::unordered_map<std::string, symbol_type> st_{
-        {EOL_, symbol_type::TERMINAL}, {EPSILON_, symbol_type::TERMINAL}};
+        {EOL_, symbol_type::TERMINAL}, {EPSILON_, symbol_type::META}};
 
     /**
      * @brief Set of all terminal symbols (including EOL).
@@ -71,10 +70,15 @@ struct SymbolTable {
     std::unordered_set<std::string> non_terminals_;
 
     /**
-     * @brief Adds a non-terminal symbol to the symbol table.
+     * @brief Set of meta symbols (e.g., EPSILON).
+     */
+    std::unordered_set<std::string> meta_symbols_{EPSILON_};
+
+    /**
+     * @brief Adds a symbol to the symbol table.
      *
-     * @param identifier Name of the  symbol.
-     * @param isTerminal True if the identifier is a terminal symbol
+     * @param identifier Name of the symbol.
+     * @param isTerminal True if the identifier is a terminal symbol.
      */
     void PutSymbol(const std::string& identifier, bool isTerminal);
 
@@ -101,4 +105,20 @@ struct SymbolTable {
      * @return true if the symbol is terminal, otherwise false.
      */
     bool IsTerminalWthoEol(const std::string& s) const;
+
+    /**
+     * @brief Checks if a symbol is a non-terminal.
+     *
+     * @param s Symbol identifier to check.
+     * @return true if the symbol is non-terminal, otherwise false.
+     */
+    bool IsNonTerminal(const std::string& s) const;
+
+    /**
+     * @brief Checks if a symbol is a meta symbol (e.g., EPSILON).
+     *
+     * @param s Symbol identifier to check.
+     * @return true if the symbol is meta, otherwise false.
+     */
+    bool IsMeta(const std::string& s) const;
 };
