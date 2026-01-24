@@ -124,6 +124,7 @@ class SLRTutorWindow : public QMainWindow {
 
     // ====== UI Interaction ========================================
     void addMessage(const QString& text, bool isUser); /// < Add message to chat
+    void addWidgetMessage(QWidget* widget);
     void exportConversationToPdf(
         const QString& filePath); /// < Export full interaction
     void showTable();             /// < Render SLR(1) table
@@ -216,6 +217,7 @@ class SLRTutorWindow : public QMainWindow {
                           std::unordered_set<std::string>& visited, int depth,
                           QString& output);
     QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
+    void    updatePlaceholder();
   private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();

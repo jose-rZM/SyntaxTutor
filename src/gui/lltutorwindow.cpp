@@ -21,8 +21,47 @@
 #include "ui_lltutorwindow.h"
 #include <QAbstractButton>
 #include <QFontDatabase>
+#include <QHBoxLayout>
 #include <QRandomGenerator>
 #include <QRegularExpression>
+
+namespace {
+const QRegularExpression kCellWhitespace("\\s+");
+
+struct ParsedSymbols {
+    QStringList   list;
+    QSet<QString> set;
+    QSet<QString> duplicates;
+    bool          separatorError = false;
+};
+
+QString NormalizeProductionCell(const QString& cell) {
+    QString normalized = cell.trimmed();
+    normalized.remove(kCellWhitespace);
+    return normalized;
+}
+
+ParsedSymbols ParseSymbolList(const QString& input) {
+    ParsedSymbols parsed;
+    const QString text     = input.trimmed();
+    const bool    hasComma = text.contains(',');
+    parsed.separatorError  = !hasComma && text.contains(' ');
+
+    const QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    for (const QString& part : parts) {
+        const QString cleaned = part.trimmed();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        if (parsed.set.contains(cleaned)) {
+            parsed.duplicates.insert(cleaned);
+        }
+        parsed.set.insert(cleaned);
+        parsed.list.append(cleaned);
+    }
+    return parsed;
+}
+} // namespace
 
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
                              QWidget* parent)
@@ -83,6 +122,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = State::A;
+    updatePlaceholder();
     addMessage(generateQuestion(), false);
 
     ui->userResponse->clear();
@@ -484,7 +524,7 @@ void LLTutorWindow::showTableForCPrime() {
                     for (int j = 0; j < rawTable[i].size(); ++j) {
                         const QString& colHeader = colHeaders[j];
                         QString&       cell      = rawTable[i][j];
-                        cell.remove(kWhitespace);
+                        cell = NormalizeProductionCell(cell);
                         if (cell.isEmpty()) {
                             continue;
                         }
@@ -614,7 +654,7 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         for (int j = 0; j < raw[i].size(); ++j) {
             const auto& colH = colHeaders[j];
             QString&    cell = rawTable[i][j];
-            cell.remove(kWhitespace);
+            cell             = NormalizeProductionCell(cell);
             if (cell.isEmpty())
                 continue;
             QStringList prod =
@@ -811,6 +851,7 @@ void LLTutorWindow::markLastUserIncorrect() {
 void LLTutorWindow::on_confirmButton_clicked() {
     QString userResponse;
     bool    isCorrect;
+    State   prevState = currentState;
     if (currentState != State::C && currentState != State::C_prime) {
         userResponse = ui->userResponse->toPlainText().trimmed();
         addMessage(userResponse, true);
@@ -839,46 +880,52 @@ void LLTutorWindow::on_confirmButton_clicked() {
     }
     updateState(isCorrect);
 
+    const bool stateChanged = (currentState != prevState);
+    const bool isTableState =
+        (prevState == State::C || prevState == State::C_prime ||
+         currentState == State::C || currentState == State::C_prime);
+
     if (currentState == State::fin) {
-        QMessageBox end(this);
-        end.setWindowTitle(tr("Fin del ejercicio"));
-        end.setText(tr("¿Exportar a PDF?"));
-        end.setInformativeText(
-            tr("Se generará un PDF con toda la conversación, funciones "
-               "calculadas (CAB, SIG, SD) y la tabla LL(1)."));
-        end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        end.setDefaultButton(QMessageBox::No);
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true);
+        addMessage(tr("Ejercicio terminado. ¿Quieres exportar la conversación "
+                      "o salir?"),
+                   false);
 
-        QAbstractButton* yesBtn = end.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = end.button(QMessageBox::No);
+        auto* actions = new QWidget();
+        auto* layout  = new QHBoxLayout(actions);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(10);
 
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setProperty("role", "primary");
-        }
+        auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+        exportBtn->setCursor(Qt::PointingHandCursor);
+        exportBtn->setProperty("role", "primary");
 
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setProperty("role", "danger");
-        }
+        auto* exitBtn = new QPushButton(tr("Salir"), actions);
+        exitBtn->setCursor(Qt::PointingHandCursor);
+        exitBtn->setProperty("role", "danger");
 
-        int ret = end.exec();
-        if (ret == QMessageBox::Yes) {
-            QString filePath = QFileDialog::getSaveFileName(
+        layout->addWidget(exportBtn);
+        layout->addWidget(exitBtn);
+
+        connect(exportBtn, &QPushButton::clicked, this, [this]() {
+            const QString filePath = QFileDialog::getSaveFileName(
                 this, tr("Guardar conversación"), "conver.pdf",
                 tr("Archivo PDF (*.pdf)"));
-
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
-        }
-        close();
+        });
+
+        connect(exitBtn, &QPushButton::clicked, this, [this]() { close(); });
+
+        addWidgetMessage(actions);
+        ui->listWidget->scrollToBottom();
+        return;
     }
-    ui->userResponse->clear();
+    if (isCorrect || stateChanged || isTableState) {
+        ui->userResponse->clear();
+    }
     addMessage(generateQuestion(), false);
 }
 
@@ -1060,10 +1107,43 @@ void LLTutorWindow::updateState(bool isCorrect) {
 
     // ====== Final state: ends the tutor ======
     case State::fin:
-        QMessageBox::information(this, "Fin", "fin");
-        close();
         break;
     }
+    updatePlaceholder();
+}
+
+void LLTutorWindow::updatePlaceholder() {
+    QString text;
+    switch (currentState) {
+    case State::A:
+    case State::A_prime:
+        text = tr("Ejemplo: 4,7");
+        break;
+    case State::A1:
+        text = tr("Ejemplo: 4");
+        break;
+    case State::A2:
+        text = tr("Ejemplo: 7");
+        break;
+    case State::B:
+    case State::B_prime:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::B1:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::B2:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::C:
+    case State::C_prime:
+        text = tr("Completa la tabla en el diálogo");
+        break;
+    case State::fin:
+        text.clear();
+        break;
+    }
+    ui->userResponse->setPlaceholderText(text);
 }
 
 /************************************************************
@@ -1105,7 +1185,8 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
-    QStringList userResp = userResponse.split(',', Qt::SkipEmptyParts);
+    QString     text     = userResponse.trimmed();
+    QStringList userResp = text.split(',', Qt::KeepEmptyParts);
     if (userResp.size() != 2)
         return false;
     for (QString& part : userResp) {
@@ -1118,41 +1199,47 @@ bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForA1(const QString& userResponse) {
-    return userResponse == solutionForA1();
+    QString  text = userResponse.trimmed();
+    bool     ok   = false;
+    unsigned val  = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    return val == solutionForA1().toUInt();
 }
 
 bool LLTutorWindow::verifyResponseForA2(const QString& userResponse) {
-    return userResponse == solutionForA2();
+    QString  text = userResponse.trimmed();
+    bool     ok   = false;
+    unsigned val  = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    return val == solutionForA2().toUInt();
 }
 
 bool LLTutorWindow::verifyResponseForB(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB();
+    return parsed.set == solutionForB();
 }
 
 bool LLTutorWindow::verifyResponseForB1(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB1();
+    return parsed.set == solutionForB1();
 }
 
 bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB2();
+    return parsed.set == solutionForB2();
 }
 
 bool LLTutorWindow::verifyResponseForC() {
@@ -1311,55 +1398,86 @@ QString LLTutorWindow::feedbackForA() {
     QString userText = ui->userResponse->toPlainText().trimmed();
 
     if (!userText.isEmpty()) {
-        QStringList resp = userText.split(',', Qt::SkipEmptyParts);
-
-        if (resp.size() == 1 && resp[0] == userText) {
+        if (!userText.contains(',')) {
             return tr("Parece que no has seguido el formato correctamente. "
                       "Debes separar el número "
                       "de "
                       "filas y columnas con una coma.\n") +
                    feedback;
-        } else {
-            if (resp.size() != 2) {
-                return tr("No has seguido el formato correspondiente "
-                          "(filas,columnas).\n") +
+        }
+
+        QStringList resp = userText.split(',', Qt::KeepEmptyParts);
+        if (resp.size() != 2) {
+            return tr("No has seguido el formato correspondiente "
+                      "(filas,columnas).\n") +
+                   feedback;
+        }
+
+        for (QString& part : resp) {
+            part = part.trimmed();
+            if (part.isEmpty()) {
+                return tr("Faltan valores: escribe filas,columnas.\n") +
                        feedback;
-            } else {
-                QStringList sol = solutionForA();
-                if (sol[0] == resp[0] && sol[1] != resp[1]) {
-                    return tr("No has contado bien el número de símbolos "
-                              "terminales.\n") +
-                           feedback;
-                } else if (sol[0] != resp[0] && sol[1] == resp[1]) {
-                    return tr("No has contado bien el número de símbolos no "
-                              "terminales.\n") +
-                           feedback;
-                } else {
-                    return feedback;
-                }
             }
         }
-    } else {
+
+        bool okRows = false;
+        bool okCols = false;
+        resp[0].toUInt(&okRows);
+        resp[1].toUInt(&okCols);
+        if (!okRows || !okCols) {
+            return tr("Formato inválido: ambos valores deben ser enteros.\n") +
+                   feedback;
+        }
+
+        QStringList sol = solutionForA();
+        if (sol[0] == resp[0] && sol[1] != resp[1]) {
+            return tr("No has contado bien el número de símbolos "
+                      "terminales.\n") +
+                   feedback;
+        }
+        if (sol[0] != resp[0] && sol[1] == resp[1]) {
+            return tr("No has contado bien el número de símbolos no "
+                      "terminales.\n") +
+                   feedback;
+        }
         return feedback;
     }
+    return feedback;
 }
 
 QString LLTutorWindow::feedbackForA1() {
     QSet<QString> non_terminals =
         stdUnorderedSetToQSet(grammar.st_.non_terminals_);
     QList<QString> l(non_terminals.begin(), non_terminals.end());
-    return tr("Los NO TERMINALES son los que aparecen como antecedente en "
+    QString        userText = ui->userResponse->toPlainText().trimmed();
+    bool           ok       = false;
+    userText.toUInt(&ok);
+    QString formatMsg;
+    if (!userText.isEmpty() && !ok) {
+        formatMsg = tr("Formato inválido: escribe un número entero.\n");
+    }
+    return formatMsg +
+           tr("Los NO TERMINALES son los que aparecen como antecedente en "
               "alguna regla.\n"
               "En esta gramática: %1")
-        .arg(l.join(", "));
+               .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForA2() {
     QSet<QString> terminals =
         stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
+    QString        userText = ui->userResponse->toPlainText().trimmed();
+    bool           ok       = false;
+    userText.toUInt(&ok);
+    QString formatMsg;
+    if (!userText.isEmpty() && !ok) {
+        formatMsg = tr("Formato inválido: escribe un número entero.\n");
+    }
 
-    return tr("Los TERMINALES son todos los símbolos que aparecen en los "
+    return formatMsg +
+           tr("Los TERMINALES son todos los símbolos que aparecen en los "
               "consecuentes\n"
               "y que NO son no terminales, excluyendo el símbolo de fin de "
               "entrada ($). La "
@@ -1367,7 +1485,7 @@ QString LLTutorWindow::feedbackForA2() {
               "es un metasímbolo "
               "que representa la cadena vacía.\n"
               "En esta gramática: %1")
-        .arg(l.join(", "));
+               .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
@@ -1386,23 +1504,21 @@ QString LLTutorWindow::feedbackForB() {
            "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
            "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("Parece que no has separado los símbolos con comas "
                   "correctamente.\n") +
                feedbackBase;
     }
 
-    if (resp.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
+    if (parsed.set.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
         return tr("Has introducido EPSILON, los símbolos directores no pueden "
                   "contenerlo.\n") +
                feedbackBase;
@@ -1417,6 +1533,10 @@ QString LLTutorWindow::feedbackForB() {
     if (!rest.isEmpty()) {
         msg += tr("Has incluido símbolos que no corresponden: ") +
                QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
@@ -1436,6 +1556,17 @@ void LLTutorWindow::feedbackForB1TreeGraphics() {
 QString LLTutorWindow::feedbackForB1() {
     feedbackForB1TreeWidget();
     feedbackForB1TreeGraphics();
+
+    const QString       text   = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed = ParseSymbolList(text);
+    QString             formatMsg;
+    if (!text.isEmpty() && parsed.separatorError) {
+        formatMsg = tr("Recuerda separar los símbolos con comas.\n");
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        formatMsg += tr("Has repetido símbolos: ") +
+                     QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
 
     const auto& consequent_qv = sortedGrammar.at(currentRule).second;
     std::vector<std::string> consequent_vec = qvectorToStdVector(consequent_qv);
@@ -1461,11 +1592,12 @@ QString LLTutorWindow::feedbackForB1() {
         QStringList::fromVector(stdUnorderedSetToQSet(result).values())
             .join(", ");
 
-    return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
+    return formatMsg +
+           tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
               "Con esto se obtienen los terminales que pueden aparecer al "
               "comenzar a derivar %1.\n"
               "Resultado: { %2 }")
-        .arg(cab, resultSet);
+               .arg(cab, resultSet);
 }
 
 QString LLTutorWindow::feedbackForB2() {
@@ -1475,20 +1607,17 @@ QString LLTutorWindow::feedbackForB2() {
            "los símbolos directores.\n%2")
             .arg(nt, TeachFollow(nt));
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB2();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB2();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo de SIG(%1).\n").arg(nt) +
                feedbackBase;
     }
 
-    if (resp.size() == 1 &&
-        resp[0] == ui->userResponse->toPlainText().trimmed()) {
+    if (parsed.separatorError) {
         return tr("Recuerda separar los símbolos de SIG(%1) con comas.\n")
                    .arg(nt) +
                feedbackBase;
@@ -1504,6 +1633,10 @@ QString LLTutorWindow::feedbackForB2() {
         msg += tr("No forman parte de SIG(%1): %2.\n")
                    .arg(nt, QStringList(rest.values()).join(", "));
     }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
 
     return msg + feedbackBase;
 }
@@ -1517,17 +1650,15 @@ QString LLTutorWindow::feedbackForBPrime() {
             .arg(TeachPredictionSymbols(rule.first,
                                         qvectorToStdVector(rule.second)));
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("No has seguido el formato indicado (símbolos separados por "
                   "coma).\n") +
                feedbackBase;
@@ -1543,6 +1674,10 @@ QString LLTutorWindow::feedbackForBPrime() {
     if (!rest.isEmpty()) {
         msg += tr("Estos no son símbolos directores válidos: ") +
                QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
@@ -1789,7 +1924,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
                          .arg(QString::fromStdString(current_symbol)));
     parent->addChild(node);
 
-    if (ll1.gr_.st_.IsTerminal(current_symbol)) {
+    if (ll1.gr_.st_.IsTerminal(current_symbol) ||
+        current_symbol == ll1.gr_.st_.EPSILON_) {
         if (current_symbol == ll1.gr_.st_.EPSILON_ &&
             !remaining_symbols.empty()) {
             return;
@@ -1798,8 +1934,7 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
             node->addChild(
                 new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
         } else {
-            node->addChild(
-                new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
+            node->addChild(new QTreeWidgetItem({tr("Añadir a CAB")}));
         }
         return;
     }
@@ -1860,7 +1995,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             .arg(QString::fromStdString(current))
             .arg(rest.empty() ? "" : " " + stdVectorToQVector(rest).join(' '));
 
-    if (ll1.gr_.st_.IsTerminal(current)) {
+    if (ll1.gr_.st_.IsTerminal(current) || current == ll1.gr_.st_.EPSILON_) {
         if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
             return nullptr;
         }
