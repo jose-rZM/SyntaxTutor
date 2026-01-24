@@ -8,3 +8,4 @@ Dockerfile
 Makefile
 .qmake.stash
 SyntaxTutor
+.cache
