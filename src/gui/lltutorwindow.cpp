@@ -1926,7 +1926,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
                          .arg(QString::fromStdString(current_symbol)));
     parent->addChild(node);
 
-    if (ll1.gr_.st_.IsTerminal(current_symbol)) {
+    if (ll1.gr_.st_.IsTerminal(current_symbol) ||
+        current_symbol == ll1.gr_.st_.EPSILON_) {
         if (current_symbol == ll1.gr_.st_.EPSILON_ &&
             !remaining_symbols.empty()) {
             return;
@@ -1935,8 +1936,7 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
             node->addChild(
                 new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
         } else {
-            node->addChild(
-                new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
+            node->addChild(new QTreeWidgetItem({tr("Añadir a CAB")}));
         }
         return;
     }
@@ -1997,7 +1997,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             .arg(QString::fromStdString(current))
             .arg(rest.empty() ? "" : " " + stdVectorToQVector(rest).join(' '));
 
-    if (ll1.gr_.st_.IsTerminal(current)) {
+    if (ll1.gr_.st_.IsTerminal(current) || current == ll1.gr_.st_.EPSILON_) {
         if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
             return nullptr;
         }
