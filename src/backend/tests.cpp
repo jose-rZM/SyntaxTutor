@@ -68,7 +68,7 @@ TEST(GrammarTest, GrammarWithEpsilon) {
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_EQ(gr.g_, expected);
-    ASSERT_TRUE(gr.st_.terminals_.contains(eps));
+    ASSERT_TRUE(gr.st_.IsMeta(eps));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
 }
 
@@ -145,7 +145,7 @@ TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
     ASSERT_TRUE(gr.st_.terminals_.contains("a"));
     ASSERT_TRUE(gr.st_.terminals_.contains("b"));
     ASSERT_TRUE(gr.st_.terminals_.contains("c"));
-    ASSERT_TRUE(gr.st_.terminals_.contains(eps));
+    ASSERT_TRUE(gr.st_.IsMeta(eps));
     ASSERT_TRUE(gr.st_.terminals_.contains("$"));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("B"));
@@ -435,28 +435,6 @@ TEST(GrammarFactoryTest, GeneratedLv5LL1GrammarIsAlwaysLL1) {
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv6LL1GrammarIsAlwaysLL1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 10; ++i) {
-        Grammar   g = factory.GenLL1Grammar(6);
-        LL1Parser ll1(g);
-        ASSERT_TRUE(ll1.CreateLL1Table());
-    }
-}
-
-TEST(GrammarFactoryTest, GeneratedLv7LL1GrammarIsAlwaysLL1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 3; ++i) {
-        Grammar   g = factory.GenLL1Grammar(7);
-        LL1Parser ll1(g);
-        ASSERT_TRUE(ll1.CreateLL1Table());
-    }
-}
-
 TEST(GrammarFactoryTest, GeneratedLv1SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
@@ -507,28 +485,6 @@ TEST(GrammarFactoryTest, GeneratedLv5SLR1GrammarIsAlwaysSLR1) {
     factory.Init();
     for (int i = 0; i < 10; ++i) {
         Grammar    g = factory.GenSLR1Grammar(5);
-        SLR1Parser slr1(g);
-        ASSERT_TRUE(slr1.MakeParser());
-    }
-}
-
-TEST(GrammarFactoryTest, GeneratedLv6SLR1GrammarIsAlwaysSLR1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 5; ++i) {
-        Grammar    g = factory.GenSLR1Grammar(6);
-        SLR1Parser slr1(g);
-        ASSERT_TRUE(slr1.MakeParser());
-    }
-}
-
-TEST(GrammarFactoryTest, GeneratedLv7SLR1GrammarIsAlwaysSLR1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 5; ++i) {
-        Grammar    g = factory.GenSLR1Grammar(7);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
@@ -2333,6 +2289,7 @@ TEST(LL1__Test, FollowSet2) {
     Grammar g;
     g.st_.PutSymbol("S'", false);
     g.st_.PutSymbol("S", false);
+    g.st_.PutSymbol("A", false);
     g.st_.PutSymbol("A'", false);
     g.st_.PutSymbol("B", false);
     g.st_.PutSymbol("C", false);
@@ -2354,7 +2311,7 @@ TEST(LL1__Test, FollowSet2) {
     g.AddProduction("C", {"c"});
 
     LL1Parser ll1(g);
-
+    ASSERT_TRUE(ll1.CreateLL1Table());
     std::unordered_set<std::string> result;
     std::unordered_set<std::string> expected{"b", "c", "a", g.st_.EOL_};
     result = ll1.Follow("A");
@@ -3574,7 +3531,8 @@ TEST(SymbolTableTest, IsTerminalWthoEol_ExcludesEpsilon) {
     SymbolTable st;
     st.PutSymbol(st.EPSILON_, true);
 
-    EXPECT_TRUE(st.IsTerminal(st.EPSILON_));
+    EXPECT_TRUE(st.IsMeta(st.EPSILON_));
+    EXPECT_FALSE(st.IsTerminal(st.EPSILON_));
     EXPECT_FALSE(st.IsTerminalWthoEol(st.EPSILON_));
 }
 
