@@ -959,8 +959,9 @@ void SLRTutorWindow::markLastUserIncorrect() {
 }
 
 void SLRTutorWindow::on_confirmButton_clicked() {
-    QString userResponse;
-    bool    isCorrect;
+    QString  userResponse;
+    bool     isCorrect;
+    StateSlr prevState = currentState;
 
     if (currentState != StateSlr::H && currentState != StateSlr::H_prime) {
         userResponse = ui->userResponse->toPlainText().trimmed();
@@ -989,6 +990,11 @@ void SLRTutorWindow::on_confirmButton_clicked() {
         animateLabelColor(ui->tick, QColor::fromRgb(0, 204, 102));
     }
     updateState(isCorrect);
+
+    const bool stateChanged = (currentState != prevState);
+    const bool isTableState =
+        (prevState == StateSlr::H || prevState == StateSlr::H_prime ||
+         currentState == StateSlr::H || currentState == StateSlr::H_prime);
     if (currentState == StateSlr::fin) {
         QMessageBox end(this);
         end.setWindowTitle(tr("Fin del ejercicio"));
@@ -1030,7 +1036,9 @@ void SLRTutorWindow::on_confirmButton_clicked() {
         close();
     }
     addMessage(generateQuestion(), false);
-    ui->userResponse->clear();
+    if (isCorrect || stateChanged || isTableState) {
+        ui->userResponse->clear();
+    }
 }
 
 /************************************************************

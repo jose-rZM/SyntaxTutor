@@ -850,6 +850,7 @@ void LLTutorWindow::markLastUserIncorrect() {
 void LLTutorWindow::on_confirmButton_clicked() {
     QString userResponse;
     bool    isCorrect;
+    State   prevState = currentState;
     if (currentState != State::C && currentState != State::C_prime) {
         userResponse = ui->userResponse->toPlainText().trimmed();
         addMessage(userResponse, true);
@@ -877,6 +878,11 @@ void LLTutorWindow::on_confirmButton_clicked() {
         animateLabelColor(ui->tick, QColor::fromRgb(0, 204, 102));
     }
     updateState(isCorrect);
+
+    const bool stateChanged = (currentState != prevState);
+    const bool isTableState =
+        (prevState == State::C || prevState == State::C_prime ||
+         currentState == State::C || currentState == State::C_prime);
 
     if (currentState == State::fin) {
         QMessageBox end(this);
@@ -917,7 +923,9 @@ void LLTutorWindow::on_confirmButton_clicked() {
         }
         close();
     }
-    ui->userResponse->clear();
+    if (isCorrect || stateChanged || isTableState) {
+        ui->userResponse->clear();
+    }
     addMessage(generateQuestion(), false);
 }
 
