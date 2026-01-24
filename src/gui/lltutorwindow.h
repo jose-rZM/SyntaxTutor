@@ -200,6 +200,7 @@ class LLTutorWindow : public QMainWindow {
 
     void handleTableSubmission(const QVector<QVector<QString>>& raw,
                                const QStringList&               colHeaders);
+    void updatePlaceholder();
   private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();

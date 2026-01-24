@@ -121,6 +121,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = State::A;
+    updatePlaceholder();
     addMessage(generateQuestion(), false);
 
     ui->userResponse->clear();
@@ -1102,6 +1103,41 @@ void LLTutorWindow::updateState(bool isCorrect) {
         close();
         break;
     }
+    updatePlaceholder();
+}
+
+void LLTutorWindow::updatePlaceholder() {
+    QString text;
+    switch (currentState) {
+    case State::A:
+    case State::A_prime:
+        text = tr("Ejemplo: 4,7");
+        break;
+    case State::A1:
+        text = tr("Ejemplo: 4");
+        break;
+    case State::A2:
+        text = tr("Ejemplo: 7");
+        break;
+    case State::B:
+    case State::B_prime:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::B1:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::B2:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::C:
+    case State::C_prime:
+        text = tr("Completa la tabla en el diálogo");
+        break;
+    case State::fin:
+        text.clear();
+        break;
+    }
+    ui->userResponse->setPlaceholderText(text);
 }
 
 /************************************************************

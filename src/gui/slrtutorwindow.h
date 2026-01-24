@@ -216,6 +216,7 @@ class SLRTutorWindow : public QMainWindow {
                           std::unordered_set<std::string>& visited, int depth,
                           QString& output);
     QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
+    void    updatePlaceholder();
   private slots:
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();

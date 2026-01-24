@@ -230,6 +230,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     addMessage(tr("La gramática es:\n") + formattedGrammar, false);
 
     currentState = StateSlr::A;
+    updatePlaceholder();
     addMessage(generateQuestion(), false);
 
     // ====== Signal Connections ==================================
@@ -1436,6 +1437,73 @@ void SLRTutorWindow::updateState(bool isCorrect) {
     case StateSlr::fin:
         break;
     }
+    updatePlaceholder();
+}
+
+void SLRTutorWindow::updatePlaceholder() {
+    QString text;
+    switch (currentState) {
+    case StateSlr::A:
+    case StateSlr::A4:
+    case StateSlr::A_prime:
+        text = tr("Ejemplo: S -> . A $ (Ctrl + Intro para nueva línea)");
+        break;
+    case StateSlr::A1:
+        text = tr("Ejemplo: A");
+        break;
+    case StateSlr::A2:
+        text = tr("Ejemplo: A");
+        break;
+    case StateSlr::A3:
+        text = tr("Ejemplo: A -> a B");
+        break;
+    case StateSlr::B:
+        text = tr("Ejemplo: 7");
+        break;
+    case StateSlr::C:
+        text = tr("Ejemplo: 2");
+        break;
+    case StateSlr::CA:
+        text = tr("Ejemplo: a,b");
+        break;
+    case StateSlr::CB:
+        text = tr("Ejemplo: S -> . A $ (Ctrl + Intro para nueva línea)");
+        break;
+    case StateSlr::D:
+    case StateSlr::D_prime:
+        text = tr("Ejemplo: 5,12");
+        break;
+    case StateSlr::D1:
+        text = tr("Ejemplo: 2");
+        break;
+    case StateSlr::D2:
+        text = tr("Ejemplo: 8");
+        break;
+    case StateSlr::E:
+        text = tr("Ejemplo: 9");
+        break;
+    case StateSlr::E1:
+        text = tr("Ejemplo: 2,5,7");
+        break;
+    case StateSlr::E2:
+        text = tr("Ejemplo: 2:1, 5:2");
+        break;
+    case StateSlr::F:
+        text = tr("Ejemplo: 2,5");
+        break;
+    case StateSlr::FA:
+    case StateSlr::G:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case StateSlr::H:
+    case StateSlr::H_prime:
+        text = tr("Completa la tabla en el diálogo");
+        break;
+    case StateSlr::fin:
+        text.clear();
+        break;
+    }
+    ui->userResponse->setPlaceholderText(text);
 }
 
 /************************************************************
