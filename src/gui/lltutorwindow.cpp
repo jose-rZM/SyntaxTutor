@@ -24,6 +24,36 @@
 #include <QRandomGenerator>
 #include <QRegularExpression>
 
+namespace {
+struct ParsedSymbols {
+    QStringList   list;
+    QSet<QString> set;
+    QSet<QString> duplicates;
+    bool          separatorError = false;
+};
+
+ParsedSymbols ParseSymbolList(const QString& input) {
+    ParsedSymbols parsed;
+    const QString text     = input.trimmed();
+    const bool    hasComma = text.contains(',');
+    parsed.separatorError  = !hasComma && text.contains(' ');
+
+    const QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    for (const QString& part : parts) {
+        const QString cleaned = part.trimmed();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        if (parsed.set.contains(cleaned)) {
+            parsed.duplicates.insert(cleaned);
+        }
+        parsed.set.insert(cleaned);
+        parsed.list.append(cleaned);
+    }
+    return parsed;
+}
+} // namespace
+
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
                              QWidget* parent)
     : QMainWindow(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
@@ -1118,41 +1148,47 @@ bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForA1(const QString& userResponse) {
-    return userResponse == solutionForA1();
+    QString  text = userResponse.trimmed();
+    bool     ok   = false;
+    unsigned val  = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    return val == solutionForA1().toUInt();
 }
 
 bool LLTutorWindow::verifyResponseForA2(const QString& userResponse) {
-    return userResponse == solutionForA2();
+    QString  text = userResponse.trimmed();
+    bool     ok   = false;
+    unsigned val  = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    return val == solutionForA2().toUInt();
 }
 
 bool LLTutorWindow::verifyResponseForB(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB();
+    return parsed.set == solutionForB();
 }
 
 bool LLTutorWindow::verifyResponseForB1(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB1();
+    return parsed.set == solutionForB1();
 }
 
 bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB2();
+    return parsed.set == solutionForB2();
 }
 
 bool LLTutorWindow::verifyResponseForC() {
@@ -1348,18 +1384,34 @@ QString LLTutorWindow::feedbackForA1() {
     QSet<QString> non_terminals =
         stdUnorderedSetToQSet(grammar.st_.non_terminals_);
     QList<QString> l(non_terminals.begin(), non_terminals.end());
-    return tr("Los NO TERMINALES son los que aparecen como antecedente en "
+    QString        userText = ui->userResponse->toPlainText().trimmed();
+    bool           ok       = false;
+    userText.toUInt(&ok);
+    QString formatMsg;
+    if (!userText.isEmpty() && !ok) {
+        formatMsg = tr("Formato inválido: escribe un número entero.\n");
+    }
+    return formatMsg +
+           tr("Los NO TERMINALES son los que aparecen como antecedente en "
               "alguna regla.\n"
               "En esta gramática: %1")
-        .arg(l.join(", "));
+               .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForA2() {
     QSet<QString> terminals =
         stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
+    QString        userText = ui->userResponse->toPlainText().trimmed();
+    bool           ok       = false;
+    userText.toUInt(&ok);
+    QString formatMsg;
+    if (!userText.isEmpty() && !ok) {
+        formatMsg = tr("Formato inválido: escribe un número entero.\n");
+    }
 
-    return tr("Los TERMINALES son todos los símbolos que aparecen en los "
+    return formatMsg +
+           tr("Los TERMINALES son todos los símbolos que aparecen en los "
               "consecuentes\n"
               "y que NO son no terminales, excluyendo el símbolo de fin de "
               "entrada ($). La "
@@ -1367,7 +1419,7 @@ QString LLTutorWindow::feedbackForA2() {
               "es un metasímbolo "
               "que representa la cadena vacía.\n"
               "En esta gramática: %1")
-        .arg(l.join(", "));
+               .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
@@ -1386,23 +1438,21 @@ QString LLTutorWindow::feedbackForB() {
            "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
            "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("Parece que no has separado los símbolos con comas "
                   "correctamente.\n") +
                feedbackBase;
     }
 
-    if (resp.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
+    if (parsed.set.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
         return tr("Has introducido EPSILON, los símbolos directores no pueden "
                   "contenerlo.\n") +
                feedbackBase;
@@ -1417,6 +1467,10 @@ QString LLTutorWindow::feedbackForB() {
     if (!rest.isEmpty()) {
         msg += tr("Has incluido símbolos que no corresponden: ") +
                QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
@@ -1436,6 +1490,17 @@ void LLTutorWindow::feedbackForB1TreeGraphics() {
 QString LLTutorWindow::feedbackForB1() {
     feedbackForB1TreeWidget();
     feedbackForB1TreeGraphics();
+
+    const QString       text   = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed = ParseSymbolList(text);
+    QString             formatMsg;
+    if (!text.isEmpty() && parsed.separatorError) {
+        formatMsg = tr("Recuerda separar los símbolos con comas.\n");
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        formatMsg += tr("Has repetido símbolos: ") +
+                     QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
 
     const auto& consequent_qv = sortedGrammar.at(currentRule).second;
     std::vector<std::string> consequent_vec = qvectorToStdVector(consequent_qv);
@@ -1461,11 +1526,12 @@ QString LLTutorWindow::feedbackForB1() {
         QStringList::fromVector(stdUnorderedSetToQSet(result).values())
             .join(", ");
 
-    return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
+    return formatMsg +
+           tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
               "Con esto se obtienen los terminales que pueden aparecer al "
               "comenzar a derivar %1.\n"
               "Resultado: { %2 }")
-        .arg(cab, resultSet);
+               .arg(cab, resultSet);
 }
 
 QString LLTutorWindow::feedbackForB2() {
@@ -1475,20 +1541,17 @@ QString LLTutorWindow::feedbackForB2() {
            "los símbolos directores.\n%2")
             .arg(nt, TeachFollow(nt));
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB2();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB2();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo de SIG(%1).\n").arg(nt) +
                feedbackBase;
     }
 
-    if (resp.size() == 1 &&
-        resp[0] == ui->userResponse->toPlainText().trimmed()) {
+    if (parsed.separatorError) {
         return tr("Recuerda separar los símbolos de SIG(%1) con comas.\n")
                    .arg(nt) +
                feedbackBase;
@@ -1504,6 +1567,10 @@ QString LLTutorWindow::feedbackForB2() {
         msg += tr("No forman parte de SIG(%1): %2.\n")
                    .arg(nt, QStringList(rest.values()).join(", "));
     }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
 
     return msg + feedbackBase;
 }
@@ -1517,17 +1584,15 @@ QString LLTutorWindow::feedbackForBPrime() {
             .arg(TeachPredictionSymbols(rule.first,
                                         qvectorToStdVector(rule.second)));
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("No has seguido el formato indicado (símbolos separados por "
                   "coma).\n") +
                feedbackBase;
@@ -1543,6 +1608,10 @@ QString LLTutorWindow::feedbackForBPrime() {
     if (!rest.isEmpty()) {
         msg += tr("Estos no son símbolos directores válidos: ") +
                QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
