@@ -255,7 +255,7 @@ bool GrammarFactory::HasUnreachableSymbols(Grammar& grammar) const {
         if (it != grammar.g_.end()) {
             for (const auto& production : it->second) {
                 for (const auto& symbol : production) {
-                    if (!grammar.st_.IsTerminal(symbol) &&
+                    if (grammar.st_.IsNonTerminal(symbol) &&
                         !reachable.contains(symbol)) {
                         reachable.insert(symbol);
                         pending.push(symbol);
@@ -283,7 +283,7 @@ bool GrammarFactory::IsInfinite(Grammar& grammar) const {
             for (const auto& prod : productions) {
                 bool all_generating = true;
                 for (const auto& symbol : prod) {
-                    if (!grammar.st_.IsTerminal(symbol) &&
+                    if (grammar.st_.IsNonTerminal(symbol) &&
                         !generating.contains(symbol)) {
                         all_generating = false;
                         break;
@@ -321,11 +321,11 @@ bool GrammarFactory::HasIndirectLeftRecursion(const Grammar& grammar) const {
     for (const auto& [nt, productions] : grammar.g_) {
         graph[nt] = {};
         for (const production& prod : productions) {
-            if (!grammar.st_.IsTerminal(prod[0])) {
+            if (grammar.st_.IsNonTerminal(prod[0])) {
                 graph[nt].insert(prod[0]);
             }
             for (size_t i = 1; i < prod.size(); ++i) {
-                if (grammar.st_.IsTerminal(prod[i])) {
+                if (!grammar.st_.IsNonTerminal(prod[i])) {
                     break;
                 }
                 graph[nt].insert(prod[i]);
@@ -576,7 +576,7 @@ void GrammarFactory::NormalizeNonTerminals(FactoryItem&       item,
     for (auto& [old_nt, prods] : item.g_) {
         for (auto& prod : prods) {
             for (auto& symbol : prod) {
-                if (!item.st_.IsTerminal(symbol)) {
+                if (item.st_.IsNonTerminal(symbol)) {
                     symbol = nt;
                 }
             }

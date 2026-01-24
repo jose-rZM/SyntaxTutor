@@ -63,11 +63,8 @@ class SLRWizard : public QWizard {
         : QWizard(parent) {
         setWindowTitle(tr("Ayuda interactiva: Tabla SLR(1)"));
 
-        const int nTerm =
-            parser.gr_.st_.terminals_.contains(parser.gr_.st_.EPSILON_)
-                ? parser.gr_.st_.terminals_.size() - 1
-                : parser.gr_.st_.terminals_.size();
-        SLRWizardPage* last = nullptr;
+        const int      nTerm = parser.gr_.st_.terminals_.size();
+        SLRWizardPage* last  = nullptr;
         // Generar explicación y páginas
         int rows = rawTable.size();
         int cols = colHeaders.size();
