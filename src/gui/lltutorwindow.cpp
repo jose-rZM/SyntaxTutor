@@ -1135,7 +1135,8 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
-    QStringList userResp = userResponse.split(',', Qt::SkipEmptyParts);
+    QString     text     = userResponse.trimmed();
+    QStringList userResp = text.split(',', Qt::KeepEmptyParts);
     if (userResp.size() != 2)
         return false;
     for (QString& part : userResp) {
@@ -1347,37 +1348,52 @@ QString LLTutorWindow::feedbackForA() {
     QString userText = ui->userResponse->toPlainText().trimmed();
 
     if (!userText.isEmpty()) {
-        QStringList resp = userText.split(',', Qt::SkipEmptyParts);
-
-        if (resp.size() == 1 && resp[0] == userText) {
+        if (!userText.contains(',')) {
             return tr("Parece que no has seguido el formato correctamente. "
                       "Debes separar el número "
                       "de "
                       "filas y columnas con una coma.\n") +
                    feedback;
-        } else {
-            if (resp.size() != 2) {
-                return tr("No has seguido el formato correspondiente "
-                          "(filas,columnas).\n") +
+        }
+
+        QStringList resp = userText.split(',', Qt::KeepEmptyParts);
+        if (resp.size() != 2) {
+            return tr("No has seguido el formato correspondiente "
+                      "(filas,columnas).\n") +
+                   feedback;
+        }
+
+        for (QString& part : resp) {
+            part = part.trimmed();
+            if (part.isEmpty()) {
+                return tr("Faltan valores: escribe filas,columnas.\n") +
                        feedback;
-            } else {
-                QStringList sol = solutionForA();
-                if (sol[0] == resp[0] && sol[1] != resp[1]) {
-                    return tr("No has contado bien el número de símbolos "
-                              "terminales.\n") +
-                           feedback;
-                } else if (sol[0] != resp[0] && sol[1] == resp[1]) {
-                    return tr("No has contado bien el número de símbolos no "
-                              "terminales.\n") +
-                           feedback;
-                } else {
-                    return feedback;
-                }
             }
         }
-    } else {
+
+        bool okRows = false;
+        bool okCols = false;
+        resp[0].toUInt(&okRows);
+        resp[1].toUInt(&okCols);
+        if (!okRows || !okCols) {
+            return tr("Formato inválido: ambos valores deben ser enteros.\n") +
+                   feedback;
+        }
+
+        QStringList sol = solutionForA();
+        if (sol[0] == resp[0] && sol[1] != resp[1]) {
+            return tr("No has contado bien el número de símbolos "
+                      "terminales.\n") +
+                   feedback;
+        }
+        if (sol[0] != resp[0] && sol[1] == resp[1]) {
+            return tr("No has contado bien el número de símbolos no "
+                      "terminales.\n") +
+                   feedback;
+        }
         return feedback;
     }
+    return feedback;
 }
 
 QString LLTutorWindow::feedbackForA1() {

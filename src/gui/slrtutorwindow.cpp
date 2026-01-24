@@ -1554,7 +1554,8 @@ bool SLRTutorWindow::verifyResponseForCB(const QString& userResponse) {
 }
 
 bool SLRTutorWindow::verifyResponseForD(const QString& userResponse) {
-    QStringList responseParts = userResponse.split(',', Qt::KeepEmptyParts);
+    QStringList responseParts =
+        userResponse.trimmed().split(',', Qt::KeepEmptyParts);
     if (responseParts.size() != 2)
         return false;
     for (QString& part : responseParts) {
@@ -2191,11 +2192,16 @@ QString SLRTutorWindow::feedbackForDPrime() {
                                .arg(solCols);
 
     QString     text  = ui->userResponse->toPlainText().trimmed();
-    QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    QStringList parts = text.split(',', Qt::KeepEmptyParts);
     if (text.isEmpty()) {
         return tr("No has indicado ningún valor. Debías escribir "
                   "filas,columnas separados por "
                   "coma.\n") +
+               feedbackBase;
+    }
+    if (!text.contains(',') && text.contains(' ')) {
+        return tr("Recuerda separar filas y columnas con una coma, "
+                  "p. ej. 5,12.\n") +
                feedbackBase;
     }
     if (parts.size() != 2) {
@@ -2205,9 +2211,14 @@ QString SLRTutorWindow::feedbackForDPrime() {
                feedbackBase;
     }
 
-    bool ok1 = false, ok2 = false;
-    int  userRows = parts[0].trimmed().toInt(&ok1);
-    int  userCols = parts[1].trimmed().toInt(&ok2);
+    bool          ok1 = false, ok2 = false;
+    const QString rowsText = parts[0].trimmed();
+    const QString colsText = parts[1].trimmed();
+    if (rowsText.isEmpty() || colsText.isEmpty()) {
+        return tr("Faltan valores: escribe filas,columnas.\n") + feedbackBase;
+    }
+    int userRows = rowsText.toInt(&ok1);
+    int userCols = colsText.toInt(&ok2);
     if (!ok1 || !ok2) {
         return tr("Ambos valores debían ser enteros.\n") + feedbackBase;
     }
