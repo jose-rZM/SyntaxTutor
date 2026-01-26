@@ -17,6 +17,7 @@
  */
 
 #include "slrtutorwindow.h"
+#include "slrwizard.h"
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
 #include <QEasingCurve>
@@ -26,6 +27,19 @@
 #include <sstream>
 
 namespace {
+// Packs a (row, col) pair into a single 64-bit key.
+//
+// We need an efficient way to remember which table cells have invalid format
+// so we can skip semantic validation for them (they are highlighted
+// separately).
+//
+// Layout: high 32 bits = row (state), low 32 bits = column index.
+// This avoids relying on hashing QPair<int,int> and guarantees uniqueness as
+// long as row/col fit in 32 bits (they do for our tables).
+static inline qulonglong MakeCellKey(unsigned row, unsigned col) {
+    return (static_cast<qulonglong>(row) << 32) | static_cast<qulonglong>(col);
+}
+
 struct ParsedSymbols {
     QStringList   list;
     QSet<QString> set;
@@ -518,59 +532,264 @@ void SLRTutorWindow::showTable() {
     auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
                                       colHeaders, this, &rawTable);
 
-    connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
-        rawTable = dialog->getTableData();
+    connect(dialog, &SLRTableDialog::guidedRequested, this,
+            [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+                const QVector<QVector<QString>> snapshot = data;
+                auto* wizard = new SLRWizard(slr1, snapshot, colHeaders,
+                                             sortedGrammar, dialog);
+                wizard->setProperty("wizardTheme", "slr");
+                wizard->setAttribute(Qt::WA_DeleteOnClose);
+                wizard->setWindowModality(Qt::WindowModal);
 
-        slrtable.clear();
+                connect(wizard, &QWizard::finished, dialog,
+                        [dialog, snapshot](int) {
+                            dialog->setInitialData(snapshot);
+                        });
+                wizard->show();
+            });
 
-        const int nTerm = slr1.gr_.st_.terminals_.size();
-        for (int state = 0; state < rawTable.size(); ++state) {
-            for (int j = 0; j < rawTable[state].size(); ++j) {
-                QString cell = rawTable[state][j];
-                QString normalized;
-                if (!NormalizeSlrCell(cell, &normalized)) {
-                    qWarning() << "Formato inválido en tabla SLR:" << cell;
-                    continue;
-                }
-                if (normalized.isEmpty())
-                    continue;
+    connect(
+        dialog, &SLRTableDialog::submitted, this,
+        [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+            rawTable = data;
+            slrtable.clear();
 
-                const QString sym = colHeaders[j];
+            QList<QPair<int, int>> invalidCoords;
+            QSet<qulonglong>       invalidKeys;
+            QList<QPair<int, int>> incorrectCoords;
 
-                if (j < nTerm) {
-                    // --- Action with terminal ---
-                    if (normalized.startsWith('s', Qt::CaseInsensitive)) {
-                        int toState          = normalized.mid(1).toInt();
-                        slrtable[state][sym] = ActionEntry::makeShift(toState);
-                    } else if (normalized.startsWith('r',
-                                                     Qt::CaseInsensitive)) {
-                        int prodIdx          = normalized.mid(1).toInt();
-                        slrtable[state][sym] = ActionEntry::makeReduce(prodIdx);
-                    } else if (normalized.compare("acc", Qt::CaseInsensitive) ==
-                               0) {
-                        slrtable[state][sym] = ActionEntry::makeAccept();
-                    } else {
-                        qWarning()
-                            << "Entrada no reconocida en Action[" << state
-                            << "][" << sym << "]:" << normalized;
+            const int nTerm = slr1.gr_.st_.terminals_.size();
+            for (int state = 0; state < rawTable.size(); ++state) {
+                for (int j = 0; j < rawTable[state].size(); ++j) {
+                    const QString sym        = colHeaders[j];
+                    const bool    isTerminal = (j < nTerm);
+                    const QString cell       = rawTable[state][j];
+                    QString       normalized;
+
+                    if (!NormalizeSlrCell(cell, &normalized)) {
+                        if (!cell.trimmed().isEmpty()) {
+                            invalidCoords.append({state, j});
+                            invalidKeys.insert(
+                                MakeCellKey(static_cast<unsigned>(state),
+                                            static_cast<unsigned>(j)));
+                        }
+                        continue;
                     }
-                } else {
-                    // --- Goto with non-terminal ---
-                    bool ok      = false;
-                    int  toState = normalized.toInt(&ok);
-                    if (ok) {
-                        slrtable[state][sym] = ActionEntry::makeGoto(toState);
+
+                    if (normalized.isEmpty()) {
+                        // Empty is always well-formed; semantic validation
+                        // decides if it should be empty.
+                    } else if (isTerminal) {
+                        if (normalized.compare("acc", Qt::CaseInsensitive) ==
+                            0) {
+                            slrtable[state][sym] = ActionEntry::makeAccept();
+                        } else if (normalized.startsWith('s',
+                                                         Qt::CaseInsensitive)) {
+                            bool ok = false;
+                            int  to = normalized.mid(1).toInt(&ok);
+                            if (!ok) {
+                                invalidCoords.append({state, j});
+                                invalidKeys.insert(
+                                    MakeCellKey(static_cast<unsigned>(state),
+                                                static_cast<unsigned>(j)));
+                                continue;
+                            }
+                            slrtable[state][sym] = ActionEntry::makeShift(to);
+                        } else if (normalized.startsWith('r',
+                                                         Qt::CaseInsensitive)) {
+                            bool ok  = false;
+                            int  idx = normalized.mid(1).toInt(&ok);
+                            if (!ok) {
+                                invalidCoords.append({state, j});
+                                invalidKeys.insert(
+                                    MakeCellKey(static_cast<unsigned>(state),
+                                                static_cast<unsigned>(j)));
+                                continue;
+                            }
+                            slrtable[state][sym] = ActionEntry::makeReduce(idx);
+                        } else {
+                            invalidCoords.append({state, j});
+                            invalidKeys.insert(
+                                MakeCellKey(static_cast<unsigned>(state),
+                                            static_cast<unsigned>(j)));
+                            continue;
+                        }
                     } else {
-                        qWarning() << "Goto inválido en [" << state << "]["
-                                   << sym << "]:" << normalized;
+                        bool ok = false;
+                        int  to = normalized.toInt(&ok);
+                        if (!ok) {
+                            invalidCoords.append({state, j});
+                            invalidKeys.insert(
+                                MakeCellKey(static_cast<unsigned>(state),
+                                            static_cast<unsigned>(j)));
+                            continue;
+                        }
+                        slrtable[state][sym] = ActionEntry::makeGoto(to);
                     }
                 }
             }
-        }
 
-        on_confirmButton_clicked();
-        dialog->deleteLater();
-    });
+            // --- Semantic validation (only for well-formed cells) ---
+            for (const state& slrState : slr1.states_) {
+                unsigned int stateId = slrState.id_;
+                for (const auto& terminal : slr1.gr_.st_.terminals_) {
+                    if (terminal == slr1.gr_.st_.EPSILON_)
+                        continue;
+
+                    const QString sym = QString::fromStdString(terminal);
+                    const int     col = colHeaders.indexOf(sym);
+                    if (col < 0)
+                        continue;
+
+                    if (invalidKeys.contains(
+                            MakeCellKey(stateId, static_cast<unsigned>(col)))) {
+                        continue;
+                    }
+
+                    const auto& actMap = slr1.actions_.at(stateId);
+                    auto        itAct  = actMap.find(terminal);
+                    const SLR1Parser::s_action expectedAct =
+                        (itAct != actMap.end()
+                             ? itAct->second
+                             : SLR1Parser::s_action{nullptr,
+                                                    SLR1Parser::Action::Empty});
+
+                    auto userIt    = slrtable[stateId].find(sym);
+                    bool userEmpty = (userIt == slrtable[stateId].end());
+
+                    if (expectedAct.action == SLR1Parser::Action::Empty) {
+                        if (!userEmpty) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        continue;
+                    }
+
+                    if (userEmpty) {
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                        continue;
+                    }
+
+                    const ActionEntry& entry = userIt.value();
+                    switch (expectedAct.action) {
+                    case SLR1Parser::Action::Shift: {
+                        const auto& transMap = slr1.transitions_.at(stateId);
+                        auto        itTrans  = transMap.find(terminal);
+                        if (itTrans == transMap.end() ||
+                            entry.type != ActionEntry::Shift ||
+                            entry.target != static_cast<int>(itTrans->second)) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        break;
+                    }
+                    case SLR1Parser::Action::Reduce: {
+                        const Lr0Item* itItem  = expectedAct.item;
+                        int            prodIdx = -1;
+                        for (int k = 0; k < sortedGrammar.size(); ++k) {
+                            const auto& rule = sortedGrammar[k];
+                            if (rule.first.toStdString() ==
+                                    itItem->antecedent_ &&
+                                stdVectorToQVector(itItem->consequent_) ==
+                                    rule.second) {
+                                prodIdx = k;
+                                break;
+                            }
+                        }
+                        if (prodIdx < 0 || entry.type != ActionEntry::Reduce ||
+                            entry.target != prodIdx) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        break;
+                    }
+                    case SLR1Parser::Action::Accept:
+                        if (entry.type != ActionEntry::Accept) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        break;
+                    default:
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                        break;
+                    }
+                }
+
+                for (const auto& nonTerm : slr1.gr_.st_.non_terminals_) {
+                    const QString sym = QString::fromStdString(nonTerm);
+                    const int     col = colHeaders.indexOf(sym);
+                    if (col < 0)
+                        continue;
+
+                    if (invalidKeys.contains(
+                            MakeCellKey(stateId, static_cast<unsigned>(col)))) {
+                        continue;
+                    }
+
+                    bool         hasGoto       = false;
+                    unsigned int expectedState = 0;
+                    if (slr1.transitions_.contains(stateId)) {
+                        const auto& transMap = slr1.transitions_.at(stateId);
+                        auto        itTrans  = transMap.find(nonTerm);
+                        if (itTrans != transMap.end()) {
+                            hasGoto       = true;
+                            expectedState = itTrans->second;
+                        }
+                    }
+
+                    auto userIt    = slrtable[stateId].find(sym);
+                    bool userEmpty = (userIt == slrtable[stateId].end());
+
+                    if (!hasGoto) {
+                        if (!userEmpty) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        continue;
+                    }
+
+                    if (userEmpty) {
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                        continue;
+                    }
+
+                    const ActionEntry& entry = userIt.value();
+                    if (entry.type != ActionEntry::Goto ||
+                        static_cast<unsigned int>(entry.target) !=
+                            expectedState) {
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                    }
+                }
+            }
+
+            dialog->highlightIncorrectCells(incorrectCoords);
+            dialog->highlightInvalidCells(invalidCoords);
+
+            if (!invalidCoords.isEmpty()) {
+                QMessageBox::information(
+                    dialog, tr("Formato inválido"),
+                    tr("Las celdas marcadas en naranja tienen un formato "
+                       "inválido.\n"
+                       "Revisa el formato: sX, rX, acc o vacío (Action); X o "
+                       "vacío (Goto)."));
+                return;
+            }
+
+            if (!incorrectCoords.isEmpty()) {
+                QMessageBox::information(
+                    dialog, tr("Errores"),
+                    tr("Las celdas marcadas en rojo son incorrectas."));
+                return;
+            }
+
+            dialog->accept();
+            on_confirmButton_clicked();
+            dialog->deleteLater();
+        });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
@@ -1218,64 +1437,8 @@ QString SLRTutorWindow::generateQuestion() {
     }
 
     case StateSlr::H_prime: {
-        QStringList colHeaders;
-
-        for (const auto& symbol : slr1.gr_.st_.terminals_) {
-            if (symbol == slr1.gr_.st_.EPSILON_)
-                continue;
-            colHeaders << QString::fromStdString(symbol);
-        }
-
-        for (const auto& symbol : slr1.gr_.st_.non_terminals_) {
-            colHeaders << QString::fromStdString(symbol);
-        }
-        auto* wizard =
-            new SLRWizard(slr1, rawTable, colHeaders, sortedGrammar, this);
-        wizard->setProperty("wizardTheme", "slr");
-        connect(wizard, &QWizard::accepted, this,
-                [this]() { on_confirmButton_clicked(); });
-        connect(wizard, &QWizard::rejected, this, [this, wizard]() {
-            QMessageBox msg(this);
-            msg.setWindowTitle(tr("Cancelar ejercicio SLR(1)"));
-            msg.setTextFormat(Qt::RichText);
-            msg.setText(
-                tr("¿Quieres salir del tutor? Esto cancelará el ejercicio."
-                   " Si lo que quieres es enviar tu respuesta, pulsa "
-                   "\"Finalizar\"."));
-
-            // 2) Configura los botones
-            msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msg.setDefaultButton(QMessageBox::No);
-
-            QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-            QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-            if (yesBtn) {
-                yesBtn->setText(tr("Sí"));
-                yesBtn->setCursor(Qt::PointingHandCursor);
-                yesBtn->setIcon(QIcon());
-                yesBtn->setProperty("role", "primary");
-            }
-
-            if (noBtn) {
-                noBtn->setText(tr("No"));
-                noBtn->setCursor(Qt::PointingHandCursor);
-                noBtn->setIcon(QIcon());
-                noBtn->setProperty("role", "danger");
-            }
-            int ret = msg.exec();
-            if (ret == QMessageBox::Yes) {
-                this->close();
-                return "";
-            } else {
-                on_confirmButton_clicked();
-                wizard->deleteLater();
-                return "";
-            }
-        });
-        wizard->show();
-    }
         return "";
+    }
 
     default:
         return "";
@@ -1440,7 +1603,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         break;
 
     case StateSlr::H:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::H_prime;
+        currentState = isCorrect ? StateSlr::fin : StateSlr::H;
         break;
 
     case StateSlr::H_prime:

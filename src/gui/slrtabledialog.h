@@ -22,10 +22,13 @@
 #include <QDialog>
 #include <QGuiApplication>
 #include <QHeaderView>
+#include <QList>
+#include <QPair>
 #include <QPushButton>
 #include <QScreen>
 #include <QTableWidget>
 #include <QVBoxLayout>
+#include <QVector>
 
 /**
  * @class SLRTableDialog
@@ -68,9 +71,17 @@ class SLRTableDialog : public QDialog {
      */
     void setInitialData(const QVector<QVector<QString>>& data);
 
+    void highlightIncorrectCells(const QList<QPair<int, int>>& coords);
+    void highlightInvalidCells(const QList<QPair<int, int>>& coords);
+
   private:
     QTableWidget* table;        ///< Widget for editing the SLR(1) table.
-    QPushButton*  submitButton; ///< Button used to submit the filled table.
+    QPushButton*  submitButton; ///< Button used to validate/submit the table.
+    QPushButton*  guidedButton; ///< Button to launch guided mode.
+
+  signals:
+    void submitted(const QVector<QVector<QString>>& data);
+    void guidedRequested(const QVector<QVector<QString>>& data);
 };
 
 #endif // SLRTABLEDIALOG_H
