@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>LLTutorWindow</class>
- <widget class="QMainWindow" name="LLTutorWindow">
+ <widget class="QWidget" name="LLTutorWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,12 +17,21 @@
    <iconset resource="resources.qrc">
     <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLabel" name="tick">
+       <widget class="QPushButton" name="backButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+        <widget class="QLabel" name="tick">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -116,9 +125,9 @@
        </spacer>
       </item>
      </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QListWidget" name="listWidget">
         <property name="sizePolicy">
@@ -153,9 +162,9 @@
        </widget>
       </item>
      </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="CustomTextEdit" name="userResponse">
         <property name="sizePolicy">
@@ -189,20 +198,8 @@
        </widget>
       </item>
      </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>856</width>
-     <height>23</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

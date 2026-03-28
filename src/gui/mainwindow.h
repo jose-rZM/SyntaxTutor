@@ -27,6 +27,9 @@
 #include <QMainWindow>
 #include <QSettings>
 
+class QStackedWidget;
+class QWidget;
+
 static const QVector<QString> levelColors = {
     "#2C3E50", // 1: Navy oscuro
     "#2980B9", // 2: Azul brillante
@@ -168,6 +171,13 @@ class MainWindow : public QMainWindow {
      */
     void restartTutorial();
 
+    void setNavigationEnabled(bool enabled);
+    void showHomePage();
+    void cleanupTutorPages();
+    LLTutorWindow* startLLTutor(const Grammar& grammar, TutorialManager* tm);
+    SLRTutorWindow* startSLRTutor(const Grammar& grammar, TutorialManager* tm);
+    void abortTutorialFlow();
+
     /**
      * @brief Handles the result of a finished ll/slr tutor session.
      * @param cntRight Number of correct answers.
@@ -189,6 +199,11 @@ class MainWindow : public QMainWindow {
     GrammarFactory   factory;         ///< Generator for random grammars.
     int              level = 1;       ///< Current selected level (1–3).
     TutorialManager* tm    = nullptr; ///< Manages step-by-step tutorial mode.
+    QStackedWidget*  stack = nullptr;
+    QWidget*         homePage = nullptr;
+    LLTutorWindow*   llTutorPage = nullptr;
+    SLRTutorWindow*  slrTutorPage = nullptr;
+    QString          defaultWindowTitle;
 
     static constexpr unsigned MAX_LEVEL = 10;  ///< Maximum level supported.
     static constexpr unsigned MAX_SCORE = 999; ///< Max user score for display.

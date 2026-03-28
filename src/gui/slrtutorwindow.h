@@ -29,7 +29,6 @@
 #include <QFileDialog>
 #include <QGraphicsColorizeEffect>
 #include <QListWidgetItem>
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QPropertyAnimation>
 #include <QPushButton>
@@ -42,6 +41,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtPrintSupport/QPrinter>
 
 namespace Ui {
@@ -92,7 +92,7 @@ class TutorialManager;
  * The tutor follows a finite-state flow (`StateSlr`) to structure learning,
  * with corrective explanations and automatic evaluation at each step.
  */
-class SLRTutorWindow : public QMainWindow {
+class SLRTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
@@ -221,12 +221,15 @@ class SLRTutorWindow : public QMainWindow {
                           QString& output);
     QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
     void    updatePlaceholder();
+    bool    confirmExitToHome();
   private slots:
+    void on_backButton_clicked();
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
 
   signals:
     void sessionFinished(int cntRight, int cntWrong);
+    void exitRequested(bool applyResults, int cntRight, int cntWrong);
 
   protected:
     void closeEvent(QCloseEvent* event) override {
@@ -246,6 +249,7 @@ class SLRTutorWindow : public QMainWindow {
     std::vector<std::pair<std::string, std::vector<std::string>>>
          ingestUserRules(const QString& userResponse);
     void setupTutorial();
+    void requestExit(bool applyResults);
     // ====== Core Components ========================================
     Ui::SLRTutorWindow* ui;
     Grammar             grammar;

@@ -160,7 +160,7 @@ bool NormalizeSlrCell(const QString& cell, QString* normalized) {
 
 SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
                                QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::SLRTutorWindow), grammar(g), slr1(g),
+    : QWidget(parent), ui(new Ui::SLRTutorWindow), grammar(g), slr1(g),
       tm(tm) {
     // ====== Parser Initialization ============================
     slr1.MakeParser();
@@ -258,6 +258,45 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 
 SLRTutorWindow::~SLRTutorWindow() {
     delete ui;
+}
+
+void SLRTutorWindow::requestExit(bool applyResults) {
+    emit exitRequested(applyResults, cntRightAnswers, cntWrongAnswers);
+}
+
+bool SLRTutorWindow::confirmExitToHome() {
+    QMessageBox msg(this);
+    msg.setWindowTitle(tr("Leave SLR(1) exercise"));
+    msg.setTextFormat(Qt::RichText);
+    msg.setText(tr("Do you want to go back to the home page? This will discard "
+                   "your current progress."));
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+
+    QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
+    QAbstractButton* noBtn  = msg.button(QMessageBox::No);
+
+    if (yesBtn) {
+        yesBtn->setText(tr("Yes"));
+        yesBtn->setCursor(Qt::PointingHandCursor);
+        yesBtn->setIcon(QIcon());
+        yesBtn->setProperty("role", "primary");
+    }
+
+    if (noBtn) {
+        noBtn->setText(tr("No"));
+        noBtn->setCursor(Qt::PointingHandCursor);
+        noBtn->setIcon(QIcon());
+        noBtn->setProperty("role", "danger");
+    }
+
+    return msg.exec() == QMessageBox::Yes;
+}
+
+void SLRTutorWindow::on_backButton_clicked() {
+    if (confirmExitToHome()) {
+        requestExit(false);
+    }
 }
 
 void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
@@ -792,37 +831,8 @@ void SLRTutorWindow::showTable() {
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
-        QMessageBox msg(this);
-        msg.setWindowTitle(tr("Cancelar ejercicio SLR(1)"));
-        msg.setTextFormat(Qt::RichText);
-        msg.setText(tr(
-            "¿Quieres salir del tutor? Esto cancelará el ejercicio."
-            " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
-
-        // 2) Configura los botones
-        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msg.setDefaultButton(QMessageBox::No);
-
-        QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setProperty("role", "primary");
-        }
-
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setProperty("role", "danger");
-        }
-
-        int ret = msg.exec();
-        if (ret == QMessageBox::Yes) {
-            this->close();
+        if (confirmExitToHome()) {
+            requestExit(false);
         } else {
             showTable();
         }
@@ -1306,7 +1316,8 @@ void SLRTutorWindow::on_confirmButton_clicked() {
             }
         });
 
-        connect(exitBtn, &QPushButton::clicked, this, [this]() { close(); });
+        connect(exitBtn, &QPushButton::clicked, this,
+                [this]() { requestExit(true); });
 
         addWidgetMessage(actions);
         ui->listWidget->scrollToBottom();
@@ -3223,9 +3234,9 @@ void SLRTutorWindow::setupTutorial() {
     updateProgressPanel();
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
-    tm->addStep(this->window(), tr("<h3>Tutor SLR(1)</h3>"
-                                   "<p>Esta es la ventana del tutor de "
-                                   "analizadores sintácticos SLR(1).</p>"));
+    tm->addStep(this, tr("<h3>Tutor SLR(1)</h3>"
+                                    "<p>Esta es la ventana del tutor de "
+                                    "analizadores sintácticos SLR(1).</p>"));
 
     tm->addStep(ui->gr, tr("<h3>Gramática</h3>"
                            "<p>Como se puede ver, la gramática ahora es más "
@@ -3282,17 +3293,16 @@ void SLRTutorWindow::setupTutorial() {
                                    "pedir una lista de símbolos separados por "
                                    "coma.</p>"));
 
-    tm->addStep(this->window(), tr("<h3>Finalización</h3>"
-                                   "<p>Al igual que el tutor LL(1), podrás "
-                                   "exportar toda la conversación y las tablas "
-                                   "de análisis en formato PDF.</p>"));
+    tm->addStep(this, tr("<h3>Finalización</h3>"
+                                    "<p>Al igual que el tutor LL(1), podrás "
+                                    "exportar toda la conversación y las tablas "
+                                    "de análisis en formato PDF.</p>"));
 
     tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
         if (idx == 13) {
             tm->finishSLR1();
-            this->close();
         }
     });
 }

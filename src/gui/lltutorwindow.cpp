@@ -67,7 +67,7 @@ ParsedSymbols ParseSymbolList(const QString& input) {
 
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
                              QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
+    : QWidget(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
       ll1(this->grammar), tm(tm) {
     // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
@@ -137,6 +137,45 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
 
 LLTutorWindow::~LLTutorWindow() {
     delete ui;
+}
+
+void LLTutorWindow::requestExit(bool applyResults) {
+    emit exitRequested(applyResults, cntRightAnswers, cntWrongAnswers);
+}
+
+bool LLTutorWindow::confirmExitToHome() {
+    QMessageBox msg(this);
+    msg.setWindowTitle(tr("Leave LL(1) exercise"));
+    msg.setTextFormat(Qt::RichText);
+    msg.setText(tr("Do you want to go back to the home page? This will discard "
+                   "your current progress."));
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+
+    QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
+    QAbstractButton* noBtn  = msg.button(QMessageBox::No);
+
+    if (yesBtn) {
+        yesBtn->setText(tr("Yes"));
+        yesBtn->setCursor(Qt::PointingHandCursor);
+        yesBtn->setIcon(QIcon());
+        yesBtn->setProperty("role", "primary");
+    }
+
+    if (noBtn) {
+        noBtn->setText(tr("No"));
+        noBtn->setCursor(Qt::PointingHandCursor);
+        noBtn->setIcon(QIcon());
+        noBtn->setProperty("role", "danger");
+    }
+
+    return msg.exec() == QMessageBox::Yes;
+}
+
+void LLTutorWindow::on_backButton_clicked() {
+    if (confirmExitToHome()) {
+        requestExit(false);
+    }
 }
 
 void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
@@ -541,37 +580,8 @@ void LLTutorWindow::showTableForCPrime() {
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
-        QMessageBox msg(this);
-        msg.setWindowTitle(tr("Cancelar tabla LL(1)"));
-        msg.setTextFormat(Qt::RichText);
-        msg.setText(tr(
-            "¿Quieres salir del tutor? Esto cancelará el ejercicio."
-            " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
-
-        // 2) Configura los botones
-        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msg.setDefaultButton(QMessageBox::No);
-
-        QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setProperty("role", "primary");
-        }
-
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setProperty("role", "danger");
-        }
-
-        int ret = msg.exec();
-        if (ret == QMessageBox::Yes) {
-            this->close();
+        if (confirmExitToHome()) {
+            requestExit(false);
         } else {
             showTable();
         }
@@ -602,37 +612,8 @@ void LLTutorWindow::showTable() {
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
-        QMessageBox msg(this);
-        msg.setWindowTitle(tr("Cancelar tabla LL(1)"));
-        msg.setTextFormat(Qt::RichText);
-        msg.setText(tr(
-            "¿Quieres salir del tutor? Esto cancelará el ejercicio."
-            " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
-
-        // 2) Configura los botones
-        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msg.setDefaultButton(QMessageBox::No);
-
-        QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setProperty("role", "primary");
-        }
-
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setProperty("role", "danger");
-        }
-
-        int ret = msg.exec();
-        if (ret == QMessageBox::Yes) {
-            this->close();
+        if (confirmExitToHome()) {
+            requestExit(false);
         } else {
             showTable();
         }
@@ -914,7 +895,8 @@ void LLTutorWindow::on_confirmButton_clicked() {
             }
         });
 
-        connect(exitBtn, &QPushButton::clicked, this, [this]() { close(); });
+        connect(exitBtn, &QPushButton::clicked, this,
+                [this]() { requestExit(true); });
 
         addWidgetMessage(actions);
         ui->listWidget->scrollToBottom();
@@ -2562,9 +2544,9 @@ void LLTutorWindow::setupTutorial() {
     updateProgressPanel();
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
-    tm->addStep(this->window(), tr("<h3>Tutor LL(1)</h3>"
-                                   "<p>Esta es la ventana del tutor de "
-                                   "analizadores sintácticos LL(1).</p>"));
+    tm->addStep(this, tr("<h3>Tutor LL(1)</h3>"
+                                    "<p>Esta es la ventana del tutor de "
+                                    "analizadores sintácticos LL(1).</p>"));
 
     tm->addStep(ui->listWidget,
                 tr("<h3>Mensajes</h3>"
@@ -2618,7 +2600,7 @@ void LLTutorWindow::setupTutorial() {
                    "equivocas, verás una breve "
                    "animación en el mensaje.</p>"));
 
-    tm->addStep(this->window(),
+    tm->addStep(this,
                 tr("<h3>Finalización</h3>"
                    "<p>Una vez termines el ejercicio entero, podrás exportar "
                    "toda la conversación "
