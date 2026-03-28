@@ -26,7 +26,6 @@ QLabel#labelScore {
     font-weight: bold;
     font-size: 15px;
     color: white;
-    font-family: "Noto Sans";
 }
 
 QPushButton#pushButton,
@@ -37,7 +36,6 @@ QPushButton#pushButton_2 {
     padding: 12px 24px;
     border-radius: 10px;
     font-size: 16px;
-    font-family: "Noto Sans";
     font-weight: bold;
 }
 
@@ -58,7 +56,6 @@ QPushButton#tutorial {
     padding: 8px 16px;
     border-radius: 4px;
     font-size: 14px;
-    font-family: "Noto Sans";
 }
 
 QPushButton#tutorial:hover {
@@ -107,7 +104,6 @@ QPushButton#idiom {
     border: 1px solid #00ADB5;
     border-radius: 4px;
     padding: 6px 14px;
-    font-family: "Noto Sans";
     font-size: 12px;
 }
 
@@ -158,9 +154,19 @@ QListWidget#listWidget QScrollBar::sub-page:vertical {
     background: none;
 }
 
-QLabel#gr {
+QAbstractScrollArea#gr {
+    background-color: #232936;
+    border: 1px solid #3A3A3A;
     padding: 12px;
     border-radius: 6px;
+}
+
+QAbstractScrollArea#gr QWidget {
+    background-color: transparent;
+}
+
+QFrame#grammarView {
+    background-color: #232936;
 }
 
 QTextEdit#textEdit {
@@ -171,7 +177,6 @@ QTextEdit#textEdit {
     padding: 8px;
     selection-background-color: #44475A;
     selection-color: #FFFFFF;
-    font-family: "Noto Sans";
 }
 
 QTextEdit#textEdit QScrollBar:vertical {
@@ -250,7 +255,6 @@ QDialog[tableDialog="true"] QTableWidget {
     background-color: #1F1F1F;
     color: #EEEEEE;
     gridline-color: #444444;
-    font-family: "Noto Sans";
     font-size: 13px;
     alternate-background-color: #252525;
     show-decoration-selected: 1;
@@ -289,7 +293,6 @@ QPushButton[role="primary"] {
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 14px;
-    font-family: "Noto Sans";
     font-weight: bold;
 }
 
@@ -308,7 +311,6 @@ QPushButton[role="danger"] {
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 14px;
-    font-family: "Noto Sans";
     font-weight: bold;
 }
 
@@ -323,7 +325,6 @@ QPushButton[role="danger"]:pressed {
 QMessageBox {
     background-color: #1F1F1F;
     color: #EEEEEE;
-    font-family: "Noto Sans";
     border: 1px solid #444444;
     border-radius: 4px;
 }
@@ -339,7 +340,6 @@ QMessageBox QPushButton {
     padding: 6px 14px;
     border-radius: 4px;
     font-size: 13px;
-    font-family: "Noto Sans";
     font-weight: bold;
 }
 

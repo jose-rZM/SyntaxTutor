@@ -129,28 +129,22 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="gr">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>2</horstretch>
+       <item>
+        <widget class="QScrollArea" name="gr">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>2</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <family>JetBrainsMonoNL Nerd Font Propo</family>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Gramática</string>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::TextInteractionFlag::NoTextInteraction</set>
-        </property>
-       </widget>
-      </item>
+         <property name="frameShape">
+          <enum>QFrame::Shape::NoFrame</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       <item>
        <widget class="QTextEdit" name="textEdit">
         <property name="readOnly">

@@ -44,6 +44,7 @@
 #include <QtPrintSupport/QPrinter>
 
 #include "grammar.hpp"
+#include "grammarview.h"
 #include "ll1_parser.hpp"
 #include "lltabledialog.h"
 
@@ -120,10 +121,12 @@ class LLTutorWindow : public QMainWindow {
      * @return A QString representation.
      */
     QString FormatGrammar(const Grammar& grammar);
+    QVector<GrammarView::Row> buildGrammarRows(const Grammar& grammar) const;
 
     // ====== UI Interaction ====================================
     void addMessage(const QString& text,
                     bool           isUser);           /// < Add text message to chat
+    void addGrammarMessage();
     void addWidgetMessage(QWidget* widget); /// < Add widget (e.g., table, tree)
     void
     exportConversationToPdf(const QString& filePath); /// < Export chat to PDF
@@ -237,6 +240,7 @@ class LLTutorWindow : public QMainWindow {
     QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString                                   formattedGrammar;
+    GrammarView*                              grammarView = nullptr;
 
     QMap<QString, QMap<QString, QVector<QString>>> lltable;
     QVector<QVector<QString>>                      rawTable;

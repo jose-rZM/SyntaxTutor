@@ -17,9 +17,11 @@
  */
 
 #include "slrtutorwindow.h"
+#include "grammarview.h"
 #include "slrwizard.h"
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
+#include <QApplication>
 #include <QEasingCurve>
 #include <QFontDatabase>
 #include <QHBoxLayout>
@@ -207,16 +209,11 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
-    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
-
-    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText(
         tr("Introduce aquí tu respuesta. Ctrl + Enter para nueva línea."));
 
     // -- Chat Appearance
-    QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
-    ui->listWidget->setFont(chatFont);
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
@@ -234,15 +231,17 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     fillSortedGrammar();
     formattedGrammar = FormatGrammar(grammar);
 
-    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
-    ui->gr->setText(formattedGrammar);
+    grammarView = new GrammarView(ui->gr);
+    grammarView->setRows(buildGrammarRows(grammar));
+    ui->gr->setWidget(grammarView);
+    ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     // ====== Status, Progress & First Message ===================
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage(tr("La gramática es:\n") + formattedGrammar, false);
+    addGrammarMessage();
 
     currentState = StateSlr::A;
     updatePlaceholder();
@@ -274,7 +273,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
     <style>
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: sans-serif;
         font-size: 11pt;
         line-height: 1.6;
         margin: 20px;
@@ -312,7 +311,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     ul {
         padding-left: 20px;
         margin-bottom: 20px;
-        font-family: 'Noto Sans', sans-serif;
+        font-family: sans-serif;
         font-size: 11pt;
     }
     li {
@@ -839,7 +838,7 @@ void SLRTutorWindow::updateProgressPanel() {
 
     text += R"(
         <html>
-        <body style="font-family: 'Noto Sans'; color: #f0f0f0; background-color: #1e1e1e;">
+        <body style="font-family: sans-serif; color: #f0f0f0; background-color: #1e1e1e;">
     )";
 
     if (userMadeStates.empty()) {
@@ -926,7 +925,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QLabel* header = new QLabel(isUser ? tr("Usuario") : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
                                  : "font-weight: bold; color: #BBBBBB;");
 
@@ -953,7 +951,9 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     if (isUser) {
         if (text.isEmpty()) {
-            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 12));
+            QFont placeholderFont = label->font();
+            placeholderFont.setItalic(true);
+            label->setFont(placeholderFont);
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -965,7 +965,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(0, 0, 0, 0.15);
         )");
         } else {
-            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -978,7 +977,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
         )");
         }
     } else {
-        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -994,7 +992,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     label->adjustSize();
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     timestamp->setStyleSheet("color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
@@ -1036,6 +1033,61 @@ void SLRTutorWindow::addWidgetMessage(QWidget* widget) {
     item->setSizeHint(widget->sizeHint());
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
+}
+
+void SLRTutorWindow::addGrammarMessage() {
+    conversationLog.emplaceBack(tr("La gramática es:\n") + formattedGrammar,
+                                false);
+
+    auto* messageWidget = new QWidget;
+    auto* mainLayout    = new QVBoxLayout(messageWidget);
+    mainLayout->setSpacing(2);
+    mainLayout->setContentsMargins(10, 5, 10, 5);
+
+    auto* header = new QLabel("Tutor");
+    header->setStyleSheet("font-weight: bold; color: #BBBBBB;");
+
+    auto* bubbleLayout = new QHBoxLayout;
+    bubbleLayout->setSpacing(0);
+
+    auto* innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(6);
+
+    auto* title = new QLabel(tr("La gramática es:"));
+    title->setStyleSheet("font-weight: bold; color: #F1F1F1;");
+
+    auto* bubble = new GrammarView;
+    bubble->setRows(buildGrammarRows(grammar));
+    bubble->setStyleSheet(R"(
+        QFrame#grammarView {
+            background-color: #2F3542;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-left-radius: 0px;
+            border-top-right-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+    )");
+
+    auto* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
+    timestamp->setAlignment(Qt::AlignRight);
+
+    innerLayout->addWidget(title);
+    innerLayout->addWidget(bubble);
+    innerLayout->addWidget(timestamp);
+
+    bubbleLayout->addLayout(innerLayout);
+    bubbleLayout->addStretch();
+
+    mainLayout->addWidget(header);
+    mainLayout->addLayout(bubbleLayout);
+
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    item->setSizeHint(messageWidget->sizeHint());
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, messageWidget);
+    ui->listWidget->scrollToBottom();
 }
 
 void SLRTutorWindow::wrongAnimation() {
@@ -2969,6 +3021,31 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     }
 
     return result;
+}
+
+QVector<GrammarView::Row>
+SLRTutorWindow::buildGrammarRows(const Grammar& grammar) const {
+    QVector<GrammarView::Row> rows;
+    int                       ruleCount = 0;
+
+    for (const QString& lhs : std::as_const(sortedNonTerminals)) {
+        const auto& prods = grammar.g_.at(lhs.toStdString());
+        for (size_t i = 0; i < prods.size(); ++i) {
+            QString rhs;
+            for (const auto& symbol : prods[i]) {
+                if (!rhs.isEmpty()) {
+                    rhs += ' ';
+                }
+                rhs += QString::fromStdString(symbol);
+            }
+
+            rows.push_back({QString("(%1)").arg(ruleCount++),
+                            i == 0 ? lhs : QString(),
+                            i == 0 ? QString::fromUtf8("→") : "|", rhs});
+        }
+    }
+
+    return rows;
 }
 
 void SLRTutorWindow::fillSortedGrammar() {

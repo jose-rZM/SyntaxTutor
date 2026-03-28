@@ -28,7 +28,7 @@ class CenterAlignDelegate : public QStyledItemDelegate {
                          const QModelIndex&    idx) const override {
         QStyledItemDelegate::initStyleOption(opt, idx);
         opt->displayAlignment = Qt::AlignCenter;
-        opt->font             = QFontDatabase::font("Noto Sans", "Regular", 14);
+        opt->font             = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
     }
 };
 
@@ -38,10 +38,8 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     : QDialog(parent) {
     setProperty("tableDialog", true);
     table = new QTableWidget(rowCount, colCount, this);
-    table->horizontalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Regular", 11));
-    table->verticalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Regular", 11));
+    table->horizontalHeader()->setFont(table->font());
+    table->verticalHeader()->setFont(table->font());
     table->setHorizontalHeaderLabels(colHeaders);
     table->setItemDelegate(new CenterAlignDelegate(table));
     table->setAlternatingRowColors(true);
@@ -66,12 +64,12 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton(tr("Finalizar"), this);
-    submitButton->setFont(QFontDatabase::font("Noto Sans", "Bold", 12));
+    submitButton->setFont(submitButton->font());
     submitButton->setCursor(Qt::PointingHandCursor);
     submitButton->setProperty("role", "primary");
 
     guidedButton = new QPushButton(tr("Modo guiado"), this);
-    guidedButton->setFont(QFontDatabase::font("Noto Sans", "Bold", 12));
+    guidedButton->setFont(guidedButton->font());
     guidedButton->setCursor(Qt::PointingHandCursor);
     guidedButton->setProperty("role", "primary");
 

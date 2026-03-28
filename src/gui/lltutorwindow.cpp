@@ -17,8 +17,10 @@
  */
 
 #include "lltutorwindow.h"
+#include "grammarview.h"
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
+#include <QApplication>
 #include <QAbstractButton>
 #include <QFontDatabase>
 #include <QHBoxLayout>
@@ -85,23 +87,20 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
-    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
-
     // -- User Response Box
-    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
 
     // -- Chat Font
-    QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
-    ui->listWidget->setFont(chatFont);
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
     // ====== Grammar Display & Formatting ======================
     formattedGrammar = FormatGrammar(this->grammar);
-    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
-    ui->gr->setText(formattedGrammar);
+    grammarView = new GrammarView(ui->gr);
+    grammarView->setRows(buildGrammarRows(this->grammar));
+    ui->gr->setWidget(grammarView);
+    ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     sortedNonTerminals =
         stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
@@ -119,7 +118,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage(tr("La gramática es:\n") + formattedGrammar, false);
+    addGrammarMessage();
 
     currentState = State::A;
     updatePlaceholder();
@@ -143,7 +142,7 @@ LLTutorWindow::~LLTutorWindow() {
 void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     QTextDocument doc;
     QString       html;
-    doc.setDefaultFont(QFontDatabase::font("Noto Sans", "Regular", 12));
+    doc.setDefaultFont(QApplication::font());
     html += R"(
         <html>
         <head>
@@ -153,7 +152,7 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
     <style>
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: sans-serif;
         font-size: 11pt;
         line-height: 1.6;
         margin: 20px;
@@ -191,7 +190,7 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     ul {
         padding-left: 20px;
         margin-bottom: 20px;
-        font-family: 'Noto Sans', sans-serif;
+        font-family: sans-serif;
         font-size: 11pt;
     }
     li {
@@ -336,7 +335,7 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = R"(
         <html>
-        <body style="font-family: 'Noto Sans'; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
+        <body style="font-family: sans-serif; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
     )";
 
     // === CABECERAS (First) ===
@@ -393,7 +392,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QLabel* header = new QLabel(isUser ? tr("Usuario") : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
                                  : "font-weight: bold; color: #BBBBBB;");
 
@@ -420,7 +418,9 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     if (isUser) {
         if (text.isEmpty()) {
-            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 12));
+            QFont placeholderFont = label->font();
+            placeholderFont.setItalic(true);
+            label->setFont(placeholderFont);
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -432,7 +432,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(0, 0, 0, 0.15);
         )");
         } else {
-            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -445,7 +444,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
         )");
         }
     } else {
-        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -461,7 +459,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     label->adjustSize();
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     timestamp->setStyleSheet("color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
@@ -1695,6 +1692,61 @@ QString LLTutorWindow::feedbackForCPrime() {
     return TeachLL1Table();
 }
 
+void LLTutorWindow::addGrammarMessage() {
+    conversationLog.emplaceBack(tr("La gramática es:\n") + formattedGrammar,
+                                false);
+
+    auto* messageWidget = new QWidget;
+    auto* mainLayout    = new QVBoxLayout(messageWidget);
+    mainLayout->setSpacing(2);
+    mainLayout->setContentsMargins(10, 5, 10, 5);
+
+    auto* header = new QLabel("Tutor");
+    header->setStyleSheet("font-weight: bold; color: #BBBBBB;");
+
+    auto* bubbleLayout = new QHBoxLayout;
+    bubbleLayout->setSpacing(0);
+
+    auto* innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(6);
+
+    auto* title = new QLabel(tr("La gramática es:"));
+    title->setStyleSheet("font-weight: bold; color: #F1F1F1;");
+
+    auto* bubble = new GrammarView;
+    bubble->setRows(buildGrammarRows(grammar));
+    bubble->setStyleSheet(R"(
+        QFrame#grammarView {
+            background-color: #2F3542;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-left-radius: 0px;
+            border-top-right-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+    )");
+
+    auto* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
+    timestamp->setAlignment(Qt::AlignRight);
+
+    innerLayout->addWidget(title);
+    innerLayout->addWidget(bubble);
+    innerLayout->addWidget(timestamp);
+
+    bubbleLayout->addLayout(innerLayout);
+    bubbleLayout->addStretch();
+
+    mainLayout->addWidget(header);
+    mainLayout->addLayout(bubbleLayout);
+
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    item->setSizeHint(messageWidget->sizeHint());
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, messageWidget);
+    ui->listWidget->scrollToBottom();
+}
+
 void LLTutorWindow::addWidgetMessage(QWidget* widget) {
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
     item->setSizeHint(widget->sizeHint());
@@ -1720,7 +1772,7 @@ void LLTutorWindow::feedbackForB1TreeWidget() {
    QTreeWidget {
         background-color: #1F1F1F;
         color: #E0E0E0;
-        font: 10pt "Noto Sans";
+        font: 10pt;
         border: none;
         outline: 0;
     }
@@ -1799,6 +1851,45 @@ QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
     }
 
     return result;
+}
+
+QVector<GrammarView::Row>
+LLTutorWindow::buildGrammarRows(const Grammar& grammar) const {
+    QVector<GrammarView::Row> rows;
+    const std::string&        axiom = grammar.axiom_;
+    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(),
+                                                               grammar.g_.end());
+
+    auto appendProductions = [&rows](const QString& lhs,
+                                     const std::vector<production>& prods) {
+        for (size_t i = 0; i < prods.size(); ++i) {
+            QString rhs;
+            for (const auto& symbol : prods[i]) {
+                if (!rhs.isEmpty()) {
+                    rhs += ' ';
+                }
+                rhs += QString::fromStdString(symbol);
+            }
+
+            rows.push_back({QString(),
+                            i == 0 ? lhs : QString(),
+                            i == 0 ? QString::fromUtf8("→") : "|", rhs});
+        }
+    };
+
+    auto axIt = grammar.g_.find(axiom);
+    if (axIt != grammar.g_.end()) {
+        appendProductions(QString::fromStdString(axiom), axIt->second);
+    }
+
+    for (const auto& [lhs, productions] : sortedRules) {
+        if (lhs == axiom) {
+            continue;
+        }
+        appendProductions(QString::fromStdString(lhs), productions);
+    }
+
+    return rows;
 }
 
 void LLTutorWindow::fillSortedGrammar() {
@@ -2069,7 +2160,7 @@ void LLTutorWindow::drawTree(const std::unique_ptr<TreeNode>& root,
         return;
 
     QGraphicsTextItem* textItem = scene->addText(root->label);
-    QFont              font("Noto Sans", 10);
+    QFont              font = QApplication::font();
     font.setBold(true);
     textItem->setFont(font);
     textItem->setDefaultTextColor(Qt::white);

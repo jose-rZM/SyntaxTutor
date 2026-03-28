@@ -21,6 +21,7 @@
 
 #include "UniqueQueue.h"
 #include "grammar.hpp"
+#include "grammarview.h"
 #include "slr1_parser.hpp"
 #include "slrtabledialog.h"
 #include <QAbstractItemView>
@@ -120,10 +121,12 @@ class SLRTutorWindow : public QMainWindow {
     void updateState(bool isCorrect);
     QString
     FormatGrammar(const Grammar& grammar); /// < Utility for displaying grammar
+    QVector<GrammarView::Row> buildGrammarRows(const Grammar& grammar) const;
     void fillSortedGrammar(); /// < Prepares grammar in display-friendly format
 
     // ====== UI Interaction ========================================
     void addMessage(const QString& text, bool isUser); /// < Add message to chat
+    void addGrammarMessage();
     void addWidgetMessage(QWidget* widget);
     void exportConversationToPdf(
         const QString& filePath); /// < Export full interaction
@@ -253,6 +256,7 @@ class SLRTutorWindow : public QMainWindow {
     QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString                                   formattedGrammar;
+    GrammarView*                              grammarView = nullptr;
 
     unsigned cntRightAnswers = 0;
     unsigned cntWrongAnswers = 0;
