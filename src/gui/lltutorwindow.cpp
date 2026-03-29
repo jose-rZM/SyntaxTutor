@@ -78,6 +78,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
 
     // ====== UI Setup ==========================================
     ui->setupUi(this);
+    ui->backButton->setText(tr("Back"));
 
     // -- Confirm Button Icon & Shadow
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
