@@ -164,7 +164,6 @@ void TutorialManager::showOverlay() {
         padding: 10px 20px;
         border-radius: 8px;
         font-size: 14px;
-        font-family: 'Noto Sans';
         font-weight: bold;
     }
     QPushButton:hover {

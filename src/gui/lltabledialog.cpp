@@ -27,7 +27,7 @@ class CenterAlignDelegate : public QStyledItemDelegate {
                          const QModelIndex&    idx) const override {
         QStyledItemDelegate::initStyleOption(opt, idx);
         opt->displayAlignment = Qt::AlignCenter;
-        opt->font             = QFontDatabase::font("Noto Sans", "Regular", 14);
+        opt->font             = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
     }
 };
 
@@ -41,10 +41,8 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     table->setAlternatingRowColors(true);
     table->setHorizontalHeaderLabels(colHeaders);
     table->setVerticalHeaderLabels(rowHeaders);
-    table->horizontalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Bold", 13));
-    table->verticalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Bold", 13));
+    table->horizontalHeader()->setFont(table->font());
+    table->verticalHeader()->setFont(table->font());
     table->resizeColumnsToContents();
     table->resizeRowsToContents();
 
@@ -61,7 +59,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton           = new QPushButton(tr("Finalizar"), this);
-    QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
+    QFont submitButtonFont = submitButton->font();
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
     submitButton->setCursor(Qt::PointingHandCursor);

@@ -21,6 +21,7 @@
 
 #include "UniqueQueue.h"
 #include "grammar.hpp"
+#include "grammarview.h"
 #include "slr1_parser.hpp"
 #include "slrtabledialog.h"
 #include <QAbstractItemView>
@@ -28,7 +29,6 @@
 #include <QFileDialog>
 #include <QGraphicsColorizeEffect>
 #include <QListWidgetItem>
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QPropertyAnimation>
 #include <QPushButton>
@@ -41,6 +41,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtPrintSupport/QPrinter>
 
 namespace Ui {
@@ -91,7 +92,7 @@ class TutorialManager;
  * The tutor follows a finite-state flow (`StateSlr`) to structure learning,
  * with corrective explanations and automatic evaluation at each step.
  */
-class SLRTutorWindow : public QMainWindow {
+class SLRTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
@@ -120,10 +121,12 @@ class SLRTutorWindow : public QMainWindow {
     void updateState(bool isCorrect);
     QString
     FormatGrammar(const Grammar& grammar); /// < Utility for displaying grammar
+    QVector<GrammarView::Row> buildGrammarRows(const Grammar& grammar) const;
     void fillSortedGrammar(); /// < Prepares grammar in display-friendly format
 
     // ====== UI Interaction ========================================
     void addMessage(const QString& text, bool isUser); /// < Add message to chat
+    void addGrammarMessage();
     void addWidgetMessage(QWidget* widget);
     void exportConversationToPdf(
         const QString& filePath); /// < Export full interaction
@@ -218,12 +221,15 @@ class SLRTutorWindow : public QMainWindow {
                           QString& output);
     QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
     void    updatePlaceholder();
+    bool    confirmExitToHome();
   private slots:
+    void on_backButton_clicked();
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
 
   signals:
     void sessionFinished(int cntRight, int cntWrong);
+    void exitRequested(bool applyResults, int cntRight, int cntWrong);
 
   protected:
     void closeEvent(QCloseEvent* event) override {
@@ -243,6 +249,7 @@ class SLRTutorWindow : public QMainWindow {
     std::vector<std::pair<std::string, std::vector<std::string>>>
          ingestUserRules(const QString& userResponse);
     void setupTutorial();
+    void requestExit(bool applyResults);
     // ====== Core Components ========================================
     Ui::SLRTutorWindow* ui;
     Grammar             grammar;
@@ -253,6 +260,7 @@ class SLRTutorWindow : public QMainWindow {
     QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString                                   formattedGrammar;
+    GrammarView*                              grammarView = nullptr;
 
     unsigned cntRightAnswers = 0;
     unsigned cntWrongAnswers = 0;

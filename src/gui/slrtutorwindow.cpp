@@ -17,8 +17,11 @@
  */
 
 #include "slrtutorwindow.h"
+#include "grammarview.h"
+#include "slrwizard.h"
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
+#include <QApplication>
 #include <QEasingCurve>
 #include <QFontDatabase>
 #include <QHBoxLayout>
@@ -26,6 +29,19 @@
 #include <sstream>
 
 namespace {
+// Packs a (row, col) pair into a single 64-bit key.
+//
+// We need an efficient way to remember which table cells have invalid format
+// so we can skip semantic validation for them (they are highlighted
+// separately).
+//
+// Layout: high 32 bits = row (state), low 32 bits = column index.
+// This avoids relying on hashing QPair<int,int> and guarantees uniqueness as
+// long as row/col fit in 32 bits (they do for our tables).
+static inline qulonglong MakeCellKey(unsigned row, unsigned col) {
+    return (static_cast<qulonglong>(row) << 32) | static_cast<qulonglong>(col);
+}
+
 struct ParsedSymbols {
     QStringList   list;
     QSet<QString> set;
@@ -144,7 +160,7 @@ bool NormalizeSlrCell(const QString& cell, QString* normalized) {
 
 SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
                                QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::SLRTutorWindow), grammar(g), slr1(g),
+    : QWidget(parent), ui(new Ui::SLRTutorWindow), grammar(g), slr1(g),
       tm(tm) {
     // ====== Parser Initialization ============================
     slr1.MakeParser();
@@ -184,6 +200,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 
     // ====== UI Setup ==========================================
     ui->setupUi(this);
+    ui->backButton->setText(tr("Back"));
 
     // -- Confirm Button: Icon + Shadow
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
@@ -193,16 +210,11 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     shadow->setColor(QColor::fromRgb(0, 200, 214));
     ui->confirmButton->setGraphicsEffect(shadow);
 
-    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
-
-    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->userResponse->setPlaceholderText(
         tr("Introduce aquí tu respuesta. Ctrl + Enter para nueva línea."));
 
     // -- Chat Appearance
-    QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
-    ui->listWidget->setFont(chatFont);
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
 
@@ -220,15 +232,17 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     fillSortedGrammar();
     formattedGrammar = FormatGrammar(grammar);
 
-    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
-    ui->gr->setText(formattedGrammar);
+    grammarView = new GrammarView(ui->gr);
+    grammarView->setRows(buildGrammarRows(grammar));
+    ui->gr->setWidget(grammarView);
+    ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     // ====== Status, Progress & First Message ===================
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
     updateProgressPanel();
-    addMessage(tr("La gramática es:\n") + formattedGrammar, false);
+    addGrammarMessage();
 
     currentState = StateSlr::A;
     updatePlaceholder();
@@ -247,6 +261,45 @@ SLRTutorWindow::~SLRTutorWindow() {
     delete ui;
 }
 
+void SLRTutorWindow::requestExit(bool applyResults) {
+    emit exitRequested(applyResults, cntRightAnswers, cntWrongAnswers);
+}
+
+bool SLRTutorWindow::confirmExitToHome() {
+    QMessageBox msg(this);
+    msg.setWindowTitle(tr("Leave SLR(1) exercise"));
+    msg.setTextFormat(Qt::RichText);
+    msg.setText(tr("Do you want to go back to the home page? This will discard "
+                   "your current progress."));
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+
+    QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
+    QAbstractButton* noBtn  = msg.button(QMessageBox::No);
+
+    if (yesBtn) {
+        yesBtn->setText(tr("Yes"));
+        yesBtn->setCursor(Qt::PointingHandCursor);
+        yesBtn->setIcon(QIcon());
+        yesBtn->setProperty("role", "primary");
+    }
+
+    if (noBtn) {
+        noBtn->setText(tr("No"));
+        noBtn->setCursor(Qt::PointingHandCursor);
+        noBtn->setIcon(QIcon());
+        noBtn->setProperty("role", "danger");
+    }
+
+    return msg.exec() == QMessageBox::Yes;
+}
+
+void SLRTutorWindow::on_backButton_clicked() {
+    if (confirmExitToHome()) {
+        requestExit(false);
+    }
+}
+
 void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     QTextDocument doc;
     QString       html;
@@ -260,7 +313,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
     <style>
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: sans-serif;
         font-size: 11pt;
         line-height: 1.6;
         margin: 20px;
@@ -298,7 +351,7 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     ul {
         padding-left: 20px;
         margin-bottom: 20px;
-        font-family: 'Noto Sans', sans-serif;
+        font-family: sans-serif;
         font-size: 11pt;
     }
     li {
@@ -518,93 +571,269 @@ void SLRTutorWindow::showTable() {
     auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
                                       colHeaders, this, &rawTable);
 
-    connect(dialog, &QDialog::accepted, this, [this, dialog, colHeaders]() {
-        rawTable = dialog->getTableData();
+    connect(dialog, &SLRTableDialog::guidedRequested, this,
+            [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+                const QVector<QVector<QString>> snapshot = data;
+                auto* wizard = new SLRWizard(slr1, snapshot, colHeaders,
+                                             sortedGrammar, dialog);
+                wizard->setProperty("wizardTheme", "slr");
+                wizard->setAttribute(Qt::WA_DeleteOnClose);
+                wizard->setWindowModality(Qt::WindowModal);
 
-        slrtable.clear();
+                connect(wizard, &QWizard::finished, dialog,
+                        [dialog, snapshot](int) {
+                            dialog->setInitialData(snapshot);
+                        });
+                wizard->show();
+            });
 
-        const int nTerm = slr1.gr_.st_.terminals_.size();
-        for (int state = 0; state < rawTable.size(); ++state) {
-            for (int j = 0; j < rawTable[state].size(); ++j) {
-                QString cell = rawTable[state][j];
-                QString normalized;
-                if (!NormalizeSlrCell(cell, &normalized)) {
-                    qWarning() << "Formato inválido en tabla SLR:" << cell;
-                    continue;
-                }
-                if (normalized.isEmpty())
-                    continue;
+    connect(
+        dialog, &SLRTableDialog::submitted, this,
+        [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+            rawTable = data;
+            slrtable.clear();
 
-                const QString sym = colHeaders[j];
+            QList<QPair<int, int>> invalidCoords;
+            QSet<qulonglong>       invalidKeys;
+            QList<QPair<int, int>> incorrectCoords;
 
-                if (j < nTerm) {
-                    // --- Action with terminal ---
-                    if (normalized.startsWith('s', Qt::CaseInsensitive)) {
-                        int toState          = normalized.mid(1).toInt();
-                        slrtable[state][sym] = ActionEntry::makeShift(toState);
-                    } else if (normalized.startsWith('r',
-                                                     Qt::CaseInsensitive)) {
-                        int prodIdx          = normalized.mid(1).toInt();
-                        slrtable[state][sym] = ActionEntry::makeReduce(prodIdx);
-                    } else if (normalized.compare("acc", Qt::CaseInsensitive) ==
-                               0) {
-                        slrtable[state][sym] = ActionEntry::makeAccept();
-                    } else {
-                        qWarning()
-                            << "Entrada no reconocida en Action[" << state
-                            << "][" << sym << "]:" << normalized;
+            const int nTerm = slr1.gr_.st_.terminals_.size();
+            for (int state = 0; state < rawTable.size(); ++state) {
+                for (int j = 0; j < rawTable[state].size(); ++j) {
+                    const QString sym        = colHeaders[j];
+                    const bool    isTerminal = (j < nTerm);
+                    const QString cell       = rawTable[state][j];
+                    QString       normalized;
+
+                    if (!NormalizeSlrCell(cell, &normalized)) {
+                        if (!cell.trimmed().isEmpty()) {
+                            invalidCoords.append({state, j});
+                            invalidKeys.insert(
+                                MakeCellKey(static_cast<unsigned>(state),
+                                            static_cast<unsigned>(j)));
+                        }
+                        continue;
                     }
-                } else {
-                    // --- Goto with non-terminal ---
-                    bool ok      = false;
-                    int  toState = normalized.toInt(&ok);
-                    if (ok) {
-                        slrtable[state][sym] = ActionEntry::makeGoto(toState);
+
+                    if (normalized.isEmpty()) {
+                        // Empty is always well-formed; semantic validation
+                        // decides if it should be empty.
+                    } else if (isTerminal) {
+                        if (normalized.compare("acc", Qt::CaseInsensitive) ==
+                            0) {
+                            slrtable[state][sym] = ActionEntry::makeAccept();
+                        } else if (normalized.startsWith('s',
+                                                         Qt::CaseInsensitive)) {
+                            bool ok = false;
+                            int  to = normalized.mid(1).toInt(&ok);
+                            if (!ok) {
+                                invalidCoords.append({state, j});
+                                invalidKeys.insert(
+                                    MakeCellKey(static_cast<unsigned>(state),
+                                                static_cast<unsigned>(j)));
+                                continue;
+                            }
+                            slrtable[state][sym] = ActionEntry::makeShift(to);
+                        } else if (normalized.startsWith('r',
+                                                         Qt::CaseInsensitive)) {
+                            bool ok  = false;
+                            int  idx = normalized.mid(1).toInt(&ok);
+                            if (!ok) {
+                                invalidCoords.append({state, j});
+                                invalidKeys.insert(
+                                    MakeCellKey(static_cast<unsigned>(state),
+                                                static_cast<unsigned>(j)));
+                                continue;
+                            }
+                            slrtable[state][sym] = ActionEntry::makeReduce(idx);
+                        } else {
+                            invalidCoords.append({state, j});
+                            invalidKeys.insert(
+                                MakeCellKey(static_cast<unsigned>(state),
+                                            static_cast<unsigned>(j)));
+                            continue;
+                        }
                     } else {
-                        qWarning() << "Goto inválido en [" << state << "]["
-                                   << sym << "]:" << normalized;
+                        bool ok = false;
+                        int  to = normalized.toInt(&ok);
+                        if (!ok) {
+                            invalidCoords.append({state, j});
+                            invalidKeys.insert(
+                                MakeCellKey(static_cast<unsigned>(state),
+                                            static_cast<unsigned>(j)));
+                            continue;
+                        }
+                        slrtable[state][sym] = ActionEntry::makeGoto(to);
                     }
                 }
             }
-        }
 
-        on_confirmButton_clicked();
-        dialog->deleteLater();
-    });
+            // --- Semantic validation (only for well-formed cells) ---
+            for (const state& slrState : slr1.states_) {
+                unsigned int stateId = slrState.id_;
+                for (const auto& terminal : slr1.gr_.st_.terminals_) {
+                    if (terminal == slr1.gr_.st_.EPSILON_)
+                        continue;
+
+                    const QString sym = QString::fromStdString(terminal);
+                    const int     col = colHeaders.indexOf(sym);
+                    if (col < 0)
+                        continue;
+
+                    if (invalidKeys.contains(
+                            MakeCellKey(stateId, static_cast<unsigned>(col)))) {
+                        continue;
+                    }
+
+                    const auto& actMap = slr1.actions_.at(stateId);
+                    auto        itAct  = actMap.find(terminal);
+                    const SLR1Parser::s_action expectedAct =
+                        (itAct != actMap.end()
+                             ? itAct->second
+                             : SLR1Parser::s_action{nullptr,
+                                                    SLR1Parser::Action::Empty});
+
+                    auto userIt    = slrtable[stateId].find(sym);
+                    bool userEmpty = (userIt == slrtable[stateId].end());
+
+                    if (expectedAct.action == SLR1Parser::Action::Empty) {
+                        if (!userEmpty) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        continue;
+                    }
+
+                    if (userEmpty) {
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                        continue;
+                    }
+
+                    const ActionEntry& entry = userIt.value();
+                    switch (expectedAct.action) {
+                    case SLR1Parser::Action::Shift: {
+                        const auto& transMap = slr1.transitions_.at(stateId);
+                        auto        itTrans  = transMap.find(terminal);
+                        if (itTrans == transMap.end() ||
+                            entry.type != ActionEntry::Shift ||
+                            entry.target != static_cast<int>(itTrans->second)) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        break;
+                    }
+                    case SLR1Parser::Action::Reduce: {
+                        const Lr0Item* itItem  = expectedAct.item;
+                        int            prodIdx = -1;
+                        for (int k = 0; k < sortedGrammar.size(); ++k) {
+                            const auto& rule = sortedGrammar[k];
+                            if (rule.first.toStdString() ==
+                                    itItem->antecedent_ &&
+                                stdVectorToQVector(itItem->consequent_) ==
+                                    rule.second) {
+                                prodIdx = k;
+                                break;
+                            }
+                        }
+                        if (prodIdx < 0 || entry.type != ActionEntry::Reduce ||
+                            entry.target != prodIdx) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        break;
+                    }
+                    case SLR1Parser::Action::Accept:
+                        if (entry.type != ActionEntry::Accept) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        break;
+                    default:
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                        break;
+                    }
+                }
+
+                for (const auto& nonTerm : slr1.gr_.st_.non_terminals_) {
+                    const QString sym = QString::fromStdString(nonTerm);
+                    const int     col = colHeaders.indexOf(sym);
+                    if (col < 0)
+                        continue;
+
+                    if (invalidKeys.contains(
+                            MakeCellKey(stateId, static_cast<unsigned>(col)))) {
+                        continue;
+                    }
+
+                    bool         hasGoto       = false;
+                    unsigned int expectedState = 0;
+                    if (slr1.transitions_.contains(stateId)) {
+                        const auto& transMap = slr1.transitions_.at(stateId);
+                        auto        itTrans  = transMap.find(nonTerm);
+                        if (itTrans != transMap.end()) {
+                            hasGoto       = true;
+                            expectedState = itTrans->second;
+                        }
+                    }
+
+                    auto userIt    = slrtable[stateId].find(sym);
+                    bool userEmpty = (userIt == slrtable[stateId].end());
+
+                    if (!hasGoto) {
+                        if (!userEmpty) {
+                            incorrectCoords.append(
+                                {static_cast<int>(stateId), col});
+                        }
+                        continue;
+                    }
+
+                    if (userEmpty) {
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                        continue;
+                    }
+
+                    const ActionEntry& entry = userIt.value();
+                    if (entry.type != ActionEntry::Goto ||
+                        static_cast<unsigned int>(entry.target) !=
+                            expectedState) {
+                        incorrectCoords.append(
+                            {static_cast<int>(stateId), col});
+                    }
+                }
+            }
+
+            dialog->highlightIncorrectCells(incorrectCoords);
+            dialog->highlightInvalidCells(invalidCoords);
+
+            if (!invalidCoords.isEmpty()) {
+                QMessageBox::information(
+                    dialog, tr("Formato inválido"),
+                    tr("Las celdas marcadas en naranja tienen un formato "
+                       "inválido.\n"
+                       "Revisa el formato: sX, rX, acc o vacío (Action); X o "
+                       "vacío (Goto)."));
+                return;
+            }
+
+            if (!incorrectCoords.isEmpty()) {
+                QMessageBox::information(
+                    dialog, tr("Errores"),
+                    tr("Las celdas marcadas en rojo son incorrectas."));
+                return;
+            }
+
+            dialog->accept();
+            on_confirmButton_clicked();
+            dialog->deleteLater();
+        });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
         rawTable.clear();
-        QMessageBox msg(this);
-        msg.setWindowTitle(tr("Cancelar ejercicio SLR(1)"));
-        msg.setTextFormat(Qt::RichText);
-        msg.setText(tr(
-            "¿Quieres salir del tutor? Esto cancelará el ejercicio."
-            " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
-
-        // 2) Configura los botones
-        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msg.setDefaultButton(QMessageBox::No);
-
-        QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setProperty("role", "primary");
-        }
-
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setProperty("role", "danger");
-        }
-
-        int ret = msg.exec();
-        if (ret == QMessageBox::Yes) {
-            this->close();
+        if (confirmExitToHome()) {
+            requestExit(false);
         } else {
             showTable();
         }
@@ -620,7 +849,7 @@ void SLRTutorWindow::updateProgressPanel() {
 
     text += R"(
         <html>
-        <body style="font-family: 'Noto Sans'; color: #f0f0f0; background-color: #1e1e1e;">
+        <body style="font-family: sans-serif; color: #f0f0f0; background-color: #1e1e1e;">
     )";
 
     if (userMadeStates.empty()) {
@@ -707,7 +936,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     QLabel* header = new QLabel(isUser ? tr("Usuario") : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
                                  : "font-weight: bold; color: #BBBBBB;");
 
@@ -734,7 +962,9 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     if (isUser) {
         if (text.isEmpty()) {
-            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 12));
+            QFont placeholderFont = label->font();
+            placeholderFont.setItalic(true);
+            label->setFont(placeholderFont);
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -746,7 +976,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(0, 0, 0, 0.15);
         )");
         } else {
-            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -759,7 +988,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
         )");
         }
     } else {
-        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -775,7 +1003,6 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     label->adjustSize();
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     timestamp->setStyleSheet("color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
@@ -817,6 +1044,61 @@ void SLRTutorWindow::addWidgetMessage(QWidget* widget) {
     item->setSizeHint(widget->sizeHint());
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
+}
+
+void SLRTutorWindow::addGrammarMessage() {
+    conversationLog.emplaceBack(tr("La gramática es:\n") + formattedGrammar,
+                                false);
+
+    auto* messageWidget = new QWidget;
+    auto* mainLayout    = new QVBoxLayout(messageWidget);
+    mainLayout->setSpacing(2);
+    mainLayout->setContentsMargins(10, 5, 10, 5);
+
+    auto* header = new QLabel("Tutor");
+    header->setStyleSheet("font-weight: bold; color: #BBBBBB;");
+
+    auto* bubbleLayout = new QHBoxLayout;
+    bubbleLayout->setSpacing(0);
+
+    auto* innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(6);
+
+    auto* title = new QLabel(tr("La gramática es:"));
+    title->setStyleSheet("font-weight: bold; color: #F1F1F1;");
+
+    auto* bubble = new GrammarView;
+    bubble->setRows(buildGrammarRows(grammar));
+    bubble->setStyleSheet(R"(
+        QFrame#grammarView {
+            background-color: #2F3542;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-left-radius: 0px;
+            border-top-right-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+    )");
+
+    auto* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
+    timestamp->setAlignment(Qt::AlignRight);
+
+    innerLayout->addWidget(title);
+    innerLayout->addWidget(bubble);
+    innerLayout->addWidget(timestamp);
+
+    bubbleLayout->addLayout(innerLayout);
+    bubbleLayout->addStretch();
+
+    mainLayout->addWidget(header);
+    mainLayout->addLayout(bubbleLayout);
+
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    item->setSizeHint(messageWidget->sizeHint());
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, messageWidget);
+    ui->listWidget->scrollToBottom();
 }
 
 void SLRTutorWindow::wrongAnimation() {
@@ -1035,7 +1317,8 @@ void SLRTutorWindow::on_confirmButton_clicked() {
             }
         });
 
-        connect(exitBtn, &QPushButton::clicked, this, [this]() { close(); });
+        connect(exitBtn, &QPushButton::clicked, this,
+                [this]() { requestExit(true); });
 
         addWidgetMessage(actions);
         ui->listWidget->scrollToBottom();
@@ -1218,64 +1501,8 @@ QString SLRTutorWindow::generateQuestion() {
     }
 
     case StateSlr::H_prime: {
-        QStringList colHeaders;
-
-        for (const auto& symbol : slr1.gr_.st_.terminals_) {
-            if (symbol == slr1.gr_.st_.EPSILON_)
-                continue;
-            colHeaders << QString::fromStdString(symbol);
-        }
-
-        for (const auto& symbol : slr1.gr_.st_.non_terminals_) {
-            colHeaders << QString::fromStdString(symbol);
-        }
-        auto* wizard =
-            new SLRWizard(slr1, rawTable, colHeaders, sortedGrammar, this);
-        wizard->setProperty("wizardTheme", "slr");
-        connect(wizard, &QWizard::accepted, this,
-                [this]() { on_confirmButton_clicked(); });
-        connect(wizard, &QWizard::rejected, this, [this, wizard]() {
-            QMessageBox msg(this);
-            msg.setWindowTitle(tr("Cancelar ejercicio SLR(1)"));
-            msg.setTextFormat(Qt::RichText);
-            msg.setText(
-                tr("¿Quieres salir del tutor? Esto cancelará el ejercicio."
-                   " Si lo que quieres es enviar tu respuesta, pulsa "
-                   "\"Finalizar\"."));
-
-            // 2) Configura los botones
-            msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msg.setDefaultButton(QMessageBox::No);
-
-            QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-            QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-            if (yesBtn) {
-                yesBtn->setText(tr("Sí"));
-                yesBtn->setCursor(Qt::PointingHandCursor);
-                yesBtn->setIcon(QIcon());
-                yesBtn->setProperty("role", "primary");
-            }
-
-            if (noBtn) {
-                noBtn->setText(tr("No"));
-                noBtn->setCursor(Qt::PointingHandCursor);
-                noBtn->setIcon(QIcon());
-                noBtn->setProperty("role", "danger");
-            }
-            int ret = msg.exec();
-            if (ret == QMessageBox::Yes) {
-                this->close();
-                return "";
-            } else {
-                on_confirmButton_clicked();
-                wizard->deleteLater();
-                return "";
-            }
-        });
-        wizard->show();
-    }
         return "";
+    }
 
     default:
         return "";
@@ -1440,7 +1667,7 @@ void SLRTutorWindow::updateState(bool isCorrect) {
         break;
 
     case StateSlr::H:
-        currentState = isCorrect ? StateSlr::fin : StateSlr::H_prime;
+        currentState = isCorrect ? StateSlr::fin : StateSlr::H;
         break;
 
     case StateSlr::H_prime:
@@ -2808,6 +3035,31 @@ QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
     return result;
 }
 
+QVector<GrammarView::Row>
+SLRTutorWindow::buildGrammarRows(const Grammar& grammar) const {
+    QVector<GrammarView::Row> rows;
+    int                       ruleCount = 0;
+
+    for (const QString& lhs : std::as_const(sortedNonTerminals)) {
+        const auto& prods = grammar.g_.at(lhs.toStdString());
+        for (size_t i = 0; i < prods.size(); ++i) {
+            QString rhs;
+            for (const auto& symbol : prods[i]) {
+                if (!rhs.isEmpty()) {
+                    rhs += ' ';
+                }
+                rhs += QString::fromStdString(symbol);
+            }
+
+            rows.push_back({QString("(%1)").arg(ruleCount++),
+                            i == 0 ? lhs : QString(),
+                            i == 0 ? QString::fromUtf8("→") : "|", rhs});
+        }
+    }
+
+    return rows;
+}
+
 void SLRTutorWindow::fillSortedGrammar() {
     QVector<QPair<QString, QVector<QString>>> rules;
     QPair<QString, QVector<QString>>          rule;
@@ -2983,9 +3235,9 @@ void SLRTutorWindow::setupTutorial() {
     updateProgressPanel();
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
-    tm->addStep(this->window(), tr("<h3>Tutor SLR(1)</h3>"
-                                   "<p>Esta es la ventana del tutor de "
-                                   "analizadores sintácticos SLR(1).</p>"));
+    tm->addStep(this, tr("<h3>Tutor SLR(1)</h3>"
+                                    "<p>Esta es la ventana del tutor de "
+                                    "analizadores sintácticos SLR(1).</p>"));
 
     tm->addStep(ui->gr, tr("<h3>Gramática</h3>"
                            "<p>Como se puede ver, la gramática ahora es más "
@@ -3042,17 +3294,16 @@ void SLRTutorWindow::setupTutorial() {
                                    "pedir una lista de símbolos separados por "
                                    "coma.</p>"));
 
-    tm->addStep(this->window(), tr("<h3>Finalización</h3>"
-                                   "<p>Al igual que el tutor LL(1), podrás "
-                                   "exportar toda la conversación y las tablas "
-                                   "de análisis en formato PDF.</p>"));
+    tm->addStep(this, tr("<h3>Finalización</h3>"
+                                    "<p>Al igual que el tutor LL(1), podrás "
+                                    "exportar toda la conversación y las tablas "
+                                    "de análisis en formato PDF.</p>"));
 
     tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
         if (idx == 13) {
             tm->finishSLR1();
-            this->close();
         }
     });
 }

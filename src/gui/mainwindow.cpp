@@ -21,12 +21,22 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QPixmap>
+#include <QStackedWidget>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
       settings("UMA", "SyntaxTutor") {
     factory.Init();
     ui->setupUi(this);
+    defaultWindowTitle = windowTitle();
+
+    homePage = takeCentralWidget();
+    stack    = new QStackedWidget(this);
+    stack->setContentsMargins(0, 0, 0, 0);
+    setCentralWidget(stack);
+    stack->addWidget(homePage);
+    stack->setCurrentWidget(homePage);
+
     Qt::WindowFlags f = windowFlags();
     f &= ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(f);
@@ -147,6 +157,8 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow() {
     saveSettings();
+    cleanupTutorPages();
+    delete tm;
     delete ui;
 }
 
@@ -232,6 +244,125 @@ void MainWindow::saveSettings() {
     settings.setValue("gamification/score", userScore);
 }
 
+void MainWindow::setNavigationEnabled(bool enabled) {
+    ui->pushButton->setDisabled(!enabled);
+    ui->pushButton_2->setDisabled(!enabled);
+    ui->tutorial->setDisabled(!enabled);
+    ui->lv1Button->setDisabled(!enabled);
+    ui->lv2Button->setDisabled(!enabled);
+    ui->lv3Button->setDisabled(!enabled);
+}
+
+void MainWindow::showHomePage() {
+    if (stack && homePage) {
+        stack->setCurrentWidget(homePage);
+    }
+    setWindowTitle(defaultWindowTitle);
+}
+
+void MainWindow::cleanupTutorPages() {
+    if (tm) {
+        tm->setRootWindow(homePage);
+    }
+
+    if (llTutorPage) {
+        stack->removeWidget(llTutorPage);
+        llTutorPage->deleteLater();
+        llTutorPage = nullptr;
+    }
+
+    if (slrTutorPage) {
+        stack->removeWidget(slrTutorPage);
+        slrTutorPage->deleteLater();
+        slrTutorPage = nullptr;
+    }
+}
+
+LLTutorWindow* MainWindow::startLLTutor(const Grammar& grammar,
+                                        TutorialManager* tutorialManager) {
+    if (llTutorPage) {
+        stack->removeWidget(llTutorPage);
+        llTutorPage->deleteLater();
+    }
+
+    llTutorPage = new LLTutorWindow(grammar, tutorialManager, stack);
+    stack->addWidget(llTutorPage);
+    stack->setCurrentWidget(llTutorPage);
+    setWindowTitle(tr("LL(1)"));
+
+    connect(llTutorPage, &LLTutorWindow::exitRequested, this,
+            [this, tutorialManager](bool applyResults, int cntRight,
+                                    int cntWrong) {
+                if (applyResults && tutorialManager == nullptr) {
+                    handleTutorFinished(cntRight, cntWrong);
+                }
+
+                if (tutorialManager != nullptr) {
+                    abortTutorialFlow();
+                    return;
+                }
+
+                showHomePage();
+                if (llTutorPage) {
+                    stack->removeWidget(llTutorPage);
+                    llTutorPage->deleteLater();
+                    llTutorPage = nullptr;
+                }
+            });
+
+    return llTutorPage;
+}
+
+SLRTutorWindow* MainWindow::startSLRTutor(const Grammar& grammar,
+                                          TutorialManager* tutorialManager) {
+    if (slrTutorPage) {
+        stack->removeWidget(slrTutorPage);
+        slrTutorPage->deleteLater();
+    }
+
+    slrTutorPage = new SLRTutorWindow(grammar, tutorialManager, stack);
+    stack->addWidget(slrTutorPage);
+    stack->setCurrentWidget(slrTutorPage);
+    setWindowTitle(tr("SLR(1)"));
+
+    connect(slrTutorPage, &SLRTutorWindow::exitRequested, this,
+            [this, tutorialManager](bool applyResults, int cntRight,
+                                    int cntWrong) {
+                if (applyResults && tutorialManager == nullptr) {
+                    handleTutorFinished(cntRight, cntWrong);
+                }
+
+                if (tutorialManager != nullptr) {
+                    abortTutorialFlow();
+                    return;
+                }
+
+                showHomePage();
+                if (slrTutorPage) {
+                    stack->removeWidget(slrTutorPage);
+                    slrTutorPage->deleteLater();
+                    slrTutorPage = nullptr;
+                }
+            });
+
+    return slrTutorPage;
+}
+
+void MainWindow::abortTutorialFlow() {
+    cleanupTutorPages();
+    showHomePage();
+    setNavigationEnabled(true);
+
+    if (tm) {
+        tm->hideOverlay();
+        tm->clearSteps();
+        delete tm;
+        tm = nullptr;
+    }
+
+    setupTutorial();
+}
+
 void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
     int delta = (cntRight - cntWrong);
     int raw   = static_cast<int>(userScore) + delta;
@@ -263,44 +394,30 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
 
 void MainWindow::on_pushButton_clicked() {
     Grammar grammar = factory.GenLL1Grammar(level);
-    this->hide();
-    LLTutorWindow* tutor = new LLTutorWindow(grammar, nullptr, this);
-    tutor->setAttribute(Qt::WA_DeleteOnClose);
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
-    connect(tutor, &LLTutorWindow::sessionFinished, this,
-            &MainWindow::handleTutorFinished);
-    tutor->show();
+    startLLTutor(grammar, nullptr);
 }
 
 void MainWindow::on_pushButton_2_clicked() {
     Grammar grammar = factory.GenSLR1Grammar(level);
-    this->hide();
-    SLRTutorWindow* tutor = new SLRTutorWindow(grammar, nullptr, this);
-    tutor->setAttribute(Qt::WA_DeleteOnClose);
-
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
-    connect(tutor, &SLRTutorWindow::sessionFinished, this,
-            &MainWindow::handleTutorFinished);
-    tutor->show();
+    startSLRTutor(grammar, nullptr);
 }
 
 void MainWindow::on_tutorial_clicked() {
+    cleanupTutorPages();
+    showHomePage();
+
     if (tm) {
         delete tm;
         tm = nullptr;
-        setupTutorial();
-        ui->pushButton->setDisabled(true);
-        ui->pushButton_2->setDisabled(true);
-        ui->tutorial->setDisabled(true);
-        ui->lv1Button->setDisabled(true);
-        ui->lv2Button->setDisabled(true);
-        ui->lv3Button->setDisabled(true);
-        tm->start();
     }
+
+    setupTutorial();
+    setNavigationEnabled(false);
+    tm->start();
 }
 
 void MainWindow::setupTutorial() {
-    tm = new TutorialManager(this);
+    tm = new TutorialManager(homePage);
 
     // Paso 1: explicación de botones LL(1) y SLR(1)
     tm->addStep(ui->pushButton, tr("<h3>LL(1)</h3><p>Con este botón puedes "
@@ -315,106 +432,101 @@ void MainWindow::setupTutorial() {
                    "repercute en la longitud de la gramática.</p>"));
 
     // Paso 3: LL(1)
-    tm->addStep(ui->pushButton, tr("<p>Ahora se abrirá la ventana LL(1).</p>"));
+    tm->addStep(ui->pushButton, tr("<p>Ahora se abrirá el tutor LL(1).</p>"));
     tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
         if (idx == 4) {
-            // 1) Abre LL
             Grammar grammarLL = factory.GenLL1Grammar(1);
-            auto*   llTutor   = new LLTutorWindow(grammarLL, tm, nullptr);
-            llTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint |
-                                    Qt::WindowTitleHint);
-            llTutor->setAttribute(Qt::WA_DeleteOnClose);
-            this->hide();
-            llTutor->show();
+            LLTutorWindow* llTutor = startLLTutor(grammarLL, tm);
 
-            // 2) Preparar SLR
-            connect(tm, &TutorialManager::ll1Finished, this, [this, llTutor]() {
-                llTutor->close();
-                this->show();
-                disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
-                disconnect(tm, &TutorialManager::tutorialFinished, this,
-                           nullptr);
-
-                tm->setRootWindow(this);
-
-                tm->clearSteps();
-                tm->addStep(
-                    ui->pushButton_2,
-                    tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
-                tm->addStep(ui->lv3Button,
-                            tr("<p>Esta vez se usará una gramática más "
-                               "compleja (Nivel 3).</p>"));
-                tm->addStep(ui->pushButton_2,
-                            tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
-                tm->addStep(nullptr, "");
-                // a) Arranca el tutorial de SLR
-                tm->start();
-
-                // b) Abrir SLR
-                connect(
-                    tm, &TutorialManager::stepStarted, this, [this](int idx2) {
-                        if (idx2 == 3) {
-                            Grammar grammarSLR = factory.GenSLR1Grammar(3);
-                            auto*   slrTutor =
-                                new SLRTutorWindow(grammarSLR, tm, nullptr);
-                            slrTutor->setWindowFlags(Qt::Window |
-                                                     Qt::CustomizeWindowHint |
-                                                     Qt::WindowTitleHint);
-                            slrTutor->setAttribute(Qt::WA_DeleteOnClose);
-                            slrTutor->show();
-                            this->hide();
-                            QTimer::singleShot(50, [this, slrTutor]() {
-                                tm->setRootWindow(slrTutor);
-                                tm->nextStep();
-                            });
-                        }
-                    });
-
-                // c) Acaba SLR
-                connect(tm, &TutorialManager::slr1Finished, this, [this]() {
-                    disconnect(tm, &TutorialManager::stepStarted, this,
-                               nullptr);
-                    disconnect(tm, &TutorialManager::tutorialFinished, this,
-                               nullptr);
-                    this->show();
-                    tm->setRootWindow(this);
-                    tm->clearSteps();
-                    tm->addStep(ui->badgeNivel,
-                                tr("<h2>Nivel</h2>"
-                                   "<p>¡Practicar tiene recompensa! Cada vez "
-                                   "que resuelvas ejercicios "
-                                   "o avances en el estudio, "
-                                   "ganarás puntos. Estos puntos te ayudarán a "
-                                   "subir de nivel: hay un "
-                                   "total de 10. "
-                                   "¡Intenta llegar al máximo!</p>"));
-
-                    tm->addStep(this, tr("<h2>¡Tutorial completado!</h2><p>Ya "
-                                         "puedes comenzar a practicar.</p>"));
-
-                    connect(tm, &TutorialManager::tutorialFinished, this,
-                            [this]() {
-                                tm->clearSteps();
-                                delete tm;
-                                ui->pushButton->setDisabled(false);
-                                ui->pushButton_2->setDisabled(false);
-                                ui->tutorial->setDisabled(false);
-                                ui->lv1Button->setDisabled(false);
-                                ui->lv2Button->setDisabled(false);
-                                ui->lv3Button->setDisabled(false);
-                                setupTutorial();
-                            });
-                    tm->start();
-                });
-            });
-
-            QTimer::singleShot(50, [this, llTutor]() {
+            QTimer::singleShot(0, this, [this, llTutor]() {
+                if (!tm || llTutor != llTutorPage) {
+                    return;
+                }
                 tm->setRootWindow(llTutor);
                 tm->nextStep();
             });
         }
+    });
+
+    connect(tm, &TutorialManager::ll1Finished, this, [this]() {
+        tm->setRootWindow(homePage);
+
+        if (llTutorPage) {
+            stack->removeWidget(llTutorPage);
+            llTutorPage->deleteLater();
+            llTutorPage = nullptr;
+        }
+
+        showHomePage();
+        disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
+        disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+
+        tm->clearSteps();
+        tm->addStep(ui->pushButton_2,
+                    tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
+        tm->addStep(ui->lv3Button,
+                    tr("<p>Esta vez se usará una gramática más compleja "
+                       "(Nivel 3).</p>"));
+        tm->addStep(ui->pushButton_2,
+                    tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
+        tm->addStep(nullptr, "");
+
+        connect(tm, &TutorialManager::stepStarted, this, [this](int idx2) {
+            if (idx2 == 3) {
+                Grammar grammarSLR = factory.GenSLR1Grammar(3);
+                SLRTutorWindow* slrTutor = startSLRTutor(grammarSLR, tm);
+
+                QTimer::singleShot(0, this, [this, slrTutor]() {
+                    if (!tm || slrTutor != slrTutorPage) {
+                        return;
+                    }
+                    tm->setRootWindow(slrTutor);
+                    tm->nextStep();
+                });
+            }
+        });
+
+        connect(tm, &TutorialManager::slr1Finished, this, [this]() {
+            tm->setRootWindow(homePage);
+
+            if (slrTutorPage) {
+                stack->removeWidget(slrTutorPage);
+                slrTutorPage->deleteLater();
+                slrTutorPage = nullptr;
+            }
+
+            showHomePage();
+            disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
+            disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+
+            tm->clearSteps();
+            tm->addStep(ui->badgeNivel,
+                        tr("<h2>Nivel</h2>"
+                           "<p>¡Practicar tiene recompensa! Cada vez que "
+                           "resuelvas ejercicios o avances en el estudio, "
+                           "ganarás puntos. Estos puntos te ayudarán a subir "
+                           "de nivel: hay un total de 10. "
+                           "¡Intenta llegar al máximo!</p>"));
+
+            tm->addStep(homePage, tr("<h2>¡Tutorial completado!</h2><p>Ya "
+                                     "puedes comenzar a practicar.</p>"));
+
+            connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
+                if (tm) {
+                    tm->clearSteps();
+                    delete tm;
+                    tm = nullptr;
+                }
+                setNavigationEnabled(true);
+                setupTutorial();
+            });
+
+            tm->start();
+        });
+
+        tm->start();
     });
 }
 

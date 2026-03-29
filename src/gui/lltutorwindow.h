@@ -27,7 +27,6 @@
 #include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include <QListWidgetItem>
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QPainter>
 #include <QPropertyAnimation>
@@ -41,9 +40,11 @@
 #include <QTimer>
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtPrintSupport/QPrinter>
 
 #include "grammar.hpp"
+#include "grammarview.h"
 #include "ll1_parser.hpp"
 #include "lltabledialog.h"
 
@@ -76,7 +77,7 @@ enum class State { A, A1, A2, A_prime, B, B1, B2, B_prime, C, C_prime, fin };
  * entries.
  * - Exportable conversation log for grading or review.
  */
-class LLTutorWindow : public QMainWindow {
+class LLTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
@@ -120,10 +121,12 @@ class LLTutorWindow : public QMainWindow {
      * @return A QString representation.
      */
     QString FormatGrammar(const Grammar& grammar);
+    QVector<GrammarView::Row> buildGrammarRows(const Grammar& grammar) const;
 
     // ====== UI Interaction ====================================
     void addMessage(const QString& text,
                     bool           isUser);           /// < Add text message to chat
+    void addGrammarMessage();
     void addWidgetMessage(QWidget* widget); /// < Add widget (e.g., table, tree)
     void
     exportConversationToPdf(const QString& filePath); /// < Export chat to PDF
@@ -201,12 +204,15 @@ class LLTutorWindow : public QMainWindow {
     void handleTableSubmission(const QVector<QVector<QString>>& raw,
                                const QStringList&               colHeaders);
     void updatePlaceholder();
+    bool confirmExitToHome();
   private slots:
+    void on_backButton_clicked();
     void on_confirmButton_clicked();
     void on_userResponse_textChanged();
 
   signals:
     void sessionFinished(int cntRight, int cntWrong);
+    void exitRequested(bool applyResults, int cntRight, int cntWrong);
 
   protected:
     void closeEvent(QCloseEvent* event) override {
@@ -237,6 +243,7 @@ class LLTutorWindow : public QMainWindow {
     QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString                                   formattedGrammar;
+    GrammarView*                              grammarView = nullptr;
 
     QMap<QString, QMap<QString, QVector<QString>>> lltable;
     QVector<QVector<QString>>                      rawTable;
@@ -269,6 +276,7 @@ class LLTutorWindow : public QMainWindow {
     qsetToStdUnorderedSet(const QSet<QString>& qset);
 
     void setupTutorial();
+    void requestExit(bool applyResults);
 
     void
     fillSortedGrammar(); // Populate sortedGrammar from internal representation

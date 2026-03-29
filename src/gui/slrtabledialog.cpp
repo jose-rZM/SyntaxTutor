@@ -18,6 +18,7 @@
 
 #include "slrtabledialog.h"
 #include <QFontDatabase>
+#include <QHBoxLayout>
 #include <QStyledItemDelegate>
 
 class CenterAlignDelegate : public QStyledItemDelegate {
@@ -27,7 +28,7 @@ class CenterAlignDelegate : public QStyledItemDelegate {
                          const QModelIndex&    idx) const override {
         QStyledItemDelegate::initStyleOption(opt, idx);
         opt->displayAlignment = Qt::AlignCenter;
-        opt->font             = QFontDatabase::font("Noto Sans", "Regular", 14);
+        opt->font             = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
     }
 };
 
@@ -37,10 +38,8 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     : QDialog(parent) {
     setProperty("tableDialog", true);
     table = new QTableWidget(rowCount, colCount, this);
-    table->horizontalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Regular", 11));
-    table->verticalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Regular", 11));
+    table->horizontalHeader()->setFont(table->font());
+    table->verticalHeader()->setFont(table->font());
     table->setHorizontalHeaderLabels(colHeaders);
     table->setItemDelegate(new CenterAlignDelegate(table));
     table->setAlternatingRowColors(true);
@@ -65,14 +64,26 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton(tr("Finalizar"), this);
-    submitButton->setFont(QFontDatabase::font("Noto Sans", "Bold", 12));
+    submitButton->setFont(submitButton->font());
     submitButton->setCursor(Qt::PointingHandCursor);
     submitButton->setProperty("role", "primary");
-    connect(submitButton, &QPushButton::clicked, this, &QDialog::accept);
+
+    guidedButton = new QPushButton(tr("Modo guiado"), this);
+    guidedButton->setFont(guidedButton->font());
+    guidedButton->setCursor(Qt::PointingHandCursor);
+    guidedButton->setProperty("role", "primary");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(table);
-    layout->addWidget(submitButton);
+
+    auto* buttons = new QHBoxLayout;
+    buttons->setContentsMargins(0, 0, 0, 0);
+    buttons->setSpacing(10);
+    buttons->addStretch();
+    buttons->addWidget(guidedButton);
+    buttons->addWidget(submitButton);
+
+    layout->addLayout(buttons);
     layout->setContentsMargins(10, 10, 10, 10);
     setLayout(layout);
 
@@ -99,6 +110,11 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     }
 
     resize(width, height);
+
+    connect(submitButton, &QPushButton::clicked, this,
+            [this]() { emit submitted(getTableData()); });
+    connect(guidedButton, &QPushButton::clicked, this,
+            [this]() { emit guidedRequested(getTableData()); });
 }
 
 QVector<QVector<QString>> SLRTableDialog::getTableData() const {
@@ -131,5 +147,46 @@ void SLRTableDialog::setInitialData(const QVector<QVector<QString>>& data) {
 
             item->setText(data[i][j]);
         }
+    }
+}
+
+void SLRTableDialog::highlightIncorrectCells(
+    const QList<QPair<int, int>>& coords) {
+    for (int r = 0; r < table->rowCount(); ++r) {
+        for (int c = 0; c < table->columnCount(); ++c) {
+            QTableWidgetItem* item = table->item(r, c);
+            if (!item) {
+                continue;
+            }
+            item->setBackground(Qt::NoBrush);
+            item->setForeground(QBrush());
+        }
+    }
+
+    const QColor err("#D9534F");
+    for (auto [r, c] : coords) {
+        QTableWidgetItem* item = table->item(r, c);
+        if (!item) {
+            item = new QTableWidgetItem;
+            item->setTextAlignment(Qt::AlignCenter);
+            table->setItem(r, c, item);
+        }
+        item->setBackground(err);
+        item->setForeground(Qt::white);
+    }
+}
+
+void SLRTableDialog::highlightInvalidCells(
+    const QList<QPair<int, int>>& coords) {
+    const QColor warn("#F0AD4E");
+    for (auto [r, c] : coords) {
+        QTableWidgetItem* item = table->item(r, c);
+        if (!item) {
+            item = new QTableWidgetItem;
+            item->setTextAlignment(Qt::AlignCenter);
+            table->setItem(r, c, item);
+        }
+        item->setBackground(warn);
+        item->setForeground(Qt::black);
     }
 }

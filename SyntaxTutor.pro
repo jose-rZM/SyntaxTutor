@@ -25,6 +25,7 @@ SOURCES += \
     src/backend/slr1_parser.cpp \
     src/backend/symbol_table.cpp \
     src/widgets/customtextedit.cpp \
+    src/widgets/grammarview.cpp \
     src/gui/lltabledialog.cpp \
     src/gui/lltutorwindow.cpp \
     src/app/main.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     src/backend/state.hpp \
     src/backend/symbol_table.hpp \
     src/widgets/customtextedit.h \
+    src/widgets/grammarview.h \
     src/gui/lltabledialog.h \
     src/gui/lltutorwindow.h \
     src/gui/mainwindow.h \
