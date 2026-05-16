@@ -43,6 +43,44 @@ QString NormalizeProductionCell(const QString& cell) {
     return normalized;
 }
 
+QStringList ParseProductionCell(Grammar& grammar, const QString& cell) {
+    const QString trimmed = cell.trimmed();
+    if (trimmed.isEmpty()) {
+        return {};
+    }
+
+    const QStringList spacedTokens =
+        trimmed.split(kCellWhitespace, Qt::SkipEmptyParts);
+    if (!spacedTokens.isEmpty()) {
+        bool allKnown = true;
+        for (const QString& token : spacedTokens) {
+            if (!grammar.st_.In(token.toStdString())) {
+                allKnown = false;
+                break;
+            }
+        }
+
+        if (allKnown) {
+            return spacedTokens;
+        }
+    }
+
+    const QString normalized = NormalizeProductionCell(trimmed);
+    if (normalized.isEmpty()) {
+        return {};
+    }
+
+    QStringList production;
+    for (const std::string& symbol : grammar.Split(normalized.toStdString())) {
+        production.append(QString::fromStdString(symbol));
+    }
+    if (!production.isEmpty()) {
+        return production;
+    }
+
+    return {normalized};
+}
+
 ParsedSymbols ParseSymbolList(const QString& input) {
     ParsedSymbols parsed;
     const QString text     = input.trimmed();
@@ -78,7 +116,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
 
     // ====== UI Setup ==========================================
     ui->setupUi(this);
-    ui->backButton->setText(tr("Back"));
+    ui->backButton->setText(tr("Atras"));
 
     // -- Confirm Button Icon & Shadow
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
@@ -146,10 +184,10 @@ void LLTutorWindow::requestExit(bool applyResults) {
 
 bool LLTutorWindow::confirmExitToHome() {
     QMessageBox msg(this);
-    msg.setWindowTitle(tr("Leave LL(1) exercise"));
+    msg.setWindowTitle(tr("Salir del ejercicio LL(1)"));
     msg.setTextFormat(Qt::RichText);
-    msg.setText(tr("Do you want to go back to the home page? This will discard "
-                   "your current progress."));
+    msg.setText(tr("Quieres volver al menu principal? Se perdera el progreso "
+                   "actual."));
     msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msg.setDefaultButton(QMessageBox::No);
 
@@ -157,7 +195,7 @@ bool LLTutorWindow::confirmExitToHome() {
     QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
     if (yesBtn) {
-        yesBtn->setText(tr("Yes"));
+        yesBtn->setText(tr("Si"));
         yesBtn->setCursor(Qt::PointingHandCursor);
         yesBtn->setIcon(QIcon());
         yesBtn->setProperty("role", "primary");
@@ -192,7 +230,6 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
     <style>
     body {
-        font-family: sans-serif;
         font-size: 11pt;
         line-height: 1.6;
         margin: 20px;
@@ -230,7 +267,6 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     ul {
         padding-left: 20px;
         margin-bottom: 20px;
-        font-family: sans-serif;
         font-size: 11pt;
     }
     li {
@@ -375,7 +411,7 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = R"(
         <html>
-        <body style="font-family: sans-serif; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
+        <body style="font-size: 11pt; color: #f0f0f0; background-color: #212526;">
     )";
 
     // === CABECERAS (First) ===
@@ -560,17 +596,12 @@ void LLTutorWindow::showTableForCPrime() {
 
                     for (int j = 0; j < rawTable[i].size(); ++j) {
                         const QString& colHeader = colHeaders[j];
-                        QString&       cell      = rawTable[i][j];
-                        cell = NormalizeProductionCell(cell);
-                        if (cell.isEmpty()) {
+                        QString& cell = rawTable[i][j];
+                        if (cell.trimmed().isEmpty()) {
                             continue;
                         }
-                        QStringList production = stdVectorToQVector(
-                            ll1.gr_.Split(cell.toStdString()));
-                        if (production.empty()) {
-                            // Split could not process the string
-                            production = {cell};
-                        }
+                        QStringList production = ParseProductionCell(ll1.gr_, cell);
+                        cell = production.join(" ");
                         lltable[rowHeader][colHeader] = production;
                     }
                 }
@@ -632,14 +663,11 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         const auto& rowH = sortedNonTerminals[i];
         for (int j = 0; j < raw[i].size(); ++j) {
             const auto& colH = colHeaders[j];
-            QString&    cell = rawTable[i][j];
-            cell             = NormalizeProductionCell(cell);
-            if (cell.isEmpty())
+            QString& cell = rawTable[i][j];
+            if (cell.trimmed().isEmpty())
                 continue;
-            QStringList prod =
-                stdVectorToQVector(ll1.gr_.Split(cell.toStdString()));
-            if (prod.empty())
-                prod = {cell};
+            QStringList prod = ParseProductionCell(ll1.gr_, cell);
+            cell             = prod.join(" ");
             lltable[rowH][colH] = prod;
         }
     }
@@ -1364,7 +1392,7 @@ QString LLTutorWindow::feedback() {
 
     // ====== Fallback case ======
     default:
-        return "No feedback provided.";
+        return tr("No se ha generado retroalimentacion.");
     }
 }
 

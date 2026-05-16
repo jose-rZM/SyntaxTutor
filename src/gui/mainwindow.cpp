@@ -19,15 +19,84 @@
 #include "mainwindow.h"
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QHBoxLayout>
+#include <QLabel>
 #include <QMessageBox>
 #include <QPixmap>
 #include <QStackedWidget>
+#include <QTextBrowser>
+#include <QVBoxLayout>
+
+namespace {
+
+void showInfoDialog(QWidget* parent, const QString& windowTitle,
+                    const QString& eyebrow, const QString& title,
+                    const QString& html) {
+    auto* dialog = new QDialog(parent);
+    dialog->setObjectName("infoDialog");
+    dialog->setWindowTitle(windowTitle);
+    dialog->setModal(true);
+    dialog->resize(620, 480);
+
+    auto* layout = new QVBoxLayout(dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrowLabel = new QLabel(eyebrow, dialog);
+    eyebrowLabel->setObjectName("infoDialogEyebrow");
+
+    auto* titleLabel = new QLabel(title, dialog);
+    titleLabel->setObjectName("infoDialogTitle");
+    titleLabel->setWordWrap(true);
+
+    auto* content = new QTextBrowser(dialog);
+    content->setObjectName("infoDialogContent");
+    content->setOpenExternalLinks(true);
+    content->setFrameShape(QFrame::NoFrame);
+    content->setHtml(html);
+
+    auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, dialog);
+    if (auto* closeBtn = buttons->button(QDialogButtonBox::Close)) {
+        closeBtn->setText(QObject::tr("Cerrar"));
+        closeBtn->setCursor(Qt::PointingHandCursor);
+        closeBtn->setProperty("role", "primary");
+        closeBtn->setIcon(QIcon());
+    }
+
+    QObject::connect(buttons, &QDialogButtonBox::rejected, dialog,
+                     &QDialog::accept);
+
+    layout->addWidget(eyebrowLabel);
+    layout->addWidget(titleLabel);
+    layout->addWidget(content, 1);
+    layout->addWidget(buttons);
+
+    dialog->exec();
+    dialog->deleteLater();
+}
+
+} // namespace
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
       settings("UMA", "SyntaxTutor") {
     factory.Init();
     ui->setupUi(this);
+    ui->homeEyebrow->setText(tr("Tutores interactivos"));
+    ui->homeTitle->setText(tr("Elige cómo quieres practicar"));
+    ui->homeSubtitle->setText(
+        tr("Inicia un tutor y ajusta la "
+           "dificultad de la gramática antes de empezar."));
+    ui->pushButton->setText(tr("LL(1)"));
+    ui->pushButton_2->setText(tr("SLR(1)"));
+    ui->tutorial->setText(tr("Tutorial"));
+    ui->difficultyTitle->setText(tr("Dificultad"));
+    ui->lv1Button->setText(tr("Nivel 1"));
+    ui->lv2Button->setText(tr("Nivel 2"));
+    ui->lv3Button->setText(tr("Nivel 3"));
+    ui->idiom->setText(tr("Idioma"));
     defaultWindowTitle = windowTitle();
 
     homePage = takeCentralWidget();
@@ -165,39 +234,40 @@ MainWindow::~MainWindow() {
 void MainWindow::applyLevelStyling(unsigned lvl) {
     int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
     QString c      = levelColors[idx];
-    QString border = QColor(c).darker(120).name();
 
     ui->badgeNivel->setStyleSheet(QString(R"(
     QLabel {
-    min-width: 24px;
+    min-width: 28px;
     min-height: 24px;
-    padding: 0px 6px;
-    font-weight: bold;
+    padding: 0px 10px;
+    font-weight: 700;
     font-size: 12px;
-    background-color: %1;
-    color: white;
+    background-color: rgba(%1, %2, %3, 0.18);
+    color: %4;
     border-radius: 12px;
-    border: 1px solid %2;
+    border: none;
     qproperty-alignment: 'AlignCenter';
 }       
     )")
-                                      .arg(c)
-                                      .arg(border));
+                                      .arg(QColor(c).red())
+                                      .arg(QColor(c).green())
+                                      .arg(QColor(c).blue())
+                                      .arg(c));
 
     ui->badgeNivel->setText(QString::number(lvl));
     ui->progressBarNivel->setStyleSheet(QString(R"(
     QProgressBar {
-        background-color: #2A2A2A;
-        border: 1px solid #666666;   
-        border-radius: 3px;
-        min-height: 5px;
-        max-height: 5px;
+        background-color: #2A2E30;
+        border: none;
+        border-radius: 4px;
+        min-height: 8px;
+        max-height: 8px;
         text-align: center;
         color: transparent;
     }
     QProgressBar::chunk {
         background-color: %1;
-        border-radius: 3px;
+        border-radius: 4px;
         margin: 0px;
     }
 )")
@@ -531,17 +601,12 @@ void MainWindow::setupTutorial() {
 }
 
 void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
-    QMessageBox about(this);
-    about.setWindowTitle(tr("Sobre la aplicación"));
-    QPixmap pix(":/resources/syntaxtutor.png");
-    about.setIconPixmap(
-        pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-
-    about.setTextFormat(Qt::RichText);
     const auto versionLine =
         tr("<p><b>Versión:</b> %1</p>").arg(qApp->applicationVersion());
-    about.setText(
-        tr("<h2>SyntaxTutor</h2>") + versionLine +
+    showInfoDialog(
+        this, tr("Sobre la aplicación"), tr("SyntaxTutor"),
+        tr("Una herramienta de escritorio para practicar análisis sintáctico"),
+        versionLine +
         tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
            "Sintácticos.</p>") +
         tr("<p><b>Autor:</b> José R.</p>") +
@@ -551,116 +616,111 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
         tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - "
            "jose-rZM</a></p>") +
         tr("<p>2025 Universidad de Málaga</p>"));
-
-    about.setStandardButtons(QMessageBox::Close);
-    auto* closeBtn = about.button(QMessageBox::Close);
-    if (closeBtn) {
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setIcon(QIcon());
-    }
-    about.exec();
 }
 
 void MainWindow::on_actionReferencia_LL_1_triggered() {
-    QMessageBox help(this);
-    help.setWindowTitle(tr("Referencia rápida LL(1)"));
-    help.setTextFormat(Qt::RichText);
-    help.setText(tr(R"(
-      <h3>Referencia LL(1)</h3>
-      <ul>
-        <li><b>CAB(X):</b> conjunto de símbolos terminales que comienzan cadenas derivables desde X.</li>
-        <li><b>SIG(A):</b> conjunto de terminales que pueden seguir a A en alguna derivación.</li>
-  <li><b>Construcción de la Tabla LL(1):</b>
-    <ul>
-      <li>Para cada producción <code>A → α</code> y cada terminal <code>a</code> tal que 
-          <code>a ∈ CAB(α)</code>, asignar  
-          <code>Tabla[A][a] = "α"</code>.</li>
-      <li>Si <code>ε ∈ CAB(α)</code>, entonces para cada terminal 
-          <code>b ∈ SIG(A)</code> asignar  
-          <code>Tabla[A][b] = "α"</code>.</li>
-      <li>Si <code>ε ∈ CAB(α)</code> y <code>$ ∈ SIG(A)</code>, entonces  
-          <code>Tabla[A][$] = "α"</code> (fin de cadena).</li>
-      <li><b>Aceptación:</b> Por convención, no se añade entrada especial; el parser termina cuando 
-          encuentra <code>$</code> en la pila y en la entrada.</li>
-    </ul>
-  </li>
-        <li><b>Conflictos:</b> Sitios donde CAB(α) ∩ CAB(β) ≠ ∅ o ε ∈ CAB(α) y CAB(β) ∩ SIG(A) ≠ ∅.</li>
-      </ul>
-    )"));
-    help.setStandardButtons(QMessageBox::Close);
-    auto* closeBtn = help.button(QMessageBox::Close);
-    if (closeBtn) {
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setIcon(QIcon());
-    }
-    help.exec();
+    showInfoDialog(
+        this, tr("Referencia rápida LL(1)"), tr("LL(1)"),
+        tr("Resumen de conjuntos y construcción de la tabla predictiva"),
+        tr(R"(
+            <h3>Conceptos clave</h3>
+            <p><b>CAB(X):</b> conjunto de símbolos terminales que pueden comenzar cadenas derivables desde <code>X</code>.</p>
+            <p><b>SIG(A):</b> conjunto de terminales que pueden aparecer justo después de <code>A</code> en alguna derivación.</p>
+            <h3>Construcción de la tabla LL(1)</h3>
+            <ul>
+              <li>Para cada producción <code>A → α</code> y cada terminal <code>a ∈ CAB(α)</code>, asigna <code>Tabla[A][a] = α</code>.</li>
+              <li>Si <code>ε ∈ CAB(α)</code>, para cada <code>b ∈ SIG(A)</code> asigna <code>Tabla[A][b] = α</code>.</li>
+              <li>Si <code>ε ∈ CAB(α)</code> y <code>$ ∈ SIG(A)</code>, entonces <code>Tabla[A][$] = α</code>.</li>
+            </ul>
+            <h3>Conflictos</h3>
+            <p>Aparecen cuando dos producciones compiten por la misma celda, por ejemplo si <code>CAB(α) ∩ CAB(β) ≠ ∅</code> o si una producción con <code>ε</code> invade símbolos de <code>SIG(A)</code>.</p>
+        )"));
 }
 
 void MainWindow::on_actionReferencia_SLR_1_triggered() {
-    QMessageBox help(this);
-    help.setWindowTitle(tr("Referencia rápida SLR(1)"));
-    help.setTextFormat(Qt::RichText);
-    help.setText(tr(R"(
-      <h3>Referencia SLR(1)</h3>
-      <ul>
-        <li><b>Ítems LR(0):</b> producciones con “∙” marcando la posición de análisis.</li>
-        <li><b>Cierre( I ):</b> añadir ítems B → ∙ γ para cada ítem A → α ∙ B β. Repetir hasta que no se añadan más.</li>
-        <li><b>Goto( I, X ) o δ( I, X ):</b> desplazar “∙” sobre X en todos los ítems de I y calcular su cierre.</li>
-<li><b>Tabla SLR(1):</b>
-  <ul>
-    <li><b>Acciones (Action):</b>  
-      Para cada estado I y cada terminal a:
-      <ul>
-        <li>Si existe el ítem <code>A → α∙aβ</code> en I, entonces <code>Action[I,a] = s<sub>j</sub></code> (shift al estado j = Goto(I,a)).</li>
-        <li>Si existe el ítem <code>A → α∙</code> en I, entonces <code>Action[I,a] = r<sub>k</sub></code> (reduce usando la producción k = A→α) <em>para todo</em> <code>a ∈ SIG(A)</code>.</li>
-        <li><code>Action[I,$] = acc</code> si <code>S → A·$</code> está en I (aceptación).</li>
-      </ul>
-    </li>
-    <li><b>Transiciones (Goto):</b>  
-      Para cada estado I y cada no terminal A:
-      <ul>
-        <li>Si <code>Goto(I,A) = J</code>, entonces <code>Goto[I,A] = J</code>.</li>
-      </ul>
-    </li>
-  </ul>
-</li>
-      </ul>
-    )"));
-    help.setStandardButtons(QMessageBox::Close);
-    auto* closeBtn = help.button(QMessageBox::Close);
-    if (closeBtn) {
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setIcon(QIcon());
-    }
-    help.exec();
+    showInfoDialog(
+        this, tr("Referencia rápida SLR(1)"), tr("SLR(1)"),
+        tr("Resumen de items LR(0), cierre, goto y tabla de análisis"),
+        tr(R"(
+            <h3>Conceptos clave</h3>
+            <p><b>Ítems LR(0):</b> producciones con un punto que marca la posición actual del análisis.</p>
+            <p><b>Cierre(I):</b> si un ítem contiene <code>∙ B</code>, añade los ítems <code>B → ∙ γ</code> correspondientes y repite hasta estabilizar.</p>
+            <p><b>Goto(I, X):</b> desplaza el punto sobre <code>X</code> en todos los ítems válidos y calcula después su cierre.</p>
+            <h3>Tabla SLR(1)</h3>
+            <ul>
+              <li><b>Action[I, a] = s<sub>j</sub></b> si existe un ítem <code>A → α ∙ a β</code> y <code>Goto(I, a) = j</code>.</li>
+              <li><b>Action[I, a] = r<sub>k</sub></b> si existe un ítem completo <code>A → α ∙</code> y <code>a ∈ SIG(A)</code>.</li>
+              <li><b>Action[I, $] = acc</b> cuando el estado contiene la situación de aceptación.</li>
+              <li><b>Goto[I, A] = J</b> para transiciones con no terminales.</li>
+            </ul>
+            <h3>Conflictos</h3>
+            <p>Un estado presenta conflicto cuando no puede elegirse una única acción válida, por ejemplo entre <i>shift</i> y <i>reduce</i> o entre dos reducciones distintas.</p>
+        )"));
 }
 
 #include <QProcess>
 void MainWindow::on_idiom_clicked() {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(tr("Idioma"));
-    msgBox.setText(tr("Selecciona el idioma de la aplicación:"));
-    QPushButton* btnEs =
-        msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
-    btnEs->setObjectName("btnEs");
-    btnEs->setProperty("role", "primary");
-    QPushButton* btnEn =
-        msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
-    btnEn->setObjectName("btnEn");
-    btnEn->setProperty("role", "primary");
-    QPushButton* btnCanc =
-        msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
-    btnCanc->setObjectName("btnCanc");
-    btnCanc->setProperty("role", "danger");
-    msgBox.exec();
-
     QString selectedLang;
 
-    if (msgBox.clickedButton() == btnEs) {
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setWindowTitle(tr("Idioma"));
+    dialog.setModal(true);
+    dialog.resize(420, 220);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrow = new QLabel(tr("Idioma"), &dialog);
+    eyebrow->setObjectName("infoDialogEyebrow");
+
+    auto* title = new QLabel(tr("Selecciona el idioma de la aplicación"), &dialog);
+    title->setObjectName("infoDialogTitle");
+    title->setWordWrap(true);
+
+    auto* subtitle = new QLabel(
+        tr("El cambio se aplicará al reiniciar la aplicación."), &dialog);
+    subtitle->setObjectName("infoDialogSubtitle");
+    subtitle->setWordWrap(true);
+
+    auto* buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setSpacing(10);
+
+    auto* btnEs = new QPushButton(tr("Español"), &dialog);
+    btnEs->setCursor(Qt::PointingHandCursor);
+    btnEs->setProperty("role", "primary");
+
+    auto* btnEn = new QPushButton(tr("Inglés"), &dialog);
+    btnEn->setCursor(Qt::PointingHandCursor);
+    btnEn->setProperty("role", "primary");
+
+    auto* btnCanc = new QPushButton(tr("Cancelar"), &dialog);
+    btnCanc->setCursor(Qt::PointingHandCursor);
+    btnCanc->setProperty("role", "danger");
+
+    connect(btnEs, &QPushButton::clicked, &dialog, [&dialog, &selectedLang]() {
         selectedLang = "es";
-    } else if (msgBox.clickedButton() == btnEn) {
+        dialog.accept();
+    });
+    connect(btnEn, &QPushButton::clicked, &dialog, [&dialog, &selectedLang]() {
         selectedLang = "en";
-    } else {
+        dialog.accept();
+    });
+    connect(btnCanc, &QPushButton::clicked, &dialog, &QDialog::reject);
+
+    buttonsLayout->addWidget(btnEs);
+    buttonsLayout->addWidget(btnEn);
+    buttonsLayout->addStretch();
+    buttonsLayout->addWidget(btnCanc);
+
+    layout->addWidget(eyebrow);
+    layout->addWidget(title);
+    layout->addWidget(subtitle);
+    layout->addSpacing(6);
+    layout->addLayout(buttonsLayout);
+
+    if (dialog.exec() != QDialog::Accepted || selectedLang.isEmpty()) {
         return;
     }
 

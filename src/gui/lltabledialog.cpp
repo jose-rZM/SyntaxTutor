@@ -17,6 +17,7 @@
  */
 
 #include "lltabledialog.h"
+#include <QApplication>
 #include <QFontDatabase>
 #include <QStyledItemDelegate>
 
@@ -96,7 +97,18 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
 
     resize(width, height);
     connect(submitButton, &QPushButton::clicked, this,
-            [this]() { emit submitted(getTableData()); });
+            [this]() {
+                commitPendingEdit();
+                emit submitted(getTableData());
+            });
+}
+
+void LLTableDialog::commitPendingEdit() {
+    if (QWidget* editor = QApplication::focusWidget();
+        editor != nullptr && table->isAncestorOf(editor)) {
+        submitButton->setFocus(Qt::OtherFocusReason);
+        QApplication::processEvents();
+    }
 }
 
 QVector<QVector<QString>> LLTableDialog::getTableData() const {

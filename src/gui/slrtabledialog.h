@@ -75,6 +75,8 @@ class SLRTableDialog : public QDialog {
     void highlightInvalidCells(const QList<QPair<int, int>>& coords);
 
   private:
+    void commitPendingEdit();
+
     QTableWidget* table;        ///< Widget for editing the SLR(1) table.
     QPushButton*  submitButton; ///< Button used to validate/submit the table.
     QPushButton*  guidedButton; ///< Button to launch guided mode.

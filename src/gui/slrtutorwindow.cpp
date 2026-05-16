@@ -200,7 +200,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 
     // ====== UI Setup ==========================================
     ui->setupUi(this);
-    ui->backButton->setText(tr("Back"));
+    ui->backButton->setText(tr("Atras"));
 
     // -- Confirm Button: Icon + Shadow
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
@@ -267,10 +267,10 @@ void SLRTutorWindow::requestExit(bool applyResults) {
 
 bool SLRTutorWindow::confirmExitToHome() {
     QMessageBox msg(this);
-    msg.setWindowTitle(tr("Leave SLR(1) exercise"));
+    msg.setWindowTitle(tr("Salir del ejercicio SLR(1)"));
     msg.setTextFormat(Qt::RichText);
-    msg.setText(tr("Do you want to go back to the home page? This will discard "
-                   "your current progress."));
+    msg.setText(tr("Quieres volver al menu principal? Se perdera el progreso "
+                   "actual."));
     msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msg.setDefaultButton(QMessageBox::No);
 
@@ -278,7 +278,7 @@ bool SLRTutorWindow::confirmExitToHome() {
     QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
     if (yesBtn) {
-        yesBtn->setText(tr("Yes"));
+        yesBtn->setText(tr("Si"));
         yesBtn->setCursor(Qt::PointingHandCursor);
         yesBtn->setIcon(QIcon());
         yesBtn->setProperty("role", "primary");
@@ -313,7 +313,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
     <style>
     body {
-        font-family: sans-serif;
         font-size: 11pt;
         line-height: 1.6;
         margin: 20px;
@@ -351,7 +350,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     ul {
         padding-left: 20px;
         margin-bottom: 20px;
-        font-family: sans-serif;
         font-size: 11pt;
     }
     li {
@@ -849,7 +847,7 @@ void SLRTutorWindow::updateProgressPanel() {
 
     text += R"(
         <html>
-        <body style="font-family: sans-serif; color: #f0f0f0; background-color: #1e1e1e;">
+        <body style="color: #f0f0f0; background-color: #212526;">
     )";
 
     if (userMadeStates.empty()) {

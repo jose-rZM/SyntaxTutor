@@ -17,6 +17,7 @@
  */
 
 #include "slrtabledialog.h"
+#include <QApplication>
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QStyledItemDelegate>
@@ -112,9 +113,23 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     resize(width, height);
 
     connect(submitButton, &QPushButton::clicked, this,
-            [this]() { emit submitted(getTableData()); });
+            [this]() {
+                commitPendingEdit();
+                emit submitted(getTableData());
+            });
     connect(guidedButton, &QPushButton::clicked, this,
-            [this]() { emit guidedRequested(getTableData()); });
+            [this]() {
+                commitPendingEdit();
+                emit guidedRequested(getTableData());
+            });
+}
+
+void SLRTableDialog::commitPendingEdit() {
+    if (QWidget* editor = QApplication::focusWidget();
+        editor != nullptr && table->isAncestorOf(editor)) {
+        submitButton->setFocus(Qt::OtherFocusReason);
+        QApplication::processEvents();
+    }
 }
 
 QVector<QVector<QString>> SLRTableDialog::getTableData() const {
