@@ -340,7 +340,7 @@ QTextEdit#userResponse:disabled {
     border: 1px solid #444A4D;
 }
 
-QPushButton#confirmButton {
+QToolButton#confirmButton {
     background-color: #11B3BC;
     border: none;
     border-radius: 16px;
@@ -352,15 +352,15 @@ QPushButton#confirmButton {
     icon-size: 22px 22px;
 }
 
-QPushButton#confirmButton:hover {
+QToolButton#confirmButton:hover {
     background-color: #1AC4CD;
 }
 
-QPushButton#confirmButton:pressed {
+QToolButton#confirmButton:pressed {
     background-color: #0A9098;
 }
 
-QPushButton#confirmButton:disabled {
+QToolButton#confirmButton:disabled {
     background-color: #888888;
     color: #DDDDDD;
 }

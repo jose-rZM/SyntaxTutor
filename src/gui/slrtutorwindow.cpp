@@ -202,17 +202,14 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     ui->setupUi(this);
     ui->backButton->setText(tr("Atras"));
 
-    // -- Confirm Button: Icon + Shadow
+    // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
-    auto* shadow = new QGraphicsDropShadowEffect;
-    shadow->setBlurRadius(10);
-    shadow->setOffset(0);
-    shadow->setColor(QColor::fromRgb(0, 200, 214));
-    ui->confirmButton->setGraphicsEffect(shadow);
 
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->userResponse->setFixedHeight(48);
     ui->userResponse->setPlaceholderText(
         tr("Introduce aquí tu respuesta. Ctrl + Enter para nueva línea."));
+    ui->confirmButton->setFixedSize(48, 48);
 
     // -- Chat Appearance
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -3089,17 +3086,8 @@ void SLRTutorWindow::on_userResponse_textChanged() {
     int padding       = 20;
     int desiredHeight = lineCount * lineHeight + padding;
 
-    const int minHeight = 45;
-    ui->userResponse->setMinimumHeight(minHeight);
-
-    QPropertyAnimation* animation =
-        new QPropertyAnimation(ui->userResponse, "minimumHeight");
-    animation->setDuration(120);
-    animation->setStartValue(ui->userResponse->height());
-    animation->setEndValue(std::max(minHeight, desiredHeight));
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-    ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+    const int minHeight = 48;
+    ui->userResponse->setFixedHeight(std::max(minHeight, desiredHeight));
 }
 
 QString

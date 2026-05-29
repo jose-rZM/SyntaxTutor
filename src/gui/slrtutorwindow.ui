@@ -202,8 +202,8 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>45</height>
+           <width>0</width>
+           <height>48</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -215,7 +215,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="confirmButton">
+        <widget class="QToolButton" name="confirmButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>

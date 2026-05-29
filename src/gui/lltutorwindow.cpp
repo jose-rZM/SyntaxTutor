@@ -118,17 +118,14 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->setupUi(this);
     ui->backButton->setText(tr("Atras"));
 
-    // -- Confirm Button Icon & Shadow
+    // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
-    auto* shadow = new QGraphicsDropShadowEffect;
-    shadow->setBlurRadius(10);
-    shadow->setOffset(0);
-    shadow->setColor(QColor::fromRgb(0, 200, 214));
-    ui->confirmButton->setGraphicsEffect(shadow);
 
     // -- User Response Box
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->userResponse->setFixedHeight(48);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
+    ui->confirmButton->setFixedSize(48, 48);
 
     // -- Chat Font
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -1991,21 +1988,8 @@ void LLTutorWindow::on_userResponse_textChanged() {
     int padding       = 20;
     int desiredHeight = lineCount * lineHeight + padding;
 
-    // Establecer mínimo fijo (respetado por el layout)
-    const int minHeight = 45;
-    ui->userResponse->setMinimumHeight(minHeight);
-
-    // Animar el cambio de altura real
-    QPropertyAnimation* animation =
-        new QPropertyAnimation(ui->userResponse, "minimumHeight");
-    animation->setDuration(120);
-    animation->setStartValue(ui->userResponse->height());
-    animation->setEndValue(
-        std::max(minHeight, desiredHeight)); // nunca menos de minHeight
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-    // Establece también el máximo para limitar el crecimiento
-    ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+    const int minHeight = 48;
+    ui->userResponse->setFixedHeight(std::max(minHeight, desiredHeight));
 }
 
 void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
