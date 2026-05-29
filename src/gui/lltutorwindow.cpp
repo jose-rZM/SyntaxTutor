@@ -43,6 +43,44 @@ QString NormalizeProductionCell(const QString& cell) {
     return normalized;
 }
 
+QStringList ParseProductionCell(Grammar& grammar, const QString& cell) {
+    const QString trimmed = cell.trimmed();
+    if (trimmed.isEmpty()) {
+        return {};
+    }
+
+    const QStringList spacedTokens =
+        trimmed.split(kCellWhitespace, Qt::SkipEmptyParts);
+    if (!spacedTokens.isEmpty()) {
+        bool allKnown = true;
+        for (const QString& token : spacedTokens) {
+            if (!grammar.st_.In(token.toStdString())) {
+                allKnown = false;
+                break;
+            }
+        }
+
+        if (allKnown) {
+            return spacedTokens;
+        }
+    }
+
+    const QString normalized = NormalizeProductionCell(trimmed);
+    if (normalized.isEmpty()) {
+        return {};
+    }
+
+    QStringList production;
+    for (const std::string& symbol : grammar.Split(normalized.toStdString())) {
+        production.append(QString::fromStdString(symbol));
+    }
+    if (!production.isEmpty()) {
+        return production;
+    }
+
+    return {normalized};
+}
+
 ParsedSymbols ParseSymbolList(const QString& input) {
     ParsedSymbols parsed;
     const QString text     = input.trimmed();
@@ -78,29 +116,28 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
 
     // ====== UI Setup ==========================================
     ui->setupUi(this);
-    ui->backButton->setText(tr("Back"));
+    ui->backButton->setText(tr("Atras"));
 
-    // -- Confirm Button Icon & Shadow
+    // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
-    auto* shadow = new QGraphicsDropShadowEffect;
-    shadow->setBlurRadius(10);
-    shadow->setOffset(0);
-    shadow->setColor(QColor::fromRgb(0, 200, 214));
-    ui->confirmButton->setGraphicsEffect(shadow);
 
     // -- User Response Box
     ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->userResponse->setFixedHeight(48);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
+    ui->confirmButton->setFixedSize(48, 48);
 
     // -- Chat Font
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
+    ui->listWidget->viewport()->installEventFilter(this);
 
     // ====== Grammar Display & Formatting ======================
     formattedGrammar = FormatGrammar(this->grammar);
     grammarView = new GrammarView(ui->gr);
     grammarView->setRows(buildGrammarRows(this->grammar));
     ui->gr->setWidget(grammarView);
+    ui->gr->setFixedWidth(grammarView->sizeHint().width() + 32);
     ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     sortedNonTerminals =
@@ -146,10 +183,10 @@ void LLTutorWindow::requestExit(bool applyResults) {
 
 bool LLTutorWindow::confirmExitToHome() {
     QMessageBox msg(this);
-    msg.setWindowTitle(tr("Leave LL(1) exercise"));
+    msg.setWindowTitle(tr("Salir del ejercicio LL(1)"));
     msg.setTextFormat(Qt::RichText);
-    msg.setText(tr("Do you want to go back to the home page? This will discard "
-                   "your current progress."));
+    msg.setText(tr("Quieres volver al menu principal? Se perdera el progreso "
+                   "actual."));
     msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msg.setDefaultButton(QMessageBox::No);
 
@@ -157,7 +194,7 @@ bool LLTutorWindow::confirmExitToHome() {
     QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
     if (yesBtn) {
-        yesBtn->setText(tr("Yes"));
+        yesBtn->setText(tr("Si"));
         yesBtn->setCursor(Qt::PointingHandCursor);
         yesBtn->setIcon(QIcon());
         yesBtn->setProperty("role", "primary");
@@ -192,7 +229,6 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += R"(
     <style>
     body {
-        font-family: sans-serif;
         font-size: 11pt;
         line-height: 1.6;
         margin: 20px;
@@ -230,7 +266,6 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
     ul {
         padding-left: 20px;
         margin-bottom: 20px;
-        font-family: sans-serif;
         font-size: 11pt;
     }
     li {
@@ -375,7 +410,7 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = R"(
         <html>
-        <body style="font-family: sans-serif; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
+        <body style="font-size: 11pt; color: #f0f0f0; background-color: #212526;">
     )";
 
     // === CABECERAS (First) ===
@@ -426,6 +461,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     }
 
     QWidget*     messageWidget = new QWidget;
+    messageWidget->setProperty("chatMessage", true);
     QVBoxLayout* mainLayout    = new QVBoxLayout;
     mainLayout->setSpacing(2);
     mainLayout->setContentsMargins(10, 5, 10, 5);
@@ -442,19 +478,22 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     innerLayout->setSpacing(0);
 
     QLabel* label = new QLabel(messageText);
+    label->setProperty("chatBubble", true);
+    label->setProperty("chatText", messageText);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
+    const int listWidth      = qMax(0, ui->listWidget->viewport()->width());
+    const int bubbleMaxWidth = qMax(180, listWidth - 72);
+
     QFontMetrics fm(label->font());
-    int          textWidth = fm.boundingRect(0, 0, ui->listWidget->width(), 0,
+    int          textWidth = fm.boundingRect(0, 0, bubbleMaxWidth, 0,
                                              Qt::TextWordWrap, text)
                         .width();
 
-    int maxWidth      = ui->listWidget->width() * 0.8;
-    int adjustedWidth = qMin(textWidth + 32, maxWidth);
-    label->setMaximumWidth(adjustedWidth);
-    label->setMinimumWidth(300);
+    int adjustedWidth = qBound(80, textWidth + 32, bubbleMaxWidth);
+    label->setFixedWidth(adjustedWidth);
 
     if (isUser) {
         if (text.isEmpty()) {
@@ -523,7 +562,8 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     messageWidget->updateGeometry();
 
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    item->setSizeHint(messageWidget->sizeHint());
+    item->setSizeHint(
+        QSize(qMax(0, listWidth - 2), messageWidget->sizeHint().height()));
 
     if (isUser) {
         lastUserMessage = messageWidget;
@@ -531,6 +571,7 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
+    relayoutChatMessages();
     ui->listWidget->update();
     ui->listWidget->scrollToBottom();
 }
@@ -560,17 +601,12 @@ void LLTutorWindow::showTableForCPrime() {
 
                     for (int j = 0; j < rawTable[i].size(); ++j) {
                         const QString& colHeader = colHeaders[j];
-                        QString&       cell      = rawTable[i][j];
-                        cell = NormalizeProductionCell(cell);
-                        if (cell.isEmpty()) {
+                        QString& cell = rawTable[i][j];
+                        if (cell.trimmed().isEmpty()) {
                             continue;
                         }
-                        QStringList production = stdVectorToQVector(
-                            ll1.gr_.Split(cell.toStdString()));
-                        if (production.empty()) {
-                            // Split could not process the string
-                            production = {cell};
-                        }
+                        QStringList production = ParseProductionCell(ll1.gr_, cell);
+                        cell = production.join(" ");
                         lltable[rowHeader][colHeader] = production;
                     }
                 }
@@ -632,14 +668,11 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         const auto& rowH = sortedNonTerminals[i];
         for (int j = 0; j < raw[i].size(); ++j) {
             const auto& colH = colHeaders[j];
-            QString&    cell = rawTable[i][j];
-            cell             = NormalizeProductionCell(cell);
-            if (cell.isEmpty())
+            QString& cell = rawTable[i][j];
+            if (cell.trimmed().isEmpty())
                 continue;
-            QStringList prod =
-                stdVectorToQVector(ll1.gr_.Split(cell.toStdString()));
-            if (prod.empty())
-                prod = {cell};
+            QStringList prod = ParseProductionCell(ll1.gr_, cell);
+            cell             = prod.join(" ");
             lltable[rowH][colH] = prod;
         }
     }
@@ -1364,7 +1397,7 @@ QString LLTutorWindow::feedback() {
 
     // ====== Fallback case ======
     default:
-        return "No feedback provided.";
+        return tr("No se ha generado retroalimentacion.");
     }
 }
 
@@ -1724,10 +1757,47 @@ void LLTutorWindow::addGrammarMessage() {
     mainLayout->addLayout(bubbleLayout);
 
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    item->setSizeHint(messageWidget->sizeHint());
+    const int listWidth = qMax(0, ui->listWidget->viewport()->width());
+    item->setSizeHint(
+        QSize(qMax(0, listWidth - 2), messageWidget->sizeHint().height()));
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
+    relayoutChatMessages();
     ui->listWidget->scrollToBottom();
+}
+
+void LLTutorWindow::relayoutChatMessages() {
+    const int listWidth = ui->listWidget->viewport()->width();
+    if (listWidth <= 0) {
+        return;
+    }
+
+    const int bubbleMaxWidth = qMax(180, listWidth - 72);
+
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        auto* item    = ui->listWidget->item(i);
+        auto* widget  = ui->listWidget->itemWidget(item);
+        if (!widget) {
+            continue;
+        }
+
+        const auto labels = widget->findChildren<QLabel*>();
+        for (auto* label : labels) {
+            if (!label->property("chatBubble").toBool()) {
+                continue;
+            }
+
+            const QString text = label->property("chatText").toString();
+            QFontMetrics   fm(label->font());
+            const int textWidth =
+                fm.boundingRect(0, 0, bubbleMaxWidth, 0, Qt::TextWordWrap, text)
+                    .width();
+            label->setFixedWidth(qBound(80, textWidth + 32, bubbleMaxWidth));
+        }
+
+        widget->updateGeometry();
+        item->setSizeHint(QSize(listWidth - 2, widget->sizeHint().height()));
+    }
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget* widget) {
@@ -1963,21 +2033,8 @@ void LLTutorWindow::on_userResponse_textChanged() {
     int padding       = 20;
     int desiredHeight = lineCount * lineHeight + padding;
 
-    // Establecer mínimo fijo (respetado por el layout)
-    const int minHeight = 45;
-    ui->userResponse->setMinimumHeight(minHeight);
-
-    // Animar el cambio de altura real
-    QPropertyAnimation* animation =
-        new QPropertyAnimation(ui->userResponse, "minimumHeight");
-    animation->setDuration(120);
-    animation->setStartValue(ui->userResponse->height());
-    animation->setEndValue(
-        std::max(minHeight, desiredHeight)); // nunca menos de minHeight
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-    // Establece también el máximo para limitar el crecimiento
-    ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
+    const int minHeight = 48;
+    ui->userResponse->setFixedHeight(std::max(minHeight, desiredHeight));
 }
 
 void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
@@ -2183,6 +2240,10 @@ void LLTutorWindow::drawTree(const std::unique_ptr<TreeNode>& root,
 
 #include <QWheelEvent>
 bool LLTutorWindow::eventFilter(QObject* obj, QEvent* event) {
+    if (obj == ui->listWidget->viewport() && event->type() == QEvent::Resize) {
+        QTimer::singleShot(0, this, [this]() { relayoutChatMessages(); });
+    }
+
     if (auto* view = qobject_cast<QGraphicsView*>(obj)) {
         if (event->type() == QEvent::Wheel) {
             QWheelEvent* wheelEvent = static_cast<QWheelEvent*>(event);

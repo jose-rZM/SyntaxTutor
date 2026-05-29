@@ -223,6 +223,8 @@ class LLTutorWindow : public QWidget {
     bool eventFilter(QObject* obj, QEvent* event) override;
 
   private:
+    void relayoutChatMessages();
+
     // ====== Core Objects ======================================
     Ui::LLTutorWindow* ui;
     Grammar            grammar;

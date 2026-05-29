@@ -83,6 +83,8 @@ class LLTableDialog : public QDialog {
     void submitted(const QVector<QVector<QString>>& data);
 
   private:
+    void commitPendingEdit();
+
     QTableWidget* table; ///< The widget representing the LL(1) parsing table.
     QPushButton*  submitButton; ///< Button to submit the completed table.
 };
