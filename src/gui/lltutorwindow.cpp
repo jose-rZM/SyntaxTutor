@@ -137,7 +137,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     grammarView = new GrammarView(ui->gr);
     grammarView->setRows(buildGrammarRows(this->grammar));
     ui->gr->setWidget(grammarView);
-    ui->gr->setMinimumWidth(grammarView->sizeHint().width() + 32);
+    ui->gr->setFixedWidth(grammarView->sizeHint().width() + 32);
     ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     sortedNonTerminals =
