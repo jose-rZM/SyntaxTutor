@@ -214,6 +214,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // -- Chat Appearance
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
+    ui->listWidget->viewport()->installEventFilter(this);
 
     // ====== Grammar Formatting =================================
     sortedNonTerminals =
@@ -926,6 +927,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
         lastUserMessageLogIdx = conversationLog.size() - 1;
     }
     QWidget*     messageWidget = new QWidget;
+    messageWidget->setProperty("chatMessage", true);
     QVBoxLayout* mainLayout    = new QVBoxLayout;
     mainLayout->setSpacing(2);
     mainLayout->setContentsMargins(10, 5, 10, 5);
@@ -942,19 +944,22 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     innerLayout->setSpacing(0);
 
     QLabel* label = new QLabel(messageText);
+    label->setProperty("chatBubble", true);
+    label->setProperty("chatText", messageText);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
+    const int listWidth      = qMax(0, ui->listWidget->viewport()->width());
+    const int bubbleMaxWidth = qMax(180, listWidth - 72);
+
     QFontMetrics fm(label->font());
-    int          textWidth = fm.boundingRect(0, 0, ui->listWidget->width(), 0,
+    int          textWidth = fm.boundingRect(0, 0, bubbleMaxWidth, 0,
                                              Qt::TextWordWrap, text)
                         .width();
 
-    int maxWidth      = ui->listWidget->width() * 0.8;
-    int adjustedWidth = qMin(textWidth + 32, maxWidth);
-    label->setMaximumWidth(adjustedWidth);
-    label->setMinimumWidth(300);
+    int adjustedWidth = qBound(80, textWidth + 32, bubbleMaxWidth);
+    label->setFixedWidth(adjustedWidth);
 
     if (isUser) {
         if (text.isEmpty()) {
@@ -1023,7 +1028,8 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     messageWidget->updateGeometry();
 
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    item->setSizeHint(messageWidget->sizeHint());
+    item->setSizeHint(
+        QSize(qMax(0, listWidth - 2), messageWidget->sizeHint().height()));
 
     if (isUser) {
         lastUserMessage = messageWidget;
@@ -1031,6 +1037,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
+    relayoutChatMessages();
     ui->listWidget->update();
     ui->listWidget->scrollToBottom();
 }
@@ -1091,10 +1098,55 @@ void SLRTutorWindow::addGrammarMessage() {
     mainLayout->addLayout(bubbleLayout);
 
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    item->setSizeHint(messageWidget->sizeHint());
+    const int listWidth = qMax(0, ui->listWidget->viewport()->width());
+    item->setSizeHint(
+        QSize(qMax(0, listWidth - 2), messageWidget->sizeHint().height()));
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
+    relayoutChatMessages();
     ui->listWidget->scrollToBottom();
+}
+
+void SLRTutorWindow::relayoutChatMessages() {
+    const int listWidth = ui->listWidget->viewport()->width();
+    if (listWidth <= 0) {
+        return;
+    }
+
+    const int bubbleMaxWidth = qMax(180, listWidth - 72);
+
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        auto* item   = ui->listWidget->item(i);
+        auto* widget = ui->listWidget->itemWidget(item);
+        if (!widget) {
+            continue;
+        }
+
+        const auto labels = widget->findChildren<QLabel*>();
+        for (auto* label : labels) {
+            if (!label->property("chatBubble").toBool()) {
+                continue;
+            }
+
+            const QString text = label->property("chatText").toString();
+            QFontMetrics   fm(label->font());
+            const int textWidth =
+                fm.boundingRect(0, 0, bubbleMaxWidth, 0, Qt::TextWordWrap, text)
+                    .width();
+            label->setFixedWidth(qBound(80, textWidth + 32, bubbleMaxWidth));
+        }
+
+        widget->updateGeometry();
+        item->setSizeHint(QSize(listWidth - 2, widget->sizeHint().height()));
+    }
+}
+
+bool SLRTutorWindow::eventFilter(QObject* obj, QEvent* event) {
+    if (obj == ui->listWidget->viewport() && event->type() == QEvent::Resize) {
+        QTimer::singleShot(0, this, [this]() { relayoutChatMessages(); });
+    }
+
+    return QWidget::eventFilter(obj, event);
 }
 
 void SLRTutorWindow::wrongAnimation() {

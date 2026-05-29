@@ -237,7 +237,11 @@ class SLRTutorWindow : public QWidget {
         QWidget::closeEvent(event);
     }
 
+    bool eventFilter(QObject* obj, QEvent* event) override;
+
   private:
+    void relayoutChatMessages();
+
     // ====== Helper Functions ======================================
     std::vector<std::string> qvectorToStdVector(const QVector<QString>& qvec);
     QVector<QString> stdVectorToQVector(const std::vector<std::string>& vec);
