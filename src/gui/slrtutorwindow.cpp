@@ -232,6 +232,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     grammarView = new GrammarView(ui->gr);
     grammarView->setRows(buildGrammarRows(grammar));
     ui->gr->setWidget(grammarView);
+    ui->gr->setMinimumWidth(grammarView->sizeHint().width() + 32);
     ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     // ====== Status, Progress & First Message ===================
