@@ -38,7 +38,9 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
                                QVector<QVector<QString>>* initialData)
     : QDialog(parent) {
     setProperty("tableDialog", true);
+    setObjectName("slrTableDialog");
     table = new QTableWidget(rowCount, colCount, this);
+    table->setObjectName("slrTableWidget");
     table->horizontalHeader()->setFont(table->font());
     table->verticalHeader()->setFont(table->font());
     table->setHorizontalHeaderLabels(colHeaders);
@@ -65,11 +67,13 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton = new QPushButton(tr("Finalizar"), this);
+    submitButton->setObjectName("slrTableSubmitButton");
     submitButton->setFont(submitButton->font());
     submitButton->setCursor(Qt::PointingHandCursor);
     submitButton->setProperty("role", "primary");
 
     guidedButton = new QPushButton(tr("Modo guiado"), this);
+    guidedButton->setObjectName("slrTableGuidedButton");
     guidedButton->setFont(guidedButton->font());
     guidedButton->setCursor(Qt::PointingHandCursor);
     guidedButton->setProperty("role", "primary");

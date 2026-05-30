@@ -266,32 +266,31 @@ Steps:
 
 ---
 
-### SLR1-TC-18 - State H table incorrect -> H' wizard, cancel flows
+### SLR1-TC-18 - State H incorrect table + guided mode
 Preconditions:
 - SLR(1) tutor at State H (table dialog opens).
 
 Steps:
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Fill the table incorrectly and click `Finalizar`. | Wrong counter increments; State H' wizard opens. |
-| 2 | In the wizard, click `Cancel`. | Confirmation dialog appears. |
-| 3 | Select `No`. | Wizard closes; tutor returns to State H and the table dialog opens again. |
-| 4 | In the wizard again, click `Cancel` and select `Yes`. | Tutor window closes. |
+| 1 | Fill the table incorrectly and click `Finalizar`. | Incorrect cells are highlighted in red; an information message is shown; the table dialog stays open in State H. |
+| 2 | Click `Modo guiado`. | The guided wizard opens. |
+| 3 | Complete the wizard and click `Finish`. | The wizard closes and the table dialog remains available in State H. |
 
 ---
 
-### SLR1-TC-19 - State H correct path + PDF export (Yes/No)
+### SLR1-TC-19 - State H correct path + PDF export
 Preconditions:
 - Start a new SLR(1) session and reach State H.
 
 Steps:
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Fill the table incorrectly and click `Finalizar`. | Wrong counter increments; State H' wizard opens. |
-| 2 | Complete the wizard and click `Finish`. | Tutor returns to State H and the table dialog opens again. |
-| 3 | Fill the table correctly and click `Finalizar`. | Tutor reaches final state; export prompt appears. |
-| 4 | Select `Yes`, choose a path, and confirm. | PDF is created at the selected path and is non-empty. |
-| 5 | Start a new SLR(1) session, reach final state again, and select `No`. | Tutor closes without creating a new PDF. |
+| 1 | Optionally click `Modo guiado` and complete the wizard. | The wizard closes and the table dialog remains available in State H. |
+| 2 | Fill the table correctly and click `Finalizar`. | Tutor reaches final state; final action buttons appear. |
+| 3 | Click `Exportar PDF`, choose a path, and confirm. | PDF is created at the selected path and is non-empty. |
+| 4 | Start a new SLR(1) session, reach final state again, and click `Salir`. | Tutor closes without creating a new PDF. |
+
 
 ---
 

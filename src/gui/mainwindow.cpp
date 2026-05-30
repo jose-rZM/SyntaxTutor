@@ -31,6 +31,14 @@
 
 namespace {
 
+#ifdef SYNTAXTUTOR_TESTING
+constexpr auto kSettingsOrg = "UMA-Test";
+constexpr auto kSettingsApp = "SyntaxTutor-Test";
+#else
+constexpr auto kSettingsOrg = "UMA";
+constexpr auto kSettingsApp = "SyntaxTutor";
+#endif
+
 void showInfoDialog(QWidget* parent, const QString& windowTitle,
                     const QString& eyebrow, const QString& title,
                     const QString& html) {
@@ -81,7 +89,7 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
-      settings("UMA", "SyntaxTutor") {
+      settings(kSettingsOrg, kSettingsApp) {
     factory.Init();
     ui->setupUi(this);
     ui->homeEyebrow->setText(tr("Tutores interactivos"));
@@ -688,14 +696,17 @@ void MainWindow::on_idiom_clicked() {
     buttonsLayout->setSpacing(10);
 
     auto* btnEs = new QPushButton(tr("Español"), &dialog);
+    btnEs->setObjectName("languageSpanishButton");
     btnEs->setCursor(Qt::PointingHandCursor);
     btnEs->setProperty("role", "primary");
 
     auto* btnEn = new QPushButton(tr("Inglés"), &dialog);
+    btnEn->setObjectName("languageEnglishButton");
     btnEn->setCursor(Qt::PointingHandCursor);
     btnEn->setProperty("role", "primary");
 
     auto* btnCanc = new QPushButton(tr("Cancelar"), &dialog);
+    btnCanc->setObjectName("languageCancelButton");
     btnCanc->setCursor(Qt::PointingHandCursor);
     btnCanc->setProperty("role", "danger");
 
@@ -724,8 +735,7 @@ void MainWindow::on_idiom_clicked() {
         return;
     }
 
-    QSettings settings("UMA", "SyntaxTutor");
-    QString   currentLang = settings.value("lang/language", "es").toString();
+    QString currentLang = settings.value("lang/language", "es").toString();
 
     if (selectedLang != currentLang) {
         settings.setValue("lang/language", selectedLang);
@@ -737,7 +747,9 @@ void MainWindow::on_idiom_clicked() {
         info.setStandardButtons(QMessageBox::Ok);
         info.exec();
 
+#ifndef SYNTAXTUTOR_TESTING
         qApp->quit();
         QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+#endif
     }
 }

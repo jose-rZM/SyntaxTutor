@@ -138,7 +138,7 @@ Preconditions:
 Steps:
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Select `Yes` to export. | File picker opens. |
+| 1 | Click `Exportar PDF`. | File picker opens. |
 | 2 | Choose a path and confirm. | PDF is created at the selected path. |
 | 3 | Open the PDF. | PDF is non-empty and contains the expected conversation/summary. |
 

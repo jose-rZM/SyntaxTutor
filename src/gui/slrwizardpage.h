@@ -61,6 +61,7 @@ class SLRWizardPage : public QWizardPage {
         lbl->setWordWrap(true);
 
         m_edit = new QLineEdit(this);
+        m_edit->setObjectName("slrWizardAnswerEdit");
         m_edit->setPlaceholderText(
             tr("Escribe tu respuesta (p.ej. s3, r2, acc, 5)"));
 
@@ -72,6 +73,9 @@ class SLRWizardPage : public QWizardPage {
         connect(m_edit, &QLineEdit::textChanged, this,
                 &SLRWizardPage::onTextChanged);
     }
+#ifdef SYNTAXTUTOR_TESTING
+    QString expectedForTest() const { return m_expected; }
+#endif
   private slots:
     /**
      * @brief Checks the user's input and enables the "Next" button only if

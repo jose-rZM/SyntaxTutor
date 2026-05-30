@@ -205,6 +205,18 @@ class LLTutorWindow : public QWidget {
                                const QStringList&               colHeaders);
     void updatePlaceholder();
     bool confirmExitToHome();
+    QString promptExportFilePath() const;
+#ifdef SYNTAXTUTOR_TESTING
+  public:
+    QString     currentStateForTest() const;
+    QString     currentRuleAntecedentForTest() const;
+    QStringList currentRuleConsequentForTest() const;
+    int         rightCountForTest() const;
+    int         wrongCountForTest() const;
+    void        setAnswerForTest(const QString& text);
+    void        submitForTest();
+    void        setNextExportFilePathForTest(const QString& filePath);
+#endif
   private slots:
     void on_backButton_clicked();
     void on_confirmButton_clicked();
@@ -288,6 +300,10 @@ class LLTutorWindow : public QWidget {
                  // key
 
     TutorialManager* tm = nullptr;
+
+#ifdef SYNTAXTUTOR_TESTING
+    mutable QString nextExportFilePathForTest;
+#endif
 
     const QRegularExpression kRe{"^\\s+|\\s+$"};
     const QRegularExpression kWhitespace{"\\s+"};
