@@ -210,6 +210,32 @@ bool LLTutorWindow::confirmExitToHome() {
     return msg.exec() == QMessageBox::Yes;
 }
 
+QString LLTutorWindow::promptExportFilePath() const {
+#ifdef SYNTAXTUTOR_TESTING
+    if (!nextExportFilePathForTest.isEmpty()) {
+        const QString filePath = nextExportFilePathForTest;
+        nextExportFilePathForTest.clear();
+        return filePath;
+    }
+#endif
+
+    QFileDialog dialog(const_cast<LLTutorWindow*>(this),
+                       tr("Guardar conversación"), "conver.pdf",
+                       tr("Archivo PDF (*.pdf)"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.selectFile("conver.pdf");
+    dialog.setObjectName("llTutorExportFileDialog");
+#ifdef SYNTAXTUTOR_TESTING
+    dialog.setOption(QFileDialog::DontUseNativeDialog, true);
+#endif
+    if (dialog.exec() != QDialog::Accepted) {
+        return {};
+    }
+
+    return dialog.selectedFiles().value(0);
+}
+
 void LLTutorWindow::on_backButton_clicked() {
     if (confirmExitToHome()) {
         requestExit(false);
@@ -910,10 +936,12 @@ void LLTutorWindow::on_confirmButton_clicked() {
         layout->setSpacing(10);
 
         auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+        exportBtn->setObjectName("llTutorExportPdfButton");
         exportBtn->setCursor(Qt::PointingHandCursor);
         exportBtn->setProperty("role", "primary");
 
         auto* exitBtn = new QPushButton(tr("Salir"), actions);
+        exitBtn->setObjectName("llTutorExitButton");
         exitBtn->setCursor(Qt::PointingHandCursor);
         exitBtn->setProperty("role", "danger");
 
@@ -921,9 +949,7 @@ void LLTutorWindow::on_confirmButton_clicked() {
         layout->addWidget(exitBtn);
 
         connect(exportBtn, &QPushButton::clicked, this, [this]() {
-            const QString filePath = QFileDialog::getSaveFileName(
-                this, tr("Guardar conversación"), "conver.pdf",
-                tr("Archivo PDF (*.pdf)"));
+            const QString filePath = promptExportFilePath();
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
@@ -1158,6 +1184,77 @@ void LLTutorWindow::updatePlaceholder() {
     }
     ui->userResponse->setPlaceholderText(text);
 }
+
+#ifdef SYNTAXTUTOR_TESTING
+QString LLTutorWindow::currentStateForTest() const {
+    switch (currentState) {
+    case State::A:
+        return "A";
+    case State::A1:
+        return "A1";
+    case State::A2:
+        return "A2";
+    case State::A_prime:
+        return "A'";
+    case State::B:
+        return "B";
+    case State::B1:
+        return "B1";
+    case State::B2:
+        return "B2";
+    case State::B_prime:
+        return "B'";
+    case State::C:
+        return "C";
+    case State::C_prime:
+        return "C'";
+    case State::fin:
+        return "fin";
+    }
+
+    return {};
+}
+
+QString LLTutorWindow::currentRuleAntecedentForTest() const {
+    if (static_cast<qsizetype>(currentRule) >= sortedGrammar.size()) {
+        return {};
+    }
+
+    return sortedGrammar.at(currentRule).first;
+}
+
+QStringList LLTutorWindow::currentRuleConsequentForTest() const {
+    if (static_cast<qsizetype>(currentRule) >= sortedGrammar.size()) {
+        return {};
+    }
+
+    QStringList consequent;
+    for (const QString& symbol : sortedGrammar.at(currentRule).second) {
+        consequent.append(symbol);
+    }
+    return consequent;
+}
+
+int LLTutorWindow::rightCountForTest() const {
+    return static_cast<int>(cntRightAnswers);
+}
+
+int LLTutorWindow::wrongCountForTest() const {
+    return static_cast<int>(cntWrongAnswers);
+}
+
+void LLTutorWindow::setAnswerForTest(const QString& text) {
+    ui->userResponse->setPlainText(text);
+}
+
+void LLTutorWindow::submitForTest() {
+    on_confirmButton_clicked();
+}
+
+void LLTutorWindow::setNextExportFilePathForTest(const QString& filePath) {
+    nextExportFilePathForTest = filePath;
+}
+#endif
 
 /************************************************************
  *                  VERIFY USER RESPONSE                    *
