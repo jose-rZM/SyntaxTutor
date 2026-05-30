@@ -20,6 +20,8 @@ class TutorWindowTest : public QObject {
     void exitButtonFinishesWithoutExport();
     void exportsConversationToPdf();
     void smokeGuiFindsCoreWidgets();
+    void llAcceptsFlexibleUserFormatting();
+    void llAcceptsFlexibleTableCellFormatting();
 
     void slrCreatesTutorWithNullTutorialManager();
     void slrStateAErrorPathAdvancesThroughAprime();
@@ -39,6 +41,8 @@ class TutorWindowTest : public QObject {
     void slrTableDialogCancelNoReopensAndYesRequestsExit();
     void slrFinalTableCorrectPathExportsAndExits();
     void slrSmokeGuiFindsCoreWidgets();
+    void slrAcceptsFlexibleUserFormatting();
+    void slrAcceptsFlexibleTableCellFormatting();
 
     void mainInitialUiIsVisibleAndEnabled();
     void mainSwitchLanguageToEnglishPersistsSelection();

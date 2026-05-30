@@ -68,6 +68,23 @@ void installLanguageTranslator(QTranslator& translator, const QString& langCode)
 
 } // namespace
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-01
+// Summary:
+//   Verifies that the main window appears correctly with its primary entry
+//   controls and gamification indicators visible.
+//
+// Situation:
+//   Application freshly opened on the home screen with empty test settings.
+//
+// Action:
+//   The test shows `MainWindow` and locates the main buttons, progress bar,
+//   level badge, and score label.
+//
+// Expected:
+//   The window is visible without errors, the controls are enabled, and the
+//   initial state is consistent.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainInitialUiIsVisibleAndEnabled() {
     clearTestAppSettings();
 
@@ -95,6 +112,23 @@ void TutorWindowTest::mainInitialUiIsVisibleAndEnabled() {
     QCOMPARE(progressBar->value(), 0);
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-02
+// Summary:
+//   Checks the language switch to English and persistence of the selected
+//   preference.
+//
+// Situation:
+//   Main window open in the default language and using isolated test settings.
+//
+// Action:
+//   The user opens the language selector, chooses English, and confirms the
+//   informational message.
+//
+// Expected:
+//   The `en` selection is stored and a newly opened window can use that saved
+//   preference.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainSwitchLanguageToEnglishPersistsSelection() {
     clearTestAppSettings();
 
@@ -128,6 +162,23 @@ void TutorWindowTest::mainSwitchLanguageToEnglishPersistsSelection() {
     qApp->removeTranslator(&translator);
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-03
+// Summary:
+//   Checks the language switch back to Spanish from a state where English was
+//   previously selected.
+//
+// Situation:
+//   Main window open with the `en` preference already stored in test settings.
+//
+// Action:
+//   The user opens the language selector, chooses Spanish, and confirms the
+//   informational message.
+//
+// Expected:
+//   The `es` selection is stored and a newly opened window shows the main text
+//   in Spanish again.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainSwitchLanguageToSpanishPersistsSelection() {
     clearTestAppSettings();
     testAppSettings().setValue("lang/language", "en");
@@ -162,6 +213,20 @@ void TutorWindowTest::mainSwitchLanguageToSpanishPersistsSelection() {
     QCOMPARE(difficultyTitle->text(), QString("Dificultad"));
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-04
+// Summary:
+//   Verifies that the About dialog presents the application's main metadata.
+//
+// Situation:
+//   Main window open with the menu actions available.
+//
+// Action:
+//   The user opens the `About the app` action.
+//
+// Expected:
+//   The dialog shows author, license, and repository information.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainAboutDialogShowsMetadata() {
     clearTestAppSettings();
 
@@ -190,6 +255,22 @@ void TutorWindowTest::mainAboutDialogShowsMetadata() {
     QVERIFY(contentVerified);
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-05
+// Summary:
+//   Checks that the LL(1) and SLR(1) quick references open and return to the
+//   main flow without errors.
+//
+// Situation:
+//   Main window open with the reference menu actions available.
+//
+// Action:
+//   The user opens the LL(1) reference, closes it, and repeats the process for
+//   the SLR(1) reference.
+//
+// Expected:
+//   Both dialogs appear with the correct title and can be closed normally.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainQuickReferencesOpen() {
     clearTestAppSettings();
 
@@ -228,6 +309,21 @@ void TutorWindowTest::mainQuickReferencesOpen() {
     QVERIFY(slrSeen);
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-01, MAIN-TC-09
+// Summary:
+//   Verifies that the LL(1) and SLR(1) entry points on the home screen open the
+//   corresponding tutor windows.
+//
+// Situation:
+//   Main window in its initial state with navigation enabled.
+//
+// Action:
+//   The user presses `LL(1)` in one window and `SLR(1)` in another.
+//
+// Expected:
+//   The matching tutor window is created in each case.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainLlAndSlrEntryPointsOpenTutors() {
     clearTestAppSettings();
 
@@ -242,6 +338,22 @@ void TutorWindowTest::mainLlAndSlrEntryPointsOpenTutors() {
     QTRY_VERIFY(slrWindow.findChild<SLRTutorWindow*>() != nullptr);
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-06
+// Summary:
+//   Runs a smoke test of the full tutorial, verifying that it opens both tutors
+//   and restores main navigation at the end.
+//
+// Situation:
+//   Main window open with the tutorial available.
+//
+// Action:
+//   The user presses `Tutorial` and advances through all steps with `Next`.
+//
+// Expected:
+//   The tutorial visits LL(1) and SLR(1), finishes without errors, and leaves
+//   the main controls enabled again.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainTutorialFlowCompletesAndReenablesControls() {
     clearTestAppSettings();
 
@@ -281,6 +393,24 @@ void TutorWindowTest::mainTutorialFlowCompletesAndReenablesControls() {
     QVERIFY(tutorialButton->isEnabled());
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-11
+// Summary:
+//   Checks that a completed session updates score, progress, and level, and
+//   that those values persist when the main window is recreated.
+//
+// Situation:
+//   Main window open with clean test settings and an LL(1) session launched from
+//   the UI.
+//
+// Action:
+//   The test simulates the tutor finishing with more correct answers than wrong
+//   ones.
+//
+// Expected:
+//   Score, progress bar, and level are updated, and the same values reappear
+//   when the main window is opened again.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainGamificationPersistsAcrossRestart() {
     clearTestAppSettings();
 
@@ -309,6 +439,21 @@ void TutorWindowTest::mainGamificationPersistsAcrossRestart() {
     QCOMPARE(reopened.findChild<QLabel*>("labelScore")->text(), QString("Puntos: 2"));
 }
 
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-12
+// Summary:
+//   Verifies that the main window loads persisted level, score, and language
+//   state correctly.
+//
+// Situation:
+//   Test settings preloaded manually before creating `MainWindow`.
+//
+// Action:
+//   The test opens the main window while reading the previously saved state.
+//
+// Expected:
+//   The visible indicators match the persisted values exactly.
+// -----------------------------------------------------------------------------
 void TutorWindowTest::mainStatePersistenceAcrossRestart() {
     clearTestAppSettings();
     QSettings settings = testAppSettings();
