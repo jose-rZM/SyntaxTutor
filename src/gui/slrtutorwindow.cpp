@@ -293,6 +293,32 @@ bool SLRTutorWindow::confirmExitToHome() {
     return msg.exec() == QMessageBox::Yes;
 }
 
+QString SLRTutorWindow::promptExportFilePath() const {
+#ifdef SYNTAXTUTOR_TESTING
+    if (!nextExportFilePathForTest.isEmpty()) {
+        const QString filePath = nextExportFilePathForTest;
+        nextExportFilePathForTest.clear();
+        return filePath;
+    }
+#endif
+
+    QFileDialog dialog(const_cast<SLRTutorWindow*>(this),
+                       tr("Guardar conversación"), "conver.pdf",
+                       tr("Archivo PDF (*.pdf)"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.selectFile("conver.pdf");
+    dialog.setObjectName("slrTutorExportFileDialog");
+#ifdef SYNTAXTUTOR_TESTING
+    dialog.setOption(QFileDialog::DontUseNativeDialog, true);
+#endif
+    if (dialog.exec() != QDialog::Accepted) {
+        return {};
+    }
+
+    return dialog.selectedFiles().value(0);
+}
+
 void SLRTutorWindow::on_backButton_clicked() {
     if (confirmExitToHome()) {
         requestExit(false);
@@ -1346,10 +1372,12 @@ void SLRTutorWindow::on_confirmButton_clicked() {
         layout->setSpacing(10);
 
         auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+        exportBtn->setObjectName("slrTutorExportPdfButton");
         exportBtn->setCursor(Qt::PointingHandCursor);
         exportBtn->setProperty("role", "primary");
 
         auto* exitBtn = new QPushButton(tr("Salir"), actions);
+        exitBtn->setObjectName("slrTutorExitButton");
         exitBtn->setCursor(Qt::PointingHandCursor);
         exitBtn->setProperty("role", "danger");
 
@@ -1357,9 +1385,7 @@ void SLRTutorWindow::on_confirmButton_clicked() {
         layout->addWidget(exitBtn);
 
         connect(exportBtn, &QPushButton::clicked, this, [this]() {
-            const QString filePath = QFileDialog::getSaveFileName(
-                this, tr("Guardar conversación"), "conver.pdf",
-                tr("Archivo PDF (*.pdf)"));
+            const QString filePath = promptExportFilePath();
             if (!filePath.isEmpty()) {
                 exportConversationToPdf(filePath);
             }
@@ -1794,6 +1820,93 @@ void SLRTutorWindow::updatePlaceholder() {
     }
     ui->userResponse->setPlaceholderText(text);
 }
+
+#ifdef SYNTAXTUTOR_TESTING
+QString SLRTutorWindow::currentStateForTest() const {
+    switch (currentState) {
+    case StateSlr::A:
+        return "A";
+    case StateSlr::A1:
+        return "A1";
+    case StateSlr::A2:
+        return "A2";
+    case StateSlr::A3:
+        return "A3";
+    case StateSlr::A4:
+        return "A4";
+    case StateSlr::A_prime:
+        return "A'";
+    case StateSlr::B:
+        return "B";
+    case StateSlr::C:
+        return "C";
+    case StateSlr::CA:
+        return "CA";
+    case StateSlr::CB:
+        return "CB";
+    case StateSlr::D:
+        return "D";
+    case StateSlr::D1:
+        return "D1";
+    case StateSlr::D2:
+        return "D2";
+    case StateSlr::D_prime:
+        return "D'";
+    case StateSlr::E:
+        return "E";
+    case StateSlr::E1:
+        return "E1";
+    case StateSlr::E2:
+        return "E2";
+    case StateSlr::F:
+        return "F";
+    case StateSlr::FA:
+        return "FA";
+    case StateSlr::G:
+        return "G";
+    case StateSlr::H:
+        return "H";
+    case StateSlr::H_prime:
+        return "H'";
+    case StateSlr::fin:
+        return "fin";
+    }
+
+    return {};
+}
+
+int SLRTutorWindow::rightCountForTest() const {
+    return static_cast<int>(cntRightAnswers);
+}
+
+int SLRTutorWindow::wrongCountForTest() const {
+    return static_cast<int>(cntWrongAnswers);
+}
+
+void SLRTutorWindow::setAnswerForTest(const QString& text) {
+    ui->userResponse->setPlainText(text);
+}
+
+void SLRTutorWindow::submitForTest() {
+    on_confirmButton_clicked();
+}
+
+unsigned SLRTutorWindow::currentStateIdForTest() const {
+    return currentStateId;
+}
+
+QString SLRTutorWindow::currentCbSymbolForTest() const {
+    if (currentState != StateSlr::CB || currentFollowSymbolsIdx >= followSymbols.size()) {
+        return {};
+    }
+
+    return followSymbols.at(currentFollowSymbolsIdx);
+}
+
+void SLRTutorWindow::setNextExportFilePathForTest(const QString& filePath) {
+    nextExportFilePathForTest = filePath;
+}
+#endif
 
 /************************************************************
  *                  VERIFY USER RESPONSES                   *

@@ -222,6 +222,18 @@ class SLRTutorWindow : public QWidget {
     QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
     void    updatePlaceholder();
     bool    confirmExitToHome();
+    QString promptExportFilePath() const;
+#ifdef SYNTAXTUTOR_TESTING
+  public:
+    QString  currentStateForTest() const;
+    int      rightCountForTest() const;
+    int      wrongCountForTest() const;
+    void     setAnswerForTest(const QString& text);
+    void     submitForTest();
+    unsigned currentStateIdForTest() const;
+    QString  currentCbSymbolForTest() const;
+    void     setNextExportFilePathForTest(const QString& filePath);
+#endif
   private slots:
     void on_backButton_clicked();
     void on_confirmButton_clicked();
@@ -325,6 +337,10 @@ class SLRTutorWindow : public QWidget {
                  // key
 
     TutorialManager* tm;
+
+#ifdef SYNTAXTUTOR_TESTING
+    mutable QString nextExportFilePathForTest;
+#endif
 
     QRegularExpression       re{"^\\s+|\\s+$"};
     const QRegularExpression kWhitespace{"\\s+"};
