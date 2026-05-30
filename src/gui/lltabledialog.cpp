@@ -37,7 +37,9 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
                              QVector<QVector<QString>>* initialData)
     : QDialog(parent) {
     setProperty("tableDialog", true);
+    setObjectName("llTableDialog");
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
+    table->setObjectName("llTableWidget");
     table->setItemDelegate(new CenterAlignDelegate(table));
     table->setAlternatingRowColors(true);
     table->setHorizontalHeaderLabels(colHeaders);
@@ -60,6 +62,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton           = new QPushButton(tr("Finalizar"), this);
+    submitButton->setObjectName("llTableSubmitButton");
     QFont submitButtonFont = submitButton->font();
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
