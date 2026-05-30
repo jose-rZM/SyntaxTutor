@@ -155,6 +155,7 @@ void TutorialManager::showOverlay() {
     m_textBox->show();
 
     m_nextBtn = new QPushButton("&Siguiente", m_overlay);
+    m_nextBtn->setObjectName("tutorialNextButton");
     m_nextBtn->setCursor(Qt::PointingHandCursor);
     m_nextBtn->setStyleSheet(R"(
     QPushButton {
