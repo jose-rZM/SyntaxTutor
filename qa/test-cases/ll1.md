@@ -104,17 +104,21 @@ Notes:
 
 ---
 
-### LL1-TC-07 - State C table correct path + PDF export (Yes/No)
+### LL1-TC-07 - State C table correct path + PDF export
 Preconditions:
 - Reached State C (table input dialog opens).
 
 Steps:
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Fill the LL(1) table correctly and click `Finalizar`. | Table is accepted; tutor reaches final state; export prompt appears. |
-| 2 | Select `Yes` to export, choose a path, and confirm. | PDF is created at the selected path and is non-empty. |
-| 3 | Start a new LL(1) session, reach final state again. | Export prompt appears again. |
-| 4 | Select `No` to export. | Tutor closes without creating a new PDF. |
+| 1 | Fill the LL(1) table correctly and click `Finalizar`. | Table is accepted; tutor reaches final state; final action buttons appear. |
+| 2 | Click `Exportar PDF`, choose a path, and confirm. | PDF is created at the selected path and is non-empty. |
+| 3 | Start a new LL(1) session, reach final state again. | Final action buttons appear again. |
+| 4 | Click `Salir`. | Tutor closes without creating a new PDF. |
+
+Notes:
+- The current UI does not use a `Yes/No` export confirmation dialog.
+- The functional equivalents are `Exportar PDF` (export) and `Salir` (finish without exporting).
 
 ---
 
