@@ -6,6 +6,12 @@ TRANSLATIONS += translations/st_es.ts \
 
 CONFIG += c++20
 
+OBJECTS_DIR = $$OUT_PWD/.objects
+MOC_DIR = $$OUT_PWD/.moc
+RCC_DIR = $$OUT_PWD/.rcc
+UI_DIR = $$OUT_PWD/.ui
+DESTDIR = $$OUT_PWD/.bin
+
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0

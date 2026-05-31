@@ -16,10 +16,11 @@ INCLUDEPATH += \
     $$PWD/helpers \
     $$PWD/fixtures/grammars
 
-OBJECTS_DIR = .objects
-MOC_DIR = .moc
-RCC_DIR = .rcc
-UI_DIR = .ui
+OBJECTS_DIR = $$OUT_PWD/.objects
+MOC_DIR = $$OUT_PWD/.moc
+RCC_DIR = $$OUT_PWD/.rcc
+UI_DIR = $$OUT_PWD/.ui
+DESTDIR = $$OUT_PWD/.bin
 
 SOURCES += \
     ../src/backend/grammar.cpp \
