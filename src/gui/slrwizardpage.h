@@ -56,9 +56,15 @@ class SLRWizardPage : public QWizardPage {
         : QWizardPage(parent), m_state(state), m_symbol(symbol),
           m_expected(expected) {
         setTitle(tr("Estado %1, símbolo '%2'").arg(state).arg(symbol));
+        setSubTitle(QString());
 
         QLabel* lbl = new QLabel(explanation, this);
         lbl->setWordWrap(true);
+
+        m_feedback = new QLabel(this);
+        m_feedback->setObjectName("slrWizardFeedbackLabel");
+        m_feedback->setWordWrap(true);
+        m_feedback->hide();
 
         m_edit = new QLineEdit(this);
         m_edit->setObjectName("slrWizardAnswerEdit");
@@ -67,6 +73,7 @@ class SLRWizardPage : public QWizardPage {
 
         QVBoxLayout* layout = new QVBoxLayout(this);
         layout->addWidget(lbl);
+        layout->addWidget(m_feedback);
         layout->addWidget(m_edit);
         setLayout(layout);
 
@@ -83,15 +90,24 @@ class SLRWizardPage : public QWizardPage {
      * @param text The current user input.
      */
     void onTextChanged(const QString& text) {
-        bool correct = (text.trimmed() == m_expected);
+        const QString trimmed = text.trimmed();
+        bool          correct = (trimmed == m_expected);
         setComplete(correct);
-        if (correct) {
-            setSubTitle(
+
+        if (trimmed.isEmpty()) {
+            m_feedback->clear();
+            m_feedback->hide();
+        } else if (correct) {
+            m_feedback->setText(
                 tr("✔ Respuesta correcta, pasa a la siguiente pregunta"));
+            m_feedback->show();
         } else {
-            setSubTitle(tr("✘ Incorrecto, revisa el enunciado. Consulta los "
-                           "estados que has construido."));
+            m_feedback->setText(tr("✘ Incorrecto, revisa el enunciado. "
+                                   "Consulta los estados que has "
+                                   "construido."));
+            m_feedback->show();
         }
+
         wizard()->button(QWizard::NextButton)->setEnabled(correct);
     }
 
@@ -115,6 +131,7 @@ class SLRWizardPage : public QWizardPage {
     int        m_state;    ///< The state index of the cell.
     QString    m_symbol;   ///< The symbol (terminal or non-terminal).
     QString    m_expected; ///< The expected user response.
+    QLabel*    m_feedback; ///< Inline feedback label for answer validation.
     QLineEdit* m_edit;     ///< Input field for the user's answer.
     bool       m_isComplete =
         false; ///< Whether the user has entered the correct response.

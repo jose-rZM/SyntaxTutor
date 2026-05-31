@@ -533,14 +533,13 @@ QWizard[wizardTheme="slr"] QWizard::title {
     font-size: 18px;
 }
 
-QWizard[wizardTheme="slr"] QWizard::subTitle {
-    color: #CCCCCC;
-    font-size: 14px;
-    margin-bottom: 12px;
-}
-
 QWizard[wizardTheme="slr"] QLabel {
     color: #E0E0E0;
+}
+
+QWizard[wizardTheme="slr"] QLabel#slrWizardFeedbackLabel {
+    color: #CCCCCC;
+    min-height: 20px;
 }
 
 QWizard[wizardTheme="slr"] QLineEdit {
