@@ -19,26 +19,21 @@
 #ifndef SLRWIZARDPAGE_H
 #define SLRWIZARDPAGE_H
 
-#include <QAbstractButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QSizePolicy>
 #include <QVBoxLayout>
-#include <QWizard>
-#include <QWizardPage>
+#include <QWidget>
 
 /**
  * @class SLRWizardPage
- * @brief A single step in the SLR(1) guided assistant for table construction.
+ * @brief A single guided step for constructing the SLR(1) table.
  *
- * This wizard page presents a specific (state, symbol) cell in the SLR(1)
- * parsing table, and prompts the student to enter the correct ACTION or GOTO
- * value.
- *
- * The page checks the user's input against the expected answer and provides
- * immediate feedback, disabling the "Next" button until the correct response is
- * entered.
+ * This widget presents one (state, symbol) question at a time with a compact
+ * explanation card and an answer card. It validates the current input and
+ * emits a signal whenever the completion state changes.
  */
-class SLRWizardPage : public QWizardPage {
+class SLRWizardPage : public QWidget {
     Q_OBJECT
   public:
     /**
@@ -47,90 +42,97 @@ class SLRWizardPage : public QWizardPage {
      * @param state The state ID (row index in the table).
      * @param symbol The grammar symbol (column header).
      * @param explanation A pedagogical explanation shown to the user.
-     * @param expected The expected answer (e.g., "s2", "r1", "acc", or a state
-     * number).
+     * @param expected The expected answer (e.g., "s2", "r1", "acc", or a
+     * state number).
      * @param parent The parent widget.
      */
     SLRWizardPage(int state, const QString& symbol, const QString& explanation,
                   const QString& expected, QWidget* parent = nullptr)
-        : QWizardPage(parent), m_state(state), m_symbol(symbol),
+        : QWidget(parent), m_title(tr("Estado %1, símbolo '%2'").arg(state).arg(symbol)),
           m_expected(expected) {
-        setTitle(tr("Estado %1, símbolo '%2'").arg(state).arg(symbol));
-        setSubTitle(QString());
+        auto* rootLayout = new QVBoxLayout(this);
+        rootLayout->setContentsMargins(0, 0, 0, 0);
+        rootLayout->setSpacing(22);
 
-        QLabel* lbl = new QLabel(explanation, this);
-        lbl->setWordWrap(true);
+        auto* explanationTitle = new QLabel(tr("Pista"), this);
+        explanationTitle->setObjectName("slrWizardSectionTitle");
+        rootLayout->addWidget(explanationTitle);
+
+        auto* explanationLabel = new QLabel(explanation, this);
+        explanationLabel->setObjectName("slrWizardExplanationLabel");
+        explanationLabel->setWordWrap(true);
+        rootLayout->addWidget(explanationLabel);
+
+        auto* answerTitle = new QLabel(tr("Tu respuesta"), this);
+        answerTitle->setObjectName("slrWizardSectionTitle");
+        rootLayout->addWidget(answerTitle);
+
+        m_edit = new QLineEdit(this);
+        m_edit->setObjectName("slrWizardAnswerEdit");
+        m_edit->setMinimumHeight(48);
+        m_edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        m_edit->setPlaceholderText(
+            tr("Escribe tu respuesta (p.ej. s3, r2, acc, 5)"));
+        rootLayout->addWidget(m_edit);
 
         m_feedback = new QLabel(this);
         m_feedback->setObjectName("slrWizardFeedbackLabel");
         m_feedback->setWordWrap(true);
-        m_feedback->hide();
+        m_feedback->setMinimumHeight(40);
+        m_feedback->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        rootLayout->addWidget(m_feedback);
 
-        m_edit = new QLineEdit(this);
-        m_edit->setObjectName("slrWizardAnswerEdit");
-        m_edit->setPlaceholderText(
-            tr("Escribe tu respuesta (p.ej. s3, r2, acc, 5)"));
-
-        QVBoxLayout* layout = new QVBoxLayout(this);
-        layout->addWidget(lbl);
-        layout->addWidget(m_feedback);
-        layout->addWidget(m_edit);
-        setLayout(layout);
+        rootLayout->addStretch(1);
 
         connect(m_edit, &QLineEdit::textChanged, this,
                 &SLRWizardPage::onTextChanged);
+        connect(m_edit, &QLineEdit::returnPressed, this,
+                &SLRWizardPage::submitRequested);
     }
+
+    QString titleText() const { return m_title; }
+    bool    isComplete() const { return m_isComplete; }
+    void    focusAnswerField() { m_edit->setFocus(); }
+
 #ifdef SYNTAXTUTOR_TESTING
     QString expectedForTest() const { return m_expected; }
 #endif
+
+  signals:
+    void completionChanged(bool complete);
+    void submitRequested();
+
   private slots:
     /**
-     * @brief Checks the user's input and enables the "Next" button only if
-     * correct.
+     * @brief Checks the user's input and updates inline feedback.
      * @param text The current user input.
      */
     void onTextChanged(const QString& text) {
         const QString trimmed = text.trimmed();
-        bool          correct = (trimmed == m_expected);
-        setComplete(correct);
+        const bool    correct = (trimmed == m_expected);
 
         if (trimmed.isEmpty()) {
             m_feedback->clear();
-            m_feedback->hide();
         } else if (correct) {
             m_feedback->setText(
                 tr("✔ Respuesta correcta, pasa a la siguiente pregunta"));
-            m_feedback->show();
         } else {
             m_feedback->setText(tr("✘ Incorrecto, revisa el enunciado. "
                                    "Consulta los estados que has "
                                    "construido."));
-            m_feedback->show();
         }
 
-        wizard()->button(QWizard::NextButton)->setEnabled(correct);
+        if (m_isComplete == correct) {
+            return;
+        }
+
+        m_isComplete = correct;
+        emit completionChanged(m_isComplete);
     }
 
   private:
-    /**
-     * @brief Marks the page as complete or incomplete.
-     * @param complete Whether the current answer is correct.
-     */
-    void setComplete(bool complete) {
-        m_isComplete = complete;
-        emit completeChanged();
-    }
-
-    /**
-     * @brief Returns whether the page is currently complete (required for
-     * QWizard).
-     * @return true if the correct answer has been entered.
-     */
-    bool isComplete() const override { return m_isComplete; }
-
-    int        m_state;    ///< The state index of the cell.
-    QString    m_symbol;   ///< The symbol (terminal or non-terminal).
-    QString    m_expected; ///< The expected user response.
+    QString    m_title;    ///< Header title for this guided step.
+    QString    m_expected; ///< Expected user response.
     QLabel*    m_feedback; ///< Inline feedback label for answer validation.
     QLineEdit* m_edit;     ///< Input field for the user's answer.
     bool       m_isComplete =
