@@ -599,12 +599,13 @@ void SLRTutorWindow::showTable() {
                 const QVector<QVector<QString>> snapshot = data;
                 auto* wizard = new SLRWizard(slr1, snapshot, colHeaders,
                                              sortedGrammar, dialog);
-                wizard->setProperty("wizardTheme", "slr");
                 wizard->setAttribute(Qt::WA_DeleteOnClose);
                 wizard->setWindowModality(Qt::WindowModal);
+                dialog->setGuidedModeActive(true);
 
-                connect(wizard, &QWizard::finished, dialog,
+                connect(wizard, &QDialog::finished, dialog,
                         [dialog, snapshot](int) {
+                            dialog->setGuidedModeActive(false);
                             dialog->setInitialData(snapshot);
                         });
                 wizard->show();

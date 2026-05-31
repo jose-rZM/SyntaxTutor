@@ -70,6 +70,7 @@ class SLRTableDialog : public QDialog {
      * @param data 2D vector containing the table data to display.
      */
     void setInitialData(const QVector<QVector<QString>>& data);
+    void setGuidedModeActive(bool active);
 
     void highlightIncorrectCells(const QList<QPair<int, int>>& coords);
     void highlightInvalidCells(const QList<QPair<int, int>>& coords);

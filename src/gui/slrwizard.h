@@ -21,33 +21,33 @@
 
 #include "slr1_parser.hpp"
 #include "slrwizardpage.h"
-#include <QAbstractButton>
+
+#include <QDialog>
+#include <QFrame>
+#include <QHBoxLayout>
 #include <QLabel>
-#include <QLineEdit>
+#include <QProgressBar>
+#include <QPushButton>
+#include <QStackedWidget>
+#include <QTimer>
 #include <QVBoxLayout>
-#include <QWizard>
-#include <QWizardPage>
 
 /**
  * @class SLRWizard
  * @brief Interactive assistant that guides the student step-by-step through the
  * SLR(1) parsing table.
  *
- * This wizard-based dialog presents the user with one cell of the SLR(1)
- * parsing table at a time, asking them to deduce the correct ACTION or GOTO
- * entry based on the LR(0) automaton and FOLLOW sets. It is designed as an
- * educational aid to explain the reasoning behind each parsing decision.
- *
- * Each page includes:
- * - The current state and symbol (terminal or non-terminal).
- * - A guided explanation based on the grammar and LR(0) state.
- * - The expected entry (e.g., s3, r1, acc, or a state number).
+ * This dialog presents one cell of the SLR(1) parsing table at a time, asking
+ * the user to deduce the correct ACTION or GOTO entry based on the LR(0)
+ * automaton and FOLLOW sets. It intentionally avoids the native wizard widget
+ * to keep a consistent look across platforms.
  */
-class SLRWizard : public QWizard {
+class SLRWizard : public QDialog {
     Q_OBJECT
   public:
     /**
-     * @brief Constructs the SLR(1) wizard with all necessary parsing context.
+     * @brief Constructs the SLR(1) guided dialog with all necessary parsing
+     * context.
      *
      * @param parser The SLR(1) parser instance containing the LR(0) states and
      * transitions.
@@ -61,32 +61,84 @@ class SLRWizard : public QWizard {
               const QStringList&                               colHeaders,
               const QVector<QPair<QString, QVector<QString>>>& sortedGrammar,
               QWidget*                                         parent = nullptr)
-        : QWizard(parent) {
-        setWizardStyle(QWizard::ModernStyle);
+        : QDialog(parent) {
+        setProperty("guidedDialog", "slr");
+        setWindowTitle(tr("Completar tabla SLR"));
         setWindowFlag(Qt::WindowCloseButtonHint, true);
-        setButtonText(QWizard::CancelButton, tr("Salir"));
-        setButtonText(QWizard::NextButton, tr("Continuar"));
-        setButtonText(QWizard::FinishButton, tr("Finalizar"));
-        setButtonLayout({QWizard::Stretch, QWizard::CancelButton,
-                         QWizard::NextButton, QWizard::FinishButton});
+        setModal(true);
+        resize(640, 440);
+        setMinimumSize(560, 400);
 
-        if (auto* backButton = button(QWizard::BackButton)) {
-            backButton->hide();
-            backButton->setEnabled(false);
-        }
+        auto* rootLayout = new QVBoxLayout(this);
+        rootLayout->setContentsMargins(0, 0, 0, 0);
+        rootLayout->setSpacing(0);
 
-        setWindowTitle(tr("Ayuda interactiva: Tabla SLR(1)"));
+        auto* panel = new QFrame(this);
+        panel->setObjectName("slrWizardPanel");
 
-        const int      nTerm = parser.gr_.st_.terminals_.size();
-        SLRWizardPage* last  = nullptr;
-        // Generar explicación y páginas
-        int rows = rawTable.size();
-        int cols = colHeaders.size();
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                QString sym = colHeaders[j];
-                QString expected;
-                QString explanation;
+        auto* panelLayout = new QVBoxLayout(panel);
+        panelLayout->setContentsMargins(28, 24, 28, 24);
+        panelLayout->setSpacing(20);
+
+        auto* headerLayout = new QHBoxLayout();
+        headerLayout->setSpacing(12);
+
+        auto* titleColumn = new QVBoxLayout();
+        titleColumn->setContentsMargins(0, 0, 0, 0);
+        titleColumn->setSpacing(6);
+
+        m_titleLabel = new QLabel(panel);
+        m_titleLabel->setObjectName("slrWizardTitle");
+        titleColumn->addWidget(m_titleLabel);
+
+        m_stepCounterLabel = new QLabel(panel);
+        m_stepCounterLabel->setObjectName("slrWizardStepCounter");
+        titleColumn->addWidget(m_stepCounterLabel);
+
+        m_progressBar = new QProgressBar(panel);
+        m_progressBar->setObjectName("slrWizardProgress");
+        m_progressBar->setTextVisible(false);
+        m_progressBar->setRange(0, 100);
+        m_progressBar->setFixedHeight(4);
+        titleColumn->addWidget(m_progressBar);
+
+        headerLayout->addLayout(titleColumn, 1);
+
+        m_closeButton = new QPushButton(tr("Salir"), panel);
+        m_closeButton->setObjectName("slrWizardCloseButton");
+        m_closeButton->setAutoDefault(false);
+        m_closeButton->setDefault(false);
+        m_closeButton->setCursor(Qt::PointingHandCursor);
+        headerLayout->addWidget(m_closeButton, 0, Qt::AlignTop);
+
+        panelLayout->addLayout(headerLayout);
+
+        m_stack = new QStackedWidget(panel);
+        m_stack->setObjectName("slrWizardStack");
+        panelLayout->addWidget(m_stack, 1);
+
+        auto* footerLayout = new QHBoxLayout();
+        footerLayout->setContentsMargins(0, 0, 0, 0);
+        footerLayout->setSpacing(12);
+        footerLayout->addStretch(1);
+
+        m_nextButton = new QPushButton(panel);
+        m_nextButton->setObjectName("slrWizardNextButton");
+        m_nextButton->setProperty("role", "primary");
+        m_nextButton->setAutoDefault(false);
+        m_nextButton->setDefault(false);
+        footerLayout->addWidget(m_nextButton);
+        panelLayout->addLayout(footerLayout);
+
+        rootLayout->addWidget(panel);
+
+        const int nTerm = parser.gr_.st_.terminals_.size();
+        for (int i = 0; i < rawTable.size(); ++i) {
+            for (int j = 0; j < colHeaders.size(); ++j) {
+                const QString sym = colHeaders[j];
+                QString       expected;
+                QString       explanation;
+
                 if (j < nTerm) {
                     auto itAct = parser.actions_.at(i).find(sym.toStdString());
                     SLR1Parser::s_action act =
@@ -94,14 +146,14 @@ class SLRWizard : public QWizard {
                              ? itAct->second
                              : SLR1Parser::s_action{nullptr,
                                                     SLR1Parser::Action::Empty});
+
                     switch (act.action) {
                     case SLR1Parser::Action::Shift: {
-                        unsigned to =
+                        const unsigned to =
                             parser.transitions_.at(i).at(sym.toStdString());
                         expected    = QString("s%1").arg(to);
                         explanation = tr("Estado %1: existe transición δ(%1, "
-                                         "'%2'). ¿A qué "
-                                         "estado harías shift?")
+                                         "'%2'). ¿A qué estado harías shift?")
                                           .arg(i)
                                           .arg(sym);
                         break;
@@ -119,16 +171,9 @@ class SLRWizard : public QWizard {
                             }
                         }
                         expected = QString("r%1").arg(idx);
-                        // explicación con FOLLOW
-                        std::unordered_set<std::string> F;
-                        F = parser.Follow(act.item->antecedent_);
-                        QStringList followList;
-                        for (auto& t : F)
-                            followList << QString::fromStdString(t);
                         explanation = tr("Estado %1: contiene el ítem [%2 → "
-                                         "...·] y '%3' ∈ "
-                                         "SIG(%2). ¿Qué regla usas para "
-                                         "reducir (0, 1, ...)?")
+                                         "...·] y '%3' ∈ SIG(%2). ¿Qué regla "
+                                         "usas para reducir (0, 1, ...)?")
                                           .arg(i)
                                           .arg(QString::fromStdString(
                                               act.item->antecedent_))
@@ -138,8 +183,8 @@ class SLRWizard : public QWizard {
                     case SLR1Parser::Action::Accept:
                         expected    = "acc";
                         explanation = tr("Estado %1: contiene [S → A · $]. "
-                                         "¿Qué palabra clave "
-                                         "usas para aceptar?")
+                                         "¿Qué palabra clave usas para "
+                                         "aceptar?")
                                           .arg(i);
                         break;
                     case SLR1Parser::Action::Empty:
@@ -147,33 +192,57 @@ class SLRWizard : public QWizard {
                         continue;
                     }
                 } else {
-                    // GOTO sobre no terminal
-                    auto nonT = sym.toStdString();
+                    const auto nonT = sym.toStdString();
                     if (!parser.transitions_.contains(i)) {
                         continue;
                     }
+
                     auto itGo = parser.transitions_.at(i).find(nonT);
-                    if (itGo != parser.transitions_.at(i).end()) {
-                        expected    = QString::number(itGo->second);
-                        explanation = tr("Estado %1: δ(%1, '%2') existe. ¿A "
-                                         "qué estado va "
-                                         "la transición? (pon solo el número)")
-                                          .arg(i)
-                                          .arg(sym);
-                    } else {
+                    if (itGo == parser.transitions_.at(i).end()) {
                         continue;
                     }
+
+                    expected    = QString::number(itGo->second);
+                    explanation = tr("Estado %1: δ(%1, '%2') existe. ¿A qué "
+                                     "estado va la transición? (pon solo el "
+                                     "número)")
+                                      .arg(i)
+                                      .arg(sym);
                 }
 
-                SLRWizardPage* page =
-                    new SLRWizardPage(i, sym, explanation, expected, this);
-                last = page;
-                addPage(page);
+                auto* page = new SLRWizardPage(i, sym, explanation, expected,
+                                               m_stack);
+                connect(page, &SLRWizardPage::completionChanged, this,
+                        &SLRWizard::updateCurrentPage);
+                connect(page, &SLRWizardPage::submitRequested, this,
+                        &SLRWizard::advance);
+                m_stack->addWidget(page);
             }
         }
-        if (last) {
-            last->setFinalPage(true);
-        }
+
+        connect(m_closeButton, &QPushButton::clicked, this,
+                &QDialog::reject);
+        connect(m_nextButton, &QPushButton::clicked, this,
+                &SLRWizard::advance);
+
+        updateCurrentPage();
+        QTimer::singleShot(0, this, [this]() {
+            if (auto* page = currentPage()) {
+                page->focusAnswerField();
+            }
+        });
+    }
+
+    SLRWizardPage* currentPage() const {
+        return qobject_cast<SLRWizardPage*>(m_stack->currentWidget());
+    }
+
+    QPushButton* nextButton() const { return m_nextButton; }
+    QPushButton* closeButton() const { return m_closeButton; }
+
+    bool isOnLastPage() const {
+        return m_stack->count() > 0 &&
+               m_stack->currentIndex() == m_stack->count() - 1;
     }
 
     /**
@@ -190,6 +259,57 @@ class SLRWizard : public QWizard {
         }
         return result;
     }
+
+  private slots:
+    void advance() {
+        auto* page = currentPage();
+        if (page == nullptr || !page->isComplete()) {
+            return;
+        }
+
+        if (isOnLastPage()) {
+            accept();
+            return;
+        }
+
+        m_stack->setCurrentIndex(m_stack->currentIndex() + 1);
+        updateCurrentPage();
+        if (auto* nextPage = currentPage()) {
+            nextPage->focusAnswerField();
+        }
+    }
+
+    void updateCurrentPage() {
+        auto* page = currentPage();
+        if (page == nullptr) {
+            m_titleLabel->setText(tr("Modo guiado"));
+            m_stepCounterLabel->clear();
+            m_progressBar->setValue(0);
+            m_nextButton->setEnabled(false);
+            m_nextButton->setText(tr("Finalizar"));
+            return;
+        }
+
+        const int currentStep = m_stack->currentIndex() + 1;
+        const int totalSteps  = m_stack->count();
+        m_titleLabel->setText(page->titleText());
+        m_stepCounterLabel->setText(
+            tr("Paso %1 de %2").arg(currentStep).arg(totalSteps));
+        m_progressBar->setValue((100 * currentStep) / qMax(1, totalSteps));
+        m_nextButton->setEnabled(page->isComplete());
+        m_nextButton->setCursor(page->isComplete() ? Qt::PointingHandCursor
+                                                   : Qt::ArrowCursor);
+        m_nextButton->setText(isOnLastPage() ? tr("Finalizar")
+                                             : tr("Continuar"));
+    }
+
+  private:
+    QLabel*         m_titleLabel      = nullptr;
+    QLabel*         m_stepCounterLabel = nullptr;
+    QProgressBar*   m_progressBar     = nullptr;
+    QPushButton*    m_closeButton     = nullptr;
+    QStackedWidget* m_stack           = nullptr;
+    QPushButton*    m_nextButton      = nullptr;
 };
 
 #endif // SLRWIZARD_H
