@@ -37,6 +37,7 @@ class TutorWindowTest : public QObject {
     void slrStateFConflictBranchAdvancesToFAAndThenG();
     void slrStateGWrongThenCorrectReachesH();
     void slrStateHIncorrectTableKeepsDialogOpen();
+    void slrGuidedModeWizardUsesCustomNavigationAndAllowsExit();
     void slrGuidedModeWizardCompletesAndReturnsToTable();
     void slrTableDialogCancelNoReopensAndYesRequestsExit();
     void slrFinalTableCorrectPathExportsAndExits();

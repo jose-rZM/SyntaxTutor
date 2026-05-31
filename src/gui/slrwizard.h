@@ -21,6 +21,7 @@
 
 #include "slr1_parser.hpp"
 #include "slrwizardpage.h"
+#include <QAbstractButton>
 #include <QLabel>
 #include <QLineEdit>
 #include <QVBoxLayout>
@@ -61,6 +62,19 @@ class SLRWizard : public QWizard {
               const QVector<QPair<QString, QVector<QString>>>& sortedGrammar,
               QWidget*                                         parent = nullptr)
         : QWizard(parent) {
+        setWizardStyle(QWizard::ModernStyle);
+        setWindowFlag(Qt::WindowCloseButtonHint, true);
+        setButtonText(QWizard::CancelButton, tr("Salir"));
+        setButtonText(QWizard::NextButton, tr("Continuar"));
+        setButtonText(QWizard::FinishButton, tr("Finalizar"));
+        setButtonLayout({QWizard::Stretch, QWizard::CancelButton,
+                         QWizard::NextButton, QWizard::FinishButton});
+
+        if (auto* backButton = button(QWizard::BackButton)) {
+            backButton->hide();
+            backButton->setEnabled(false);
+        }
+
         setWindowTitle(tr("Ayuda interactiva: Tabla SLR(1)"));
 
         const int      nTerm = parser.gr_.st_.terminals_.size();

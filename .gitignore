@@ -1,3 +1,4 @@
+.clangd
 build/
 media/
 .vscode/
@@ -8,4 +9,28 @@ Dockerfile
 Makefile
 .qmake.stash
 SyntaxTutor
+SyntaxTutor.app
 .cache
+
+# Qt generated sources and headers
+moc_*.cpp
+moc_predefs.h
+qrc_*.cpp
+ui_*.h
+
+# qmake/Qt generated build helpers
+target_wrapper.sh
+.objects/
+.moc/
+.rcc/
+.ui/
+.bin/
+
+# Test build outputs
+tests/target_wrapper.sh
+tests/tutor_tests
+tests/.objects/
+tests/.moc/
+tests/.rcc/
+tests/.ui/
+tests/.bin/
