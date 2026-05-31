@@ -3,6 +3,7 @@
 #include "qt_modal_test_utils.h"
 #include "slr_tutor_test_utils.h"
 #include "slrtutorwindow.h"
+#include "slrwizard.h"
 #include "tutor_grammar_fixtures.h"
 
 #include <QCoreApplication>
@@ -15,8 +16,6 @@
 #include <QTableWidget>
 #include <QTemporaryDir>
 #include <QTest>
-#include <QWizard>
-
 #include <algorithm>
 
 namespace {
@@ -112,8 +111,8 @@ SLRTableDialog* waitForSlrTableDialog() {
     return QtModalTestUtils::waitForVisibleTopLevelWidget<SLRTableDialog>();
 }
 
-QWizard* waitForWizard() {
-    return QtModalTestUtils::waitForVisibleTopLevelWidget<QWizard>();
+SLRWizard* waitForWizard() {
+    return QtModalTestUtils::waitForVisibleTopLevelWidget<SLRWizard>();
 }
 
 void driveSlrTutorToState(SLRTutorWindow& tutor, const QString& state) {
@@ -694,8 +693,8 @@ void TutorWindowTest::slrStateHIncorrectTableKeepsDialogOpen() {
 //   The user opens guided mode and then exits through the wizard cancel button.
 //
 // Expected:
-//   The wizard uses the configured non-native style, does not expose a back
-//   button, and closes back to the table dialog.
+//   The guided dialog uses the custom step layout and closes back to the table
+//   dialog.
 // -----------------------------------------------------------------------------
 void TutorWindowTest::slrGuidedModeWizardUsesCustomNavigationAndAllowsExit() {
     const Grammar grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
@@ -706,45 +705,60 @@ void TutorWindowTest::slrGuidedModeWizardUsesCustomNavigationAndAllowsExit() {
 
     SLRTableDialog* dialog = waitForSlrTableDialog();
     auto*           table = dialog->findChild<QTableWidget*>("slrTableWidget");
+    auto* guidedButton =
+        dialog->findChild<QPushButton*>("slrTableGuidedButton");
+    auto* submitButton =
+        dialog->findChild<QPushButton*>("slrTableSubmitButton");
     QVERIFY(table != nullptr);
+    QVERIFY(guidedButton != nullptr);
+    QVERIFY(submitButton != nullptr);
 
     QtModalTestUtils::requestSlrGuidedMode(
         dialog, QVector<QVector<QString>>(table->rowCount(),
                                           QVector<QString>(table->columnCount())));
-    QWizard* wizard = waitForWizard();
+    SLRWizard* wizard = waitForWizard();
     QVERIFY(wizard != nullptr);
-    QPointer<QWizard> wizardGuard(wizard);
-    auto* page = qobject_cast<SLRWizardPage*>(wizard->currentPage());
+    QPointer<SLRWizard> wizardGuard(wizard);
+    auto* page = wizard->currentPage();
     QVERIFY(page != nullptr);
 
-    QCOMPARE(wizard->wizardStyle(), QWizard::ModernStyle);
-    QCOMPARE(page->subTitle(), QString());
+    QVERIFY(!guidedButton->isEnabled());
+    QVERIFY(!submitButton->isEnabled());
 
-    auto* backButton = wizard->button(QWizard::BackButton);
-    QVERIFY(backButton != nullptr);
-    QVERIFY(!backButton->isVisibleTo(wizard));
-    QVERIFY(!backButton->isEnabled());
+    auto* titleLabel = wizard->findChild<QLabel*>("slrWizardTitle");
+    QVERIFY(titleLabel != nullptr);
+    QVERIFY(!titleLabel->text().isEmpty());
+
+    auto* stepCounter = wizard->findChild<QLabel*>("slrWizardStepCounter");
+    QVERIFY(stepCounter != nullptr);
+    QVERIFY(!stepCounter->text().isEmpty());
 
     auto* feedbackLabel = page->findChild<QLabel*>("slrWizardFeedbackLabel");
     QVERIFY(feedbackLabel != nullptr);
-    QVERIFY(!feedbackLabel->isVisible());
+    QVERIFY(feedbackLabel->text().isEmpty());
 
     auto* edit = page->findChild<QLineEdit*>("slrWizardAnswerEdit");
     QVERIFY(edit != nullptr);
     edit->setText(QStringLiteral("s"));
     QApplication::processEvents();
 
-    QCOMPARE(page->subTitle(), QString());
     QVERIFY(feedbackLabel->isVisible());
     QVERIFY(!feedbackLabel->text().isEmpty());
 
-    auto* cancelButton = qobject_cast<QPushButton*>(
-        wizard->button(QWizard::CancelButton));
+    edit->setText(page->expectedForTest());
+    QApplication::processEvents();
+    QPointer<SLRWizardPage> firstPage(page);
+    QTest::keyClick(edit, Qt::Key_Return);
+    QTRY_VERIFY(firstPage == nullptr || wizard->currentPage() != firstPage);
+
+    auto* cancelButton = wizard->closeButton();
     QVERIFY(cancelButton != nullptr);
     QVERIFY(cancelButton->isVisibleTo(wizard));
 
     QTest::mouseClick(cancelButton, Qt::LeftButton);
     QTRY_VERIFY(wizardGuard == nullptr || !wizardGuard->isVisible());
+    QVERIFY(guidedButton->isEnabled());
+    QVERIFY(submitButton->isEnabled());
     QVERIFY(dialog->isVisible());
     QCOMPARE(tutor.currentStateForTest(), QString("H"));
 }
@@ -773,17 +787,28 @@ void TutorWindowTest::slrGuidedModeWizardCompletesAndReturnsToTable() {
 
     SLRTableDialog* dialog = waitForSlrTableDialog();
     auto*           table = dialog->findChild<QTableWidget*>("slrTableWidget");
+    auto* guidedButton =
+        dialog->findChild<QPushButton*>("slrTableGuidedButton");
+    auto* submitButton =
+        dialog->findChild<QPushButton*>("slrTableSubmitButton");
     QVERIFY(table != nullptr);
+    QVERIFY(guidedButton != nullptr);
+    QVERIFY(submitButton != nullptr);
 
     QtModalTestUtils::requestSlrGuidedMode(
         dialog, QVector<QVector<QString>>(table->rowCount(),
                                           QVector<QString>(table->columnCount())));
-    QWizard* wizard = waitForWizard();
+    SLRWizard* wizard = waitForWizard();
     QVERIFY(wizard != nullptr);
-    QPointer<QWizard> wizardGuard(wizard);
+    QPointer<SLRWizard> wizardGuard(wizard);
+
+    QVERIFY(!guidedButton->isEnabled());
+    QVERIFY(!submitButton->isEnabled());
 
     SlrTutorTestUtils::finishWizard(wizard);
     QTRY_VERIFY(wizardGuard == nullptr || !wizardGuard->isVisible());
+    QVERIFY(guidedButton->isEnabled());
+    QVERIFY(submitButton->isEnabled());
     QVERIFY(dialog->isVisible());
     QCOMPARE(tutor.currentStateForTest(), QString("H"));
 }

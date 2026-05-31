@@ -4,6 +4,7 @@
 #include "qt_modal_test_utils.h"
 #include "slr1_parser.hpp"
 #include "slrtutorwindow.h"
+#include "slrwizard.h"
 #include "slrwizardpage.h"
 
 #include <QApplication>
@@ -15,8 +16,6 @@
 #include <QStringList>
 #include <QTableWidget>
 #include <QTest>
-#include <QWizard>
-
 #include <algorithm>
 #include <utility>
 #include <vector>
@@ -301,22 +300,19 @@ inline QVector<QVector<QString>> buildWrongTable(const Grammar& grammar,
     return raw;
 }
 
-inline void finishWizard(QWizard* wizard) {
-    QPointer<QWizard> wizardGuard(wizard);
+inline void finishWizard(SLRWizard* wizard) {
+    QPointer<SLRWizard> wizardGuard(wizard);
     QVERIFY(wizardGuard != nullptr);
     while (wizardGuard != nullptr && wizardGuard->isVisible()) {
-        auto* page = qobject_cast<SLRWizardPage*>(wizardGuard->currentPage());
+        auto* page = wizardGuard->currentPage();
         QVERIFY(page != nullptr);
         auto* edit = page->findChild<QLineEdit*>("slrWizardAnswerEdit");
         QVERIFY(edit != nullptr);
         edit->setText(page->expectedForTest());
         QApplication::processEvents();
 
-        const bool isFinalPage = page->isFinalPage();
-        QPushButton* nextButton = qobject_cast<QPushButton*>(
-            wizardGuard->button(isFinalPage
-                               ? QWizard::FinishButton
-                               : QWizard::NextButton));
+        const bool isFinalPage = wizardGuard->isOnLastPage();
+        QPushButton* nextButton = wizardGuard->nextButton();
         QVERIFY(nextButton != nullptr);
         QTest::mouseClick(nextButton, Qt::LeftButton);
         QApplication::processEvents();
