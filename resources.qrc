@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/check.svg</file>
         <file>resources/send.svg</file>
         <file>resources/syntaxtutor.png</file>
         <file>resources/NotoSans-Bold.ttf</file>
