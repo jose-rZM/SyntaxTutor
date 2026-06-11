@@ -36,6 +36,7 @@ jobs:
             g++ -std=gnu++2a -O0 -g --coverage -fprofile-arcs -ftest-coverage \
             src/backend/grammar.cpp \
             src/backend/grammar_factory.cpp \
+            src/backend/grammar_parser.cpp \
             src/backend/ll1_parser.cpp \
             src/backend/lr0_item.cpp \
             src/backend/slr1_parser.cpp \
