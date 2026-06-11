@@ -26,7 +26,7 @@
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QRegularExpression>
-#include <sstream>
+#include <algorithm>
 
 namespace {
 // Packs a (row, col) pair into a single 64-bit key.
@@ -144,6 +144,38 @@ ParsedIdCounts ParseIdCountList(const QString& input) {
     return parsed;
 }
 
+// Tokenizes one side of an item or rule into grammar symbols. Space-separated
+// known symbols win, so multi-character tokens stay unambiguous; otherwise the
+// text falls back to the symbol-table greedy split used for compact answers
+// like "aA". Returns an empty vector when the text cannot be tokenized.
+std::vector<std::string> TokenizeSymbolSequence(Grammar&       grammar,
+                                                const QString& text) {
+    static const QRegularExpression kBlanks("\\s+");
+    const QString                   trimmed = text.trimmed();
+    if (trimmed.isEmpty()) {
+        return {};
+    }
+
+    const QStringList spacedTokens = trimmed.split(kBlanks, Qt::SkipEmptyParts);
+    const bool        allKnown =
+        std::all_of(spacedTokens.cbegin(), spacedTokens.cend(),
+                    [&grammar](const QString& token) {
+                        return grammar.st_.In(token.toStdString());
+                    });
+    if (allKnown) {
+        std::vector<std::string> symbols;
+        symbols.reserve(spacedTokens.size());
+        for (const QString& token : spacedTokens) {
+            symbols.push_back(token.toStdString());
+        }
+        return symbols;
+    }
+
+    QString compact = trimmed;
+    compact.remove(kBlanks);
+    return grammar.Split(compact.toStdString());
+}
+
 bool NormalizeSlrCell(const QString& cell, QString* normalized) {
     const QString trimmed = cell.trimmed();
     if (trimmed.isEmpty()) {
@@ -219,11 +251,12 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // ====== Grammar Formatting =================================
     sortedNonTerminals =
         stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
+    const QString axiom = QString::fromStdString(grammar.axiom_);
     std::ranges::sort(sortedNonTerminals,
-                      [](const QString& a, const QString& b) {
-                          if (a == "S")
+                      [&axiom](const QString& a, const QString& b) {
+                          if (a == axiom)
                               return true;
-                          if (b == "S")
+                          if (b == axiom)
                               return false;
                           return a < b;
                       });
@@ -578,11 +611,11 @@ void SLRTutorWindow::showTable() {
         colHeaders << QString::fromStdString(symbol);
     }
     std::sort(colHeaders.begin(), colHeaders.end(),
-              [](const QString& a, const QString& b) {
-                  auto rank = [](const QString& s) -> int {
+              [this](const QString& a, const QString& b) {
+                  auto rank = [this](const QString& s) -> int {
                       if (s == "$")
                           return 1;
-                      if (!s.isEmpty() && s[0].isLower())
+                      if (slr1.gr_.st_.IsTerminalWthoEol(s.toStdString()))
                           return 0;
                       return 2;
                   };
@@ -3058,51 +3091,37 @@ SLRTutorWindow::ingestUserItems(const QString& userResponse) {
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
 
     for (const QString& line : std::as_const(lines)) {
-        QString     normalized = line.trimmed();
-        std::string token      = normalized.toStdString();
-        size_t      arrowpos   = token.find("->");
-        if (arrowpos == std::string::npos) {
+        QString normalized = line.trimmed();
+        normalized.replace(QStringLiteral("·"), QStringLiteral("."));
+
+        const qsizetype arrowpos = normalized.indexOf(QStringLiteral("->"));
+        if (arrowpos < 0) {
             return {};
         }
-        std::string antecedent = token.substr(0, arrowpos);
-        std::string consequent = token.substr(arrowpos + 2);
+        const std::string antecedent =
+            normalized.left(arrowpos).trimmed().toStdString();
+        const QString consequent = normalized.mid(arrowpos + 2);
 
-        auto trim = [](std::string& s) {
-            size_t start = s.find_first_not_of(" \t");
-            size_t end   = s.find_last_not_of(" \t");
-            if (start == std::string::npos) {
-                s.clear();
-            } else {
-                s = s.substr(start, end - start + 1);
-            }
-        };
-
-        trim(antecedent);
-        trim(consequent);
-
-        consequent.erase(
-            std::remove_if(consequent.begin(), consequent.end(),
-                           [](char c) { return c == ' ' || c == '\t'; }),
-            consequent.end());
-
-        size_t dotpos = consequent.find('.');
-        if (dotpos == std::string::npos) {
+        const qsizetype dotpos = consequent.indexOf('.');
+        if (dotpos < 0) {
             return {};
         }
-        std::string before_dot = consequent.substr(0, dotpos);
-        std::string after_dot  = consequent.substr(dotpos + 1);
+        const QString before_dot = consequent.left(dotpos).trimmed();
+        const QString after_dot  = consequent.mid(dotpos + 1).trimmed();
 
-        std::vector<std::string> splitted_before_dot{grammar.Split(before_dot)};
-        std::vector<std::string> splitted_after_dot{grammar.Split(after_dot)};
+        std::vector<std::string> splitted_before_dot{
+            TokenizeSymbolSequence(grammar, before_dot)};
+        std::vector<std::string> splitted_after_dot{
+            TokenizeSymbolSequence(grammar, after_dot)};
 
-        if (!before_dot.empty() && splitted_before_dot.empty()) {
+        if (!before_dot.isEmpty() && splitted_before_dot.empty()) {
             return {};
         }
-        if (!after_dot.empty() && splitted_after_dot.empty()) {
+        if (!after_dot.isEmpty() && splitted_after_dot.empty()) {
             return {};
         }
 
-        if (before_dot.empty() && after_dot.empty()) {
+        if (before_dot.isEmpty() && after_dot.isEmpty()) {
             splitted_before_dot = {grammar.st_.EPSILON_};
         }
 
@@ -3119,41 +3138,22 @@ SLRTutorWindow::ingestUserItems(const QString& userResponse) {
 
 std::vector<std::pair<std::string, std::vector<std::string>>>
 SLRTutorWindow::ingestUserRules(const QString& userResponse) {
-    std::stringstream ss(userResponse.toStdString());
-    std::string       token;
     std::vector<std::pair<std::string, std::vector<std::string>>> rules;
 
     QStringList lines = userResponse.split('\n', Qt::SkipEmptyParts);
     for (const QString& line : std::as_const(lines)) {
-        QString     normalized = line.trimmed();
-        std::string token      = normalized.toStdString();
+        const QString normalized = line.trimmed();
 
-        size_t arrowpos = token.find("->");
-        if (arrowpos == std::string::npos) {
+        const qsizetype arrowpos = normalized.indexOf(QStringLiteral("->"));
+        if (arrowpos < 0) {
             return {};
         }
-        std::string antecedent = token.substr(0, arrowpos);
-        std::string consequent = token.substr(arrowpos + 2);
+        const std::string antecedent =
+            normalized.left(arrowpos).trimmed().toStdString();
+        const QString consequent = normalized.mid(arrowpos + 2);
 
-        auto trim = [](std::string& s) {
-            size_t start = s.find_first_not_of(" \t");
-            size_t end   = s.find_last_not_of(" \t");
-            if (start == std::string::npos) {
-                s.clear();
-            } else {
-                s = s.substr(start, end - start + 1);
-            }
-        };
-
-        trim(antecedent);
-        trim(consequent);
-
-        consequent.erase(
-            std::remove_if(consequent.begin(), consequent.end(),
-                           [](char c) { return c == ' ' || c == '\t'; }),
-            consequent.end());
-
-        std::vector<std::string> splitted{grammar.Split(consequent)};
+        std::vector<std::string> splitted{
+            TokenizeSymbolSequence(grammar, consequent)};
 
         rules.emplace_back(antecedent, splitted);
     }
