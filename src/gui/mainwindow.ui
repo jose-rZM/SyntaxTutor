@@ -326,6 +326,19 @@
              </item>
             </layout>
            </item>
+           <item>
+            <widget class="QCheckBox" name="customGrammarCheck">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Usar mi propia gramática</string>
+             </property>
+             <property name="toolTip">
+              <string>Escribe tu propia gramática antes de empezar el ejercicio, en lugar de usar una aleatoria.</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>

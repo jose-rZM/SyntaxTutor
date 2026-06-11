@@ -618,3 +618,129 @@ QDialog[guidedDialog="slr"] QPushButton#slrWizardNextButton:disabled {
     color: #6F7A7E;
     border: 1px solid #353D40;
 }
+
+QDialog[grammarEditor="true"] {
+    background-color: #1F1F1F;
+    border: none;
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorEyebrow {
+    color: #11B3BC;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorTitle {
+    color: #F4F7F8;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorSubtitle {
+    color: #9AA5A8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+QDialog[grammarEditor="true"] QPlainTextEdit#grammarEditorInput {
+    background-color: #2B3133;
+    color: #F1F4F5;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 12px;
+    padding: 12px 14px;
+    selection-background-color: #35515A;
+}
+
+QDialog[grammarEditor="true"] QPlainTextEdit#grammarEditorInput:focus {
+    border: 1px solid #11B3BC;
+}
+
+QDialog[grammarEditor="true"] QFrame#grammarEditorSummary {
+    background-color: #212526;
+    border: 1px solid #303638;
+    border-radius: 12px;
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorSummaryCaption {
+    color: #9FCFD2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorSummaryValue {
+    color: #E8ECEE;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorStatus {
+    color: #AEB9BC;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorStatus[state="error"] {
+    color: #F1B0AE;
+    background-color: rgba(217, 83, 79, 0.12);
+}
+
+QDialog[grammarEditor="true"] QLabel#grammarEditorStatus[state="ok"] {
+    color: #9FE3E7;
+    background-color: rgba(17, 179, 188, 0.12);
+}
+
+QDialog[grammarEditor="true"] QPushButton#grammarEditorCancelButton {
+    background: transparent;
+    color: #AAB5B8;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QDialog[grammarEditor="true"] QPushButton#grammarEditorCancelButton:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+QDialog[grammarEditor="true"] QPushButton#grammarEditorStartButton {
+    min-width: 170px;
+    padding: 11px 18px;
+    border-radius: 10px;
+}
+
+QDialog[grammarEditor="true"] QPushButton#grammarEditorStartButton:disabled {
+    background-color: #2A2E30;
+    color: #6F7A7E;
+    border: 1px solid #353D40;
+}
+
+QCheckBox#customGrammarCheck {
+    color: #C9D0D2;
+    font-size: 13px;
+    spacing: 8px;
+}
+
+QCheckBox#customGrammarCheck::indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid #3A4144;
+    background-color: #2A2E30;
+}
+
+QCheckBox#customGrammarCheck::indicator:hover {
+    border: 1px solid #11B3BC;
+}
+
+QCheckBox#customGrammarCheck::indicator:checked {
+    background-color: #11B3BC;
+    border: 1px solid #11B3BC;
+    image: url(:/resources/check.svg);
+}
