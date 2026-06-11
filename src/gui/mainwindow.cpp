@@ -17,6 +17,7 @@
  */
 
 #include "mainwindow.h"
+#include "grammareditordialog.h"
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
 #include <QDialog>
@@ -326,9 +327,11 @@ void MainWindow::setNavigationEnabled(bool enabled) {
     ui->pushButton->setDisabled(!enabled);
     ui->pushButton_2->setDisabled(!enabled);
     ui->tutorial->setDisabled(!enabled);
-    ui->lv1Button->setDisabled(!enabled);
-    ui->lv2Button->setDisabled(!enabled);
-    ui->lv3Button->setDisabled(!enabled);
+    const bool levelsEnabled = enabled && !ui->customGrammarCheck->isChecked();
+    ui->lv1Button->setEnabled(levelsEnabled);
+    ui->lv2Button->setEnabled(levelsEnabled);
+    ui->lv3Button->setEnabled(levelsEnabled);
+    ui->customGrammarCheck->setEnabled(enabled);
 }
 
 void MainWindow::showHomePage() {
@@ -470,12 +473,34 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
     saveSettings();
 }
 
+void MainWindow::on_customGrammarCheck_toggled(bool checked) {
+    ui->lv1Button->setEnabled(!checked);
+    ui->lv2Button->setEnabled(!checked);
+    ui->lv3Button->setEnabled(!checked);
+}
+
 void MainWindow::on_pushButton_clicked() {
+    if (ui->customGrammarCheck->isChecked()) {
+        GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1, this);
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        }
+        startLLTutor(dialog.grammar(), nullptr);
+        return;
+    }
     Grammar grammar = factory.GenLL1Grammar(level);
     startLLTutor(grammar, nullptr);
 }
 
 void MainWindow::on_pushButton_2_clicked() {
+    if (ui->customGrammarCheck->isChecked()) {
+        GrammarEditorDialog dialog(GrammarEditorDialog::Mode::SLR1, this);
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        }
+        startSLRTutor(dialog.grammar(), nullptr);
+        return;
+    }
     Grammar grammar = factory.GenSLR1Grammar(level);
     startSLRTutor(grammar, nullptr);
 }

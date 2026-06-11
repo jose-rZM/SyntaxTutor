@@ -107,6 +107,14 @@ class MainWindow : public QMainWindow {
     void on_lv3Button_clicked(bool checked);
 
     /**
+     * @brief Toggles between random grammars and user-written grammars.
+     *
+     * When checked, difficulty levels no longer apply and starting an
+     * exercise opens the grammar editor first.
+     */
+    void on_customGrammarCheck_toggled(bool checked);
+
+    /**
      * @brief Opens the LL(1) exercise dialog.
      */
     void on_pushButton_clicked();
