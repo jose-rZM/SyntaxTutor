@@ -1,19 +1,24 @@
 #include "tutor_window_test.h"
 
+#include "grammareditordialog.h"
 #include "mainwindow.h"
 #include "lltutorwindow.h"
 #include "qt_modal_test_utils.h"
 #include "slrtutorwindow.h"
 
+#include <QCheckBox>
 #include <QCoreApplication>
 #include <QDialog>
 #include <QLabel>
+#include <QPlainTextEdit>
 #include <QProgressBar>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QSettings>
 #include <QTest>
 #include <QTextBrowser>
 #include <QTranslator>
+#include <algorithm>
 
 namespace {
 
@@ -468,4 +473,285 @@ void TutorWindowTest::mainStatePersistenceAcrossRestart() {
     QCOMPARE(window.findChild<QLabel*>("badgeNivel")->text(), QString("3"));
     QCOMPARE(window.findChild<QLabel*>("labelScore")->text(), QString("Puntos: 7"));
     QCOMPARE(window.findChild<QProgressBar*>("progressBarNivel")->value(), 23);
+}
+
+namespace {
+
+void scheduleGrammarEditorSubmission(const QString& grammarText) {
+    QtModalTestUtils::scheduleUntilHandled([grammarText]() {
+        auto* dialog =
+            QtModalTestUtils::findVisibleTopLevelWidget<GrammarEditorDialog>();
+        if (dialog == nullptr) {
+            return false;
+        }
+
+        dialog->setGrammarTextForTest(grammarText);
+        if (!dialog->isGrammarValidForTest()) {
+            return false;
+        }
+
+        auto* start =
+            dialog->findChild<QPushButton*>("grammarEditorStartButton");
+        if (start == nullptr || !start->isEnabled()) {
+            return false;
+        }
+        QTest::mouseClick(start, Qt::LeftButton);
+        return true;
+    });
+}
+
+void scheduleGrammarEditorCancel() {
+    QtModalTestUtils::scheduleUntilHandled([]() {
+        auto* dialog =
+            QtModalTestUtils::findVisibleTopLevelWidget<GrammarEditorDialog>();
+        if (dialog == nullptr) {
+            return false;
+        }
+
+        auto* cancel =
+            dialog->findChild<QPushButton*>("grammarEditorCancelButton");
+        if (cancel == nullptr) {
+            return false;
+        }
+        QTest::mouseClick(cancel, Qt::LeftButton);
+        return true;
+    });
+}
+
+bool anyLabelContains(QWidget* root, const QString& needle) {
+    const QList<QLabel*> labels = root->findChildren<QLabel*>();
+    return std::any_of(labels.cbegin(), labels.cend(),
+                       [&needle](const QLabel* label) {
+                           return label->text().contains(needle);
+                       });
+}
+
+} // namespace
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-13
+// Summary:
+//   Verifies that enabling "use my own grammar" disables difficulty levels and
+//   that disabling it restores them.
+//
+// Situation:
+//   Main window freshly opened on the home screen.
+//
+// Action:
+//   The test toggles the custom grammar checkbox on and off.
+//
+// Expected:
+//   Level radio buttons are disabled while the checkbox is checked and enabled
+//   again when unchecked.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarToggleDisablesLevels() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* check = window.findChild<QCheckBox*>("customGrammarCheck");
+    QVERIFY(check != nullptr);
+    QVERIFY(check->isEnabled());
+    QVERIFY(!check->isChecked());
+
+    check->setChecked(true);
+    QVERIFY(!window.findChild<QRadioButton*>("lv1Button")->isEnabled());
+    QVERIFY(!window.findChild<QRadioButton*>("lv2Button")->isEnabled());
+    QVERIFY(!window.findChild<QRadioButton*>("lv3Button")->isEnabled());
+
+    check->setChecked(false);
+    QVERIFY(window.findChild<QRadioButton*>("lv1Button")->isEnabled());
+    QVERIFY(window.findChild<QRadioButton*>("lv2Button")->isEnabled());
+    QVERIFY(window.findChild<QRadioButton*>("lv3Button")->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-14
+// Summary:
+//   Starts an LL(1) exercise with a user-written grammar that uses
+//   multi-character tokens.
+//
+// Situation:
+//   Custom grammar mode enabled on the home screen.
+//
+// Action:
+//   The test clicks the LL(1) button, writes an LL(1) grammar in the editor
+//   dialog and presses the start button.
+//
+// Expected:
+//   The LL(1) tutor opens showing the user's symbols and the grammar text is
+//   persisted for the next session.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarLlFlowStartsTutorWithUserGrammar() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    window.findChild<QCheckBox*>("customGrammarCheck")->setChecked(true);
+
+    const QString grammarText =
+        QStringLiteral("Expr -> id Resto .\nResto -> + id Resto | .");
+    scheduleGrammarEditorSubmission(grammarText);
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+
+    LLTutorWindow* tutor = nullptr;
+    QTRY_VERIFY((tutor = window.findChild<LLTutorWindow*>()) != nullptr);
+    QVERIFY(anyLabelContains(tutor, QStringLiteral("Resto")));
+
+    QSettings settings = testAppSettings();
+    QCOMPARE(settings.value("userGrammar/lastText").toString(), grammarText);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-15
+// Summary:
+//   Starts an SLR(1) exercise with a user-written left-recursive grammar.
+//
+// Situation:
+//   Custom grammar mode enabled on the home screen.
+//
+// Action:
+//   The test clicks the SLR(1) button and submits a left-recursive grammar
+//   (valid SLR(1), invalid LL(1)) through the editor dialog.
+//
+// Expected:
+//   The SLR(1) tutor opens showing the user's symbols.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarSlrFlowStartsTutorWithUserGrammar() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    window.findChild<QCheckBox*>("customGrammarCheck")->setChecked(true);
+
+    scheduleGrammarEditorSubmission(QStringLiteral("Expr -> Expr + id | id ."));
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton_2"),
+                      Qt::LeftButton);
+
+    SLRTutorWindow* tutor = nullptr;
+    QTRY_VERIFY((tutor = window.findChild<SLRTutorWindow*>()) != nullptr);
+    QVERIFY(anyLabelContains(tutor, QStringLiteral("Expr")));
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-16
+// Summary:
+//   Exercises the grammar editor validation: format errors, reserved symbols,
+//   the LL(1) check, and a final valid grammar.
+//
+// Situation:
+//   Grammar editor dialog opened directly in LL(1) mode.
+//
+// Action:
+//   The test writes several invalid grammars followed by a valid one.
+//
+// Expected:
+//   The start button stays disabled and an error message is shown until the
+//   grammar becomes valid.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarEditorRejectsInvalidAndNonLl1Grammars() {
+    clearTestAppSettings();
+
+    GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1);
+    dialog.show();
+
+    auto* start  = dialog.findChild<QPushButton*>("grammarEditorStartButton");
+    auto* status = dialog.findChild<QLabel*>("grammarEditorStatus");
+    QVERIFY(start != nullptr);
+    QVERIFY(status != nullptr);
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a"));
+    QVERIFY(!dialog.isGrammarValidForTest());
+    QVERIFY(!start->isEnabled());
+    QVERIFY(!status->text().isEmpty());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A B -> a ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a $ ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a\nB -> b ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    // Left recursion is fine for SLR(1) but must be rejected in LL(1) mode.
+    dialog.setGrammarTextForTest(QStringLiteral("Expr -> Expr + id | id ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    // Non-productive grammars never derive a terminal string.
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a B .\nB -> B b ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a A | b ."));
+    QVERIFY(dialog.isGrammarValidForTest());
+    QVERIFY(start->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-17
+// Summary:
+//   Cancels the grammar editor and verifies no tutor is started.
+//
+// Situation:
+//   Custom grammar mode enabled on the home screen.
+//
+// Action:
+//   The test clicks the LL(1) button and dismisses the editor dialog.
+//
+// Expected:
+//   The application stays on the home page with no tutor created.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarEditorCancelKeepsHomePage() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    window.findChild<QCheckBox*>("customGrammarCheck")->setChecked(true);
+
+    scheduleGrammarEditorCancel();
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+
+    QTest::qWait(50);
+    QVERIFY(window.findChild<LLTutorWindow*>() == nullptr);
+    QVERIFY(window.findChild<QPushButton*>("pushButton")->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-18
+// Summary:
+//   Verifies that the last accepted grammar is restored when the editor is
+//   reopened.
+//
+// Situation:
+//   A grammar was accepted in a previous editor session.
+//
+// Action:
+//   The test accepts a grammar in one dialog instance and opens a new one.
+//
+// Expected:
+//   The new editor starts pre-filled with the persisted grammar and is
+//   immediately valid.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarEditorRestoresLastGrammar() {
+    clearTestAppSettings();
+
+    const QString grammarText = QStringLiteral("A -> a A | b .");
+    {
+        GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1);
+        dialog.show();
+        dialog.setGrammarTextForTest(grammarText);
+        QVERIFY(dialog.isGrammarValidForTest());
+        QTest::mouseClick(
+            dialog.findChild<QPushButton*>("grammarEditorStartButton"),
+            Qt::LeftButton);
+    }
+
+    GrammarEditorDialog reopened(GrammarEditorDialog::Mode::LL1);
+    QCOMPARE(reopened.findChild<QPlainTextEdit*>("grammarEditorInput")
+                 ->toPlainText(),
+             grammarText);
+    QVERIFY(reopened.isGrammarValidForTest());
 }

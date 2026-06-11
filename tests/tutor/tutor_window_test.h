@@ -54,4 +54,11 @@ class TutorWindowTest : public QObject {
     void mainTutorialFlowCompletesAndReenablesControls();
     void mainGamificationPersistsAcrossRestart();
     void mainStatePersistenceAcrossRestart();
+
+    void mainCustomGrammarToggleDisablesLevels();
+    void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();
+    void mainCustomGrammarSlrFlowStartsTutorWithUserGrammar();
+    void mainCustomGrammarEditorRejectsInvalidAndNonLl1Grammars();
+    void mainCustomGrammarEditorCancelKeepsHomePage();
+    void mainCustomGrammarEditorRestoresLastGrammar();
 };

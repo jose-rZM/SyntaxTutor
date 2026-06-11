@@ -25,6 +25,7 @@ DESTDIR = $$OUT_PWD/.bin
 SOURCES += \
     ../src/backend/grammar.cpp \
     ../src/backend/grammar_factory.cpp \
+    ../src/backend/grammar_parser.cpp \
     ../src/backend/ll1_parser.cpp \
     ../src/backend/lr0_item.cpp \
     ../src/backend/slr1_parser.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     ../src/widgets/customtextedit.cpp \
     ../src/widgets/grammarview.cpp \
     ../src/widgets/tutorialmanager.cpp \
+    ../src/gui/grammareditordialog.cpp \
     ../src/gui/lltabledialog.cpp \
     ../src/gui/lltutorwindow.cpp \
     ../src/gui/mainwindow.cpp \
@@ -46,6 +48,7 @@ SOURCES += \
 HEADERS += \
     ../src/backend/grammar.hpp \
     ../src/backend/grammar_factory.hpp \
+    ../src/backend/grammar_parser.hpp \
     ../src/backend/ll1_parser.hpp \
     ../src/backend/lr0_item.hpp \
     ../src/backend/slr1_parser.hpp \
@@ -54,6 +57,7 @@ HEADERS += \
     ../src/widgets/customtextedit.h \
     ../src/widgets/grammarview.h \
     ../src/widgets/tutorialmanager.h \
+    ../src/gui/grammareditordialog.h \
     ../src/gui/lltabledialog.h \
     ../src/gui/lltutorwindow.h \
     ../src/gui/mainwindow.h \
