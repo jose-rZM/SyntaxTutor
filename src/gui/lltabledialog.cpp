@@ -69,9 +69,22 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     submitButton->setCursor(Qt::PointingHandCursor);
     submitButton->setProperty("role", "primary");
 
+    guidedButton = new QPushButton(tr("Modo guiado"), this);
+    guidedButton->setObjectName("llTableGuidedButton");
+    guidedButton->setCursor(Qt::PointingHandCursor);
+    guidedButton->setProperty("role", "primary");
+
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(table);
-    layout->addWidget(submitButton);
+
+    auto* buttons = new QHBoxLayout;
+    buttons->setContentsMargins(0, 0, 0, 0);
+    buttons->setSpacing(10);
+    buttons->addStretch();
+    buttons->addWidget(guidedButton);
+    buttons->addWidget(submitButton);
+
+    layout->addLayout(buttons);
     layout->setContentsMargins(10, 10, 10, 10);
     setLayout(layout);
 
@@ -104,6 +117,20 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
                 commitPendingEdit();
                 emit submitted(getTableData());
             });
+    connect(guidedButton, &QPushButton::clicked, this,
+            [this]() {
+                commitPendingEdit();
+                emit guidedRequested(getTableData());
+            });
+}
+
+void LLTableDialog::setGuidedModeActive(bool active) {
+    guidedButton->setEnabled(!active);
+    submitButton->setEnabled(!active);
+}
+
+void LLTableDialog::setGuidedButtonVisible(bool visible) {
+    guidedButton->setVisible(visible);
 }
 
 void LLTableDialog::commitPendingEdit() {

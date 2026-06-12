@@ -3,6 +3,7 @@
 #include "examreportdialog.h"
 #include "ll1_tutor_test_utils.h"
 #include "lltutorwindow.h"
+#include "llwizard.h"
 #include "qt_modal_test_utils.h"
 #include "tutor_grammar_fixtures.h"
 #include "tutor_scenario.h"
@@ -12,6 +13,8 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QLabel>
+#include <QLineEdit>
+#include <QPointer>
 #include <QPushButton>
 #include <QSignalSpy>
 #include <QTableWidget>
@@ -871,4 +874,258 @@ void TutorWindowTest::llExamModeAllCorrectScoresTen() {
         QTest::mouseClick(closeButton, Qt::LeftButton);
         QTest::qWait(20);
     });
+}
+
+namespace {
+
+LLWizard* waitForLlWizard() {
+    return QtModalTestUtils::waitForVisibleTopLevelWidget<LLWizard>();
+}
+
+void finishLlWizard(LLWizard* wizard) {
+    QPointer<LLWizard> wizardGuard(wizard);
+    QVERIFY(wizardGuard != nullptr);
+    int guard = 0;
+    while (wizardGuard != nullptr && wizardGuard->isVisible() &&
+           ++guard < 200) {
+        auto* page = wizardGuard->currentPage();
+        QVERIFY(page != nullptr);
+        auto* edit = page->findChild<QLineEdit*>("llWizardAnswerEdit");
+        QVERIFY(edit != nullptr);
+        edit->setText(page->expectedForTest());
+        QApplication::processEvents();
+
+        const bool   isFinalPage = wizardGuard->isOnLastPage();
+        QPushButton* nextButton  = wizardGuard->nextButton();
+        QVERIFY(nextButton != nullptr);
+        QTest::mouseClick(nextButton, Qt::LeftButton);
+        QApplication::processEvents();
+
+        if (isFinalPage) {
+            break;
+        }
+    }
+}
+
+} // namespace
+
+// -----------------------------------------------------------------------------
+// Case: LL1-TC-19
+// Summary:
+//   Exercises the LL(1) guided mode chrome: opening from the table dialog,
+//   inline feedback, whitespace-tolerant validation, and exiting early.
+//
+// Situation:
+//   LL(1) tutor in C with the table dialog open on the simple fixture.
+//
+// Action:
+//   The user opens guided mode, types a wrong answer, then the expected
+//   production with extra spaces, advances one page and exits.
+//
+// Expected:
+//   The wizard freezes the table dialog while open, shows feedback for wrong
+//   input, accepts the spaced variant, and returns to the table on exit.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::llGuidedModeWizardUsesCustomNavigationAndAllowsExit() {
+    const Grammar grammar = TutorGrammarFixtures::makeLl1SimpleGrammar();
+    LLTutorWindow tutor(grammar, nullptr);
+
+    runScenario(tutor, {{Ll1TutorTestUtils::tableSizeAnswer(grammar), "B", 1,
+                         0}});
+    answerRemainingRulesUntilStateC(tutor, grammar);
+
+    LLTableDialog* dialog = waitForTableDialog();
+    auto*          table = dialog->findChild<QTableWidget*>("llTableWidget");
+    auto* guidedButton = dialog->findChild<QPushButton*>("llTableGuidedButton");
+    auto* submitButton = dialog->findChild<QPushButton*>("llTableSubmitButton");
+    QVERIFY(table != nullptr);
+    QVERIFY(guidedButton != nullptr);
+    QVERIFY(submitButton != nullptr);
+
+    QtModalTestUtils::requestLlGuidedMode(
+        dialog, QVector<QVector<QString>>(
+                    table->rowCount(), QVector<QString>(table->columnCount())));
+    LLWizard* wizard = waitForLlWizard();
+    QVERIFY(wizard != nullptr);
+    QPointer<LLWizard> wizardGuard(wizard);
+    auto*              page = wizard->currentPage();
+    QVERIFY(page != nullptr);
+
+    QVERIFY(!guidedButton->isEnabled());
+    QVERIFY(!submitButton->isEnabled());
+
+    auto* titleLabel = wizard->findChild<QLabel*>("llWizardTitle");
+    QVERIFY(titleLabel != nullptr);
+    QVERIFY(!titleLabel->text().isEmpty());
+
+    auto* stepCounter = wizard->findChild<QLabel*>("llWizardStepCounter");
+    QVERIFY(stepCounter != nullptr);
+    QVERIFY(!stepCounter->text().isEmpty());
+
+    auto* feedbackLabel = page->findChild<QLabel*>("llWizardFeedbackLabel");
+    QVERIFY(feedbackLabel != nullptr);
+    QVERIFY(feedbackLabel->text().isEmpty());
+
+    auto* edit = page->findChild<QLineEdit*>("llWizardAnswerEdit");
+    QVERIFY(edit != nullptr);
+    edit->setText(QStringLiteral("wrong"));
+    QApplication::processEvents();
+    QVERIFY(!feedbackLabel->text().isEmpty());
+    QVERIFY(!wizard->nextButton()->isEnabled());
+
+    // Whitespace-tolerant validation: pad the expected production.
+    const QString spaced =
+        QStringLiteral("  %1  ").arg(page->expectedForTest()).replace(' ',
+                                                                      "  ");
+    edit->setText(spaced);
+    QApplication::processEvents();
+    QVERIFY(wizard->nextButton()->isEnabled());
+
+    QPointer<LLWizardPage> firstPage(page);
+    QTest::keyClick(edit, Qt::Key_Return);
+    QTRY_VERIFY(firstPage == nullptr || wizard->currentPage() != firstPage);
+
+    QTest::mouseClick(wizard->closeButton(), Qt::LeftButton);
+    QTRY_VERIFY(wizardGuard == nullptr || !wizardGuard->isVisible());
+    QVERIFY(guidedButton->isEnabled());
+    QVERIFY(submitButton->isEnabled());
+    QVERIFY(dialog->isVisible());
+    QCOMPARE(tutor.currentStateForTest(), QString("C"));
+}
+
+// -----------------------------------------------------------------------------
+// Case: LL1-TC-20
+// Summary:
+//   Completes the LL(1) guided mode and verifies the table dialog is restored
+//   with the user's snapshot.
+//
+// Situation:
+//   LL(1) tutor in C with the table dialog open on each fixture.
+//
+// Action:
+//   The user opens guided mode and answers every cell correctly.
+//
+// Expected:
+//   The wizard walks every non-empty cell of the LL(1) table, closes after
+//   the last page, and control returns to the table dialog still in C.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::llGuidedModeWizardCompletesAndReturnsToTable() {
+    forEachLlFixture([](const auto& fixture) {
+        const Grammar grammar = fixture.grammar;
+        LLTutorWindow tutor(grammar, nullptr);
+
+        runScenario(tutor, {{Ll1TutorTestUtils::tableSizeAnswer(grammar), "B",
+                             1, 0}});
+        answerRemainingRulesUntilStateC(tutor, grammar);
+
+        LLTableDialog* dialog = waitForTableDialog();
+        auto* table = dialog->findChild<QTableWidget*>("llTableWidget");
+        auto* guidedButton =
+            dialog->findChild<QPushButton*>("llTableGuidedButton");
+        auto* submitButton =
+            dialog->findChild<QPushButton*>("llTableSubmitButton");
+        QVERIFY(table != nullptr);
+        QVERIFY(guidedButton != nullptr);
+        QVERIFY(submitButton != nullptr);
+
+        QtModalTestUtils::requestLlGuidedMode(
+            dialog,
+            QVector<QVector<QString>>(table->rowCount(),
+                                      QVector<QString>(table->columnCount())));
+        LLWizard* wizard = waitForLlWizard();
+        QVERIFY(wizard != nullptr);
+        QPointer<LLWizard> wizardGuard(wizard);
+
+        QVERIFY(!guidedButton->isEnabled());
+        QVERIFY(!submitButton->isEnabled());
+
+        finishLlWizard(wizard);
+        QTRY_VERIFY(wizardGuard == nullptr || !wizardGuard->isVisible());
+        QVERIFY(guidedButton->isEnabled());
+        QVERIFY(submitButton->isEnabled());
+        QVERIFY(dialog->isVisible());
+        QCOMPARE(tutor.currentStateForTest(), QString("C"));
+
+        // The exercise still finishes normally after using the wizard.
+        QtModalTestUtils::submitLlTableDialog(
+            dialog, QtModalTestUtils::buildExpectedTable(grammar, table));
+        QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    });
+}
+
+// -----------------------------------------------------------------------------
+// Case: LL1-TC-21
+// Summary:
+//   Verifies the guided mode is reachable from the C' retry table and that
+//   exam mode hides the guided button.
+//
+// Situation:
+//   LL(1) tutor driven to C' on the simple fixture; a second tutor in exam
+//   mode at the C table.
+//
+// Action:
+//   The test opens guided mode from the C' dialog, then checks the exam
+//   tutor's table dialog.
+//
+// Expected:
+//   The wizard opens in C'; in exam mode the guided button is hidden.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::llGuidedModeAvailableInCPrimeAndHiddenInExam() {
+    const Grammar grammar = TutorGrammarFixtures::makeLl1SimpleGrammar();
+    {
+        LLTutorWindow tutor(grammar, nullptr);
+        runScenario(tutor, {{Ll1TutorTestUtils::tableSizeAnswer(grammar), "B",
+                             1, 0}});
+        answerRemainingRulesUntilStateC(tutor, grammar);
+        driveTutorToCPrime(tutor, grammar);
+
+        LLTableDialog* dialog = waitForTableDialog();
+        auto*          table = dialog->findChild<QTableWidget*>("llTableWidget");
+        auto* guidedButton =
+            dialog->findChild<QPushButton*>("llTableGuidedButton");
+        QVERIFY(table != nullptr);
+        QVERIFY(guidedButton != nullptr);
+        QVERIFY(guidedButton->isVisible());
+
+        QtModalTestUtils::requestLlGuidedMode(
+            dialog,
+            QVector<QVector<QString>>(table->rowCount(),
+                                      QVector<QString>(table->columnCount())));
+        LLWizard* wizard = waitForLlWizard();
+        QVERIFY(wizard != nullptr);
+        QPointer<LLWizard> wizardGuard(wizard);
+        QTest::mouseClick(wizard->closeButton(), Qt::LeftButton);
+        QTRY_VERIFY(wizardGuard == nullptr || !wizardGuard->isVisible());
+        QVERIFY(dialog->isVisible());
+
+        // Leave the exercise cleanly.
+        QtModalTestUtils::submitLlTableDialog(
+            dialog, QtModalTestUtils::buildExpectedTable(grammar, table));
+        QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    }
+
+    LLTutorWindow examTutor(grammar, nullptr, nullptr, true);
+    examTutor.setAnswerForTest(Ll1TutorTestUtils::tableSizeAnswer(grammar));
+    examTutor.submitForTest();
+    answerRemainingRulesUntilStateC(examTutor, grammar);
+    QCOMPARE(examTutor.currentStateForTest(), QString("C"));
+
+    LLTableDialog* examDialog = waitForTableDialog();
+    QVERIFY(examDialog != nullptr);
+    auto* examGuidedButton =
+        examDialog->findChild<QPushButton*>("llTableGuidedButton");
+    QVERIFY(examGuidedButton != nullptr);
+    QVERIFY(!examGuidedButton->isVisible());
+
+    auto* examTable = examDialog->findChild<QTableWidget*>("llTableWidget");
+    QVERIFY(examTable != nullptr);
+    QtModalTestUtils::submitLlTableDialog(
+        examDialog,
+        QtModalTestUtils::buildExpectedTable(grammar, examTable));
+    QTRY_COMPARE(examTutor.currentStateForTest(), QString("fin"));
+    auto* report =
+        QtModalTestUtils::waitForVisibleTopLevelWidget<ExamReportDialog>();
+    QVERIFY(report != nullptr);
+    QTest::mouseClick(report->findChild<QPushButton*>("examReportCloseButton"),
+                      Qt::LeftButton);
 }

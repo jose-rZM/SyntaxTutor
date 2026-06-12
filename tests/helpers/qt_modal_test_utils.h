@@ -252,4 +252,15 @@ inline void requestSlrGuidedMode(SLRTableDialog*               dialog,
     QTest::mouseClick(button, Qt::LeftButton);
 }
 
+inline void requestLlGuidedMode(LLTableDialog*                   dialog,
+                                const QVector<QVector<QString>>& raw) {
+    auto* table = dialog->findChild<QTableWidget*>("llTableWidget");
+    auto* button = dialog->findChild<QPushButton*>("llTableGuidedButton");
+    QVERIFY(table != nullptr);
+    QVERIFY(button != nullptr);
+
+    setTableData(table, raw);
+    QTest::mouseClick(button, Qt::LeftButton);
+}
+
 } // namespace QtModalTestUtils

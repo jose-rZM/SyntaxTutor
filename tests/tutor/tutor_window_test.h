@@ -24,6 +24,9 @@ class TutorWindowTest : public QObject {
     void llAcceptsFlexibleTableCellFormatting();
     void llExamModeWrongAnswersFollowMainPathAndGradeZero();
     void llExamModeAllCorrectScoresTen();
+    void llGuidedModeWizardUsesCustomNavigationAndAllowsExit();
+    void llGuidedModeWizardCompletesAndReturnsToTable();
+    void llGuidedModeAvailableInCPrimeAndHiddenInExam();
 
     void slrCreatesTutorWithNullTutorialManager();
     void slrStateAErrorPathAdvancesThroughAprime();

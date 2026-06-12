@@ -19,6 +19,7 @@
 #include "lltutorwindow.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
+#include "llwizard.h"
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
 #include <QApplication>
@@ -611,6 +612,26 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     ui->listWidget->scrollToBottom();
 }
 
+void LLTutorWindow::connectGuidedMode(LLTableDialog*     dialog,
+                                      const QStringList& colHeaders) {
+    connect(dialog, &LLTableDialog::guidedRequested, this,
+            [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+                const QVector<QVector<QString>> snapshot = data;
+                auto*                           wizard =
+                    new LLWizard(ll1, sortedNonTerminals, colHeaders, dialog);
+                wizard->setAttribute(Qt::WA_DeleteOnClose);
+                wizard->setWindowModality(Qt::WindowModal);
+                dialog->setGuidedModeActive(true);
+
+                connect(wizard, &QDialog::finished, dialog,
+                        [dialog, snapshot](int) {
+                            dialog->setGuidedModeActive(false);
+                            dialog->setInitialData(snapshot);
+                        });
+                wizard->show();
+            });
+}
+
 void LLTutorWindow::showTableForCPrime() {
     QStringList colHeaders;
 
@@ -623,6 +644,12 @@ void LLTutorWindow::showTableForCPrime() {
     colHeaders.sort();
     auto* dialog =
         new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
+    if (examMode) {
+        // The guided walkthrough reveals the answers; not during an exam.
+        dialog->setGuidedButtonVisible(false);
+    }
+
+    connectGuidedMode(dialog, colHeaders);
 
     connect(dialog, &LLTableDialog::submitted, this,
             [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
@@ -676,6 +703,12 @@ void LLTutorWindow::showTable() {
     auto* dialog =
         new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
     currentDlg = dialog;
+    if (examMode) {
+        // The guided walkthrough reveals the answers; not during an exam.
+        dialog->setGuidedButtonVisible(false);
+    }
+
+    connectGuidedMode(dialog, colHeaders);
 
     connect(dialog, &LLTableDialog::submitted, this,
             [this, colHeaders](const QVector<QVector<QString>>& data) {

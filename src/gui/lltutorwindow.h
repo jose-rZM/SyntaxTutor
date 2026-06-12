@@ -206,6 +206,19 @@ class LLTutorWindow : public QWidget {
 
     void handleTableSubmission(const QVector<QVector<QString>>& raw,
                                const QStringList&               colHeaders);
+
+    /**
+     * @brief Hooks the table dialog's guided mode button to the LL wizard.
+     *
+     * Opens the step-by-step LL(1) table assistant when requested, freezing
+     * the table dialog while it is active and restoring the user's snapshot
+     * when it closes.
+     *
+     * @param dialog Table dialog to connect.
+     * @param colHeaders Terminal symbols in the dialog's column order.
+     */
+    void connectGuidedMode(LLTableDialog*     dialog,
+                           const QStringList& colHeaders);
     void updatePlaceholder();
     bool confirmExitToHome();
     QString promptExportFilePath() const;

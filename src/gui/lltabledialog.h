@@ -75,6 +75,22 @@ class LLTableDialog : public QDialog {
      */
     void highlightIncorrectCells(const QList<QPair<int, int>>& coords);
 
+    /**
+     * @brief Enables or disables the dialog buttons while the guided mode
+     * dialog is open.
+     * @param active Whether the guided mode is currently active.
+     */
+    void setGuidedModeActive(bool active);
+
+    /**
+     * @brief Shows or hides the guided mode button.
+     *
+     * Exam mode hides it: the guided walkthrough would reveal the answers.
+     *
+     * @param visible Whether the button should be visible.
+     */
+    void setGuidedButtonVisible(bool visible);
+
   signals:
     /**
      * @brief Signal emitted when the user submits the table.
@@ -82,11 +98,18 @@ class LLTableDialog : public QDialog {
      */
     void submitted(const QVector<QVector<QString>>& data);
 
+    /**
+     * @brief Signal emitted when the user asks for the guided mode.
+     * @param data The current table data, restored when the wizard closes.
+     */
+    void guidedRequested(const QVector<QVector<QString>>& data);
+
   private:
     void commitPendingEdit();
 
     QTableWidget* table; ///< The widget representing the LL(1) parsing table.
     QPushButton*  submitButton; ///< Button to submit the completed table.
+    QPushButton*  guidedButton; ///< Button to launch guided mode.
 };
 
 #endif // LLTABLEDIALOG_H

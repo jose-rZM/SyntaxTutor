@@ -519,41 +519,48 @@ QTextBrowser#infoDialogContent a {
     color: #36C5CC;
 }
 
-QDialog[guidedDialog="slr"] {
+QDialog[guidedDialog="slr"],
+QDialog[guidedDialog="ll"] {
     background-color: #1F1F1F;
     border: none;
 }
 
-QDialog[guidedDialog="slr"] QFrame#slrWizardPanel {
+QDialog[guidedDialog="slr"] QFrame#slrWizardPanel,
+QDialog[guidedDialog="ll"] QFrame#llWizardPanel {
     background: transparent;
     border: none;
     border-radius: 0;
 }
 
-QDialog[guidedDialog="slr"] QLabel#slrWizardTitle {
+QDialog[guidedDialog="slr"] QLabel#slrWizardTitle,
+QDialog[guidedDialog="ll"] QLabel#llWizardTitle {
     color: #F4F7F8;
     font-size: 28px;
     font-weight: 700;
 }
 
-QDialog[guidedDialog="slr"] QLabel#slrWizardStepCounter {
+QDialog[guidedDialog="slr"] QLabel#slrWizardStepCounter,
+QDialog[guidedDialog="ll"] QLabel#llWizardStepCounter {
     color: #9AA5A8;
     font-size: 12px;
     font-weight: 600;
 }
 
-QDialog[guidedDialog="slr"] QProgressBar#slrWizardProgress {
+QDialog[guidedDialog="slr"] QProgressBar#slrWizardProgress,
+QDialog[guidedDialog="ll"] QProgressBar#llWizardProgress {
     background-color: rgba(255, 255, 255, 0.05);
     border: none;
     border-radius: 2px;
 }
 
-QDialog[guidedDialog="slr"] QProgressBar#slrWizardProgress::chunk {
+QDialog[guidedDialog="slr"] QProgressBar#slrWizardProgress::chunk,
+QDialog[guidedDialog="ll"] QProgressBar#llWizardProgress::chunk {
     background-color: #11B3BC;
     border-radius: 2px;
 }
 
-QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton {
+QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton,
+QDialog[guidedDialog="ll"] QPushButton#llWizardCloseButton {
     background: transparent;
     color: #AAB5B8;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -563,17 +570,20 @@ QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton {
     font-weight: 600;
 }
 
-QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton:hover {
+QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton:hover,
+QDialog[guidedDialog="ll"] QPushButton#llWizardCloseButton:hover {
     background-color: rgba(255, 255, 255, 0.03);
     color: #FFFFFF;
     border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton:pressed {
+QDialog[guidedDialog="slr"] QPushButton#slrWizardCloseButton:pressed,
+QDialog[guidedDialog="ll"] QPushButton#llWizardCloseButton:pressed {
     background-color: rgba(255, 255, 255, 0.06);
 }
 
-QDialog[guidedDialog="slr"] QLabel#slrWizardSectionTitle {
+QDialog[guidedDialog="slr"] QLabel#slrWizardSectionTitle,
+QDialog[guidedDialog="ll"] QLabel#llWizardSectionTitle {
     color: #9FCFD2;
     font-size: 12px;
     font-weight: 700;
@@ -581,13 +591,15 @@ QDialog[guidedDialog="slr"] QLabel#slrWizardSectionTitle {
     text-transform: uppercase;
 }
 
-QDialog[guidedDialog="slr"] QLabel#slrWizardExplanationLabel {
+QDialog[guidedDialog="slr"] QLabel#slrWizardExplanationLabel,
+QDialog[guidedDialog="ll"] QLabel#llWizardExplanationLabel {
     color: #DEE5E7;
     font-size: 15px;
     line-height: 1.5;
 }
 
-QDialog[guidedDialog="slr"] QLineEdit#slrWizardAnswerEdit {
+QDialog[guidedDialog="slr"] QLineEdit#slrWizardAnswerEdit,
+QDialog[guidedDialog="ll"] QLineEdit#llWizardAnswerEdit {
     background-color: #2B3133;
     color: #F1F4F5;
     border: 1px solid rgba(255, 255, 255, 0.10);
@@ -597,23 +609,27 @@ QDialog[guidedDialog="slr"] QLineEdit#slrWizardAnswerEdit {
     selection-background-color: #35515A;
 }
 
-QDialog[guidedDialog="slr"] QLineEdit#slrWizardAnswerEdit:focus {
+QDialog[guidedDialog="slr"] QLineEdit#slrWizardAnswerEdit:focus,
+QDialog[guidedDialog="ll"] QLineEdit#llWizardAnswerEdit:focus {
     border: 1px solid #11B3BC;
 }
 
-QDialog[guidedDialog="slr"] QLabel#slrWizardFeedbackLabel {
+QDialog[guidedDialog="slr"] QLabel#slrWizardFeedbackLabel,
+QDialog[guidedDialog="ll"] QLabel#llWizardFeedbackLabel {
     color: #AEB9BC;
     min-height: 40px;
     padding-top: 2px;
 }
 
-QDialog[guidedDialog="slr"] QPushButton#slrWizardNextButton {
+QDialog[guidedDialog="slr"] QPushButton#slrWizardNextButton,
+QDialog[guidedDialog="ll"] QPushButton#llWizardNextButton {
     min-width: 136px;
     padding: 11px 18px;
     border-radius: 10px;
 }
 
-QDialog[guidedDialog="slr"] QPushButton#slrWizardNextButton:disabled {
+QDialog[guidedDialog="slr"] QPushButton#slrWizardNextButton:disabled,
+QDialog[guidedDialog="ll"] QPushButton#llWizardNextButton:disabled {
     background-color: #2A2E30;
     color: #6F7A7E;
     border: 1px solid #353D40;
