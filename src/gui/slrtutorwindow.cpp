@@ -17,6 +17,7 @@
  */
 
 #include "slrtutorwindow.h"
+#include "examreportdialog.h"
 #include "grammarview.h"
 #include "slrwizard.h"
 #include "tutorialmanager.h"
@@ -191,9 +192,9 @@ bool NormalizeSlrCell(const QString& cell, QString* normalized) {
 } // namespace
 
 SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
-                               QWidget* parent)
+                               QWidget* parent, bool examMode)
     : QWidget(parent), ui(new Ui::SLRTutorWindow), grammar(g), slr1(g),
-      tm(tm) {
+      examMode(examMode), tm(tm) {
     // ====== Parser Initialization ============================
     slr1.MakeParser();
 
@@ -273,12 +274,20 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
+    // In exam mode the live counters would leak feedback; hide them.
+    if (examMode) {
+        ui->tick->hide();
+        ui->cross->hide();
+        ui->cntRight->hide();
+        ui->cntWrong->hide();
+    }
+
     updateProgressPanel();
     addGrammarMessage();
 
     currentState = StateSlr::A;
     updatePlaceholder();
-    addMessage(generateQuestion(), false);
+    postQuestion();
 
     // ====== Signal Connections ==================================
     connect(ui->userResponse, &CustomTextEdit::sendRequested, this,
@@ -626,6 +635,10 @@ void SLRTutorWindow::showTable() {
               });
     auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
                                       colHeaders, this, &rawTable);
+    if (examMode) {
+        // The guided walkthrough reveals the answers; not during an exam.
+        dialog->setGuidedButtonVisible(false);
+    }
 
     connect(dialog, &SLRTableDialog::guidedRequested, this,
             [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
@@ -860,6 +873,21 @@ void SLRTutorWindow::showTable() {
                             {static_cast<int>(stateId), col});
                     }
                 }
+            }
+
+            if (examMode) {
+                // Single submission: grade every cell, no highlights or
+                // retries.
+                scoreExamTable(colHeaders);
+                if (incorrectCoords.isEmpty() && invalidCoords.isEmpty()) {
+                    ++cntRightAnswers;
+                } else {
+                    ++cntWrongAnswers;
+                }
+                dialog->accept();
+                on_confirmButton_clicked();
+                dialog->deleteLater();
+                return;
             }
 
             dialog->highlightIncorrectCells(incorrectCoords);
@@ -1369,7 +1397,22 @@ void SLRTutorWindow::on_confirmButton_clicked() {
         isCorrect = verifyResponse("");
     }
 
-    if (!isCorrect) {
+    if (examMode) {
+        // No feedback in exam mode: record the real result silently and
+        // advance along the correct path so error states never trigger.
+        // Table answers are recorded cell by cell in scoreExamTable.
+        if (prevState != StateSlr::H && prevState != StateSlr::H_prime) {
+            examSession.record(currentQuestionText, userResponse,
+                               examSolutionText(), isCorrect);
+            if (isCorrect) {
+                ++cntRightAnswers;
+            } else {
+                ++cntWrongAnswers;
+            }
+        }
+        lastUserMessage = nullptr;
+        isCorrect       = true;
+    } else if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
         animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
@@ -1396,46 +1439,67 @@ void SLRTutorWindow::on_confirmButton_clicked() {
     if (currentState == StateSlr::fin) {
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true);
-        addMessage(tr("Ejercicio terminado. ¿Quieres exportar la conversación "
-                      "o salir?"),
-                   false);
 
         auto* actions = new QWidget();
         auto* layout  = new QHBoxLayout(actions);
         layout->setContentsMargins(0, 0, 0, 0);
         layout->setSpacing(10);
 
-        auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
-        exportBtn->setObjectName("slrTutorExportPdfButton");
-        exportBtn->setCursor(Qt::PointingHandCursor);
-        exportBtn->setProperty("role", "primary");
+        if (examMode) {
+            addMessage(tr("Examen terminado. Consulta tu informe con la "
+                          "calificación y la revisión de tus respuestas."),
+                       false);
+
+            auto* reportBtn = new QPushButton(tr("Ver informe"), actions);
+            reportBtn->setObjectName("slrTutorExamReportButton");
+            reportBtn->setCursor(Qt::PointingHandCursor);
+            reportBtn->setProperty("role", "primary");
+            layout->addWidget(reportBtn);
+            connect(reportBtn, &QPushButton::clicked, this,
+                    &SLRTutorWindow::showExamReport);
+        } else {
+            addMessage(tr("Ejercicio terminado. ¿Quieres exportar la "
+                          "conversación o salir?"),
+                       false);
+
+            auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+            exportBtn->setObjectName("slrTutorExportPdfButton");
+            exportBtn->setCursor(Qt::PointingHandCursor);
+            exportBtn->setProperty("role", "primary");
+            layout->addWidget(exportBtn);
+            connect(exportBtn, &QPushButton::clicked, this, [this]() {
+                const QString filePath = promptExportFilePath();
+                if (!filePath.isEmpty()) {
+                    exportConversationToPdf(filePath);
+                }
+            });
+        }
 
         auto* exitBtn = new QPushButton(tr("Salir"), actions);
         exitBtn->setObjectName("slrTutorExitButton");
         exitBtn->setCursor(Qt::PointingHandCursor);
         exitBtn->setProperty("role", "danger");
-
-        layout->addWidget(exportBtn);
         layout->addWidget(exitBtn);
-
-        connect(exportBtn, &QPushButton::clicked, this, [this]() {
-            const QString filePath = promptExportFilePath();
-            if (!filePath.isEmpty()) {
-                exportConversationToPdf(filePath);
-            }
-        });
-
         connect(exitBtn, &QPushButton::clicked, this,
                 [this]() { requestExit(true); });
 
         addWidgetMessage(actions);
         ui->listWidget->scrollToBottom();
+
+        if (examMode) {
+            showExamReport();
+        }
         return;
     }
-    addMessage(generateQuestion(), false);
+    postQuestion();
     if (isCorrect || stateChanged || isTableState) {
         ui->userResponse->clear();
     }
+}
+
+void SLRTutorWindow::postQuestion() {
+    currentQuestionText = generateQuestion();
+    addMessage(currentQuestionText, false);
 }
 
 /************************************************************
@@ -3158,6 +3222,172 @@ SLRTutorWindow::ingestUserRules(const QString& userResponse) {
         rules.emplace_back(antecedent, splitted);
     }
     return rules;
+}
+
+QString SLRTutorWindow::examSolutionText() {
+    auto joinSortedStrings = [](const QSet<QString>& set) {
+        QStringList values = set.values();
+        std::sort(values.begin(), values.end());
+        return values.join(", ");
+    };
+    auto joinSortedIds = [](const QSet<unsigned>& set) {
+        QList<unsigned> values = set.values();
+        std::sort(values.begin(), values.end());
+        QStringList texts;
+        for (unsigned id : values) {
+            texts.append(QString::number(id));
+        }
+        return texts.join(", ");
+    };
+
+    switch (currentState) {
+    case StateSlr::A:
+    case StateSlr::A4:
+    case StateSlr::A_prime:
+        return QString::fromStdString(slr1.PrintItems(solutionForA()));
+    case StateSlr::A1:
+        return solutionForA1();
+    case StateSlr::A2:
+        return solutionForA2();
+    case StateSlr::A3: {
+        QStringList rules;
+        for (const auto& [antecedent, consequent] : solutionForA3()) {
+            rules.append(QString("%1 -> %2").arg(
+                QString::fromStdString(antecedent),
+                QStringList::fromVector(stdVectorToQVector(consequent))
+                    .join(' ')));
+        }
+        return rules.join('\n');
+    }
+    case StateSlr::B:
+        return QString::number(solutionForB());
+    case StateSlr::C:
+        return QString::number(solutionForC());
+    case StateSlr::CA:
+        return solutionForCA().join(", ");
+    case StateSlr::CB:
+        return QString::fromStdString(slr1.PrintItems(solutionForCB()));
+    case StateSlr::D:
+        return solutionForD().join(',');
+    case StateSlr::D1:
+        return solutionForD1();
+    case StateSlr::D2:
+        return solutionForD2();
+    case StateSlr::E:
+        return QString::number(solutionForE());
+    case StateSlr::E1:
+        return joinSortedIds(solutionForE1());
+    case StateSlr::E2: {
+        const QMap<unsigned, unsigned> counts = solutionForE2();
+        QStringList                    pairs;
+        for (auto it = counts.cbegin(); it != counts.cend(); ++it) {
+            pairs.append(QString("%1:%2").arg(it.key()).arg(it.value()));
+        }
+        return pairs.join(", ");
+    }
+    case StateSlr::F:
+        return joinSortedIds(solutionForF());
+    case StateSlr::FA:
+        return joinSortedStrings(solutionForFA());
+    case StateSlr::G:
+        return joinSortedStrings(solutionForG());
+    default:
+        return {};
+    }
+}
+
+void SLRTutorWindow::scoreExamTable(const QStringList& colHeaders) {
+    const QString emptyCell = tr("(vacía)");
+    const int     nTerm     = slr1.gr_.st_.terminals_.size();
+
+    for (int stateId = 0; stateId < rawTable.size(); ++stateId) {
+        for (int col = 0; col < colHeaders.size(); ++col) {
+            const QString sym = colHeaders[col];
+            QString       expectedText;
+
+            if (col < nTerm) {
+                const auto& actMap = slr1.actions_.at(stateId);
+                auto        itAct  = actMap.find(sym.toStdString());
+                if (itAct != actMap.end()) {
+                    switch (itAct->second.action) {
+                    case SLR1Parser::Action::Shift:
+                        expectedText = QString("s%1").arg(
+                            slr1.transitions_.at(stateId).at(
+                                sym.toStdString()));
+                        break;
+                    case SLR1Parser::Action::Reduce: {
+                        const Lr0Item* item    = itAct->second.item;
+                        int            prodIdx = -1;
+                        for (int k = 0; k < sortedGrammar.size(); ++k) {
+                            const auto& rule = sortedGrammar[k];
+                            if (rule.first.toStdString() ==
+                                    item->antecedent_ &&
+                                stdVectorToQVector(item->consequent_) ==
+                                    rule.second) {
+                                prodIdx = k;
+                                break;
+                            }
+                        }
+                        expectedText = QString("r%1").arg(prodIdx);
+                        break;
+                    }
+                    case SLR1Parser::Action::Accept:
+                        expectedText = QStringLiteral("acc");
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            } else if (slr1.transitions_.contains(stateId)) {
+                const auto& transMap = slr1.transitions_.at(stateId);
+                auto        itTrans  = transMap.find(sym.toStdString());
+                if (itTrans != transMap.end()) {
+                    expectedText = QString::number(itTrans->second);
+                }
+            }
+
+            const QString userText = rawTable[stateId][col].trimmed();
+            if (expectedText.isEmpty() && userText.isEmpty()) {
+                continue;
+            }
+
+            const bool correct =
+                QString::compare(userText, expectedText,
+                                 Qt::CaseInsensitive) == 0;
+            examSession.record(
+                tr("Tabla SLR(1): celda (I%1, %2)").arg(stateId).arg(sym),
+                userText.isEmpty() ? emptyCell : userText,
+                expectedText.isEmpty() ? emptyCell : expectedText, correct);
+        }
+    }
+}
+
+void SLRTutorWindow::showExamReport() {
+    auto* report = new ExamReportDialog(examSession, tr("Examen SLR(1)"), this);
+    report->setAttribute(Qt::WA_DeleteOnClose);
+    report->setWindowModality(Qt::WindowModal);
+    connect(report, &ExamReportDialog::exportRequested, this,
+            [this, report]() {
+                const QString filePath = promptExportFilePath();
+                if (!filePath.isEmpty()) {
+                    exportExamReportToPdf(filePath, report->reportHtml());
+                }
+            });
+    report->show();
+}
+
+void SLRTutorWindow::exportExamReportToPdf(const QString& filePath,
+                                           const QString& html) const {
+    QTextDocument doc;
+    doc.setHtml(html);
+
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(filePath);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+
+    doc.print(&printer);
 }
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {

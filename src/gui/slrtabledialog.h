@@ -72,6 +72,15 @@ class SLRTableDialog : public QDialog {
     void setInitialData(const QVector<QVector<QString>>& data);
     void setGuidedModeActive(bool active);
 
+    /**
+     * @brief Shows or hides the guided mode button.
+     *
+     * Exam mode hides it: the guided walkthrough would reveal the answers.
+     *
+     * @param visible Whether the button should be visible.
+     */
+    void setGuidedButtonVisible(bool visible);
+
     void highlightIncorrectCells(const QList<QPair<int, int>>& coords);
     void highlightInvalidCells(const QList<QPair<int, int>>& coords);
 

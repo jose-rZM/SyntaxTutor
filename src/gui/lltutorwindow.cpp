@@ -17,6 +17,7 @@
  */
 
 #include "lltutorwindow.h"
+#include "examreportdialog.h"
 #include "grammarview.h"
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
@@ -104,9 +105,9 @@ ParsedSymbols ParseSymbolList(const QString& input) {
 } // namespace
 
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
-                             QWidget* parent)
+                             QWidget* parent, bool examMode)
     : QWidget(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
-      ll1(this->grammar), tm(tm) {
+      ll1(this->grammar), examMode(examMode), tm(tm) {
     // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
 #ifdef QT_DEBUG
@@ -155,12 +156,20 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
+    // In exam mode the live counters would leak feedback; hide them.
+    if (examMode) {
+        ui->tick->hide();
+        ui->cross->hide();
+        ui->cntRight->hide();
+        ui->cntWrong->hide();
+    }
+
     updateProgressPanel();
     addGrammarMessage();
 
     currentState = State::A;
     updatePlaceholder();
-    addMessage(generateQuestion(), false);
+    postQuestion();
 
     ui->userResponse->clear();
 
@@ -707,6 +716,20 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
     lastWrongCells.clear();
     bool ok = verifyResponseForC();
 
+    if (examMode) {
+        // Single submission: grade every cell, no highlights or retries.
+        scoreExamTable();
+        if (ok) {
+            ++cntRightAnswers;
+        } else {
+            ++cntWrongAnswers;
+        }
+        currentDlg->accept();
+        on_confirmButton_clicked();
+        currentDlg = nullptr;
+        return;
+    }
+
     if (ok) {
         currentDlg->accept();
         on_confirmButton_clicked();
@@ -736,6 +759,111 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         on_confirmButton_clicked();
         currentDlg = nullptr;
     }
+}
+
+QString LLTutorWindow::examSolutionText() {
+    auto joinSorted = [](const QSet<QString>& set) {
+        QStringList values = set.values();
+        std::sort(values.begin(), values.end());
+        return values.join(", ");
+    };
+
+    switch (currentState) {
+    case State::A:
+    case State::A_prime:
+        return solutionForA().join(',');
+    case State::A1:
+        return solutionForA1();
+    case State::A2:
+        return solutionForA2();
+    case State::B:
+    case State::B_prime:
+        return joinSorted(solutionForB());
+    case State::B1:
+        return joinSorted(solutionForB1());
+    case State::B2:
+        return joinSorted(solutionForB2());
+    default:
+        return {};
+    }
+}
+
+void LLTutorWindow::scoreExamTable() {
+    const QString emptyCell = tr("(vacía)");
+
+    for (const auto& [nonTerminal, columns] : ll1.ll1_t_) {
+        const QString nt = QString::fromStdString(nonTerminal);
+
+        for (const auto& [terminal, productions] : columns) {
+            const QString t        = QString::fromStdString(terminal);
+            const auto&   expected = productions[0];
+
+            const QStringList entry = lltable.value(nt).value(t);
+            if (expected.empty()) {
+                continue;
+            }
+
+            const QString expectedText =
+                QStringList::fromVector(stdVectorToQVector(expected))
+                    .join(' ');
+            const QString userText =
+                entry.isEmpty() ? emptyCell : entry.join(' ');
+            examSession.record(tr("Tabla LL(1): celda (%1, %2)").arg(nt, t),
+                               userText, expectedText,
+                               expected == qvectorToStdVector(entry));
+        }
+    }
+
+    // Cells the user filled although they must stay empty.
+    for (auto itNT = lltable.cbegin(); itNT != lltable.cend(); ++itNT) {
+        const QString nt      = itNT.key();
+        auto          itSysNT = ll1.ll1_t_.find(nt.toStdString());
+
+        for (auto itT = itNT->cbegin(); itT != itNT->cend(); ++itT) {
+            const QString t = itT.key();
+
+            bool expectedEmpty = true;
+            if (itSysNT != ll1.ll1_t_.end()) {
+                auto itSysT = itSysNT->second.find(t.toStdString());
+                if (itSysT != itSysNT->second.end() &&
+                    !itSysT->second[0].empty()) {
+                    expectedEmpty = false;
+                }
+            }
+            if (expectedEmpty && !itT->isEmpty()) {
+                examSession.record(tr("Tabla LL(1): celda (%1, %2)").arg(nt, t),
+                                   itT->join(' '), emptyCell, false);
+            }
+        }
+    }
+}
+
+void LLTutorWindow::showExamReport() {
+    auto* report = new ExamReportDialog(examSession, tr("Examen LL(1)"), this);
+    report->setAttribute(Qt::WA_DeleteOnClose);
+    report->setWindowModality(Qt::WindowModal);
+    connect(report, &ExamReportDialog::exportRequested, this,
+            [this, report]() {
+                const QString filePath = promptExportFilePath();
+                if (!filePath.isEmpty()) {
+                    exportExamReportToPdf(filePath, report->reportHtml());
+                }
+            });
+    report->show();
+}
+
+void LLTutorWindow::exportExamReportToPdf(const QString& filePath,
+                                          const QString& html) const {
+    QTextDocument doc;
+    doc.setHtml(html);
+
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(filePath);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+
+    doc.print(&printer);
 }
 
 void LLTutorWindow::wrongAnimation() {
@@ -898,7 +1026,22 @@ void LLTutorWindow::on_confirmButton_clicked() {
         isCorrect = verifyResponseForC();
     }
 
-    if (!isCorrect) {
+    if (examMode) {
+        // No feedback in exam mode: record the real result silently and
+        // advance along the correct path so error states never trigger.
+        // Table answers are recorded cell by cell in handleTableSubmission.
+        if (prevState != State::C && prevState != State::C_prime) {
+            examSession.record(currentQuestionText, userResponse,
+                               examSolutionText(), isCorrect);
+            if (isCorrect) {
+                ++cntRightAnswers;
+            } else {
+                ++cntWrongAnswers;
+            }
+        }
+        lastUserMessage = nullptr;
+        isCorrect       = true;
+    } else if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
         animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
@@ -926,46 +1069,67 @@ void LLTutorWindow::on_confirmButton_clicked() {
     if (currentState == State::fin) {
         ui->userResponse->setDisabled(true);
         ui->confirmButton->setDisabled(true);
-        addMessage(tr("Ejercicio terminado. ¿Quieres exportar la conversación "
-                      "o salir?"),
-                   false);
 
         auto* actions = new QWidget();
         auto* layout  = new QHBoxLayout(actions);
         layout->setContentsMargins(0, 0, 0, 0);
         layout->setSpacing(10);
 
-        auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
-        exportBtn->setObjectName("llTutorExportPdfButton");
-        exportBtn->setCursor(Qt::PointingHandCursor);
-        exportBtn->setProperty("role", "primary");
+        if (examMode) {
+            addMessage(tr("Examen terminado. Consulta tu informe con la "
+                          "calificación y la revisión de tus respuestas."),
+                       false);
+
+            auto* reportBtn = new QPushButton(tr("Ver informe"), actions);
+            reportBtn->setObjectName("llTutorExamReportButton");
+            reportBtn->setCursor(Qt::PointingHandCursor);
+            reportBtn->setProperty("role", "primary");
+            layout->addWidget(reportBtn);
+            connect(reportBtn, &QPushButton::clicked, this,
+                    &LLTutorWindow::showExamReport);
+        } else {
+            addMessage(tr("Ejercicio terminado. ¿Quieres exportar la "
+                          "conversación o salir?"),
+                       false);
+
+            auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+            exportBtn->setObjectName("llTutorExportPdfButton");
+            exportBtn->setCursor(Qt::PointingHandCursor);
+            exportBtn->setProperty("role", "primary");
+            layout->addWidget(exportBtn);
+            connect(exportBtn, &QPushButton::clicked, this, [this]() {
+                const QString filePath = promptExportFilePath();
+                if (!filePath.isEmpty()) {
+                    exportConversationToPdf(filePath);
+                }
+            });
+        }
 
         auto* exitBtn = new QPushButton(tr("Salir"), actions);
         exitBtn->setObjectName("llTutorExitButton");
         exitBtn->setCursor(Qt::PointingHandCursor);
         exitBtn->setProperty("role", "danger");
-
-        layout->addWidget(exportBtn);
         layout->addWidget(exitBtn);
-
-        connect(exportBtn, &QPushButton::clicked, this, [this]() {
-            const QString filePath = promptExportFilePath();
-            if (!filePath.isEmpty()) {
-                exportConversationToPdf(filePath);
-            }
-        });
-
         connect(exitBtn, &QPushButton::clicked, this,
                 [this]() { requestExit(true); });
 
         addWidgetMessage(actions);
         ui->listWidget->scrollToBottom();
+
+        if (examMode) {
+            showExamReport();
+        }
         return;
     }
     if (isCorrect || stateChanged || isTableState) {
         ui->userResponse->clear();
     }
-    addMessage(generateQuestion(), false);
+    postQuestion();
+}
+
+void LLTutorWindow::postQuestion() {
+    currentQuestionText = generateQuestion();
+    addMessage(currentQuestionText, false);
 }
 
 /************************************************************

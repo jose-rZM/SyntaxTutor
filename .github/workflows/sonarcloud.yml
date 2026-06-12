@@ -29,7 +29,7 @@ jobs:
       - name: Build backend tests with coverage
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtest-dev cmake
+          sudo apt-get install -y libgtest-dev cmake qt6-base-dev libqt6svg6-dev
           cd /usr/src/gtest && sudo cmake . && sudo make && sudo cp lib/*.a /usr/lib
           cd $GITHUB_WORKSPACE
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
@@ -49,6 +49,18 @@ jobs:
       - name: Run tests and dump XML
         run: ./test_runner
 
+      - name: Build Qt tests
+        working-directory: tests
+        run: |
+          qmake6 tests.pro
+          make -j"$(nproc)"
+
+      - name: Run Qt tests
+        working-directory: tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ./.bin/tutor_tests
+
       - name: Install gcovr & generate SonarQube XML coverage
         run: |
           sudo apt-get update
@@ -65,4 +77,3 @@ jobs:
             --define sonar.cfamily.build-wrapper-output=${{ env.BUILD_WRAPPER_OUT_DIR }}
             --define sonar.coverageReportPaths=coverage.xml
             --define sonar.qualitygate.breakBuild=false
-

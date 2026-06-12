@@ -1,5 +1,6 @@
 #include "tutor_window_test.h"
 
+#include "examreportdialog.h"
 #include "qt_modal_test_utils.h"
 #include "slr_tutor_test_utils.h"
 #include "slrtutorwindow.h"
@@ -1034,4 +1035,73 @@ void TutorWindowTest::slrAcceptsFlexibleTableCellFormatting() {
         QtModalTestUtils::submitSlrTableDialog(dialog, flexibleSlrTable(expected));
         QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
     });
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-21
+// Summary:
+//   Verifies SLR exam mode: wrong answers never branch into error states or
+//   retry loops, the guided mode button is hidden in the table dialog, and
+//   the exam report appears at the end with a partial grade.
+//
+// Situation:
+//   SLR(1) tutor created in exam mode on the simple fixture.
+//
+// Action:
+//   The user answers every chat question with garbage, then submits the
+//   correct final table.
+//
+// Expected:
+//   The state machine only visits main-path states (no A1..A4, E1/E2 or
+//   in-place retries), the table cells score full marks while the chat
+//   questions score zero, and the report dialog opens with a grade strictly
+//   between 0 and 10.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrExamModeWrongAnswersFollowMainPathAndShowReport() {
+    const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+    SLRTutorWindow tutor(grammar, nullptr, nullptr, true);
+
+    QVERIFY(tutor.findChild<QLabel*>("cntRight")->isHidden());
+    QVERIFY(tutor.findChild<QLabel*>("cntWrong")->isHidden());
+
+    const QSet<QString> mainPathStates = {"A", "B",  "C", "CA", "CB", "D",
+                                          "E", "F",  "FA", "G", "H",  "fin"};
+
+    // With garbage answers the exam must still walk only main-path states:
+    // error sub-states or in-place retries would loop here forever, so the
+    // guard doubles as the no-retry assertion.
+    int guard = 0;
+    while (tutor.currentStateForTest() != "H" && ++guard < 200) {
+        QVERIFY2(mainPathStates.contains(tutor.currentStateForTest()),
+                 qPrintable(QString("unexpected state %1")
+                                .arg(tutor.currentStateForTest())));
+        tutor.setAnswerForTest("zz");
+        tutor.submitForTest();
+    }
+    QCOMPARE(tutor.currentStateForTest(), QString("H"));
+
+    SLRTableDialog* dialog = waitForSlrTableDialog();
+    QVERIFY(dialog != nullptr);
+    auto* guidedButton = dialog->findChild<QPushButton*>("slrTableGuidedButton");
+    QVERIFY(guidedButton != nullptr);
+    QVERIFY(!guidedButton->isVisible());
+
+    auto* table = dialog->findChild<QTableWidget*>("slrTableWidget");
+    QVERIFY(table != nullptr);
+    QtModalTestUtils::submitSlrTableDialog(
+        dialog, SlrTutorTestUtils::buildExpectedTable(grammar, table));
+
+    QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    QVERIFY(tutor.examTotalForTest() > 0);
+    QVERIFY(tutor.examRightForTest() > 0);
+    QVERIFY(tutor.examRightForTest() < tutor.examTotalForTest());
+    QVERIFY(tutor.examGradeForTest() > 0.0);
+    QVERIFY(tutor.examGradeForTest() < 10.0);
+
+    auto* report =
+        QtModalTestUtils::waitForVisibleTopLevelWidget<ExamReportDialog>();
+    QVERIFY(report != nullptr);
+    auto* closeButton = report->findChild<QPushButton*>("examReportCloseButton");
+    QVERIFY(closeButton != nullptr);
+    QTest::mouseClick(closeButton, Qt::LeftButton);
 }

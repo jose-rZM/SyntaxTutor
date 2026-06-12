@@ -1,5 +1,6 @@
 #include "tutor_window_test.h"
 
+#include "examreportdialog.h"
 #include "ll1_tutor_test_utils.h"
 #include "lltutorwindow.h"
 #include "qt_modal_test_utils.h"
@@ -10,6 +11,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QFileInfo>
+#include <QLabel>
 #include <QPushButton>
 #include <QSignalSpy>
 #include <QTableWidget>
@@ -759,5 +761,114 @@ void TutorWindowTest::llAcceptsFlexibleTableCellFormatting() {
             QtModalTestUtils::buildExpectedTable(grammar, table);
         QtModalTestUtils::submitLlTableDialog(dialog, flexibleLlTable(expected));
         QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    });
+}
+
+// -----------------------------------------------------------------------------
+// Case: LL1-TC-17
+// Summary:
+//   Verifies exam mode: wrong answers never branch into error states, no
+//   feedback counters are visible, and an all-wrong exam grades 0 with the
+//   report dialog shown at the end.
+//
+// Situation:
+//   LL(1) tutor created in exam mode on the simple fixture.
+//
+// Action:
+//   The user answers every question and the final table incorrectly.
+//
+// Expected:
+//   The state machine walks A -> B -> C -> fin without visiting A1/B1/B2,
+//   the exam session records every item as wrong, the grade is 0, and the
+//   exam report dialog opens.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::llExamModeWrongAnswersFollowMainPathAndGradeZero() {
+    const Grammar grammar = TutorGrammarFixtures::makeLl1SimpleGrammar();
+    LLTutorWindow tutor(grammar, nullptr, nullptr, true);
+
+    QVERIFY(tutor.findChild<QLabel*>("cntRight")->isHidden());
+    QVERIFY(tutor.findChild<QLabel*>("cntWrong")->isHidden());
+    QVERIFY(tutor.findChild<QLabel*>("tick")->isHidden());
+    QVERIFY(tutor.findChild<QLabel*>("cross")->isHidden());
+
+    // A wrong answer advances to B directly: no A1 sub-question in exam mode.
+    tutor.setAnswerForTest("999,999");
+    tutor.submitForTest();
+    QCOMPARE(tutor.currentStateForTest(), QString("B"));
+    QCOMPARE(tutor.wrongCountForTest(), 1);
+
+    int guard = 0;
+    while (tutor.currentStateForTest() == "B" && ++guard < 50) {
+        tutor.setAnswerForTest("zz");
+        tutor.submitForTest();
+        QVERIFY(tutor.currentStateForTest() == "B" ||
+                tutor.currentStateForTest() == "C");
+    }
+    QCOMPARE(tutor.currentStateForTest(), QString("C"));
+
+    LLTableDialog* dialog = waitForTableDialog();
+    auto*          table = dialog->findChild<QTableWidget*>("llTableWidget");
+    QVERIFY(table != nullptr);
+    QtModalTestUtils::submitLlTableDialog(
+        dialog, QVector<QVector<QString>>(
+                    table->rowCount(), QVector<QString>(table->columnCount())));
+
+    QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    QVERIFY(tutor.examTotalForTest() > 0);
+    QCOMPARE(tutor.examRightForTest(), 0);
+    QCOMPARE(tutor.examGradeForTest(), 0.0);
+
+    auto* report =
+        QtModalTestUtils::waitForVisibleTopLevelWidget<ExamReportDialog>();
+    QVERIFY(report != nullptr);
+    auto* closeButton = report->findChild<QPushButton*>("examReportCloseButton");
+    QVERIFY(closeButton != nullptr);
+    QTest::mouseClick(closeButton, Qt::LeftButton);
+}
+
+// -----------------------------------------------------------------------------
+// Case: LL1-TC-18
+// Summary:
+//   Verifies that a perfect exam scores 10 and counts every question plus
+//   every expected table cell.
+//
+// Situation:
+//   LL(1) tutor created in exam mode on each fixture.
+//
+// Action:
+//   The user answers every question and the final table correctly.
+//
+// Expected:
+//   The exam ends with grade 10.0 and right == total, and the report opens.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::llExamModeAllCorrectScoresTen() {
+    forEachLlFixture([](const auto& fixture) {
+        const Grammar grammar = fixture.grammar;
+        LLTutorWindow tutor(grammar, nullptr, nullptr, true);
+
+        runScenario(tutor, {{Ll1TutorTestUtils::tableSizeAnswer(grammar), "B",
+                             1, 0}});
+        answerRemainingRulesUntilStateC(tutor, grammar);
+        QCOMPARE(tutor.currentStateForTest(), QString("C"));
+
+        LLTableDialog* dialog = waitForTableDialog();
+        auto* table = dialog->findChild<QTableWidget*>("llTableWidget");
+        QVERIFY(table != nullptr);
+        QtModalTestUtils::submitLlTableDialog(
+            dialog, QtModalTestUtils::buildExpectedTable(grammar, table));
+
+        QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+        QVERIFY(tutor.examTotalForTest() > 0);
+        QCOMPARE(tutor.examRightForTest(), tutor.examTotalForTest());
+        QCOMPARE(tutor.examGradeForTest(), 10.0);
+
+        auto* report =
+            QtModalTestUtils::waitForVisibleTopLevelWidget<ExamReportDialog>();
+        QVERIFY(report != nullptr);
+        auto* closeButton =
+            report->findChild<QPushButton*>("examReportCloseButton");
+        QVERIFY(closeButton != nullptr);
+        QTest::mouseClick(closeButton, Qt::LeftButton);
+        QTest::qWait(20);
     });
 }

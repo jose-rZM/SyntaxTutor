@@ -22,6 +22,8 @@ class TutorWindowTest : public QObject {
     void smokeGuiFindsCoreWidgets();
     void llAcceptsFlexibleUserFormatting();
     void llAcceptsFlexibleTableCellFormatting();
+    void llExamModeWrongAnswersFollowMainPathAndGradeZero();
+    void llExamModeAllCorrectScoresTen();
 
     void slrCreatesTutorWithNullTutorialManager();
     void slrStateAErrorPathAdvancesThroughAprime();
@@ -44,6 +46,7 @@ class TutorWindowTest : public QObject {
     void slrSmokeGuiFindsCoreWidgets();
     void slrAcceptsFlexibleUserFormatting();
     void slrAcceptsFlexibleTableCellFormatting();
+    void slrExamModeWrongAnswersFollowMainPathAndShowReport();
 
     void mainInitialUiIsVisibleAndEnabled();
     void mainSwitchLanguageToEnglishPersistsSelection();
@@ -61,4 +64,5 @@ class TutorWindowTest : public QObject {
     void mainCustomGrammarEditorRejectsInvalidAndNonLl1Grammars();
     void mainCustomGrammarEditorCancelKeepsHomePage();
     void mainCustomGrammarEditorRestoresLastGrammar();
+    void mainExamModeCheckboxLaunchesExamTutor();
 };

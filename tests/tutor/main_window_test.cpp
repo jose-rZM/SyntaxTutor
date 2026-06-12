@@ -755,3 +755,46 @@ void TutorWindowTest::mainCustomGrammarEditorRestoresLastGrammar() {
              grammarText);
     QVERIFY(reopened.isGrammarValidForTest());
 }
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-19
+// Summary:
+//   Verifies that the "Modo examen" checkbox launches tutors in exam mode.
+//
+// Situation:
+//   Main window freshly opened on the home screen.
+//
+// Action:
+//   The test checks the exam mode checkbox and opens the LL(1) tutor.
+//
+// Expected:
+//   The tutor starts with the feedback counters hidden (exam mode active);
+//   without the checkbox the counters are visible.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainExamModeCheckboxLaunchesExamTutor() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* examCheck = window.findChild<QCheckBox*>("examModeCheck");
+    QVERIFY(examCheck != nullptr);
+    QVERIFY(examCheck->isEnabled());
+    examCheck->setChecked(true);
+
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+    LLTutorWindow* tutor = nullptr;
+    QTRY_VERIFY((tutor = window.findChild<LLTutorWindow*>()) != nullptr);
+    QVERIFY(tutor->findChild<QLabel*>("cntRight")->isHidden());
+    QVERIFY(tutor->findChild<QLabel*>("cntWrong")->isHidden());
+
+    MainWindow normalWindow;
+    normalWindow.show();
+    QTest::mouseClick(normalWindow.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+    LLTutorWindow* normalTutor = nullptr;
+    QTRY_VERIFY((normalTutor = normalWindow.findChild<LLTutorWindow*>()) !=
+                nullptr);
+    QVERIFY(!normalTutor->findChild<QLabel*>("cntRight")->isHidden());
+}
