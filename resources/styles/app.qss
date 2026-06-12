@@ -721,13 +721,15 @@ QDialog[grammarEditor="true"] QPushButton#grammarEditorStartButton:disabled {
     border: 1px solid #353D40;
 }
 
-QCheckBox#customGrammarCheck {
+QCheckBox#customGrammarCheck,
+QCheckBox#examModeCheck {
     color: #C9D0D2;
     font-size: 13px;
     spacing: 8px;
 }
 
-QCheckBox#customGrammarCheck::indicator {
+QCheckBox#customGrammarCheck::indicator,
+QCheckBox#examModeCheck::indicator {
     width: 16px;
     height: 16px;
     border-radius: 4px;
@@ -735,12 +737,96 @@ QCheckBox#customGrammarCheck::indicator {
     background-color: #2A2E30;
 }
 
-QCheckBox#customGrammarCheck::indicator:hover {
+QCheckBox#customGrammarCheck::indicator:hover,
+QCheckBox#examModeCheck::indicator:hover {
     border: 1px solid #11B3BC;
 }
 
-QCheckBox#customGrammarCheck::indicator:checked {
+QCheckBox#customGrammarCheck::indicator:checked,
+QCheckBox#examModeCheck::indicator:checked {
     background-color: #11B3BC;
     border: 1px solid #11B3BC;
     image: url(:/resources/check.svg);
+}
+
+QDialog[examReport="true"] {
+    background-color: #1F1F1F;
+    border: none;
+}
+
+QDialog[examReport="true"] QLabel#examReportEyebrow {
+    color: #11B3BC;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+QDialog[examReport="true"] QLabel#examReportTitle {
+    color: #F4F7F8;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+QDialog[examReport="true"] QLabel#examReportGrade {
+    font-size: 56px;
+    font-weight: 800;
+    color: #11B3BC;
+}
+
+QDialog[examReport="true"] QLabel#examReportGrade[passed="false"] {
+    color: #E0635F;
+}
+
+QDialog[examReport="true"] QLabel#examReportGradeCaption {
+    color: #9AA5A8;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+QDialog[examReport="true"] QLabel#examReportStats {
+    color: #DEE5E7;
+    font-size: 15px;
+}
+
+QDialog[examReport="true"] QLabel#examReportVerdict {
+    color: #9FE3E7;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+QDialog[examReport="true"] QLabel#examReportVerdict[passed="false"] {
+    color: #F1B0AE;
+}
+
+QDialog[examReport="true"] QLabel#examReportReviewCaption {
+    color: #9FCFD2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+QDialog[examReport="true"] QTextBrowser#examReportReview {
+    background-color: #212526;
+    color: #E8ECEE;
+    border: 1px solid #303638;
+    border-radius: 12px;
+    padding: 10px 12px;
+    selection-background-color: #35515A;
+}
+
+QDialog[examReport="true"] QPushButton#examReportCloseButton {
+    background: transparent;
+    color: #AAB5B8;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QDialog[examReport="true"] QPushButton#examReportCloseButton:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
