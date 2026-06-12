@@ -63,6 +63,8 @@ HEADERS += \
     ../src/gui/grammareditordialog.h \
     ../src/gui/lltabledialog.h \
     ../src/gui/lltutorwindow.h \
+    ../src/gui/llwizard.h \
+    ../src/gui/llwizardpage.h \
     ../src/gui/mainwindow.h \
     ../src/gui/slrtabledialog.h \
     ../src/gui/slrtutorwindow.h \
