@@ -20,6 +20,7 @@
 #define SLRTUTORWINDOW_H
 
 #include "UniqueQueue.h"
+#include "examsession.h"
 #include "grammar.hpp"
 #include "grammarview.h"
 #include "slr1_parser.hpp"
@@ -102,9 +103,12 @@ class SLRTutorWindow : public QWidget {
      * @param g The grammar used for the session.
      * @param tm Optional pointer to the tutorial manager (for guided tour).
      * @param parent Parent widget.
+     * @param examMode When true, all feedback is suppressed: answers are
+     * recorded silently, error sub-questions never trigger, and a graded
+     * report is shown at the end.
      */
     explicit SLRTutorWindow(const Grammar& g, TutorialManager* tm = nullptr,
-                            QWidget* parent = nullptr);
+                            QWidget* parent = nullptr, bool examMode = false);
     ~SLRTutorWindow();
 
     // ====== Core Flow Control =====================================
@@ -223,6 +227,15 @@ class SLRTutorWindow : public QWidget {
     void    updatePlaceholder();
     bool    confirmExitToHome();
     QString promptExportFilePath() const;
+
+    // ====== Exam Mode =============================================
+    void    postQuestion();     ///< Shows and remembers the next question.
+    QString examSolutionText(); ///< Expected answer for the current state.
+    void    scoreExamTable(
+           const QStringList& colHeaders); ///< Grades the SLR table per cell.
+    void showExamReport();                 ///< Opens the end-of-exam report.
+    void exportExamReportToPdf(const QString& filePath,
+                               const QString& html) const;
 #ifdef SYNTAXTUTOR_TESTING
   public:
     QString  currentStateForTest() const;
@@ -233,6 +246,9 @@ class SLRTutorWindow : public QWidget {
     unsigned currentStateIdForTest() const;
     QString  currentCbSymbolForTest() const;
     void     setNextExportFilePathForTest(const QString& filePath);
+    double   examGradeForTest() const { return examSession.grade(); }
+    int      examTotalForTest() const { return examSession.total(); }
+    int      examRightForTest() const { return examSession.right(); }
 #endif
   private slots:
     void on_backButton_clicked();
@@ -280,6 +296,11 @@ class SLRTutorWindow : public QWidget {
 
     unsigned cntRightAnswers = 0;
     unsigned cntWrongAnswers = 0;
+
+    // ====== Exam Mode ==============================================
+    bool        examMode = false;
+    ExamSession examSession;
+    QString     currentQuestionText;
 
     // ====== State Machine Runtime Variables ========================
     std::unordered_set<state> userMadeStates; // All states the user has created

@@ -43,6 +43,7 @@
 #include <QWidget>
 #include <QtPrintSupport/QPrinter>
 
+#include "examsession.h"
 #include "grammar.hpp"
 #include "grammarview.h"
 #include "ll1_parser.hpp"
@@ -96,10 +97,12 @@ class LLTutorWindow : public QWidget {
      * @param grammar The grammar to use during the session.
      * @param tm Optional pointer to the tutorial manager (for help overlays).
      * @param parent Parent widget.
+     * @param examMode When true, all feedback is suppressed: answers are
+     * recorded silently, error sub-questions never trigger, and a graded
+     * report is shown at the end.
      */
-    explicit LLTutorWindow(const Grammar&   grammar,
-                           TutorialManager* tm     = nullptr,
-                           QWidget*         parent = nullptr);
+    explicit LLTutorWindow(const Grammar& grammar, TutorialManager* tm = nullptr,
+                           QWidget* parent = nullptr, bool examMode = false);
     ~LLTutorWindow();
 
     // ====== State Machine & Question Logic ====================
@@ -206,6 +209,14 @@ class LLTutorWindow : public QWidget {
     void updatePlaceholder();
     bool confirmExitToHome();
     QString promptExportFilePath() const;
+
+    // ====== Exam Mode =========================================
+    void    postQuestion();     ///< Shows and remembers the next question.
+    QString examSolutionText(); ///< Expected answer for the current state.
+    void    scoreExamTable();   ///< Grades the LL table cell by cell.
+    void    showExamReport();   ///< Opens the end-of-exam report dialog.
+    void    exportExamReportToPdf(const QString& filePath,
+                                  const QString& html) const;
 #ifdef SYNTAXTUTOR_TESTING
   public:
     QString     currentStateForTest() const;
@@ -216,6 +227,9 @@ class LLTutorWindow : public QWidget {
     void        setAnswerForTest(const QString& text);
     void        submitForTest();
     void        setNextExportFilePathForTest(const QString& filePath);
+    double      examGradeForTest() const { return examSession.grade(); }
+    int         examTotalForTest() const { return examSession.total(); }
+    int         examRightForTest() const { return examSession.right(); }
 #endif
   private slots:
     void on_backButton_clicked();
@@ -249,6 +263,11 @@ class LLTutorWindow : public QWidget {
     const unsigned kMaxTotalTries     = 5;
     unsigned       lltries            = 0;
     unsigned       cntRightAnswers = 0, cntWrongAnswers = 0;
+
+    // ====== Exam Mode =========================================
+    bool        examMode = false;
+    ExamSession examSession;
+    QString     currentQuestionText;
 
     using Cell = std::pair<QString, QString>;
     std::vector<Cell> lastWrongCells;

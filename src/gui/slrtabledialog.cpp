@@ -174,6 +174,10 @@ void SLRTableDialog::setGuidedModeActive(bool active) {
     submitButton->setEnabled(!active);
 }
 
+void SLRTableDialog::setGuidedButtonVisible(bool visible) {
+    guidedButton->setVisible(visible);
+}
+
 void SLRTableDialog::highlightIncorrectCells(
     const QList<QPair<int, int>>& coords) {
     for (int r = 0; r < table->rowCount(); ++r) {

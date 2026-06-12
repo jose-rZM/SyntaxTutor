@@ -182,8 +182,10 @@ class MainWindow : public QMainWindow {
     void setNavigationEnabled(bool enabled);
     void showHomePage();
     void cleanupTutorPages();
-    LLTutorWindow* startLLTutor(const Grammar& grammar, TutorialManager* tm);
-    SLRTutorWindow* startSLRTutor(const Grammar& grammar, TutorialManager* tm);
+    LLTutorWindow*  startLLTutor(const Grammar& grammar, TutorialManager* tm,
+                                 bool examMode = false);
+    SLRTutorWindow* startSLRTutor(const Grammar& grammar, TutorialManager* tm,
+                                  bool examMode = false);
     void abortTutorialFlow();
 
     /**

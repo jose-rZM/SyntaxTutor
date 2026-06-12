@@ -332,6 +332,7 @@ void MainWindow::setNavigationEnabled(bool enabled) {
     ui->lv2Button->setEnabled(levelsEnabled);
     ui->lv3Button->setEnabled(levelsEnabled);
     ui->customGrammarCheck->setEnabled(enabled);
+    ui->examModeCheck->setEnabled(enabled);
 }
 
 void MainWindow::showHomePage() {
@@ -360,13 +361,14 @@ void MainWindow::cleanupTutorPages() {
 }
 
 LLTutorWindow* MainWindow::startLLTutor(const Grammar& grammar,
-                                        TutorialManager* tutorialManager) {
+                                        TutorialManager* tutorialManager,
+                                        bool             examMode) {
     if (llTutorPage) {
         stack->removeWidget(llTutorPage);
         llTutorPage->deleteLater();
     }
 
-    llTutorPage = new LLTutorWindow(grammar, tutorialManager, stack);
+    llTutorPage = new LLTutorWindow(grammar, tutorialManager, stack, examMode);
     stack->addWidget(llTutorPage);
     stack->setCurrentWidget(llTutorPage);
     setWindowTitle(tr("LL(1)"));
@@ -395,13 +397,15 @@ LLTutorWindow* MainWindow::startLLTutor(const Grammar& grammar,
 }
 
 SLRTutorWindow* MainWindow::startSLRTutor(const Grammar& grammar,
-                                          TutorialManager* tutorialManager) {
+                                          TutorialManager* tutorialManager,
+                                          bool             examMode) {
     if (slrTutorPage) {
         stack->removeWidget(slrTutorPage);
         slrTutorPage->deleteLater();
     }
 
-    slrTutorPage = new SLRTutorWindow(grammar, tutorialManager, stack);
+    slrTutorPage =
+        new SLRTutorWindow(grammar, tutorialManager, stack, examMode);
     stack->addWidget(slrTutorPage);
     stack->setCurrentWidget(slrTutorPage);
     setWindowTitle(tr("SLR(1)"));
@@ -480,29 +484,31 @@ void MainWindow::on_customGrammarCheck_toggled(bool checked) {
 }
 
 void MainWindow::on_pushButton_clicked() {
+    const bool examMode = ui->examModeCheck->isChecked();
     if (ui->customGrammarCheck->isChecked()) {
         GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1, this);
         if (dialog.exec() != QDialog::Accepted) {
             return;
         }
-        startLLTutor(dialog.grammar(), nullptr);
+        startLLTutor(dialog.grammar(), nullptr, examMode);
         return;
     }
     Grammar grammar = factory.GenLL1Grammar(level);
-    startLLTutor(grammar, nullptr);
+    startLLTutor(grammar, nullptr, examMode);
 }
 
 void MainWindow::on_pushButton_2_clicked() {
+    const bool examMode = ui->examModeCheck->isChecked();
     if (ui->customGrammarCheck->isChecked()) {
         GrammarEditorDialog dialog(GrammarEditorDialog::Mode::SLR1, this);
         if (dialog.exec() != QDialog::Accepted) {
             return;
         }
-        startSLRTutor(dialog.grammar(), nullptr);
+        startSLRTutor(dialog.grammar(), nullptr, examMode);
         return;
     }
     Grammar grammar = factory.GenSLR1Grammar(level);
-    startSLRTutor(grammar, nullptr);
+    startSLRTutor(grammar, nullptr, examMode);
 }
 
 void MainWindow::on_tutorial_clicked() {
