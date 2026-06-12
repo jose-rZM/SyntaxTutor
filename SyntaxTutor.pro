@@ -33,6 +33,7 @@ SOURCES += \
     src/backend/symbol_table.cpp \
     src/widgets/customtextedit.cpp \
     src/widgets/grammarview.cpp \
+    src/gui/examreportdialog.cpp \
     src/gui/grammareditordialog.cpp \
     src/gui/lltabledialog.cpp \
     src/gui/lltutorwindow.cpp \
@@ -55,6 +56,8 @@ HEADERS += \
     src/backend/symbol_table.hpp \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \
+    src/gui/examreportdialog.h \
+    src/gui/examsession.h \
     src/gui/grammareditordialog.h \
     src/gui/lltabledialog.h \
     src/gui/lltutorwindow.h \
