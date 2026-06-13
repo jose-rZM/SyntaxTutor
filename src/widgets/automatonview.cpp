@@ -77,7 +77,7 @@ QHash<unsigned, int> AutomatonView::computeLevels(
         QQueue<unsigned> pending;
         pending.enqueue(0);
         while (!pending.isEmpty()) {
-            const unsigned from = pending.dequeue();
+            const unsigned  from = pending.dequeue();
             QList<unsigned> next = adjacency.value(from).values();
             std::sort(next.begin(), next.end());
             for (unsigned to : next) {
@@ -122,7 +122,7 @@ void AutomatonView::setAutomaton(
     // Deterministic BFS-level layout: columns are BFS levels from I0 and
     // rows follow ascending state ids, so the picture is stable no matter
     // in which order states get revealed.
-    const QHash<unsigned, int>    levels = computeLevels(transitions);
+    const QHash<unsigned, int>     levels = computeLevels(transitions);
     std::map<int, QList<unsigned>> byLevel;
     for (auto it = levels.cbegin(); it != levels.cend(); ++it) {
         byLevel[it.value()].append(it.key());
@@ -244,15 +244,15 @@ void AutomatonView::buildEdgeGeometry(Edge& edge) {
         const QPointF start = fromNode.center + unit * kNodeRadius;
         const QPointF end =
             toNode.center - unit * (kNodeRadius + kArrowLength * 0.6);
-        const QPointF control =
-            (start + end) / 2.0 + normal * (bend * 2.0);
+        const QPointF control = (start + end) / 2.0 + normal * (bend * 2.0);
 
         path.moveTo(start);
         path.quadTo(control, end);
 
         arrowTip       = end + unit * (kArrowLength * 0.6);
         arrowDirection = arrowTip - control;
-        labelPos = path.pointAtPercent(0.5) + normal * (bend >= 0 ? 12.0 : -16.0);
+        labelPos =
+            path.pointAtPercent(0.5) + normal * (bend >= 0 ? 12.0 : -16.0);
     }
 
     QPen edgePen(kEdgeColor, 1.6);
@@ -260,12 +260,11 @@ void AutomatonView::buildEdgeGeometry(Edge& edge) {
     edge.path = scene_->addPath(path, edgePen);
     edge.path->setZValue(0);
 
-    const qreal dirLength =
-        std::hypot(arrowDirection.x(), arrowDirection.y());
+    const qreal dirLength = std::hypot(arrowDirection.x(), arrowDirection.y());
     const QPointF unitDir =
         dirLength > 0 ? arrowDirection / dirLength : QPointF(1, 0);
     const QPointF normalDir(-unitDir.y(), unitDir.x());
-    QPolygonF arrowHead;
+    QPolygonF     arrowHead;
     arrowHead << arrowTip
               << arrowTip - unitDir * kArrowLength +
                      normalDir * (kArrowWidth / 2.0)
@@ -373,11 +372,42 @@ void AutomatonView::revealAll() {
         setEdgeVisible(edge, true);
     }
     updatePlaceholder();
+    fitToView();
+}
 
-    // Fit the whole automaton, never zooming in past 1:1.
+void AutomatonView::zoomIn() {
+    const double target = qBound(kMinZoom, zoom_ * 1.15, kMaxZoom);
+    if (!qFuzzyCompare(target, zoom_)) {
+        scale(target / zoom_, target / zoom_);
+        zoom_ = target;
+    }
+}
+
+void AutomatonView::zoomOut() {
+    const double target = qBound(kMinZoom, zoom_ / 1.15, kMaxZoom);
+    if (!qFuzzyCompare(target, zoom_)) {
+        scale(target / zoom_, target / zoom_);
+        zoom_ = target;
+    }
+}
+
+void AutomatonView::fitToView() {
+    // Fit the revealed content, never zooming in past 1:1.
     resetTransform();
     zoom_ = 1.0;
-    const QRectF bounds = scene_->sceneRect();
+
+    QRectF bounds;
+    for (const Node& node : nodes_) {
+        if (node.revealed && node.circle != nullptr) {
+            bounds = bounds.united(node.circle->sceneBoundingRect());
+        }
+    }
+    if (bounds.isEmpty()) {
+        bounds = scene_->sceneRect();
+    } else {
+        bounds.adjust(-40, -40, 40, 40);
+    }
+
     if (!bounds.isEmpty() && viewport() != nullptr) {
         const qreal scaleX = viewport()->width() / bounds.width();
         const qreal scaleY = viewport()->height() / bounds.height();
@@ -388,6 +418,19 @@ void AutomatonView::revealAll() {
         }
     }
     centerOn(bounds.center());
+}
+
+void AutomatonView::centerOnCurrentState() {
+    if (currentId_ < 0) {
+        return;
+    }
+    auto it = nodes_.find(static_cast<unsigned>(currentId_));
+    if (it != nodes_.end() && it->circle != nullptr) {
+        if (!it->revealed) {
+            revealState(static_cast<unsigned>(currentId_));
+        }
+        centerOn(it->circle);
+    }
 }
 
 void AutomatonView::setCurrentState(int id) {
@@ -481,8 +524,8 @@ void AutomatonView::wheelEvent(QWheelEvent* event) {
 void AutomatonView::mousePressEvent(QMouseEvent* event) {
     if (QGraphicsItem* item = itemAt(event->pos());
         item != nullptr && !item->toolTip().isEmpty()) {
-        QToolTip::showText(event->globalPosition().toPoint(),
-                           item->toolTip(), this);
+        QToolTip::showText(event->globalPosition().toPoint(), item->toolTip(),
+                           this);
     }
     QGraphicsView::mousePressEvent(event);
 }

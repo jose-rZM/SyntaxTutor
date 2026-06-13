@@ -106,6 +106,18 @@ class AutomatonView : public QGraphicsView {
     /// @brief Clears conflict and reduce marks.
     void clearStateMarks();
 
+    /// @brief Zooms in one step around the view center.
+    void zoomIn();
+
+    /// @brief Zooms out one step around the view center.
+    void zoomOut();
+
+    /// @brief Fits all revealed content within the viewport.
+    void fitToView();
+
+    /// @brief Centers (and reveals if needed) the currently inspected state.
+    void centerOnCurrentState();
+
     bool isStateVisible(unsigned id) const;
     int  visibleStateCount() const;
     int  totalStateCount() const { return static_cast<int>(nodes_.size()); }
@@ -121,10 +133,10 @@ class AutomatonView : public QGraphicsView {
 
   private:
     struct Node {
-        unsigned                 id     = 0;
+        unsigned                 id = 0;
         QPointF                  center;
-        QGraphicsEllipseItem*    circle = nullptr;
-        QGraphicsSimpleTextItem* label  = nullptr;
+        QGraphicsEllipseItem*    circle   = nullptr;
+        QGraphicsSimpleTextItem* label    = nullptr;
         bool                     revealed = false;
     };
 
@@ -138,8 +150,8 @@ class AutomatonView : public QGraphicsView {
         bool                     revealed = false;
     };
 
-    QHash<unsigned, int> computeLevels(
-        const QVector<AutomatonTransitionInfo>& transitions) const;
+    QHash<unsigned, int>
+    computeLevels(const QVector<AutomatonTransitionInfo>& transitions) const;
     void buildEdgeGeometry(Edge& edge);
     void applyNodeStyle(Node& node);
     void setNodeVisible(Node& node, bool visible);
