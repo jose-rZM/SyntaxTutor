@@ -34,6 +34,7 @@ SOURCES += \
     src/widgets/automatonview.cpp \
     src/widgets/customtextedit.cpp \
     src/widgets/grammarview.cpp \
+    src/gui/automatonviewerdialog.cpp \
     src/gui/examreportdialog.cpp \
     src/gui/grammareditordialog.cpp \
     src/gui/lltabledialog.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \
+    src/gui/automatonviewerdialog.h \
     src/gui/examreportdialog.h \
     src/gui/examsession.h \
     src/gui/grammareditordialog.h \
