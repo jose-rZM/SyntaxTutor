@@ -105,8 +105,6 @@ unix:!mac:CONFIG(release, debug|release) {
         -s \
         -Wl,--as-needed
 
-    # Tras link: strippear de nuevo por si quedan símbolos
-    QMAKE_POST_LINK += $$QMAKE_STRIP ./$${TARGET}
 }
 
 macx {
