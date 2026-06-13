@@ -176,11 +176,34 @@
         </widget>
        </item>
       <item>
-       <widget class="QTextEdit" name="textEdit">
-        <property name="readOnly">
-         <bool>true</bool>
+       <layout class="QVBoxLayout" name="rightPanelLayout">
+        <property name="spacing">
+         <number>8</number>
         </property>
-       </widget>
+        <item>
+         <widget class="QPushButton" name="automatonButton">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Ver autómata LR(0)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>2</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
    </item>

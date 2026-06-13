@@ -846,3 +846,65 @@ QDialog[examReport="true"] QPushButton#examReportCloseButton:hover {
     color: #FFFFFF;
     border: 1px solid rgba(255, 255, 255, 0.12);
 }
+
+QPushButton#automatonButton {
+    background-color: rgba(17, 179, 188, 0.12);
+    color: #11B3BC;
+    border: 1px solid rgba(17, 179, 188, 0.35);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QPushButton#automatonButton:hover {
+    background-color: rgba(17, 179, 188, 0.2);
+    color: #36C5CC;
+}
+
+QPushButton#automatonButton:pressed {
+    background-color: rgba(17, 179, 188, 0.28);
+}
+
+QPushButton#automatonButton:disabled {
+    background-color: #2A2E30;
+    color: #6F7A7E;
+    border: 1px solid #353D40;
+}
+
+QGraphicsView#slrAutomatonView {
+    background-color: #212526;
+    border: 1px solid #303638;
+    border-radius: 12px;
+}
+
+QDialog[automatonViewer="true"] {
+    background-color: #1F1F1F;
+}
+
+QDialog[automatonViewer="true"] QLabel#automatonViewerHint {
+    color: #6F7A7E;
+    font-size: 12px;
+}
+
+QDialog[automatonViewer="true"] QPushButton#automatonViewerToolButton {
+    background-color: #2B3133;
+    color: #E8ECEE;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 28px;
+}
+
+QDialog[automatonViewer="true"] QPushButton#automatonViewerToolButton:hover {
+    background-color: #343B3D;
+    border: 1px solid rgba(17, 179, 188, 0.4);
+    color: #36C5CC;
+}
+
+QDialog[automatonViewer="true"] QPushButton#automatonViewerToolButton:pressed {
+    background-color: #11B3BC;
+    color: #07343A;
+}

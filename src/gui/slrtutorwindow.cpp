@@ -17,6 +17,7 @@
  */
 
 #include "slrtutorwindow.h"
+#include "automatonviewerdialog.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
 #include "slrwizard.h"
@@ -27,6 +28,7 @@
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QRegularExpression>
+#include <QTimer>
 #include <algorithm>
 
 namespace {
@@ -226,6 +228,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
         for (const Lr0Item& it : st.items_) {
             if (it.IsComplete() && it.antecedent_ != slr1.gr_.axiom_) {
                 reduceStatesIdQueue.push(st.id_);
+                reduceStateIds.insert(st.id_);
                 break;
             }
         }
@@ -270,6 +273,8 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     ui->gr->setFixedWidth(grammarView->sizeHint().width() + 32);
     ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
+    setupAutomatonPanel();
+
     // ====== Status, Progress & First Message ===================
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
@@ -299,6 +304,19 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 }
 
 SLRTutorWindow::~SLRTutorWindow() {
+    // Tear down the automaton viewer (if open) and the view it borrows. The
+    // viewer's destructor detaches the view, so we then own it outright and
+    // delete it explicitly to avoid any ambiguous ownership.
+    if (automatonViewer != nullptr) {
+        disconnect(automatonViewer, nullptr, this, nullptr);
+        delete automatonViewer;
+        automatonViewer = nullptr;
+    }
+    if (automatonView != nullptr) {
+        automatonView->setParent(nullptr);
+        delete automatonView;
+        automatonView = nullptr;
+    }
     delete ui;
 }
 
@@ -986,11 +1004,144 @@ void SLRTutorWindow::updateProgressPanel() {
     ui->textEdit->verticalScrollBar()->setValue(scrollPos);
 }
 
+void SLRTutorWindow::setupAutomatonPanel() {
+    if (examMode) {
+        // No automaton (and no button) during an exam.
+        ui->automatonButton->hide();
+        return;
+    }
+
+    // The view is parented to the tutor but never placed in the main layout;
+    // it stays hidden until embedded in the floating viewer. Keeping it as a
+    // tutor child lets its progressive reveal state survive open/close.
+    automatonView = new AutomatonView(this);
+    automatonView->hide();
+
+    QVector<AutomatonStateInfo> stateInfos;
+    stateInfos.reserve(static_cast<qsizetype>(slr1.states_.size()));
+    for (const state& st : slr1.states_) {
+        stateInfos.append(
+            {st.id_, QString::fromStdString(slr1.PrintItems(st.items_))});
+    }
+
+    QVector<AutomatonTransitionInfo> transitionInfos;
+    for (const auto& [from, transitions] : slr1.transitions_) {
+        for (const auto& [symbol, to] : transitions) {
+            transitionInfos.append(
+                {from, QString::fromStdString(symbol), to});
+        }
+    }
+
+    automatonView->setAutomaton(stateInfos, transitionInfos);
+
+    ui->automatonButton->setCursor(Qt::PointingHandCursor);
+    connect(ui->automatonButton, &QPushButton::clicked, this,
+            &SLRTutorWindow::openAutomatonViewer);
+    updateAutomatonButton();
+}
+
+void SLRTutorWindow::updateAutomatonButton() {
+    if (automatonView == nullptr) {
+        return;
+    }
+    // Available only once the student has constructed the initial state I0.
+    ui->automatonButton->setEnabled(automatonView->visibleStateCount() > 0);
+}
+
+void SLRTutorWindow::openAutomatonViewer() {
+    if (automatonView == nullptr) {
+        return; // exam mode
+    }
+    if (automatonViewer != nullptr) {
+        // Already open: focus/raise instead of duplicating.
+        automatonViewer->raise();
+        automatonViewer->activateWindow();
+        return;
+    }
+
+    automatonViewer = new AutomatonViewerDialog(automatonView, this);
+    connect(automatonViewer, &QDialog::finished, this, [this](int) {
+        // Reclaim the view so it survives the viewer and can be reopened.
+        if (automatonView != nullptr) {
+            automatonView->setParent(this);
+            automatonView->hide();
+        }
+        if (automatonViewer != nullptr) {
+            automatonViewer->deleteLater();
+            automatonViewer = nullptr;
+        }
+    });
+    automatonViewer->show();
+    automatonViewer->raise();
+    automatonViewer->activateWindow();
+    // Fit once the viewer has its real size.
+    QTimer::singleShot(0, automatonView, &AutomatonView::fitToView);
+}
+
+void SLRTutorWindow::updateAutomatonPanel() {
+    if (automatonView == nullptr) {
+        return;
+    }
+
+    switch (currentState) {
+    // The student is analyzing one specific state of the collection.
+    case StateSlr::C:
+    case StateSlr::CA:
+    case StateSlr::CB:
+        automatonView->setCurrentState(static_cast<int>(currentStateId));
+        break;
+
+    // From D onwards the collection is complete: full consultation mode.
+    case StateSlr::D:
+    case StateSlr::D1:
+    case StateSlr::D2:
+    case StateSlr::D_prime:
+    case StateSlr::E:
+    case StateSlr::E1:
+    case StateSlr::E2:
+    case StateSlr::H:
+    case StateSlr::H_prime:
+        automatonView->revealAll();
+        automatonView->clearStateMarks();
+        automatonView->setCurrentState(-1);
+        break;
+
+    case StateSlr::F:
+        automatonView->revealAll();
+        automatonView->clearStateMarks();
+        automatonView->setConflictStates(solutionForF());
+        automatonView->setCurrentState(-1);
+        break;
+
+    case StateSlr::FA:
+        automatonView->revealAll();
+        automatonView->setConflictStates(solutionForF());
+        automatonView->setCurrentState(
+            static_cast<int>(currentConflictStateId));
+        break;
+
+    case StateSlr::G:
+        automatonView->revealAll();
+        automatonView->clearStateMarks();
+        automatonView->setReduceStates(reduceStateIds);
+        automatonView->setCurrentState(static_cast<int>(currentReduceStateId));
+        break;
+
+    default:
+        automatonView->setCurrentState(-1);
+        break;
+    }
+}
+
 void SLRTutorWindow::addUserState(unsigned id) {
     auto st = std::ranges::find_if(
         slr1.states_, [id](const state& st) { return st.id_ == id; });
     if (st != slr1.states_.end()) {
         userMadeStates.insert(*st);
+        if (automatonView != nullptr) {
+            automatonView->revealState(id);
+            updateAutomatonButton();
+        }
         updateProgressPanel();
     }
 }
@@ -999,6 +1150,9 @@ void SLRTutorWindow::addUserTransition(unsigned           fromId,
                                        const std::string& symbol,
                                        unsigned           toId) {
     userMadeTransitions[fromId][symbol] = toId;
+    if (automatonView != nullptr) {
+        automatonView->revealTransition(fromId, toId);
+    }
 }
 
 void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
@@ -1499,6 +1653,9 @@ void SLRTutorWindow::on_confirmButton_clicked() {
 
 void SLRTutorWindow::postQuestion() {
     currentQuestionText = generateQuestion();
+    // generateQuestion() refreshes the per-state context (currentStateId,
+    // conflict/reduce ids), so the automaton panel syncs right after it.
+    updateAutomatonPanel();
     addMessage(currentQuestionText, false);
 }
 
