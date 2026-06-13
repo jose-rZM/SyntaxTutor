@@ -176,43 +176,34 @@
         </widget>
        </item>
       <item>
-       <widget class="QTabWidget" name="rightPanelTabs">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>2</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QVBoxLayout" name="rightPanelLayout">
+        <property name="spacing">
+         <number>8</number>
         </property>
-        <property name="currentIndex">
-         <number>0</number>
-        </property>
-        <widget class="QWidget" name="progressTab">
-         <attribute name="title">
-          <string>Progreso</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="progressTabLayout">
-          <property name="leftMargin">
-           <number>0</number>
+        <item>
+         <widget class="QPushButton" name="automatonButton">
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="topMargin">
-           <number>8</number>
+          <property name="text">
+           <string>Ver autómata LR(0)</string>
           </property>
-          <property name="rightMargin">
-           <number>0</number>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>2</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="bottomMargin">
-           <number>0</number>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
-          <item>
-           <widget class="QTextEdit" name="textEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </widget>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
    </item>

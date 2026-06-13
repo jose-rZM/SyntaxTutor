@@ -17,6 +17,7 @@
  */
 
 #include "slrtutorwindow.h"
+#include "automatonviewerdialog.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
 #include "slrwizard.h"
@@ -27,6 +28,7 @@
 #include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QRegularExpression>
+#include <QTimer>
 #include <algorithm>
 
 namespace {
@@ -302,6 +304,19 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 }
 
 SLRTutorWindow::~SLRTutorWindow() {
+    // Tear down the automaton viewer (if open) and the view it borrows. The
+    // viewer's destructor detaches the view, so we then own it outright and
+    // delete it explicitly to avoid any ambiguous ownership.
+    if (automatonViewer != nullptr) {
+        disconnect(automatonViewer, nullptr, this, nullptr);
+        delete automatonViewer;
+        automatonViewer = nullptr;
+    }
+    if (automatonView != nullptr) {
+        automatonView->setParent(nullptr);
+        delete automatonView;
+        automatonView = nullptr;
+    }
     delete ui;
 }
 
@@ -991,9 +1006,16 @@ void SLRTutorWindow::updateProgressPanel() {
 
 void SLRTutorWindow::setupAutomatonPanel() {
     if (examMode) {
+        // No automaton (and no button) during an exam.
+        ui->automatonButton->hide();
         return;
     }
-    automatonView = new AutomatonView(ui->rightPanelTabs);
+
+    // The view is parented to the tutor but never placed in the main layout;
+    // it stays hidden until embedded in the floating viewer. Keeping it as a
+    // tutor child lets its progressive reveal state survive open/close.
+    automatonView = new AutomatonView(this);
+    automatonView->hide();
 
     QVector<AutomatonStateInfo> stateInfos;
     stateInfos.reserve(static_cast<qsizetype>(slr1.states_.size()));
@@ -1011,7 +1033,49 @@ void SLRTutorWindow::setupAutomatonPanel() {
     }
 
     automatonView->setAutomaton(stateInfos, transitionInfos);
-    ui->rightPanelTabs->addTab(automatonView, tr("Autómata"));
+
+    ui->automatonButton->setCursor(Qt::PointingHandCursor);
+    connect(ui->automatonButton, &QPushButton::clicked, this,
+            &SLRTutorWindow::openAutomatonViewer);
+    updateAutomatonButton();
+}
+
+void SLRTutorWindow::updateAutomatonButton() {
+    if (automatonView == nullptr) {
+        return;
+    }
+    // Available only once the student has constructed the initial state I0.
+    ui->automatonButton->setEnabled(automatonView->visibleStateCount() > 0);
+}
+
+void SLRTutorWindow::openAutomatonViewer() {
+    if (automatonView == nullptr) {
+        return; // exam mode
+    }
+    if (automatonViewer != nullptr) {
+        // Already open: focus/raise instead of duplicating.
+        automatonViewer->raise();
+        automatonViewer->activateWindow();
+        return;
+    }
+
+    automatonViewer = new AutomatonViewerDialog(automatonView, this);
+    connect(automatonViewer, &QDialog::finished, this, [this](int) {
+        // Reclaim the view so it survives the viewer and can be reopened.
+        if (automatonView != nullptr) {
+            automatonView->setParent(this);
+            automatonView->hide();
+        }
+        if (automatonViewer != nullptr) {
+            automatonViewer->deleteLater();
+            automatonViewer = nullptr;
+        }
+    });
+    automatonViewer->show();
+    automatonViewer->raise();
+    automatonViewer->activateWindow();
+    // Fit once the viewer has its real size.
+    QTimer::singleShot(0, automatonView, &AutomatonView::fitToView);
 }
 
 void SLRTutorWindow::updateAutomatonPanel() {
@@ -1060,8 +1124,7 @@ void SLRTutorWindow::updateAutomatonPanel() {
         automatonView->revealAll();
         automatonView->clearStateMarks();
         automatonView->setReduceStates(reduceStateIds);
-        automatonView->setCurrentState(
-            static_cast<int>(currentReduceStateId));
+        automatonView->setCurrentState(static_cast<int>(currentReduceStateId));
         break;
 
     default:
@@ -1077,6 +1140,7 @@ void SLRTutorWindow::addUserState(unsigned id) {
         userMadeStates.insert(*st);
         if (automatonView != nullptr) {
             automatonView->revealState(id);
+            updateAutomatonButton();
         }
         updateProgressPanel();
     }
