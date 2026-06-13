@@ -50,16 +50,15 @@ jobs:
         run: ./test_runner
 
       - name: Build Qt tests
-        working-directory: tests
         run: |
-          qmake6 tests.pro
-          make -j"$(nproc)"
+          mkdir -p build/tests
+          cd build/tests && qmake6 $GITHUB_WORKSPACE/tests/tests.pro
+          make -C build/tests -j"$(nproc)"
 
       - name: Run Qt tests
-        working-directory: tests
         env:
           QT_QPA_PLATFORM: offscreen
-        run: ./.bin/tutor_tests
+        run: build/tests/.bin/tutor_tests
 
       - name: Install gcovr & generate SonarQube XML coverage
         run: |
