@@ -54,6 +54,8 @@ class TutorWindowTest : public QObject {
     void slrAutomatonRevealsI0AfterInitialConstruction();
     void slrAutomatonProgressivelyRevealsAndCompletesAfterLoop();
     void slrAutomatonHighlightsConflictAndReduceStates();
+    void slrAutomatonButtonGatingAndViewerReuse();
+    void slrAutomatonViewerUpdatesLiveAndReopens();
 
     void mainInitialUiIsVisibleAndEnabled();
     void mainSwitchLanguageToEnglishPersistsSelection();

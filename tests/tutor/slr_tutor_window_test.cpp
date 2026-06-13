@@ -1,6 +1,7 @@
 #include "tutor_window_test.h"
 
 #include "automatonview.h"
+#include "automatonviewerdialog.h"
 #include "examreportdialog.h"
 #include "qt_modal_test_utils.h"
 #include "slr_tutor_test_utils.h"
@@ -1111,31 +1112,39 @@ void TutorWindowTest::slrExamModeWrongAnswersFollowMainPathAndShowReport() {
 // -----------------------------------------------------------------------------
 // Case: SLR1-TC-22
 // Summary:
-//   Verifies the LR(0) automaton panel does not exist in exam mode.
+//   Verifies the LR(0) automaton is fully disabled in exam mode: no view, no
+//   button, and the viewer cannot be opened.
 //
 // Situation:
-//   SLR(1) tutor created in exam mode.
+//   SLR(1) tutor created in exam mode, compared against a normal tutor.
 //
 // Action:
-//   The test inspects the right-side tab panel.
+//   The test inspects the automaton button and tries to open the viewer.
 //
 // Expected:
-//   No AutomatonView is created and only the textual progress tab exists.
+//   In exam mode no AutomatonView exists, the button is hidden, and no
+//   viewer dialog appears; in normal mode the button exists.
 // -----------------------------------------------------------------------------
 void TutorWindowTest::slrAutomatonHiddenInExamMode() {
     const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
     SLRTutorWindow tutor(grammar, nullptr, nullptr, true);
 
     QVERIFY(tutor.findChild<AutomatonView*>() == nullptr);
-    auto* tabs = tutor.findChild<QTabWidget*>("rightPanelTabs");
-    QVERIFY(tabs != nullptr);
-    QCOMPARE(tabs->count(), 1);
+    auto* button = tutor.findChild<QPushButton*>("automatonButton");
+    QVERIFY(button != nullptr);
+    QVERIFY(button->isHidden());
+
+    tutor.openAutomatonViewer();
+    QTest::qWait(20);
+    QVERIFY(QtModalTestUtils::findVisibleTopLevelWidget<AutomatonViewerDialog>() ==
+            nullptr);
 
     SLRTutorWindow normalTutor(grammar, nullptr);
     QVERIFY(normalTutor.findChild<AutomatonView*>() != nullptr);
-    auto* normalTabs = normalTutor.findChild<QTabWidget*>("rightPanelTabs");
-    QVERIFY(normalTabs != nullptr);
-    QCOMPARE(normalTabs->count(), 2);
+    auto* normalButton =
+        normalTutor.findChild<QPushButton*>("automatonButton");
+    QVERIFY(normalButton != nullptr);
+    QVERIFY(!normalButton->isHidden());
 }
 
 // -----------------------------------------------------------------------------
@@ -1298,4 +1307,124 @@ void TutorWindowTest::slrAutomatonHighlightsConflictAndReduceStates() {
         QVERIFY(view->reduceStates().contains(
             static_cast<unsigned>(view->currentStateId())));
     }
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-26
+// Summary:
+//   Verifies the automaton button gating and that the viewer is reused, not
+//   duplicated.
+//
+// Situation:
+//   SLR(1) tutor on the simple fixture.
+//
+// Action:
+//   The test checks the button before and after I0 is built, opens the
+//   viewer twice, and closes/reopens it.
+//
+// Expected:
+//   The button is disabled before I0 and enabled after; clicking twice keeps
+//   exactly one viewer; closing then reopening yields a fresh single viewer.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonButtonGatingAndViewerReuse() {
+    const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+    SLRTutorWindow tutor(grammar, nullptr);
+
+    auto* button = tutor.findChild<QPushButton*>("automatonButton");
+    QVERIFY(button != nullptr);
+    QVERIFY(!button->isHidden());
+    QVERIFY(!button->isEnabled()); // no I0 yet
+
+    SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+    QCOMPARE(tutor.currentStateForTest(), QString("B"));
+    QVERIFY(button->isEnabled()); // I0 constructed
+
+    auto countViewers = []() {
+        int count = 0;
+        for (QWidget* widget : QApplication::topLevelWidgets()) {
+            if (qobject_cast<AutomatonViewerDialog*>(widget) != nullptr &&
+                widget->isVisible()) {
+                ++count;
+            }
+        }
+        return count;
+    };
+
+    QTest::mouseClick(button, Qt::LeftButton);
+    auto* viewer =
+        QtModalTestUtils::waitForVisibleTopLevelWidget<AutomatonViewerDialog>();
+    QVERIFY(viewer != nullptr);
+    QCOMPARE(countViewers(), 1);
+    // The view moved into the viewer.
+    QVERIFY(viewer->findChild<AutomatonView*>() != nullptr);
+
+    // Clicking again must not spawn a second viewer.
+    QTest::mouseClick(button, Qt::LeftButton);
+    QTest::qWait(20);
+    QCOMPARE(countViewers(), 1);
+
+    // Close and reopen: exactly one viewer again, view reclaimed in between.
+    QPointer<AutomatonViewerDialog> viewerGuard(viewer);
+    viewer->close();
+    QTRY_VERIFY(viewerGuard == nullptr || !viewerGuard->isVisible());
+    QTRY_COMPARE(countViewers(), 0);
+    QVERIFY(tutor.findChild<AutomatonView*>() != nullptr); // reclaimed
+
+    QTest::mouseClick(button, Qt::LeftButton);
+    auto* reopened =
+        QtModalTestUtils::waitForVisibleTopLevelWidget<AutomatonViewerDialog>();
+    QVERIFY(reopened != nullptr);
+    QCOMPARE(countViewers(), 1);
+    reopened->close();
+    QTRY_COMPARE(countViewers(), 0);
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-27
+// Summary:
+//   Verifies the viewer updates live while open and switches to full
+//   consultation mode once the LR(0) loop completes.
+//
+// Situation:
+//   SLR(1) tutor on the simple fixture with the viewer opened right after I0.
+//
+// Action:
+//   The test opens the viewer, then keeps answering correctly until D while
+//   sampling the embedded view.
+//
+// Expected:
+//   The embedded view reveals more states as the student progresses and is
+//   fully revealed once the tutor reaches D.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonViewerUpdatesLiveAndReopens() {
+    const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+    SLRTutorWindow tutor(grammar, nullptr);
+
+    auto* button = tutor.findChild<QPushButton*>("automatonButton");
+    QVERIFY(button != nullptr);
+
+    SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor); // build I0
+    QTest::mouseClick(button, Qt::LeftButton);
+    auto* viewer =
+        QtModalTestUtils::waitForVisibleTopLevelWidget<AutomatonViewerDialog>();
+    QVERIFY(viewer != nullptr);
+
+    auto* view = viewer->findChild<AutomatonView*>();
+    QVERIFY(view != nullptr);
+    const int revealedAtOpen = view->visibleStateCount();
+    QVERIFY(revealedAtOpen >= 1);
+
+    int guard = 0;
+    while (tutor.currentStateForTest() != "D" && ++guard < 200) {
+        SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+    }
+    QCOMPARE(tutor.currentStateForTest(), QString("D"));
+
+    // The same embedded view received the live updates.
+    QVERIFY(view->visibleStateCount() >= revealedAtOpen);
+    QVERIFY(view->isFullyRevealed());
+    QCOMPARE(view->visibleStateCount(), view->totalStateCount());
+
+    viewer->close();
+    QTest::qWait(20);
 }
