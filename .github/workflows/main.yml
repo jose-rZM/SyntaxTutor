@@ -9,6 +9,8 @@ on:
       - '**/*.cpp'
       - '**/*.hpp'
       - '**/*.h'
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -21,6 +23,15 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(tr -d ' \r\n' < APP_VERSION)" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install dbus
         run: |
@@ -61,13 +72,14 @@ jobs:
       - name: Prepare .app bundle
         run: |
           APP="SyntaxTutor.app"
+          VERSION="${{ steps.version.outputs.value }}"
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
           mkdir -p "$APP/Contents/Resources"
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
           chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
 
-          cat > "$APP/Contents/Info.plist" << 'EOF'
+          cat > "$APP/Contents/Info.plist" << EOF
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
             "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -80,14 +92,16 @@ jobs:
             <key>CFBundleIdentifier</key>
             <string>com.uma.syntaxtutor.intel</string>
             <key>CFBundleVersion</key>
-            <string>1.0.0</string>
+            <string>${VERSION}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${VERSION}</string>
             <key>CFBundleIconFile</key>
             <string>SyntaxTutor.icns</string>
             <key>CFBundlePackageType</key>
             <string>APPL</string>
             </dict>
             </plist>
-            EOF
+          EOF
 
       - name: Run macdeployqt
         run: |
@@ -121,11 +135,21 @@ jobs:
         with:
           name: SyntaxTutor-macos-intel
           path: SyntaxTutor-intel.zip
+
   build-macos:
     runs-on: macos-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(tr -d ' \r\n' < APP_VERSION)" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install dbus
         run: |
@@ -164,6 +188,7 @@ jobs:
           ls -l
           ls -l SyntaxTutor.app
           APP="SyntaxTutor.app"
+          VERSION="${{ steps.version.outputs.value }}"
           mkdir -p $APP/Contents/{MacOS,Resources}
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
@@ -171,7 +196,7 @@ jobs:
           cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
           chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
 
-          cat > $APP/Contents/Info.plist << 'EOF'
+          cat > $APP/Contents/Info.plist << EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
             "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -184,7 +209,9 @@ jobs:
             <key>CFBundleIdentifier</key>
             <string>com.uma.syntaxtutor</string>
             <key>CFBundleVersion</key>
-            <string>1.0.0</string>
+            <string>${VERSION}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${VERSION}</string>
             <key>CFBundleIconFile</key>
             <string>SyntaxTutor.icns</string>
             <key>CFBundlePackageType</key>
@@ -273,7 +300,6 @@ jobs:
           name: SyntaxTutor-windows-x64
           path: SyntaxTutor-windows-x64.zip
 
-
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -322,7 +348,6 @@ jobs:
               --plugin qt \
               --output appimage
 
-
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v4
         with:
@@ -330,7 +355,7 @@ jobs:
           path: '*.AppImage'
 
   publish-prerelease:
-    if: github.ref == 'refs/heads/main'
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
     name: Publish prerelease
     runs-on: ubuntu-latest
     needs:
@@ -347,12 +372,16 @@ jobs:
       - name: Determine release version
         id: version
         run: |
-          VERSION=$(tr -d ' \r\n' < APP_VERSION)
-          if [ -z "$VERSION" ]; then
-            echo "VERSION file is empty" >&2
-            exit 1
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            VERSION=$(tr -d ' \r\n' < APP_VERSION)
+            if [ -z "$VERSION" ]; then
+              echo "APP_VERSION file is empty" >&2
+              exit 1
+            fi
+            echo "value=$VERSION" >> "$GITHUB_OUTPUT"
           fi
-          echo "value=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Download macOS (Intel) artifact
         uses: actions/download-artifact@v4
@@ -403,14 +432,14 @@ jobs:
           echo "Prepared artifacts:" >&2
           ls -al dist/uploads >&2
 
-      - name: Publish GitHub prerelease
+      - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.value }}
-          name: SyntaxTutor v${{ steps.version.outputs.value }} (prerelease)
+          name: SyntaxTutor v${{ steps.version.outputs.value }}
           body: |
-            Automated prerelease for commit ${{ github.sha }}.
-          prerelease: true
+            Automated build for v${{ steps.version.outputs.value }} — commit ${{ github.sha }}.
+          prerelease: ${{ contains(steps.version.outputs.value, '-rc') || contains(steps.version.outputs.value, '-beta') || contains(steps.version.outputs.value, '-alpha') || github.ref == 'refs/heads/main' }}
           files: dist/uploads/*
           fail_on_unmatched_files: true
           draft: false
