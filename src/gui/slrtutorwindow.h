@@ -20,6 +20,7 @@
 #define SLRTUTORWINDOW_H
 
 #include "UniqueQueue.h"
+#include "automatonview.h"
 #include "examsession.h"
 #include "grammar.hpp"
 #include "grammarview.h"
@@ -228,6 +229,23 @@ class SLRTutorWindow : public QWidget {
     bool    confirmExitToHome();
     QString promptExportFilePath() const;
 
+    // ====== LR(0) Automaton Panel =================================
+    /**
+     * @brief Creates the automaton tab and loads the LR(0) graph, hidden.
+     *
+     * Does nothing in exam mode: the automaton would reveal the collection.
+     */
+    void setupAutomatonPanel();
+
+    /**
+     * @brief Syncs the automaton panel with the current tutor state.
+     *
+     * Highlights the state under analysis during the C/CA/CB loop, switches
+     * to full consultation mode from D onwards, and marks conflict (F/FA)
+     * and reduce (G) states.
+     */
+    void updateAutomatonPanel();
+
     // ====== Exam Mode =============================================
     void    postQuestion();     ///< Shows and remembers the next question.
     QString examSolutionText(); ///< Expected answer for the current state.
@@ -318,6 +336,10 @@ class SLRTutorWindow : public QWidget {
     QVector<const state*> statesWithLr0Conflict; // Populated in F
     std::queue<unsigned>  conflictStatesIdQueue;
     unsigned              currentConflictStateId = 0;
+
+    // ====== LR(0) Automaton Panel ==================================
+    AutomatonView* automatonView = nullptr; // null in exam mode
+    QSet<unsigned> reduceStateIds;          // States highlighted in G
     state                 currentConflictState;
 
     std::queue<unsigned>

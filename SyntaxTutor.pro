@@ -31,6 +31,7 @@ SOURCES += \
     src/backend/lr0_item.cpp \
     src/backend/slr1_parser.cpp \
     src/backend/symbol_table.cpp \
+    src/widgets/automatonview.cpp \
     src/widgets/customtextedit.cpp \
     src/widgets/grammarview.cpp \
     src/gui/examreportdialog.cpp \
@@ -54,6 +55,7 @@ HEADERS += \
     src/backend/slr1_parser.hpp \
     src/backend/state.hpp \
     src/backend/symbol_table.hpp \
+    src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \
     src/gui/examreportdialog.h \

@@ -1,5 +1,6 @@
 #include "tutor_window_test.h"
 
+#include "automatonview.h"
 #include "examreportdialog.h"
 #include "qt_modal_test_utils.h"
 #include "slr_tutor_test_utils.h"
@@ -14,6 +15,7 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QSignalSpy>
+#include <QTabWidget>
 #include <QTableWidget>
 #include <QTemporaryDir>
 #include <QTest>
@@ -1104,4 +1106,196 @@ void TutorWindowTest::slrExamModeWrongAnswersFollowMainPathAndShowReport() {
     auto* closeButton = report->findChild<QPushButton*>("examReportCloseButton");
     QVERIFY(closeButton != nullptr);
     QTest::mouseClick(closeButton, Qt::LeftButton);
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-22
+// Summary:
+//   Verifies the LR(0) automaton panel does not exist in exam mode.
+//
+// Situation:
+//   SLR(1) tutor created in exam mode.
+//
+// Action:
+//   The test inspects the right-side tab panel.
+//
+// Expected:
+//   No AutomatonView is created and only the textual progress tab exists.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonHiddenInExamMode() {
+    const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+    SLRTutorWindow tutor(grammar, nullptr, nullptr, true);
+
+    QVERIFY(tutor.findChild<AutomatonView*>() == nullptr);
+    auto* tabs = tutor.findChild<QTabWidget*>("rightPanelTabs");
+    QVERIFY(tabs != nullptr);
+    QCOMPARE(tabs->count(), 1);
+
+    SLRTutorWindow normalTutor(grammar, nullptr);
+    QVERIFY(normalTutor.findChild<AutomatonView*>() != nullptr);
+    auto* normalTabs = normalTutor.findChild<QTabWidget*>("rightPanelTabs");
+    QVERIFY(normalTabs != nullptr);
+    QCOMPARE(normalTabs->count(), 2);
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-23
+// Summary:
+//   Verifies I0 only appears in the automaton after the student constructs
+//   it, both on the direct path (A correct) and the fallback path (A').
+//
+// Situation:
+//   Two SLR(1) tutors on the simple fixture.
+//
+// Action:
+//   One tutor answers A correctly; the other fails A and walks the
+//   A1..A4 -> A' fallback.
+//
+// Expected:
+//   The automaton is empty before the construction and shows exactly I0
+//   afterwards in both paths.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonRevealsI0AfterInitialConstruction() {
+    const Grammar grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+
+    {
+        SLRTutorWindow tutor(grammar, nullptr);
+        auto*          view = tutor.findChild<AutomatonView*>();
+        QVERIFY(view != nullptr);
+        QCOMPARE(view->visibleStateCount(), 0);
+
+        SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+        QCOMPARE(tutor.currentStateForTest(), QString("B"));
+        QCOMPARE(view->visibleStateCount(), 1);
+        QVERIFY(view->isStateVisible(0));
+    }
+
+    {
+        SLRTutorWindow tutor(grammar, nullptr);
+        auto*          view = tutor.findChild<AutomatonView*>();
+        QVERIFY(view != nullptr);
+
+        tutor.setAnswerForTest(QStringLiteral("zz"));
+        tutor.submitForTest();
+        QCOMPARE(tutor.currentStateForTest(), QString("A1"));
+        QCOMPARE(view->visibleStateCount(), 0);
+
+        int guard = 0;
+        while (tutor.currentStateForTest() != "B" && ++guard < 20) {
+            SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+            QVERIFY(tutor.currentStateForTest() == "B" ||
+                    view->visibleStateCount() == 0);
+        }
+        QCOMPARE(tutor.currentStateForTest(), QString("B"));
+        QCOMPARE(view->visibleStateCount(), 1);
+        QVERIFY(view->isStateVisible(0));
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-24
+// Summary:
+//   Verifies progressive reveal: during the LR(0) loop only constructed
+//   states/transitions are visible, transitions appear on correct CB
+//   answers, and reaching D switches to the fully revealed automaton.
+//
+// Situation:
+//   SLR(1) tutor on the simple fixture driven with correct answers.
+//
+// Action:
+//   The test walks the whole B -> C -> CA -> CB loop, sampling the
+//   automaton before and after each CB answer.
+//
+// Expected:
+//   Before the first CB answer no transition is visible and the automaton
+//   is not fully revealed; transitions appear with CB answers and the
+//   current state stays highlighted during the loop; at D everything is
+//   visible.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonProgressivelyRevealsAndCompletesAfterLoop() {
+    const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+    SLRTutorWindow tutor(grammar, nullptr);
+    auto*          view = tutor.findChild<AutomatonView*>();
+    QVERIFY(view != nullptr);
+    QVERIFY(view->totalStateCount() > 1);
+
+    SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+    QCOMPARE(view->visibleTransitionCount(), 0);
+
+    bool sawTransitionReveal   = false;
+    bool sawPartialDuringLoop  = false;
+    int  guard                 = 0;
+    while (tutor.currentStateForTest() != "D" && ++guard < 200) {
+        const QString state = tutor.currentStateForTest();
+        if (state == "C" || state == "CA" || state == "CB") {
+            QCOMPARE(view->currentStateId(),
+                     static_cast<int>(tutor.currentStateIdForTest()));
+        }
+        if (!view->isFullyRevealed()) {
+            sawPartialDuringLoop = true;
+        }
+
+        const int transitionsBefore = view->visibleTransitionCount();
+        const bool nonEpsilonCb =
+            state == "CB" && tutor.currentCbSymbolForTest() != "EPSILON";
+        SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+
+        if (nonEpsilonCb &&
+            view->visibleTransitionCount() > transitionsBefore) {
+            sawTransitionReveal = true;
+        }
+    }
+    QCOMPARE(tutor.currentStateForTest(), QString("D"));
+    QVERIFY(sawPartialDuringLoop);
+    QVERIFY(sawTransitionReveal);
+
+    // Full consultation mode after the loop.
+    QVERIFY(view->isFullyRevealed());
+    QCOMPARE(view->visibleStateCount(), view->totalStateCount());
+    QCOMPARE(view->currentStateId(), -1);
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-25
+// Summary:
+//   Verifies the consultation-mode highlights: conflict states in F/FA and
+//   reduce states in G.
+//
+// Situation:
+//   SLR(1) tutors on the conflict fixture (for F/FA) and the simple
+//   fixture (for G).
+//
+// Action:
+//   The test drives each tutor to F and G respectively.
+//
+// Expected:
+//   In F the conflict states are marked; in G the reduce-capable states
+//   are marked and the state under analysis is the current one.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonHighlightsConflictAndReduceStates() {
+    {
+        const Grammar  grammar = TutorGrammarFixtures::makeSlrConflictGrammar();
+        SLRTutorWindow tutor(grammar, nullptr);
+        auto*          view = tutor.findChild<AutomatonView*>();
+        QVERIFY(view != nullptr);
+
+        SlrTutorTestUtils::driveTutorToState(tutor, "F");
+        QVERIFY(view->isFullyRevealed());
+        QVERIFY(!view->conflictStates().isEmpty());
+        QCOMPARE(view->conflictStates(), tutor.solutionForF());
+    }
+
+    {
+        const Grammar  grammar = TutorGrammarFixtures::makeSlrSimpleGrammar();
+        SLRTutorWindow tutor(grammar, nullptr);
+        auto*          view = tutor.findChild<AutomatonView*>();
+        QVERIFY(view != nullptr);
+
+        SlrTutorTestUtils::driveTutorToState(tutor, "G");
+        QVERIFY(view->isFullyRevealed());
+        QVERIFY(view->conflictStates().isEmpty());
+        QVERIFY(!view->reduceStates().isEmpty());
+        QVERIFY(view->reduceStates().contains(
+            static_cast<unsigned>(view->currentStateId())));
+    }
 }

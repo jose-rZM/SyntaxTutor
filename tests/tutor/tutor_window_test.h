@@ -50,6 +50,10 @@ class TutorWindowTest : public QObject {
     void slrAcceptsFlexibleUserFormatting();
     void slrAcceptsFlexibleTableCellFormatting();
     void slrExamModeWrongAnswersFollowMainPathAndShowReport();
+    void slrAutomatonHiddenInExamMode();
+    void slrAutomatonRevealsI0AfterInitialConstruction();
+    void slrAutomatonProgressivelyRevealsAndCompletesAfterLoop();
+    void slrAutomatonHighlightsConflictAndReduceStates();
 
     void mainInitialUiIsVisibleAndEnabled();
     void mainSwitchLanguageToEnglishPersistsSelection();

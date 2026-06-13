@@ -846,3 +846,36 @@ QDialog[examReport="true"] QPushButton#examReportCloseButton:hover {
     color: #FFFFFF;
     border: 1px solid rgba(255, 255, 255, 0.12);
 }
+
+QTabWidget#rightPanelTabs::pane {
+    border: none;
+    background: transparent;
+}
+
+QTabWidget#rightPanelTabs QTabBar::tab {
+    background: transparent;
+    color: #9AA5A8;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 14px;
+    margin-right: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QTabWidget#rightPanelTabs QTabBar::tab:hover {
+    color: #E8ECEE;
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+QTabWidget#rightPanelTabs QTabBar::tab:selected {
+    color: #11B3BC;
+    background-color: rgba(17, 179, 188, 0.12);
+    border: 1px solid rgba(17, 179, 188, 0.35);
+}
+
+QGraphicsView#slrAutomatonView {
+    background-color: #212526;
+    border: 1px solid #303638;
+    border-radius: 12px;
+}
