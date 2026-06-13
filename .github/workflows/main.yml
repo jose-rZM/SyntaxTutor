@@ -128,7 +128,7 @@ jobs:
 
       - name: Create ZIP of .app
         run: |
-          ditto -c -k --keepParent .bin/SyntaxTutor.app SyntaxTutor-${{ steps.version.outputs.value }}-macos-x86_64.zip
+          cd .bin && ditto -c -k --keepParent SyntaxTutor.app ../SyntaxTutor-${{ steps.version.outputs.value }}-macos-x86_64.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -243,7 +243,7 @@ jobs:
 
       - name: Create ZIP of .app (arm64)
         run: |
-          zip -qry SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip .bin/SyntaxTutor.app
+          cd .bin && zip -qry ../SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip SyntaxTutor.app
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -300,7 +300,10 @@ jobs:
           windeployqt --release .\deploy\SyntaxTutor.exe --dir deploy
 
       - name: Zip Windows bundle
-        run: powershell Compress-Archive -Path deploy -DestinationPath SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64.zip
+        shell: pwsh
+        run: |
+          Rename-Item deploy SyntaxTutor
+          Compress-Archive -Path SyntaxTutor -DestinationPath SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64.zip
 
       - name: Upload zipped Windows bundle
         uses: actions/upload-artifact@v4
