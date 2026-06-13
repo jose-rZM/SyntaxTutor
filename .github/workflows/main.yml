@@ -50,7 +50,7 @@ jobs:
 
       - name: Verify arch
         run: |
-          lipo -info SyntaxTutor.app/Contents/MacOS/SyntaxTutor
+          lipo -info .bin/SyntaxTutor.app/Contents/MacOS/SyntaxTutor
 
       - name: Prepare icons
         run: |
@@ -71,7 +71,7 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
-          APP="SyntaxTutor.app"
+          APP=".bin/SyntaxTutor.app"
           VERSION="${{ steps.version.outputs.value }}"
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
@@ -105,7 +105,7 @@ jobs:
 
       - name: Run macdeployqt
         run: |
-          macdeployqt SyntaxTutor.app \
+          macdeployqt .bin/SyntaxTutor.app \
             -verbose=2
 
       - name: Create entitlements
@@ -124,11 +124,11 @@ jobs:
 
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
+          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - .bin/SyntaxTutor.app
 
       - name: Create ZIP of .app
         run: |
-          ditto -c -k --keepParent SyntaxTutor.app SyntaxTutor-${{ steps.version.outputs.value }}-macos-x86_64.zip
+          ditto -c -k --keepParent .bin/SyntaxTutor.app SyntaxTutor-${{ steps.version.outputs.value }}-macos-x86_64.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -185,9 +185,7 @@ jobs:
 
       - name: Prepare .app bundle
         run: |
-          ls -l
-          ls -l SyntaxTutor.app
-          APP="SyntaxTutor.app"
+          APP=".bin/SyntaxTutor.app"
           VERSION="${{ steps.version.outputs.value }}"
           mkdir -p $APP/Contents/{MacOS,Resources}
 
@@ -222,7 +220,7 @@ jobs:
 
       - name: Run macdeployqt
         run: |
-          macdeployqt SyntaxTutor.app \
+          macdeployqt .bin/SyntaxTutor.app \
             -verbose=2
 
       - name: Create entitlements
@@ -241,11 +239,11 @@ jobs:
 
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
+          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - .bin/SyntaxTutor.app
 
       - name: Create ZIP of .app (arm64)
         run: |
-          zip -qry SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip SyntaxTutor.app
+          zip -qry SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip .bin/SyntaxTutor.app
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
