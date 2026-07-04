@@ -128,7 +128,7 @@ jobs:
 
       - name: Create ZIP of .app
         run: |
-          ditto -c -k --keepParent .bin/SyntaxTutor.app SyntaxTutor-${{ steps.version.outputs.value }}-macos-x86_64.zip
+          cd .bin && ditto -c -k --keepParent SyntaxTutor.app ../SyntaxTutor-${{ steps.version.outputs.value }}-macos-x86_64.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -243,7 +243,7 @@ jobs:
 
       - name: Create ZIP of .app (arm64)
         run: |
-          zip -qry SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip .bin/SyntaxTutor.app
+          cd .bin && ditto -c -k --keepParent SyntaxTutor.app ../SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -295,12 +295,16 @@ jobs:
       - name: Prepare Windows deploy
         shell: pwsh
         run: |
-          mkdir deploy
-          Copy-Item .\.bin\SyntaxTutor.exe deploy\
-          windeployqt --release .\deploy\SyntaxTutor.exe --dir deploy
+          $pkg = "SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64"
+          New-Item -ItemType Directory -Force -Path $pkg | Out-Null
+          Copy-Item .\.bin\SyntaxTutor.exe "$pkg\"
+          windeployqt --release "$pkg\SyntaxTutor.exe" --dir $pkg
 
       - name: Zip Windows bundle
-        run: powershell Compress-Archive -Path deploy -DestinationPath SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64.zip
+        shell: pwsh
+        run: |
+          $pkg = "SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64"
+          Compress-Archive -Path $pkg -DestinationPath "$pkg.zip"
 
       - name: Upload zipped Windows bundle
         uses: actions/upload-artifact@v4
