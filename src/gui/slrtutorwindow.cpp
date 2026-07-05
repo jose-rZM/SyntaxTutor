@@ -241,10 +241,10 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
-    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setFixedHeight(48);
+    ui->userResponse->setAutoGrow(48, 100);
     ui->userResponse->setPlaceholderText(
-        tr("Introduce aquí tu respuesta. Ctrl + Enter para nueva línea."));
+        tr("Introduce aquí tu respuesta. %1 para nueva línea.")
+            .arg(CustomTextEdit::newlineShortcutText()));
     ui->confirmButton->setFixedSize(48, 48);
 
     // -- Chat Appearance
@@ -367,6 +367,7 @@ QString SLRTutorWindow::promptExportFilePath() const {
                        tr("Archivo PDF (*.pdf)"));
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setDefaultSuffix("pdf");
     dialog.selectFile("conver.pdf");
     dialog.setObjectName("slrTutorExportFileDialog");
 #ifdef SYNTAXTUTOR_TESTING
@@ -376,7 +377,13 @@ QString SLRTutorWindow::promptExportFilePath() const {
         return {};
     }
 
-    return dialog.selectedFiles().value(0);
+    QString filePath = dialog.selectedFiles().value(0);
+    // Native dialogs may ignore the default suffix.
+    if (!filePath.isEmpty() &&
+        !filePath.endsWith(QStringLiteral(".pdf"), Qt::CaseInsensitive)) {
+        filePath += QStringLiteral(".pdf");
+    }
+    return filePath;
 }
 
 void SLRTutorWindow::on_backButton_clicked() {
@@ -934,8 +941,10 @@ void SLRTutorWindow::showTable() {
         });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
         if (confirmExitToHome()) {
+            rawTable.clear();
             requestExit(false);
         } else {
             showTable();
@@ -1670,8 +1679,9 @@ QString SLRTutorWindow::generateQuestion() {
     // ======= A: Initial Item and Closure ========================
     case StateSlr::A:
         return tr("¿Cuál es el estado inicial del analizador?\n"
-                  "Formato (Ctrl + Enter para nueva línea):\n  X → a·b\n  X → "
-                  "·b\n  X → EPSILON·");
+                  "Formato (%1 para nueva línea):\n  X → a·b\n  X → "
+                  "·b\n  X → EPSILON·")
+            .arg(CustomTextEdit::newlineShortcutText());
 
     case StateSlr::A1:
         return tr("¿Cuál es el axioma de la gramática?");
@@ -2016,7 +2026,8 @@ void SLRTutorWindow::updatePlaceholder() {
     case StateSlr::A:
     case StateSlr::A4:
     case StateSlr::A_prime:
-        text = tr("Ejemplo: S -> . A $ (Ctrl + Intro para nueva línea)");
+        text = tr("Ejemplo: S -> . A $ (%1 para nueva línea)")
+                   .arg(CustomTextEdit::newlineShortcutText());
         break;
     case StateSlr::A1:
         text = tr("Ejemplo: A");
@@ -2037,7 +2048,8 @@ void SLRTutorWindow::updatePlaceholder() {
         text = tr("Ejemplo: a,b");
         break;
     case StateSlr::CB:
-        text = tr("Ejemplo: S -> . A $ (Ctrl + Intro para nueva línea)");
+        text = tr("Ejemplo: S -> . A $ (%1 para nueva línea)")
+                   .arg(CustomTextEdit::newlineShortcutText());
         break;
     case StateSlr::D:
     case StateSlr::D_prime:
@@ -3805,8 +3817,9 @@ void SLRTutorWindow::setupTutorial() {
                    "respuesta. Una regla gramatical "
                    "o "
                    "ítem LR (una regla gramatical con el (.) por línea. "
-                   "Recuerda que con Ctrl+Enter puedes "
-                   "insertar una nueva línea. Veamos unos ejemplos.</p>"));
+                   "Recuerda que con %1 puedes "
+                   "insertar una nueva línea. Veamos unos ejemplos.</p>")
+                    .arg(CustomTextEdit::newlineShortcutText()));
 
     tm->addStep(
         ui->listWidget,

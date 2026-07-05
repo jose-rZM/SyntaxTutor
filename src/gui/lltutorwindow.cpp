@@ -45,17 +45,29 @@ QString NormalizeProductionCell(const QString& cell) {
     return normalized;
 }
 
+// Accepts "eps" and "epsilon" as EPSILON, unless the grammar defines them
+// as real symbols.
+QString CanonicalizeEpsilonToken(const Grammar& grammar, const QString& token) {
+    if ((token == QStringLiteral("eps") ||
+         token == QStringLiteral("epsilon")) &&
+        !grammar.st_.In(token.toStdString())) {
+        return QString::fromStdString(grammar.st_.EPSILON_);
+    }
+    return token;
+}
+
 QStringList ParseProductionCell(Grammar& grammar, const QString& cell) {
     const QString trimmed = cell.trimmed();
     if (trimmed.isEmpty()) {
         return {};
     }
 
-    const QStringList spacedTokens =
+    QStringList spacedTokens =
         trimmed.split(kCellWhitespace, Qt::SkipEmptyParts);
     if (!spacedTokens.isEmpty()) {
         bool allKnown = true;
-        for (const QString& token : spacedTokens) {
+        for (QString& token : spacedTokens) {
+            token = CanonicalizeEpsilonToken(grammar, token);
             if (!grammar.st_.In(token.toStdString())) {
                 allKnown = false;
                 break;
@@ -124,8 +136,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
     // -- User Response Box
-    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setFixedHeight(48);
+    ui->userResponse->setAutoGrow(48, 100);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
     ui->confirmButton->setFixedSize(48, 48);
 
@@ -234,6 +245,7 @@ QString LLTutorWindow::promptExportFilePath() const {
                        tr("Archivo PDF (*.pdf)"));
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setDefaultSuffix("pdf");
     dialog.selectFile("conver.pdf");
     dialog.setObjectName("llTutorExportFileDialog");
 #ifdef SYNTAXTUTOR_TESTING
@@ -243,7 +255,13 @@ QString LLTutorWindow::promptExportFilePath() const {
         return {};
     }
 
-    return dialog.selectedFiles().value(0);
+    QString filePath = dialog.selectedFiles().value(0);
+    // Native dialogs may ignore the default suffix.
+    if (!filePath.isEmpty() &&
+        !filePath.endsWith(QStringLiteral(".pdf"), Qt::CaseInsensitive)) {
+        filePath += QStringLiteral(".pdf");
+    }
+    return filePath;
 }
 
 void LLTutorWindow::on_backButton_clicked() {
@@ -678,8 +696,10 @@ void LLTutorWindow::showTableForCPrime() {
             });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
         if (confirmExitToHome()) {
+            rawTable.clear();
             requestExit(false);
         } else {
             showTable();
@@ -716,8 +736,10 @@ void LLTutorWindow::showTable() {
             });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
         if (confirmExitToHome()) {
+            rawTable.clear();
             requestExit(false);
         } else {
             showTable();
@@ -2909,9 +2931,10 @@ void LLTutorWindow::setupTutorial() {
                    "<p>Aquí el tutor pregunta y muestra feedback.</p>"
                    "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o "
                    "Enter. Puedes insertar "
-                   "una nueva línea con Ctrl+Enter si el formato lo requiere. "
+                   "una nueva línea con %1 si el formato lo requiere. "
                    "Aunque en el tutor "
-                   "LL(1) no es necesario.</p>"));
+                   "LL(1) no es necesario.</p>")
+                    .arg(CustomTextEdit::newlineShortcutText()));
 
     tm->addStep(ui->listWidget, tr("<h3>Formato de respuesta</h3>"
                                    "<p>El tutor te indicará el formato de "

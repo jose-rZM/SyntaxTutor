@@ -21,16 +21,35 @@
 
 #include <QTextEdit>
 
+class QPropertyAnimation;
+
 class CustomTextEdit : public QTextEdit {
     Q_OBJECT
+    Q_PROPERTY(int growHeight READ growHeight WRITE setGrowHeight)
   public:
     explicit CustomTextEdit(QWidget* parent = nullptr);
+
+    /// User-visible name of the newline shortcut for the current platform.
+    static QString newlineShortcutText();
+
+    /// Makes the widget height follow its content, animated, within
+    /// [minHeight, maxHeight]. Content beyond maxHeight scrolls.
+    void setAutoGrow(int minHeight, int maxHeight);
 
   signals:
     void sendRequested();
 
   protected:
     void keyPressEvent(QKeyEvent* event) override;
+
+  private:
+    int  growHeight() const;
+    void setGrowHeight(int height);
+    void updateGrowHeight();
+
+    int                 minGrowHeight_ = 0;
+    int                 maxGrowHeight_ = 0;
+    QPropertyAnimation* growAnimation_ = nullptr;
 };
 
 #endif // CUSTOMTEXTEDIT_H

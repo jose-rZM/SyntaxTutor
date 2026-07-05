@@ -698,6 +698,35 @@ void MainWindow::on_actionReferencia_SLR_1_triggered() {
 }
 
 #include <QProcess>
+
+namespace {
+void relaunchApplication() {
+#if defined(Q_OS_LINUX)
+    // Inside an AppImage applicationFilePath() points into the FUSE mount,
+    // which disappears when this process exits; relaunch the AppImage itself.
+    const QString appImage = qEnvironmentVariable("APPIMAGE");
+    if (!appImage.isEmpty()) {
+        QProcess::startDetached(appImage, QStringList());
+        return;
+    }
+#elif defined(Q_OS_MACOS)
+    // Relaunch the .app bundle instead of the inner binary.
+    const QString binaryDir = QCoreApplication::applicationDirPath();
+    const QString bundleSuffix = QStringLiteral(".app/Contents/MacOS");
+    if (binaryDir.endsWith(bundleSuffix)) {
+        const QString bundlePath =
+            binaryDir.left(binaryDir.size() - bundleSuffix.size() +
+                           QStringLiteral(".app").size());
+        QProcess::startDetached(QStringLiteral("open"),
+                                {QStringLiteral("-n"), bundlePath});
+        return;
+    }
+#endif
+    QProcess::startDetached(QCoreApplication::applicationFilePath(),
+                            QStringList());
+}
+} // namespace
+
 void MainWindow::on_idiom_clicked() {
     QString selectedLang;
 
@@ -780,7 +809,7 @@ void MainWindow::on_idiom_clicked() {
 
 #ifndef SYNTAXTUTOR_TESTING
         qApp->quit();
-        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+        relaunchApplication();
 #endif
     }
 }
