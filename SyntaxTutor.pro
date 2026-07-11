@@ -56,6 +56,7 @@ HEADERS += \
     src/backend/slr1_parser.hpp \
     src/backend/state.hpp \
     src/backend/symbol_table.hpp \
+    src/widgets/appfonts.h \
     src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \
@@ -78,6 +79,8 @@ FORMS += \
     src/gui/lltutorwindow.ui \
     src/gui/mainwindow.ui \
     src/gui/slrtutorwindow.ui
+
+win32: RC_ICONS = resources/syntaxtutor.ico
 
 win32:CONFIG(release, debug|release) {
     msvc {

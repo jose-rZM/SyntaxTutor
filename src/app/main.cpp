@@ -21,7 +21,9 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QFontDatabase>
 #include <QSettings>
+#include <QStyleHints>
 #include <QTranslator>
 
 void applyAppStyle(QApplication& app) {
@@ -34,6 +36,16 @@ void applyAppStyle(QApplication& app) {
 
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+#endif
+    QApplication::setStyle("fusion");
+#ifndef Q_OS_MACOS
+    QFontDatabase::addApplicationFont(
+        ":/resources/fonts/JetBrainsMono-Regular.ttf");
+    QFontDatabase::addApplicationFont(
+        ":/resources/fonts/JetBrainsMono-Bold.ttf");
+#endif
     QCoreApplication::setApplicationName("SyntaxTutor");
     QGuiApplication::setApplicationDisplayName("SyntaxTutor");
     QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
