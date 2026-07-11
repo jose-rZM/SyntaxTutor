@@ -1,6 +1,6 @@
 #include "grammarview.h"
 
-#include <QFontDatabase>
+#include "appfonts.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <QSizePolicy>
@@ -8,8 +8,7 @@
 namespace {
 
 QFont grammarFont() {
-    QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    font.setStyleHint(QFont::TypeWriter);
+    QFont font = appMonospaceFont();
     font.setPointSize(15);
     return font;
 }
