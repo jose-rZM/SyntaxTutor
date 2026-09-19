@@ -56,7 +56,16 @@ class ExamReportDialog : public QDialog {
     void exportRequested();
 
   private:
-    QString buildReviewHtml(const ExamSession& session) const;
+    /**
+     * @brief Target medium for the review table's styling.
+     *
+     * Screen renders onto the dark dialog; Print renders onto white paper,
+     * where the dark fills and px sizes of the screen variant are unusable.
+     */
+    enum class ReviewStyle { Screen, Print };
+
+    QString buildReviewHtml(const ExamSession& session,
+                            ReviewStyle style) const;
 
     QString reportHtml_;
 };
