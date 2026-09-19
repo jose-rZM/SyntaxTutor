@@ -177,7 +177,7 @@ void GrammarEditorDialog::buildUi() {
     input_ = new QPlainTextEdit(this);
     input_->setObjectName("grammarEditorInput");
     QFont mono = appMonospaceFont();
-    mono.setPointSize(14);
+    mono.setPixelSize(14);
     input_->setFont(mono);
     input_->setTabChangesFocus(true);
     input_->setPlaceholderText(tr("E -> E + T | T .\nT -> ( E ) | id ."));

@@ -9,7 +9,7 @@ namespace {
 
 QFont grammarFont() {
     QFont font = appMonospaceFont();
-    font.setPointSize(15);
+    font.setPixelSize(15);
     return font;
 }
 
