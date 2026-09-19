@@ -22,14 +22,48 @@
 #include "llwizard.h"
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
-#include <QApplication>
 #include <QAbstractButton>
+#include <QApplication>
+#include <QDir>
+#include <QFileInfo>
 #include <QFontDatabase>
 #include <QHBoxLayout>
+#include <QMessageBox>
 #include <QRandomGenerator>
 #include <QRegularExpression>
+#include <QStandardPaths>
 
 namespace {
+// The export path comes from a save dialog, but the target can still be
+// unwritable (read-only volume, revoked permission). QPrinter reports
+// nothing, so confirm the file really landed and tell the user if not.
+bool ReportPdfExportResult(const QWidget* parent,
+                           const QString& filePath) {
+    const QFileInfo info(filePath);
+    if (info.exists() && info.size() > 0) {
+        return true;
+    }
+    QMessageBox::warning(
+        const_cast<QWidget*>(parent), QObject::tr("Error al exportar"),
+        QObject::tr("No se ha podido guardar el PDF en:\n%1\n\nComprueba "
+                    "que tienes permisos de escritura en esa carpeta.")
+            .arg(QDir::toNativeSeparators(filePath)));
+    return false;
+}
+
+// QFileDialog's third constructor argument is the starting DIRECTORY.
+// Leaving it empty (or passing a bare file name) falls back to the process
+// working directory, which is "/" when launched from Finder, the install
+// folder on Windows and the mount point for an AppImage. Start in Documents.
+QString DefaultExportDirectory() {
+    const QString documents =
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    if (!documents.isEmpty()) {
+        return documents;
+    }
+    return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+}
+
 const QRegularExpression kCellWhitespace("\\s+");
 
 struct ParsedSymbols {
@@ -241,7 +275,8 @@ QString LLTutorWindow::promptExportFilePath() const {
 #endif
 
     QFileDialog dialog(const_cast<LLTutorWindow*>(this),
-                       tr("Guardar conversación"), "conver.pdf",
+                       tr("Guardar conversación"),
+                       DefaultExportDirectory(),
                        tr("Archivo PDF (*.pdf)"));
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setFileMode(QFileDialog::AnyFile);
@@ -450,13 +485,16 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
 
     doc.setHtml(html);
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+    {
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filePath);
+        printer.setPageSize(QPageSize(QPageSize::A4));
+        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
-    doc.print(&printer);
+        doc.print(&printer);
+    }
+    ReportPdfExportResult(this, filePath);
 }
 
 void LLTutorWindow::updateProgressPanel() {
@@ -464,7 +502,7 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = R"(
         <html>
-        <body style="font-size: 11pt; color: #f0f0f0; background-color: #212526;">
+        <body style="font-size: 11px; color: #f0f0f0; background-color: #212526;">
     )";
 
     // === CABECERAS (First) ===
@@ -912,13 +950,16 @@ void LLTutorWindow::exportExamReportToPdf(const QString& filePath,
     QTextDocument doc;
     doc.setHtml(html);
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+    {
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filePath);
+        printer.setPageSize(QPageSize(QPageSize::A4));
+        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
-    doc.print(&printer);
+        doc.print(&printer);
+    }
+    ReportPdfExportResult(this, filePath);
 }
 
 void LLTutorWindow::wrongAnimation() {
