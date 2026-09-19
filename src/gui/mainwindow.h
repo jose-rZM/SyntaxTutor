@@ -180,6 +180,14 @@ class MainWindow : public QMainWindow {
     void restartTutorial();
 
     void setNavigationEnabled(bool enabled);
+
+    /**
+     * @brief Enables or disables the whole difficulty selector.
+     *
+     * Covers the "Dificultad" heading as well as the three level radio
+     * buttons, so the group always dims as one block.
+     */
+    void setDifficultySelectorEnabled(bool enabled);
     void showHomePage();
     void cleanupTutorPages();
     LLTutorWindow*  startLLTutor(const Grammar& grammar, TutorialManager* tm,
