@@ -24,6 +24,7 @@
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
 #include <QApplication>
+#include <QDateTime>
 #include <QDir>
 #include <QEasingCurve>
 #include <QFileInfo>
@@ -42,14 +43,18 @@ namespace {
 bool ReportPdfExportResult(const QWidget* parent,
                            const QString& filePath) {
     const QFileInfo info(filePath);
+    const QString   nativePath = QDir::toNativeSeparators(filePath);
     if (info.exists() && info.size() > 0) {
+        QMessageBox::information(
+            const_cast<QWidget*>(parent), QObject::tr("Exportación completada"),
+            QObject::tr("PDF guardado en:\n%1").arg(nativePath));
         return true;
     }
     QMessageBox::warning(
         const_cast<QWidget*>(parent), QObject::tr("Error al exportar"),
         QObject::tr("No se ha podido guardar el PDF en:\n%1\n\nComprueba "
                     "que tienes permisos de escritura en esa carpeta.")
-            .arg(QDir::toNativeSeparators(filePath)));
+            .arg(nativePath));
     return false;
 }
 
@@ -57,6 +62,13 @@ bool ReportPdfExportResult(const QWidget* parent,
 // Leaving it empty (or passing a bare file name) falls back to the process
 // working directory, which is "/" when launched from Finder, the install
 // folder on Windows and the mount point for an AppImage. Start in Documents.
+QString DefaultExportFileName(const QString& tutorTag, bool examMode) {
+    return QStringLiteral("%1%2_%3.pdf")
+        .arg(examMode ? QStringLiteral("EXAM_") : QString(), tutorTag,
+             QDateTime::currentDateTime().toString(
+                 QStringLiteral("yyyy-MM-dd_HH-mm-ss")));
+}
+
 QString DefaultExportDirectory() {
     const QString documents =
         QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
@@ -397,13 +409,14 @@ QString SLRTutorWindow::promptExportFilePath() const {
 #endif
 
     QFileDialog dialog(const_cast<SLRTutorWindow*>(this),
-                       tr("Guardar conversación"),
+                       examMode ? tr("Guardar informe del examen")
+                                : tr("Guardar conversación"),
                        DefaultExportDirectory(),
                        tr("Archivo PDF (*.pdf)"));
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setDefaultSuffix("pdf");
-    dialog.selectFile("conver.pdf");
+    dialog.selectFile(DefaultExportFileName(QStringLiteral("SLR1"), examMode));
     dialog.setObjectName("slrTutorExportFileDialog");
 #ifdef SYNTAXTUTOR_TESTING
     dialog.setOption(QFileDialog::DontUseNativeDialog, true);
@@ -669,7 +682,6 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
 
         doc.print(&printer);
     }
-    ReportPdfExportResult(this, filePath);
 }
 
 void SLRTutorWindow::showTable() {
@@ -1672,6 +1684,7 @@ void SLRTutorWindow::on_confirmButton_clicked() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
                     exportConversationToPdf(filePath);
+                    ReportPdfExportResult(this, filePath);
                 }
             });
         }
@@ -3578,6 +3591,7 @@ void SLRTutorWindow::showExamReport() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
                     exportExamReportToPdf(filePath, report->reportHtml());
+                    ReportPdfExportResult(this, filePath);
                 }
             });
     report->show();
@@ -3599,7 +3613,6 @@ void SLRTutorWindow::exportExamReportToPdf(const QString& filePath,
 
         doc.print(&printer);
     }
-    ReportPdfExportResult(this, filePath);
 }
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
