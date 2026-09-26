@@ -25,7 +25,7 @@
 #include "slrtutorwindow.h"
 #include "tutorialmanager.h"
 #include <QMainWindow>
-#include "apptextscale.h"
+#include "apptypography.h"
 #include <QSettings>
 
 class QStackedWidget;
@@ -204,9 +204,10 @@ class MainWindow : public QMainWindow {
     /**
      * @brief Applies and stores a text size, as a percentage.
      *
-     * Every size in the UI comes either from `app.qss` or from a
-     * `setPixelSize()` that reads AppTextScale, so re-applying the scaled
-     * style sheet updates the whole window without a restart.
+     * Every text size in the UI is a role of the AppTypography type scale,
+     * reached through `app.qss`, the application font or an explicit
+     * `AppTypography::font()`, so re-applying them updates the whole window
+     * without a restart.
      */
     void setTextScale(int percent);
 

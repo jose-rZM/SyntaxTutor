@@ -26,9 +26,8 @@
 #include <QMessageBox>
 #include <QPixmap>
 #include <QStackedWidget>
-#include "apptextscale.h"
+#include "apptypography.h"
 #include <QActionGroup>
-#include <QFile>
 #include <QMenu>
 #include <QScreen>
 #include <QSlider>
@@ -56,7 +55,8 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
     dialog->setObjectName("infoDialog");
     dialog->setWindowTitle(windowTitle);
     dialog->setModal(true);
-    dialog->resize(AppTextScale::scaled(620), AppTextScale::scaled(480));
+    dialog->resize(AppTypography::lengthForText(620),
+                   AppTypography::lengthForText(480));
 
     auto* layout = new QVBoxLayout(dialog);
     layout->setSpacing(14);
@@ -170,13 +170,13 @@ MainWindow::MainWindow(QWidget* parent)
 
         QLabel* floatLabel =
             new QLabel(tr("+1 Nivel"), ui->badgeNivel->parentWidget());
-        floatLabel->setStyleSheet(R"(
+        floatLabel->setStyleSheet(AppTypography::resolveStyleSheet(R"(
     QLabel {
         font-weight: bold;
-        font-size: 20px;
+        font-size: $font-headline;
         background: transparent;
     }
-)");
+)"));
         floatLabel->adjustSize();
 
         QPoint badgePos   = ui->badgeNivel->geometry().topLeft();
@@ -193,15 +193,16 @@ MainWindow::MainWindow(QWidget* parent)
                 [floatLabel, rainbowColors, colorIndex = 0]() mutable {
                     QString color =
                         rainbowColors[colorIndex % rainbowColors.size()];
-                    floatLabel->setStyleSheet(QString(R"(
+                    floatLabel->setStyleSheet(
+                        AppTypography::resolveStyleSheet(QString(R"(
         QLabel {
             font-weight: bold;
-            font-size: 20px;
+            font-size: $font-headline;
             background: transparent;
             color: %1;
         }
     )")
-                                                  .arg(color));
+                                                             .arg(color)));
                     colorIndex++;
                 });
         rainbowTimer->start(100);
@@ -261,13 +262,13 @@ void MainWindow::applyLevelStyling(unsigned lvl) {
     int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
     QString c      = levelColors[idx];
 
-    ui->badgeNivel->setStyleSheet(QString(R"(
+    ui->badgeNivel->setStyleSheet(AppTypography::resolveStyleSheet(QString(R"(
     QLabel {
     min-width: 28px;
     min-height: 24px;
     padding: 0px 10px;
     font-weight: 700;
-    font-size: 12px;
+    font-size: $font-label;
     background-color: rgba(%1, %2, %3, 0.18);
     color: %4;
     border-radius: 12px;
@@ -278,7 +279,7 @@ void MainWindow::applyLevelStyling(unsigned lvl) {
                                       .arg(QColor(c).red())
                                       .arg(QColor(c).green())
                                       .arg(QColor(c).blue())
-                                      .arg(c));
+                                      .arg(c)));
 
     ui->badgeNivel->setText(QString::number(lvl));
     ui->progressBarNivel->setStyleSheet(QString(R"(
@@ -341,12 +342,13 @@ void MainWindow::saveSettings() {
 }
 
 void MainWindow::applyScaledMinimumSize() {
-    // The minimum in the .ui is in unscaled pixels, so at a larger text size
-    // the content no longer fits it and labels get clipped. Scale it, but
-    // clamp to the available screen: a minimum bigger than the display would
-    // leave the window unusable on a small monitor.
-    QSize wanted(AppTextScale::scaled(kBaseMinimumWidth),
-                 AppTextScale::scaled(kBaseMinimumHeight));
+    // The minimum was drawn for body text at its design size. Text renders
+    // bigger at a larger text size and on platforms that map a point to more
+    // pixels, so grow the minimum with it, but clamp to the available
+    // screen: a minimum bigger than the display would leave the window
+    // unusable on a small monitor.
+    QSize wanted(AppTypography::lengthForText(kBaseMinimumWidth),
+                 AppTypography::lengthForText(kBaseMinimumHeight));
     if (QScreen* screen = QGuiApplication::primaryScreen()) {
         const QSize available = screen->availableGeometry().size();
         wanted = wanted.boundedTo(available);
@@ -507,15 +509,17 @@ void MainWindow::setTextScale(int percent) {
 
     // Two channels: the style sheet carries every size declared in QSS, and
     // the application font carries the text that has no QSS rule at all -
-    // the chat bubbles among it.
-    qApp->setFont(AppTextScale::scaledApplicationFont());
+    // the chat bubbles among it. The font goes first: lengths that follow
+    // the text are measured from it.
+    qApp->setFont(AppTypography::applicationFont());
 
-    QFile qssFile(":/resources/styles/app.qss");
-    if (qssFile.open(QFile::ReadOnly | QFile::Text)) {
-        qApp->setStyleSheet(AppTextScale::scaleStyleSheet(
-            QString::fromUtf8(qssFile.readAll())));
+    const QString styleSheet = AppTypography::loadStyleSheet();
+    if (!styleSheet.isEmpty()) {
+        qApp->setStyleSheet(styleSheet);
     }
 
+    // Inline style sheets resolved their sizes when they were set.
+    applyLevelStyling(userLevel());
     applyScaledMinimumSize();
 
     // Widgets that size themselves from font metrics cannot pick this up on

@@ -17,25 +17,21 @@
  */
 
 #include "appversion.h"
-#include "apptextscale.h"
+#include "apptypography.h"
 #include "mainwindow.h"
 
 #include <QApplication>
 #include <QDebug>
-#include <QFile>
 #include <QFontDatabase>
-#include <QScreen>
 #include <QSettings>
 #include <QStyleHints>
 #include <QTranslator>
 
 void applyAppStyle(QApplication& app) {
-    QFile qssFile(":/resources/styles/app.qss");
-    if (!qssFile.open(QFile::ReadOnly | QFile::Text)) {
-        return;
+    const QString styleSheet = AppTypography::loadStyleSheet();
+    if (!styleSheet.isEmpty()) {
+        app.setStyleSheet(styleSheet);
     }
-    app.setStyleSheet(
-        AppTextScale::scaleStyleSheet(QString::fromUtf8(qssFile.readAll())));
 }
 
 int main(int argc, char* argv[]) {
@@ -44,7 +40,7 @@ int main(int argc, char* argv[]) {
     QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
 #endif
     QApplication::setStyle("fusion");
-    AppTextScale::baseApplicationFont() = QApplication::font();
+    AppTypography::systemFont() = QApplication::font();
 #ifndef Q_OS_MACOS
     QFontDatabase::addApplicationFont(
         ":/resources/fonts/JetBrainsMono-Regular.ttf");
@@ -58,15 +54,9 @@ int main(int argc, char* argv[]) {
     if (settings.contains(AppTextScale::settingsKey())) {
         AppTextScale::currentPercent() = AppTextScale::clampPercent(
             settings.value(AppTextScale::settingsKey()).toInt());
-    } else if (settings.contains(AppTextScale::legacySettingsKey())) {
+    } else {
         AppTextScale::currentPercent() = AppTextScale::percentFromLegacyValue(
             settings.value(AppTextScale::legacySettingsKey()).toString());
-    } else {
-        // First run, so pick a size from the screen rather than assuming the
-        // one the style sheet was drawn against. Not stored: it keeps
-        // following the screen until the user chooses a size themselves.
-        AppTextScale::currentPercent() = AppTextScale::defaultPercentForScreen(
-            QGuiApplication::primaryScreen());
     }
     QString   langCode = settings.value("lang/language", "es").toString();
     QTranslator   translator;
@@ -79,7 +69,7 @@ int main(int argc, char* argv[]) {
         // Not fatal: tr() then falls back to the Spanish source strings.
         qWarning() << "Could not load translations from" << qmPath;
     }
-    a.setFont(AppTextScale::scaledApplicationFont());
+    a.setFont(AppTypography::applicationFont());
     applyAppStyle(a);
     MainWindow w;
     w.show();

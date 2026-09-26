@@ -52,12 +52,6 @@
         </property>
         <item>
          <widget class="QLabel" name="labelScore">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
           <property name="text">
            <string>Puntos: 0</string>
           </property>
@@ -211,11 +205,6 @@
                <height>52</height>
               </size>
              </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string>LL(1)</string>
              </property>
@@ -228,11 +217,6 @@
                <width>0</width>
                <height>52</height>
               </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
              </property>
              <property name="text">
               <string>SLR(1)</string>

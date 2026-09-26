@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "apptextscale.h"
+#include "apptypography.h"
 #include "automatonviewerdialog.h"
 #include "automatonview.h"
 
@@ -33,7 +33,8 @@ AutomatonViewerDialog::AutomatonViewerDialog(AutomatonView* view,
     setWindowTitle(tr("Autómata LR(0)"));
     setModal(false);
     resize(820, 620);
-    setMinimumSize(AppTextScale::scaled(520), AppTextScale::scaled(420));
+    setMinimumSize(AppTypography::lengthForText(520),
+                   AppTypography::lengthForText(420));
 
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(16, 14, 16, 16);

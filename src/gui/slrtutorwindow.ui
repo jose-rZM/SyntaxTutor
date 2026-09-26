@@ -56,11 +56,6 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>13</pointsize>
-         </font>
-        </property>
         <property name="text">
          <string>✔</string>
         </property>
@@ -73,11 +68,6 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
         </property>
         <property name="toolTip">
          <string>Respuestas correctas</string>
@@ -95,11 +85,6 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>13</pointsize>
-         </font>
-        </property>
         <property name="text">
          <string>✘</string>
         </property>
@@ -112,11 +97,6 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
         </property>
         <property name="toolTip">
          <string>Respuestas incorrectas</string>

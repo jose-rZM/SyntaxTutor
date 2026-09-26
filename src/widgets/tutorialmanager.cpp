@@ -17,6 +17,7 @@
  */
 
 #include "tutorialmanager.h"
+#include "apptypography.h"
 #include <QVBoxLayout>
 
 TutorialManager::TutorialManager(QWidget* rootWindow)
@@ -157,14 +158,14 @@ void TutorialManager::showOverlay() {
     m_nextBtn = new QPushButton("&Siguiente", m_overlay);
     m_nextBtn->setObjectName("tutorialNextButton");
     m_nextBtn->setCursor(Qt::PointingHandCursor);
-    m_nextBtn->setStyleSheet(R"(
+    m_nextBtn->setStyleSheet(AppTypography::resolveStyleSheet(R"(
     QPushButton {
         background-color: #00ADB5;
         color: #FFFFFF;
         border: none;
         padding: 10px 20px;
         border-radius: 8px;
-        font-size: 14px;
+        font-size: $font-body-large;
         font-weight: bold;
     }
     QPushButton:hover {
@@ -173,7 +174,7 @@ void TutorialManager::showOverlay() {
     QPushButton:pressed {
         background-color: #007F86;
     }
-    )");
+    )"));
     connect(m_nextBtn, &QPushButton::clicked, this, &TutorialManager::nextStep);
     m_nextBtn->show();
 

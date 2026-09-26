@@ -1,7 +1,7 @@
 #include "grammarview.h"
 
 #include "appfonts.h"
-#include "apptextscale.h"
+#include "apptypography.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <QSizePolicy>
@@ -11,7 +11,7 @@ namespace {
 
 QFont grammarFont() {
     QFont font = appMonospaceFont();
-    font.setPixelSize(AppTextScale::scaled(15));
+    font.setPointSizeF(AppTypography::points(AppTypography::Role::Reading));
     return font;
 }
 

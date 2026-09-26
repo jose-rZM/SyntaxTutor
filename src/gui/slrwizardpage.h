@@ -19,7 +19,7 @@
 #ifndef SLRWIZARDPAGE_H
 #define SLRWIZARDPAGE_H
 
-#include "apptextscale.h"
+#include "apptypography.h"
 #include <QLabel>
 #include <QResizeEvent>
 #include <QLineEdit>
@@ -72,7 +72,7 @@ class SLRWizardPage : public QWidget {
 
         m_edit = new QLineEdit(this);
         m_edit->setObjectName("slrWizardAnswerEdit");
-        m_edit->setMinimumHeight(AppTextScale::scaled(48));
+        m_edit->setMinimumHeight(AppTypography::lengthForText(48));
         m_edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         m_edit->setPlaceholderText(
             tr("Escribe tu respuesta (p.ej. s3, r2, acc, 5)"));
@@ -81,7 +81,7 @@ class SLRWizardPage : public QWidget {
         m_feedback = new QLabel(this);
         m_feedback->setObjectName("slrWizardFeedbackLabel");
         m_feedback->setWordWrap(true);
-        m_feedback->setMinimumHeight(AppTextScale::scaled(40));
+        m_feedback->setMinimumHeight(AppTypography::lengthForText(40));
         m_feedback->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         rootLayout->addWidget(m_feedback);
 

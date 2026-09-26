@@ -17,7 +17,7 @@
  */
 
 #include "lltutorwindow.h"
-#include "apptextscale.h"
+#include "apptypography.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
 #include "llwizard.h"
@@ -187,11 +187,17 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
     // -- User Response Box
-    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
-                                  AppTextScale::scaled(100));
+    // The send button is square and as tall as a one-line answer, so it
+    // follows the box instead of sizing itself.
+    connect(ui->userResponse, &CustomTextEdit::minimumGrowHeightChanged,
+            ui->confirmButton,
+            [this](int height) {
+                ui->confirmButton->setFixedSize(height, height);
+            });
+    ui->userResponse->setAutoGrowLines(1, 4);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
-    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
-                                    AppTextScale::scaled(48));
+    ui->confirmButton->setFixedSize(ui->userResponse->minimumGrowHeight(),
+                                    ui->userResponse->minimumGrowHeight());
 
     // -- Chat Font
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -324,10 +330,6 @@ void LLTutorWindow::applyTextScale() {
         grammarView->refresh();
         ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
     }
-    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
-                                  AppTextScale::scaled(100));
-    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
-                                    AppTextScale::scaled(48));
 
     // The chat shows the grammar as a card too; those are separate
     // GrammarView instances and need the same rebuild.
@@ -542,9 +544,10 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = QString(R"(
         <html>
-        <body style="font-size: %1px; color: #f0f0f0; background-color: #212526;">
+        <body style="font-size: %1; color: #f0f0f0; background-color: #212526;">
     )")
-                       .arg(AppTextScale::scaled(11));
+                       .arg(AppTypography::cssSize(
+                           AppTypography::Role::Caption));
 
     // === CABECERAS (First) ===
     html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +

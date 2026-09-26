@@ -1,3 +1,11 @@
+/*
+ * Font sizes here are roles of the type scale, not literal sizes:
+ * `font-size: $font-<role>;` is replaced with the role's point size, at the
+ * user's text scale, by AppTypography::resolveStyleSheet() when the sheet is
+ * loaded. The scale lives in src/widgets/apptypography.h. Everything else
+ * (padding, borders, radii) stays in logical pixels.
+ */
+
 QMainWindow,
 QDialog {
     background-color: #1F1F1F;
@@ -15,7 +23,7 @@ QWidget#homeContent {
 
 QLabel#homeEyebrow {
     color: #15B9C2;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -23,19 +31,19 @@ QLabel#homeEyebrow {
 
 QLabel#homeTitle {
     color: #F4F7F8;
-    font-size: 30px;
+    font-size: $font-hero;
     font-weight: 700;
 }
 
 QLabel#homeSubtitle {
     color: #9AA5A8;
-    font-size: 15px;
+    font-size: $font-reading;
     line-height: 1.5;
 }
 
 QLabel#difficultyTitle {
     color: #C9D0D2;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -56,7 +64,7 @@ QMenu#menuAcercaDe::icon {
 
 QLabel#labelScore {
     font-weight: 700;
-    font-size: 15px;
+    font-size: $font-reading;
     color: #F3F5F6;
 }
 
@@ -89,7 +97,7 @@ QPushButton#pushButton_2 {
     border: 1px solid #353A3D;
     padding: 0 18px;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: $font-action;
     font-weight: 700;
     text-align: left;
 }
@@ -111,7 +119,7 @@ QPushButton#tutorial {
     border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 0 14px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: $font-body-large;
     font-weight: 600;
     text-align: left;
 }
@@ -130,7 +138,7 @@ QRadioButton#lv1Button,
 QRadioButton#lv2Button,
 QRadioButton#lv3Button {
     color: #D9E0E2;
-    font-size: 15px;
+    font-size: $font-reading;
     font-weight: 600;
     spacing: 8px;
 }
@@ -185,7 +193,7 @@ QPushButton#idiom {
     border: 1px solid #3A4245;
     border-radius: 8px;
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: $font-label;
 }
 
 QPushButton#idiom:hover {
@@ -210,7 +218,7 @@ QWidget#SLRTutorWindow QPushButton#backButton {
     border: 1px solid #353D40;
     border-radius: 8px;
     padding: 6px 12px;
-    font-size: 13px;
+    font-size: $font-body;
     font-weight: 600;
 }
 
@@ -229,11 +237,13 @@ QWidget#SLRTutorWindow QPushButton#backButton:pressed {
 QWidget#LLTutorWindow QLabel#tick,
 QWidget#SLRTutorWindow QLabel#tick {
     color: #42C78B;
+    font-size: $font-body;
 }
 
 QWidget#LLTutorWindow QLabel#cross,
 QWidget#SLRTutorWindow QLabel#cross {
     color: #E46B6B;
+    font-size: $font-body;
 }
 
 QWidget#LLTutorWindow QLabel#cntRight,
@@ -241,6 +251,7 @@ QWidget#LLTutorWindow QLabel#cntWrong,
 QWidget#SLRTutorWindow QLabel#cntRight,
 QWidget#SLRTutorWindow QLabel#cntWrong {
     color: #F1F4F5;
+    font-size: $font-label;
     font-weight: 600;
 }
 
@@ -347,7 +358,7 @@ QTextEdit#userResponse {
     border: 1px solid #383F42;
     border-radius: 12px;
     padding: 10px 14px;
-    font-size: 15px;
+    font-size: $font-reading;
 }
 
 QTextEdit#userResponse:focus {
@@ -365,10 +376,6 @@ QToolButton#confirmButton {
     background-color: #11B3BC;
     border: none;
     border-radius: 16px;
-    min-width: 48px;
-    min-height: 48px;
-    max-width: 48px;
-    max-height: 48px;
     padding: 0px;
     icon-size: 22px 22px;
 }
@@ -390,7 +397,7 @@ QDialog[tableDialog="true"] QTableWidget {
     background-color: #1F1F1F;
     color: #EEEEEE;
     gridline-color: #444444;
-    font-size: 13px;
+    font-size: $font-body;
     alternate-background-color: #252525;
     show-decoration-selected: 1;
     selection-background-color: #00ADB5;
@@ -432,7 +439,7 @@ QPushButton[role="primary"] {
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: $font-body-large;
     font-weight: bold;
 }
 
@@ -456,7 +463,7 @@ QPushButton[role="danger"] {
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: $font-body-large;
     font-weight: bold;
 }
 
@@ -485,7 +492,7 @@ QMessageBox QPushButton {
     border: none;
     padding: 6px 14px;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: $font-body;
     font-weight: bold;
 }
 
@@ -516,25 +523,25 @@ QDialog#infoDialog {
 
 QLabel#infoDialogEyebrow {
     color: #11B3BC;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 700;
     letter-spacing: 0.08em;
 }
 
 QLabel#infoDialogTitle {
     color: #F5F7F8;
-    font-size: 24px;
+    font-size: $font-title-small;
     font-weight: 700;
 }
 
 QLabel#infoDialogSubtitle {
     color: #9AA5A8;
-    font-size: 14px;
+    font-size: $font-body-large;
 }
 
 QDialog#infoDialog QLabel#textSizeValueLabel {
     color: #11B3BC;
-    font-size: 15px;
+    font-size: $font-reading;
     font-weight: 700;
     min-width: 56px;
 }
@@ -593,14 +600,14 @@ QDialog[guidedDialog="ll"] QFrame#llWizardPanel {
 QDialog[guidedDialog="slr"] QLabel#slrWizardTitle,
 QDialog[guidedDialog="ll"] QLabel#llWizardTitle {
     color: #F4F7F8;
-    font-size: 28px;
+    font-size: $font-title;
     font-weight: 700;
 }
 
 QDialog[guidedDialog="slr"] QLabel#slrWizardStepCounter,
 QDialog[guidedDialog="ll"] QLabel#llWizardStepCounter {
     color: #9AA5A8;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 600;
 }
 
@@ -624,7 +631,7 @@ QDialog[guidedDialog="ll"] QPushButton#llWizardCloseButton {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     padding: 6px 11px;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 600;
 }
 
@@ -643,7 +650,7 @@ QDialog[guidedDialog="ll"] QPushButton#llWizardCloseButton:pressed {
 QDialog[guidedDialog="slr"] QLabel#slrWizardSectionTitle,
 QDialog[guidedDialog="ll"] QLabel#llWizardSectionTitle {
     color: #9FCFD2;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -652,7 +659,7 @@ QDialog[guidedDialog="ll"] QLabel#llWizardSectionTitle {
 QDialog[guidedDialog="slr"] QLabel#slrWizardExplanationLabel,
 QDialog[guidedDialog="ll"] QLabel#llWizardExplanationLabel {
     color: #DEE5E7;
-    font-size: 15px;
+    font-size: $font-reading;
     line-height: 1.5;
 }
 
@@ -663,7 +670,7 @@ QDialog[guidedDialog="ll"] QLineEdit#llWizardAnswerEdit {
     border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 12px;
     padding: 12px 14px;
-    font-size: 15px;
+    font-size: $font-reading;
     selection-background-color: #35515A;
 }
 
@@ -700,20 +707,20 @@ QDialog[grammarEditor="true"] {
 
 QDialog[grammarEditor="true"] QLabel#grammarEditorEyebrow {
     color: #11B3BC;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 700;
     letter-spacing: 0.08em;
 }
 
 QDialog[grammarEditor="true"] QLabel#grammarEditorTitle {
     color: #F4F7F8;
-    font-size: 28px;
+    font-size: $font-title;
     font-weight: 700;
 }
 
 QDialog[grammarEditor="true"] QLabel#grammarEditorSubtitle {
     color: #9AA5A8;
-    font-size: 13px;
+    font-size: $font-body;
     line-height: 1.5;
 }
 
@@ -738,20 +745,20 @@ QDialog[grammarEditor="true"] QFrame#grammarEditorSummary {
 
 QDialog[grammarEditor="true"] QLabel#grammarEditorSummaryCaption {
     color: #9FCFD2;
-    font-size: 11px;
+    font-size: $font-caption;
     font-weight: 700;
     letter-spacing: 0.08em;
 }
 
 QDialog[grammarEditor="true"] QLabel#grammarEditorSummaryValue {
     color: #E8ECEE;
-    font-size: 14px;
+    font-size: $font-body-large;
     font-weight: 600;
 }
 
 QDialog[grammarEditor="true"] QLabel#grammarEditorStatus {
     color: #AEB9BC;
-    font-size: 13px;
+    font-size: $font-body;
     padding: 8px 12px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.03);
@@ -773,7 +780,7 @@ QDialog[grammarEditor="true"] QPushButton#grammarEditorCancelButton {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     padding: 10px 16px;
-    font-size: 13px;
+    font-size: $font-body;
     font-weight: 600;
 }
 
@@ -798,7 +805,7 @@ QDialog[grammarEditor="true"] QPushButton#grammarEditorStartButton:disabled {
 QCheckBox#customGrammarCheck,
 QCheckBox#examModeCheck {
     color: #C9D0D2;
-    font-size: 13px;
+    font-size: $font-body;
     spacing: 8px;
 }
 
@@ -830,19 +837,19 @@ QDialog[examReport="true"] {
 
 QDialog[examReport="true"] QLabel#examReportEyebrow {
     color: #11B3BC;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 700;
     letter-spacing: 0.08em;
 }
 
 QDialog[examReport="true"] QLabel#examReportTitle {
     color: #F4F7F8;
-    font-size: 28px;
+    font-size: $font-title;
     font-weight: 700;
 }
 
 QDialog[examReport="true"] QLabel#examReportGrade {
-    font-size: 56px;
+    font-size: $font-display;
     font-weight: 800;
     color: #11B3BC;
 }
@@ -853,19 +860,19 @@ QDialog[examReport="true"] QLabel#examReportGrade[passed="false"] {
 
 QDialog[examReport="true"] QLabel#examReportGradeCaption {
     color: #9AA5A8;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 600;
     letter-spacing: 0.04em;
 }
 
 QDialog[examReport="true"] QLabel#examReportStats {
     color: #DEE5E7;
-    font-size: 15px;
+    font-size: $font-reading;
 }
 
 QDialog[examReport="true"] QLabel#examReportVerdict {
     color: #9FE3E7;
-    font-size: 13px;
+    font-size: $font-body;
     font-weight: 700;
 }
 
@@ -875,7 +882,7 @@ QDialog[examReport="true"] QLabel#examReportVerdict[passed="false"] {
 
 QDialog[examReport="true"] QLabel#examReportReviewCaption {
     color: #9FCFD2;
-    font-size: 11px;
+    font-size: $font-caption;
     font-weight: 700;
     letter-spacing: 0.08em;
 }
@@ -895,7 +902,7 @@ QDialog[examReport="true"] QPushButton#examReportCloseButton {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     padding: 10px 16px;
-    font-size: 13px;
+    font-size: $font-body;
     font-weight: 600;
 }
 
@@ -911,7 +918,7 @@ QPushButton#automatonButton {
     border: 1px solid rgba(17, 179, 188, 0.35);
     border-radius: 8px;
     padding: 8px 14px;
-    font-size: 12px;
+    font-size: $font-label;
     font-weight: 600;
 }
 
@@ -951,7 +958,7 @@ QGraphicsView#llDerivationTreeView {
 
 QDialog[automatonViewer="true"] QLabel#automatonViewerHint {
     color: #6F7A7E;
-    font-size: 12px;
+    font-size: $font-label;
 }
 
 QDialog[automatonViewer="true"] QPushButton#automatonViewerToolButton {
@@ -960,7 +967,7 @@ QDialog[automatonViewer="true"] QPushButton#automatonViewerToolButton {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 6px 12px;
-    font-size: 13px;
+    font-size: $font-body;
     font-weight: 600;
     min-width: 28px;
 }
