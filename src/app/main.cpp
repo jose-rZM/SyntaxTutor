@@ -54,8 +54,13 @@ int main(int argc, char* argv[]) {
     QGuiApplication::setApplicationDisplayName("SyntaxTutor");
     QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
     QSettings settings("UMA", "SyntaxTutor");
-    AppTextScale::currentStep() = AppTextScale::fromSettingsValue(
-        settings.value(AppTextScale::settingsKey()).toString());
+    if (settings.contains(AppTextScale::settingsKey())) {
+        AppTextScale::currentPercent() = AppTextScale::clampPercent(
+            settings.value(AppTextScale::settingsKey()).toInt());
+    } else {
+        AppTextScale::currentPercent() = AppTextScale::percentFromLegacyValue(
+            settings.value(AppTextScale::legacySettingsKey()).toString());
+    }
     QString   langCode = settings.value("lang/language", "es").toString();
     QTranslator   translator;
     const QString qmPath = langCode == QStringLiteral("en")

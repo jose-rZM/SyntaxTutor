@@ -31,6 +31,7 @@
 #include <QFile>
 #include <QMenu>
 #include <QScreen>
+#include <QSlider>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
@@ -55,7 +56,7 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
     dialog->setObjectName("infoDialog");
     dialog->setWindowTitle(windowTitle);
     dialog->setModal(true);
-    dialog->resize(620, 480);
+    dialog->resize(AppTextScale::scaled(620), AppTextScale::scaled(480));
 
     auto* layout = new QVBoxLayout(dialog);
     layout->setSpacing(14);
@@ -105,6 +106,10 @@ MainWindow::MainWindow(QWidget* parent)
     ui->setupUi(this);
     ui->homeEyebrow->setText(tr("Tutores interactivos"));
     ui->homeTitle->setText(tr("Elige cómo quieres practicar"));
+    // Without wrapping, a longer translation (the English title is wider)
+    // pushes the whole window past the screen and gets clipped.
+    ui->homeTitle->setWordWrap(true);
+    ui->homeEyebrow->setWordWrap(true);
     ui->homeSubtitle->setText(
         tr("Inicia un tutor y ajusta la "
            "dificultad de la gramática antes de empezar."));
@@ -356,38 +361,149 @@ void MainWindow::setupTextSizeMenu() {
     QMenu* menu = ui->menubar->addMenu(tr("Tamaño del texto"));
     menu->setObjectName("menuTextSize");
 
-    auto* group = new QActionGroup(this);
-    group->setExclusive(true);
+    textSizeGroup_ = new QActionGroup(this);
+    textSizeGroup_->setExclusive(true);
 
-    struct Option {
-        AppTextScale::Step step;
-        QString            text;
-        QString            objectName;
-    };
-    const QVector<Option> options = {
-        {AppTextScale::Step::Normal, tr("Normal"),
-         QStringLiteral("actionTextSizeNormal")},
-        {AppTextScale::Step::Large, tr("Grande"),
-         QStringLiteral("actionTextSizeLarge")},
-        {AppTextScale::Step::Larger, tr("Muy grande"),
-         QStringLiteral("actionTextSizeLarger")}};
-
-    for (const Option& option : options) {
-        QAction* action = menu->addAction(option.text);
-        action->setObjectName(option.objectName);
+    for (const int percent : AppTextScale::kPresetPercents) {
+        QAction* action = menu->addAction(tr("%1 %").arg(percent));
+        action->setObjectName(QStringLiteral("actionTextSize%1").arg(percent));
         action->setCheckable(true);
-        action->setChecked(AppTextScale::currentStep() == option.step);
-        group->addAction(action);
-        const AppTextScale::Step step = option.step;
+        action->setData(percent);
+        textSizeGroup_->addAction(action);
         connect(action, &QAction::triggered, this,
-                [this, step]() { setTextScale(step); });
+                [this, percent]() { setTextScale(percent); });
+    }
+
+    menu->addSeparator();
+    customTextSizeAction_ = menu->addAction(tr("Personalizar…"));
+    customTextSizeAction_->setObjectName("actionTextSizeCustom");
+    customTextSizeAction_->setCheckable(true);
+    textSizeGroup_->addAction(customTextSizeAction_);
+    connect(customTextSizeAction_, &QAction::triggered, this,
+            &MainWindow::promptCustomTextScale);
+
+    syncTextSizeMenu();
+}
+
+void MainWindow::syncTextSizeMenu() {
+    if (textSizeGroup_ == nullptr) {
+        return;
+    }
+    const int current = AppTextScale::currentPercent();
+    bool      matched = false;
+    for (QAction* action : textSizeGroup_->actions()) {
+        if (action == customTextSizeAction_) {
+            continue;
+        }
+        const bool isCurrent = action->data().toInt() == current;
+        action->setChecked(isCurrent);
+        matched = matched || isCurrent;
+    }
+    if (customTextSizeAction_ != nullptr) {
+        // A value that is not one of the presets is shown on the custom
+        // entry, so the menu always tells the user where they are.
+        customTextSizeAction_->setChecked(!matched);
+        customTextSizeAction_->setText(
+            matched ? tr("Personalizar…")
+                    : tr("Personalizar… (%1 %)").arg(current));
     }
 }
 
-void MainWindow::setTextScale(AppTextScale::Step step) {
-    AppTextScale::currentStep() = step;
+void MainWindow::promptCustomTextScale() {
+    // Built by hand rather than with QInputDialog: that one renders with the
+    // platform's native look and ignores app.qss entirely, which would stand
+    // out against every other dialog in the app.
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setWindowTitle(tr("Tamaño del texto"));
+    dialog.setModal(true);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrow = new QLabel(tr("TAMAÑO DEL TEXTO"), &dialog);
+    eyebrow->setObjectName("infoDialogEyebrow");
+    layout->addWidget(eyebrow);
+
+    auto* title = new QLabel(tr("Elige el tamaño que te resulte cómodo"),
+                             &dialog);
+    title->setObjectName("infoDialogTitle");
+    title->setWordWrap(true);
+    layout->addWidget(title);
+
+    auto* subtitle = new QLabel(
+        tr("El cambio se aplica al instante, sin reiniciar."), &dialog);
+    subtitle->setObjectName("infoDialogSubtitle");
+    subtitle->setWordWrap(true);
+    layout->addWidget(subtitle);
+
+    auto* slider = new QSlider(Qt::Horizontal, &dialog);
+    slider->setObjectName("textSizeSlider");
+    slider->setRange(AppTextScale::kMinPercent, AppTextScale::kMaxPercent);
+    slider->setSingleStep(5);
+    slider->setPageStep(10);
+    slider->setValue(AppTextScale::currentPercent());
+
+    auto* value = new QLabel(&dialog);
+    value->setObjectName("textSizeValueLabel");
+    value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+    auto* sliderRow = new QHBoxLayout;
+    sliderRow->setSpacing(12);
+    sliderRow->addWidget(slider, 1);
+    sliderRow->addWidget(value, 0);
+    layout->addLayout(sliderRow);
+
+    const int restore = AppTextScale::currentPercent();
+    auto      showValue = [value](int percent) {
+        value->setText(tr("%1 %").arg(percent));
+    };
+    showValue(restore);
+
+    // Live preview: applying as the slider moves is the only way to judge
+    // whether a size is comfortable.
+    connect(slider, &QSlider::valueChanged, this,
+            [this, showValue](int percent) {
+                showValue(percent);
+                setTextScale(percent);
+            });
+
+    auto* buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setSpacing(10);
+    buttonsLayout->addStretch(1);
+
+    auto* cancelButton = new QPushButton(tr("Cancelar"), &dialog);
+    cancelButton->setObjectName("textSizeCancelButton");
+    cancelButton->setCursor(Qt::PointingHandCursor);
+    cancelButton->setProperty("role", "danger");
+    cancelButton->setAutoDefault(false);
+    buttonsLayout->addWidget(cancelButton);
+
+    auto* acceptButton = new QPushButton(tr("Aplicar"), &dialog);
+    acceptButton->setObjectName("textSizeAcceptButton");
+    acceptButton->setCursor(Qt::PointingHandCursor);
+    acceptButton->setProperty("role", "primary");
+    acceptButton->setAutoDefault(false);
+    buttonsLayout->addWidget(acceptButton);
+
+    layout->addLayout(buttonsLayout);
+
+    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
+    connect(acceptButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        setTextScale(restore);   // undo the live preview
+        return;
+    }
+    setTextScale(slider->value());
+}
+
+void MainWindow::setTextScale(int percent) {
+    AppTextScale::currentPercent() = AppTextScale::clampPercent(percent);
     settings.setValue(AppTextScale::settingsKey(),
-                      AppTextScale::toSettingsValue(step));
+                      AppTextScale::currentPercent());
+    syncTextSizeMenu();
 
     // Two channels: the style sheet carries every size declared in QSS, and
     // the application font carries the text that has no QSS rule at all -

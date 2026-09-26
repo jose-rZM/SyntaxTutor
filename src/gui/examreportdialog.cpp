@@ -53,7 +53,7 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     setWindowTitle(tr("Informe del examen"));
     setModal(true);
     resize(720, 600);
-    setMinimumSize(620, 480);
+    setMinimumSize(AppTextScale::scaled(620), AppTextScale::scaled(480));
 
     const double  grade     = session.grade();
     const QString gradeText = QLocale().toString(grade, 'f', 1);

@@ -146,7 +146,7 @@ void GrammarEditorDialog::buildUi() {
                                       : tr("Tu gramática — SLR(1)"));
     setModal(true);
     resize(780, 580);
-    setMinimumSize(660, 480);
+    setMinimumSize(AppTextScale::scaled(660), AppTextScale::scaled(480));
 
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(28, 24, 28, 24);
@@ -187,7 +187,7 @@ void GrammarEditorDialog::buildUi() {
 
     auto* summaryPanel = new QFrame(this);
     summaryPanel->setObjectName("grammarEditorSummary");
-    summaryPanel->setFixedWidth(220);
+    summaryPanel->setFixedWidth(AppTextScale::scaled(220));
     auto* summaryLayout = new QVBoxLayout(summaryPanel);
     summaryLayout->setContentsMargins(16, 14, 16, 14);
     summaryLayout->setSpacing(4);

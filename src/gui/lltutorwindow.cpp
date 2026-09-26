@@ -2197,7 +2197,13 @@ void LLTutorWindow::relayoutChatMessages() {
             label->setFixedWidth(qBound(80, textWidth + 32, bubbleMaxWidth));
         }
 
-        widget->updateGeometry();
+        // updateGeometry() only schedules a recalculation, so sizeHint()
+        // right after it still reports the old height and the item ends up
+        // taller than its content - the gap above the bubble that went away
+        // as soon as the window was resized. Activate the layout instead.
+        if (QLayout* bubbleLayout = widget->layout()) {
+            bubbleLayout->activate();
+        }
         item->setSizeHint(QSize(listWidth - 2, widget->sizeHint().height()));
     }
 }

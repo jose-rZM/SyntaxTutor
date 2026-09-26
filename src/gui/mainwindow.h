@@ -202,13 +202,19 @@ class MainWindow : public QMainWindow {
     void setupTextSizeMenu();
 
     /**
-     * @brief Applies and stores a text size.
+     * @brief Applies and stores a text size, as a percentage.
      *
      * Every size in the UI comes either from `app.qss` or from a
      * `setPixelSize()` that reads AppTextScale, so re-applying the scaled
      * style sheet updates the whole window without a restart.
      */
-    void setTextScale(AppTextScale::Step step);
+    void setTextScale(int percent);
+
+    /// @brief Asks the user for a percentage and applies it.
+    void promptCustomTextScale();
+
+    /// @brief Ticks the menu entry matching the size in effect.
+    void syncTextSizeMenu();
     void showHomePage();
     void cleanupTutorPages();
     LLTutorWindow*  startLLTutor(const Grammar& grammar, TutorialManager* tm,
@@ -240,6 +246,9 @@ class MainWindow : public QMainWindow {
     TutorialManager* tm    = nullptr; ///< Manages step-by-step tutorial mode.
     QStackedWidget*  stack = nullptr;
     QWidget*         homePage = nullptr;
+    QActionGroup* textSizeGroup_        = nullptr;
+    QAction*      customTextSizeAction_ = nullptr;
+
     LLTutorWindow*   llTutorPage = nullptr;
     SLRTutorWindow*  slrTutorPage = nullptr;
     QString          defaultWindowTitle;
