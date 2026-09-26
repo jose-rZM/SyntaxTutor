@@ -902,6 +902,7 @@ void TutorWindowTest::slrFinalTableCorrectPathExportsAndExits() {
         tutor.setNextExportFilePathForTest(pdfPath);
         auto* exportButton = waitForTutorButton(tutor, "slrTutorExportPdfButton");
         QVERIFY(exportButton != nullptr);
+        QtModalTestUtils::scheduleMessageBoxResponse(QMessageBox::Ok);
         QTest::mouseClick(exportButton, Qt::LeftButton);
         QTRY_VERIFY(QFileInfo::exists(pdfPath));
         QVERIFY(QFileInfo(pdfPath).size() > 0);

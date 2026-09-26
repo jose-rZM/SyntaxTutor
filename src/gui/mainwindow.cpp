@@ -323,14 +323,19 @@ void MainWindow::saveSettings() {
     settings.setValue("gamification/score", userScore);
 }
 
+void MainWindow::setDifficultySelectorEnabled(bool enabled) {
+    ui->difficultyTitle->setEnabled(enabled);
+    ui->lv1Button->setEnabled(enabled);
+    ui->lv2Button->setEnabled(enabled);
+    ui->lv3Button->setEnabled(enabled);
+}
+
 void MainWindow::setNavigationEnabled(bool enabled) {
     ui->pushButton->setDisabled(!enabled);
     ui->pushButton_2->setDisabled(!enabled);
     ui->tutorial->setDisabled(!enabled);
-    const bool levelsEnabled = enabled && !ui->customGrammarCheck->isChecked();
-    ui->lv1Button->setEnabled(levelsEnabled);
-    ui->lv2Button->setEnabled(levelsEnabled);
-    ui->lv3Button->setEnabled(levelsEnabled);
+    setDifficultySelectorEnabled(enabled &&
+                                 !ui->customGrammarCheck->isChecked());
     ui->customGrammarCheck->setEnabled(enabled);
     ui->examModeCheck->setEnabled(enabled);
 }
@@ -478,9 +483,7 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
 }
 
 void MainWindow::on_customGrammarCheck_toggled(bool checked) {
-    ui->lv1Button->setEnabled(!checked);
-    ui->lv2Button->setEnabled(!checked);
-    ui->lv3Button->setEnabled(!checked);
+    setDifficultySelectorEnabled(!checked);
 }
 
 void MainWindow::on_pushButton_clicked() {
@@ -698,6 +701,35 @@ void MainWindow::on_actionReferencia_SLR_1_triggered() {
 }
 
 #include <QProcess>
+
+namespace {
+void relaunchApplication() {
+#if defined(Q_OS_LINUX)
+    // Inside an AppImage applicationFilePath() points into the FUSE mount,
+    // which disappears when this process exits; relaunch the AppImage itself.
+    const QString appImage = qEnvironmentVariable("APPIMAGE");
+    if (!appImage.isEmpty()) {
+        QProcess::startDetached(appImage, QStringList());
+        return;
+    }
+#elif defined(Q_OS_MACOS)
+    // Relaunch the .app bundle instead of the inner binary.
+    const QString binaryDir = QCoreApplication::applicationDirPath();
+    const QString bundleSuffix = QStringLiteral(".app/Contents/MacOS");
+    if (binaryDir.endsWith(bundleSuffix)) {
+        const QString bundlePath =
+            binaryDir.left(binaryDir.size() - bundleSuffix.size() +
+                           QStringLiteral(".app").size());
+        QProcess::startDetached(QStringLiteral("open"),
+                                {QStringLiteral("-n"), bundlePath});
+        return;
+    }
+#endif
+    QProcess::startDetached(QCoreApplication::applicationFilePath(),
+                            QStringList());
+}
+} // namespace
+
 void MainWindow::on_idiom_clicked() {
     QString selectedLang;
 
@@ -780,7 +812,7 @@ void MainWindow::on_idiom_clicked() {
 
 #ifndef SYNTAXTUTOR_TESTING
         qApp->quit();
-        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+        relaunchApplication();
 #endif
     }
 }

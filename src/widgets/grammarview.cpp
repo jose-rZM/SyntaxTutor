@@ -1,16 +1,16 @@
 #include "grammarview.h"
 
-#include <QFontDatabase>
+#include "appfonts.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <QSizePolicy>
+#include <algorithm>
 
 namespace {
 
 QFont grammarFont() {
-    QFont font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    font.setStyleHint(QFont::TypeWriter);
-    font.setPointSize(15);
+    QFont font = appMonospaceFont();
+    font.setPixelSize(15);
     return font;
 }
 
@@ -37,7 +37,6 @@ GrammarView::GrammarView(QWidget* parent) : QFrame(parent), gridLayout(new QGrid
     gridLayout->setContentsMargins(18, 18, 18, 18);
     gridLayout->setHorizontalSpacing(14);
     gridLayout->setVerticalSpacing(4);
-    gridLayout->setColumnStretch(3, 1);
     gridLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 }
 
@@ -56,18 +55,30 @@ void GrammarView::setRows(const QVector<Row>& rows) {
 
     const QFont monoFont = grammarFont();
 
+    // SLR(1) numbers its rules, LL(1) leaves every index empty.
+    const bool showIndex =
+        std::any_of(currentRows.cbegin(), currentRows.cend(),
+                    [](const Row& row) { return !row.index.isEmpty(); });
+
     for (int i = 0; i < currentRows.size(); ++i) {
         const Row& row = currentRows.at(i);
 
-        auto* indexLabel  = makeCell(row.index, monoFont, this, "#F1F1F1");
-        auto* lhsLabel    = makeCell(row.lhs, monoFont, this, "#F1F1F1");
-        auto* markerLabel = makeCell(row.marker, monoFont, this, "#F1F1F1");
-        auto* rhsLabel    = makeCell(row.rhs, monoFont, this, "#F1F1F1");
+        int column = 0;
+        if (showIndex) {
+            gridLayout->addWidget(makeCell(row.index, monoFont, this, "#F1F1F1"),
+                                  i, column++, Qt::AlignLeft | Qt::AlignTop);
+        }
+        gridLayout->addWidget(makeCell(row.lhs, monoFont, this, "#F1F1F1"), i,
+                              column++, Qt::AlignLeft | Qt::AlignTop);
+        gridLayout->addWidget(makeCell(row.marker, monoFont, this, "#F1F1F1"), i,
+                              column++, Qt::AlignLeft | Qt::AlignTop);
+        gridLayout->addWidget(makeCell(row.rhs, monoFont, this, "#F1F1F1"), i,
+                              column, Qt::AlignLeft | Qt::AlignTop);
+    }
 
-        gridLayout->addWidget(indexLabel, i, 0, Qt::AlignLeft | Qt::AlignTop);
-        gridLayout->addWidget(lhsLabel, i, 1, Qt::AlignLeft | Qt::AlignTop);
-        gridLayout->addWidget(markerLabel, i, 2, Qt::AlignLeft | Qt::AlignTop);
-        gridLayout->addWidget(rhsLabel, i, 3, Qt::AlignLeft | Qt::AlignTop);
+    const int lastColumn = showIndex ? 3 : 2;
+    for (int column = 0; column < 4; ++column) {
+        gridLayout->setColumnStretch(column, column == lastColumn ? 1 : 0);
     }
 
     gridLayout->setRowStretch(currentRows.size(), 1);

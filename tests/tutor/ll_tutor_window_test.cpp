@@ -611,6 +611,7 @@ void TutorWindowTest::exportButtonExportsPdf() {
 
         tutor.setNextExportFilePathForTest(pdfPath);
         auto* exportButton = waitForTutorButton(tutor, "llTutorExportPdfButton");
+        QtModalTestUtils::scheduleMessageBoxResponse(QMessageBox::Ok);
         QTest::mouseClick(exportButton, Qt::LeftButton);
 
         QTRY_VERIFY(QFileInfo::exists(pdfPath));

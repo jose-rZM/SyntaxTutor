@@ -22,14 +22,64 @@
 #include "llwizard.h"
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
-#include <QApplication>
 #include <QAbstractButton>
+#include <QApplication>
+#include <QDateTime>
+#include <QDir>
+#include <QFileInfo>
 #include <QFontDatabase>
 #include <QHBoxLayout>
+#include <QMessageBox>
 #include <QRandomGenerator>
 #include <QRegularExpression>
+#include <QStandardPaths>
 
 namespace {
+// The export path comes from a save dialog, but the target can still be
+// unwritable (read-only volume, revoked permission). QPrinter reports
+// nothing, so confirm the file really landed and tell the user if not.
+bool ReportPdfExportResult(const QWidget* parent,
+                           const QString& filePath) {
+    const QFileInfo info(filePath);
+    const QString   nativePath = QDir::toNativeSeparators(filePath);
+    if (info.exists() && info.size() > 0) {
+        QMessageBox::information(
+            const_cast<QWidget*>(parent), QObject::tr("Exportación completada"),
+            QObject::tr("PDF guardado en:\n%1").arg(nativePath));
+        return true;
+    }
+    QMessageBox::warning(
+        const_cast<QWidget*>(parent), QObject::tr("Error al exportar"),
+        QObject::tr("No se ha podido guardar el PDF en:\n%1\n\nComprueba "
+                    "que tienes permisos de escritura en esa carpeta.")
+            .arg(nativePath));
+    return false;
+}
+
+// Default name for an exported PDF, e.g. "LL1_2026-09-19_17-52-33.pdf", or
+// "EXAM_LL1_..." for an exam report. The date leads so a folder of exports
+// sorts chronologically, and the time is dash-separated because Windows
+// forbids ':' in file names.
+QString DefaultExportFileName(const QString& tutorTag, bool examMode) {
+    return QStringLiteral("%1%2_%3.pdf")
+        .arg(examMode ? QStringLiteral("EXAM_") : QString(), tutorTag,
+             QDateTime::currentDateTime().toString(
+                 QStringLiteral("yyyy-MM-dd_HH-mm-ss")));
+}
+
+// QFileDialog's third constructor argument is the starting DIRECTORY.
+// Leaving it empty (or passing a bare file name) falls back to the process
+// working directory, which is "/" when launched from Finder, the install
+// folder on Windows and the mount point for an AppImage. Start in Documents.
+QString DefaultExportDirectory() {
+    const QString documents =
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    if (!documents.isEmpty()) {
+        return documents;
+    }
+    return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+}
+
 const QRegularExpression kCellWhitespace("\\s+");
 
 struct ParsedSymbols {
@@ -45,17 +95,29 @@ QString NormalizeProductionCell(const QString& cell) {
     return normalized;
 }
 
+// Accepts "eps" and "epsilon" as EPSILON, unless the grammar defines them
+// as real symbols.
+QString CanonicalizeEpsilonToken(const Grammar& grammar, const QString& token) {
+    if ((token == QStringLiteral("eps") ||
+         token == QStringLiteral("epsilon")) &&
+        !grammar.st_.In(token.toStdString())) {
+        return QString::fromStdString(grammar.st_.EPSILON_);
+    }
+    return token;
+}
+
 QStringList ParseProductionCell(Grammar& grammar, const QString& cell) {
     const QString trimmed = cell.trimmed();
     if (trimmed.isEmpty()) {
         return {};
     }
 
-    const QStringList spacedTokens =
+    QStringList spacedTokens =
         trimmed.split(kCellWhitespace, Qt::SkipEmptyParts);
     if (!spacedTokens.isEmpty()) {
         bool allKnown = true;
-        for (const QString& token : spacedTokens) {
+        for (QString& token : spacedTokens) {
+            token = CanonicalizeEpsilonToken(grammar, token);
             if (!grammar.st_.In(token.toStdString())) {
                 allKnown = false;
                 break;
@@ -124,8 +186,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
     // -- User Response Box
-    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setFixedHeight(48);
+    ui->userResponse->setAutoGrow(48, 100);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
     ui->confirmButton->setFixedSize(48, 48);
 
@@ -230,11 +291,14 @@ QString LLTutorWindow::promptExportFilePath() const {
 #endif
 
     QFileDialog dialog(const_cast<LLTutorWindow*>(this),
-                       tr("Guardar conversación"), "conver.pdf",
+                       examMode ? tr("Guardar informe del examen")
+                                : tr("Guardar conversación"),
+                       DefaultExportDirectory(),
                        tr("Archivo PDF (*.pdf)"));
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.selectFile("conver.pdf");
+    dialog.setDefaultSuffix("pdf");
+    dialog.selectFile(DefaultExportFileName(QStringLiteral("LL1"), examMode));
     dialog.setObjectName("llTutorExportFileDialog");
 #ifdef SYNTAXTUTOR_TESTING
     dialog.setOption(QFileDialog::DontUseNativeDialog, true);
@@ -243,7 +307,13 @@ QString LLTutorWindow::promptExportFilePath() const {
         return {};
     }
 
-    return dialog.selectedFiles().value(0);
+    QString filePath = dialog.selectedFiles().value(0);
+    // Native dialogs may ignore the default suffix.
+    if (!filePath.isEmpty() &&
+        !filePath.endsWith(QStringLiteral(".pdf"), Qt::CaseInsensitive)) {
+        filePath += QStringLiteral(".pdf");
+    }
+    return filePath;
 }
 
 void LLTutorWindow::on_backButton_clicked() {
@@ -432,13 +502,15 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
 
     doc.setHtml(html);
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+    {
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filePath);
+        printer.setPageSize(QPageSize(QPageSize::A4));
+        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
-    doc.print(&printer);
+        doc.print(&printer);
+    }
 }
 
 void LLTutorWindow::updateProgressPanel() {
@@ -446,7 +518,7 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = R"(
         <html>
-        <body style="font-size: 11pt; color: #f0f0f0; background-color: #212526;">
+        <body style="font-size: 11px; color: #f0f0f0; background-color: #212526;">
     )";
 
     // === CABECERAS (First) ===
@@ -678,8 +750,10 @@ void LLTutorWindow::showTableForCPrime() {
             });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
         if (confirmExitToHome()) {
+            rawTable.clear();
             requestExit(false);
         } else {
             showTable();
@@ -716,8 +790,10 @@ void LLTutorWindow::showTable() {
             });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
         if (confirmExitToHome()) {
+            rawTable.clear();
             requestExit(false);
         } else {
             showTable();
@@ -880,6 +956,7 @@ void LLTutorWindow::showExamReport() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
                     exportExamReportToPdf(filePath, report->reportHtml());
+                    ReportPdfExportResult(this, filePath);
                 }
             });
     report->show();
@@ -890,13 +967,15 @@ void LLTutorWindow::exportExamReportToPdf(const QString& filePath,
     QTextDocument doc;
     doc.setHtml(html);
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+    {
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filePath);
+        printer.setPageSize(QPageSize(QPageSize::A4));
+        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
-    doc.print(&printer);
+        doc.print(&printer);
+    }
 }
 
 void LLTutorWindow::wrongAnimation() {
@@ -1134,6 +1213,7 @@ void LLTutorWindow::on_confirmButton_clicked() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
                     exportConversationToPdf(filePath);
+                    ReportPdfExportResult(this, filePath);
                 }
             });
         }
@@ -2909,9 +2989,10 @@ void LLTutorWindow::setupTutorial() {
                    "<p>Aquí el tutor pregunta y muestra feedback.</p>"
                    "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o "
                    "Enter. Puedes insertar "
-                   "una nueva línea con Ctrl+Enter si el formato lo requiere. "
+                   "una nueva línea con %1 si el formato lo requiere. "
                    "Aunque en el tutor "
-                   "LL(1) no es necesario.</p>"));
+                   "LL(1) no es necesario.</p>")
+                    .arg(CustomTextEdit::newlineShortcutText()));
 
     tm->addStep(ui->listWidget, tr("<h3>Formato de respuesta</h3>"
                                    "<p>El tutor te indicará el formato de "

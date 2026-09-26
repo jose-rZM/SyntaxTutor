@@ -158,6 +158,27 @@ QRadioButton#lv3Button::indicator:checked + QLabel {
     color: #00ADB5;
 }
 
+QRadioButton#lv1Button:disabled,
+QRadioButton#lv2Button:disabled,
+QRadioButton#lv3Button:disabled,
+QLabel#difficultyTitle:disabled {
+    color: #6F7A7E;
+}
+
+QRadioButton#lv1Button::indicator:disabled,
+QRadioButton#lv2Button::indicator:disabled,
+QRadioButton#lv3Button::indicator:disabled {
+    border: 2px solid #353D40;
+    background: transparent;
+}
+
+QRadioButton#lv1Button::indicator:checked:disabled,
+QRadioButton#lv2Button::indicator:checked:disabled,
+QRadioButton#lv3Button::indicator:checked:disabled {
+    background: rgba(17, 179, 188, 0.24);
+    border: 2px solid rgba(17, 179, 188, 0.24);
+}
+
 QPushButton#idiom {
     background: transparent;
     color: #AEB7BA;

@@ -29,6 +29,14 @@ namespace {
 constexpr auto kPassColor = "#11B3BC";
 constexpr auto kFailColor = "#E0635F";
 
+// Print counterparts of the screen palette.
+constexpr auto kPrintPassColor = "#007B8A";
+constexpr auto kPrintFailColor = "#B23A37";
+constexpr auto kPrintTextColor = "#1A1A1A";
+constexpr auto kPrintHeaderBg  = "#E8E8E8";
+constexpr auto kPrintRowEvenBg = "#FAFAFA";
+constexpr auto kPrintRowOddBg  = "#F0F0F0";
+
 QString escaped(QString text) {
     return text.toHtmlEscaped().replace(QStringLiteral("\n"),
                                         QStringLiteral("<br/>"));
@@ -102,8 +110,7 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     auto* review = new QTextBrowser(this);
     review->setObjectName("examReportReview");
     review->setOpenExternalLinks(false);
-    const QString reviewHtml = buildReviewHtml(session);
-    review->setHtml(reviewHtml);
+    review->setHtml(buildReviewHtml(session, ReviewStyle::Screen));
     rootLayout->addWidget(review, 1);
 
     reportHtml_ = QStringLiteral("<h1>%1</h1>"
@@ -114,7 +121,7 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
                                .arg(session.right())
                                .arg(session.total())
                                .arg(percent),
-                           reviewHtml);
+                           buildReviewHtml(session, ReviewStyle::Print));
 
     auto* footerLayout = new QHBoxLayout();
     footerLayout->setSpacing(12);
@@ -140,34 +147,59 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     connect(closeButton, &QPushButton::clicked, this, &QDialog::accept);
 }
 
-QString ExamReportDialog::buildReviewHtml(const ExamSession& session) const {
+QString ExamReportDialog::buildReviewHtml(const ExamSession& session,
+                                          ReviewStyle style) const {
+    const bool forPrint = (style == ReviewStyle::Print);
+
+    // The printer runs at 1200 dpi, where a px font-size collapses to an
+    // illegible speck, so the printed table is sized in pt. Screen keeps px
+    // to stay in step with the rest of the QSS.
+    const QString fontSize =
+        forPrint ? QStringLiteral("10.5pt") : QStringLiteral("13px");
+    const QString evenBg =
+        forPrint ? QString(kPrintRowEvenBg) : QStringLiteral("#212526");
+    const QString oddBg =
+        forPrint ? QString(kPrintRowOddBg) : QStringLiteral("#1B1F20");
+    const QString passColor =
+        forPrint ? QString(kPrintPassColor) : QString(kPassColor);
+    const QString failColor =
+        forPrint ? QString(kPrintFailColor) : QString(kFailColor);
+    // On screen the text colour comes from the QTextBrowser palette; the
+    // printed document has no such palette and would default to black.
+    const QString textStyle =
+        forPrint ? QStringLiteral(" color:%1;").arg(kPrintTextColor)
+                 : QString();
+
     QString html = QStringLiteral("<table width='100%' cellspacing='0' "
-                                  "cellpadding='6' style='font-size:13px;'>");
-    html +=
-        QStringLiteral("<tr>"
-                       "<th align='left'>%1</th>"
-                       "<th align='left'>%2</th>"
-                       "<th align='left'>%3</th>"
-                       "<th align='left'></th>"
-                       "</tr>")
-            .arg(tr("Pregunta"), tr("Tu respuesta"), tr("Respuesta correcta"));
+                                  "cellpadding='6' style='font-size:%1;'>")
+                       .arg(fontSize);
+    html += QStringLiteral("<tr style='%1'>"
+                           "<th align='left'>%2</th>"
+                           "<th align='left'>%3</th>"
+                           "<th align='left'>%4</th>"
+                           "<th align='left'></th>"
+                           "</tr>")
+                .arg(forPrint ? QStringLiteral("background-color:%1;%2")
+                                    .arg(kPrintHeaderBg, textStyle)
+                              : QString(),
+                     tr("Pregunta"), tr("Tu respuesta"),
+                     tr("Respuesta correcta"));
 
     int index = 0;
     for (const ExamRecord& record : session.records()) {
-        const QString rowColor = (index % 2 == 0) ? QStringLiteral("#212526")
-                                                  : QStringLiteral("#1B1F20");
+        const QString rowColor = (index % 2 == 0) ? evenBg : oddBg;
         const QString mark =
             record.correct ? QStringLiteral("<span style='color:%1;'>✔</span>")
-                                 .arg(kPassColor)
+                                 .arg(passColor)
                            : QStringLiteral("<span style='color:%1;'>✘</span>")
-                                 .arg(kFailColor);
-        html += QStringLiteral("<tr style='background-color:%1;'>"
-                               "<td>%2</td>"
+                                 .arg(failColor);
+        html += QStringLiteral("<tr style='background-color:%1;%2'>"
                                "<td>%3</td>"
                                "<td>%4</td>"
-                               "<td align='center'>%5</td>"
+                               "<td>%5</td>"
+                               "<td align='center'>%6</td>"
                                "</tr>")
-                    .arg(rowColor, escaped(record.question),
+                    .arg(rowColor, textStyle, escaped(record.question),
                          record.userAnswer.trimmed().isEmpty()
                              ? tr("(vacía)")
                              : escaped(record.userAnswer),

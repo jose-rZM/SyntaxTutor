@@ -24,14 +24,64 @@
 #include "tutorialmanager.h"
 #include "ui_slrtutorwindow.h"
 #include <QApplication>
+#include <QDateTime>
+#include <QDir>
 #include <QEasingCurve>
+#include <QFileInfo>
 #include <QFontDatabase>
 #include <QHBoxLayout>
+#include <QMessageBox>
 #include <QRegularExpression>
+#include <QStandardPaths>
 #include <QTimer>
 #include <algorithm>
 
 namespace {
+// The export path comes from a save dialog, but the target can still be
+// unwritable (read-only volume, revoked permission). QPrinter reports
+// nothing, so confirm the file really landed and tell the user if not.
+bool ReportPdfExportResult(const QWidget* parent,
+                           const QString& filePath) {
+    const QFileInfo info(filePath);
+    const QString   nativePath = QDir::toNativeSeparators(filePath);
+    if (info.exists() && info.size() > 0) {
+        QMessageBox::information(
+            const_cast<QWidget*>(parent), QObject::tr("Exportación completada"),
+            QObject::tr("PDF guardado en:\n%1").arg(nativePath));
+        return true;
+    }
+    QMessageBox::warning(
+        const_cast<QWidget*>(parent), QObject::tr("Error al exportar"),
+        QObject::tr("No se ha podido guardar el PDF en:\n%1\n\nComprueba "
+                    "que tienes permisos de escritura en esa carpeta.")
+            .arg(nativePath));
+    return false;
+}
+
+// Default name for an exported PDF, e.g. "LL1_2026-09-19_17-52-33.pdf", or
+// "EXAM_LL1_..." for an exam report. The date leads so a folder of exports
+// sorts chronologically, and the time is dash-separated because Windows
+// forbids ':' in file names.
+QString DefaultExportFileName(const QString& tutorTag, bool examMode) {
+    return QStringLiteral("%1%2_%3.pdf")
+        .arg(examMode ? QStringLiteral("EXAM_") : QString(), tutorTag,
+             QDateTime::currentDateTime().toString(
+                 QStringLiteral("yyyy-MM-dd_HH-mm-ss")));
+}
+
+// QFileDialog's third constructor argument is the starting DIRECTORY.
+// Leaving it empty (or passing a bare file name) falls back to the process
+// working directory, which is "/" when launched from Finder, the install
+// folder on Windows and the mount point for an AppImage. Start in Documents.
+QString DefaultExportDirectory() {
+    const QString documents =
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    if (!documents.isEmpty()) {
+        return documents;
+    }
+    return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+}
+
 // Packs a (row, col) pair into a single 64-bit key.
 //
 // We need an efficient way to remember which table cells have invalid format
@@ -241,10 +291,10 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
-    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->userResponse->setFixedHeight(48);
+    ui->userResponse->setAutoGrow(48, 100);
     ui->userResponse->setPlaceholderText(
-        tr("Introduce aquí tu respuesta. Ctrl + Enter para nueva línea."));
+        tr("Introduce aquí tu respuesta. %1 para nueva línea.")
+            .arg(CustomTextEdit::newlineShortcutText()));
     ui->confirmButton->setFixedSize(48, 48);
 
     // -- Chat Appearance
@@ -363,11 +413,14 @@ QString SLRTutorWindow::promptExportFilePath() const {
 #endif
 
     QFileDialog dialog(const_cast<SLRTutorWindow*>(this),
-                       tr("Guardar conversación"), "conver.pdf",
+                       examMode ? tr("Guardar informe del examen")
+                                : tr("Guardar conversación"),
+                       DefaultExportDirectory(),
                        tr("Archivo PDF (*.pdf)"));
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.selectFile("conver.pdf");
+    dialog.setDefaultSuffix("pdf");
+    dialog.selectFile(DefaultExportFileName(QStringLiteral("SLR1"), examMode));
     dialog.setObjectName("slrTutorExportFileDialog");
 #ifdef SYNTAXTUTOR_TESTING
     dialog.setOption(QFileDialog::DontUseNativeDialog, true);
@@ -376,7 +429,13 @@ QString SLRTutorWindow::promptExportFilePath() const {
         return {};
     }
 
-    return dialog.selectedFiles().value(0);
+    QString filePath = dialog.selectedFiles().value(0);
+    // Native dialogs may ignore the default suffix.
+    if (!filePath.isEmpty() &&
+        !filePath.endsWith(QStringLiteral(".pdf"), Qt::CaseInsensitive)) {
+        filePath += QStringLiteral(".pdf");
+    }
+    return filePath;
 }
 
 void SLRTutorWindow::on_backButton_clicked() {
@@ -618,13 +677,15 @@ void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
     html += "</table></div>";
     doc.setHtml(html);
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+    {
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filePath);
+        printer.setPageSize(QPageSize(QPageSize::A4));
+        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
-    doc.print(&printer);
+        doc.print(&printer);
+    }
 }
 
 void SLRTutorWindow::showTable() {
@@ -934,8 +995,10 @@ void SLRTutorWindow::showTable() {
         });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
         if (confirmExitToHome()) {
+            rawTable.clear();
             requestExit(false);
         } else {
             showTable();
@@ -1625,6 +1688,7 @@ void SLRTutorWindow::on_confirmButton_clicked() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
                     exportConversationToPdf(filePath);
+                    ReportPdfExportResult(this, filePath);
                 }
             });
         }
@@ -1670,8 +1734,9 @@ QString SLRTutorWindow::generateQuestion() {
     // ======= A: Initial Item and Closure ========================
     case StateSlr::A:
         return tr("¿Cuál es el estado inicial del analizador?\n"
-                  "Formato (Ctrl + Enter para nueva línea):\n  X → a·b\n  X → "
-                  "·b\n  X → EPSILON·");
+                  "Formato (%1 para nueva línea):\n  X → a·b\n  X → "
+                  "·b\n  X → EPSILON·")
+            .arg(CustomTextEdit::newlineShortcutText());
 
     case StateSlr::A1:
         return tr("¿Cuál es el axioma de la gramática?");
@@ -2016,7 +2081,8 @@ void SLRTutorWindow::updatePlaceholder() {
     case StateSlr::A:
     case StateSlr::A4:
     case StateSlr::A_prime:
-        text = tr("Ejemplo: S -> . A $ (Ctrl + Intro para nueva línea)");
+        text = tr("Ejemplo: S -> . A $ (%1 para nueva línea)")
+                   .arg(CustomTextEdit::newlineShortcutText());
         break;
     case StateSlr::A1:
         text = tr("Ejemplo: A");
@@ -2037,7 +2103,8 @@ void SLRTutorWindow::updatePlaceholder() {
         text = tr("Ejemplo: a,b");
         break;
     case StateSlr::CB:
-        text = tr("Ejemplo: S -> . A $ (Ctrl + Intro para nueva línea)");
+        text = tr("Ejemplo: S -> . A $ (%1 para nueva línea)")
+                   .arg(CustomTextEdit::newlineShortcutText());
         break;
     case StateSlr::D:
     case StateSlr::D_prime:
@@ -3528,6 +3595,7 @@ void SLRTutorWindow::showExamReport() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
                     exportExamReportToPdf(filePath, report->reportHtml());
+                    ReportPdfExportResult(this, filePath);
                 }
             });
     report->show();
@@ -3538,13 +3606,17 @@ void SLRTutorWindow::exportExamReportToPdf(const QString& filePath,
     QTextDocument doc;
     doc.setHtml(html);
 
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
+    {
+        // Scoped so the print engine flushes and closes the file
+        // before the result is checked below.
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filePath);
+        printer.setPageSize(QPageSize(QPageSize::A4));
+        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
 
-    doc.print(&printer);
+        doc.print(&printer);
+    }
 }
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {
@@ -3805,8 +3877,9 @@ void SLRTutorWindow::setupTutorial() {
                    "respuesta. Una regla gramatical "
                    "o "
                    "ítem LR (una regla gramatical con el (.) por línea. "
-                   "Recuerda que con Ctrl+Enter puedes "
-                   "insertar una nueva línea. Veamos unos ejemplos.</p>"));
+                   "Recuerda que con %1 puedes "
+                   "insertar una nueva línea. Veamos unos ejemplos.</p>")
+                    .arg(CustomTextEdit::newlineShortcutText()));
 
     tm->addStep(
         ui->listWidget,
