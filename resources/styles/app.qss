@@ -397,6 +397,11 @@ QDialog[tableDialog="true"] QTableWidget {
     selection-color: #FFFFFF;
 }
 
+QDialog[tableDialog="true"] QHeaderView {
+    background-color: #1F1F1F;
+    border: none;
+}
+
 QDialog[tableDialog="true"] QHeaderView::section {
     background-color: #2E2E2E;
     color: #00ADB5;
@@ -901,6 +906,15 @@ QGraphicsView#slrAutomatonView {
 
 QDialog[automatonViewer="true"] {
     background-color: #1F1F1F;
+}
+
+QDialog[treeViewer="true"] {
+    background-color: #1F1F1F;
+}
+
+QGraphicsView#llDerivationTreeView {
+    background-color: #212526;
+    border: none;
 }
 
 QDialog[automatonViewer="true"] QLabel#automatonViewerHint {

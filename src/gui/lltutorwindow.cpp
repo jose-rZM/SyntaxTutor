@@ -2660,12 +2660,15 @@ void LLTutorWindow::showTreeGraphics(
     std::unique_ptr<LLTutorWindow::TreeNode> root) {
     QDialog* dialog = new QDialog(this);
     dialog->setWindowTitle(tr("Árbol de derivación CABECERA"));
+    dialog->setObjectName("llTreeDialog");
+    dialog->setProperty("treeViewer", true);
 
     QGraphicsScene* scene = new QGraphicsScene(dialog);
 
     drawTree(root, scene, QPointF(0, 0), 220, 100);
 
     QGraphicsView* view = new QGraphicsView(scene);
+    view->setObjectName("llDerivationTreeView");
     view->setRenderHint(QPainter::Antialiasing);
     view->setMinimumSize(1000, 700);
     view->setAlignment(Qt::AlignCenter);
