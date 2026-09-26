@@ -532,6 +532,38 @@ QLabel#infoDialogSubtitle {
     font-size: 14px;
 }
 
+QDialog#infoDialog QLabel#textSizeValueLabel {
+    color: #11B3BC;
+    font-size: 15px;
+    font-weight: 700;
+    min-width: 56px;
+}
+
+QDialog#infoDialog QSlider#textSizeSlider::groove:horizontal {
+    background-color: #2B3133;
+    border: none;
+    border-radius: 3px;
+    height: 6px;
+}
+
+QDialog#infoDialog QSlider#textSizeSlider::sub-page:horizontal {
+    background-color: #11B3BC;
+    border-radius: 3px;
+}
+
+QDialog#infoDialog QSlider#textSizeSlider::handle:horizontal {
+    background-color: #E8ECEE;
+    border: none;
+    border-radius: 9px;
+    width: 18px;
+    height: 18px;
+    margin: -6px 0;
+}
+
+QDialog#infoDialog QSlider#textSizeSlider::handle:horizontal:hover {
+    background-color: #FFFFFF;
+}
+
 QTextBrowser#infoDialogContent {
     background-color: #212526;
     color: #E8ECEE;
