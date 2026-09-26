@@ -307,14 +307,14 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // ====== Grammar Formatting =================================
     sortedNonTerminals =
         stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
-    const QString axiom = QString::fromStdString(grammar.axiom_);
+    // Presentation order, not lexicographic: a user-written grammar keeps
+    // the sequence its rules were typed in. buildGrammarRows,
+    // fillSortedGrammar and FormatGrammar all read this list, so the rule
+    // numbering and the reduce indices follow it too.
     std::ranges::sort(sortedNonTerminals,
-                      [&axiom](const QString& a, const QString& b) {
-                          if (a == axiom)
-                              return true;
-                          if (b == axiom)
-                              return false;
-                          return a < b;
+                      [this](const QString& a, const QString& b) {
+                          return grammar.PresentationLess(a.toStdString(),
+                                                          b.toStdString());
                       });
     fillSortedGrammar();
     formattedGrammar = FormatGrammar(grammar);

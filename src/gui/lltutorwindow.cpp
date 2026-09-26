@@ -210,11 +210,8 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
         stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(), sortedNonTerminals.end(),
               [&grammar](const QString& a, const QString& b) {
-                  if (a.toStdString() == grammar.axiom_)
-                      return true;
-                  if (b.toStdString() == grammar.axiom_)
-                      return false;
-                  return a < b;
+                  return grammar.PresentationLess(a.toStdString(),
+                                                  b.toStdString());
               });
 
     // ====== Progress / State Setup ============================
@@ -2271,8 +2268,9 @@ void LLTutorWindow::feedbackForB1TreeWidget() {
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString                                        result;
     const std::string&                             axiom = grammar.axiom_;
-    std::map<std::string, std::vector<production>> sortedRules(
-        grammar.g_.begin(), grammar.g_.end());
+    // Presentation order, not lexicographic: a user-written grammar keeps
+    // the sequence its rules were typed in.
+    const std::vector<std::string> order = grammar.PresentationOrder();
 
     auto formatProductions = [](const QString&                 lhs,
                                 const std::vector<production>& prods) {
@@ -2305,10 +2303,9 @@ QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
             formatProductions(QString::fromStdString(axiom), axIt->second);
     }
 
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == axiom)
-            continue;
-        result += formatProductions(QString::fromStdString(lhs), productions);
+    for (const std::string& lhs : order) {
+        result += formatProductions(QString::fromStdString(lhs),
+                                    grammar.g_.at(lhs));
     }
 
     return result;
@@ -2318,8 +2315,7 @@ QVector<GrammarView::Row>
 LLTutorWindow::buildGrammarRows(const Grammar& grammar) const {
     QVector<GrammarView::Row> rows;
     const std::string&        axiom = grammar.axiom_;
-    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(),
-                                                               grammar.g_.end());
+    const std::vector<std::string> order = grammar.PresentationOrder();
 
     auto appendProductions = [&rows](const QString& lhs,
                                      const std::vector<production>& prods) {
@@ -2343,11 +2339,8 @@ LLTutorWindow::buildGrammarRows(const Grammar& grammar) const {
         appendProductions(QString::fromStdString(axiom), axIt->second);
     }
 
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == axiom) {
-            continue;
-        }
-        appendProductions(QString::fromStdString(lhs), productions);
+    for (const std::string& lhs : order) {
+        appendProductions(QString::fromStdString(lhs), grammar.g_.at(lhs));
     }
 
     return rows;
@@ -2367,11 +2360,8 @@ void LLTutorWindow::fillSortedGrammar() {
         }
     }
     rules.push_back(rule);
-    std::map<std::string, std::vector<production>> sortedRules(
-        grammar.g_.begin(), grammar.g_.end());
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == grammar.axiom_)
-            continue;
+    for (const std::string& lhs : grammar.PresentationOrder()) {
+        const std::vector<production>& productions = grammar.g_.at(lhs);
         rule = {QString::fromStdString(lhs), {}};
         for (const auto& prod : productions) {
             for (const auto& symbol : prod) {
