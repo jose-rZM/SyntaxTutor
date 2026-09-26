@@ -433,7 +433,7 @@ void MainWindow::promptCustomTextScale() {
     layout->addWidget(title);
 
     auto* subtitle = new QLabel(
-        tr("El cambio se aplica al instante, sin reiniciar."), &dialog);
+        tr("Puedes necesitar redimensionar la ventana."), &dialog);
     subtitle->setObjectName("infoDialogSubtitle");
     subtitle->setWordWrap(true);
     layout->addWidget(subtitle);
