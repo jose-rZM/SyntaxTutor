@@ -74,5 +74,6 @@ class TutorWindowTest : public QObject {
     void mainCustomGrammarEditorCancelKeepsHomePage();
     void mainCustomGrammarEditorRestoresLastGrammar();
     void llUserGrammarKeepsWrittenRuleOrder();
+    void slrUserGrammarKeepsWrittenRuleOrder();
     void mainExamModeCheckboxLaunchesExamTutor();
 };

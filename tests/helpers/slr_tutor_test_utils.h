@@ -185,13 +185,15 @@ inline QVector<QPair<QString, QVector<QString>>> buildSortedGrammar(
     for (const std::string& nonTerminal : grammar.st_.non_terminals_) {
         sortedNonTerminals.append(QString::fromStdString(nonTerminal));
     }
-    std::ranges::sort(sortedNonTerminals, [](const QString& a, const QString& b) {
-        if (a == "S")
-            return true;
-        if (b == "S")
-            return false;
-        return a < b;
-    });
+    // Mirror SLRTutorWindow: the grammar decides the order. This used to
+    // hardcode "S" as the axiom and sort the rest alphabetically, which only
+    // held for the fixtures - a parsed grammar has an axiom of S' and keeps
+    // the order its rules were written in.
+    std::ranges::sort(sortedNonTerminals,
+                      [&grammar](const QString& a, const QString& b) {
+                          return grammar.PresentationLess(a.toStdString(),
+                                                          b.toStdString());
+                      });
 
     QVector<QPair<QString, QVector<QString>>> rules;
     for (const QString& nt : std::as_const(sortedNonTerminals)) {
