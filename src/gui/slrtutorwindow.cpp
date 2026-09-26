@@ -58,10 +58,10 @@ bool ReportPdfExportResult(const QWidget* parent,
     return false;
 }
 
-// QFileDialog's third constructor argument is the starting DIRECTORY.
-// Leaving it empty (or passing a bare file name) falls back to the process
-// working directory, which is "/" when launched from Finder, the install
-// folder on Windows and the mount point for an AppImage. Start in Documents.
+// Default name for an exported PDF, e.g. "LL1_2026-09-19_17-52-33.pdf", or
+// "EXAM_LL1_..." for an exam report. The date leads so a folder of exports
+// sorts chronologically, and the time is dash-separated because Windows
+// forbids ':' in file names.
 QString DefaultExportFileName(const QString& tutorTag, bool examMode) {
     return QStringLiteral("%1%2_%3.pdf")
         .arg(examMode ? QStringLiteral("EXAM_") : QString(), tutorTag,
@@ -69,6 +69,10 @@ QString DefaultExportFileName(const QString& tutorTag, bool examMode) {
                  QStringLiteral("yyyy-MM-dd_HH-mm-ss")));
 }
 
+// QFileDialog's third constructor argument is the starting DIRECTORY.
+// Leaving it empty (or passing a bare file name) falls back to the process
+// working directory, which is "/" when launched from Finder, the install
+// folder on Windows and the mount point for an AppImage. Start in Documents.
 QString DefaultExportDirectory() {
     const QString documents =
         QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
