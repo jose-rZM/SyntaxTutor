@@ -46,7 +46,9 @@ jobs:
       - name: Build for Intel (x86_64)
         run: |
           qmake6 -r -config release "QT+=dbus" "QMAKE_MACOS_ARCHITECTURES=x86_64"
-          make -j$(sysctl -n hw.ncpu)
+          # -f Makefile: the repo root also has a GNUmakefile (dev helper) that
+          # GNU make would prefer over the qmake-generated Makefile.
+          make -f Makefile -j$(sysctl -n hw.ncpu)
 
       - name: Verify arch
         run: |
@@ -164,7 +166,9 @@ jobs:
       - name: Build with qmake & make
         run: |
           qmake6 CONFIG+=release -r "QT+=dbus" "QMAKE_MACOS_ARCHITECTURES=arm64"
-          make -j$(sysctl -n hw.ncpu)
+          # -f Makefile: the repo root also has a GNUmakefile (dev helper) that
+          # GNU make would prefer over the qmake-generated Makefile.
+          make -f Makefile -j$(sysctl -n hw.ncpu)
 
       - name: Prepare icons
         run: |
@@ -339,7 +343,9 @@ jobs:
 
       - name: Build
         run: |
-          make -j$(nproc)
+          # -f Makefile: the repo root also has a GNUmakefile (dev helper) that
+          # GNU make would prefer over the qmake-generated Makefile.
+          make -f Makefile -j$(nproc)
 
       - name: Generate AppImage
         run: |
