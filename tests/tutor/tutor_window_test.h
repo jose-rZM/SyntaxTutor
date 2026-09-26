@@ -73,5 +73,6 @@ class TutorWindowTest : public QObject {
     void mainCustomGrammarEditorRejectsInvalidAndNonLl1Grammars();
     void mainCustomGrammarEditorCancelKeepsHomePage();
     void mainCustomGrammarEditorRestoresLastGrammar();
+    void llUserGrammarKeepsWrittenRuleOrder();
     void mainExamModeCheckboxLaunchesExamTutor();
 };
