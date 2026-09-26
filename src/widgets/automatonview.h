@@ -153,6 +153,7 @@ class AutomatonView : public QGraphicsView {
     QHash<unsigned, int>
     computeLevels(const QVector<AutomatonTransitionInfo>& transitions) const;
     void buildEdgeGeometry(Edge& edge);
+
     void applyNodeStyle(Node& node);
     void setNodeVisible(Node& node, bool visible);
     void setEdgeVisible(Edge& edge, bool visible);

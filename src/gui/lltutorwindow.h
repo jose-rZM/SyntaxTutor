@@ -82,6 +82,15 @@ class LLTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
+    /**
+     * @brief Re-applies the current text size to this tutor.
+     *
+     * The chat bubbles size themselves from font metrics and the grammar
+     * panel from the card's width, so both have to be recomputed when the
+     * user picks a different text size.
+     */
+    void applyTextScale();
+
     // ====== Derivation Tree (used in TeachFirst) =============
     /**
      * @brief TreeNode structure used to build derivation trees.

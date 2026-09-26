@@ -25,6 +25,7 @@
 #include "slrtutorwindow.h"
 #include "tutorialmanager.h"
 #include <QMainWindow>
+#include "apptextscale.h"
 #include <QSettings>
 
 class QStackedWidget;
@@ -188,6 +189,18 @@ class MainWindow : public QMainWindow {
      * buttons, so the group always dims as one block.
      */
     void setDifficultySelectorEnabled(bool enabled);
+
+    /// @brief Builds the text size menu from the stored preference.
+    void setupTextSizeMenu();
+
+    /**
+     * @brief Applies and stores a text size.
+     *
+     * Every size in the UI comes either from `app.qss` or from a
+     * `setPixelSize()` that reads AppTextScale, so re-applying the scaled
+     * style sheet updates the whole window without a restart.
+     */
+    void setTextScale(AppTextScale::Step step);
     void showHomePage();
     void cleanupTutorPages();
     LLTutorWindow*  startLLTutor(const Grammar& grammar, TutorialManager* tm,

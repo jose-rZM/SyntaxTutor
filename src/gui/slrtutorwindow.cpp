@@ -33,7 +33,6 @@
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QTimer>
 #include <algorithm>
 
 namespace {
@@ -320,7 +319,7 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     grammarView = new GrammarView(ui->gr);
     grammarView->setRows(buildGrammarRows(grammar));
     ui->gr->setWidget(grammarView);
-    ui->gr->setFixedWidth(grammarView->sizeHint().width() + 32);
+    ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
     ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     setupAutomatonPanel();
@@ -436,6 +435,25 @@ QString SLRTutorWindow::promptExportFilePath() const {
         filePath += QStringLiteral(".pdf");
     }
     return filePath;
+}
+
+void SLRTutorWindow::applyTextScale() {
+    // Called by MainWindow right after the scaled style sheet and font are
+    // applied. Doing it as a plain call rather than reacting to StyleChange
+    // keeps the order deterministic: the card is rebuilt first, then measured.
+    if (grammarView != nullptr) {
+        grammarView->refresh();
+        ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
+    }
+    // The chat shows the grammar as a card too; those are separate
+    // GrammarView instances and need the same rebuild.
+    const auto chatCards = ui->listWidget->findChildren<GrammarView*>();
+    for (GrammarView* card : chatCards) {
+        card->refresh();
+    }
+
+    relayoutChatMessages();
+    updateProgressPanel();
 }
 
 void SLRTutorWindow::on_backButton_clicked() {

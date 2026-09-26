@@ -18,6 +18,8 @@
 
 #include "examreportdialog.h"
 
+#include "apptextscale.h"
+
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLocale>
@@ -155,7 +157,8 @@ QString ExamReportDialog::buildReviewHtml(const ExamSession& session,
     // illegible speck, so the printed table is sized in pt. Screen keeps px
     // to stay in step with the rest of the QSS.
     const QString fontSize =
-        forPrint ? QStringLiteral("10.5pt") : QStringLiteral("13px");
+        forPrint ? QStringLiteral("10.5pt")
+                 : QStringLiteral("%1px").arg(AppTextScale::scaled(13));
     const QString evenBg =
         forPrint ? QString(kPrintRowEvenBg) : QStringLiteral("#212526");
     const QString oddBg =

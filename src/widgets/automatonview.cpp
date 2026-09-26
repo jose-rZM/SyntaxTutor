@@ -18,6 +18,8 @@
 
 #include "automatonview.h"
 
+#include "apptextscale.h"
+
 #include <QFontDatabase>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsPathItem>
@@ -129,7 +131,7 @@ void AutomatonView::setAutomaton(
     }
 
     QFont labelFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-    labelFont.setPixelSize(12);
+    labelFont.setPixelSize(AppTextScale::scaled(12));
     labelFont.setBold(true);
 
     for (auto& [level, ids] : byLevel) {
@@ -195,7 +197,7 @@ void AutomatonView::setAutomaton(
         tr("El autómata aparecerá cuando\nconstruyas el estado inicial I0."));
     placeholder_->setDefaultTextColor(kPlaceholderColor);
     QFont placeholderFont = placeholder_->font();
-    placeholderFont.setPixelSize(12);
+    placeholderFont.setPixelSize(AppTextScale::scaled(12));
     placeholder_->setFont(placeholderFont);
     const QRectF placeholderBounds = placeholder_->boundingRect();
     placeholder_->setPos(-placeholderBounds.width() / 2.0,
@@ -274,7 +276,7 @@ void AutomatonView::buildEdgeGeometry(Edge& edge) {
     edge.arrow->setZValue(0);
 
     QFont labelFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-    labelFont.setPixelSize(10);
+    labelFont.setPixelSize(AppTextScale::scaled(10));
     edge.label = scene_->addSimpleText(edge.symbols.join(", "));
     edge.label->setFont(labelFont);
     edge.label->setBrush(kEdgeLabelColor);

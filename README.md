@@ -74,7 +74,7 @@ SyntaxTutor walks the student through each cell in the parsing table with hints 
 Precompiled builds of SyntaxTutor are available in the Releases tab:
 - 🐧 Linux (X11): executable AppImage
 - 🪟 Windows: ZIP archive with the .exe
-- 🍎 macOS: .app bundles for both Apple Silicon (ARM) and Intel
+- 🍎 macOS: .app bundle for Apple Silicon (ARM)
 
 > [!WARNING]
 > The Windows and macOS versions are not digitally signed. Your operating system may display a warning when running the application. You can bypass it manually if you trust the source.
