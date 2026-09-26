@@ -66,6 +66,7 @@ class TutorWindowTest : public QObject {
     void mainTutorialFlowCompletesAndReenablesControls();
     void mainGamificationPersistsAcrossRestart();
     void mainStatePersistenceAcrossRestart();
+    void mainDefaultTextScaleFollowsScreenDpi();
 
     void mainCustomGrammarToggleDisablesLevels();
     void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();

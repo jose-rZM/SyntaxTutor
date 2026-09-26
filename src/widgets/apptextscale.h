@@ -21,6 +21,7 @@
 
 #include <QFont>
 #include <QRegularExpression>
+#include <QScreen>
 #include <QString>
 #include <QStringList>
 #include <qmath.h>
@@ -122,6 +123,43 @@ inline QString settingsKey() { return QStringLiteral("ui/textScalePercent"); }
 
 /// @brief Key used by the first version of this setting, which named steps.
 inline QString legacySettingsKey() { return QStringLiteral("ui/textScale"); }
+
+/**
+ * @brief Logical DPI the sizes in the app were designed against.
+ *
+ * Every text size here is in logical pixels, and those numbers were chosen
+ * on macOS, which reports 72. Windows and Linux report 96, where a logical
+ * pixel covers a third less paper, so the very same style sheet reads about
+ * a third smaller there. This constant turns that gap into a starting size.
+ */
+constexpr double kDesignDotsPerInch = 72.0;
+
+/**
+ * @brief Size to start at on a screen reporting @p logicalDotsPerInch.
+ *
+ * Returns @ref kMinPercent for a DPI that makes no sense, so a screen that
+ * reports nothing useful behaves like the design's own.
+ */
+inline int defaultPercentForDpi(double logicalDotsPerInch) {
+    if (logicalDotsPerInch <= 0.0) {
+        return kMinPercent;
+    }
+    return clampPercent(
+        qRound(100.0 * logicalDotsPerInch / kDesignDotsPerInch));
+}
+
+/**
+ * @brief Size to start at on @p screen, before the user has chosen one.
+ *
+ * Only a default: the moment the user picks a size it is stored and this is
+ * no longer consulted. Falls back to @ref kMinPercent when there is no
+ * screen to ask.
+ */
+inline int defaultPercentForScreen(const QScreen* screen) {
+    return screen == nullptr
+               ? kMinPercent
+               : defaultPercentForDpi(screen->logicalDotsPerInch());
+}
 
 /// @brief Percentage matching one of the original named steps.
 inline int percentFromLegacyValue(const QString& value) {

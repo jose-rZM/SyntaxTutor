@@ -24,6 +24,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QFontDatabase>
+#include <QScreen>
 #include <QSettings>
 #include <QStyleHints>
 #include <QTranslator>
@@ -57,9 +58,15 @@ int main(int argc, char* argv[]) {
     if (settings.contains(AppTextScale::settingsKey())) {
         AppTextScale::currentPercent() = AppTextScale::clampPercent(
             settings.value(AppTextScale::settingsKey()).toInt());
-    } else {
+    } else if (settings.contains(AppTextScale::legacySettingsKey())) {
         AppTextScale::currentPercent() = AppTextScale::percentFromLegacyValue(
             settings.value(AppTextScale::legacySettingsKey()).toString());
+    } else {
+        // First run, so pick a size from the screen rather than assuming the
+        // one the style sheet was drawn against. Not stored: it keeps
+        // following the screen until the user chooses a size themselves.
+        AppTextScale::currentPercent() = AppTextScale::defaultPercentForScreen(
+            QGuiApplication::primaryScreen());
     }
     QString   langCode = settings.value("lang/language", "es").toString();
     QTranslator   translator;

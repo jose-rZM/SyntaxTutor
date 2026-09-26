@@ -57,6 +57,7 @@ HEADERS += \
     ../src/backend/slr1_parser.hpp \
     ../src/backend/state.hpp \
     ../src/backend/symbol_table.hpp \
+    ../src/widgets/apptextscale.h \
     ../src/widgets/automatonview.h \
     ../src/widgets/customtextedit.h \
     ../src/widgets/grammarview.h \

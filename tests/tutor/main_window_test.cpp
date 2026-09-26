@@ -1,5 +1,6 @@
 #include "tutor_window_test.h"
 
+#include "apptextscale.h"
 #include "grammareditordialog.h"
 #include "mainwindow.h"
 #include "lltutorwindow.h"
@@ -544,6 +545,33 @@ bool anyLabelContains(QWidget* root, const QString& needle) {
 //   Level radio buttons are disabled while the checkbox is checked and enabled
 //   again when unchecked.
 // -----------------------------------------------------------------------------
+void TutorWindowTest::mainDefaultTextScaleFollowsScreenDpi() {
+    using AppTextScale::defaultPercentForDpi;
+    using AppTextScale::defaultPercentForScreen;
+    using AppTextScale::kDesignDotsPerInch;
+    using AppTextScale::kMaxPercent;
+    using AppTextScale::kMinPercent;
+
+    // Every size in app.qss is a logical pixel, and those were picked on
+    // macOS, which reports 72 dpi. Windows and Linux report 96, where the
+    // same numbers cover a third less screen, so the starting size makes up
+    // the difference instead of leaving the user to find it on the slider.
+    QCOMPARE(defaultPercentForDpi(kDesignDotsPerInch), kMinPercent);
+    QCOMPARE(defaultPercentForDpi(96.0), 133);
+
+    // A screen that reports nothing usable is treated as the design's own.
+    // Resizing the whole interface off a bad reading would be worse than
+    // leaving it alone.
+    QCOMPARE(defaultPercentForDpi(0.0), kMinPercent);
+    QCOMPARE(defaultPercentForDpi(-1.0), kMinPercent);
+    QCOMPARE(defaultPercentForScreen(nullptr), kMinPercent);
+
+    // Whatever the screen claims, the result stays somewhere the menu and
+    // the slider can actually represent.
+    QCOMPARE(defaultPercentForDpi(40.0), kMinPercent);
+    QCOMPARE(defaultPercentForDpi(400.0), kMaxPercent);
+}
+
 void TutorWindowTest::mainCustomGrammarToggleDisablesLevels() {
     clearTestAppSettings();
 
