@@ -3547,6 +3547,46 @@ TEST(SymbolTableTest, IsTerminalWthoEol_OnlyTrueForNonEpsilonTerminals) {
     EXPECT_FALSE(st.IsTerminalWthoEol("C"));
 }
 
+TEST(GrammarParserTest, UserGrammarKeepsTheOrderItWasWrittenIn) {
+    // The rules are deliberately not in alphabetical order: a grammar the
+    // user typed has to come back in their sequence, not sorted.
+    GrammarParseResult result =
+        GrammarParser::Parse("S -> A .\nA -> C .\nC -> d .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar&           gr = result.grammar;
+    std::vector<std::string> expected{"S", "A", "C"};
+    EXPECT_EQ(gr.PresentationOrder(), expected);
+    // The axiom always leads, since the tutors show its rule first.
+    EXPECT_LT(gr.PresentationRank(gr.axiom_), gr.PresentationRank("S"));
+}
+
+TEST(GrammarParserTest, UserGrammarOrderSurvivesAlphabeticalInversion) {
+    GrammarParseResult result =
+        GrammarParser::Parse("C -> a .\nB -> b .\nA -> c .");
+
+    ASSERT_TRUE(result.Ok());
+    std::vector<std::string> expected{"C", "B", "A"};
+    EXPECT_EQ(result.grammar.PresentationOrder(), expected);
+}
+
+TEST(GrammarTest, GrammarWithoutRecordedOrderIsPresentedAlphabetically) {
+    // Generated grammars record no order, and must keep the lexicographic
+    // presentation the tutors and the tutorial have always relied on.
+    Grammar gr;
+    gr.st_.PutSymbol("S", false);
+    gr.st_.PutSymbol("B", false);
+    gr.st_.PutSymbol("A", false);
+    gr.AddProduction("S", {"B"});
+    gr.AddProduction("B", {"A"});
+    gr.AddProduction("A", {"a"});
+    gr.SetAxiom("S");
+
+    EXPECT_TRUE(gr.lhs_order_.empty());
+    std::vector<std::string> expected{"A", "B"};
+    EXPECT_EQ(gr.PresentationOrder(), expected);
+}
+
 TEST(GrammarParserTest, ParsesSimpleGrammar) {
     GrammarParseResult result = GrammarParser::Parse("A -> a A .\nA -> b .");
 
