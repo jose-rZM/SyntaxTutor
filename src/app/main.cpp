@@ -20,6 +20,7 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include <QDebug>
 #include <QFile>
 #include <QFontDatabase>
 #include <QSettings>
@@ -51,13 +52,16 @@ int main(int argc, char* argv[]) {
     QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
     QSettings   settings("UMA", "SyntaxTutor");
     QString     langCode = settings.value("lang/language", "es").toString();
-    QTranslator translator;
-    if (langCode == "en") {
-        translator.load(":/translations/st_en.qm");
+    QTranslator   translator;
+    const QString qmPath = langCode == QStringLiteral("en")
+                               ? QStringLiteral(":/translations/st_en.qm")
+                               : QStringLiteral(":/translations/st_es.qm");
+    if (translator.load(qmPath)) {
+        a.installTranslator(&translator);
     } else {
-        translator.load(":/translations/st_es.qm");
+        // Not fatal: tr() then falls back to the Spanish source strings.
+        qWarning() << "Could not load translations from" << qmPath;
     }
-    a.installTranslator(&translator);
     applyAppStyle(a);
     MainWindow w;
     w.show();
