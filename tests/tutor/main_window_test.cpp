@@ -1,24 +1,30 @@
 #include "tutor_window_test.h"
 
-#include "apptextscale.h"
+#include "apptypography.h"
+#include "customtextedit.h"
 #include "grammareditordialog.h"
 #include "mainwindow.h"
 #include "lltutorwindow.h"
 #include "qt_modal_test_utils.h"
 #include "slrtutorwindow.h"
+#include "tutor_grammar_fixtures.h"
 
 #include <QCheckBox>
 #include <QCoreApplication>
 #include <QDialog>
+#include <QFile>
+#include <QFontInfo>
 #include <QLabel>
 #include <QPlainTextEdit>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QRegularExpression>
 #include <QSettings>
 #include <QTest>
 #include <QTextBrowser>
 #include <QTranslator>
+#include <QtMath>
 #include <algorithm>
 
 namespace {
@@ -545,31 +551,206 @@ bool anyLabelContains(QWidget* root, const QString& needle) {
 //   Level radio buttons are disabled while the checkbox is checked and enabled
 //   again when unchecked.
 // -----------------------------------------------------------------------------
-void TutorWindowTest::mainDefaultTextScaleFollowsScreenDpi() {
-    using AppTextScale::defaultPercentForDpi;
-    using AppTextScale::defaultPercentForScreen;
-    using AppTextScale::kDesignDotsPerInch;
-    using AppTextScale::kMaxPercent;
-    using AppTextScale::kMinPercent;
+namespace {
 
-    // Every size in app.qss is a logical pixel, and those were picked on
-    // macOS, which reports 72 dpi. Windows and Linux report 96, where the
-    // same numbers cover a third less screen, so the starting size makes up
-    // the difference instead of leaving the user to find it on the slider.
-    QCOMPARE(defaultPercentForDpi(kDesignDotsPerInch), kMinPercent);
-    QCOMPARE(defaultPercentForDpi(96.0), 133);
+// Applies the production typography - the scaled application font and the
+// resolved app.qss - for the lifetime of the object. The rest of the suite
+// runs unstyled, so everything is put back on destruction.
+class ProductionTypography {
+  public:
+    explicit ProductionTypography(int percent)
+        : savedPercent_(AppTextScale::currentPercent()),
+          savedFont_(QApplication::font()),
+          savedStyleSheet_(qApp->styleSheet()) {
+        AppTypography::systemFont() = savedFont_;
+        AppTextScale::currentPercent() = percent;
+        QApplication::setFont(AppTypography::applicationFont());
+        qApp->setStyleSheet(AppTypography::loadStyleSheet());
+    }
 
-    // A screen that reports nothing usable is treated as the design's own.
-    // Resizing the whole interface off a bad reading would be worse than
-    // leaving it alone.
-    QCOMPARE(defaultPercentForDpi(0.0), kMinPercent);
-    QCOMPARE(defaultPercentForDpi(-1.0), kMinPercent);
-    QCOMPARE(defaultPercentForScreen(nullptr), kMinPercent);
+    ~ProductionTypography() {
+        AppTextScale::currentPercent() = savedPercent_;
+        qApp->setStyleSheet(savedStyleSheet_);
+        QApplication::setFont(savedFont_);
+    }
 
-    // Whatever the screen claims, the result stays somewhere the menu and
-    // the slider can actually represent.
-    QCOMPARE(defaultPercentForDpi(40.0), kMinPercent);
-    QCOMPARE(defaultPercentForDpi(400.0), kMaxPercent);
+    ProductionTypography(const ProductionTypography&)            = delete;
+    ProductionTypography& operator=(const ProductionTypography&) = delete;
+
+  private:
+    int     savedPercent_;
+    QFont   savedFont_;
+    QString savedStyleSheet_;
+};
+
+} // namespace
+
+// -----------------------------------------------------------------------------
+// Test: typographyStyleSheetDeclaresSizesOnlyThroughRoles
+// Expected:
+//   app.qss spells out no font size at all, in px or pt: every one is a
+//   `$font-<role>` of the type scale, and every role it names exists.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyStyleSheetDeclaresSizesOnlyThroughRoles() {
+    QFile file(QStringLiteral(":/resources/styles/app.qss"));
+    QVERIFY(file.open(QFile::ReadOnly | QFile::Text));
+    // Comments may talk about the syntax; only the rules have to obey it.
+    static const QRegularExpression comment(
+        QStringLiteral("/\\*.*?\\*/"),
+        QRegularExpression::DotMatchesEverythingOption);
+    const QString raw =
+        QString::fromUtf8(file.readAll()).remove(comment);
+
+    static const QRegularExpression literalSize(
+        QStringLiteral("font-size:\\s*[0-9.]+\\s*(px|pt)"));
+    const QRegularExpressionMatch literal = literalSize.match(raw);
+    QVERIFY2(!literal.hasMatch(),
+             qPrintable(QStringLiteral("literal size in app.qss: ") +
+                        literal.captured(0)));
+    QVERIFY(raw.contains(QStringLiteral("$font-")));
+
+    QStringList     unresolved;
+    const QString   resolved =
+        AppTypography::resolveStyleSheet(raw, &unresolved);
+    QVERIFY2(unresolved.isEmpty(),
+             qPrintable(QStringLiteral("unknown roles: ") +
+                        unresolved.join(QStringLiteral(", "))));
+    QVERIFY(!resolved.contains(QStringLiteral("$font-")));
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyResolvesRolesAtTheCurrentTextScale
+// Expected:
+//   A role resolves to its point size times the user's text scale, and an
+//   unknown role is left alone and reported instead of guessed.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyResolvesRolesAtTheCurrentTextScale() {
+    const int saved = AppTextScale::currentPercent();
+    const QString rule = QStringLiteral("QLabel { font-size: $font-body; }");
+
+    AppTextScale::currentPercent() = 100;
+    QCOMPARE(AppTypography::resolveStyleSheet(rule),
+             QStringLiteral("QLabel { font-size: 13pt; }"));
+
+    AppTextScale::currentPercent() = 150;
+    QCOMPARE(AppTypography::resolveStyleSheet(rule),
+             QStringLiteral("QLabel { font-size: 19.5pt; }"));
+    QCOMPARE(AppTypography::cssSize(AppTypography::Role::Reading),
+             QStringLiteral("22.5pt"));
+
+    QStringList unresolved;
+    QCOMPARE(AppTypography::resolveStyleSheet(
+                 QStringLiteral("font-size: $font-nope;"), &unresolved),
+             QStringLiteral("font-size: $font-nope;"));
+    QCOMPARE(unresolved, QStringList{QStringLiteral("nope")});
+
+    AppTextScale::currentPercent() = saved;
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyAppliesPointSizesToWidgets
+// Expected:
+//   With the production style applied, widgets styled from app.qss and fonts
+//   built in C++ both carry point sizes from the type scale - never a pixel
+//   size - and follow the user's text scale.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyAppliesPointSizesToWidgets() {
+    clearTestAppSettings();
+    ProductionTypography typography(130);
+
+    MainWindow window;
+    window.show();
+    QCoreApplication::processEvents();
+
+    auto* title = window.findChild<QLabel*>("homeTitle");
+    auto* score = window.findChild<QLabel*>("labelScore");
+    QVERIFY(title != nullptr && score != nullptr);
+
+    QCOMPARE(title->font().pixelSize(), -1);
+    QVERIFY(qFuzzyCompare(title->font().pointSizeF(), 30.0 * 1.3));
+    QVERIFY(qFuzzyCompare(score->font().pointSizeF(), 15.0 * 1.3));
+
+    // Text without a QSS rule, like the chat bubbles, uses the app font.
+    QCOMPARE(QApplication::font().pixelSize(), -1);
+    QVERIFY(qFuzzyCompare(QApplication::font().pointSizeF(), 13.0 * 1.3));
+
+    const QFont reading = AppTypography::font(AppTypography::Role::Reading);
+    QCOMPARE(reading.pixelSize(), -1);
+    QVERIFY(qFuzzyCompare(reading.pointSizeF(), 15.0 * 1.3));
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyLengthsForTextFollowTheRenderedBodyText
+// Expected:
+//   A length drawn for body-sized text grows exactly as body text renders
+//   here, so boxes that hold text keep up with both the text scale and the
+//   platform's point-to-pixel mapping.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyLengthsForTextFollowTheRenderedBodyText() {
+    int normal = 0;
+    {
+        ProductionTypography typography(100);
+        const int bodyPixels = QFontInfo(QApplication::font()).pixelSize();
+        QCOMPARE(AppTypography::lengthForText(13), bodyPixels);
+        normal = AppTypography::lengthForText(480);
+    }
+    {
+        ProductionTypography typography(150);
+        const int bodyPixels = QFontInfo(QApplication::font()).pixelSize();
+        QCOMPARE(AppTypography::lengthForText(13), bodyPixels);
+        QVERIFY(AppTypography::lengthForText(480) > normal);
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyAnswerBoxGrowsByLinesOfItsOwnFont
+// Expected:
+//   The answer box is exactly one line of its own font tall when it holds a
+//   single line - no dead space however big the text is - grows line by line
+//   and stops at four, where it starts scrolling. The send button is square
+//   and as tall as the one-line box.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyAnswerBoxGrowsByLinesOfItsOwnFont() {
+    for (const int percent : {100, 150}) {
+        ProductionTypography typography(percent);
+
+        LLTutorWindow tutor(TutorGrammarFixtures::makeLl1SimpleGrammar(),
+                            nullptr);
+        tutor.resize(1000, 700);
+        tutor.show();
+        QTest::qWait(50);
+
+        auto* box    = tutor.findChild<CustomTextEdit*>("userResponse");
+        auto* button = tutor.findChild<QWidget*>("confirmButton");
+        QVERIFY(box != nullptr && button != nullptr);
+
+        const auto chrome = [box]() {
+            return box->height() - box->viewport()->height();
+        };
+        const auto contentHeight = [box, &chrome]() {
+            return qCeil(box->document()->size().height()) + chrome();
+        };
+
+        box->setPlainText(QStringLiteral("x"));
+        QTest::qWait(300);
+        QCOMPARE(box->height(), contentHeight());
+        QCOMPARE(box->height(), box->minimumGrowHeight());
+        QCOMPARE(button->size(), QSize(box->height(), box->height()));
+
+        const int oneLine = box->height();
+        box->setPlainText(QStringLiteral("x\nx"));
+        QTest::qWait(300);
+        QVERIFY2(box->height() > oneLine, qPrintable(QString::number(percent)));
+        QCOMPARE(box->height(), contentHeight());
+
+        box->setPlainText(QStringLiteral("1\n2\n3\n4\n5\n6\n7"));
+        QTest::qWait(300);
+        const int fourLines = box->height();
+        QVERIFY(fourLines < contentHeight());
+        box->setPlainText(QStringLiteral("1\n2\n3\n4"));
+        QTest::qWait(300);
+        QCOMPARE(box->height(), fourLines);
+    }
 }
 
 void TutorWindowTest::mainCustomGrammarToggleDisablesLevels() {

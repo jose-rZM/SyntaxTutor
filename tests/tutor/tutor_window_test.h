@@ -66,7 +66,11 @@ class TutorWindowTest : public QObject {
     void mainTutorialFlowCompletesAndReenablesControls();
     void mainGamificationPersistsAcrossRestart();
     void mainStatePersistenceAcrossRestart();
-    void mainDefaultTextScaleFollowsScreenDpi();
+    void typographyStyleSheetDeclaresSizesOnlyThroughRoles();
+    void typographyResolvesRolesAtTheCurrentTextScale();
+    void typographyAppliesPointSizesToWidgets();
+    void typographyLengthsForTextFollowTheRenderedBodyText();
+    void typographyAnswerBoxGrowsByLinesOfItsOwnFont();
 
     void mainCustomGrammarToggleDisablesLevels();
     void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();
