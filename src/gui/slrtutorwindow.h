@@ -99,6 +99,15 @@ class SLRTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
+    /**
+     * @brief Re-applies the current text size to this tutor.
+     *
+     * The chat bubbles size themselves from font metrics and the grammar
+     * panel from the card's width, so both have to be recomputed when the
+     * user picks a different text size.
+     */
+    void applyTextScale();
+
     // ====== Constructor / Destructor =============================
     /**
      * @brief Constructs the SLR(1) tutor window with a given grammar.

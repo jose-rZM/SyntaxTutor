@@ -17,6 +17,7 @@
  */
 
 #include "lltutorwindow.h"
+#include "apptextscale.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
 #include "llwizard.h"
@@ -200,7 +201,7 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     grammarView = new GrammarView(ui->gr);
     grammarView->setRows(buildGrammarRows(this->grammar));
     ui->gr->setWidget(grammarView);
-    ui->gr->setFixedWidth(grammarView->sizeHint().width() + 32);
+    ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
     ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     sortedNonTerminals =
@@ -314,6 +315,25 @@ QString LLTutorWindow::promptExportFilePath() const {
         filePath += QStringLiteral(".pdf");
     }
     return filePath;
+}
+
+void LLTutorWindow::applyTextScale() {
+    // Called by MainWindow right after the scaled style sheet and font are
+    // applied. Doing it as a plain call rather than reacting to StyleChange
+    // keeps the order deterministic: the card is rebuilt first, then measured.
+    if (grammarView != nullptr) {
+        grammarView->refresh();
+        ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
+    }
+    // The chat shows the grammar as a card too; those are separate
+    // GrammarView instances and need the same rebuild.
+    const auto chatCards = ui->listWidget->findChildren<GrammarView*>();
+    for (GrammarView* card : chatCards) {
+        card->refresh();
+    }
+
+    relayoutChatMessages();
+    updateProgressPanel();
 }
 
 void LLTutorWindow::on_backButton_clicked() {
@@ -516,10 +536,11 @@ void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
 void LLTutorWindow::updateProgressPanel() {
     int scrollPos = ui->textEdit->verticalScrollBar()->value();
 
-    QString html = R"(
+    QString html = QString(R"(
         <html>
-        <body style="font-size: 11px; color: #f0f0f0; background-color: #212526;">
-    )";
+        <body style="font-size: %1px; color: #f0f0f0; background-color: #212526;">
+    )")
+                       .arg(AppTextScale::scaled(11));
 
     // === CABECERAS (First) ===
     html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +

@@ -17,6 +17,8 @@
  */
 
 #include "grammareditordialog.h"
+
+#include "apptextscale.h"
 #include "appfonts.h"
 #include "grammar_factory.hpp"
 #include "grammar_parser.hpp"
@@ -177,7 +179,7 @@ void GrammarEditorDialog::buildUi() {
     input_ = new QPlainTextEdit(this);
     input_->setObjectName("grammarEditorInput");
     QFont mono = appMonospaceFont();
-    mono.setPixelSize(14);
+    mono.setPixelSize(AppTextScale::scaled(14));
     input_->setFont(mono);
     input_->setTabChangesFocus(true);
     input_->setPlaceholderText(tr("E -> E + T | T .\nT -> ( E ) | id ."));
