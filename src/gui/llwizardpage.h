@@ -19,7 +19,9 @@
 #ifndef LLWIZARDPAGE_H
 #define LLWIZARDPAGE_H
 
+#include "apptextscale.h"
 #include <QLabel>
+#include <QResizeEvent>
 #include <QLineEdit>
 #include <QRegularExpression>
 #include <QSizePolicy>
@@ -67,6 +69,7 @@ class LLWizardPage : public QWidget {
         explanationLabel->setObjectName("llWizardExplanationLabel");
         explanationLabel->setWordWrap(true);
         rootLayout->addWidget(explanationLabel);
+        m_explanation = explanationLabel;
 
         auto* answerTitle = new QLabel(tr("Tu respuesta"), this);
         answerTitle->setObjectName("llWizardSectionTitle");
@@ -74,7 +77,7 @@ class LLWizardPage : public QWidget {
 
         m_edit = new QLineEdit(this);
         m_edit->setObjectName("llWizardAnswerEdit");
-        m_edit->setMinimumHeight(48);
+        m_edit->setMinimumHeight(AppTextScale::scaled(48));
         m_edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         m_edit->setPlaceholderText(
             tr("Escribe la producción (EPSILON si es vacía)"));
@@ -83,7 +86,7 @@ class LLWizardPage : public QWidget {
         m_feedback = new QLabel(this);
         m_feedback->setObjectName("llWizardFeedbackLabel");
         m_feedback->setWordWrap(true);
-        m_feedback->setMinimumHeight(40);
+        m_feedback->setMinimumHeight(AppTextScale::scaled(40));
         m_feedback->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         rootLayout->addWidget(m_feedback);
 
@@ -95,6 +98,20 @@ class LLWizardPage : public QWidget {
                 &LLWizardPage::submitRequested);
     }
 
+  protected:
+    void resizeEvent(QResizeEvent* event) override {
+        QWidget::resizeEvent(event);
+        // These pages live in a QStackedWidget, which does not honour a
+        // word-wrapped label's height-for-width: the hint ends up clipped to
+        // whatever height was left over. Pin its minimum to what the text
+        // actually needs at the width it got.
+        if (m_explanation != nullptr && m_explanation->width() > 0) {
+            m_explanation->setMinimumHeight(
+                m_explanation->heightForWidth(m_explanation->width()));
+        }
+    }
+
+  public:
     QString titleText() const { return m_title; }
     bool    isComplete() const { return m_isComplete; }
     void    focusAnswerField() { m_edit->setFocus(); }
@@ -148,6 +165,7 @@ class LLWizardPage : public QWidget {
     QString    m_title;    ///< Header title for this guided step.
     QString    m_expected; ///< Expected production, space-separated.
     QLabel*    m_feedback; ///< Inline feedback label for answer validation.
+    QLabel*    m_explanation = nullptr;
     QLineEdit* m_edit;     ///< Input field for the user's answer.
     bool       m_isComplete =
         false; ///< Whether the user has entered the correct response.

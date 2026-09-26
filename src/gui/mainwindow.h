@@ -190,6 +190,14 @@ class MainWindow : public QMainWindow {
      */
     void setDifficultySelectorEnabled(bool enabled);
 
+    /**
+     * @brief Scales the window minimum size to the current text size.
+     *
+     * Clamped to the available screen so the minimum can never exceed the
+     * display.
+     */
+    void applyScaledMinimumSize();
+
     /// @brief Builds the text size menu from the stored preference.
     void setupTextSizeMenu();
 

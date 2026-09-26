@@ -21,7 +21,6 @@
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
 #include <QDialog>
-#include <QDialogButtonBox>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
@@ -31,10 +30,15 @@
 #include <QActionGroup>
 #include <QFile>
 #include <QMenu>
+#include <QScreen>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
 namespace {
+
+/// @brief Window minimum from the .ui, before the text scale is applied.
+constexpr int kBaseMinimumWidth  = 800;
+constexpr int kBaseMinimumHeight = 600;
 
 #ifdef SYNTAXTUTOR_TESTING
 constexpr auto kSettingsOrg = "UMA-Test";
@@ -70,21 +74,23 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
     content->setFrameShape(QFrame::NoFrame);
     content->setHtml(html);
 
-    auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, dialog);
-    if (auto* closeBtn = buttons->button(QDialogButtonBox::Close)) {
-        closeBtn->setText(QObject::tr("Cerrar"));
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setProperty("role", "primary");
-        closeBtn->setIcon(QIcon());
-    }
+    auto* buttonRow = new QHBoxLayout;
+    buttonRow->addStretch(1);
 
-    QObject::connect(buttons, &QDialogButtonBox::rejected, dialog,
+    auto* closeButton = new QPushButton(QObject::tr("Cerrar"), dialog);
+    closeButton->setObjectName("infoDialogCloseButton");
+    closeButton->setCursor(Qt::PointingHandCursor);
+    closeButton->setProperty("role", "primary");
+    closeButton->setAutoDefault(false);
+    buttonRow->addWidget(closeButton);
+
+    QObject::connect(closeButton, &QPushButton::clicked, dialog,
                      &QDialog::accept);
 
     layout->addWidget(eyebrowLabel);
     layout->addWidget(titleLabel);
     layout->addWidget(content, 1);
-    layout->addWidget(buttons);
+    layout->addLayout(buttonRow);
 
     dialog->exec();
     dialog->deleteLater();
@@ -127,6 +133,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->pushButton_2->setCursor(Qt::PointingHandCursor);
     ui->menuAcercaDe->setObjectName("menuAcercaDe");
     setupTextSizeMenu();
+    applyScaledMinimumSize();
 
     setupTutorial();
 
@@ -328,6 +335,23 @@ void MainWindow::saveSettings() {
     settings.setValue("gamification/score", userScore);
 }
 
+void MainWindow::applyScaledMinimumSize() {
+    // The minimum in the .ui is in unscaled pixels, so at a larger text size
+    // the content no longer fits it and labels get clipped. Scale it, but
+    // clamp to the available screen: a minimum bigger than the display would
+    // leave the window unusable on a small monitor.
+    QSize wanted(AppTextScale::scaled(kBaseMinimumWidth),
+                 AppTextScale::scaled(kBaseMinimumHeight));
+    if (QScreen* screen = QGuiApplication::primaryScreen()) {
+        const QSize available = screen->availableGeometry().size();
+        wanted = wanted.boundedTo(available);
+    }
+    setMinimumSize(wanted);
+    if (width() < wanted.width() || height() < wanted.height()) {
+        resize(qMax(width(), wanted.width()), qMax(height(), wanted.height()));
+    }
+}
+
 void MainWindow::setupTextSizeMenu() {
     QMenu* menu = ui->menubar->addMenu(tr("Tamaño del texto"));
     menu->setObjectName("menuTextSize");
@@ -375,6 +399,8 @@ void MainWindow::setTextScale(AppTextScale::Step step) {
         qApp->setStyleSheet(AppTextScale::scaleStyleSheet(
             QString::fromUtf8(qssFile.readAll())));
     }
+
+    applyScaledMinimumSize();
 
     // Widgets that size themselves from font metrics cannot pick this up on
     // their own, so tell the open tutor to recompute.
