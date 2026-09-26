@@ -294,7 +294,6 @@ class SLRTutorWindow : public QWidget {
   private slots:
     void on_backButton_clicked();
     void on_confirmButton_clicked();
-    void on_userResponse_textChanged();
 
   signals:
     void sessionFinished(int cntRight, int cntWrong);

@@ -40,6 +40,8 @@ class CustomTextEdit : public QTextEdit {
     void sendRequested();
 
   protected:
+    void showEvent(QShowEvent* event) override;
+    void changeEvent(QEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
 
   private:
@@ -47,6 +49,8 @@ class CustomTextEdit : public QTextEdit {
     void setGrowHeight(int height);
     void updateGrowHeight();
 
+    /// @brief Cached frame + padding, sampled only when geometry is settled.
+    int                 chrome_        = 0;
     int                 minGrowHeight_ = 0;
     int                 maxGrowHeight_ = 0;
     QPropertyAnimation* growAnimation_ = nullptr;

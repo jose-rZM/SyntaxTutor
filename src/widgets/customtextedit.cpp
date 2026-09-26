@@ -18,6 +18,7 @@
 
 #include "customtextedit.h"
 #include <QAbstractTextDocumentLayout>
+#include <QEvent>
 #include <QKeyEvent>
 #include <QPropertyAnimation>
 #include <QScrollBar>
@@ -30,14 +31,17 @@ void CustomTextEdit::setAutoGrow(int minHeight, int maxHeight) {
     if (growAnimation_ == nullptr) {
         growAnimation_ = new QPropertyAnimation(this, "growHeight", this);
         growAnimation_->setDuration(180);
-        QEasingCurve curve(QEasingCurve::OutBack);
-        curve.setOvershoot(1.2);
-        growAnimation_->setEasingCurve(curve);
-        // documentSizeChanged also fires on re-wraps caused by width
-        // changes, which textChanged would miss.
+        // No overshoot: this box usually grows by a single line, and an
+        // easing that springs past its target and settles back reads as the
+        // text bouncing up and down while you type.
+        growAnimation_->setEasingCurve(QEasingCurve::OutCubic);
+        // documentSizeChanged catches re-wraps caused by width changes,
+        // which textChanged would miss.
         connect(document()->documentLayout(),
                 &QAbstractTextDocumentLayout::documentSizeChanged, this,
                 [this](const QSizeF&) { updateGrowHeight(); });
+        connect(this, &QTextEdit::textChanged, this,
+                [this]() { updateGrowHeight(); });
     }
     setFixedHeight(minGrowHeight_);
     updateGrowHeight();
@@ -56,10 +60,18 @@ void CustomTextEdit::updateGrowHeight() {
     if (maxGrowHeight_ <= 0) {
         return;
     }
-    // Frame and QSS padding live outside the viewport; measuring them live
-    // keeps the target exact, so typing on an existing line stays stable.
-    const int chrome = height() - viewport()->height();
-    const int contentHeight = qCeil(document()->size().height()) + chrome;
+    // Everything of the widget's height that is not the viewport: the frame
+    // plus the style padding. Only re-sampled while no animation is in
+    // flight, because mid-resize the viewport lags behind height() and the
+    // reading would be off by exactly what is still being animated.
+    if (growAnimation_->state() != QAbstractAnimation::Running) {
+        const int measured = height() - viewport()->height();
+        if (measured > 0) {
+            chrome_ = measured;
+        }
+    }
+
+    const int contentHeight = qCeil(document()->size().height()) + chrome_;
     const int target = qBound(minGrowHeight_, contentHeight, maxGrowHeight_);
 
     // A scrollbar below full height would shrink the viewport, re-wrap the
@@ -77,15 +89,39 @@ void CustomTextEdit::updateGrowHeight() {
             return;
         }
         growAnimation_->stop();
-    } else if (qAbs(target - height()) < 3) {
-        // Dead band: sub-pixel document jitter must not retrigger the
-        // animation; real line changes move by a full line height.
+    } else if (target == height()) {
+        return;
+    }
+
+    // A correction of a pixel or two is not a gesture worth animating, and
+    // there used to be a dead band that skipped it instead: the height then
+    // stayed wrong until a later edit pushed the difference past the band,
+    // which is what made the box appear to settle in two steps. Snap small
+    // corrections, animate only real line changes.
+    if (qAbs(target - height()) < qMax(2, fontMetrics().height() / 2)) {
+        setGrowHeight(target);
         return;
     }
 
     growAnimation_->setStartValue(height());
     growAnimation_->setEndValue(target);
     growAnimation_->start();
+}
+
+void CustomTextEdit::showEvent(QShowEvent* event) {
+    QTextEdit::showEvent(event);
+    // setAutoGrow is called from the tutor constructors, before the widget
+    // has been laid out or styled, so the first measurement can be taken
+    // against a viewport and font that are not final yet.
+    updateGrowHeight();
+}
+
+void CustomTextEdit::changeEvent(QEvent* event) {
+    QTextEdit::changeEvent(event);
+    if (event->type() == QEvent::FontChange ||
+        event->type() == QEvent::StyleChange) {
+        updateGrowHeight();
+    }
 }
 
 QString CustomTextEdit::newlineShortcutText() {

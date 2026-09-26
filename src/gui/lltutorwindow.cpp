@@ -187,9 +187,11 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
     // -- User Response Box
-    ui->userResponse->setAutoGrow(48, 100);
+    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
+                                  AppTextScale::scaled(100));
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
-    ui->confirmButton->setFixedSize(48, 48);
+    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
+                                    AppTextScale::scaled(48));
 
     // -- Chat Font
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -325,6 +327,11 @@ void LLTutorWindow::applyTextScale() {
         grammarView->refresh();
         ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
     }
+    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
+                                  AppTextScale::scaled(100));
+    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
+                                    AppTextScale::scaled(48));
+
     // The chat shows the grammar as a card too; those are separate
     // GrammarView instances and need the same rebuild.
     const auto chatCards = ui->listWidget->findChildren<GrammarView*>();
@@ -2412,24 +2419,6 @@ LLTutorWindow::qsetToStdUnorderedSet(const QSet<QString>& qset) {
         result.insert(qstr.toStdString());
     }
     return result;
-}
-
-void LLTutorWindow::on_userResponse_textChanged() {
-    QTextDocument* doc = ui->userResponse->document();
-    QFontMetrics   fm(ui->userResponse->font());
-
-    const int lineHeight = fm.lineSpacing();
-    const int maxLines   = 4;
-    const int minLines   = 1;
-
-    int lineCount = doc->blockCount();
-    lineCount     = std::clamp(lineCount, minLines, maxLines);
-
-    int padding       = 20;
-    int desiredHeight = lineCount * lineHeight + padding;
-
-    const int minHeight = 48;
-    ui->userResponse->setFixedHeight(std::max(minHeight, desiredHeight));
 }
 
 void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
