@@ -57,6 +57,7 @@ HEADERS += \
     src/backend/state.hpp \
     src/backend/symbol_table.hpp \
     src/widgets/appfonts.h \
+    src/widgets/apptextscale.h \
     src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \

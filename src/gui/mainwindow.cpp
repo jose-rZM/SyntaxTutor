@@ -27,6 +27,10 @@
 #include <QMessageBox>
 #include <QPixmap>
 #include <QStackedWidget>
+#include "apptextscale.h"
+#include <QActionGroup>
+#include <QFile>
+#include <QMenu>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
@@ -122,6 +126,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->pushButton->setCursor(Qt::PointingHandCursor);
     ui->pushButton_2->setCursor(Qt::PointingHandCursor);
     ui->menuAcercaDe->setObjectName("menuAcercaDe");
+    setupTextSizeMenu();
 
     setupTutorial();
 
@@ -321,6 +326,64 @@ void MainWindow::loadSettings() {
 void MainWindow::saveSettings() {
     settings.setValue("gamification/level", userLevel());
     settings.setValue("gamification/score", userScore);
+}
+
+void MainWindow::setupTextSizeMenu() {
+    QMenu* menu = ui->menubar->addMenu(tr("Tamaño del texto"));
+    menu->setObjectName("menuTextSize");
+
+    auto* group = new QActionGroup(this);
+    group->setExclusive(true);
+
+    struct Option {
+        AppTextScale::Step step;
+        QString            text;
+        QString            objectName;
+    };
+    const QVector<Option> options = {
+        {AppTextScale::Step::Normal, tr("Normal"),
+         QStringLiteral("actionTextSizeNormal")},
+        {AppTextScale::Step::Large, tr("Grande"),
+         QStringLiteral("actionTextSizeLarge")},
+        {AppTextScale::Step::Larger, tr("Muy grande"),
+         QStringLiteral("actionTextSizeLarger")}};
+
+    for (const Option& option : options) {
+        QAction* action = menu->addAction(option.text);
+        action->setObjectName(option.objectName);
+        action->setCheckable(true);
+        action->setChecked(AppTextScale::currentStep() == option.step);
+        group->addAction(action);
+        const AppTextScale::Step step = option.step;
+        connect(action, &QAction::triggered, this,
+                [this, step]() { setTextScale(step); });
+    }
+}
+
+void MainWindow::setTextScale(AppTextScale::Step step) {
+    AppTextScale::currentStep() = step;
+    settings.setValue(AppTextScale::settingsKey(),
+                      AppTextScale::toSettingsValue(step));
+
+    // Two channels: the style sheet carries every size declared in QSS, and
+    // the application font carries the text that has no QSS rule at all -
+    // the chat bubbles among it.
+    qApp->setFont(AppTextScale::scaledApplicationFont());
+
+    QFile qssFile(":/resources/styles/app.qss");
+    if (qssFile.open(QFile::ReadOnly | QFile::Text)) {
+        qApp->setStyleSheet(AppTextScale::scaleStyleSheet(
+            QString::fromUtf8(qssFile.readAll())));
+    }
+
+    // Widgets that size themselves from font metrics cannot pick this up on
+    // their own, so tell the open tutor to recompute.
+    if (llTutorPage != nullptr) {
+        llTutorPage->applyTextScale();
+    }
+    if (slrTutorPage != nullptr) {
+        slrTutorPage->applyTextScale();
+    }
 }
 
 void MainWindow::setDifficultySelectorEnabled(bool enabled) {
