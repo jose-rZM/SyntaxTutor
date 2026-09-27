@@ -613,6 +613,31 @@ void TutorWindowTest::slrStateFConflictBranchAdvancesToFAAndThenG() {
 }
 
 // -----------------------------------------------------------------------------
+// Case: SLR1-TC-LR0-ACCEPT
+// Summary:
+//   The accept item S -> A · $ is not a reduction, so a state holding it next
+//   to an item that shifts has no LR(0) conflict.
+//
+// Situation:
+//   slr-list, whose only such state is { S -> A · $, A -> A · c B }, and the
+//   left-recursive expression grammar, with two real shift/reduce states and
+//   one accept state.
+//
+// Expected:
+//   No conflict for slr-list and exactly two for the expression grammar. The
+//   answer used to depend on the order the items were iterated in, which
+//   differs between standard libraries.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrLr0ConflictsIgnoreTheAcceptItem() {
+    SLRTutorWindow list(TutorGrammarFixtures::makeSlrListGrammar(), nullptr);
+    QVERIFY(list.solutionForF().isEmpty());
+
+    SLRTutorWindow expression(TutorGrammarFixtures::makeSlrExpressionGrammar(),
+                              nullptr);
+    QCOMPARE(expression.solutionForF().size(), 2);
+}
+
+// -----------------------------------------------------------------------------
 // Case: SLR1-TC-17
 // Summary:
 //   Verifies that block G repeats the question after a wrong answer and reaches
