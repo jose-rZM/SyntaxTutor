@@ -17,6 +17,7 @@
  */
 
 #include "apptypography.h"
+#include "applayout.h"
 #include "automatonviewerdialog.h"
 #include "automatonview.h"
 
@@ -32,7 +33,9 @@ AutomatonViewerDialog::AutomatonViewerDialog(AutomatonView* view,
     setProperty("automatonViewer", true);
     setWindowTitle(tr("Autómata LR(0)"));
     setModal(false);
-    resize(820, 620);
+    resize(AppTypography::lengthForText(820),
+           AppTypography::lengthForText(620));
+    AppLayout::keepHeightForWidth(this);
     setMinimumSize(AppTypography::lengthForText(520),
                    AppTypography::lengthForText(420));
 

@@ -17,6 +17,7 @@
  */
 
 #include "slrtabledialog.h"
+#include "applayout.h"
 #include <QApplication>
 #include <QFontDatabase>
 #include <QHBoxLayout>
@@ -115,6 +116,7 @@ SLRTableDialog::SLRTableDialog(int rowCount, int colCount,
     }
 
     resize(width, height);
+    AppLayout::keepHeightForWidth(this);
 
     connect(submitButton, &QPushButton::clicked, this,
             [this]() {

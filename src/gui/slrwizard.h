@@ -29,6 +29,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 #include "apptypography.h"
+#include "applayout.h"
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -67,7 +68,9 @@ class SLRWizard : public QDialog {
         setWindowTitle(tr("Completar tabla SLR"));
         setWindowFlag(Qt::WindowCloseButtonHint, true);
         setModal(true);
-        resize(640, 440);
+        resize(AppTypography::lengthForText(640),
+               AppTypography::lengthForText(440));
+        AppLayout::keepHeightForWidth(this);
         setMinimumSize(AppTypography::lengthForText(560),
                        AppTypography::lengthForText(400));
 

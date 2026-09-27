@@ -19,6 +19,7 @@
 #include "grammareditordialog.h"
 
 #include "apptypography.h"
+#include "applayout.h"
 #include "appfonts.h"
 #include "grammar_factory.hpp"
 #include "grammar_parser.hpp"
@@ -145,7 +146,9 @@ void GrammarEditorDialog::buildUi() {
     setWindowTitle(mode_ == Mode::LL1 ? tr("Tu gramática — LL(1)")
                                       : tr("Tu gramática — SLR(1)"));
     setModal(true);
-    resize(780, 580);
+    resize(AppTypography::lengthForText(780),
+           AppTypography::lengthForText(580));
+    AppLayout::keepHeightForWidth(this);
     setMinimumSize(AppTypography::lengthForText(660),
                    AppTypography::lengthForText(480));
 

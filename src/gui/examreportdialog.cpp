@@ -19,6 +19,7 @@
 #include "examreportdialog.h"
 
 #include "apptypography.h"
+#include "applayout.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -52,7 +53,9 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     setProperty("examReport", true);
     setWindowTitle(tr("Informe del examen"));
     setModal(true);
-    resize(720, 600);
+    resize(AppTypography::lengthForText(720),
+           AppTypography::lengthForText(600));
+    AppLayout::keepHeightForWidth(this);
     setMinimumSize(AppTypography::lengthForText(620),
                    AppTypography::lengthForText(480));
 

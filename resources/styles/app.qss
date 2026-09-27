@@ -17,6 +17,72 @@ QWidget#centralwidget {
     color: #E0E0E0;
 }
 
+/*
+ * One scroll bar for the whole app. Selectors that go through a scroll
+ * area (`QListWidget QScrollBar`) never reach its bars, so these are
+ * global. Every part gets an explicit brush: `background: none` lets the
+ * platform style paint its own track, white under a light system theme.
+ */
+QScrollBar:vertical {
+    background: rgba(255, 255, 255, 0.04);
+    width: 10px;
+    margin: 2px 2px 2px 0px;
+    border: none;
+    border-radius: 4px;
+}
+
+QScrollBar:horizontal {
+    background: rgba(255, 255, 255, 0.04);
+    height: 10px;
+    margin: 0px 2px 2px 2px;
+    border: none;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical {
+    background: #5C5C5C;
+    min-height: 24px;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #5C5C5C;
+    min-width: 24px;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:hover {
+    background: #777777;
+}
+
+QScrollBar::handle:pressed {
+    background: #8C9396;
+}
+
+QScrollBar::add-line,
+QScrollBar::sub-line {
+    width: 0px;
+    height: 0px;
+    border: none;
+    background: transparent;
+}
+
+QScrollBar::add-page,
+QScrollBar::sub-page {
+    background: transparent;
+}
+
+QAbstractScrollArea::corner {
+    background: transparent;
+    border: none;
+}
+
+
+QScrollArea#homeScroll {
+    background-color: #1F1F1F;
+    border: none;
+}
+
 QWidget#homeContent {
     background: transparent;
 }
@@ -265,34 +331,6 @@ QListWidget#listWidget::viewport {
     background-color: transparent;
 }
 
-QListWidget#listWidget QScrollBar:vertical {
-    background: #1E1E1E;
-    width: 10px;
-    margin: 2px 0 2px 0;
-    border-radius: 5px;
-}
-
-QListWidget#listWidget QScrollBar::handle:vertical {
-    background: #5C5C5C;
-    min-height: 20px;
-    border-radius: 5px;
-}
-
-QListWidget#listWidget QScrollBar::handle:vertical:hover {
-    background: #777777;
-}
-
-QListWidget#listWidget QScrollBar::add-line:vertical,
-QListWidget#listWidget QScrollBar::sub-line:vertical {
-    height: 0px;
-    background: none;
-}
-
-QListWidget#listWidget QScrollBar::add-page:vertical,
-QListWidget#listWidget QScrollBar::sub-page:vertical {
-    background: none;
-}
-
 QAbstractScrollArea#gr {
     background-color: #20252B;
     border: 1px solid #30363A;
@@ -322,34 +360,6 @@ QTextEdit#textEdit QWidget,
 QTextEdit#textEdit QAbstractScrollArea,
 QTextEdit#textEdit QAbstractScrollArea::viewport {
     background-color: #212526;
-}
-
-QTextEdit#textEdit QScrollBar:vertical {
-    background: #1E1E1E;
-    width: 10px;
-    margin: 2px 0 2px 0;
-    border-radius: 5px;
-}
-
-QTextEdit#textEdit QScrollBar::handle:vertical {
-    background: #5C5C5C;
-    min-height: 20px;
-    border-radius: 5px;
-}
-
-QTextEdit#textEdit QScrollBar::handle:vertical:hover {
-    background: #777777;
-}
-
-QTextEdit#textEdit QScrollBar::add-line:vertical,
-QTextEdit#textEdit QScrollBar::sub-line:vertical {
-    height: 0px;
-    background: none;
-}
-
-QTextEdit#textEdit QScrollBar::add-page:vertical,
-QTextEdit#textEdit QScrollBar::sub-page:vertical {
-    background: none;
 }
 
 QTextEdit#userResponse {
@@ -544,6 +554,12 @@ QDialog#infoDialog QLabel#textSizeValueLabel {
     font-size: $font-reading;
     font-weight: 700;
     min-width: 56px;
+}
+
+/* The handle is taller than the groove and overhangs it; without room of
+   its own it is clipped on styles whose default slider is shorter. */
+QDialog#infoDialog QSlider#textSizeSlider {
+    min-height: 26px;
 }
 
 QDialog#infoDialog QSlider#textSizeSlider::groove:horizontal {

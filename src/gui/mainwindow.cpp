@@ -25,8 +25,10 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QScrollArea>
 #include <QStackedWidget>
 #include "apptypography.h"
+#include "applayout.h"
 #include <QActionGroup>
 #include <QMenu>
 #include <QScreen>
@@ -39,6 +41,8 @@ namespace {
 /// @brief Window minimum from the .ui, before the text scale is applied.
 constexpr int kBaseMinimumWidth  = 800;
 constexpr int kBaseMinimumHeight = 600;
+/// Widest the home column gets, at the design text size.
+constexpr int kHomeColumnMaxWidth = 560;
 
 #ifdef SYNTAXTUTOR_TESTING
 constexpr auto kSettingsOrg = "UMA-Test";
@@ -57,6 +61,7 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
     dialog->setModal(true);
     dialog->resize(AppTypography::lengthForText(620),
                    AppTypography::lengthForText(480));
+    AppLayout::keepHeightForWidth(dialog);
 
     auto* layout = new QVBoxLayout(dialog);
     layout->setSpacing(14);
@@ -123,7 +128,17 @@ MainWindow::MainWindow(QWidget* parent)
     ui->idiom->setText(tr("Idioma"));
     defaultWindowTitle = windowTitle();
 
-    homePage = takeCentralWidget();
+    // The home lives in a scroll area for two reasons. A main window ignores
+    // height-for-width, so a title that wraps to one more line than Qt
+    // guessed would be cut in half; a scroll area sizes its content by it.
+    // And at a large text size on a small screen the home can need more
+    // height than the screen has: it scrolls then, instead of being cut.
+    auto* homeScroll = new QScrollArea(this);
+    homeScroll->setObjectName("homeScroll");
+    homeScroll->setFrameShape(QFrame::NoFrame);
+    homeScroll->setWidgetResizable(true);
+    homeScroll->setWidget(takeCentralWidget());
+    homePage = homeScroll;
     stack    = new QStackedWidget(this);
     stack->setContentsMargins(0, 0, 0, 0);
     setCentralWidget(stack);
@@ -347,8 +362,35 @@ void MainWindow::applyScaledMinimumSize() {
     // pixels, so grow the minimum with it, but clamp to the available
     // screen: a minimum bigger than the display would leave the window
     // unusable on a small monitor.
-    QSize wanted(AppTypography::lengthForText(kBaseMinimumWidth),
-                 AppTypography::lengthForText(kBaseMinimumHeight));
+    ui->homeContent->setMaximumWidth(
+        AppTypography::lengthForText(kHomeColumnMaxWidth));
+    // Larger text grows the minimum; smaller text does not shrink it below
+    // the size the layouts were drawn for. The tutors put three columns side
+    // by side, and below that width the chat is the one squeezed.
+    QSize wanted(qMax(kBaseMinimumWidth,
+                      AppTypography::lengthForText(kBaseMinimumWidth)),
+                 qMax(kBaseMinimumHeight,
+                      AppTypography::lengthForText(kBaseMinimumHeight)));
+
+    // The design floor is not enough on its own: the home also has to fit,
+    // with every line its wrapped text needs at this width and the spacing
+    // intact. Without this the layout squeezes it, closing the gaps between
+    // the buttons first and then cutting text.
+    if (QLayout* page = ui->centralwidget->layout()) {
+        int chrome = 0;
+        if (!menuBar()->isNativeMenuBar()) {
+            chrome += menuBar()->sizeHint().height();
+        }
+        if (statusBar() != nullptr && !statusBar()->isHidden()) {
+            chrome += statusBar()->sizeHint().height();
+        }
+        // The preferred height, not the minimum: it is what the scroll area
+        // measures to decide whether to show a scroll bar, and the window
+        // should not open showing one when the screen has room.
+        wanted.setHeight(qMax(wanted.height(),
+                              page->totalHeightForWidth(wanted.width()) +
+                                  chrome));
+    }
     if (QScreen* screen = QGuiApplication::primaryScreen()) {
         const QSize available = screen->availableGeometry().size();
         wanted = wanted.boundedTo(available);
@@ -419,6 +461,7 @@ void MainWindow::promptCustomTextScale() {
     dialog.setObjectName("infoDialog");
     dialog.setWindowTitle(tr("Tamaño del texto"));
     dialog.setModal(true);
+    AppLayout::keepHeightForWidth(&dialog);
 
     auto* layout = new QVBoxLayout(&dialog);
     layout->setSpacing(14);
@@ -946,7 +989,9 @@ void MainWindow::on_idiom_clicked() {
     dialog.setObjectName("infoDialog");
     dialog.setWindowTitle(tr("Idioma"));
     dialog.setModal(true);
-    dialog.resize(420, 220);
+    // Only the width is chosen; the height follows the wrapped text.
+    dialog.resize(AppTypography::lengthForText(420), 0);
+    AppLayout::keepHeightForWidth(&dialog);
 
     auto* layout = new QVBoxLayout(&dialog);
     layout->setSpacing(14);
