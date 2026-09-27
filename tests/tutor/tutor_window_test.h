@@ -72,6 +72,11 @@ class TutorWindowTest : public QObject {
     void typographyLengthsForTextFollowTheRenderedBodyText();
     void typographyAnswerBoxGrowsByLinesOfItsOwnFont();
 
+    void layoutHomeShowsAllTextAtEveryTextSize();
+    void layoutDialogsShowAllTextAtEveryTextSize();
+    void layoutTutorsShowAllTextAtEveryTextSize();
+    void layoutScrollBarsFollowTheDarkTheme();
+
     void mainCustomGrammarToggleDisablesLevels();
     void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();
     void mainCustomGrammarSlrFlowStartsTutorWithUserGrammar();

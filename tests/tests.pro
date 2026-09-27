@@ -43,6 +43,7 @@ SOURCES += \
     ../src/gui/slrtabledialog.cpp \
     ../src/gui/slrtutorwindow.cpp \
     fixtures/grammars/tutor_grammar_fixtures.cpp \
+    tutor/layout_test.cpp \
     tutor/ll_tutor_window_test.cpp \
     tutor/main_window_test.cpp \
     tutor/slr_tutor_window_test.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     ../src/backend/symbol_table.hpp \
     ../src/widgets/apptextscale.h \
     ../src/widgets/apptypography.h \
+    ../src/widgets/applayout.h \
     ../src/widgets/automatonview.h \
     ../src/widgets/customtextedit.h \
     ../src/widgets/grammarview.h \
@@ -78,6 +80,8 @@ HEADERS += \
     ../src/gui/slrwizardpage.h \
     fixtures/grammars/tutor_grammar_fixtures.h \
     helpers/ll1_tutor_test_utils.h \
+    helpers/production_typography.h \
+    helpers/layout_audit.h \
     helpers/qt_modal_test_utils.h \
     helpers/slr_tutor_test_utils.h \
     helpers/tutor_scenario.h \
