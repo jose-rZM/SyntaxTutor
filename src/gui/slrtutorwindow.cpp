@@ -255,32 +255,21 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 #endif
 
     // ====== Conflict & Reduction State Identification =========
+    // A state has an LR(0) conflict when it can both reduce and shift. It is
+    // decided per state: deciding it item by item, as the loop went, made
+    // the answer depend on the order the unordered_set lists the items in,
+    // which differs between standard libraries.
     std::ranges::for_each(slr1.states_, [this](const state& st) {
-        bool hasComplete   = false;
-        bool hasIncomplete = false;
-        for (const Lr0Item& it : st.items_) {
-            if (it.IsComplete())
-                hasComplete = true;
-            else
-                hasIncomplete = true;
-            if (hasComplete && hasIncomplete &&
-                it.antecedent_ != slr1.gr_.axiom_) {
-                statesWithLr0Conflict.append(&st);
-                conflictStatesIdQueue.push(st.id_);
-                break;
-            }
-        }
-    });
-
-    std::ranges::for_each(slr1.states_, [this](const state& st) {
-        if (statesWithLr0Conflict.contains(&st))
-            return;
-        for (const Lr0Item& it : st.items_) {
-            if (it.IsComplete() && it.antecedent_ != slr1.gr_.axiom_) {
-                reduceStatesIdQueue.push(st.id_);
-                reduceStateIds.insert(st.id_);
-                break;
-            }
+        const bool reduces = std::ranges::any_of(
+            st.items_, [this](const Lr0Item& it) { return isReduction(it); });
+        const bool shifts = std::ranges::any_of(
+            st.items_, [](const Lr0Item& it) { return !it.IsComplete(); });
+        if (reduces && shifts) {
+            statesWithLr0Conflict.append(&st);
+            conflictStatesIdQueue.push(st.id_);
+        } else if (reduces) {
+            reduceStatesIdQueue.push(st.id_);
+            reduceStateIds.insert(st.id_);
         }
     });
 
@@ -2703,6 +2692,10 @@ QMap<unsigned, unsigned> SLRTutorWindow::solutionForE2() {
     return result;
 }
 
+bool SLRTutorWindow::isReduction(const Lr0Item& item) const {
+    return item.IsComplete() && item.antecedent_ != slr1.gr_.axiom_;
+}
+
 QSet<unsigned> SLRTutorWindow::solutionForF() {
     QSet<unsigned> ids;
     for (const state* st : std::as_const(statesWithLr0Conflict))
@@ -2714,7 +2707,7 @@ QSet<QString> SLRTutorWindow::solutionForFA() {
     QSet<QString> symbols;
 
     for (const Lr0Item& it : currentConflictState.items_) {
-        if (!it.IsComplete())
+        if (!isReduction(it))
             continue;
 
         // FOLLOW del antecedente
@@ -2729,7 +2722,7 @@ QSet<QString> SLRTutorWindow::solutionForFA() {
 QSet<QString> SLRTutorWindow::solutionForG() {
     QSet<QString> symbols;
     for (const Lr0Item& it : currentReduceState.items_) {
-        if (!it.IsComplete())
+        if (!isReduction(it))
             continue;
         std::unordered_set<std::string> fol = slr1.Follow(it.antecedent_);
         for (const std::string& s : fol)
