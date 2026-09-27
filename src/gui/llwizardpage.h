@@ -19,7 +19,7 @@
 #ifndef LLWIZARDPAGE_H
 #define LLWIZARDPAGE_H
 
-#include "apptextscale.h"
+#include "apptypography.h"
 #include <QLabel>
 #include <QResizeEvent>
 #include <QLineEdit>
@@ -77,7 +77,7 @@ class LLWizardPage : public QWidget {
 
         m_edit = new QLineEdit(this);
         m_edit->setObjectName("llWizardAnswerEdit");
-        m_edit->setMinimumHeight(AppTextScale::scaled(48));
+        m_edit->setMinimumHeight(AppTypography::lengthForText(48));
         m_edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         m_edit->setPlaceholderText(
             tr("Escribe la producción (EPSILON si es vacía)"));
@@ -86,7 +86,7 @@ class LLWizardPage : public QWidget {
         m_feedback = new QLabel(this);
         m_feedback->setObjectName("llWizardFeedbackLabel");
         m_feedback->setWordWrap(true);
-        m_feedback->setMinimumHeight(AppTextScale::scaled(40));
+        m_feedback->setMinimumHeight(AppTypography::lengthForText(40));
         m_feedback->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         rootLayout->addWidget(m_feedback);
 

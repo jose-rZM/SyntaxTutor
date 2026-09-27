@@ -17,7 +17,7 @@
  */
 
 #include "slrtutorwindow.h"
-#include "apptextscale.h"
+#include "apptypography.h"
 #include "automatonviewerdialog.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
@@ -291,13 +291,19 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
-    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
-                                  AppTextScale::scaled(100));
+    // The send button is square and as tall as a one-line answer, so it
+    // follows the box instead of sizing itself.
+    connect(ui->userResponse, &CustomTextEdit::minimumGrowHeightChanged,
+            ui->confirmButton,
+            [this](int height) {
+                ui->confirmButton->setFixedSize(height, height);
+            });
+    ui->userResponse->setAutoGrowLines(1, 4);
     ui->userResponse->setPlaceholderText(
         tr("Introduce aquí tu respuesta. %1 para nueva línea.")
             .arg(CustomTextEdit::newlineShortcutText()));
-    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
-                                    AppTextScale::scaled(48));
+    ui->confirmButton->setFixedSize(ui->userResponse->minimumGrowHeight(),
+                                    ui->userResponse->minimumGrowHeight());
 
     // -- Chat Appearance
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -307,14 +313,14 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
     // ====== Grammar Formatting =================================
     sortedNonTerminals =
         stdUnorderedSetToQSet(slr1.gr_.st_.non_terminals_).values();
-    const QString axiom = QString::fromStdString(grammar.axiom_);
+    // Presentation order, not lexicographic: a user-written grammar keeps
+    // the sequence its rules were typed in. buildGrammarRows,
+    // fillSortedGrammar and FormatGrammar all read this list, so the rule
+    // numbering and the reduce indices follow it too.
     std::ranges::sort(sortedNonTerminals,
-                      [&axiom](const QString& a, const QString& b) {
-                          if (a == axiom)
-                              return true;
-                          if (b == axiom)
-                              return false;
-                          return a < b;
+                      [this](const QString& a, const QString& b) {
+                          return grammar.PresentationLess(a.toStdString(),
+                                                          b.toStdString());
                       });
     fillSortedGrammar();
     formattedGrammar = FormatGrammar(grammar);
@@ -448,10 +454,6 @@ void SLRTutorWindow::applyTextScale() {
         grammarView->refresh();
         ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
     }
-    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
-                                  AppTextScale::scaled(100));
-    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
-                                    AppTextScale::scaled(48));
 
     // The chat shows the grammar as a card too; those are separate
     // GrammarView instances and need the same rebuild.
@@ -1467,7 +1469,13 @@ void SLRTutorWindow::relayoutChatMessages() {
             label->setFixedWidth(qBound(80, textWidth + 32, bubbleMaxWidth));
         }
 
-        widget->updateGeometry();
+        // updateGeometry() only schedules a recalculation, so sizeHint()
+        // right after it still reports the old height and the item ends up
+        // taller than its content - the gap above the bubble that went away
+        // as soon as the window was resized. Activate the layout instead.
+        if (QLayout* bubbleLayout = widget->layout()) {
+            bubbleLayout->activate();
+        }
         item->setSizeHint(QSize(listWidth - 2, widget->sizeHint().height()));
     }
 }

@@ -18,7 +18,8 @@
 
 #include "examreportdialog.h"
 
-#include "apptextscale.h"
+#include "apptypography.h"
+#include "applayout.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -52,8 +53,11 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     setProperty("examReport", true);
     setWindowTitle(tr("Informe del examen"));
     setModal(true);
-    resize(720, 600);
-    setMinimumSize(620, 480);
+    resize(AppTypography::lengthForText(720),
+           AppTypography::lengthForText(600));
+    AppLayout::keepHeightForWidth(this);
+    setMinimumSize(AppTypography::lengthForText(620),
+                   AppTypography::lengthForText(480));
 
     const double  grade     = session.grade();
     const QString gradeText = QLocale().toString(grade, 'f', 1);
@@ -153,12 +157,11 @@ QString ExamReportDialog::buildReviewHtml(const ExamSession& session,
                                           ReviewStyle style) const {
     const bool forPrint = (style == ReviewStyle::Print);
 
-    // The printer runs at 1200 dpi, where a px font-size collapses to an
-    // illegible speck, so the printed table is sized in pt. Screen keeps px
-    // to stay in step with the rest of the QSS.
+    // Both are points, but from different scales: paper has its own fixed
+    // size, while the screen follows the type scale and the user's text size.
     const QString fontSize =
         forPrint ? QStringLiteral("10.5pt")
-                 : QStringLiteral("%1px").arg(AppTextScale::scaled(13));
+                 : AppTypography::cssSize(AppTypography::Role::Body);
     const QString evenBg =
         forPrint ? QString(kPrintRowEvenBg) : QStringLiteral("#212526");
     const QString oddBg =

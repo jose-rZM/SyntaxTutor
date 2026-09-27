@@ -18,7 +18,8 @@
 
 #include "grammareditordialog.h"
 
-#include "apptextscale.h"
+#include "apptypography.h"
+#include "applayout.h"
 #include "appfonts.h"
 #include "grammar_factory.hpp"
 #include "grammar_parser.hpp"
@@ -145,8 +146,11 @@ void GrammarEditorDialog::buildUi() {
     setWindowTitle(mode_ == Mode::LL1 ? tr("Tu gramática — LL(1)")
                                       : tr("Tu gramática — SLR(1)"));
     setModal(true);
-    resize(780, 580);
-    setMinimumSize(660, 480);
+    resize(AppTypography::lengthForText(780),
+           AppTypography::lengthForText(580));
+    AppLayout::keepHeightForWidth(this);
+    setMinimumSize(AppTypography::lengthForText(660),
+                   AppTypography::lengthForText(480));
 
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(28, 24, 28, 24);
@@ -179,7 +183,7 @@ void GrammarEditorDialog::buildUi() {
     input_ = new QPlainTextEdit(this);
     input_->setObjectName("grammarEditorInput");
     QFont mono = appMonospaceFont();
-    mono.setPixelSize(AppTextScale::scaled(14));
+    mono.setPointSizeF(AppTypography::points(AppTypography::Role::BodyLarge));
     input_->setFont(mono);
     input_->setTabChangesFocus(true);
     input_->setPlaceholderText(tr("E -> E + T | T .\nT -> ( E ) | id ."));
@@ -187,7 +191,7 @@ void GrammarEditorDialog::buildUi() {
 
     auto* summaryPanel = new QFrame(this);
     summaryPanel->setObjectName("grammarEditorSummary");
-    summaryPanel->setFixedWidth(220);
+    summaryPanel->setFixedWidth(AppTypography::lengthForText(220));
     auto* summaryLayout = new QVBoxLayout(summaryPanel);
     summaryLayout->setContentsMargins(16, 14, 16, 14);
     summaryLayout->setSpacing(4);

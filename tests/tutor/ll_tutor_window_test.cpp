@@ -2,6 +2,7 @@
 
 #include "examreportdialog.h"
 #include "ll1_tutor_test_utils.h"
+#include "grammar_parser.hpp"
 #include "lltutorwindow.h"
 #include "llwizard.h"
 #include "qt_modal_test_utils.h"
@@ -342,6 +343,66 @@ void TutorWindowTest::stateBWrongAnswersStayInB1AndB2() {
 // Expected:
 //   A PDF is generated, it exists, and it is not empty.
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Case: LL1-TC-ORDER
+// Summary:
+//   A grammar the user wrote is asked about in the order its rules were
+//   typed, and the whole flow accepts every correct answer.
+//
+// Situation:
+//   A grammar parsed from text whose rules are deliberately not in
+//   alphabetical order, so a lexicographic fallback would be visible.
+//
+// Action:
+//   The table size is answered, then every rule the tutor asks about, then
+//   the LL(1) table.
+//
+// Expected:
+//   The rules come up in the written order, no answer is counted wrong, and
+//   the tutor reaches `fin`.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::llUserGrammarKeepsWrittenRuleOrder() {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("S -> A .\nA -> C .\nC -> d .");
+    QVERIFY(parsed.Ok());
+    const Grammar grammar = parsed.grammar;
+
+    LLTutorWindow tutor(grammar, nullptr);
+    tutor.show();
+
+    tutor.setAnswerForTest(Ll1TutorTestUtils::tableSizeAnswer(grammar));
+    tutor.submitForTest();
+
+    QStringList asked;
+    while (tutor.currentStateForTest() == "B") {
+        const QString     antecedent = tutor.currentRuleAntecedentForTest();
+        const QStringList consequent = tutor.currentRuleConsequentForTest();
+        asked.append(QStringLiteral("%1 -> %2")
+                         .arg(antecedent, consequent.join(QLatin1Char(' '))));
+        tutor.setAnswerForTest(Ll1TutorTestUtils::predictionSymbolsAnswer(
+            grammar, antecedent, consequent));
+        tutor.submitForTest();
+    }
+
+    // The axiom rule leads, then the rules exactly as they were written.
+    const QStringList expectedOrder{
+        QStringLiteral("S' -> S $"), QStringLiteral("S -> A"),
+        QStringLiteral("A -> C"), QStringLiteral("C -> d")};
+    QCOMPARE(asked, expectedOrder);
+    QCOMPARE(tutor.currentStateForTest(), QString("C"));
+    QCOMPARE(tutor.wrongCountForTest(), 0);
+
+    LLTableDialog* dialog = waitForTableDialog();
+    QVERIFY(dialog != nullptr);
+    auto* table = dialog->findChild<QTableWidget*>("llTableWidget");
+    QVERIFY(table != nullptr);
+    QtModalTestUtils::submitLlTableDialog(
+        dialog, QtModalTestUtils::buildExpectedTable(grammar, table));
+
+    QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    QCOMPARE(tutor.wrongCountForTest(), 0);
+}
+
 void TutorWindowTest::exportsConversationToPdf() {
     const Grammar grammar = TutorGrammarFixtures::makeLl1EpsilonGrammar();
 

@@ -17,7 +17,7 @@
  */
 
 #include "lltutorwindow.h"
-#include "apptextscale.h"
+#include "apptypography.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
 #include "llwizard.h"
@@ -187,11 +187,17 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
 
     // -- User Response Box
-    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
-                                  AppTextScale::scaled(100));
+    // The send button is square and as tall as a one-line answer, so it
+    // follows the box instead of sizing itself.
+    connect(ui->userResponse, &CustomTextEdit::minimumGrowHeightChanged,
+            ui->confirmButton,
+            [this](int height) {
+                ui->confirmButton->setFixedSize(height, height);
+            });
+    ui->userResponse->setAutoGrowLines(1, 4);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
-    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
-                                    AppTextScale::scaled(48));
+    ui->confirmButton->setFixedSize(ui->userResponse->minimumGrowHeight(),
+                                    ui->userResponse->minimumGrowHeight());
 
     // -- Chat Font
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -210,11 +216,8 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
         stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(), sortedNonTerminals.end(),
               [&grammar](const QString& a, const QString& b) {
-                  if (a.toStdString() == grammar.axiom_)
-                      return true;
-                  if (b.toStdString() == grammar.axiom_)
-                      return false;
-                  return a < b;
+                  return grammar.PresentationLess(a.toStdString(),
+                                                  b.toStdString());
               });
 
     // ====== Progress / State Setup ============================
@@ -327,10 +330,6 @@ void LLTutorWindow::applyTextScale() {
         grammarView->refresh();
         ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
     }
-    ui->userResponse->setAutoGrow(AppTextScale::scaled(48),
-                                  AppTextScale::scaled(100));
-    ui->confirmButton->setFixedSize(AppTextScale::scaled(48),
-                                    AppTextScale::scaled(48));
 
     // The chat shows the grammar as a card too; those are separate
     // GrammarView instances and need the same rebuild.
@@ -545,9 +544,10 @@ void LLTutorWindow::updateProgressPanel() {
 
     QString html = QString(R"(
         <html>
-        <body style="font-size: %1px; color: #f0f0f0; background-color: #212526;">
+        <body style="font-size: %1; color: #f0f0f0; background-color: #212526;">
     )")
-                       .arg(AppTextScale::scaled(11));
+                       .arg(AppTypography::cssSize(
+                           AppTypography::Role::Caption));
 
     // === CABECERAS (First) ===
     html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +
@@ -2197,7 +2197,13 @@ void LLTutorWindow::relayoutChatMessages() {
             label->setFixedWidth(qBound(80, textWidth + 32, bubbleMaxWidth));
         }
 
-        widget->updateGeometry();
+        // updateGeometry() only schedules a recalculation, so sizeHint()
+        // right after it still reports the old height and the item ends up
+        // taller than its content - the gap above the bubble that went away
+        // as soon as the window was resized. Activate the layout instead.
+        if (QLayout* bubbleLayout = widget->layout()) {
+            bubbleLayout->activate();
+        }
         item->setSizeHint(QSize(listWidth - 2, widget->sizeHint().height()));
     }
 }
@@ -2265,8 +2271,9 @@ void LLTutorWindow::feedbackForB1TreeWidget() {
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString                                        result;
     const std::string&                             axiom = grammar.axiom_;
-    std::map<std::string, std::vector<production>> sortedRules(
-        grammar.g_.begin(), grammar.g_.end());
+    // Presentation order, not lexicographic: a user-written grammar keeps
+    // the sequence its rules were typed in.
+    const std::vector<std::string> order = grammar.PresentationOrder();
 
     auto formatProductions = [](const QString&                 lhs,
                                 const std::vector<production>& prods) {
@@ -2299,10 +2306,9 @@ QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
             formatProductions(QString::fromStdString(axiom), axIt->second);
     }
 
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == axiom)
-            continue;
-        result += formatProductions(QString::fromStdString(lhs), productions);
+    for (const std::string& lhs : order) {
+        result += formatProductions(QString::fromStdString(lhs),
+                                    grammar.g_.at(lhs));
     }
 
     return result;
@@ -2312,8 +2318,7 @@ QVector<GrammarView::Row>
 LLTutorWindow::buildGrammarRows(const Grammar& grammar) const {
     QVector<GrammarView::Row> rows;
     const std::string&        axiom = grammar.axiom_;
-    std::map<std::string, std::vector<production>> sortedRules(grammar.g_.begin(),
-                                                               grammar.g_.end());
+    const std::vector<std::string> order = grammar.PresentationOrder();
 
     auto appendProductions = [&rows](const QString& lhs,
                                      const std::vector<production>& prods) {
@@ -2337,11 +2342,8 @@ LLTutorWindow::buildGrammarRows(const Grammar& grammar) const {
         appendProductions(QString::fromStdString(axiom), axIt->second);
     }
 
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == axiom) {
-            continue;
-        }
-        appendProductions(QString::fromStdString(lhs), productions);
+    for (const std::string& lhs : order) {
+        appendProductions(QString::fromStdString(lhs), grammar.g_.at(lhs));
     }
 
     return rows;
@@ -2361,11 +2363,8 @@ void LLTutorWindow::fillSortedGrammar() {
         }
     }
     rules.push_back(rule);
-    std::map<std::string, std::vector<production>> sortedRules(
-        grammar.g_.begin(), grammar.g_.end());
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == grammar.axiom_)
-            continue;
+    for (const std::string& lhs : grammar.PresentationOrder()) {
+        const std::vector<production>& productions = grammar.g_.at(lhs);
         rule = {QString::fromStdString(lhs), {}};
         for (const auto& prod : productions) {
             for (const auto& symbol : prod) {

@@ -22,12 +22,13 @@
 #include <QKeyEvent>
 #include <QPropertyAnimation>
 #include <QScrollBar>
+#include <QTextDocument>
 #include <QtMath>
 CustomTextEdit::CustomTextEdit(QWidget* parent) : QTextEdit(parent) {}
 
-void CustomTextEdit::setAutoGrow(int minHeight, int maxHeight) {
-    minGrowHeight_ = minHeight;
-    maxGrowHeight_ = maxHeight;
+void CustomTextEdit::setAutoGrowLines(int minLines, int maxLines) {
+    minGrowLines_ = minLines;
+    maxGrowLines_ = maxLines;
     if (growAnimation_ == nullptr) {
         growAnimation_ = new QPropertyAnimation(this, "growHeight", this);
         growAnimation_->setDuration(180);
@@ -43,8 +44,21 @@ void CustomTextEdit::setAutoGrow(int minHeight, int maxHeight) {
         connect(this, &QTextEdit::textChanged, this,
                 [this]() { updateGrowHeight(); });
     }
+    refreshGrowBounds();
     setFixedHeight(minGrowHeight_);
     updateGrowHeight();
+}
+
+int CustomTextEdit::heightForLines(int lines) const {
+    // Laid out by a document like ours rather than estimated from font
+    // metrics: the metrics are off by a pixel at some sizes, which is
+    // enough to leave the one-line box and the send button misaligned.
+    QTextDocument probe;
+    probe.setDefaultFont(document()->defaultFont());
+    probe.setDocumentMargin(document()->documentMargin());
+    probe.setPlainText(
+        QStringList(lines, QStringLiteral("x")).join(QChar(u'\n')));
+    return qCeil(probe.size().height()) + chrome_;
 }
 
 int CustomTextEdit::growHeight() const {
@@ -56,10 +70,7 @@ void CustomTextEdit::setGrowHeight(int height) {
     setFixedHeight(qBound(minGrowHeight_, height, maxGrowHeight_));
 }
 
-void CustomTextEdit::updateGrowHeight() {
-    if (maxGrowHeight_ <= 0) {
-        return;
-    }
+void CustomTextEdit::refreshGrowBounds() {
     // Everything of the widget's height that is not the viewport: the frame
     // plus the style padding. Only re-sampled while no animation is in
     // flight, because mid-resize the viewport lags behind height() and the
@@ -70,6 +81,22 @@ void CustomTextEdit::updateGrowHeight() {
             chrome_ = measured;
         }
     }
+
+    // The bounds follow the font and the chrome, so they are re-derived on
+    // every pass; both only change on a style or text size change.
+    maxGrowHeight_    = heightForLines(maxGrowLines_);
+    const int minimum = heightForLines(minGrowLines_);
+    if (minimum != minGrowHeight_) {
+        minGrowHeight_ = minimum;
+        emit minimumGrowHeightChanged(minGrowHeight_);
+    }
+}
+
+void CustomTextEdit::updateGrowHeight() {
+    if (maxGrowLines_ <= 0) {
+        return;
+    }
+    refreshGrowBounds();
 
     const int contentHeight = qCeil(document()->size().height()) + chrome_;
     const int target = qBound(minGrowHeight_, contentHeight, maxGrowHeight_);

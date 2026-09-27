@@ -28,7 +28,8 @@
 #include <QLabel>
 #include <QProgressBar>
 #include <QPushButton>
-#include "apptextscale.h"
+#include "apptypography.h"
+#include "applayout.h"
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -63,9 +64,11 @@ class LLWizard : public QDialog {
         setWindowTitle(tr("Completar tabla LL(1)"));
         setWindowFlag(Qt::WindowCloseButtonHint, true);
         setModal(true);
-        resize(640, 440);
-        setMinimumSize(AppTextScale::scaled(560),
-                       AppTextScale::scaled(400));
+        resize(AppTypography::lengthForText(640),
+               AppTypography::lengthForText(440));
+        AppLayout::keepHeightForWidth(this);
+        setMinimumSize(AppTypography::lengthForText(560),
+                       AppTypography::lengthForText(400));
 
         auto* rootLayout = new QVBoxLayout(this);
         rootLayout->setContentsMargins(0, 0, 0, 0);

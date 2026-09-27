@@ -1,6 +1,7 @@
 #include "tutor_window_test.h"
 
 #include "automatonview.h"
+#include "grammar_parser.hpp"
 #include "automatonviewerdialog.h"
 #include "examreportdialog.h"
 #include "qt_modal_test_utils.h"
@@ -876,6 +877,61 @@ void TutorWindowTest::slrTableDialogCancelNoReopensAndYesRequestsExit() {
 //   The tutor enters `fin`, generates the PDF, and emits the exit request with
 //   session results.
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-ORDER
+// Summary:
+//   A grammar the user wrote is numbered in the order its rules were typed,
+//   and the reduce indices in the final table follow that same numbering.
+//
+// Situation:
+//   A grammar parsed from text written in reverse alphabetical order, so a
+//   lexicographic fallback would produce a completely different numbering
+//   (S,Z,Y,X,X versus S,X,X,Y,Z). The fresh axiom is named S because the
+//   grammar leaves that name free.
+//
+// Action:
+//   The rule numbering is checked, the tutor is driven to the final table,
+//   and the table is submitted with the expected actions.
+//
+// Expected:
+//   The numbering is the written one, the table is accepted, the tutor
+//   reaches `fin` and nothing was counted wrong. Acceptance is what proves
+//   the `rN` indices the tutor validates against match the ones it displays.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrUserGrammarKeepsWrittenRuleOrder() {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("Z -> X Y .\nY -> c .\nX -> a | b .");
+    QVERIFY(parsed.Ok());
+    const Grammar grammar = parsed.grammar;
+
+    const auto  numbering = SlrTutorTestUtils::buildSortedGrammar(grammar);
+    QStringList numbered;
+    for (const auto& rule : numbering) {
+        numbered.append(QStringLiteral("%1 -> %2")
+                            .arg(rule.first, rule.second.join(QLatin1Char(' '))));
+    }
+    const QStringList expectedNumbering{
+        QStringLiteral("S -> Z $"), QStringLiteral("Z -> X Y"),
+        QStringLiteral("Y -> c"), QStringLiteral("X -> a"),
+        QStringLiteral("X -> b")};
+    QCOMPARE(numbered, expectedNumbering);
+
+    SLRTutorWindow tutor(grammar, nullptr);
+    SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+    driveSlrTutorToH(tutor);
+
+    SLRTableDialog* dialog = waitForSlrTableDialog();
+    QVERIFY(dialog != nullptr);
+    auto* table = dialog->findChild<QTableWidget*>("slrTableWidget");
+    QVERIFY(table != nullptr);
+
+    QtModalTestUtils::submitSlrTableDialog(
+        dialog, SlrTutorTestUtils::buildExpectedTable(grammar, table));
+
+    QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
+    QCOMPARE(tutor.wrongCountForTest(), 0);
+}
+
 void TutorWindowTest::slrFinalTableCorrectPathExportsAndExits() {
     forEachSlrNoConflictFixture([](const auto& fixture) {
         const Grammar grammar = fixture.grammar;

@@ -25,12 +25,14 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QScrollArea>
 #include <QStackedWidget>
-#include "apptextscale.h"
+#include "apptypography.h"
+#include "applayout.h"
 #include <QActionGroup>
-#include <QFile>
 #include <QMenu>
 #include <QScreen>
+#include <QSlider>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
@@ -39,6 +41,8 @@ namespace {
 /// @brief Window minimum from the .ui, before the text scale is applied.
 constexpr int kBaseMinimumWidth  = 800;
 constexpr int kBaseMinimumHeight = 600;
+/// Widest the home column gets, at the design text size.
+constexpr int kHomeColumnMaxWidth = 560;
 
 #ifdef SYNTAXTUTOR_TESTING
 constexpr auto kSettingsOrg = "UMA-Test";
@@ -55,7 +59,9 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
     dialog->setObjectName("infoDialog");
     dialog->setWindowTitle(windowTitle);
     dialog->setModal(true);
-    dialog->resize(620, 480);
+    dialog->resize(AppTypography::lengthForText(620),
+                   AppTypography::lengthForText(480));
+    AppLayout::keepHeightForWidth(dialog);
 
     auto* layout = new QVBoxLayout(dialog);
     layout->setSpacing(14);
@@ -105,6 +111,10 @@ MainWindow::MainWindow(QWidget* parent)
     ui->setupUi(this);
     ui->homeEyebrow->setText(tr("Tutores interactivos"));
     ui->homeTitle->setText(tr("Elige cómo quieres practicar"));
+    // Without wrapping, a longer translation (the English title is wider)
+    // pushes the whole window past the screen and gets clipped.
+    ui->homeTitle->setWordWrap(true);
+    ui->homeEyebrow->setWordWrap(true);
     ui->homeSubtitle->setText(
         tr("Inicia un tutor y ajusta la "
            "dificultad de la gramática antes de empezar."));
@@ -118,7 +128,17 @@ MainWindow::MainWindow(QWidget* parent)
     ui->idiom->setText(tr("Idioma"));
     defaultWindowTitle = windowTitle();
 
-    homePage = takeCentralWidget();
+    // The home lives in a scroll area for two reasons. A main window ignores
+    // height-for-width, so a title that wraps to one more line than Qt
+    // guessed would be cut in half; a scroll area sizes its content by it.
+    // And at a large text size on a small screen the home can need more
+    // height than the screen has: it scrolls then, instead of being cut.
+    auto* homeScroll = new QScrollArea(this);
+    homeScroll->setObjectName("homeScroll");
+    homeScroll->setFrameShape(QFrame::NoFrame);
+    homeScroll->setWidgetResizable(true);
+    homeScroll->setWidget(takeCentralWidget());
+    homePage = homeScroll;
     stack    = new QStackedWidget(this);
     stack->setContentsMargins(0, 0, 0, 0);
     setCentralWidget(stack);
@@ -165,13 +185,13 @@ MainWindow::MainWindow(QWidget* parent)
 
         QLabel* floatLabel =
             new QLabel(tr("+1 Nivel"), ui->badgeNivel->parentWidget());
-        floatLabel->setStyleSheet(R"(
+        floatLabel->setStyleSheet(AppTypography::resolveStyleSheet(R"(
     QLabel {
         font-weight: bold;
-        font-size: 20px;
+        font-size: $font-headline;
         background: transparent;
     }
-)");
+)"));
         floatLabel->adjustSize();
 
         QPoint badgePos   = ui->badgeNivel->geometry().topLeft();
@@ -188,15 +208,16 @@ MainWindow::MainWindow(QWidget* parent)
                 [floatLabel, rainbowColors, colorIndex = 0]() mutable {
                     QString color =
                         rainbowColors[colorIndex % rainbowColors.size()];
-                    floatLabel->setStyleSheet(QString(R"(
+                    floatLabel->setStyleSheet(
+                        AppTypography::resolveStyleSheet(QString(R"(
         QLabel {
             font-weight: bold;
-            font-size: 20px;
+            font-size: $font-headline;
             background: transparent;
             color: %1;
         }
     )")
-                                                  .arg(color));
+                                                             .arg(color)));
                     colorIndex++;
                 });
         rainbowTimer->start(100);
@@ -256,13 +277,13 @@ void MainWindow::applyLevelStyling(unsigned lvl) {
     int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
     QString c      = levelColors[idx];
 
-    ui->badgeNivel->setStyleSheet(QString(R"(
+    ui->badgeNivel->setStyleSheet(AppTypography::resolveStyleSheet(QString(R"(
     QLabel {
     min-width: 28px;
     min-height: 24px;
     padding: 0px 10px;
     font-weight: 700;
-    font-size: 12px;
+    font-size: $font-label;
     background-color: rgba(%1, %2, %3, 0.18);
     color: %4;
     border-radius: 12px;
@@ -273,7 +294,7 @@ void MainWindow::applyLevelStyling(unsigned lvl) {
                                       .arg(QColor(c).red())
                                       .arg(QColor(c).green())
                                       .arg(QColor(c).blue())
-                                      .arg(c));
+                                      .arg(c)));
 
     ui->badgeNivel->setText(QString::number(lvl));
     ui->progressBarNivel->setStyleSheet(QString(R"(
@@ -336,12 +357,40 @@ void MainWindow::saveSettings() {
 }
 
 void MainWindow::applyScaledMinimumSize() {
-    // The minimum in the .ui is in unscaled pixels, so at a larger text size
-    // the content no longer fits it and labels get clipped. Scale it, but
-    // clamp to the available screen: a minimum bigger than the display would
-    // leave the window unusable on a small monitor.
-    QSize wanted(AppTextScale::scaled(kBaseMinimumWidth),
-                 AppTextScale::scaled(kBaseMinimumHeight));
+    // The minimum was drawn for body text at its design size. Text renders
+    // bigger at a larger text size and on platforms that map a point to more
+    // pixels, so grow the minimum with it, but clamp to the available
+    // screen: a minimum bigger than the display would leave the window
+    // unusable on a small monitor.
+    ui->homeContent->setMaximumWidth(
+        AppTypography::lengthForText(kHomeColumnMaxWidth));
+    // Larger text grows the minimum; smaller text does not shrink it below
+    // the size the layouts were drawn for. The tutors put three columns side
+    // by side, and below that width the chat is the one squeezed.
+    QSize wanted(qMax(kBaseMinimumWidth,
+                      AppTypography::lengthForText(kBaseMinimumWidth)),
+                 qMax(kBaseMinimumHeight,
+                      AppTypography::lengthForText(kBaseMinimumHeight)));
+
+    // The design floor is not enough on its own: the home also has to fit,
+    // with every line its wrapped text needs at this width and the spacing
+    // intact. Without this the layout squeezes it, closing the gaps between
+    // the buttons first and then cutting text.
+    if (QLayout* page = ui->centralwidget->layout()) {
+        int chrome = 0;
+        if (!menuBar()->isNativeMenuBar()) {
+            chrome += menuBar()->sizeHint().height();
+        }
+        if (statusBar() != nullptr && !statusBar()->isHidden()) {
+            chrome += statusBar()->sizeHint().height();
+        }
+        // The preferred height, not the minimum: it is what the scroll area
+        // measures to decide whether to show a scroll bar, and the window
+        // should not open showing one when the screen has room.
+        wanted.setHeight(qMax(wanted.height(),
+                              page->totalHeightForWidth(wanted.width()) +
+                                  chrome));
+    }
     if (QScreen* screen = QGuiApplication::primaryScreen()) {
         const QSize available = screen->availableGeometry().size();
         wanted = wanted.boundedTo(available);
@@ -356,50 +405,164 @@ void MainWindow::setupTextSizeMenu() {
     QMenu* menu = ui->menubar->addMenu(tr("Tamaño del texto"));
     menu->setObjectName("menuTextSize");
 
-    auto* group = new QActionGroup(this);
-    group->setExclusive(true);
+    textSizeGroup_ = new QActionGroup(this);
+    textSizeGroup_->setExclusive(true);
 
-    struct Option {
-        AppTextScale::Step step;
-        QString            text;
-        QString            objectName;
-    };
-    const QVector<Option> options = {
-        {AppTextScale::Step::Normal, tr("Normal"),
-         QStringLiteral("actionTextSizeNormal")},
-        {AppTextScale::Step::Large, tr("Grande"),
-         QStringLiteral("actionTextSizeLarge")},
-        {AppTextScale::Step::Larger, tr("Muy grande"),
-         QStringLiteral("actionTextSizeLarger")}};
-
-    for (const Option& option : options) {
-        QAction* action = menu->addAction(option.text);
-        action->setObjectName(option.objectName);
+    for (const int percent : AppTextScale::kPresetPercents) {
+        QAction* action = menu->addAction(tr("%1 %").arg(percent));
+        action->setObjectName(QStringLiteral("actionTextSize%1").arg(percent));
         action->setCheckable(true);
-        action->setChecked(AppTextScale::currentStep() == option.step);
-        group->addAction(action);
-        const AppTextScale::Step step = option.step;
+        action->setData(percent);
+        textSizeGroup_->addAction(action);
         connect(action, &QAction::triggered, this,
-                [this, step]() { setTextScale(step); });
+                [this, percent]() { setTextScale(percent); });
+    }
+
+    menu->addSeparator();
+    customTextSizeAction_ = menu->addAction(tr("Personalizar…"));
+    customTextSizeAction_->setObjectName("actionTextSizeCustom");
+    customTextSizeAction_->setCheckable(true);
+    textSizeGroup_->addAction(customTextSizeAction_);
+    connect(customTextSizeAction_, &QAction::triggered, this,
+            &MainWindow::promptCustomTextScale);
+
+    syncTextSizeMenu();
+}
+
+void MainWindow::syncTextSizeMenu() {
+    if (textSizeGroup_ == nullptr) {
+        return;
+    }
+    const int current = AppTextScale::currentPercent();
+    bool      matched = false;
+    for (QAction* action : textSizeGroup_->actions()) {
+        if (action == customTextSizeAction_) {
+            continue;
+        }
+        const bool isCurrent = action->data().toInt() == current;
+        action->setChecked(isCurrent);
+        matched = matched || isCurrent;
+    }
+    if (customTextSizeAction_ != nullptr) {
+        // A value that is not one of the presets is shown on the custom
+        // entry, so the menu always tells the user where they are.
+        customTextSizeAction_->setChecked(!matched);
+        customTextSizeAction_->setText(
+            matched ? tr("Personalizar…")
+                    : tr("Personalizar… (%1 %)").arg(current));
     }
 }
 
-void MainWindow::setTextScale(AppTextScale::Step step) {
-    AppTextScale::currentStep() = step;
+void MainWindow::promptCustomTextScale() {
+    // Built by hand rather than with QInputDialog: that one renders with the
+    // platform's native look and ignores app.qss entirely, which would stand
+    // out against every other dialog in the app.
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setWindowTitle(tr("Tamaño del texto"));
+    dialog.setModal(true);
+    AppLayout::keepHeightForWidth(&dialog);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrow = new QLabel(tr("TAMAÑO DEL TEXTO"), &dialog);
+    eyebrow->setObjectName("infoDialogEyebrow");
+    layout->addWidget(eyebrow);
+
+    auto* title = new QLabel(tr("Elige el tamaño que te resulte cómodo"),
+                             &dialog);
+    title->setObjectName("infoDialogTitle");
+    title->setWordWrap(true);
+    layout->addWidget(title);
+
+    auto* subtitle = new QLabel(
+        tr("Puedes necesitar redimensionar la ventana."), &dialog);
+    subtitle->setObjectName("infoDialogSubtitle");
+    subtitle->setWordWrap(true);
+    layout->addWidget(subtitle);
+
+    auto* slider = new QSlider(Qt::Horizontal, &dialog);
+    slider->setObjectName("textSizeSlider");
+    slider->setRange(AppTextScale::kMinPercent, AppTextScale::kMaxPercent);
+    slider->setSingleStep(5);
+    slider->setPageStep(10);
+    slider->setValue(AppTextScale::currentPercent());
+
+    auto* value = new QLabel(&dialog);
+    value->setObjectName("textSizeValueLabel");
+    value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+    auto* sliderRow = new QHBoxLayout;
+    sliderRow->setSpacing(12);
+    sliderRow->addWidget(slider, 1);
+    sliderRow->addWidget(value, 0);
+    layout->addLayout(sliderRow);
+
+    const int restore = AppTextScale::currentPercent();
+    auto      showValue = [value](int percent) {
+        value->setText(tr("%1 %").arg(percent));
+    };
+    showValue(restore);
+
+    // Live preview: applying as the slider moves is the only way to judge
+    // whether a size is comfortable.
+    connect(slider, &QSlider::valueChanged, this,
+            [this, showValue](int percent) {
+                showValue(percent);
+                setTextScale(percent);
+            });
+
+    auto* buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setSpacing(10);
+    buttonsLayout->addStretch(1);
+
+    auto* cancelButton = new QPushButton(tr("Cancelar"), &dialog);
+    cancelButton->setObjectName("textSizeCancelButton");
+    cancelButton->setCursor(Qt::PointingHandCursor);
+    cancelButton->setProperty("role", "danger");
+    cancelButton->setAutoDefault(false);
+    buttonsLayout->addWidget(cancelButton);
+
+    auto* acceptButton = new QPushButton(tr("Aplicar"), &dialog);
+    acceptButton->setObjectName("textSizeAcceptButton");
+    acceptButton->setCursor(Qt::PointingHandCursor);
+    acceptButton->setProperty("role", "primary");
+    acceptButton->setAutoDefault(false);
+    buttonsLayout->addWidget(acceptButton);
+
+    layout->addLayout(buttonsLayout);
+
+    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
+    connect(acceptButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        setTextScale(restore);   // undo the live preview
+        return;
+    }
+    setTextScale(slider->value());
+}
+
+void MainWindow::setTextScale(int percent) {
+    AppTextScale::currentPercent() = AppTextScale::clampPercent(percent);
     settings.setValue(AppTextScale::settingsKey(),
-                      AppTextScale::toSettingsValue(step));
+                      AppTextScale::currentPercent());
+    syncTextSizeMenu();
 
     // Two channels: the style sheet carries every size declared in QSS, and
     // the application font carries the text that has no QSS rule at all -
-    // the chat bubbles among it.
-    qApp->setFont(AppTextScale::scaledApplicationFont());
+    // the chat bubbles among it. The font goes first: lengths that follow
+    // the text are measured from it.
+    qApp->setFont(AppTypography::applicationFont());
 
-    QFile qssFile(":/resources/styles/app.qss");
-    if (qssFile.open(QFile::ReadOnly | QFile::Text)) {
-        qApp->setStyleSheet(AppTextScale::scaleStyleSheet(
-            QString::fromUtf8(qssFile.readAll())));
+    const QString styleSheet = AppTypography::loadStyleSheet();
+    if (!styleSheet.isEmpty()) {
+        qApp->setStyleSheet(styleSheet);
     }
 
+    // Inline style sheets resolved their sizes when they were set.
+    applyLevelStyling(userLevel());
     applyScaledMinimumSize();
 
     // Widgets that size themselves from font metrics cannot pick this up on
@@ -826,7 +989,9 @@ void MainWindow::on_idiom_clicked() {
     dialog.setObjectName("infoDialog");
     dialog.setWindowTitle(tr("Idioma"));
     dialog.setModal(true);
-    dialog.resize(420, 220);
+    // Only the width is chosen; the height follows the wrapped text.
+    dialog.resize(AppTypography::lengthForText(420), 0);
+    AppLayout::keepHeightForWidth(&dialog);
 
     auto* layout = new QVBoxLayout(&dialog);
     layout->setSpacing(14);

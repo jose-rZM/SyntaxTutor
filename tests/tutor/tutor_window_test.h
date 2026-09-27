@@ -66,6 +66,16 @@ class TutorWindowTest : public QObject {
     void mainTutorialFlowCompletesAndReenablesControls();
     void mainGamificationPersistsAcrossRestart();
     void mainStatePersistenceAcrossRestart();
+    void typographyStyleSheetDeclaresSizesOnlyThroughRoles();
+    void typographyResolvesRolesAtTheCurrentTextScale();
+    void typographyAppliesPointSizesToWidgets();
+    void typographyLengthsForTextFollowTheRenderedBodyText();
+    void typographyAnswerBoxGrowsByLinesOfItsOwnFont();
+
+    void layoutHomeShowsAllTextAtEveryTextSize();
+    void layoutDialogsShowAllTextAtEveryTextSize();
+    void layoutTutorsShowAllTextAtEveryTextSize();
+    void layoutScrollBarsFollowTheDarkTheme();
 
     void mainCustomGrammarToggleDisablesLevels();
     void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();
@@ -73,5 +83,7 @@ class TutorWindowTest : public QObject {
     void mainCustomGrammarEditorRejectsInvalidAndNonLl1Grammars();
     void mainCustomGrammarEditorCancelKeepsHomePage();
     void mainCustomGrammarEditorRestoresLastGrammar();
+    void llUserGrammarKeepsWrittenRuleOrder();
+    void slrUserGrammarKeepsWrittenRuleOrder();
     void mainExamModeCheckboxLaunchesExamTutor();
 };

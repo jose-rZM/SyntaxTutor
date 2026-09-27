@@ -197,6 +197,15 @@ Grammar BuildGrammar(const std::vector<RawRule>& rules) {
         }
     }
 
+    // Remember the order the rules were written in: this grammar came from
+    // the user, so showing it back in a different order is confusing.
+    for (const RawRule& rule : rules) {
+        if (std::find(gr.lhs_order_.begin(), gr.lhs_order_.end(),
+                      rule.antecedent) == gr.lhs_order_.end()) {
+            gr.lhs_order_.push_back(rule.antecedent);
+        }
+    }
+
     const std::string userAxiom = rules.front().antecedent;
     const std::string axiom     = FreshAxiomName(gr.st_, userAxiom);
     gr.st_.PutSymbol(axiom, false);

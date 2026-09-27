@@ -17,6 +17,7 @@
  */
 
 #include "lltabledialog.h"
+#include "applayout.h"
 #include <QApplication>
 #include <QFontDatabase>
 #include <QStyledItemDelegate>
@@ -112,6 +113,7 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     }
 
     resize(width, height);
+    AppLayout::keepHeightForWidth(this);
     connect(submitButton, &QPushButton::clicked, this,
             [this]() {
                 commitPendingEdit();
