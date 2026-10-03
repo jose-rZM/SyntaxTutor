@@ -59,7 +59,10 @@ HEADERS += \
     src/widgets/appfonts.h \
     src/widgets/apptextscale.h \
     src/widgets/apptypography.h \
+    src/widgets/appicon.h \
     src/widgets/applayout.h \
+    src/widgets/apppalette.h \
+    src/widgets/appshortcuts.h \
     src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \
@@ -83,7 +86,8 @@ FORMS += \
     src/gui/mainwindow.ui \
     src/gui/slrtutorwindow.ui
 
-win32: RC_ICONS = resources/syntaxtutor.ico
+win32: RC_ICONS = resources/icon/syntaxtutor.ico
+macx: ICON = resources/icon/syntaxtutor.icns
 
 win32:CONFIG(release, debug|release) {
     msvc {

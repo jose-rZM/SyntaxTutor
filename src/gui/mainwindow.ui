@@ -19,10 +19,6 @@
   <property name="windowTitle">
    <string>SyntaxTutor</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="resources.qrc">
-    <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,1,0">
     <property name="spacing">
@@ -412,7 +408,10 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSobre_la_aplicaci_n">
    <property name="text">
-    <string>Sobre la aplicación</string>
+    <string>Sobre SyntaxTutor</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::AboutRole</enum>
    </property>
   </action>
   <action name="actionReferencia_LL_1">

@@ -202,6 +202,14 @@ class SLRTutorWindow : public QWidget {
     QMap<unsigned, unsigned>    solutionForE2();
     QSet<unsigned>              solutionForF();
     QSet<QString>               solutionForFA();
+
+    /**
+     * @brief Whether @p item reduces: complete, and not the axiom's.
+     *
+     * The backend counts S -> A · $ as complete because that is where the
+     * input is accepted, but accepting is not a reduction.
+     */
+    bool isReduction(const Lr0Item& item) const;
     QSet<QString>               solutionForG();
 
     // ====== Pedagogical Feedback ==================================

@@ -255,32 +255,24 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 #endif
 
     // ====== Conflict & Reduction State Identification =========
+    // A state has an LR(0) conflict when it can reduce and also shift
+    // (shift-reduce) or reduce by more than one rule (reduce-reduce). SLR
+    // then settles both with FOLLOW. It is decided per state: deciding it
+    // item by item, as the loop went, made the answer depend on the order
+    // the unordered_set lists the items in, which differs between standard
+    // libraries.
     std::ranges::for_each(slr1.states_, [this](const state& st) {
-        bool hasComplete   = false;
-        bool hasIncomplete = false;
-        for (const Lr0Item& it : st.items_) {
-            if (it.IsComplete())
-                hasComplete = true;
-            else
-                hasIncomplete = true;
-            if (hasComplete && hasIncomplete &&
-                it.antecedent_ != slr1.gr_.axiom_) {
-                statesWithLr0Conflict.append(&st);
-                conflictStatesIdQueue.push(st.id_);
-                break;
-            }
-        }
-    });
-
-    std::ranges::for_each(slr1.states_, [this](const state& st) {
-        if (statesWithLr0Conflict.contains(&st))
-            return;
-        for (const Lr0Item& it : st.items_) {
-            if (it.IsComplete() && it.antecedent_ != slr1.gr_.axiom_) {
-                reduceStatesIdQueue.push(st.id_);
-                reduceStateIds.insert(st.id_);
-                break;
-            }
+        const auto reductions = std::ranges::count_if(
+            st.items_, [this](const Lr0Item& it) { return isReduction(it); });
+        const bool shifts = std::ranges::any_of(
+            st.items_, [](const Lr0Item& it) { return !it.IsComplete(); });
+        const bool reduces = reductions > 0;
+        if (reductions > 1 || (reduces && shifts)) {
+            statesWithLr0Conflict.append(&st);
+            conflictStatesIdQueue.push(st.id_);
+        } else if (reduces) {
+            reduceStatesIdQueue.push(st.id_);
+            reduceStateIds.insert(st.id_);
         }
     });
 
@@ -1906,7 +1898,7 @@ QString SLRTutorWindow::generateQuestion() {
 
         return tr("Estado I%1:\n%2\n"
                   "Indica los terminales sobre los que se aplicará REDUCCIÓN.\n"
-                  "Formato: a,b,c — vacío si no se aplica en ninguno.")
+                  "Formato: a,b,c (vacío si no se aplica en ninguno).")
             .arg(currentReduceStateId)
             .arg(QString::fromStdString(
                 slr1.PrintItems(currentReduceState.items_)));
@@ -2703,6 +2695,10 @@ QMap<unsigned, unsigned> SLRTutorWindow::solutionForE2() {
     return result;
 }
 
+bool SLRTutorWindow::isReduction(const Lr0Item& item) const {
+    return item.IsComplete() && item.antecedent_ != slr1.gr_.axiom_;
+}
+
 QSet<unsigned> SLRTutorWindow::solutionForF() {
     QSet<unsigned> ids;
     for (const state* st : std::as_const(statesWithLr0Conflict))
@@ -2714,7 +2710,7 @@ QSet<QString> SLRTutorWindow::solutionForFA() {
     QSet<QString> symbols;
 
     for (const Lr0Item& it : currentConflictState.items_) {
-        if (!it.IsComplete())
+        if (!isReduction(it))
             continue;
 
         // FOLLOW del antecedente
@@ -2729,7 +2725,7 @@ QSet<QString> SLRTutorWindow::solutionForFA() {
 QSet<QString> SLRTutorWindow::solutionForG() {
     QSet<QString> symbols;
     for (const Lr0Item& it : currentReduceState.items_) {
-        if (!it.IsComplete())
+        if (!isReduction(it))
             continue;
         std::unordered_set<std::string> fol = slr1.Follow(it.antecedent_);
         for (const std::string& s : fol)
@@ -3216,9 +3212,11 @@ QString SLRTutorWindow::feedbackForE2() {
 
 QString SLRTutorWindow::feedbackForF() {
     QString txt = tr("Un conflicto LR(0) ocurre cuando un mismo estado "
-                     "contiene tanto ítems completos "
-                     "(REDUCE) "
-                     "como ítems con símbolo tras el · (SHIFT).");
+                     "contiene un ítem completo (REDUCE) junto a un ítem con "
+                     "un símbolo tras el · (SHIFT), conflicto "
+                     "desplazamiento-reducción, o más de un ítem completo, "
+                     "conflicto reducción-reducción. El ítem del axioma con "
+                     "el · antes de $ indica aceptación, no reducción.");
 
     QSet<unsigned> sol = solutionForF();
 
@@ -3274,13 +3272,26 @@ QString SLRTutorWindow::feedbackForF() {
 }
 
 QString SLRTutorWindow::feedbackForFA() {
-    unsigned stId    = currentConflictStateId;
-    QString  txtBase = tr("En el estado I%1 se produce un conflicto LR(0). Un "
-                           "ítem completo compite con otro "
-                           "desplazable. Debes escribir los terminales en los "
-                           "que la tabla aplicará REDUCE. Los puedes calcular "
-                           "calculando SIG del antecedente.\n")
-                          .arg(stId);
+    unsigned stId       = currentConflictStateId;
+    const auto reductions = std::ranges::count_if(
+        currentConflictState.items_,
+        [this](const Lr0Item& it) { return isReduction(it); });
+    QString txtBase;
+    if (reductions > 1) {
+        txtBase = tr("En el estado I%1 se produce un conflicto LR(0): hay "
+                     "varios ítems completos, conflicto reducción-reducción. "
+                     "Debes escribir los terminales en los que la tabla "
+                     "aplicará REDUCE. Los puedes calcular con el SIG del "
+                     "antecedente de cada ítem completo.\n")
+                      .arg(stId);
+    } else {
+        txtBase = tr("En el estado I%1 se produce un conflicto LR(0). Un "
+                     "ítem completo compite con otro "
+                     "desplazable. Debes escribir los terminales en los "
+                     "que la tabla aplicará REDUCE. Los puedes calcular "
+                     "calculando SIG del antecedente.\n")
+                      .arg(stId);
+    }
 
     QStringList   sol = solutionForFA().values();
     QSet<QString> solSet(sol.begin(), sol.end());
@@ -3914,7 +3925,7 @@ void SLRTutorWindow::setupTutorial() {
                    "<p>Por ejemplo, un ítem correspondiente a la misma "
                    "producción sería:</p>"
                    "<pre>X -> a . b</pre>"
-                   "<p>Observa el punto justo antes de “b”—ese es el formato "
+                   "<p>Observa el punto justo antes de “b”: ese es el formato "
                    "exigido. En caso de "
                    "varios ítems, simplemente coloca uno por línea.</p>"));
 

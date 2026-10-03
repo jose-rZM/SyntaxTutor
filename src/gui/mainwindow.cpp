@@ -27,12 +27,16 @@
 #include <QPixmap>
 #include <QScrollArea>
 #include <QStackedWidget>
+#include "appicon.h"
 #include "apptypography.h"
 #include "applayout.h"
 #include <QActionGroup>
+#include <QClipboard>
+#include <QGuiApplication>
 #include <QMenu>
 #include <QScreen>
 #include <QSlider>
+#include <QSysInfo>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
@@ -895,21 +899,121 @@ void MainWindow::setupTutorial() {
 }
 
 void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
-    const auto versionLine =
-        tr("<p><b>Versión:</b> %1</p>").arg(qApp->applicationVersion());
-    showInfoDialog(
-        this, tr("Sobre la aplicación"), tr("SyntaxTutor"),
-        tr("Una herramienta de escritorio para practicar análisis sintáctico"),
-        versionLine +
-        tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
-           "Sintácticos.</p>") +
-        tr("<p><b>Autor:</b> José R.</p>") +
-        tr("<p><b>Licencia:</b> GPLv3</p>") +
-        tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "
-           "C++20.</p>") +
-        tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - "
-           "jose-rZM</a></p>") +
-        tr("<p>2025 Universidad de Málaga</p>"));
+    // Laid out like the about box of a desktop IDE: the icon on the left,
+    // name and version, the environment, then credits, and a button that
+    // copies what a bug report needs.
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setProperty("aboutDialog", true);
+    dialog.setWindowTitle(tr("Sobre SyntaxTutor"));
+    dialog.setModal(true);
+    dialog.resize(AppTypography::lengthForText(560), 0);
+    AppLayout::keepHeightForWidth(&dialog);
+
+    const QString version = qApp->applicationVersion();
+    const QString environment =
+        tr("Qt %1 (compilado con Qt %2)\n%3 (%4)")
+            .arg(QString::fromLatin1(qVersion()),
+                 QStringLiteral(QT_VERSION_STR),
+                 QSysInfo::prettyProductName(),
+                 QSysInfo::currentCpuArchitecture());
+
+    auto*     icon   = new QLabel(&dialog);
+    const int iconPx = AppTypography::lengthForText(88);
+    icon->setPixmap(AppIcon::icon().pixmap(QSize(iconPx, iconPx),
+                                           devicePixelRatioF()));
+    icon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+
+    auto* title = new QLabel(QStringLiteral("SyntaxTutor %1").arg(version),
+                             &dialog);
+    title->setObjectName("aboutTitle");
+    title->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    auto* subtitle = new QLabel(
+        tr("Tutor interactivo de análisis sintáctico LL(1) y SLR(1)."),
+        &dialog);
+    subtitle->setObjectName("aboutSubtitle");
+    subtitle->setWordWrap(true);
+
+    auto* details = new QLabel(environment, &dialog);
+    details->setObjectName("aboutDetails");
+    details->setWordWrap(true);
+    details->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    // Version 1 was the degree project, which is closed; this one builds on
+    // it but is not part of it.
+    auto* note = new QLabel(
+        tr("La versión 1 de SyntaxTutor fue el Trabajo Fin de Grado "
+           "«Tutorial Interactivo sobre Analizadores Sintácticos» "
+           "(Universidad de Málaga, 2025). Esta versión es una ampliación y "
+           "un rediseño posteriores, independientes del TFG."),
+        &dialog);
+    note->setObjectName("aboutNote");
+    note->setWordWrap(true);
+
+    auto* credits = new QLabel(
+        tr("Autor: José R.<br>"
+           "Licencia: GPLv3<br>"
+           "Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y C++20<br>"
+           "Código fuente en "
+           "<a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub</a>"),
+        &dialog);
+    credits->setObjectName("aboutCredits");
+    credits->setWordWrap(true);
+    credits->setTextFormat(Qt::RichText);
+    credits->setOpenExternalLinks(true);
+    credits->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+    auto* text = new QVBoxLayout;
+    text->setSpacing(4);
+    text->addWidget(title);
+    text->addWidget(subtitle);
+    text->addSpacing(12);
+    text->addWidget(details);
+    text->addSpacing(12);
+    text->addWidget(note);
+    text->addSpacing(12);
+    text->addWidget(credits);
+
+    auto* body = new QHBoxLayout;
+    body->setSpacing(22);
+    body->addWidget(icon, 0, Qt::AlignTop);
+    body->addLayout(text, 1);
+
+    auto* copyButton = new QPushButton(tr("Copiar y cerrar"), &dialog);
+    copyButton->setObjectName("aboutCopyButton");
+    copyButton->setCursor(Qt::PointingHandCursor);
+    copyButton->setProperty("role", "primary");
+    copyButton->setAutoDefault(false);
+
+    auto* closeButton = new QPushButton(tr("Cerrar"), &dialog);
+    closeButton->setObjectName("infoDialogCloseButton");
+    closeButton->setCursor(Qt::PointingHandCursor);
+    closeButton->setProperty("role", "secondary");
+    closeButton->setDefault(true);
+
+    connect(copyButton, &QPushButton::clicked, &dialog,
+            [&dialog, version, environment]() {
+                QGuiApplication::clipboard()->setText(
+                    QStringLiteral("SyntaxTutor %1\n%2").arg(version,
+                                                            environment));
+                dialog.accept();
+            });
+    connect(closeButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+
+    auto* buttons = new QHBoxLayout;
+    buttons->setSpacing(10);
+    buttons->addStretch(1);
+    buttons->addWidget(copyButton);
+    buttons->addWidget(closeButton);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setContentsMargins(28, 26, 24, 20);
+    layout->setSpacing(22);
+    layout->addLayout(body);
+    layout->addLayout(buttons);
+
+    dialog.exec();
 }
 
 void MainWindow::on_actionReferencia_LL_1_triggered() {

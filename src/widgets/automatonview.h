@@ -65,7 +65,7 @@ struct AutomatonTransitionInfo {
  * current, conflict and reduce states.
  *
  * Hovering or clicking a node shows the LR(0) items of that state. The view
- * supports Ctrl+wheel zooming and drag scrolling.
+ * supports Ctrl+wheel (Cmd+wheel on macOS) zooming and drag scrolling.
  */
 class AutomatonView : public QGraphicsView {
     Q_OBJECT
@@ -127,9 +127,20 @@ class AutomatonView : public QGraphicsView {
     QSet<unsigned> conflictStates() const { return conflictIds_; }
     QSet<unsigned> reduceStates() const { return reduceIds_; }
 
+    /// @brief Id of the state whose items are shown, or -1.
+    int shownStateId() const { return shownId_; }
+
+    /// @brief Shows the items of state @p id next to its node.
+    void showStateDetails(unsigned id);
+
+    /// @brief Hides the items shown by a click, if any.
+    void hideStateDetails();
+
   protected:
     void wheelEvent(QWheelEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
 
   private:
     struct Node {
@@ -137,6 +148,7 @@ class AutomatonView : public QGraphicsView {
         QPointF                  center;
         QGraphicsEllipseItem*    circle   = nullptr;
         QGraphicsSimpleTextItem* label    = nullptr;
+        QString                  itemsText;
         bool                     revealed = false;
     };
 
@@ -158,6 +170,7 @@ class AutomatonView : public QGraphicsView {
     void setNodeVisible(Node& node, bool visible);
     void setEdgeVisible(Edge& edge, bool visible);
     void updatePlaceholder();
+    int  nodeAt(const QPoint& viewPos) const;
 
     QGraphicsScene*       scene_       = nullptr;
     QGraphicsTextItem*    placeholder_ = nullptr;
@@ -168,6 +181,11 @@ class AutomatonView : public QGraphicsView {
     int                   currentId_     = -1;
     bool                  fullyRevealed_ = false;
     double                zoom_          = 1.0;
+
+    // Items of the clicked state, drawn in the scene next to its node.
+    QGraphicsPathItem* details_ = nullptr;
+    int                shownId_ = -1;
+    QPoint             pressPos_;
 };
 
 #endif // AUTOMATONVIEW_H

@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tests:
+    name: Backend and GUI tests
+    # Same system and Qt as the AppImage build in main.yml.
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install GoogleTest
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtest-dev
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: 6.8.2
+          cache: true
+
+      # The repository's GNUmakefile builds out of tree, as in local runs.
+      - name: Backend tests
+        run: make check-core
+
+      - name: GUI tests
+        run: make check-ui

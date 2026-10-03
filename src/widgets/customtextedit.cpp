@@ -17,6 +17,7 @@
  */
 
 #include "customtextedit.h"
+#include "appshortcuts.h"
 #include <QAbstractTextDocumentLayout>
 #include <QEvent>
 #include <QKeyEvent>
@@ -152,11 +153,7 @@ void CustomTextEdit::changeEvent(QEvent* event) {
 }
 
 QString CustomTextEdit::newlineShortcutText() {
-#ifdef Q_OS_MACOS
-    return QStringLiteral("Cmd + Enter");
-#else
-    return QStringLiteral("Ctrl + Enter");
-#endif
+    return AppShortcuts::primaryModifierName() + QStringLiteral(" + Enter");
 }
 
 void CustomTextEdit::keyPressEvent(QKeyEvent* event) {

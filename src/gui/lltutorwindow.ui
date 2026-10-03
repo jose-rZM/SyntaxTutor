@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>LL(1)</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="resources.qrc">
-    <normaloff>:/resources/syntaxtutor.png</normaloff>:/resources/syntaxtutor.png</iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>14</number>

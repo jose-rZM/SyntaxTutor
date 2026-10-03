@@ -143,8 +143,8 @@ GrammarEditorDialog::GrammarEditorDialog(Mode mode, QWidget* parent)
 void GrammarEditorDialog::buildUi() {
     setObjectName("grammarEditorDialog");
     setProperty("grammarEditor", true);
-    setWindowTitle(mode_ == Mode::LL1 ? tr("Tu gramática — LL(1)")
-                                      : tr("Tu gramática — SLR(1)"));
+    setWindowTitle(mode_ == Mode::LL1 ? tr("Tu gramática LL(1)")
+                                      : tr("Tu gramática SLR(1)"));
     setModal(true);
     resize(AppTypography::lengthForText(780),
            AppTypography::lengthForText(580));

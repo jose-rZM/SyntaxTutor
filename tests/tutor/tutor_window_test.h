@@ -40,6 +40,8 @@ class TutorWindowTest : public QObject {
     void slrStateEErrorPathAdvancesToF();
     void slrStateFNoConflictAdvancesToG();
     void slrStateFConflictBranchAdvancesToFAAndThenG();
+    void slrLr0ConflictsIgnoreTheAcceptItem();
+    void slrReduceReduceIsAnLr0Conflict();
     void slrStateGWrongThenCorrectReachesH();
     void slrStateHIncorrectTableKeepsDialogOpen();
     void slrGuidedModeWizardUsesCustomNavigationAndAllowsExit();
@@ -56,11 +58,15 @@ class TutorWindowTest : public QObject {
     void slrAutomatonHighlightsConflictAndReduceStates();
     void slrAutomatonButtonGatingAndViewerReuse();
     void slrAutomatonViewerUpdatesLiveAndReopens();
+    void slrAutomatonEdgesMeetTheirArrowsAndAvoidNodes();
+    void slrAutomatonClickShowsStateItems();
 
     void mainInitialUiIsVisibleAndEnabled();
     void mainSwitchLanguageToEnglishPersistsSelection();
     void mainSwitchLanguageToSpanishPersistsSelection();
     void mainAboutDialogShowsMetadata();
+    void mainLinksUseTheThemeColour();
+    void mainAppIconHasEverySize();
     void mainQuickReferencesOpen();
     void mainLlAndSlrEntryPointsOpenTutors();
     void mainTutorialFlowCompletesAndReenablesControls();

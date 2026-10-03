@@ -49,23 +49,6 @@ jobs:
           # GNU make would prefer over the qmake-generated Makefile.
           make -f Makefile -j$(sysctl -n hw.ncpu)
 
-      - name: Prepare icons
-        run: |
-          mkdir -p MyIcon.iconset
-
-          sips -z 16 16   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16.png
-          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16@2x.png
-          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32.png
-          sips -z 64 64   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32@2x.png
-          sips -z 128 128 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128.png
-          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128@2x.png
-          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256.png
-          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256@2x.png
-          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512.png
-          sips -z 1024 1024 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512@2x.png
-
-          iconutil -c icns MyIcon.iconset -o resources/SyntaxTutor.icns
-
       - name: Prepare .app bundle
         run: |
           APP=".bin/SyntaxTutor.app"
@@ -74,7 +57,8 @@ jobs:
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
 
-          cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
+          # The .icns ships ready in resources/icon (16 to 1024 px).
+          cp resources/icon/syntaxtutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
           chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
 
           cat > $APP/Contents/Info.plist << EOF
@@ -196,7 +180,11 @@ jobs:
           path: SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64.zip
 
   build-linux:
-    runs-on: ubuntu-latest
+    # The oldest Ubuntu LTS GitHub still offers. The AppImage carries the C
+    # and C++ runtime requirements of the system it is built on, so built on
+    # ubuntu-latest (24.04) it would not start on Ubuntu 22.04, Debian 12 or
+    # anything else with an older glibc or libstdc++.
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
@@ -239,14 +227,16 @@ jobs:
           -O /usr/local/bin/linuxdeploy-plugin-qt && \
           chmod +x /usr/local/bin/linuxdeploy-plugin-qt
 
-          mkdir -p $APPDIR/usr/bin \
-             $APPDIR/usr/share/icons/hicolor/256x256/apps
+          mkdir -p $APPDIR/usr/bin
+          # Every size of the icon, so desktops do not scale the 256 px one.
+          for size in 16 24 32 48 64 128 256 512; do
+            install -Dm644 resources/icon/png/syntaxtutor-$size.png \
+              $APPDIR/usr/share/icons/hicolor/${size}x${size}/apps/syntaxtutor.png
+          done
 
           cp .bin/SyntaxTutor $APPDIR/usr/bin/ && \
             printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > $APPDIR/SyntaxTutor.desktop && \
             chmod +x $APPDIR/SyntaxTutor.desktop && \
-            install -Dm644 resources/syntaxtutor.png \
-            $APPDIR/usr/share/icons/hicolor/256x256/apps/syntaxtutor.png && \
             /usr/local/bin/linuxdeploy \
               --appdir $APPDIR \
               --desktop-file $APPDIR/SyntaxTutor.desktop \
@@ -256,13 +246,15 @@ jobs:
 
       - name: Rename AppImage
         run: |
-          mv SyntaxTutor-x86_64.AppImage SyntaxTutor-${{ steps.version.outputs.value }}-linux-x86_64.AppImage
+          # No "linux" in the name: every AppImage is for Linux (AppImage
+          # naming convention: App-1.0-x86_64.AppImage).
+          mv SyntaxTutor-x86_64.AppImage SyntaxTutor-${{ steps.version.outputs.value }}-x86_64.AppImage
 
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v4
         with:
           name: SyntaxTutor-linux-x86_64
-          path: SyntaxTutor-${{ steps.version.outputs.value }}-linux-x86_64.AppImage
+          path: SyntaxTutor-${{ steps.version.outputs.value }}-x86_64.AppImage
 
   publish-prerelease:
     if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'

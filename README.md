@@ -82,12 +82,21 @@ Precompiled builds of SyntaxTutor are available in the Releases tab:
 ---
 
 ## 🛠️ Building from Source
-To build SyntaxTutor from source, you just need:
-- Qt6 (including `qmake6`)
-- A C++20-compliant compiler
+To build SyntaxTutor from source, you need:
+- Qt6 (including `qmake6` and the Qt SVG module)
+- A C++20-compliant compiler (GCC 11 or newer works)
+- [GoogleTest](https://github.com/google/googletest), only to run the backend tests
+
+With GNU make, the repository's `GNUmakefile` builds out of tree:
+```bash
+make app     # the application, in build/app
+make check   # backend and GUI tests
+```
+To use qmake directly instead, pass `-f Makefile`: in the repository root GNU make
+would otherwise pick up the `GNUmakefile` above.
 ```bash
 qmake6
-make
+make -f Makefile
 ```
 ---
 

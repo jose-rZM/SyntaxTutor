@@ -1,5 +1,7 @@
 #include "tutor_window_test.h"
 
+#include "appicon.h"
+#include "apppalette.h"
 #include "apptypography.h"
 #include "production_typography.h"
 #include "customtextedit.h"
@@ -11,11 +13,15 @@
 #include "tutor_grammar_fixtures.h"
 
 #include <QCheckBox>
+#include <QGuiApplication>
+#include <QClipboard>
 #include <QCoreApplication>
 #include <QDialog>
 #include <QFile>
 #include <QFontInfo>
+#include <QIcon>
 #include <QLabel>
+#include <QPixmap>
 #include <QPlainTextEdit>
 #include <QProgressBar>
 #include <QPushButton>
@@ -248,24 +254,91 @@ void TutorWindowTest::mainAboutDialogShowsMetadata() {
 
     auto* action = window.findChild<QAction*>("actionSobre_la_aplicaci_n");
     QVERIFY(action != nullptr);
+    // An explicit role, so macOS files it under the application menu in
+    // every language: left to the text heuristic, only the English "About"
+    // was moved there.
+    QCOMPARE(action->menuRole(), QAction::AboutRole);
+    QCOMPARE(action->text(), QStringLiteral("Sobre SyntaxTutor"));
     bool contentVerified = false;
     QtModalTestUtils::scheduleUntilHandled([&contentVerified]() {
         QDialog* dialog = findInfoDialog();
         if (dialog == nullptr) {
             return false;
         }
-        auto* content = dialog->findChild<QTextBrowser*>("infoDialogContent");
-        if (content == nullptr) {
+        auto* title   = dialog->findChild<QLabel*>("aboutTitle");
+        auto* note    = dialog->findChild<QLabel*>("aboutNote");
+        auto* credits = dialog->findChild<QLabel*>("aboutCredits");
+        if (title == nullptr || note == nullptr || credits == nullptr) {
             return false;
         }
-        const QString text = content->toPlainText();
-        contentVerified = text.contains("José R.") && text.contains("GPLv3") &&
-                          text.contains("GitHub");
+        contentVerified =
+            title->text().startsWith("SyntaxTutor") &&
+            note->text().contains("versión 1") &&
+            note->text().contains("Trabajo Fin de Grado") &&
+            credits->text().contains("José R.") &&
+            credits->text().contains("GPLv3") &&
+            credits->text().contains("GitHub");
         clickInfoDialogClose(dialog);
         return true;
     });
     action->trigger();
     QVERIFY(contentVerified);
+
+    // "Copiar y cerrar" leaves what a bug report needs on the clipboard.
+    QGuiApplication::clipboard()->clear();
+    QtModalTestUtils::scheduleUntilHandled([]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        auto* copy = dialog->findChild<QPushButton*>("aboutCopyButton");
+        if (copy == nullptr) {
+            return false;
+        }
+        QTest::mouseClick(copy, Qt::LeftButton);
+        return true;
+    });
+    action->trigger();
+    const QString copied = QGuiApplication::clipboard()->text();
+    QVERIFY2(copied.startsWith("SyntaxTutor") && copied.contains("Qt "),
+             qPrintable(copied));
+    QVERIFY(findInfoDialog() == nullptr);
+}
+
+// -----------------------------------------------------------------------------
+// Test: mainAppIconHasEverySize
+// Expected:
+//   The application icon finds a bitmap of its own for every size it lists,
+//   so a broken resource path shows up here instead of as a blank icon.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainAppIconHasEverySize() {
+    const QIcon icon = AppIcon::icon();
+    QVERIFY(!icon.isNull());
+    for (const int size : AppIcon::kSizes) {
+        QVERIFY2(icon.availableSizes().contains(QSize(size, size)),
+                 qPrintable(QString::number(size)));
+        const QPixmap pixmap = icon.pixmap(QSize(size, size), 1.0);
+        QCOMPARE(pixmap.size(), QSize(size, size));
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Test: mainLinksUseTheThemeColour
+// Expected:
+//   Links in rich text are drawn in the theme's teal, whatever palette the
+//   platform hands over: app.qss cannot colour them, and the light palette's
+//   dark blue was unreadable on the dark theme.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainLinksUseTheThemeColour() {
+    const QPalette saved = QApplication::palette();
+    AppPalette::apply();
+
+    QLabel label(QStringLiteral("<a href='https://www.qt.io/'>Qt</a>"));
+    QCOMPARE(label.palette().color(QPalette::Link), AppPalette::linkColor());
+    QCOMPARE(label.palette().color(QPalette::LinkVisited),
+             AppPalette::linkColor());
+
+    QApplication::setPalette(saved);
 }
 
 // -----------------------------------------------------------------------------
