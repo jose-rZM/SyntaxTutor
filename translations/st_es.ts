@@ -292,34 +292,34 @@ T -&gt; ( E ) | id .</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.ui" line="47"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="43"/>
         <location filename="../src/gui/lltutorwindow.cpp" line="184"/>
         <source>Atras</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.ui" line="60"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="56"/>
         <source>✔</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.ui" line="73"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="69"/>
         <source>Respuestas correctas</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.ui" line="76"/>
-        <location filename="../src/gui/lltutorwindow.ui" line="105"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="72"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="101"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.ui" line="89"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="85"/>
         <source>✘</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.ui" line="102"/>
+        <location filename="../src/gui/lltutorwindow.ui" line="98"/>
         <source>Respuestas incorrectas</source>
         <translation></translation>
     </message>
@@ -1124,246 +1124,241 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="56"/>
+        <location filename="../src/gui/mainwindow.ui" line="52"/>
         <source>Puntos: 0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="69"/>
+        <location filename="../src/gui/mainwindow.ui" line="65"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="172"/>
-        <location filename="../src/gui/mainwindow.cpp" line="115"/>
+        <location filename="../src/gui/mainwindow.ui" line="168"/>
+        <location filename="../src/gui/mainwindow.cpp" line="116"/>
         <source>Tutores interactivos</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="179"/>
+        <location filename="../src/gui/mainwindow.ui" line="175"/>
         <source>Elige como quieres practicar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="186"/>
+        <location filename="../src/gui/mainwindow.ui" line="182"/>
         <source>Inicia un tutor, continua con la guia interactiva y ajusta la dificultad de la gramatica antes de empezar.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="209"/>
-        <location filename="../src/gui/mainwindow.cpp" line="124"/>
-        <location filename="../src/gui/mainwindow.cpp" line="634"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
+        <location filename="../src/gui/mainwindow.ui" line="205"/>
+        <location filename="../src/gui/mainwindow.cpp" line="125"/>
+        <location filename="../src/gui/mainwindow.cpp" line="635"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1021"/>
         <source>LL(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="222"/>
-        <location filename="../src/gui/mainwindow.cpp" line="125"/>
-        <location filename="../src/gui/mainwindow.cpp" line="671"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1043"/>
+        <location filename="../src/gui/mainwindow.ui" line="218"/>
+        <location filename="../src/gui/mainwindow.cpp" line="126"/>
+        <location filename="../src/gui/mainwindow.cpp" line="672"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1040"/>
         <source>SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="251"/>
-        <location filename="../src/gui/mainwindow.cpp" line="126"/>
+        <location filename="../src/gui/mainwindow.ui" line="247"/>
+        <location filename="../src/gui/mainwindow.cpp" line="127"/>
         <source>Tutorial</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="265"/>
-        <location filename="../src/gui/mainwindow.cpp" line="127"/>
+        <location filename="../src/gui/mainwindow.ui" line="261"/>
+        <location filename="../src/gui/mainwindow.cpp" line="128"/>
         <source>Dificultad</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="277"/>
-        <location filename="../src/gui/mainwindow.cpp" line="128"/>
+        <location filename="../src/gui/mainwindow.ui" line="273"/>
+        <location filename="../src/gui/mainwindow.cpp" line="129"/>
         <source>Nivel 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="287"/>
-        <location filename="../src/gui/mainwindow.cpp" line="129"/>
+        <location filename="../src/gui/mainwindow.ui" line="283"/>
+        <location filename="../src/gui/mainwindow.cpp" line="130"/>
         <source>Nivel 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="294"/>
-        <location filename="../src/gui/mainwindow.cpp" line="130"/>
+        <location filename="../src/gui/mainwindow.ui" line="290"/>
+        <location filename="../src/gui/mainwindow.cpp" line="131"/>
         <source>Nivel 3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="103"/>
-        <location filename="../src/gui/mainwindow.cpp" line="131"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1097"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1107"/>
+        <location filename="../src/gui/mainwindow.ui" line="99"/>
+        <location filename="../src/gui/mainwindow.cpp" line="132"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1094"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1104"/>
         <source>Idioma</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="319"/>
+        <location filename="../src/gui/mainwindow.ui" line="315"/>
         <source>Usar mi propia gramática</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="322"/>
+        <location filename="../src/gui/mainwindow.ui" line="318"/>
         <source>Escribe tu propia gramática antes de empezar el ejercicio, en lugar de usar una aleatoria.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="332"/>
+        <location filename="../src/gui/mainwindow.ui" line="328"/>
         <source>Modo examen</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="335"/>
+        <location filename="../src/gui/mainwindow.ui" line="331"/>
         <source>Sin retroalimentación durante el ejercicio: al terminar verás un informe con tu calificación.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="404"/>
+        <location filename="../src/gui/mainwindow.ui" line="400"/>
         <source>Acerca de</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="415"/>
-        <source>Sobre la aplicación</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.ui" line="420"/>
+        <location filename="../src/gui/mainwindow.ui" line="419"/>
         <source>Referencia LL(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.ui" line="425"/>
+        <location filename="../src/gui/mainwindow.ui" line="424"/>
         <source>Referencia SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="190"/>
+        <location filename="../src/gui/mainwindow.cpp" line="191"/>
         <source>+1 Nivel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="344"/>
-        <location filename="../src/gui/mainwindow.cpp" line="726"/>
+        <location filename="../src/gui/mainwindow.cpp" line="345"/>
+        <location filename="../src/gui/mainwindow.cpp" line="727"/>
         <source>Puntos: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="415"/>
-        <location filename="../src/gui/mainwindow.cpp" line="508"/>
+        <location filename="../src/gui/mainwindow.cpp" line="416"/>
+        <location filename="../src/gui/mainwindow.cpp" line="509"/>
         <source>%1 %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="425"/>
-        <location filename="../src/gui/mainwindow.cpp" line="454"/>
+        <location filename="../src/gui/mainwindow.cpp" line="426"/>
+        <location filename="../src/gui/mainwindow.cpp" line="455"/>
         <source>Personalizar…</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="455"/>
+        <location filename="../src/gui/mainwindow.cpp" line="456"/>
         <source>Personalizar… (%1 %)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="473"/>
+        <location filename="../src/gui/mainwindow.cpp" line="474"/>
         <source>TAMAÑO DEL TEXTO</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="477"/>
+        <location filename="../src/gui/mainwindow.cpp" line="478"/>
         <source>Elige el tamaño que te resulte cómodo</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="531"/>
+        <location filename="../src/gui/mainwindow.cpp" line="532"/>
         <source>Aplicar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="790"/>
+        <location filename="../src/gui/mainwindow.cpp" line="791"/>
         <source>&lt;h3&gt;LL(1)&lt;/h3&gt;&lt;p&gt;Con este botón puedes lanzar el tutor LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="793"/>
+        <location filename="../src/gui/mainwindow.cpp" line="794"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Con este, el SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="797"/>
+        <location filename="../src/gui/mainwindow.cpp" line="798"/>
         <source>&lt;p&gt;También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad repercute en la longitud de la gramática.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="835"/>
+        <location filename="../src/gui/mainwindow.cpp" line="836"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Pasemos al tutor SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="837"/>
+        <location filename="../src/gui/mainwindow.cpp" line="838"/>
         <source>&lt;p&gt;Esta vez se usará una gramática más compleja (Nivel 3).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="840"/>
+        <location filename="../src/gui/mainwindow.cpp" line="841"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="873"/>
+        <location filename="../src/gui/mainwindow.cpp" line="874"/>
         <source>&lt;h2&gt;Nivel&lt;/h2&gt;&lt;p&gt;¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios o avances en el estudio, ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un total de 10. ¡Intenta llegar al máximo!&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="880"/>
+        <location filename="../src/gui/mainwindow.cpp" line="881"/>
         <source>&lt;h2&gt;¡Tutorial completado!&lt;/h2&gt;&lt;p&gt;Ya puedes comenzar a practicar.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="116"/>
+        <location filename="../src/gui/mainwindow.cpp" line="117"/>
         <source>Elige cómo quieres practicar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="122"/>
+        <location filename="../src/gui/mainwindow.cpp" line="123"/>
         <source>Inicia un tutor y ajusta la dificultad de la gramática antes de empezar.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="408"/>
-        <location filename="../src/gui/mainwindow.cpp" line="465"/>
+        <location filename="../src/gui/mainwindow.cpp" line="409"/>
+        <location filename="../src/gui/mainwindow.cpp" line="466"/>
         <source>Tamaño del texto</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="484"/>
+        <location filename="../src/gui/mainwindow.cpp" line="485"/>
         <source>Puedes necesitar redimensionar la ventana.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="802"/>
+        <location filename="../src/gui/mainwindow.cpp" line="803"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1021"/>
         <source>Referencia rápida LL(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1025"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1022"/>
         <source>Resumen de conjuntos y construcción de la tabla predictiva</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1026"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1023"/>
         <source>
             &lt;h3&gt;Conceptos clave&lt;/h3&gt;
             &lt;p&gt;&lt;b&gt;CAB(X):&lt;/b&gt; conjunto de símbolos terminales que pueden comenzar cadenas derivables desde &lt;code&gt;X&lt;/code&gt;.&lt;/p&gt;
@@ -1380,12 +1375,12 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1044"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1041"/>
         <source>Resumen de items LR(0), cierre, goto y tabla de análisis</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1045"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1042"/>
         <source>
             &lt;h3&gt;Conceptos clave&lt;/h3&gt;
             &lt;p&gt;&lt;b&gt;Ítems LR(0):&lt;/b&gt; producciones con un punto que marca la posición actual del análisis.&lt;/p&gt;
@@ -1404,79 +1399,80 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1110"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1107"/>
         <source>Selecciona el idioma de la aplicación</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1115"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1112"/>
         <source>El cambio se aplicará al reiniciar la aplicación.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1043"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1040"/>
         <source>Referencia rápida SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1122"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1119"/>
         <source>Español</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1127"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1124"/>
         <source>Inglés</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="524"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1132"/>
+        <location filename="../src/gui/mainwindow.cpp" line="525"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1129"/>
         <source>Cancelar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="907"/>
+        <location filename="../src/gui/mainwindow.ui" line="411"/>
+        <location filename="../src/gui/mainwindow.cpp" line="908"/>
         <source>Sobre SyntaxTutor</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="914"/>
+        <location filename="../src/gui/mainwindow.cpp" line="915"/>
         <source>Qt %1 (compilado con Qt %2)
 %3 (%4)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <location filename="../src/gui/mainwindow.cpp" line="933"/>
         <source>Tutor interactivo de análisis sintáctico LL(1) y SLR(1).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="949"/>
+        <location filename="../src/gui/mainwindow.cpp" line="946"/>
         <source>La versión 1 de SyntaxTutor fue el Trabajo Fin de Grado «Tutorial Interactivo sobre Analizadores Sintácticos» (Universidad de Málaga, 2025). Esta versión es una ampliación y un rediseño posteriores, independientes del TFG.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="958"/>
+        <location filename="../src/gui/mainwindow.cpp" line="955"/>
         <source>Autor: José R.&lt;br&gt;Licencia: GPLv3&lt;br&gt;Desarrollado con &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; y C++20&lt;br&gt;Código fuente en &lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub&lt;/a&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="986"/>
+        <location filename="../src/gui/mainwindow.cpp" line="983"/>
         <source>Copiar y cerrar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="992"/>
+        <location filename="../src/gui/mainwindow.cpp" line="989"/>
         <source>Cerrar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1168"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1165"/>
         <source>Reiniciar requerido</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1169"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1166"/>
         <source>Para aplicar el cambio de idioma, es necesario reiniciar la aplicación.</source>
         <translation></translation>
     </message>
@@ -1484,7 +1480,7 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="89"/>
+        <location filename="../src/gui/mainwindow.cpp" line="90"/>
         <source>Cerrar</source>
         <translation></translation>
     </message>
@@ -1548,39 +1544,39 @@ Comprueba que tienes permisos de escritura en esa carpeta.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="47"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="43"/>
         <location filename="../src/gui/slrtutorwindow.cpp" line="281"/>
         <source>Atras</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="60"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="56"/>
         <source>✔</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="73"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="69"/>
         <source>Respuestas correctas</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="76"/>
-        <location filename="../src/gui/slrtutorwindow.ui" line="105"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="72"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="101"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="89"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="85"/>
         <source>✘</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="102"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="98"/>
         <source>Respuestas incorrectas</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.ui" line="169"/>
+        <location filename="../src/gui/slrtutorwindow.ui" line="165"/>
         <source>Ver autómata LR(0)</source>
         <translation></translation>
     </message>

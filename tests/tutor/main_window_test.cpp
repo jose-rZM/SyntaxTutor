@@ -254,6 +254,11 @@ void TutorWindowTest::mainAboutDialogShowsMetadata() {
 
     auto* action = window.findChild<QAction*>("actionSobre_la_aplicaci_n");
     QVERIFY(action != nullptr);
+    // An explicit role, so macOS files it under the application menu in
+    // every language: left to the text heuristic, only the English "About"
+    // was moved there.
+    QCOMPARE(action->menuRole(), QAction::AboutRole);
+    QCOMPARE(action->text(), QStringLiteral("Sobre SyntaxTutor"));
     bool contentVerified = false;
     QtModalTestUtils::scheduleUntilHandled([&contentVerified]() {
         QDialog* dialog = findInfoDialog();
