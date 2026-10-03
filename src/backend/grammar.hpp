@@ -124,7 +124,7 @@ struct Grammar {
      * This function provides a debug view of the grammar by printing out all
      * rules, the axiom, and other relevant details.
      */
-    void Debug() const; // NOSONAR
+    void Debug() const;
 
     /**
      * @brief Adds a production rule to the grammar and updates the symbol

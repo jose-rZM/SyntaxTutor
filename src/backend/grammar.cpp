@@ -74,7 +74,7 @@ Grammar::FilterRulesByConsequent(const std::string& arg) const {
 
 // GCOVR_EXCL_START
 // LCOV_EXCL_START
-void Grammar::Debug() const // NOSONAR
+void Grammar::Debug() const
 {
     std::cout << "Grammar:\n";
     for (const auto& entry : g_) {
