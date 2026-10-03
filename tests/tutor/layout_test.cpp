@@ -18,17 +18,46 @@
 #include <QCoreApplication>
 #include <QDialog>
 #include <QImage>
+#include <QLabel>
 #include <QListWidget>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTest>
 #include <QTimer>
+#include <QTranslator>
 
 namespace {
 
 // Text sizes the checks run at: the smallest the user can pick, the design
 // size, and two large ones where wrapping changes the most.
 constexpr int kAuditedPercents[] = {80, 100, 150, 200};
+
+// Installs the translation for @p language ("en"; "es" is the source and
+// needs none) for the lifetime of the object.
+class Translation {
+  public:
+    explicit Translation(const QString& language) {
+        if (language == QStringLiteral("en") &&
+            translator_.load(QStringLiteral(":/translations/st_en.qm"))) {
+            installed_ = QCoreApplication::installTranslator(&translator_);
+        }
+    }
+    ~Translation() {
+        if (installed_) {
+            QCoreApplication::removeTranslator(&translator_);
+        }
+    }
+    Translation(const Translation&)            = delete;
+    Translation& operator=(const Translation&) = delete;
+
+  private:
+    QTranslator translator_;
+    bool        installed_ = false;
+};
+
+// Languages the text-heavy screens are checked in: English runs longer.
+const QStringList kAuditedLanguages = {QStringLiteral("es"),
+                                       QStringLiteral("en")};
 
 void clearLayoutTestSettings() {
     QSettings settings("UMA-Test", "SyntaxTutor-Test");
@@ -97,6 +126,51 @@ QSize tutorPageSize() {
             qMax(600, AppTypography::lengthForText(600))};
 }
 
+// The hand-built dialogs at one language and text size.
+void auditDialogs(const QString& language, int percent) {
+    clearLayoutTestSettings();
+    ProductionTypography typography(percent);
+    MainWindow           window;
+    window.show();
+    settle();
+
+    const auto check = [&](const char* what, const QStringList& problems) {
+        const QString name = QStringLiteral("%1 (%2)").arg(
+            QString::fromLatin1(what), language);
+        QVERIFY2(problems.isEmpty(),
+                 qPrintable(report(percent, name, problems)));
+    };
+
+    check("language dialog", auditModal([&window]() {
+              QMetaObject::invokeMethod(&window, "on_idiom_clicked");
+          }));
+    check("text size dialog", auditModal([&window]() {
+              window.findChild<QAction*>("actionTextSizeCustom")->trigger();
+          }));
+    check("about dialog", auditModal([&window]() {
+              QMetaObject::invokeMethod(
+                  &window, "on_actionSobre_la_aplicaci_n_triggered");
+          }));
+
+    for (const auto mode : {GrammarEditorDialog::Mode::LL1,
+                            GrammarEditorDialog::Mode::SLR1}) {
+        GrammarEditorDialog editor(mode);
+        editor.show();
+        settle();
+        check("grammar editor", auditAcrossWidths(&editor));
+    }
+
+    ExamSession session;
+    session.record(QStringLiteral("¿Cuántas filas tiene la tabla?"),
+                   QStringLiteral("3"), QStringLiteral("4"), false);
+    session.record(QStringLiteral("CAB(A)"), QStringLiteral("{a}"),
+                   QStringLiteral("{a}"), true);
+    ExamReportDialog examReport(session, QStringLiteral("Examen LL(1)"));
+    examReport.show();
+    settle();
+    check("exam report", auditAcrossWidths(&examReport));
+}
+
 } // namespace
 
 // -----------------------------------------------------------------------------
@@ -106,16 +180,26 @@ QSize tutorPageSize() {
 //   wrapped title given one line too few, no button or option squeezed.
 // -----------------------------------------------------------------------------
 void TutorWindowTest::layoutHomeShowsAllTextAtEveryTextSize() {
-    for (const int percent : kAuditedPercents) {
-        clearLayoutTestSettings();
-        ProductionTypography typography(percent);
-        MainWindow           window;
-        window.show();
-        settle();
+    for (const QString& language : kAuditedLanguages) {
+        Translation translation(language);
+        for (const int percent : kAuditedPercents) {
+            clearLayoutTestSettings();
+            ProductionTypography typography(percent);
+            MainWindow           window;
+            window.show();
+            settle();
 
-        const QStringList problems = auditAcrossWidths(&window);
-        QVERIFY2(problems.isEmpty(),
-                 qPrintable(report(percent, "home", problems)));
+            // The English pass has to be in English, or it proves nothing.
+            const QString title =
+                window.findChild<QLabel*>("homeTitle")->text();
+            QCOMPARE(title == QStringLiteral("Elige cómo quieres practicar"),
+                     language == QStringLiteral("es"));
+
+            const QString     what = QStringLiteral("home (%1)").arg(language);
+            const QStringList problems = auditAcrossWidths(&window);
+            QVERIFY2(problems.isEmpty(),
+                     qPrintable(report(percent, what, problems)));
+        }
     }
 }
 
@@ -126,53 +210,11 @@ void TutorWindowTest::layoutHomeShowsAllTextAtEveryTextSize() {
 //   exam report - grow to fit their wrapped text at every size and width.
 // -----------------------------------------------------------------------------
 void TutorWindowTest::layoutDialogsShowAllTextAtEveryTextSize() {
-    for (const int percent : kAuditedPercents) {
-        clearLayoutTestSettings();
-        ProductionTypography typography(percent);
-        MainWindow           window;
-        window.show();
-        settle();
-
-        QStringList problems = auditModal([&window]() {
-            QMetaObject::invokeMethod(&window, "on_idiom_clicked");
-        });
-        QVERIFY2(problems.isEmpty(),
-                 qPrintable(report(percent, "language dialog", problems)));
-
-        problems = auditModal([&window]() {
-            window.findChild<QAction*>("actionTextSizeCustom")->trigger();
-        });
-        QVERIFY2(problems.isEmpty(),
-                 qPrintable(report(percent, "text size dialog", problems)));
-
-        problems = auditModal([&window]() {
-            QMetaObject::invokeMethod(&window,
-                                      "on_actionSobre_la_aplicaci_n_triggered");
-        });
-        QVERIFY2(problems.isEmpty(),
-                 qPrintable(report(percent, "about dialog", problems)));
-
-        for (const auto mode : {GrammarEditorDialog::Mode::LL1,
-                                GrammarEditorDialog::Mode::SLR1}) {
-            GrammarEditorDialog editor(mode);
-            editor.show();
-            settle();
-            problems = auditAcrossWidths(&editor);
-            QVERIFY2(problems.isEmpty(),
-                     qPrintable(report(percent, "grammar editor", problems)));
+    for (const QString& language : kAuditedLanguages) {
+        Translation translation(language);
+        for (const int percent : kAuditedPercents) {
+            auditDialogs(language, percent);
         }
-
-        ExamSession session;
-        session.record(QStringLiteral("¿Cuántas filas tiene la tabla LL(1)?"),
-                       QStringLiteral("3"), QStringLiteral("4"), false);
-        session.record(QStringLiteral("CAB(A)"), QStringLiteral("{a}"),
-                       QStringLiteral("{a}"), true);
-        ExamReportDialog examReport(session, QStringLiteral("Examen LL(1)"));
-        examReport.show();
-        settle();
-        problems = auditAcrossWidths(&examReport);
-        QVERIFY2(problems.isEmpty(),
-                 qPrintable(report(percent, "exam report", problems)));
     }
 }
 
