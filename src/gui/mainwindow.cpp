@@ -27,6 +27,7 @@
 #include <QPixmap>
 #include <QScrollArea>
 #include <QStackedWidget>
+#include "appicon.h"
 #include "apptypography.h"
 #include "applayout.h"
 #include <QActionGroup>
@@ -917,14 +918,10 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
                  QSysInfo::prettyProductName(),
                  QSysInfo::currentCpuArchitecture());
 
-    auto* icon       = new QLabel(&dialog);
+    auto*     icon   = new QLabel(&dialog);
     const int iconPx = AppTypography::lengthForText(88);
-    const qreal ratio = devicePixelRatioF();
-    QPixmap pixmap(":/resources/syntaxtutor.png");
-    pixmap = pixmap.scaled(QSize(iconPx, iconPx) * ratio, Qt::KeepAspectRatio,
-                           Qt::SmoothTransformation);
-    pixmap.setDevicePixelRatio(ratio);
-    icon->setPixmap(pixmap);
+    icon->setPixmap(AppIcon::icon().pixmap(QSize(iconPx, iconPx),
+                                           devicePixelRatioF()));
     icon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
     auto* title = new QLabel(QStringLiteral("SyntaxTutor %1").arg(version),

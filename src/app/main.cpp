@@ -17,6 +17,7 @@
  */
 
 #include "appversion.h"
+#include "appicon.h"
 #include "apppalette.h"
 #include "apptypography.h"
 #include "mainwindow.h"
@@ -42,6 +43,7 @@ int main(int argc, char* argv[]) {
 #endif
     QApplication::setStyle("fusion");
     AppPalette::apply();
+    QApplication::setWindowIcon(AppIcon::icon());
     AppTypography::systemFont() = QApplication::font();
 #ifndef Q_OS_MACOS
     QFontDatabase::addApplicationFont(
