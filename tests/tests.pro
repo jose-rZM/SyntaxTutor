@@ -60,6 +60,7 @@ HEADERS += \
     ../src/backend/symbol_table.hpp \
     ../src/widgets/apptextscale.h \
     ../src/widgets/apptypography.h \
+    ../src/widgets/appicon.h \
     ../src/widgets/applayout.h \
     ../src/widgets/apppalette.h \
     ../src/widgets/automatonview.h \

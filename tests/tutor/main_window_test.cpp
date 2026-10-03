@@ -1,5 +1,6 @@
 #include "tutor_window_test.h"
 
+#include "appicon.h"
 #include "apppalette.h"
 #include "apptypography.h"
 #include "production_typography.h"
@@ -18,7 +19,9 @@
 #include <QDialog>
 #include <QFile>
 #include <QFontInfo>
+#include <QIcon>
 #include <QLabel>
+#include <QPixmap>
 #include <QPlainTextEdit>
 #include <QProgressBar>
 #include <QPushButton>
@@ -295,6 +298,23 @@ void TutorWindowTest::mainAboutDialogShowsMetadata() {
     QVERIFY2(copied.startsWith("SyntaxTutor") && copied.contains("Qt "),
              qPrintable(copied));
     QVERIFY(findInfoDialog() == nullptr);
+}
+
+// -----------------------------------------------------------------------------
+// Test: mainAppIconHasEverySize
+// Expected:
+//   The application icon finds a bitmap of its own for every size it lists,
+//   so a broken resource path shows up here instead of as a blank icon.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainAppIconHasEverySize() {
+    const QIcon icon = AppIcon::icon();
+    QVERIFY(!icon.isNull());
+    for (const int size : AppIcon::kSizes) {
+        QVERIFY2(icon.availableSizes().contains(QSize(size, size)),
+                 qPrintable(QString::number(size)));
+        const QPixmap pixmap = icon.pixmap(QSize(size, size), 1.0);
+        QCOMPARE(pixmap.size(), QSize(size, size));
+    }
 }
 
 // -----------------------------------------------------------------------------
