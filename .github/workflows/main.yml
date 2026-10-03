@@ -180,7 +180,11 @@ jobs:
           path: SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64.zip
 
   build-linux:
-    runs-on: ubuntu-latest
+    # The oldest Ubuntu LTS GitHub still offers. The AppImage carries the C
+    # and C++ runtime requirements of the system it is built on, so built on
+    # ubuntu-latest (24.04) it would not start on Ubuntu 22.04, Debian 12 or
+    # anything else with an older glibc or libstdc++.
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
@@ -242,13 +246,15 @@ jobs:
 
       - name: Rename AppImage
         run: |
-          mv SyntaxTutor-x86_64.AppImage SyntaxTutor-${{ steps.version.outputs.value }}-linux-x86_64.AppImage
+          # No "linux" in the name: every AppImage is for Linux (AppImage
+          # naming convention: App-1.0-x86_64.AppImage).
+          mv SyntaxTutor-x86_64.AppImage SyntaxTutor-${{ steps.version.outputs.value }}-x86_64.AppImage
 
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v4
         with:
           name: SyntaxTutor-linux-x86_64
-          path: SyntaxTutor-${{ steps.version.outputs.value }}-linux-x86_64.AppImage
+          path: SyntaxTutor-${{ steps.version.outputs.value }}-x86_64.AppImage
 
   publish-prerelease:
     if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
