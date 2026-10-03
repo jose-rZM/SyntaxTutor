@@ -901,7 +901,7 @@ void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
         this, tr("Sobre la aplicación"), tr("SyntaxTutor"),
         tr("Una herramienta de escritorio para practicar análisis sintáctico"),
         versionLine +
-        tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
+        tr("<p>Trabajo Fin de Grado: Tutorial Interactivo sobre Analizadores "
            "Sintácticos.</p>") +
         tr("<p><b>Autor:</b> José R.</p>") +
         tr("<p><b>Licencia:</b> GPLv3</p>") +

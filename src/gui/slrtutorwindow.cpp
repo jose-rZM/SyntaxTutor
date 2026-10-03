@@ -1898,7 +1898,7 @@ QString SLRTutorWindow::generateQuestion() {
 
         return tr("Estado I%1:\n%2\n"
                   "Indica los terminales sobre los que se aplicará REDUCCIÓN.\n"
-                  "Formato: a,b,c — vacío si no se aplica en ninguno.")
+                  "Formato: a,b,c (vacío si no se aplica en ninguno).")
             .arg(currentReduceStateId)
             .arg(QString::fromStdString(
                 slr1.PrintItems(currentReduceState.items_)));
@@ -3925,7 +3925,7 @@ void SLRTutorWindow::setupTutorial() {
                    "<p>Por ejemplo, un ítem correspondiente a la misma "
                    "producción sería:</p>"
                    "<pre>X -> a . b</pre>"
-                   "<p>Observa el punto justo antes de “b”—ese es el formato "
+                   "<p>Observa el punto justo antes de “b”: ese es el formato "
                    "exigido. En caso de "
                    "varios ítems, simplemente coloca uno por línea.</p>"));
 

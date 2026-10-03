@@ -4,7 +4,7 @@
 <context>
     <name>AutomatonView</name>
     <message>
-        <location filename="../src/widgets/automatonview.cpp" line="197"/>
+        <location filename="../src/widgets/automatonview.cpp" line="269"/>
         <source>El autómata aparecerá cuando
 construyas el estado inicial I0.</source>
         <translation>The automaton will appear once you
@@ -137,13 +137,13 @@ build the initial state I0.</translation>
     <name>GrammarEditorDialog</name>
     <message>
         <location filename="../src/gui/grammareditordialog.cpp" line="146"/>
-        <source>Tu gramática — LL(1)</source>
-        <translation>Your grammar — LL(1)</translation>
+        <source>Tu gramática LL(1)</source>
+        <translation>Your LL(1) grammar</translation>
     </message>
     <message>
         <location filename="../src/gui/grammareditordialog.cpp" line="147"/>
-        <source>Tu gramática — SLR(1)</source>
-        <translation>Your grammar — SLR(1)</translation>
+        <source>Tu gramática SLR(1)</source>
+        <translation>Your SLR(1) grammar</translation>
     </message>
     <message>
         <location filename="../src/gui/grammareditordialog.cpp" line="159"/>
@@ -1277,6 +1277,11 @@ Which production α do you write in this cell?</translation>
         <translation>A desktop tool for practicing syntax analysis</translation>
     </message>
     <message>
+        <location filename="../src/gui/mainwindow.cpp" line="904"/>
+        <source>&lt;p&gt;Trabajo Fin de Grado: Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Final Degree Project: Interactive Tutorial About Syntax Analyzers.&lt;/p&gt;</translation>
+    </message>
+    <message>
         <location filename="../src/gui/mainwindow.cpp" line="918"/>
         <source>Resumen de conjuntos y construcción de la tabla predictiva</source>
         <translation>Overview of the sets and how the predictive table is built</translation>
@@ -1357,11 +1362,6 @@ Which production α do you write in this cell?</translation>
         <location filename="../src/gui/mainwindow.cpp" line="1008"/>
         <source>El cambio se aplicará al reiniciar la aplicación.</source>
         <translation>The change will be applied when the application restarts.</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="904"/>
-        <source>&lt;p&gt;Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Final Degree Project – Interactive Tutorial About Syntax Analyzers.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.cpp" line="412"/>
@@ -1995,17 +1995,6 @@ Write the terminal symbols on which REDUCTION is to be applied.
 Format: a,b,c (empty if none).</translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1899"/>
-        <source>Estado I%1:
-%2
-Indica los terminales sobre los que se aplicará REDUCCIÓN.
-Formato: a,b,c — vacío si no se aplica en ninguno.</source>
-        <translation>State I%1:
-%2
-Write the terminal symbols on which REDUCTION is to be applied.
-Format: a,b,c (empty if none).</translation>
-    </message>
-    <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="1909"/>
         <source>Rellena la tabla SLR(1). En el panel derecho tienes los estados y transiciones que has ido construyendo.
 Formato:
@@ -2109,6 +2098,17 @@ Format (%1 for a new line):
   X → a·b
   X → ·b
   X → EPSILON·</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1899"/>
+        <source>Estado I%1:
+%2
+Indica los terminales sobre los que se aplicará REDUCCIÓN.
+Formato: a,b,c (vacío si no se aplica en ninguno).</source>
+        <translation>State I%1:
+%2
+Write the terminal symbols on which REDUCTION is to be applied.
+Format: a,b,c (empty if none).</translation>
     </message>
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="2110"/>
@@ -2496,6 +2496,11 @@ You have not listed any conflicting states. </translation>
         <translation>&lt;h3&gt;Answer format&lt;/h3&gt;&lt;p&gt;Notice that the tutor now asks for a different answer format: a grammar rule, or an LR item (a grammar rule with the dot (.)), one per line. Remember that you can insert a new line with %1. Let us look at some examples.&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3922"/>
+        <source>&lt;h3&gt;Ejemplo: ítem LR(0)&lt;/h3&gt;&lt;p&gt;Un ítem LR añade un punto “.” para indicar la posición en la regla.&lt;/p&gt;&lt;p&gt;Por ejemplo, un ítem correspondiente a la misma producción sería:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Observa el punto justo antes de “b”: ese es el formato exigido. En caso de varios ítems, simplemente coloca uno por línea.&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Example: item LR(0)&lt;/h3&gt;&lt;p&gt;An LR item adds one point “.” to indicate the position on the rule.&lt;/p&gt;&lt;p&gt;For example, an item corresponding to the same production would be:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Note the period just before “b”: this is the required format. In case of multiple items, simply place one per line.&lt;/p&gt;</translation>
+    </message>
+    <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="3324"/>
         <source>Recuerda que solo se reduce en los terminales de SIG; en los demás se realiza SHIFT. Puedes apoyarte en la definición de SIG.
 </source>
@@ -2744,11 +2749,6 @@ You have not listed any conflicting states. </translation>
         <location filename="../src/gui/slrtutorwindow.cpp" line="3913"/>
         <source>&lt;h3&gt;Ejemplo: regla gramatical&lt;/h3&gt;&lt;p&gt;Supón que tienes esta producción en la gramática: X -&gt; a b | c&lt;/p&gt;&lt;p&gt;La respuesta correcta para esa pregunta sería exactamente:&lt;/p&gt;&lt;pre&gt;X -&gt; a b&lt;/pre&gt;&lt;pre&gt;X -&gt; c&lt;/pre&gt;&lt;p&gt;Una sola regla por línea, tal cual aparece arriba.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Example: grammatical rule&lt;/h3&gt;&lt;p&gt;Suppose you have this production in grammar: X -&gt; a b | c&lt;/p&gt;&lt;p&gt;The correct answer to this question would be exactly:&lt;/p&gt;&lt;pre&gt;X -&gt; a b&lt;/pre&gt;&lt;pre&gt;X -&gt; c&lt;/pre&gt;&lt;p&gt;Only one rule per line, as shown above.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3922"/>
-        <source>&lt;h3&gt;Ejemplo: ítem LR(0)&lt;/h3&gt;&lt;p&gt;Un ítem LR añade un punto “.” para indicar la posición en la regla.&lt;/p&gt;&lt;p&gt;Por ejemplo, un ítem correspondiente a la misma producción sería:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Observa el punto justo antes de “b”—ese es el formato exigido. En caso de varios ítems, simplemente coloca uno por línea.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Example: item LR(0)&lt;/h3&gt;&lt;p&gt;An LR item adds one point “.” to indicate the position on the rule.&lt;/p&gt;&lt;p&gt;For example, an item corresponding to the same production would be:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Note the period just before “b”-this is the required format. In case of multiple items, simply place one per line.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="3932"/>

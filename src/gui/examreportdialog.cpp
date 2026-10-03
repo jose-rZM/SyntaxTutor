@@ -120,7 +120,7 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     rootLayout->addWidget(review, 1);
 
     reportHtml_ = QStringLiteral("<h1>%1</h1>"
-                                 "<p><b>%2</b> %3 — %4</p>%5")
+                                 "<p><b>%2</b> %3. %4</p>%5")
                       .arg(escaped(examTitle), tr("Calificación:"),
                            tr("%1 / 10").arg(gradeText),
                            tr("%1 de %2 respuestas correctas (%3%)")

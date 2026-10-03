@@ -4,7 +4,7 @@
 <context>
     <name>AutomatonView</name>
     <message>
-        <location filename="../src/widgets/automatonview.cpp" line="197"/>
+        <location filename="../src/widgets/automatonview.cpp" line="269"/>
         <source>El autómata aparecerá cuando
 construyas el estado inicial I0.</source>
         <translation></translation>
@@ -136,12 +136,12 @@ construyas el estado inicial I0.</source>
     <name>GrammarEditorDialog</name>
     <message>
         <location filename="../src/gui/grammareditordialog.cpp" line="146"/>
-        <source>Tu gramática — LL(1)</source>
+        <source>Tu gramática LL(1)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/grammareditordialog.cpp" line="147"/>
-        <source>Tu gramática — SLR(1)</source>
+        <source>Tu gramática SLR(1)</source>
         <translation></translation>
     </message>
     <message>
@@ -1365,11 +1365,6 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="904"/>
-        <source>&lt;p&gt;Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/gui/mainwindow.cpp" line="906"/>
         <source>&lt;p&gt;&lt;b&gt;Autor:&lt;/b&gt; José R.&lt;/p&gt;</source>
         <translation></translation>
@@ -1458,6 +1453,11 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     <message>
         <location filename="../src/gui/mainwindow.cpp" line="936"/>
         <source>Referencia rápida SLR(1)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="904"/>
+        <source>&lt;p&gt;Trabajo Fin de Grado: Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
@@ -1846,14 +1846,6 @@ Formato: 1,3,7</source>
 %2
 Indica los símbolos terminales sobre los que debe aplicarse REDUCCIÓN.
 Formato: a,b,c (vacío si ninguno).</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1899"/>
-        <source>Estado I%1:
-%2
-Indica los terminales sobre los que se aplicará REDUCCIÓN.
-Formato: a,b,c — vacío si no se aplica en ninguno.</source>
         <translation></translation>
     </message>
     <message>
@@ -2300,6 +2292,11 @@ No has listado ningún estado conflictivo. </source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3922"/>
+        <source>&lt;h3&gt;Ejemplo: ítem LR(0)&lt;/h3&gt;&lt;p&gt;Un ítem LR añade un punto “.” para indicar la posición en la regla.&lt;/p&gt;&lt;p&gt;Por ejemplo, un ítem correspondiente a la misma producción sería:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Observa el punto justo antes de “b”: ese es el formato exigido. En caso de varios ítems, simplemente coloca uno por línea.&lt;/p&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="3302"/>
         <source>No has indicado ningún terminal.
 </source>
@@ -2337,6 +2334,14 @@ Formato (%1 para nueva línea):
   X → a·b
   X → ·b
   X → EPSILON·</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1899"/>
+        <source>Estado I%1:
+%2
+Indica los terminales sobre los que se aplicará REDUCCIÓN.
+Formato: a,b,c (vacío si no se aplica en ninguno).</source>
         <translation></translation>
     </message>
     <message>
@@ -2558,11 +2563,6 @@ Formato (%1 para nueva línea):
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="3913"/>
         <source>&lt;h3&gt;Ejemplo: regla gramatical&lt;/h3&gt;&lt;p&gt;Supón que tienes esta producción en la gramática: X -&gt; a b | c&lt;/p&gt;&lt;p&gt;La respuesta correcta para esa pregunta sería exactamente:&lt;/p&gt;&lt;pre&gt;X -&gt; a b&lt;/pre&gt;&lt;pre&gt;X -&gt; c&lt;/pre&gt;&lt;p&gt;Una sola regla por línea, tal cual aparece arriba.&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3922"/>
-        <source>&lt;h3&gt;Ejemplo: ítem LR(0)&lt;/h3&gt;&lt;p&gt;Un ítem LR añade un punto “.” para indicar la posición en la regla.&lt;/p&gt;&lt;p&gt;Por ejemplo, un ítem correspondiente a la misma producción sería:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Observa el punto justo antes de “b”—ese es el formato exigido. En caso de varios ítems, simplemente coloca uno por línea.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
