@@ -14,42 +14,42 @@ build the initial state I0.</translation>
 <context>
     <name>AutomatonViewerDialog</name>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="34"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="35"/>
         <source>Autómata LR(0)</source>
         <translation>LR(0) automaton</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="50"/>
-        <source>Ctrl + rueda para acercar, arrastra para desplazar</source>
-        <translation>Ctrl + wheel to zoom, drag to pan</translation>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="51"/>
+        <source>%1 + rueda para acercar, arrastra para desplazar</source>
+        <translation>%1 + wheel to zoom, drag to pan</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="65"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="68"/>
         <source>Alejar</source>
         <translation>Zoom out</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="66"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="69"/>
         <source>Acercar</source>
         <translation>Zoom in</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="67"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="70"/>
         <source>Ajustar</source>
         <translation>Fit</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="67"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="70"/>
         <source>Ajustar a la vista</source>
         <translation>Fit to view</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="69"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="72"/>
         <source>Centrar estado</source>
         <translation>Center state</translation>
     </message>
     <message>
-        <location filename="../src/gui/automatonviewerdialog.cpp" line="69"/>
+        <location filename="../src/gui/automatonviewerdialog.cpp" line="72"/>
         <source>Centrar el estado actual</source>
         <translation>Center the current state</translation>
     </message>

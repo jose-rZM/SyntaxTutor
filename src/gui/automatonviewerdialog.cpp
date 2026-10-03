@@ -19,6 +19,7 @@
 #include "apptypography.h"
 #include "applayout.h"
 #include "automatonviewerdialog.h"
+#include "appshortcuts.h"
 #include "automatonview.h"
 
 #include <QHBoxLayout>
@@ -47,7 +48,9 @@ AutomatonViewerDialog::AutomatonViewerDialog(AutomatonView* view,
     toolbar->setSpacing(8);
 
     auto* hint = new QLabel(
-        tr("Ctrl + rueda para acercar, arrastra para desplazar"), this);
+        tr("%1 + rueda para acercar, arrastra para desplazar")
+            .arg(AppShortcuts::primaryModifierName()),
+        this);
     hint->setObjectName("automatonViewerHint");
     toolbar->addWidget(hint);
     toolbar->addStretch(1);

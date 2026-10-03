@@ -1,5 +1,6 @@
 #include "tutor_window_test.h"
 
+#include "appshortcuts.h"
 #include "automatonview.h"
 #include "grammar_parser.hpp"
 #include "automatonviewerdialog.h"
@@ -1502,6 +1503,13 @@ void TutorWindowTest::slrAutomatonButtonGatingAndViewerReuse() {
     QCOMPARE(countViewers(), 1);
     // The view moved into the viewer.
     QVERIFY(viewer->findChild<AutomatonView*>() != nullptr);
+    // The zoom hint names the key the platform really uses: Qt maps Ctrl to
+    // Command on macOS.
+    auto* hint = viewer->findChild<QLabel*>("automatonViewerHint");
+    QVERIFY(hint != nullptr);
+    QVERIFY2(hint->text().startsWith(AppShortcuts::primaryModifierName() +
+                                     QStringLiteral(" + ")),
+             qPrintable(hint->text()));
 
     // Clicking again must not spawn a second viewer.
     QTest::mouseClick(button, Qt::LeftButton);

@@ -62,6 +62,7 @@ HEADERS += \
     src/widgets/appicon.h \
     src/widgets/applayout.h \
     src/widgets/apppalette.h \
+    src/widgets/appshortcuts.h \
     src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \

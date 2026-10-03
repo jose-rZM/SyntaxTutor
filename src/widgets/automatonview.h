@@ -65,7 +65,7 @@ struct AutomatonTransitionInfo {
  * current, conflict and reduce states.
  *
  * Hovering or clicking a node shows the LR(0) items of that state. The view
- * supports Ctrl+wheel zooming and drag scrolling.
+ * supports Ctrl+wheel (Cmd+wheel on macOS) zooming and drag scrolling.
  */
 class AutomatonView : public QGraphicsView {
     Q_OBJECT
