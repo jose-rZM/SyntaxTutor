@@ -5,11 +5,11 @@
 
 namespace SyntaxTutor::Version {
 inline QString current() {
-    return QStringLiteral("2.0.0-rc.4");
+    return QStringLiteral("2.0.0-rc.6");
 }
 
 inline const char* raw() {
-    return "2.0.0-rc.4";
+    return "2.0.0-rc.6";
 }
 } // namespace SyntaxTutor::Version
 #endif // APPVERSION_H
