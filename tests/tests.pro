@@ -61,6 +61,7 @@ HEADERS += \
     ../src/widgets/apptextscale.h \
     ../src/widgets/apptypography.h \
     ../src/widgets/applayout.h \
+    ../src/widgets/apppalette.h \
     ../src/widgets/automatonview.h \
     ../src/widgets/customtextedit.h \
     ../src/widgets/grammarview.h \

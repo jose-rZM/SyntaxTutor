@@ -65,6 +65,7 @@ class TutorWindowTest : public QObject {
     void mainSwitchLanguageToEnglishPersistsSelection();
     void mainSwitchLanguageToSpanishPersistsSelection();
     void mainAboutDialogShowsMetadata();
+    void mainLinksUseTheThemeColour();
     void mainQuickReferencesOpen();
     void mainLlAndSlrEntryPointsOpenTutors();
     void mainTutorialFlowCompletesAndReenablesControls();
