@@ -1190,104 +1190,89 @@ Which production α do you write in this cell?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="187"/>
+        <location filename="../src/gui/mainwindow.cpp" line="190"/>
         <source>+1 Nivel</source>
         <translation>+1 Level</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="341"/>
-        <location filename="../src/gui/mainwindow.cpp" line="723"/>
+        <location filename="../src/gui/mainwindow.cpp" line="344"/>
+        <location filename="../src/gui/mainwindow.cpp" line="726"/>
         <source>Puntos: %1</source>
         <translation>Score: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="787"/>
+        <location filename="../src/gui/mainwindow.cpp" line="790"/>
         <source>&lt;h3&gt;LL(1)&lt;/h3&gt;&lt;p&gt;Con este botón puedes lanzar el tutor LL(1).&lt;/p&gt;</source>
         <translation>&lt;h3&gt;LL(1)&lt;/h3&gt;&lt;p&gt;With this button you can launch the LL(1) tutor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="790"/>
+        <location filename="../src/gui/mainwindow.cpp" line="793"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Con este, el SLR(1).&lt;/p&gt;</source>
         <translation>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;With this one you can launch the SLR(1) tutor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="794"/>
+        <location filename="../src/gui/mainwindow.cpp" line="797"/>
         <source>&lt;p&gt;También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad repercute en la longitud de la gramática.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You can also select the difficulty level (1, 2, or 3). The difficulty affects the length of the grammar.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="113"/>
+        <location filename="../src/gui/mainwindow.cpp" line="116"/>
         <source>Elige cómo quieres practicar</source>
         <translation>Choose how you want to practice</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="119"/>
+        <location filename="../src/gui/mainwindow.cpp" line="122"/>
         <source>Inicia un tutor y ajusta la dificultad de la gramática antes de empezar.</source>
         <translation>Start a tutor and adjust the grammar difficulty before you begin.</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="405"/>
-        <location filename="../src/gui/mainwindow.cpp" line="462"/>
+        <location filename="../src/gui/mainwindow.cpp" line="408"/>
+        <location filename="../src/gui/mainwindow.cpp" line="465"/>
         <source>Tamaño del texto</source>
         <translation>Text size</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="481"/>
+        <location filename="../src/gui/mainwindow.cpp" line="484"/>
         <source>Puedes necesitar redimensionar la ventana.</source>
         <translation>You may need to resize the window.</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="799"/>
+        <location filename="../src/gui/mainwindow.cpp" line="802"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor LL(1).&lt;/p&gt;</source>
         <translation>&lt;p&gt;The LL(1) tutor will now open.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="832"/>
+        <location filename="../src/gui/mainwindow.cpp" line="835"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Pasemos al tutor SLR(1).&lt;/p&gt;</source>
         <translation>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Let&apos;s move on to the SLR(1) tutor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="834"/>
+        <location filename="../src/gui/mainwindow.cpp" line="837"/>
         <source>&lt;p&gt;Esta vez se usará una gramática más compleja (Nivel 3).&lt;/p&gt;</source>
         <translation>&lt;p&gt;This time a more complex grammar will be used (Level 3).&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="837"/>
+        <location filename="../src/gui/mainwindow.cpp" line="840"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor SLR(1).&lt;/p&gt;</source>
         <translation>&lt;p&gt;The SLR(1) tutor will now open.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="870"/>
+        <location filename="../src/gui/mainwindow.cpp" line="873"/>
         <source>&lt;h2&gt;Nivel&lt;/h2&gt;&lt;p&gt;¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios o avances en el estudio, ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un total de 10. ¡Intenta llegar al máximo!&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Levels&lt;/h2&gt;&lt;p&gt;Practice is rewarded! Every time you solve exercises or make progress in your study, you will earn points. These points will help you level up: there are a total of 10. Try to reach the maximum!&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="877"/>
+        <location filename="../src/gui/mainwindow.cpp" line="880"/>
         <source>&lt;h2&gt;¡Tutorial completado!&lt;/h2&gt;&lt;p&gt;Ya puedes comenzar a practicar.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Tutorial Completed!&lt;/h2&gt;&lt;p&gt;You can start practicing now.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="899"/>
-        <source>&lt;p&gt;&lt;b&gt;Versión:&lt;/b&gt; %1&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Version:&lt;/b&gt; %1 &lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="902"/>
-        <source>Una herramienta de escritorio para practicar análisis sintáctico</source>
-        <translation>A desktop tool for practicing syntax analysis</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="904"/>
-        <source>&lt;p&gt;Trabajo Fin de Grado: Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Final Degree Project: Interactive Tutorial About Syntax Analyzers.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="918"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1025"/>
         <source>Resumen de conjuntos y construcción de la tabla predictiva</source>
         <translation>Overview of the sets and how the predictive table is built</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="919"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1026"/>
         <source>
             &lt;h3&gt;Conceptos clave&lt;/h3&gt;
             &lt;p&gt;&lt;b&gt;CAB(X):&lt;/b&gt; conjunto de símbolos terminales que pueden comenzar cadenas derivables desde &lt;code&gt;X&lt;/code&gt;.&lt;/p&gt;
@@ -1316,12 +1301,12 @@ Which production α do you write in this cell?</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="937"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1044"/>
         <source>Resumen de items LR(0), cierre, goto y tabla de análisis</source>
         <translation>Overview of LR(0) items, closure, goto and the parsing table</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="938"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1045"/>
         <source>
             &lt;h3&gt;Conceptos clave&lt;/h3&gt;
             &lt;p&gt;&lt;b&gt;Ítems LR(0):&lt;/b&gt; producciones con un punto que marca la posición actual del análisis.&lt;/p&gt;
@@ -1354,111 +1339,122 @@ Which production α do you write in this cell?</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1003"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1110"/>
         <source>Selecciona el idioma de la aplicación</source>
         <translation>Select the application language</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1008"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1115"/>
         <source>El cambio se aplicará al reiniciar la aplicación.</source>
         <translation>The change will be applied when the application restarts.</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="412"/>
-        <location filename="../src/gui/mainwindow.cpp" line="505"/>
+        <location filename="../src/gui/mainwindow.cpp" line="415"/>
+        <location filename="../src/gui/mainwindow.cpp" line="508"/>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="422"/>
-        <location filename="../src/gui/mainwindow.cpp" line="451"/>
+        <location filename="../src/gui/mainwindow.cpp" line="425"/>
+        <location filename="../src/gui/mainwindow.cpp" line="454"/>
         <source>Personalizar…</source>
         <translation>Custom…</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="452"/>
+        <location filename="../src/gui/mainwindow.cpp" line="455"/>
         <source>Personalizar… (%1 %)</source>
         <translation>Custom… (%1 %)</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="470"/>
+        <location filename="../src/gui/mainwindow.cpp" line="473"/>
         <source>TAMAÑO DEL TEXTO</source>
         <translation>TEXT SIZE</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="474"/>
+        <location filename="../src/gui/mainwindow.cpp" line="477"/>
         <source>Elige el tamaño que te resulte cómodo</source>
         <translation>Pick the size you find comfortable</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="528"/>
+        <location filename="../src/gui/mainwindow.cpp" line="531"/>
         <source>Aplicar</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="906"/>
-        <source>&lt;p&gt;&lt;b&gt;Autor:&lt;/b&gt; José R.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Author:&lt;/b&gt; José R.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="907"/>
-        <source>&lt;p&gt;&lt;b&gt;Licencia:&lt;/b&gt; GPLv3&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;License:&lt;/b&gt; GPLv3&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="908"/>
-        <source>&lt;p&gt;Desarrollado con &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; y C++20.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Developed with &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; and C++20.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="910"/>
-        <source>&lt;p&gt;&lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub - jose-rZM&lt;/a&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub - jose-rZM&lt;/a&gt;&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="912"/>
-        <source>&lt;p&gt;2025 Universidad de Málaga&lt;/p&gt;</source>
-        <translation>&lt;p&gt;2025 University of Málaga&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="917"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
         <source>Referencia rápida LL(1)</source>
         <translation>LL(1) Quick Reference</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1043"/>
         <source>Referencia rápida SLR(1)</source>
         <translation>SLR(1) Quick Reference</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1015"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1122"/>
         <source>Español</source>
         <translation>Spanish</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1020"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1127"/>
         <source>Inglés</source>
         <translation>English</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="521"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1025"/>
+        <location filename="../src/gui/mainwindow.cpp" line="524"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1132"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1061"/>
+        <location filename="../src/gui/mainwindow.cpp" line="907"/>
+        <source>Sobre SyntaxTutor</source>
+        <translation>About SyntaxTutor</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="914"/>
+        <source>Qt %1 (compilado con Qt %2)
+%3 (%4)</source>
+        <translation>Qt %1 (built with Qt %2)
+%3 (%4)</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <source>Tutor interactivo de análisis sintáctico LL(1) y SLR(1).</source>
+        <translation>Interactive tutor for LL(1) and SLR(1) parsing.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="949"/>
+        <source>La versión 1 de SyntaxTutor fue el Trabajo Fin de Grado «Tutorial Interactivo sobre Analizadores Sintácticos» (Universidad de Málaga, 2025). Esta versión es una ampliación y un rediseño posteriores, independientes del TFG.</source>
+        <translation>SyntaxTutor version 1 was the Final Degree Project “Interactive Tutorial About Syntax Analyzers” (University of Málaga, 2025). This version is a later extension and redesign, separate from that project.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="958"/>
+        <source>Autor: José R.&lt;br&gt;Licencia: GPLv3&lt;br&gt;Desarrollado con &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; y C++20&lt;br&gt;Código fuente en &lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub&lt;/a&gt;</source>
+        <translation>Author: José R.&lt;br&gt;License: GPLv3&lt;br&gt;Built with &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; and C++20&lt;br&gt;Source code on &lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="986"/>
+        <source>Copiar y cerrar</source>
+        <translation>Copy and Close</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="992"/>
+        <source>Cerrar</source>
+        <translation>Close</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="1168"/>
         <source>Reiniciar requerido</source>
         <translation>A restart is required</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1062"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1169"/>
         <source>Para aplicar el cambio de idioma, es necesario reiniciar la aplicación.</source>
         <translation>The application must be restarted to apply the changes.</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="20"/>
-        <location filename="../src/gui/mainwindow.cpp" line="901"/>
         <source>SyntaxTutor</source>
         <translation>SyntaxTutor</translation>
     </message>
@@ -1474,7 +1470,7 @@ Which production α do you write in this cell?</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="172"/>
-        <location filename="../src/gui/mainwindow.cpp" line="112"/>
+        <location filename="../src/gui/mainwindow.cpp" line="115"/>
         <source>Tutores interactivos</source>
         <translation>Interactive tutors</translation>
     </message>
@@ -1490,55 +1486,55 @@ Which production α do you write in this cell?</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="209"/>
-        <location filename="../src/gui/mainwindow.cpp" line="121"/>
-        <location filename="../src/gui/mainwindow.cpp" line="631"/>
-        <location filename="../src/gui/mainwindow.cpp" line="917"/>
+        <location filename="../src/gui/mainwindow.cpp" line="124"/>
+        <location filename="../src/gui/mainwindow.cpp" line="634"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
         <source>LL(1)</source>
         <translation>LL(1)</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="222"/>
-        <location filename="../src/gui/mainwindow.cpp" line="122"/>
-        <location filename="../src/gui/mainwindow.cpp" line="668"/>
-        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <location filename="../src/gui/mainwindow.cpp" line="125"/>
+        <location filename="../src/gui/mainwindow.cpp" line="671"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1043"/>
         <source>SLR(1)</source>
         <translation>SLR(1)</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="251"/>
-        <location filename="../src/gui/mainwindow.cpp" line="123"/>
+        <location filename="../src/gui/mainwindow.cpp" line="126"/>
         <source>Tutorial</source>
         <translation>Tutorial</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="265"/>
-        <location filename="../src/gui/mainwindow.cpp" line="124"/>
+        <location filename="../src/gui/mainwindow.cpp" line="127"/>
         <source>Dificultad</source>
         <translation>Difficulty</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="277"/>
-        <location filename="../src/gui/mainwindow.cpp" line="125"/>
+        <location filename="../src/gui/mainwindow.cpp" line="128"/>
         <source>Nivel 1</source>
         <translation>Level 1</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="287"/>
-        <location filename="../src/gui/mainwindow.cpp" line="126"/>
+        <location filename="../src/gui/mainwindow.cpp" line="129"/>
         <source>Nivel 2</source>
         <translation>Level 2</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="294"/>
-        <location filename="../src/gui/mainwindow.cpp" line="127"/>
+        <location filename="../src/gui/mainwindow.cpp" line="130"/>
         <source>Nivel 3</source>
         <translation>Level 3</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="103"/>
-        <location filename="../src/gui/mainwindow.cpp" line="128"/>
-        <location filename="../src/gui/mainwindow.cpp" line="990"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1000"/>
+        <location filename="../src/gui/mainwindow.cpp" line="131"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1097"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1107"/>
         <source>Idioma</source>
         <translation>Language</translation>
     </message>
@@ -1569,7 +1565,6 @@ Which production α do you write in this cell?</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="415"/>
-        <location filename="../src/gui/mainwindow.cpp" line="901"/>
         <source>Sobre la aplicación</source>
         <translation>About the application</translation>
     </message>
@@ -1587,7 +1582,7 @@ Which production α do you write in this cell?</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="86"/>
+        <location filename="../src/gui/mainwindow.cpp" line="89"/>
         <source>Cerrar</source>
         <translation>Close</translation>
     </message>

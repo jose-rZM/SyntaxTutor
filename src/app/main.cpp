@@ -17,6 +17,7 @@
  */
 
 #include "appversion.h"
+#include "apppalette.h"
 #include "apptypography.h"
 #include "mainwindow.h"
 
@@ -40,6 +41,7 @@ int main(int argc, char* argv[]) {
     QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
 #endif
     QApplication::setStyle("fusion");
+    AppPalette::apply();
     AppTypography::systemFont() = QApplication::font();
 #ifndef Q_OS_MACOS
     QFontDatabase::addApplicationFont(

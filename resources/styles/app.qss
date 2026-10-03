@@ -467,6 +467,26 @@ QPushButton[role="primary"]:disabled {
     border: none;
 }
 
+QPushButton[role="secondary"] {
+    background: transparent;
+    color: #AAB5B8;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: $font-body-large;
+    font-weight: 600;
+}
+
+QPushButton[role="secondary"]:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+QPushButton[role="secondary"]:pressed {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
 QPushButton[role="danger"] {
     background-color: #D9534F;
     color: #FFFFFF;
@@ -587,6 +607,28 @@ QDialog#infoDialog QSlider#textSizeSlider::handle:horizontal:hover {
     background-color: #FFFFFF;
 }
 
+QDialog[aboutDialog="true"] QLabel#aboutTitle {
+    color: #F5F7F8;
+    font-size: $font-headline;
+    font-weight: 700;
+}
+
+QDialog[aboutDialog="true"] QLabel#aboutSubtitle {
+    color: #9AA5A8;
+    font-size: $font-body;
+}
+
+QDialog[aboutDialog="true"] QLabel#aboutDetails,
+QDialog[aboutDialog="true"] QLabel#aboutCredits {
+    color: #C9D1D3;
+    font-size: $font-body;
+}
+
+QDialog[aboutDialog="true"] QLabel#aboutNote {
+    color: #9AA5A8;
+    font-size: $font-label;
+}
+
 QTextBrowser#infoDialogContent {
     background-color: #212526;
     color: #E8ECEE;
@@ -594,10 +636,6 @@ QTextBrowser#infoDialogContent {
     border-radius: 12px;
     padding: 14px 16px;
     selection-background-color: #35515A;
-}
-
-QTextBrowser#infoDialogContent a {
-    color: #36C5CC;
 }
 
 QDialog[guidedDialog="slr"],

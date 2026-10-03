@@ -1120,7 +1120,6 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     <name>MainWindow</name>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="20"/>
-        <location filename="../src/gui/mainwindow.cpp" line="901"/>
         <source>SyntaxTutor</source>
         <translation></translation>
     </message>
@@ -1136,7 +1135,7 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="172"/>
-        <location filename="../src/gui/mainwindow.cpp" line="112"/>
+        <location filename="../src/gui/mainwindow.cpp" line="115"/>
         <source>Tutores interactivos</source>
         <translation></translation>
     </message>
@@ -1152,55 +1151,55 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="209"/>
-        <location filename="../src/gui/mainwindow.cpp" line="121"/>
-        <location filename="../src/gui/mainwindow.cpp" line="631"/>
-        <location filename="../src/gui/mainwindow.cpp" line="917"/>
+        <location filename="../src/gui/mainwindow.cpp" line="124"/>
+        <location filename="../src/gui/mainwindow.cpp" line="634"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
         <source>LL(1)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="222"/>
-        <location filename="../src/gui/mainwindow.cpp" line="122"/>
-        <location filename="../src/gui/mainwindow.cpp" line="668"/>
-        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <location filename="../src/gui/mainwindow.cpp" line="125"/>
+        <location filename="../src/gui/mainwindow.cpp" line="671"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1043"/>
         <source>SLR(1)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="251"/>
-        <location filename="../src/gui/mainwindow.cpp" line="123"/>
+        <location filename="../src/gui/mainwindow.cpp" line="126"/>
         <source>Tutorial</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="265"/>
-        <location filename="../src/gui/mainwindow.cpp" line="124"/>
+        <location filename="../src/gui/mainwindow.cpp" line="127"/>
         <source>Dificultad</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="277"/>
-        <location filename="../src/gui/mainwindow.cpp" line="125"/>
+        <location filename="../src/gui/mainwindow.cpp" line="128"/>
         <source>Nivel 1</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="287"/>
-        <location filename="../src/gui/mainwindow.cpp" line="126"/>
+        <location filename="../src/gui/mainwindow.cpp" line="129"/>
         <source>Nivel 2</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="294"/>
-        <location filename="../src/gui/mainwindow.cpp" line="127"/>
+        <location filename="../src/gui/mainwindow.cpp" line="130"/>
         <source>Nivel 3</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="103"/>
-        <location filename="../src/gui/mainwindow.cpp" line="128"/>
-        <location filename="../src/gui/mainwindow.cpp" line="990"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1000"/>
+        <location filename="../src/gui/mainwindow.cpp" line="131"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1097"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1107"/>
         <source>Idioma</source>
         <translation></translation>
     </message>
@@ -1231,7 +1230,6 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="415"/>
-        <location filename="../src/gui/mainwindow.cpp" line="901"/>
         <source>Sobre la aplicación</source>
         <translation></translation>
     </message>
@@ -1246,161 +1244,126 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="187"/>
+        <location filename="../src/gui/mainwindow.cpp" line="190"/>
         <source>+1 Nivel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="341"/>
-        <location filename="../src/gui/mainwindow.cpp" line="723"/>
+        <location filename="../src/gui/mainwindow.cpp" line="344"/>
+        <location filename="../src/gui/mainwindow.cpp" line="726"/>
         <source>Puntos: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="412"/>
-        <location filename="../src/gui/mainwindow.cpp" line="505"/>
+        <location filename="../src/gui/mainwindow.cpp" line="415"/>
+        <location filename="../src/gui/mainwindow.cpp" line="508"/>
         <source>%1 %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="422"/>
-        <location filename="../src/gui/mainwindow.cpp" line="451"/>
+        <location filename="../src/gui/mainwindow.cpp" line="425"/>
+        <location filename="../src/gui/mainwindow.cpp" line="454"/>
         <source>Personalizar…</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="452"/>
+        <location filename="../src/gui/mainwindow.cpp" line="455"/>
         <source>Personalizar… (%1 %)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="470"/>
+        <location filename="../src/gui/mainwindow.cpp" line="473"/>
         <source>TAMAÑO DEL TEXTO</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="474"/>
+        <location filename="../src/gui/mainwindow.cpp" line="477"/>
         <source>Elige el tamaño que te resulte cómodo</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="528"/>
+        <location filename="../src/gui/mainwindow.cpp" line="531"/>
         <source>Aplicar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="787"/>
+        <location filename="../src/gui/mainwindow.cpp" line="790"/>
         <source>&lt;h3&gt;LL(1)&lt;/h3&gt;&lt;p&gt;Con este botón puedes lanzar el tutor LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="790"/>
+        <location filename="../src/gui/mainwindow.cpp" line="793"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Con este, el SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="794"/>
+        <location filename="../src/gui/mainwindow.cpp" line="797"/>
         <source>&lt;p&gt;También puedes seleccionar el nivel de dificultad (1, 2 o 3). La dificultad repercute en la longitud de la gramática.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="832"/>
+        <location filename="../src/gui/mainwindow.cpp" line="835"/>
         <source>&lt;h3&gt;SLR(1)&lt;/h3&gt;&lt;p&gt;Pasemos al tutor SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="834"/>
+        <location filename="../src/gui/mainwindow.cpp" line="837"/>
         <source>&lt;p&gt;Esta vez se usará una gramática más compleja (Nivel 3).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="837"/>
+        <location filename="../src/gui/mainwindow.cpp" line="840"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="870"/>
+        <location filename="../src/gui/mainwindow.cpp" line="873"/>
         <source>&lt;h2&gt;Nivel&lt;/h2&gt;&lt;p&gt;¡Practicar tiene recompensa! Cada vez que resuelvas ejercicios o avances en el estudio, ganarás puntos. Estos puntos te ayudarán a subir de nivel: hay un total de 10. ¡Intenta llegar al máximo!&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="877"/>
+        <location filename="../src/gui/mainwindow.cpp" line="880"/>
         <source>&lt;h2&gt;¡Tutorial completado!&lt;/h2&gt;&lt;p&gt;Ya puedes comenzar a practicar.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="899"/>
-        <source>&lt;p&gt;&lt;b&gt;Versión:&lt;/b&gt; %1&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Versión:&lt;/b&gt; %1 &lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="113"/>
+        <location filename="../src/gui/mainwindow.cpp" line="116"/>
         <source>Elige cómo quieres practicar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="119"/>
+        <location filename="../src/gui/mainwindow.cpp" line="122"/>
         <source>Inicia un tutor y ajusta la dificultad de la gramática antes de empezar.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="405"/>
-        <location filename="../src/gui/mainwindow.cpp" line="462"/>
+        <location filename="../src/gui/mainwindow.cpp" line="408"/>
+        <location filename="../src/gui/mainwindow.cpp" line="465"/>
         <source>Tamaño del texto</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="481"/>
+        <location filename="../src/gui/mainwindow.cpp" line="484"/>
         <source>Puedes necesitar redimensionar la ventana.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="799"/>
+        <location filename="../src/gui/mainwindow.cpp" line="802"/>
         <source>&lt;p&gt;Ahora se abrirá el tutor LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="902"/>
-        <source>Una herramienta de escritorio para practicar análisis sintáctico</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="906"/>
-        <source>&lt;p&gt;&lt;b&gt;Autor:&lt;/b&gt; José R.&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="907"/>
-        <source>&lt;p&gt;&lt;b&gt;Licencia:&lt;/b&gt; GPLv3&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="908"/>
-        <source>&lt;p&gt;Desarrollado con &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; y C++20.&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="910"/>
-        <source>&lt;p&gt;&lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub - jose-rZM&lt;/a&gt;&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="912"/>
-        <source>&lt;p&gt;2025 Universidad de Málaga&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="917"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
         <source>Referencia rápida LL(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="918"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1025"/>
         <source>Resumen de conjuntos y construcción de la tabla predictiva</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="919"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1026"/>
         <source>
             &lt;h3&gt;Conceptos clave&lt;/h3&gt;
             &lt;p&gt;&lt;b&gt;CAB(X):&lt;/b&gt; conjunto de símbolos terminales que pueden comenzar cadenas derivables desde &lt;code&gt;X&lt;/code&gt;.&lt;/p&gt;
@@ -1417,12 +1380,12 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="937"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1044"/>
         <source>Resumen de items LR(0), cierre, goto y tabla de análisis</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="938"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1045"/>
         <source>
             &lt;h3&gt;Conceptos clave&lt;/h3&gt;
             &lt;p&gt;&lt;b&gt;Ítems LR(0):&lt;/b&gt; producciones con un punto que marca la posición actual del análisis.&lt;/p&gt;
@@ -1441,48 +1404,79 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1003"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1110"/>
         <source>Selecciona el idioma de la aplicación</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1008"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1115"/>
         <source>El cambio se aplicará al reiniciar la aplicación.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1043"/>
         <source>Referencia rápida SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="904"/>
-        <source>&lt;p&gt;Trabajo Fin de Grado: Tutorial Interactivo sobre Analizadores Sintácticos.&lt;/p&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1015"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1122"/>
         <source>Español</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1020"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1127"/>
         <source>Inglés</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="521"/>
-        <location filename="../src/gui/mainwindow.cpp" line="1025"/>
+        <location filename="../src/gui/mainwindow.cpp" line="524"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1132"/>
         <source>Cancelar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1061"/>
+        <location filename="../src/gui/mainwindow.cpp" line="907"/>
+        <source>Sobre SyntaxTutor</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="914"/>
+        <source>Qt %1 (compilado con Qt %2)
+%3 (%4)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="936"/>
+        <source>Tutor interactivo de análisis sintáctico LL(1) y SLR(1).</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="949"/>
+        <source>La versión 1 de SyntaxTutor fue el Trabajo Fin de Grado «Tutorial Interactivo sobre Analizadores Sintácticos» (Universidad de Málaga, 2025). Esta versión es una ampliación y un rediseño posteriores, independientes del TFG.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="958"/>
+        <source>Autor: José R.&lt;br&gt;Licencia: GPLv3&lt;br&gt;Desarrollado con &lt;a href=&apos;https://www.qt.io/&apos;&gt;Qt 6&lt;/a&gt; y C++20&lt;br&gt;Código fuente en &lt;a href=&apos;https://github.com/jose-rZM/SyntaxTutor&apos;&gt;GitHub&lt;/a&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="986"/>
+        <source>Copiar y cerrar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="992"/>
+        <source>Cerrar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/mainwindow.cpp" line="1168"/>
         <source>Reiniciar requerido</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1062"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1169"/>
         <source>Para aplicar el cambio de idioma, es necesario reiniciar la aplicación.</source>
         <translation></translation>
     </message>
@@ -1490,7 +1484,7 @@ Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="86"/>
+        <location filename="../src/gui/mainwindow.cpp" line="89"/>
         <source>Cerrar</source>
         <translation></translation>
     </message>
