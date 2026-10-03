@@ -58,6 +58,8 @@ class TutorWindowTest : public QObject {
     void slrAutomatonHighlightsConflictAndReduceStates();
     void slrAutomatonButtonGatingAndViewerReuse();
     void slrAutomatonViewerUpdatesLiveAndReopens();
+    void slrAutomatonEdgesMeetTheirArrowsAndAvoidNodes();
+    void slrAutomatonClickShowsStateItems();
 
     void mainInitialUiIsVisibleAndEnabled();
     void mainSwitchLanguageToEnglishPersistsSelection();

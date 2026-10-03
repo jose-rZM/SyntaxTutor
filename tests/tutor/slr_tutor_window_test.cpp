@@ -11,6 +11,11 @@
 #include "tutor_grammar_fixtures.h"
 
 #include <QCoreApplication>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsPathItem>
+#include <QGraphicsPolygonItem>
+#include <QGraphicsScene>
+#include <QGraphicsSimpleTextItem>
 #include <QDebug>
 #include <QFileInfo>
 #include <QLabel>
@@ -24,6 +29,41 @@
 #include <algorithm>
 
 namespace {
+
+// A fully revealed automaton for @p grammar, laid out as the tutor does.
+AutomatonView* buildRevealedAutomaton(const Grammar& grammar) {
+    SLR1Parser parser(grammar);
+    parser.MakeParser();
+    QVector<AutomatonStateInfo>      states;
+    QVector<AutomatonTransitionInfo> transitions;
+    for (const state& st : parser.states_) {
+        states.push_back(
+            {st.id_, QString::fromStdString(parser.PrintItems(st.items_))});
+    }
+    for (const auto& [from, row] : parser.transitions_) {
+        for (const auto& [symbol, to] : row) {
+            transitions.push_back({from, QString::fromStdString(symbol), to});
+        }
+    }
+    auto* view = new AutomatonView;
+    view->resize(900, 560);
+    view->setAutomaton(states, transitions);
+    view->revealAll();
+    view->show();
+    QCoreApplication::processEvents();
+    return view;
+}
+
+QGraphicsSimpleTextItem* nodeLabel(AutomatonView* view, const QString& name) {
+    for (QGraphicsItem* item : view->scene()->items()) {
+        auto* text = dynamic_cast<QGraphicsSimpleTextItem*>(item);
+        if (text != nullptr && text->text() == name &&
+            text->parentItem() == nullptr) {
+            return text;
+        }
+    }
+    return nullptr;
+}
 
 template <typename Fn> void forEachSlrNoConflictFixture(Fn&& fn) {
     for (const auto& fixture : TutorGrammarFixtures::slrNoConflictFixtures()) {
@@ -1532,4 +1572,120 @@ void TutorWindowTest::slrAutomatonViewerUpdatesLiveAndReopens() {
 
     viewer->close();
     QTest::qWait(20);
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-AUTOMATON-GEOMETRY
+// Summary:
+//   Every edge of the automaton is drawn as one piece: the arrowhead sits on
+//   the border of a state and the line runs into it, and no line crosses a
+//   state on its way.
+//
+// Situation:
+//   Two fully revealed automata with straight, long, backward and looping
+//   edges, and states lined up in a column.
+//
+// Expected:
+//   Each arrow tip touches a state border, each line ends inside an
+//   arrowhead, and no point of any line lies inside a state.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonEdgesMeetTheirArrowsAndAvoidNodes() {
+    QList<Grammar> grammars = {
+        Grammar({{"A", {{"B", "A"}, {"a"}}}, {"B", {{"B", "a"}, {"b"}}}})};
+    const auto fixtures = TutorGrammarFixtures::slrNoConflictFixtures() +
+                          TutorGrammarFixtures::slrConflictFixtures();
+    for (const auto& fixture : fixtures) {
+        grammars << fixture.grammar;
+    }
+    for (const Grammar& grammar : std::as_const(grammars)) {
+        std::unique_ptr<AutomatonView> view(buildRevealedAutomaton(grammar));
+
+        QList<QPointF> centers;
+        qreal          radius = 0;
+        QList<QPolygonF> arrows;
+        QList<QPainterPath> lines;
+        for (QGraphicsItem* item : view->scene()->items()) {
+            if (auto* circle = dynamic_cast<QGraphicsEllipseItem*>(item)) {
+                centers << circle->rect().center();
+                radius = circle->rect().width() / 2.0;
+            } else if (auto* arrow =
+                           dynamic_cast<QGraphicsPolygonItem*>(item)) {
+                arrows << arrow->polygon();
+            } else if (auto* path = dynamic_cast<QGraphicsPathItem*>(item);
+                       path != nullptr && path->parentItem() == nullptr &&
+                       path->pen().style() != Qt::NoPen) {
+                lines << path->path();
+            }
+        }
+        QVERIFY(!centers.isEmpty());
+        QCOMPARE(arrows.size(), lines.size());
+
+        const auto distance = [](const QPointF& a, const QPointF& b) {
+            return std::hypot(a.x() - b.x(), a.y() - b.y());
+        };
+        for (const QPolygonF& arrow : std::as_const(arrows)) {
+            const QPointF tip = arrow.first();
+            QVERIFY2(std::ranges::any_of(centers,
+                                         [&](const QPointF& c) {
+                                             return qAbs(distance(tip, c) -
+                                                         radius) < 1.0;
+                                         }),
+                     "an arrow tip is off every state border");
+        }
+        for (const QPainterPath& line : std::as_const(lines)) {
+            const QPointF end = line.pointAtPercent(1.0);
+            QVERIFY2(std::ranges::any_of(arrows,
+                                         [&](const QPolygonF& arrow) {
+                                             return arrow.containsPoint(
+                                                 end, Qt::OddEvenFill);
+                                         }),
+                     "a line ends outside every arrowhead");
+            for (int i = 0; i <= 100; ++i) {
+                const QPointF point = line.pointAtPercent(i / 100.0);
+                for (const QPointF& c : std::as_const(centers)) {
+                    QVERIFY2(distance(point, c) > radius - 1.0,
+                             "a line runs through a state");
+                }
+            }
+        }
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-AUTOMATON-CLICK
+// Summary:
+//   A click on a state shows its items next to it; they stay until another
+//   click or Escape. Dragging to pan the view does not open them.
+//
+// Expected:
+//   Click opens, a second click on the same state closes, Escape closes, a
+//   click on empty space closes, and a drag starting on a state opens
+//   nothing.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAutomatonClickShowsStateItems() {
+    std::unique_ptr<AutomatonView> view(
+        buildRevealedAutomaton(TutorGrammarFixtures::makeSlrSimpleGrammar()));
+    QGraphicsSimpleTextItem* label = nodeLabel(view.get(), "I1");
+    QVERIFY(label != nullptr);
+    const QPoint onNode =
+        view->mapFromScene(label->sceneBoundingRect().center());
+
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, {}, onNode);
+    QCOMPARE(view->shownStateId(), 1);
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, {}, onNode);
+    QCOMPARE(view->shownStateId(), -1);
+
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, {}, onNode);
+    QTest::keyClick(view.get(), Qt::Key_Escape);
+    QCOMPARE(view->shownStateId(), -1);
+
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, {}, onNode);
+    QTest::mouseClick(view->viewport(), Qt::LeftButton, {}, QPoint(3, 3));
+    QCOMPARE(view->shownStateId(), -1);
+
+    QTest::mousePress(view->viewport(), Qt::LeftButton, {}, onNode);
+    QTest::mouseMove(view->viewport(), onNode + QPoint(60, 40));
+    QTest::mouseRelease(view->viewport(), Qt::LeftButton, {},
+                        onNode + QPoint(60, 40));
+    QCOMPARE(view->shownStateId(), -1);
 }
