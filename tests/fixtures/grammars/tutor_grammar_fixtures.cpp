@@ -103,15 +103,13 @@ QList<NamedGrammarFixture> llFixtures() {
 QList<NamedGrammarFixture> slrNoConflictFixtures() {
     return {{"slr-simple", makeSlrSimpleGrammar()},
             {"slr-chain", makeSlrChainGrammar()},
-            {"slr-list", makeSlrListGrammar()},
-            // The tutor counts shift/reduce as an LR(0) conflict, not
-            // reduce/reduce: its two-reduction state goes through G.
-            {"slr-reduce-choice", makeSlrReduceChoiceGrammar()}};
+            {"slr-list", makeSlrListGrammar()}};
 }
 
 QList<NamedGrammarFixture> slrConflictFixtures() {
     return {{"slr-conflict", makeSlrConflictGrammar()},
             {"slr-expression", makeSlrExpressionGrammar()},
+            {"slr-reduce-choice", makeSlrReduceChoiceGrammar()},
             {"slr-epsilon", makeSlrEpsilonGrammar()}};
 }
 

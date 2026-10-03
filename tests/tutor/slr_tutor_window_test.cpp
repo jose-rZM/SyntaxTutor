@@ -638,6 +638,29 @@ void TutorWindowTest::slrLr0ConflictsIgnoreTheAcceptItem() {
 }
 
 // -----------------------------------------------------------------------------
+// Case: SLR1-TC-LR0-RR
+// Summary:
+//   A state with two complete items has a reduce-reduce conflict in LR(0),
+//   just as a complete and a shifting item have a shift-reduce one.
+//
+// Situation:
+//   slr-reduce-choice: after "a e" the state is { B -> e . , D -> e . },
+//   with FOLLOW(B) = {c} and FOLLOW(D) = {d}.
+//
+// Expected:
+//   F lists that state, and F-A asks for the reduce terminals of both items.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrReduceReduceIsAnLr0Conflict() {
+    SLRTutorWindow tutor(TutorGrammarFixtures::makeSlrReduceChoiceGrammar(),
+                         nullptr);
+    QCOMPARE(tutor.solutionForF().size(), 1);
+
+    driveSlrTutorToState(tutor, "FA");
+    QCOMPARE(tutor.solutionForFA(),
+             QSet<QString>({QStringLiteral("c"), QStringLiteral("d")}));
+}
+
+// -----------------------------------------------------------------------------
 // Case: SLR1-TC-17
 // Summary:
 //   Verifies that block G repeats the question after a wrong answer and reaches
