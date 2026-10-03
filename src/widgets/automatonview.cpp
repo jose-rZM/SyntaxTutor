@@ -681,6 +681,14 @@ void AutomatonView::keyPressEvent(QKeyEvent* event) {
 
 int AutomatonView::nodeAt(const QPoint& viewPos) const {
     const QList<QGraphicsItem*> hits = items(viewPos);
+    // The details box sits on top: a click on it is not a click on a state
+    // it happens to cover.
+    if (details_ != nullptr &&
+        std::ranges::any_of(hits, [this](const QGraphicsItem* item) {
+            return item == details_ || item->parentItem() == details_;
+        })) {
+        return -1;
+    }
     for (const Node& node : nodes_) {
         if (node.revealed && (hits.contains(node.circle) ||
                               hits.contains(node.label))) {
