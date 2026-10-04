@@ -61,7 +61,7 @@ PROJECT_BRIEF          = Educational app designed to help compiler students unde
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
 # the logo to the output directory.
 
-PROJECT_LOGO           =
+PROJECT_LOGO           = resources/icon/png/syntaxtutor-64.png
 
 # With the PROJECT_ICON tag one can specify an icon that is included in the tabs
 # when the HTML document is shown. Doxygen will copy the logo to the output
@@ -2173,7 +2173,7 @@ LATEX_EXTRA_STYLESHEET =
 # markers available.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 
-LATEX_EXTRA_FILES      = manual/img/logouma.png manual/img/syntaxtutor.png
+LATEX_EXTRA_FILES      = manual/img/syntaxtutor-lockup.pdf
 
 # If the PDF_HYPERLINKS tag is set to YES, the LaTeX that is generated is
 # prepared for conversion to PDF (using ps2pdf or pdflatex). The PDF file will
