@@ -255,19 +255,18 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 #endif
 
     // ====== Conflict & Reduction State Identification =========
-    // A state has an LR(0) conflict when it can reduce and also shift
-    // (shift-reduce) or reduce by more than one rule (reduce-reduce). SLR
-    // then settles both with FOLLOW. It is decided per state: deciding it
-    // item by item, as the loop went, made the answer depend on the order
-    // the unordered_set lists the items in, which differs between standard
-    // libraries.
+    // A state has an LR(0) conflict when it can reduce and also do anything
+    // else: shift (shift-reduce), reduce by another rule (reduce-reduce) or
+    // accept, which is not a reduction but is still an action. SLR settles
+    // all of them with FOLLOW. A state whose only item is a reduction goes
+    // to G instead. It is decided per state: deciding it item by item, as
+    // the loop went, made the answer depend on the order the unordered_set
+    // lists the items in, which differs between standard libraries.
     std::ranges::for_each(slr1.states_, [this](const state& st) {
         const auto reductions = std::ranges::count_if(
             st.items_, [this](const Lr0Item& it) { return isReduction(it); });
-        const bool shifts = std::ranges::any_of(
-            st.items_, [](const Lr0Item& it) { return !it.IsComplete(); });
         const bool reduces = reductions > 0;
-        if (reductions > 1 || (reduces && shifts)) {
+        if (reduces && st.items_.size() > 1) {
             statesWithLr0Conflict.append(&st);
             conflictStatesIdQueue.push(st.id_);
         } else if (reduces) {
