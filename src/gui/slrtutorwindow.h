@@ -210,6 +210,16 @@ class SLRTutorWindow : public QWidget {
      * input is accepted, but accepting is not a reduction.
      */
     bool isReduction(const Lr0Item& item) const;
+
+    /// @brief Columns of the SLR(1) table: terminals, $, non-terminals.
+    QStringList tableColumns();
+
+    /// @brief The correct content of a table cell, as the student writes it
+    /// (sN, rN, acc, or a state number for a non-terminal).
+    QString solutionCell(unsigned stateId, const QString& symbol);
+
+    /// @brief The grammar's initial item, e.g. "S -> · A $".
+    QString initialItemText() const;
     QSet<QString>               solutionForG();
 
     // ====== Pedagogical Feedback ==================================

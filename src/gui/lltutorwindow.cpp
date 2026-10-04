@@ -17,6 +17,7 @@
  */
 
 #include "lltutorwindow.h"
+#include "conversationpdf.h"
 #include "apptypography.h"
 #include "examreportdialog.h"
 #include "grammarview.h"
@@ -349,194 +350,79 @@ void LLTutorWindow::on_backButton_clicked() {
 }
 
 void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
-    QTextDocument doc;
-    QString       html;
-    doc.setDefaultFont(QApplication::font());
-    html += R"(
-        <html>
-        <head>
-        </head>
-        <body>
-    )";
-    html += R"(
-    <style>
-    body {
-        font-size: 11pt;
-        line-height: 1.6;
-        margin: 20px;
-    }
-
-    h2 {
-        font-size: 16pt;
-        color: #393E46;
-        border-bottom: 2px solid #ccc;
-        padding-bottom: 5px;
-        margin-top: 40px;
-        margin-bottom: 20px;
-    }
-
-    h3 {
-        font-size: 13pt;
-        color: #007B8A;
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }
-
-    .entry {
-        border-left: 4px solid #007B8A;
-        padding: 10px 15px;
-        margin: 15px 0;
-        border-radius: 4px;
-    }
-
-    .entry .role {
-        font-weight: bold;
-        margin-bottom: 6px;
-        color: #2c3e50;
-    }
-
-    ul {
-        padding-left: 20px;
-        margin-bottom: 20px;
-        font-size: 11pt;
-    }
-    li {
-        margin-bottom: 4px;
-    }
-
-    table {
-        border-collapse: collapse;
-        margin: 0 auto 20px auto;
-        width: auto;
-        font-size: 10.5pt;
-    }
-
-    th, td {
-        border: 1px solid #999;
-        padding: 6px 10px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f0f0f0;
-        font-weight: bold;
-    }
-
-    td {
-        background-color: #fafafa;
-    }
-
-    tr:nth-child(even) td {
-        background-color: #f0f0f0;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-
-    .page-break {
-        page-break-before: always;
-    }
-    </style>
-    )";
-    html += "<div style='text-align: center; font-size: 8pt; color: #888; "
-            "margin-top: 60px;'>";
-    html += tr("Generado automáticamente por SyntaxTutor el ") +
-            QDate::currentDate().toString("dd/MM/yyyy");
-    html += "</div>";
-
-    html += "<h2>" + tr("Conversación") + "</h2>";
-
-    for (auto it = conversationLog.constBegin();
-         it != conversationLog.constEnd(); ++it) {
-        const MessageLog& message = *it;
-        QString           safeText =
-            message.message.toHtmlEscaped().replace("\n", "<br>");
-        html += "<div class='entry'>";
-        html += "<div class='role'>";
-        html += (message.isUser ? tr("Usuario: ") : tr("Tutor: "));
-        html += "</div>";
-        if (!message.isCorrect) {
-            html +=
-                "<span style='background-color:red;'>" + safeText + "</span>";
-        } else {
-            html += safeText;
+    const auto sortedSet = [](const std::unordered_set<std::string>& set) {
+        QStringList symbols;
+        for (const std::string& symbol : set) {
+            symbols << QString::fromStdString(symbol);
         }
-        html += "</div>";
+        symbols.sort();
+        return QStringLiteral("{ %1 }").arg(symbols.join(QStringLiteral(", ")));
+    };
+
+    ConversationPdf pdf(tr("Ejercicio LL(1)"));
+    pdf.addGrammar(sortedGrammar, false);
+
+    QVector<ConversationPdf::Message> messages;
+    for (const MessageLog& message : std::as_const(conversationLog)) {
+        messages.append({message.message, message.isUser, message.isCorrect});
     }
+    pdf.addConversation(messages);
 
-    html += "</body></html>";
-    html += R"(<div class='page-break'></div>)";
-
-    html += "<h2>" + tr("Cabeceras") + "</h2>";
-    for (const auto& nt : std::as_const(sortedNonTerminals)) {
-        const auto& first =
-            stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
-        html += tr("CAB") + "(" + nt + ") = {";
-        html += first.join(",");
-        html += "}<br>";
+    pdf.addSection(tr("Cabeceras"), true);
+    QVector<QPair<QString, QString>> rows;
+    for (const QString& nt : std::as_const(sortedNonTerminals)) {
+        rows.append({tr("CAB") + "(" + nt + ")",
+                     sortedSet(ll1.first_sets_[nt.toStdString()])});
     }
+    pdf.addDefinitions(rows);
 
-    html += "<h2>" + tr("Siguientes") + "</h2>";
-    for (const auto& nt : std::as_const(sortedNonTerminals)) {
-        const auto& follow =
-            stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
-        html += tr("SIG") + "(" + nt + ") = {" + follow.join(',') + "}<br>";
+    pdf.addSection(tr("Siguientes"));
+    rows.clear();
+    for (const QString& nt : std::as_const(sortedNonTerminals)) {
+        rows.append({tr("SIG") + "(" + nt + ")",
+                     sortedSet(ll1.follow_sets_[nt.toStdString()])});
     }
+    pdf.addDefinitions(rows);
 
-    html += "<h2>" + tr("Símbolos directores") + "</h2>";
+    pdf.addSection(tr("Símbolos directores"));
+    rows.clear();
     for (const auto& [nt, production] : std::as_const(sortedGrammar)) {
-        const auto predSymbols =
-            stdUnorderedSetToQSet(
-                ll1.PredictionSymbols(nt.toStdString(),
-                                      qvectorToStdVector(production)))
-                .values();
-        html += "SD(" + nt + " → " + production.join(' ') + ") = {" +
-                predSymbols.join(',') + "}<br>";
+        rows.append({"SD(" + nt + " → " +
+                         QStringList(production.begin(), production.end())
+                             .join(QLatin1Char(' ')) +
+                         ")",
+                     sortedSet(ll1.PredictionSymbols(
+                         nt.toStdString(), qvectorToStdVector(production)))});
     }
-    html += R"(<div class='page-break'></div>)";
-    html +=
-        R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
-    html += "<tr><th>" + tr("No terminal / Símbolo") + "</th>";
-    for (const auto& s : ll1.gr_.st_.terminals_) {
-        if (s == ll1.gr_.st_.EPSILON_) {
-            continue;
+    pdf.addDefinitions(rows);
+
+    // Same columns, in the same order, as the table the student filled.
+    QStringList terminals;
+    for (const std::string& symbol : ll1.gr_.st_.terminals_) {
+        if (symbol != ll1.gr_.st_.EPSILON_) {
+            terminals << QString::fromStdString(symbol);
         }
-        html += "<th>" + QString::fromStdString(s) + "</th>";
     }
-    html += "</tr>";
-    for (const auto& nt : std::as_const(sortedNonTerminals)) {
-        html += "<tr><td align='center'>" + nt + "</td>";
-        for (const auto& s : ll1.gr_.st_.terminals_) {
-            if (s == ll1.gr_.st_.EPSILON_) {
-                continue;
-            }
-            html += "<td align='center'>";
-            if (ll1.ll1_t_[nt.toStdString()].contains(s)) {
-                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0])
-                            .join(' ');
-            } else {
-                html += "-";
-            }
-            html += "</td>";
+    terminals.sort();
+
+    pdf.addSection(tr("Tabla LL(1)"), true);
+    QStringList        headers{tr("No terminal / Símbolo")};
+    QVector<QStringList> table;
+    headers += terminals;
+    for (const QString& nt : std::as_const(sortedNonTerminals)) {
+        QStringList row{nt};
+        const auto& entries = ll1.ll1_t_[nt.toStdString()];
+        for (const QString& terminal : std::as_const(terminals)) {
+            const auto cell = entries.find(terminal.toStdString());
+            row << (cell != entries.end()
+                        ? stdVectorToQVector(cell->second[0]).join(' ')
+                        : QString());
         }
-        html += "</tr>";
+        table.append(row);
     }
-    html += "</table></div>";
+    pdf.addTable(headers, table);
 
-    doc.setHtml(html);
-
-    {
-        QPrinter printer(QPrinter::HighResolution);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName(filePath);
-        printer.setPageSize(QPageSize(QPageSize::A4));
-        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
-
-        doc.print(&printer);
-    }
+    pdf.print(filePath);
 }
 
 void LLTutorWindow::updateProgressPanel() {

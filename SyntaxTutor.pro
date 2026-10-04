@@ -68,6 +68,7 @@ HEADERS += \
     src/widgets/customtextedit.h \
     src/widgets/grammarview.h \
     src/gui/automatonviewerdialog.h \
+    src/gui/conversationpdf.h \
     src/gui/examreportdialog.h \
     src/gui/examsession.h \
     src/gui/grammareditordialog.h \
