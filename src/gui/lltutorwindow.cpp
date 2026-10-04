@@ -862,34 +862,19 @@ void LLTutorWindow::scoreExamTable() {
 }
 
 void LLTutorWindow::showExamReport() {
-    auto* report = new ExamReportDialog(examSession, tr("Examen LL(1)"), this);
+    auto* report = new ExamReportDialog(examSession, tr("Examen LL(1)"),
+                                        sortedGrammar, false, this);
     report->setAttribute(Qt::WA_DeleteOnClose);
     report->setWindowModality(Qt::WindowModal);
     connect(report, &ExamReportDialog::exportRequested, this,
             [this, report]() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
-                    exportExamReportToPdf(filePath, report->reportHtml());
+                    report->printReport(filePath);
                     ReportPdfExportResult(this, filePath);
                 }
             });
     report->show();
-}
-
-void LLTutorWindow::exportExamReportToPdf(const QString& filePath,
-                                          const QString& html) const {
-    QTextDocument doc;
-    doc.setHtml(html);
-
-    {
-        QPrinter printer(QPrinter::HighResolution);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName(filePath);
-        printer.setPageSize(QPageSize(QPageSize::A4));
-        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
-
-        doc.print(&printer);
-    }
 }
 
 void LLTutorWindow::wrongAnimation() {

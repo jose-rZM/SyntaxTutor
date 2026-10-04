@@ -21,6 +21,7 @@
 
 #include "apptypography.h"
 #include "appversion.h"
+#include "examsession.h"
 
 #include <QCoreApplication>
 #include <QDateTime>
@@ -36,10 +37,11 @@
 #include <QVector>
 
 /**
- * @brief Builds the PDF of an LL(1) or SLR(1) practice session.
+ * @brief Builds the PDF of an LL(1) or SLR(1) session.
  *
- * Both tutors describe their exercise - grammar, conversation, sets, table -
- * and this class lays it out the same way. It only uses the subset of HTML
+ * Both tutors describe their exercise - grammar, conversation, sets, table,
+ * or the graded review of an exam - and this class lays it out the same
+ * way. It only uses the subset of HTML
  * and CSS that QTextDocument supports when printing (tables, backgrounds,
  * fonts), and splits tables too wide for an A4 page into blocks of columns,
  * so grammars typed by the user, however large, stay readable.
@@ -119,11 +121,61 @@ class ConversationPdf {
             }
             html_ += QStringLiteral("<tr class='%1'><td class='who' "
                                     "width='14%'>%2</td><td>%3</td></tr>")
-                         .arg(rowClass, who,
-                              message.text.toHtmlEscaped().replace(
-                                  QLatin1Char('\n'), QStringLiteral("<br>")));
+                         .arg(rowClass, who, multiline(message.text));
         }
         html_ += QStringLiteral("</table>");
+    }
+
+    /**
+     * @brief The headline of an exam: the 0-10 grade beside its summary.
+     *
+     * @p grade is already formatted; @p lines go under it, in order, and
+     * the grade and the last line take the pass or fail colour.
+     */
+    void addResult(const QString& grade, bool passed,
+                   const QStringList& lines) {
+        const QString tone =
+            passed ? QStringLiteral("pass") : QStringLiteral("fail");
+        html_ += QStringLiteral("<table class='result' cellspacing='0' "
+                                "cellpadding='0'><tr><td class='grade %1'>"
+                                "%2</td><td>")
+                     .arg(tone, grade.toHtmlEscaped());
+        for (int i = 0; i < lines.size(); ++i) {
+            const bool last = i == lines.size() - 1;
+            html_ += QStringLiteral("<p class='%1'>%2</p>")
+                         .arg(last ? QStringLiteral("verdict ") + tone
+                                   : QStringLiteral("summary"),
+                              lines[i].toHtmlEscaped());
+        }
+        html_ += QStringLiteral("</td></tr></table>");
+    }
+
+    /// @brief Every graded item of an exam, with both answers.
+    void addReview(const QVector<ExamRecord>& records) {
+        addSection(tr("Revisión"));
+        html_ += QStringLiteral(
+                     "<table class='review' width='100%' cellspacing='0' "
+                     "cellpadding='5'><thead><tr><th width='40%'>%1</th>"
+                     "<th width='27%'>%2</th><th width='27%'>%3</th>"
+                     "<th width='6%'></th></tr></thead><tbody>")
+                     .arg(tr("Pregunta"), tr("Tu respuesta"),
+                          tr("Respuesta correcta"));
+        for (const ExamRecord& record : records) {
+            const QString answer = record.userAnswer.trimmed().isEmpty()
+                                       ? tr("(vacía)")
+                                       : record.userAnswer;
+            html_ += QStringLiteral(
+                         "<tr class='%1'><td>%2</td><td class='mono'>%3</td>"
+                         "<td class='mono'>%4</td><td class='mark'>%5</td>"
+                         "</tr>")
+                         .arg(record.correct ? QStringLiteral("right")
+                                             : QStringLiteral("wrong"),
+                              multiline(record.question), multiline(answer),
+                              multiline(record.correctAnswer),
+                              record.correct ? QStringLiteral("✔")
+                                             : QStringLiteral("✘"));
+        }
+        html_ += QStringLiteral("</tbody></table>");
     }
 
     /// @brief A heading for the next block; @p newPage starts a new page.
@@ -230,6 +282,11 @@ class ConversationPdf {
     }
 
   private:
+    static QString multiline(const QString& text) {
+        return text.toHtmlEscaped().replace(QLatin1Char('\n'),
+                                            QStringLiteral("<br>"));
+    }
+
     static constexpr auto kMonospaceFamily = "JetBrains Mono";
 
     // The PDF names its monospaced font in CSS, which needs a real family:
@@ -280,7 +337,24 @@ class ConversationPdf {
                    "#BBBBBB; text-align: center; }"
                    "table.grid thead th { background-color: #E8E8E8; }"
                    "table.grid tbody th { background-color: #F3F3F3; }"
-                   "tr.odd td { background-color: #FAFAFA; }")
+                   "tr.odd td { background-color: #FAFAFA; }"
+                   "table.result { margin: 4px 0 6px 0; }"
+                   "td.grade { font-size: 30pt; font-weight: bold; "
+                   "padding-right: 16px; vertical-align: middle; }"
+                   ".pass { color: #007B8A; }"
+                   ".fail { color: #B23A37; }"
+                   "p.summary { color: #444444; margin: 0; }"
+                   "p.verdict { font-weight: bold; margin: 2px 0 0 0; }"
+                   "table.review { border-collapse: collapse; "
+                   "font-size: 9pt; }"
+                   "table.review thead th { background-color: #E8E8E8; "
+                   "text-align: left; }"
+                   "table.review td { border-bottom: 1px solid #E0E0E0; "
+                   "vertical-align: top; }"
+                   "tr.wrong td { background-color: #FBEAEA; }"
+                   "td.mark { text-align: center; font-weight: bold; }"
+                   "tr.right td.mark { color: #007B8A; }"
+                   "tr.wrong td.mark { color: #B23A37; }")
             .arg(QLatin1StringView(kMonospaceFamily));
     }
 

@@ -32,14 +32,6 @@ namespace {
 constexpr auto kPassColor = "#11B3BC";
 constexpr auto kFailColor = "#E0635F";
 
-// Print counterparts of the screen palette.
-constexpr auto kPrintPassColor = "#007B8A";
-constexpr auto kPrintFailColor = "#B23A37";
-constexpr auto kPrintTextColor = "#1A1A1A";
-constexpr auto kPrintHeaderBg  = "#E8E8E8";
-constexpr auto kPrintRowEvenBg = "#FAFAFA";
-constexpr auto kPrintRowOddBg  = "#F0F0F0";
-
 QString escaped(QString text) {
     return text.toHtmlEscaped().replace(QStringLiteral("\n"),
                                         QStringLiteral("<br/>"));
@@ -47,8 +39,10 @@ QString escaped(QString text) {
 } // namespace
 
 ExamReportDialog::ExamReportDialog(const ExamSession& session,
-                                   const QString& examTitle, QWidget* parent)
-    : QDialog(parent) {
+                                   const QString& examTitle,
+                                   const QVector<ConversationPdf::Rule>& grammar,
+                                   bool numberedGrammar, QWidget* parent)
+    : QDialog(parent), report_(examTitle) {
     setObjectName("examReportDialog");
     setProperty("examReport", true);
     setWindowTitle(tr("Informe del examen"));
@@ -116,18 +110,14 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     auto* review = new QTextBrowser(this);
     review->setObjectName("examReportReview");
     review->setOpenExternalLinks(false);
-    review->setHtml(buildReviewHtml(session, ReviewStyle::Screen));
+    review->setHtml(buildReviewHtml(session));
     rootLayout->addWidget(review, 1);
 
-    reportHtml_ = QStringLiteral("<h1>%1</h1>"
-                                 "<p><b>%2</b> %3. %4</p>%5")
-                      .arg(escaped(examTitle), tr("Calificación:"),
-                           tr("%1 / 10").arg(gradeText),
-                           tr("%1 de %2 respuestas correctas (%3%)")
-                               .arg(session.right())
-                               .arg(session.total())
-                               .arg(percent),
-                           buildReviewHtml(session, ReviewStyle::Print));
+    report_.addResult(gradeText, passed,
+                      {tr("sobre 10"), statsLabel->text(),
+                       verdictLabel->text()});
+    report_.addGrammar(grammar, numberedGrammar);
+    report_.addReview(session.records());
 
     auto* footerLayout = new QHBoxLayout();
     footerLayout->setSpacing(12);
@@ -153,42 +143,23 @@ ExamReportDialog::ExamReportDialog(const ExamSession& session,
     connect(closeButton, &QPushButton::clicked, this, &QDialog::accept);
 }
 
-QString ExamReportDialog::buildReviewHtml(const ExamSession& session,
-                                          ReviewStyle style) const {
-    const bool forPrint = (style == ReviewStyle::Print);
-
-    // Both are points, but from different scales: paper has its own fixed
-    // size, while the screen follows the type scale and the user's text size.
-    const QString fontSize =
-        forPrint ? QStringLiteral("10.5pt")
-                 : AppTypography::cssSize(AppTypography::Role::Body);
-    const QString evenBg =
-        forPrint ? QString(kPrintRowEvenBg) : QStringLiteral("#212526");
-    const QString oddBg =
-        forPrint ? QString(kPrintRowOddBg) : QStringLiteral("#1B1F20");
-    const QString passColor =
-        forPrint ? QString(kPrintPassColor) : QString(kPassColor);
-    const QString failColor =
-        forPrint ? QString(kPrintFailColor) : QString(kFailColor);
-    // On screen the text colour comes from the QTextBrowser palette; the
-    // printed document has no such palette and would default to black.
-    const QString textStyle =
-        forPrint ? QStringLiteral(" color:%1;").arg(kPrintTextColor)
-                 : QString();
+QString ExamReportDialog::buildReviewHtml(const ExamSession& session) const {
+    const QString fontSize = AppTypography::cssSize(AppTypography::Role::Body);
+    const QString evenBg   = QStringLiteral("#212526");
+    const QString oddBg    = QStringLiteral("#1B1F20");
+    const QString passColor(kPassColor);
+    const QString failColor(kFailColor);
 
     QString html = QStringLiteral("<table width='100%' cellspacing='0' "
                                   "cellpadding='6' style='font-size:%1;'>")
                        .arg(fontSize);
-    html += QStringLiteral("<tr style='%1'>"
+    html += QStringLiteral("<tr>"
+                           "<th align='left'>%1</th>"
                            "<th align='left'>%2</th>"
                            "<th align='left'>%3</th>"
-                           "<th align='left'>%4</th>"
                            "<th align='left'></th>"
                            "</tr>")
-                .arg(forPrint ? QStringLiteral("background-color:%1;%2")
-                                    .arg(kPrintHeaderBg, textStyle)
-                              : QString(),
-                     tr("Pregunta"), tr("Tu respuesta"),
+                .arg(tr("Pregunta"), tr("Tu respuesta"),
                      tr("Respuesta correcta"));
 
     int index = 0;
@@ -199,13 +170,13 @@ QString ExamReportDialog::buildReviewHtml(const ExamSession& session,
                                  .arg(passColor)
                            : QStringLiteral("<span style='color:%1;'>✘</span>")
                                  .arg(failColor);
-        html += QStringLiteral("<tr style='background-color:%1;%2'>"
+        html += QStringLiteral("<tr style='background-color:%1;'>"
+                               "<td>%2</td>"
                                "<td>%3</td>"
                                "<td>%4</td>"
-                               "<td>%5</td>"
-                               "<td align='center'>%6</td>"
+                               "<td align='center'>%5</td>"
                                "</tr>")
-                    .arg(rowColor, textStyle, escaped(record.question),
+                    .arg(rowColor, escaped(record.question),
                          record.userAnswer.trimmed().isEmpty()
                              ? tr("(vacía)")
                              : escaped(record.userAnswer),

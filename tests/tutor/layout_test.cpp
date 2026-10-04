@@ -170,7 +170,8 @@ void auditDialogs(const QString& language, int percent) {
                    QStringLiteral("3"), QStringLiteral("4"), false);
     session.record(QStringLiteral("CAB(A)"), QStringLiteral("{a}"),
                    QStringLiteral("{a}"), true);
-    ExamReportDialog examReport(session, QStringLiteral("Examen LL(1)"));
+    ExamReportDialog examReport(session, QStringLiteral("Examen LL(1)"), {},
+                                false);
     examReport.show();
     settle();
     check("exam report", auditAcrossWidths(&examReport));

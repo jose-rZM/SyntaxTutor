@@ -3452,36 +3452,19 @@ void SLRTutorWindow::scoreExamTable(const QStringList& colHeaders) {
 }
 
 void SLRTutorWindow::showExamReport() {
-    auto* report = new ExamReportDialog(examSession, tr("Examen SLR(1)"), this);
+    auto* report = new ExamReportDialog(examSession, tr("Examen SLR(1)"),
+                                        sortedGrammar, true, this);
     report->setAttribute(Qt::WA_DeleteOnClose);
     report->setWindowModality(Qt::WindowModal);
     connect(report, &ExamReportDialog::exportRequested, this,
             [this, report]() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
-                    exportExamReportToPdf(filePath, report->reportHtml());
+                    report->printReport(filePath);
                     ReportPdfExportResult(this, filePath);
                 }
             });
     report->show();
-}
-
-void SLRTutorWindow::exportExamReportToPdf(const QString& filePath,
-                                           const QString& html) const {
-    QTextDocument doc;
-    doc.setHtml(html);
-
-    {
-        // Scoped so the print engine flushes and closes the file
-        // before the result is checked below.
-        QPrinter printer(QPrinter::HighResolution);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName(filePath);
-        printer.setPageSize(QPageSize(QPageSize::A4));
-        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
-
-        doc.print(&printer);
-    }
 }
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {

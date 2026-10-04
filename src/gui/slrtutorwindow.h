@@ -293,8 +293,6 @@ class SLRTutorWindow : public QWidget {
     void    scoreExamTable(
            const QStringList& colHeaders); ///< Grades the SLR table per cell.
     void showExamReport();                 ///< Opens the end-of-exam report.
-    void exportExamReportToPdf(const QString& filePath,
-                               const QString& html) const;
 #ifdef SYNTAXTUTOR_TESTING
   public:
     QString  currentStateForTest() const;

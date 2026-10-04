@@ -56,37 +56,62 @@ construyas el estado inicial I0.</source>
 <context>
     <name>ConversationPdf</name>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="71"/>
+        <location filename="../src/gui/conversationpdf.h" line="79"/>
         <source>Generado el %1 con SyntaxTutor %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="80"/>
+        <location filename="../src/gui/conversationpdf.h" line="88"/>
         <source>Gramática</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="100"/>
+        <location filename="../src/gui/conversationpdf.h" line="108"/>
         <source>Conversación</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="109"/>
+        <location filename="../src/gui/conversationpdf.h" line="117"/>
         <source>Usuario</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="109"/>
+        <location filename="../src/gui/conversationpdf.h" line="117"/>
         <source>Tutor</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="112"/>
+        <location filename="../src/gui/conversationpdf.h" line="120"/>
         <source>incorrecta</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/conversationpdf.h" line="173"/>
+        <location filename="../src/gui/conversationpdf.h" line="155"/>
+        <source>Revisión</source>
+        <translation>Revisión</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/conversationpdf.h" line="161"/>
+        <source>Pregunta</source>
+        <translation>Pregunta</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/conversationpdf.h" line="161"/>
+        <source>Tu respuesta</source>
+        <translation>Tu respuesta</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/conversationpdf.h" line="162"/>
+        <source>Respuesta correcta</source>
+        <translation>Respuesta correcta</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/conversationpdf.h" line="165"/>
+        <source>(vacía)</source>
+        <translation>(vacía)</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/conversationpdf.h" line="232"/>
         <source>Columnas %1 a %2 de %3</source>
         <translation></translation>
     </message>
@@ -94,78 +119,68 @@ construyas el estado inicial I0.</source>
 <context>
     <name>ExamReportDialog</name>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="54"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="48"/>
         <source>Informe del examen</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="74"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="68"/>
         <source>MODO EXAMEN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="92"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="86"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="117"/>
         <source>sobre 10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="95"/>
-        <location filename="../src/gui/examreportdialog.cpp" line="126"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="89"/>
         <source>%1 de %2 respuestas correctas (%3%)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="103"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="97"/>
         <source>Aprobado</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="103"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="97"/>
         <source>Suspenso</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="112"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="106"/>
         <source>REVISIÓN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="124"/>
-        <source>Calificación:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="125"/>
-        <source>%1 / 10</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="136"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="126"/>
         <source>Exportar PDF</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="143"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="133"/>
         <source>Cerrar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="191"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="162"/>
         <source>Pregunta</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="191"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="162"/>
         <source>Tu respuesta</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="192"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="163"/>
         <source>Respuesta correcta</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/examreportdialog.cpp" line="210"/>
+        <location filename="../src/gui/examreportdialog.cpp" line="181"/>
         <source>(vacía)</source>
         <translation></translation>
     </message>
@@ -367,14 +382,14 @@ T -&gt; ( E ) | id .</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1781"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1766"/>
         <source>Los TERMINALES son todos los símbolos que aparecen en los consecuentes
 y que NO son no terminales, excluyendo el símbolo de fin de entrada ($). La cadena EPSILON tampoco cuenta como símbolo terminal, pues es un metasímbolo que representa la cadena vacía.
 En esta gramática: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2000"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1985"/>
         <source>La gramática es:
 </source>
         <translation></translation>
@@ -452,104 +467,104 @@ En esta gramática: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1117"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1102"/>
         <source>Ejercicio terminado. ¿Quieres exportar la conversación o salir?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1121"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1106"/>
         <source>Exportar PDF</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1135"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1120"/>
         <source>Salir</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1173"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1158"/>
         <source>¿Cuántas filas y columnas tiene la tabla LL(1)?
 Formato de respuesta: filas,columnas</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1177"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1162"/>
         <source>¿Cuántos símbolos no terminales tiene la gramática?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1180"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1165"/>
         <source>¿Cuántos símbolos terminales tiene la gramática?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1183"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1168"/>
         <source>Entonces, basándote en los símbolos identificados,
 ¿cuántas filas y columnas tiene la tabla LL(1)? Formato: filas,columnas</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1190"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1175"/>
         <source>¿Cuáles son los símbolos directores (SD) de esta regla?
 %1 → %2
 Formato: a,b,c</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1198"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1183"/>
         <source>¿Cuál es el conjunto cabecera (CAB) del consecuente?
 %1 → %2
 Formato: a,b,c</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1206"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1191"/>
         <source>¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?
 %1 → %2
 Formato: a,b,c</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1214"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1199"/>
         <source>Entonces, ¿cuáles son los símbolos directores (SD) de la regla?
 %1 → %2
 Formato: a,b,c</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1350"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1335"/>
         <source>Ejemplo: 4,7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1353"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1338"/>
         <source>Ejemplo: 4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1356"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1341"/>
         <source>Ejemplo: 7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1360"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1363"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1366"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1345"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1348"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1351"/>
         <source>Ejemplo: a,b,$</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1370"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1355"/>
         <source>Completa la tabla en el diálogo</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1688"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1673"/>
         <source>No se ha generado retroalimentacion.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1693"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1678"/>
         <source>La tabla LL(1) tiene:
  - Una fila por cada símbolo NO TERMINAL
  - Una columna por cada TERMINAL (incluyendo $ y excluyendo EPSILON)
@@ -557,77 +572,77 @@ Esto define el tamaño de la tabla como filas × columnas.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1703"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1688"/>
         <source>Parece que no has seguido el formato correctamente. Debes separar el número de filas y columnas con una coma.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1712"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1697"/>
         <source>No has seguido el formato correspondiente (filas,columnas).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1720"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1705"/>
         <source>Faltan valores: escribe filas,columnas.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1730"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1715"/>
         <source>Formato inválido: ambos valores deben ser enteros.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1736"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1721"/>
         <source>No has contado bien el número de símbolos terminales.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1741"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1726"/>
         <source>No has contado bien el número de símbolos no terminales.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1759"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1777"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1744"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1762"/>
         <source>Formato inválido: escribe un número entero.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1762"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1747"/>
         <source>Los NO TERMINALES son los que aparecen como antecedente en alguna regla.
 En esta gramática: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1794"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1779"/>
         <source>Como hay %1 símbolos no terminales (filas) y %2 terminales (columnas, incluyendo $ y excluyendo EPSILON),
 el tamaño de la tabla LL(1) será: %1x%2.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2335"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2320"/>
         <source>Añadir $, se ha llegado al final</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2337"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2322"/>
         <source>Añadir a CAB</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2404"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2389"/>
         <source>Añadir &quot;%1&quot; a CAB</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1804"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1789"/>
         <source>Para una regla X → Y, sus símbolos directores (SD) indican en qué columnas debe colocarse la producción en la tabla LL(1).
 La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)</source>
         <translation></translation>
@@ -704,369 +719,369 @@ La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1105"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1090"/>
         <source>Examen terminado. Consulta tu informe con la calificación y la revisión de tus respuestas.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1109"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1094"/>
         <source>Ver informe</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1222"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1207"/>
         <source>Rellena la tabla LL(1). En el panel derecho puedes consultar todos los cálculos que has realizado durante el ejercicio.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1814"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1960"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1799"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1945"/>
         <source>No has indicado ningún símbolo director.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1817"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1802"/>
         <source>Parece que no has separado los símbolos con comas correctamente.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1823"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1808"/>
         <source>Has introducido EPSILON, los símbolos directores no pueden contenerlo.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1832"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1931"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1817"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1916"/>
         <source>Te han faltado símbolos.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1835"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1820"/>
         <source>Has incluido símbolos que no corresponden: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1839"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1868"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1938"/>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1980"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1824"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1853"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1923"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1965"/>
         <source>Has repetido símbolos: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1865"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1850"/>
         <source>Recuerda separar los símbolos con comas.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1897"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1882"/>
         <source>Se calcula CABECERA del consecuente: CAB(%1)
 Con esto se obtienen los terminales que pueden aparecer al comenzar a derivar %1.
 Resultado: { %2 }</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1907"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1892"/>
         <source>Cuando CAB(α) contiene ε, se necesita SIG(%1) para completar los símbolos directores.
 %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1917"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1902"/>
         <source>No has indicado ningún símbolo de SIG(%1).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1922"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1907"/>
         <source>Recuerda separar los símbolos de SIG(%1) con comas.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1934"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1919"/>
         <source>No forman parte de SIG(%1): %2.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1948"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1933"/>
         <source>Un símbolo director indica cuándo se puede aplicar una producción durante el análisis.
 %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1963"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1948"/>
         <source>No has seguido el formato indicado (símbolos separados por coma).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1972"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1957"/>
         <source>Te han faltado estos símbolos directores: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1976"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1961"/>
         <source>Estos no son símbolos directores válidos: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1987"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1972"/>
         <source>La tabla tiene errores.
 Recuerda: una producción A → α se coloca en la celda (A, β) si β ∈ SD(A → α).
 Si ε ∈ CAB(α), también debe colocarse en (A, b) para cada b ∈ SIG(A). Se ha marcado en rojo las celdas incorrectas.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2017"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2002"/>
         <source>La gramática es:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2106"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2091"/>
         <source>Derivación de CABECERA</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2322"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2307"/>
         <source>Paso %1: %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2344"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2329"/>
         <source>Evitando ciclo en %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2370"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2355"/>
         <source>Contiene ε → seguir con resto: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2394"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2379"/>
         <source>CAB(%1%2)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2415"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2400"/>
         <source>Evitar ciclo: %1 → %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2439"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2424"/>
         <source>ε → continuar con: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2557"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2542"/>
         <source>Árbol de derivación CABECERA</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2580"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2565"/>
         <source>Encontrar los símbolos siguientes a %1:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2585"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2570"/>
         <source>Como %1 es el axioma, SIG(%1) = { %2 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2601"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2586"/>
         <source>1. %1 no aparece en ningún consecuente.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2606"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2591"/>
         <source>1. Busca las reglas donde %1 está en el consecuente:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2648"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2633"/>
         <source>2. Calcula la cabecera de la subcadena después de %1: { %2 } = { %3 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2670"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2655"/>
         <source>   - Como ε ∈ CAB, agrega SIG(%1) = { %2 } a SIG(%3)
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2683"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2668"/>
         <source>2. %1 está al final de la producción, habría que agregar SIG(%2) a SIG(%1), pero cae en bucle, por tanto se ignora
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2694"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2679"/>
         <source>2. %1 está al final de la producción. Agrega SIG(%2) = { %3 } a SIG(%1)
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2710"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2695"/>
         <source>3. Conjunto SIG(%1) = { %2 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2721"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2706"/>
         <source>Encontrar los símbolos directores de: %1 → %2:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2742"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2727"/>
         <source>1. Calcula CAB(%1) = { %2 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2755"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2740"/>
         <source>2. Inicializa los símbolos directores con CAB(%1) excepto ε: { %2 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2763"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2748"/>
         <source>   - Como ε ∈ CAB(%1), agrega SIG(%2) a los símbolos directores.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2773"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2758"/>
         <source>     SIG(%1) = { %2 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2781"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2766"/>
         <source>3. Entonces, los símbolos directores de %1 → %2 son: { %3 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2789"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2774"/>
         <source>1. Proceso para construir la tabla LL(1):
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2790"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2775"/>
         <source>La tabla LL(1) se construye definiendo todos los símbolos directores para cada regla.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2805"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2790"/>
         <source>  %1. SD(%2 → %3) = { %4 }
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2813"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2798"/>
         <source>2. Una gramática cumple la condición LL(1) si para cada no terminal, ninguna de sus producciones tiene símbolos directores en común.
 Es decir, para cada regla A → X y A → Y, SD(A → X) ∩ SD(A → Y) = ∅
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2824"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2809"/>
         <source>- Conflicto en %1:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2830"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2815"/>
         <source>  SD(%1 → %2)
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2839"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2824"/>
         <source>3. Los conjuntos de símbolos directores no se solapan. La gramática es LL(1). La tabla LL(1) se construye de la siguiente forma.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2843"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2828"/>
         <source>4. Ten una fila por cada símbolo no terminal (%1 filas), y una columna por cada terminal excepto epsilon más %2 (%3 columnas).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2850"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2835"/>
         <source>5. Coloca α en la celda (A,β) si β ∈ SD(A → α), déjala vacía en otro caso.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2858"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2843"/>
         <source>  - ll1(%1, %2) = %3
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2865"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2850"/>
         <source>3. Como al menos dos conjuntos se solapan con el mismo terminal, la gramática no es LL(1).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2881"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2866"/>
         <source>&lt;h3&gt;Tutor LL(1)&lt;/h3&gt;&lt;p&gt;Esta es la ventana del tutor de analizadores sintácticos LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2886"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2871"/>
         <source>&lt;h3&gt;Mensajes&lt;/h3&gt;&lt;p&gt;Aquí el tutor pregunta y muestra feedback.&lt;/p&gt;&lt;p&gt;Para enviar tu respuesta pulsa el botón &lt;b&gt;Enviar&lt;/b&gt; o Enter. Puedes insertar una nueva línea con %1 si el formato lo requiere. Aunque en el tutor LL(1) no es necesario.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2895"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2880"/>
         <source>&lt;h3&gt;Formato de respuesta&lt;/h3&gt;&lt;p&gt;El tutor te indicará el formato de respuesta en cada pregunta. En LL(1), siempre son o listas de símbolos separados por coma o números.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2902"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2887"/>
         <source>&lt;h3&gt;Ejemplo práctico&lt;/h3&gt;&lt;p&gt;Supón que te piden el conjunto cabecera de una cadena. La respuesta correcta sería una lista de símbolos, por ejemplo: a,b,c.&lt;/p&gt;&lt;p&gt;Si te preguntasen el número de símbolos de la gramática, bastaría con responder con un número.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2912"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2897"/>
         <source>&lt;h3&gt;Gramática&lt;/h3&gt;&lt;p&gt;En esta sección se ve la gramática que estás analizando.&lt;/p&gt;&lt;p&gt;Consulta los símbolos y producciones para responder. Como norma general, los símbolos en mayúscula serán los no terminales, los que están en minúscula, los terminales, la cadena &quot;EPSILON&quot; representará la cadena vacía y $ representa el fin de línea.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2922"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2907"/>
         <source>&lt;h3&gt;Progreso&lt;/h3&gt;&lt;p&gt;Aquí se registran los pasos que das: conjuntos cabecera (CAB), siguientes (SIG) y símbolos directores (SD).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2929"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2914"/>
         <source>&lt;h3&gt;Respuestas correctas&lt;/h3&gt;&lt;p&gt;Aquí podrás ver el número de respuestas correctas.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2933"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2918"/>
         <source>&lt;h3&gt;Respuestas incorrectas&lt;/h3&gt;&lt;p&gt;Y aquí el número de respuestas incorrectas. Si te equivocas, verás una breve animación en el mensaje.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="2939"/>
+        <location filename="../src/gui/lltutorwindow.cpp" line="2924"/>
         <source>&lt;h3&gt;Finalización&lt;/h3&gt;&lt;p&gt;Una vez termines el ejercicio entero, podrás exportar toda la conversación a PDF. En ese PDF se incluye la tabla de análisis LL(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
@@ -2278,12 +2293,12 @@ No has listado ningún estado conflictivo. </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3722"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3705"/>
         <source>&lt;h3&gt;Formato de respuesta&lt;/h3&gt;&lt;p&gt;Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o ítem LR (una regla gramatical con el (.) por línea. Recuerda que con %1 puedes insertar una nueva línea. Veamos unos ejemplos.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3742"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3725"/>
         <source>&lt;h3&gt;Ejemplo: ítem LR(0)&lt;/h3&gt;&lt;p&gt;Un ítem LR añade un punto “.” para indicar la posición en la regla.&lt;/p&gt;&lt;p&gt;Por ejemplo, un ítem correspondiente a la misma producción sería:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Observa el punto justo antes de “b”: ese es el formato exigido. En caso de varios ítems, simplemente coloca uno por línea.&lt;/p&gt;</source>
         <translation></translation>
     </message>
@@ -2417,147 +2432,147 @@ Formato: a,b,c (vacío si no se aplica en ninguno).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3571"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3554"/>
         <source>Para el estado:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3577"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3560"/>
         <source>Cierre:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3594"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3577"/>
         <source>- Coge los ítems con un no terminal después del ·:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3602"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3585"/>
         <source>Ítem: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3606"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3589"/>
         <source>    - Encontrado un no terminal: %1
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3608"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3591"/>
         <source>    - Añade todas las producciones de %1 con el · al inicio:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3618"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3601"/>
         <source>Añadido: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3630"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3613"/>
         <source>- Se han añadido nuevos ítems. Repite el proceso.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3635"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3618"/>
         <source>- No se han añadido nuevos ítems. El cierre está completo.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3643"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3626"/>
         <source>Sin importar el estado, δ(I, ε) = ∅.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3647"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3630"/>
         <source>Sea I:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3651"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3634"/>
         <source>Para encontrar δ(I, %1):
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3652"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3635"/>
         <source>1. Busca los ítems con %1 después del ·. Es decir, ítems de la forma α·%1β
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3664"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3647"/>
         <source>2. No hay ítems. Por tanto δ(I, %1) = ∅
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3668"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3651"/>
         <source>2. Sea J:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3672"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3655"/>
         <source>3. Avanza el · una posición:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3682"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3665"/>
         <source>4. δ(I, %1) = CIERRE(J)
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3683"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3666"/>
         <source>5. Cierre de J:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3697"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3680"/>
         <source>&lt;h3&gt;Tutor SLR(1)&lt;/h3&gt;&lt;p&gt;Esta es la ventana del tutor de analizadores sintácticos SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3701"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3684"/>
         <source>&lt;h3&gt;Gramática&lt;/h3&gt;&lt;p&gt;Como se puede ver, la gramática ahora es más compleja. Se genera aleatoriamente.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3706"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3689"/>
         <source>&lt;h3&gt;Gramática&lt;/h3&gt;&lt;p&gt;Las reglas están numeradas en el tutor SLR(1). Te será útil para indicar las acciones reduce en la tabla, pues deberás escribir el número de la regla correspondiente.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3714"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3697"/>
         <source>&lt;h3&gt;Progreso&lt;/h3&gt;&lt;p&gt;Aquí se registran los pasos, en el analizador SLR(1) son distintos: estados de la colección LR(0) y transiciones con la función delta. Te será útil para cuando tengas que rellenar la tabla SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3733"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3716"/>
         <source>&lt;h3&gt;Ejemplo: regla gramatical&lt;/h3&gt;&lt;p&gt;Supón que tienes esta producción en la gramática: X -&gt; a b | c&lt;/p&gt;&lt;p&gt;La respuesta correcta para esa pregunta sería exactamente:&lt;/p&gt;&lt;pre&gt;X -&gt; a b&lt;/pre&gt;&lt;pre&gt;X -&gt; c&lt;/pre&gt;&lt;p&gt;Una sola regla por línea, tal cual aparece arriba.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3752"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3735"/>
         <source>&lt;h3&gt;Ejemplo: lista de símbolos&lt;/h3&gt;&lt;p&gt;Al igual que el LL(1), se te puede pedir una lista de símbolos separados por coma.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3757"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3740"/>
         <source>&lt;h3&gt;Finalización&lt;/h3&gt;&lt;p&gt;Al igual que el tutor LL(1), podrás exportar toda la conversación y las tablas de análisis en formato PDF.&lt;/p&gt;</source>
         <translation></translation>
     </message>
