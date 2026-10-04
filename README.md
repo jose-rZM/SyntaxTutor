@@ -1,9 +1,4 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="resources/icon/lockup/syntaxtutor-lockup-light-text.svg">
-    <img alt="SyntaxTutor" src="resources/icon/lockup/syntaxtutor-lockup-dark-text.svg" width="380">
-  </picture>
-</p>
+![SyntaxTutor](resources/icon/lockup/syntaxtutor-banner.svg)
 
 # SyntaxTutor: An Interactive Tool for Learning Syntax Analysis
 
