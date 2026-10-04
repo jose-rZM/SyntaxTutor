@@ -2664,4 +2664,12 @@ Formato: a,b,c (vacío si no se aplica en ninguno).</source>
         <translation></translation>
     </message>
 </context>
+<context>
+    <name>TutorialManager</name>
+    <message>
+        <location filename="../src/widgets/tutorialmanager.cpp" line="135"/>
+        <source>&amp;Siguiente</source>
+        <translation>&amp;Siguiente</translation>
+    </message>
+</context>
 </TS>
