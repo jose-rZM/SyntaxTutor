@@ -1011,7 +1011,7 @@ QGraphicsView#llDerivationTreeView {
 }
 
 QDialog[automatonViewer="true"] QLabel#automatonViewerHint {
-    color: #6F7A7E;
+    color: #9AA5A8;
     font-size: $font-label;
 }
 

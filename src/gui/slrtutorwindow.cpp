@@ -1064,7 +1064,7 @@ void SLRTutorWindow::updateProgressPanel() {
                             "margin-top:4px;'>" +
                             tr("Transiciones:") +
                             "</div><ul "
-                            "style='list-style-type:circle; color:#777777; "
+                            "style='list-style-type:circle; color:#9AA5A8; "
                             "margin-left:20px;'>";
                     for (const auto& entry : it->second) {
                         const QString symbol =
