@@ -63,6 +63,15 @@ bool SLR1Parser::SolveLRConflicts(const state& st) {
         if (item.IsComplete()) {
             // Regla 3: Si el ítem es del axioma, ACCEPT en EOL
             if (item.antecedent_ == gr_.axiom_) {
+                // A reduction already written on EOL collides with accepting
+                // (ACCEPT/REDUCE). Overwriting it hid the conflict whenever
+                // the reduction happened to be visited first, which depends
+                // on the item set's iteration order.
+                auto it = actions_[st.id_].find(gr_.st_.EOL_);
+                if (it != actions_[st.id_].end() &&
+                    it->second.action != Action::Accept) {
+                    return false;
+                }
                 actions_[st.id_][gr_.st_.EOL_] = {nullptr, Action::Accept};
             } else {
                 // Regla 2: Si el ítem es completo, REDUCE en FOLLOW(A)
