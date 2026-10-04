@@ -3796,3 +3796,52 @@ int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
+
+// Accepting is the action for the axiom's item S -> A . $ on $. When the
+// same state also reduces another rule on $, the two collide: the grammar is
+// not SLR(1). The accept entry used to be written without looking at what
+// the cell held, so a reduction already there was silently replaced and the
+// grammar passed as SLR(1). Whether the reduction was written first depends
+// on the iteration order of the item set, which differs between standard
+// libraries: the list mixes grammars that slipped through on macOS and on
+// Linux.
+TEST(SLR1_AcceptConflict, AcceptAndReduceOnEndOfInputIsNotSlr1) {
+    const char* grammars[] = {
+        "A -> A B | .\nB -> .",
+        "A -> A B | B b .\nB -> .",
+        "A -> C C | A C .\nB -> a A | c .\nC -> A .",
+        "A -> C | b | A B .\nB -> C a | C B | .\nC -> C c .",
+        "A -> B | A .\nB -> b b | a | c c .",
+    };
+    for (const char* text : grammars) {
+        const GrammarParseResult parsed = GrammarParser::Parse(text);
+        ASSERT_TRUE(parsed.Ok()) << text;
+        SLR1Parser slr1(parsed.grammar);
+        EXPECT_FALSE(slr1.MakeParser()) << text;
+    }
+}
+
+// The same state accepting on $ and reducing on other symbols is fine.
+TEST(SLR1_AcceptConflict, AcceptBesideReductionOnOtherSymbolsIsSlr1) {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("A -> B c | d .\nB -> A .");
+    ASSERT_TRUE(parsed.Ok());
+    SLR1Parser slr1(parsed.grammar);
+    ASSERT_TRUE(slr1.MakeParser());
+
+    const Grammar& g = slr1.gr_;
+    bool found = false;
+    for (const auto& [id, row] : slr1.actions_) {
+        const auto eol = row.find(g.st_.EOL_);
+        const auto c   = row.find("c");
+        const bool accepts =
+            eol != row.end() && eol->second.action == SLR1Parser::Action::Accept;
+        const bool reduces =
+            c != row.end() && c->second.action == SLR1Parser::Action::Reduce;
+        if (accepts && reduces) {
+            EXPECT_EQ(c->second.item->antecedent_, "B");
+            found = true;
+        }
+    }
+    EXPECT_TRUE(found);
+}
