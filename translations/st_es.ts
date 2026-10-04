@@ -499,11 +499,6 @@ Formato: a,b,c</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/lltutorwindow.cpp" line="1336"/>
-        <source>Rellena la tabla LL(1), en el panel derecho puedes consultar todos los cálculos que has realizado durante el ejercicio.</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/gui/lltutorwindow.cpp" line="1464"/>
         <source>Ejemplo: 4,7</source>
         <translation></translation>
@@ -688,6 +683,11 @@ La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)</source>
     <message>
         <location filename="../src/gui/lltutorwindow.cpp" line="1223"/>
         <source>Ver informe</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/lltutorwindow.cpp" line="1336"/>
+        <source>Rellena la tabla LL(1). En el panel derecho puedes consultar todos los cálculos que has realizado durante el ejercicio.</source>
         <translation></translation>
     </message>
     <message>
@@ -1731,107 +1731,101 @@ Revisa el formato: sX, rX, acc o vacío (Action); X o vacío (Goto).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1771"/>
-        <source>Dado el ítem:  S -&gt; · A $
-¿Qué símbolo aparece justo después del punto (·)?</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1775"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1784"/>
         <source>Si ese símbolo es un no terminal,
 ¿cuáles son las reglas cuyo antecedente es ese símbolo?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1779"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1788"/>
         <source>¿Cuál es el cierre del ítem inicial?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1782"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1791"/>
         <source>Entonces, ¿cuál es el estado inicial generado?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1786"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1795"/>
         <source>¿Cuántos estados se han generado en la colección LR(0) hasta ahora?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1801"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1810"/>
         <source>Estado I%1:
 %2
 ¿Cuántos ítems contiene este estado?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1810"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1819"/>
         <source>¿Qué símbolos aparecen después del punto (·) en los ítems de este estado?
 Formato: a,b,c</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1818"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1827"/>
         <source>Calcula δ(I%1, %2):
 Deja la entrada vacía si el resultado es vacío.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1827"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1836"/>
         <source>Calcula δ(I%1, %2):
 ¿Qué estado se genera al hacer transición con &apos;%2&apos;?
 Este será el estado número %3.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1838"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1847"/>
         <source>¿Cuántas filas y columnas tiene la tabla SLR(1)?
 Formato: filas,columnas</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1842"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1851"/>
         <source>¿Cuántos estados contiene la colección LR(0)?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1845"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1854"/>
         <source>¿Cuántos símbolos terminales y no terminales hay en la gramática?
 (Excluye ε. Incluye $)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1850"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1859"/>
         <source>Con los datos anteriores,
 ¿cuál es el tamaño total (filas,columnas) de la tabla SLR(1)?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1856"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1865"/>
         <source>¿Cuántos estados contienen al menos un ítem completo?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1859"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1868"/>
         <source>Indica los ID de los estados con ítems completos, separados por comas.
 Ejemplo: 2,5,7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1864"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1873"/>
         <source>Indica cuántos ítems completos tiene cada estado.
 Formato: id1:n1, id2:n2, ...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1869"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1878"/>
         <source>¿Qué estados presentan un CONFLICTO LR(0)?
 Deja la respuesta vacía si no hay conflictos.
 Formato: 1,3,7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1881"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1890"/>
         <source>Estado I%1 con conflicto LR(0):
 %2
 Indica los símbolos terminales sobre los que debe aplicarse REDUCCIÓN.
@@ -1839,7 +1833,7 @@ Formato: a,b,c (vacío si ninguno).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1909"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1918"/>
         <source>Rellena la tabla SLR(1). En el panel derecho tienes los estados y transiciones que has ido construyendo.
 Formato:
 - sX: desplazamiento a estado X si el símbolo es terminal
@@ -1854,440 +1848,440 @@ Formato:
 - acc: aceptar</translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2114"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2117"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2123"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2126"/>
         <source>Ejemplo: A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2120"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2129"/>
         <source>Ejemplo: A -&gt; a B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2123"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2132"/>
         <source>Ejemplo: 7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2126"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2140"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2135"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2149"/>
         <source>Ejemplo: 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2129"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2138"/>
         <source>Ejemplo: a,b</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2137"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2146"/>
         <source>Ejemplo: 5,12</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2143"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2152"/>
         <source>Ejemplo: 8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2146"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2155"/>
         <source>Ejemplo: 9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2149"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2158"/>
         <source>Ejemplo: 2,5,7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2152"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2161"/>
         <source>Ejemplo: 2:1, 5:2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2155"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2164"/>
         <source>Ejemplo: 2,5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2159"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2168"/>
         <source>Ejemplo: a,b,$</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2163"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2172"/>
         <source>Completa la tabla en el diálogo</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2801"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2810"/>
         <source>La tabla no es correcta.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2805"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2814"/>
         <source>Error interno. Estado actual desconocido a la hora de dar retroalimentación.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2819"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2828"/>
         <source>El axioma es el símbolo desde el que comienza toda la derivación. En esta gramática, el axioma es: %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2826"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2835"/>
         <source>El símbolo que sigue al (·) indica cuál es el siguiente símbolo que debe ser procesado. En este ítem, ese símbolo es: %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2836"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2845"/>
         <source>Como el símbolo tras el · es %1, se debe expandir sus producciones en el cierre. Las reglas cuyo antecedente es %1 son:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2857"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2866"/>
         <source>El cierre incluye todas las producciones de los no terminales que aparecen tras el ·, añadidas recursivamente.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2868"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2877"/>
         <source>El estado inicial (I0) es el cierre del ítem con el axioma. Contiene todos los ítems posibles a partir de ese punto.
 %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2879"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2888"/>
         <source>No has indicado ningún número de estados.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2882"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2891"/>
         <source>Formato inválido: escribe sólo dígitos para el número de estados.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2885"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2894"/>
         <source>Se ha(n) generado %1 estado(s) hasta ahora. Cada transición sobre un símbolo genera un nuevo estado si lleva a un conjunto distinto de ítems.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2897"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2906"/>
         <source>No has indicado ningún número de ítems.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2900"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2909"/>
         <source>Formato inválido: escribe un número entero de ítems.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2902"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2911"/>
         <source>El estado I%2 contiene %1 ítem(s).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2917"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2926"/>
         <source>Los símbolos son: %1.
 Cuando un ítem es de la forma X → α· o X -&gt; EPSILON · (ítem completo), el símbolo siguiente es siempre EPSILON. En estos casos podrás aplicar un reduce, recuérdalo.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2925"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2934"/>
         <source>Los símbolos que aparecen tras el punto (·) en los ítems determinan posibles transiciones. En este estado, esos símbolos son: %1.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2932"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2941"/>
         <source>No has indicado ningún símbolo.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2935"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2944"/>
         <source>Recuerda separar los símbolos con comas.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2942"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2951"/>
         <source>Has repetido símbolos: %1.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2946"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2955"/>
         <source>Te han faltado símbolos.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2949"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2958"/>
         <source>No aparecen tras el punto: %1.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2962"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2971"/>
         <source>La tabla SLR(1) tiene una fila por cada estado y columnas por cada símbolo terminal y no terminal (sin ε).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2969"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2978"/>
         <source>Se han generado %1 estados.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2976"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2985"/>
         <source>No has indicado ningún número de estados. Escribe un entero. En el panel derecho tienes todos los estados que has generado.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2981"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2990"/>
         <source>Formato inválido: escribe sólo dígitos para el número de estados.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2986"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2995"/>
         <source>Has escrito %1, pero el número real de estados en el autómata es %2.
 Recuerda que en el panel derecho tienes todos los estados (y transiciones) que has generado.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3000"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3009"/>
         <source>Hay un total de %1 símbolos gramaticales, excluyendo EPSILON e incluyendo $.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3009"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3018"/>
         <source>No has indicado ningún número de símbolos. Escribe un valor entero.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3013"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3022"/>
         <source>Formato incorrecto: usa sólo dígitos para el conteo de símbolos.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3017"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3026"/>
         <source>Has puesto %1 símbolos, pero deberías contar tanto los terminales como los no terminales excluyendo EPSILON e incluyendo $, lo que da %2.
 Revisa tu conjunto de símbolos de la gramática.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3032"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3041"/>
         <source>La tabla SLR(1) tiene %1 filas (estados) y %2 columnas (símbolos, sin ε y con $).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3040"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3049"/>
         <source>No has indicado ningún valor. Debías escribir filas,columnas separados por coma.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3046"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3055"/>
         <source>Recuerda separar filas y columnas con una coma, p. ej. 5,12.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3051"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3060"/>
         <source>Formato inválido: se esperaban dos valores separados por una coma, p.ej. “5,12”.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3061"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3070"/>
         <source>Faltan valores: escribe filas,columnas.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3066"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3075"/>
         <source>Ambos valores debían ser enteros.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3071"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3080"/>
         <source>Número de filas: pusiste %1 pero hay %2 estados.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3076"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3085"/>
         <source>Número de columnas: pusiste %1 pero hay %2 símbolos.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3085"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3094"/>
         <source>Un estado es candidato para una acción REDUCE si contiene algún ítem de la forma X -&gt; α · o X -&gt; EPSILON ·, es decir, con el punto al final (ítem completo).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3096"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3105"/>
         <source>No has indicado ningún estado. Debes listar los IDs separados por comas.
 Recuerda que solo los estados con ítems completos pueden hacer REDUCE.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3103"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3112"/>
         <source>Formato inválido: separa los IDs con comas.
 Ejemplo: 2,5,7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3107"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3116"/>
         <source>Formato inválido: cada ID debe ser un número entero. Usa comas para separar.
 Ejemplo: 2,5,7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3123"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3132"/>
         <source>Te faltan estos estados con REDUCE posible: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3127"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3191"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3136"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3200"/>
         <source>Has incluido estados sin ítems completos: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3135"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3199"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3261"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3144"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3208"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3270"/>
         <source>Has repetido estados: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3138"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3147"/>
         <source>Solo los estados con ítems completos (punto al final) pueden hacer REDUCE.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3148"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3157"/>
         <source>No has indicado ningún par id:n.
 Formato: id:n, id:n, ... (por ejemplo, 2:1, 5:2).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3152"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3161"/>
         <source>Formato inválido: separa los pares con comas.
 Ejemplo: 2:1, 5:2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3156"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3165"/>
         <source>Formato inválido: cada par debe ser id:n.
 Ejemplo: 2:1, 5:2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3160"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3169"/>
         <source>Formato inválido: id y n deben ser números enteros.
 Ejemplo: 2:1, 5:2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3174"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3183"/>
         <source>%1 debería tener %2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3185"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3194"/>
         <source>Faltan estados: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3188"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3197"/>
         <source>Conteos incorrectos: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3210"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3219"/>
         <source>Detalle de ítems completos por estado → </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3225"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3234"/>
         <source>
 No has listado ningún estado conflictivo. </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3229"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3238"/>
         <source>Formato inválido: usa comas para separar los IDs.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3232"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3241"/>
         <source>Formato inválido: usa números separados por comas.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3247"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3256"/>
         <source>Faltan estos estados conflictivos: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3251"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3260"/>
         <source>Has marcado estados sin conflicto: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3253"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3262"/>
         <source>. En esos estados no hay confusión sobre qué acción aplicar.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3264"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3273"/>
         <source>No debería haber conflictos, pero has listado algunos.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3267"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3276"/>
         <source>Revisa cada estado en busca de ítems completos y desplazables juntos.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3305"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3347"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3314"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3356"/>
         <source>Recuerda separar los terminales con comas.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3320"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3363"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3329"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3372"/>
         <source>Has repetido símbolos: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3324"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3333"/>
         <source>Recuerda que solo se reduce en los terminales de SIG; en los demás se realiza SHIFT. Puedes apoyarte en la definición de SIG.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3902"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3911"/>
         <source>&lt;h3&gt;Formato de respuesta&lt;/h3&gt;&lt;p&gt;Observa como el tutor ahora te pide otro formato de respuesta. Una regla gramatical o ítem LR (una regla gramatical con el (.) por línea. Recuerda que con %1 puedes insertar una nueva línea. Veamos unos ejemplos.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3922"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3931"/>
         <source>&lt;h3&gt;Ejemplo: ítem LR(0)&lt;/h3&gt;&lt;p&gt;Un ítem LR añade un punto “.” para indicar la posición en la regla.&lt;/p&gt;&lt;p&gt;Por ejemplo, un ítem correspondiente a la misma producción sería:&lt;/p&gt;&lt;pre&gt;X -&gt; a . b&lt;/pre&gt;&lt;p&gt;Observa el punto justo antes de “b”: ese es el formato exigido. En caso de varios ítems, simplemente coloca uno por línea.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3302"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3311"/>
         <source>No has indicado ningún terminal.
 </source>
         <translation></translation>
@@ -2327,7 +2321,13 @@ Formato (%1 para nueva línea):
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="1899"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1777"/>
+        <source>Dado el ítem: %1 -&gt; · %2
+¿Qué símbolo aparece justo después del punto (·)?</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="1908"/>
         <source>Estado I%1:
 %2
 Indica los terminales sobre los que se aplicará REDUCCIÓN.
@@ -2335,233 +2335,233 @@ Formato: a,b,c (vacío si no se aplica en ninguno).</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2110"/>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2132"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2119"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2141"/>
         <source>Ejemplo: S -&gt; . A $ (%1 para nueva línea)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="2811"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="2820"/>
         <source>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · A $. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</source>
         <translation>El estado inicial se construye a partir del cierre del ítem asociado al axioma: S -&gt; · A $. Esto representa que aún no se ha leído nada y se quiere derivar desde el símbolo inicial.</translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3214"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3223"/>
         <source>Un conflicto LR(0) ocurre cuando un mismo estado contiene un ítem completo (REDUCE) junto a un ítem con un símbolo tras el · (SHIFT), conflicto desplazamiento-reducción, o más de un ítem completo, conflicto reducción-reducción. El ítem del axioma con el · antes de $ indica aceptación, no reducción.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3281"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3290"/>
         <source>En el estado I%1 se produce un conflicto LR(0): hay varios ítems completos, conflicto reducción-reducción. Debes escribir los terminales en los que la tabla aplicará REDUCE. Los puedes calcular con el SIG del antecedente de cada ítem completo.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3288"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3297"/>
         <source>En el estado I%1 se produce un conflicto LR(0). Un ítem completo compite con otro desplazable. Debes escribir los terminales en los que la tabla aplicará REDUCE. Los puedes calcular calculando SIG del antecedente.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3312"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3321"/>
         <source>Te faltan estos terminales para REDUCE: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3316"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3325"/>
         <source>Estos no se usan para REDUCE en I%1: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3335"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3344"/>
         <source>En el estado I%1, se aplica REDUCE solo en ciertos terminales.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3344"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3353"/>
         <source>No has listado ningún terminal para REDUCE.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3354"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3363"/>
         <source>Faltan estos terminales: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3358"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3367"/>
         <source>No deberías hacer REDUCE en: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3360"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3369"/>
         <source>. ¡No pertenecen al conjunto de símbolos siguientes!
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3367"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3376"/>
         <source>Asegúrate de usar solo los terminales en SIG del antecedente de la producción.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3569"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3578"/>
         <source>(vacía)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3627"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3636"/>
         <source>Tabla SLR(1): celda (I%1, %2)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3635"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3644"/>
         <source>Examen SLR(1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3751"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3760"/>
         <source>Para el estado:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3757"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3766"/>
         <source>Cierre:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3774"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3783"/>
         <source>- Coge los ítems con un no terminal después del ·:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3782"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3791"/>
         <source>Ítem: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3786"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3795"/>
         <source>    - Encontrado un no terminal: %1
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3788"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3797"/>
         <source>    - Añade todas las producciones de %1 con el · al inicio:
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3798"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3807"/>
         <source>Añadido: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3810"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3819"/>
         <source>- Se han añadido nuevos ítems. Repite el proceso.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3815"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3824"/>
         <source>- No se han añadido nuevos ítems. El cierre está completo.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3823"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3832"/>
         <source>Sin importar el estado, δ(I, ε) = ∅.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3827"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3836"/>
         <source>Sea I:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3831"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3840"/>
         <source>Para encontrar δ(I, %1):
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3832"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3841"/>
         <source>1. Busca los ítems con %1 después del ·. Es decir, ítems de la forma α·%1β
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3844"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3853"/>
         <source>2. No hay ítems. Por tanto δ(I, %1) = ∅
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3848"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3857"/>
         <source>2. Sea J:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3852"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3861"/>
         <source>3. Avanza el · una posición:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3862"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3871"/>
         <source>4. δ(I, %1) = CIERRE(J)
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3863"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3872"/>
         <source>5. Cierre de J:
 
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3877"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3886"/>
         <source>&lt;h3&gt;Tutor SLR(1)&lt;/h3&gt;&lt;p&gt;Esta es la ventana del tutor de analizadores sintácticos SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3881"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3890"/>
         <source>&lt;h3&gt;Gramática&lt;/h3&gt;&lt;p&gt;Como se puede ver, la gramática ahora es más compleja. Se genera aleatoriamente.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3886"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3895"/>
         <source>&lt;h3&gt;Gramática&lt;/h3&gt;&lt;p&gt;Las reglas están numeradas en el tutor SLR(1). Te será útil para indicar las acciones reduce en la tabla, pues deberás escribir el número de la regla correspondiente.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3894"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3903"/>
         <source>&lt;h3&gt;Progreso&lt;/h3&gt;&lt;p&gt;Aquí se registran los pasos, en el analizador SLR(1) son distintos: estados de la colección LR(0) y transiciones con la función delta. Te será útil para cuando tengas que rellenar la tabla SLR(1).&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3913"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3922"/>
         <source>&lt;h3&gt;Ejemplo: regla gramatical&lt;/h3&gt;&lt;p&gt;Supón que tienes esta producción en la gramática: X -&gt; a b | c&lt;/p&gt;&lt;p&gt;La respuesta correcta para esa pregunta sería exactamente:&lt;/p&gt;&lt;pre&gt;X -&gt; a b&lt;/pre&gt;&lt;pre&gt;X -&gt; c&lt;/pre&gt;&lt;p&gt;Una sola regla por línea, tal cual aparece arriba.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3932"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3941"/>
         <source>&lt;h3&gt;Ejemplo: lista de símbolos&lt;/h3&gt;&lt;p&gt;Al igual que el LL(1), se te puede pedir una lista de símbolos separados por coma.&lt;/p&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/slrtutorwindow.cpp" line="3937"/>
+        <location filename="../src/gui/slrtutorwindow.cpp" line="3946"/>
         <source>&lt;h3&gt;Finalización&lt;/h3&gt;&lt;p&gt;Al igual que el tutor LL(1), podrás exportar toda la conversación y las tablas de análisis en formato PDF.&lt;/p&gt;</source>
         <translation></translation>
     </message>

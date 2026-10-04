@@ -1767,9 +1767,18 @@ QString SLRTutorWindow::generateQuestion() {
     case StateSlr::A1:
         return tr("¿Cuál es el axioma de la gramática?");
 
-    case StateSlr::A2:
-        return tr("Dado el ítem:  S -> · A $\n"
-                  "¿Qué símbolo aparece justo después del punto (·)?");
+    case StateSlr::A2: {
+        // The grammar's own initial item: a fixed "S -> · A $" only matched
+        // the generated grammars, which always start at A.
+        QStringList consequent;
+        for (const std::string& symbol : grammar.g_.at(grammar.axiom_).at(0)) {
+            consequent << QString::fromStdString(symbol);
+        }
+        return tr("Dado el ítem: %1 -> · %2\n"
+                  "¿Qué símbolo aparece justo después del punto (·)?")
+            .arg(QString::fromStdString(grammar.axiom_),
+                 consequent.join(QLatin1Char(' ')));
+    }
 
     case StateSlr::A3:
         return tr("Si ese símbolo es un no terminal,\n"

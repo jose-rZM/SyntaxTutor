@@ -1333,7 +1333,7 @@ QString LLTutorWindow::generateQuestion() {
 
         // ====== C: Mostrar tabla final al alumno =================
     case State::C:
-        addMessage(tr("Rellena la tabla LL(1), en el panel derecho puedes "
+        addMessage(tr("Rellena la tabla LL(1). En el panel derecho puedes "
                       "consultar todos los "
                       "cálculos que has realizado durante el ejercicio."),
                    false);
