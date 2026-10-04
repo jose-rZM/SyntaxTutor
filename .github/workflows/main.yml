@@ -76,7 +76,7 @@ jobs:
             <key>CFBundleExecutable</key>
             <string>SyntaxTutor</string>
             <key>CFBundleIdentifier</key>
-            <string>com.uma.syntaxtutor</string>
+            <string>me.jram.syntaxtutor</string>
             <key>CFBundleVersion</key>
             <string>${VERSION}</string>
             <key>CFBundleShortVersionString</key>

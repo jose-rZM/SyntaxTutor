@@ -62,6 +62,7 @@ HEADERS += \
     src/widgets/appicon.h \
     src/widgets/applayout.h \
     src/widgets/apppalette.h \
+    src/widgets/appsettings.h \
     src/widgets/appshortcuts.h \
     src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
@@ -88,6 +89,7 @@ FORMS += \
 
 win32: RC_ICONS = resources/icon/syntaxtutor.ico
 macx: ICON = resources/icon/syntaxtutor.icns
+macx: QMAKE_TARGET_BUNDLE_PREFIX = me.jram
 
 win32:CONFIG(release, debug|release) {
     msvc {

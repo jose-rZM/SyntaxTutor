@@ -1,6 +1,7 @@
 #include "tutor_window_test.h"
 
 #include "applayout.h"
+#include "appsettings.h"
 #include "apptypography.h"
 #include "examreportdialog.h"
 #include "examsession.h"
@@ -64,7 +65,7 @@ const QStringList kAuditedLanguages = {QStringLiteral("es"),
                                        QStringLiteral("en")};
 
 void clearLayoutTestSettings() {
-    QSettings settings("UMA-Test", "SyntaxTutor-Test");
+    QSettings settings = AppSettings::open();
     settings.clear();
     settings.sync();
 }

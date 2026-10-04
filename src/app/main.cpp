@@ -18,6 +18,7 @@
 
 #include "appversion.h"
 #include "appicon.h"
+#include "appsettings.h"
 #include "apppalette.h"
 #include "apptypography.h"
 #include "mainwindow.h"
@@ -60,10 +61,10 @@ int main(int argc, char* argv[]) {
     QFontDatabase::addApplicationFont(
         ":/resources/fonts/JetBrainsMono-Bold.ttf");
 #endif
-    QCoreApplication::setApplicationName("SyntaxTutor");
+    AppSettings::registerIdentity();
     QGuiApplication::setApplicationDisplayName("SyntaxTutor");
     QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
-    QSettings settings("UMA", "SyntaxTutor");
+    QSettings settings = AppSettings::open();
     if (settings.contains(AppTextScale::settingsKey())) {
         AppTextScale::currentPercent() = AppTextScale::clampPercent(
             settings.value(AppTextScale::settingsKey()).toInt());

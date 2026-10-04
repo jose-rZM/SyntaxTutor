@@ -17,6 +17,7 @@
  */
 
 #include "grammareditordialog.h"
+#include "appsettings.h"
 
 #include "apptypography.h"
 #include "applayout.h"
@@ -39,13 +40,6 @@
 #include <algorithm>
 
 namespace {
-#ifdef SYNTAXTUTOR_TESTING
-constexpr auto kSettingsOrg = "UMA-Test";
-constexpr auto kSettingsApp = "SyntaxTutor-Test";
-#else
-constexpr auto kSettingsOrg = "UMA";
-constexpr auto kSettingsApp = "SyntaxTutor";
-#endif
 
 constexpr int kDebounceMs       = 200;
 constexpr int kMaxListedErrors  = 4;
@@ -132,7 +126,7 @@ GrammarEditorDialog::GrammarEditorDialog(Mode mode, QWidget* parent)
     connect(input_, &QPlainTextEdit::textChanged, this,
             &GrammarEditorDialog::scheduleValidation);
 
-    QSettings     settings(kSettingsOrg, kSettingsApp);
+    QSettings     settings = AppSettings::open();
     const QString lastGrammar = settings.value(kLastGrammarKey).toString();
     if (!lastGrammar.isEmpty()) {
         input_->setPlainText(lastGrammar);
@@ -461,7 +455,7 @@ void GrammarEditorDialog::accept() {
             return;
         }
     }
-    QSettings settings(kSettingsOrg, kSettingsApp);
+    QSettings settings = AppSettings::open();
     settings.setValue(kLastGrammarKey, input_->toPlainText());
     QDialog::accept();
 }
