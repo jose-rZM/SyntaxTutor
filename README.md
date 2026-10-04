@@ -1,4 +1,11 @@
-# SyntaxTutor: An interactive Tool for Learning Syntax Analysis
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="resources/icon/lockup/syntaxtutor-lockup-light-text.svg">
+    <img alt="SyntaxTutor" src="resources/icon/lockup/syntaxtutor-lockup-dark-text.svg" width="380">
+  </picture>
+</p>
+
+# SyntaxTutor: An Interactive Tool for Learning Syntax Analysis
 
 SyntaxTutor is an educational application designed to help compiler students understand LL(1) and SLR(1) parsing algorithms. Through a visual and interactive interface, it guides users step-by-step through the computation of FIRST, FOLLOW, CLOSURE, GOTO, predictive parsing tables, and LR automata, offering real-time pedagogical feedback.
 
@@ -6,60 +13,81 @@ Rather than acting as a mere calculator, SyntaxTutor functions as a learning com
 
 ---
 
-## 🎓 Academic Context
-SyntaxTutor is part of a Final Degree Project (TFG) developed at the University of Málaga (UMA), in the Computer Engineering program.
-Its main goal is to offer an educational companion for students learning syntax analysis, going beyond traditional calculators by incorporating guided feedback, visualization, and gamified learning.
+## 🎓 About the Project
+SyntaxTutor 1.x was the Final Degree Project "Interactive Tutorial About Syntax Analyzers" (2025).
+Version 2 is a later extension and redesign, developed independently of that project.
 
 ---
 
 ## 🎯 Key Features
-- **Educational Focus**: built to teach, not just compute.
-- **Visualization**: derivation trees, intermediate steps, sets, and tables.
-- **Exportable Results**: useful for reports or coursework.
+- **Educational focus**: built to teach, not just compute. Wrong answers branch into smaller questions instead of revealing the result.
+- **LL(1) and SLR(1) tutors**: FIRST, FOLLOW and prediction symbols; LR(0) items, closures, transitions and the parsing tables.
+- **Your own grammars**: type any grammar, with live validation, or practise with generated ones at three difficulty levels.
+- **Exam mode**: no feedback during the exercise and a 0-10 grade with a full question-by-question review.
+- **LR(0) automaton**: drawn progressively as you build the states.
+- **Guided table modes**: fill in the LL(1) and SLR(1) tables one cell at a time, with hints.
+- **PDF export** of the conversation, sets, automaton states, tables and exam reports.
+- **Spanish and English**, adjustable text size and gamified progress.
+
+---
+
+## 📖 User Manual
+- 🇬🇧 [English](manual/SyntaxTutor-Manual-EN.pdf)
+- 🇪🇸 [Español](manual/SyntaxTutor-Manual-ES.pdf)
 
 ---
 
 ## 🖼️ Interface Screenshots
 
-### 🏠 Main Menu
+### 🏠 Home
 
-![Main window](.github/screenshots/mainwindow.png)
+![Home screen](.github/screenshots/home.png)
 
-Home screen with gamification, levels, and language options.
+Pick a tutor, the difficulty, your own grammar or exam mode.
 
-### 📘 LL(1) Learning Mode
+### 📘 LL(1) Tutor
 
-![LL(1) dialog view](.github/screenshots/ll1_1.png)
+![LL(1) tutor](.github/screenshots/ll-tutor.png)
 
-Interactive LL(1) tutor asks questions and provides feedback.
+The tutor asks one question at a time; a wrong answer leads to smaller questions about FIRST and FOLLOW.
 
-![LL(1) derivation tree](.github/screenshots/ll1_2.png)
+![LL(1) table with a wrong cell](.github/screenshots/ll-table-retry.png)
 
-Derivation tree view showing how FIRST sets are built step-by-step.
+The LL(1) table, with the wrong cells highlighted after a submission.
 
-![LL(1) table task](.github/screenshots/ll1_3.png)
+![LL(1) guided mode](.github/screenshots/ll-guided.png)
 
-Completion of the LL(1) predictive table with visual guidance.
+Guided mode walks through the table one cell at a time.
 
-### 🧠 SLR(1) Learning Mode
+### 🧠 SLR(1) Tutor
 
-![SLR(1) item view](.github/screenshots/slr_1.png)
+![SLR(1) tutor](.github/screenshots/slr-tutor.png)
 
-User is asked to identify symbols after the dot in an LR(0) item.
+Building the LR(0) collection: items, symbols after the dot and transitions.
 
-![SLR(1) automaton construction](.github/screenshots/slr_2.png)
+![LR(0) automaton](.github/screenshots/slr-automaton.png)
 
-Step-by-step explanation of the GOTO/closure construction.
+The LR(0) automaton grows as you compute each state and transition.
 
-![SLR(1) table fill-in](.github/screenshots/slr_3.png)
+![SLR(1) table](.github/screenshots/slr-table.png)
 
-Interactive SLR(1) table to complete, with states and terminals/non-terminals.
+The SLR(1) parsing table, with `sN`, `rN`, `acc` and goto entries.
 
-### ✨ Assisted Mode: Guided Table Completion
+![SLR(1) guided mode](.github/screenshots/slr-guided.png)
 
-![SLR(1) guided mode](.github/screenshots/slr_4.png)
+Guided mode for the SLR(1) table.
 
-SyntaxTutor walks the student through each cell in the parsing table with hints and context.
+### ✍️ Your Own Grammar
+
+![Grammar editor](.github/screenshots/grammar-editor.png)
+
+The editor checks the grammar as you type and only accepts LL(1) or SLR(1) grammars, depending on the tutor.
+
+### 📝 Exam Mode
+
+![Exam report](.github/screenshots/exam-report.png)
+
+At the end of an exam: the grade and a review of every answer, exportable to PDF.
 
 ---
 
@@ -107,7 +135,7 @@ make -f Makefile
 Full documentation for the source code is available via Doxygen:
 
 * **🌐 Online HTML Documentation**: [https://jose-rzm.github.io/SyntaxTutor/](https://jose-rzm.github.io/SyntaxTutor/)
-* **📄 PDF Reference Manual**: [refman.pdf](docs/latex/refman.pdf) (in the `docs/latex/` folder)
+* **📄 PDF Developer Manual**: [SyntaxTutor-Developer-Manual.pdf](manual/SyntaxTutor-Developer-Manual.pdf)
 
 The documentation includes:
 
