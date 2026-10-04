@@ -65,8 +65,14 @@ class ConversationPdf {
     explicit ConversationPdf(const QString& exercise) {
         html_ += QStringLiteral("<html><head><style>%1</style></head><body>")
                      .arg(styleSheet());
-        html_ += QStringLiteral("<p class='kicker'>SyntaxTutor</p>"
-                                "<h1>%1</h1><p class='meta'>%2</p>")
+        // The PNG, not the SVG: Qt SVG drops the icon's clip paths.
+        html_ += QStringLiteral(
+                     "<table class='header' cellspacing='0' cellpadding='0'>"
+                     "<tr><td class='logo'><img src='%1' width='46' "
+                     "height='46'></td><td><p class='kicker'>SyntaxTutor</p>"
+                     "<h1>%2</h1><p class='meta'>%3</p></td></tr></table>")
+                     .arg(QStringLiteral(
+                         ":/resources/icon/png/syntaxtutor-256.png"))
                      .arg(exercise.toHtmlEscaped(),
                           tr("Generado el %1 con SyntaxTutor %2")
                               .arg(QDateTime::currentDateTime().toString(
@@ -247,8 +253,9 @@ class ConversationPdf {
                    "p.kicker { color: #007B8A; font-size: 9pt; "
                    "font-weight: bold; margin: 0; }"
                    "h1 { font-size: 18pt; margin: 2px 0 2px 0; }"
-                   "p.meta { color: #666666; font-size: 9pt; "
-                   "margin: 0 0 12px 0; }"
+                   "p.meta { color: #666666; font-size: 9pt; margin: 0; }"
+                   "table.header { margin-bottom: 12px; }"
+                   "td.logo { padding-right: 12px; vertical-align: middle; }"
                    "h2 { color: #007B8A; font-size: 13pt; "
                    "margin: 18px 0 6px 0; }"
                    "h2.newpage { page-break-before: always; }"
