@@ -586,7 +586,7 @@ Format: a,b,c</translation>
         <source>¿Cuál es el conjunto cabecera (CAB) del consecuente?
 %1 → %2
 Formato: a,b,c</source>
-        <translation>What is the FIRST set (CAB) of the consequent?
+        <translation>What is the FIRST set of the right-hand side?
 %1 → %2
 Format: a,b,c</translation>
     </message>
@@ -595,7 +595,7 @@ Format: a,b,c</translation>
         <source>¿Cuál es el conjunto SIG (símbolos siguientes) del antecedente?
 %1 → %2
 Formato: a,b,c</source>
-        <translation>What is the FOLLOW set (SIG) of the antecedent?
+        <translation>What is the FOLLOW set of the left-hand side?
 %1 → %2
 Format: a,b,c</translation>
     </message>
@@ -977,7 +977,7 @@ If ε ∈ FIRST(α), it should also be placed in (A, b) for each b ∈ FOLLOW(A)
         <location filename="../src/gui/lltutorwindow.cpp" line="2668"/>
         <source>2. %1 está al final de la producción, habría que agregar SIG(%2) a SIG(%1), pero cae en bucle, por tanto se ignora
 </source>
-        <translation>2. %1 is at the end of the production, SIG(%2) should be added to SIG(%1), but it causes a loop, so it is ignored
+        <translation>2. %1 is at the end of the production, FOLLOW(%2) should be added to FOLLOW(%1), but it causes a loop, so it is ignored
 </translation>
     </message>
     <message>
