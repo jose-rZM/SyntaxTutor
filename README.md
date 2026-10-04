@@ -1,4 +1,10 @@
-![SyntaxTutor](resources/icon/lockup/syntaxtutor-banner.png)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="resources/icon/lockup/syntaxtutor-lockup-light-text.svg">
+    <source media="(prefers-color-scheme: light)" srcset="resources/icon/lockup/syntaxtutor-lockup-dark-text.svg">
+    <img src="resources/icon/lockup/syntaxtutor-lockup-dark-text.svg" alt="SyntaxTutor" width="380">
+  </picture>
+</p>
 
 **An interactive tutor for learning LL(1) and SLR(1) parsing.**
 
@@ -14,9 +20,8 @@ answer is checked on the spot, and a wrong answer leads to smaller questions tha
 reasoning step by step, so the student learns why a result is what it is.
 
 > [!NOTE]
-> **Project status.** SyntaxTutor 2.0 is the final release. The project is complete and no
-> further versions are planned. The source code remains available under the GPLv3 for anyone
-> who wants to study it or build on it.
+> **Project status.** SyntaxTutor 2.0 is the final feature release. The project is considered complete, and no
+> further development is planned.
 
 ## Contents
 
