@@ -42,6 +42,7 @@ class TutorWindowTest : public QObject {
     void slrStateFConflictBranchAdvancesToFAAndThenG();
     void slrLr0ConflictsIgnoreTheAcceptItem();
     void slrReduceReduceIsAnLr0Conflict();
+    void slrAcceptNextToAReductionIsAnLr0Conflict();
     void slrStateGWrongThenCorrectReachesH();
     void slrStateHIncorrectTableKeepsDialogOpen();
     void slrGuidedModeWizardUsesCustomNavigationAndAllowsExit();
