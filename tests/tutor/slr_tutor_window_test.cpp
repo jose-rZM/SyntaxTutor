@@ -702,6 +702,32 @@ void TutorWindowTest::slrReduceReduceIsAnLr0Conflict() {
 }
 
 // -----------------------------------------------------------------------------
+// Case: SLR1-TC-LR0-ACCEPT-REDUCE
+// Summary:
+//   Accepting is not a reduction, but it is an action: a state that can
+//   accept and also reduce has an LR(0) conflict.
+//
+// Situation:
+//   A -> B c | d . B -> A . After A, the state is { S -> A · $, B -> A · }:
+//   on $ it could accept or reduce B. Never produced by the generator, but a
+//   valid SLR(1) grammar the user can type.
+//
+// Expected:
+//   F lists that state, and F-A asks for FOLLOW(B) = {c}.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrAcceptNextToAReductionIsAnLr0Conflict() {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("A -> B c | d .\nB -> A .");
+    QVERIFY(parsed.Ok());
+
+    SLRTutorWindow tutor(parsed.grammar, nullptr);
+    QCOMPARE(tutor.solutionForF().size(), 1);
+
+    driveSlrTutorToState(tutor, "FA");
+    QCOMPARE(tutor.solutionForFA(), QSet<QString>({QStringLiteral("c")}));
+}
+
+// -----------------------------------------------------------------------------
 // Case: SLR1-TC-17
 // Summary:
 //   Verifies that block G repeats the question after a wrong answer and reaches
@@ -1019,6 +1045,42 @@ void TutorWindowTest::slrUserGrammarKeepsWrittenRuleOrder() {
 
     QTRY_COMPARE(tutor.currentStateForTest(), QString("fin"));
     QCOMPARE(tutor.wrongCountForTest(), 0);
+}
+
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-A2-ITEM
+// Summary:
+//   The A2 question shows the grammar's own initial item.
+//
+// Situation:
+//   A grammar typed by the user, whose start symbol is Z: its initial item
+//   is S -> · Z $. The question used to show a fixed S -> · A $, which only
+//   matched the generated grammars, while expecting Z as the answer.
+//
+// Expected:
+//   The question reaching A2 names S -> · Z $.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrInitialItemQuestionUsesTheGrammar() {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("Z -> X Y .\nY -> c .\nX -> a | b .");
+    QVERIFY(parsed.Ok());
+
+    SLRTutorWindow tutor(parsed.grammar, nullptr);
+    tutor.setAnswerForTest(QStringLiteral("x"));
+    tutor.submitForTest();
+    QCOMPARE(tutor.currentStateForTest(), QString("A1"));
+    SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+    QCOMPARE(tutor.currentStateForTest(), QString("A2"));
+
+    QString question;
+    for (const QLabel* label : tutor.findChildren<QLabel*>()) {
+        if (label->text().contains(QStringLiteral("Dado el ítem"))) {
+            question = label->text();
+        }
+    }
+    QVERIFY2(question.contains(QStringLiteral("S -&gt; · Z $")) ||
+                 question.contains(QStringLiteral("S -> · Z $")),
+             qPrintable(question));
 }
 
 void TutorWindowTest::slrFinalTableCorrectPathExportsAndExits() {

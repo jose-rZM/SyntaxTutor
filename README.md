@@ -72,7 +72,9 @@ SyntaxTutor walks the student through each cell in the parsing table with hints 
 
 ## 📦 Downloads
 Precompiled builds of SyntaxTutor are available in the Releases tab:
-- 🐧 Linux (X11): executable AppImage
+- 🐧 Linux: executable AppImage (Ubuntu 22.04, Debian 12 or newer). It runs on X11, and on
+  Wayland desktops through XWayland; to run it natively on Wayland, start it with
+  `QT_QPA_PLATFORM=wayland ./SyntaxTutor-<version>-x86_64.AppImage`
 - 🪟 Windows: ZIP archive with the .exe
 - 🍎 macOS: .app bundle for Apple Silicon (ARM)
 

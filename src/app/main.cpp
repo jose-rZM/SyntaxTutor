@@ -18,6 +18,7 @@
 
 #include "appversion.h"
 #include "appicon.h"
+#include "appsettings.h"
 #include "apppalette.h"
 #include "apptypography.h"
 #include "mainwindow.h"
@@ -37,6 +38,15 @@ void applyAppStyle(QApplication& app) {
 }
 
 int main(int argc, char* argv[]) {
+#ifdef Q_OS_LINUX
+    // X11 first - through XWayland on a Wayland desktop, the tested path -
+    // and native Wayland only where there is no X server. Without this, Qt
+    // picks Wayland on its own as soon as its plugin is present. Native
+    // Wayland can still be asked for with QT_QPA_PLATFORM=wayland.
+    if (!qEnvironmentVariableIsSet("QT_QPA_PLATFORM")) {
+        qputenv("QT_QPA_PLATFORM", "xcb;wayland");
+    }
+#endif
     QApplication a(argc, argv);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
     QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
@@ -51,10 +61,10 @@ int main(int argc, char* argv[]) {
     QFontDatabase::addApplicationFont(
         ":/resources/fonts/JetBrainsMono-Bold.ttf");
 #endif
-    QCoreApplication::setApplicationName("SyntaxTutor");
+    AppSettings::registerIdentity();
     QGuiApplication::setApplicationDisplayName("SyntaxTutor");
     QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
-    QSettings settings("UMA", "SyntaxTutor");
+    QSettings settings = AppSettings::open();
     if (settings.contains(AppTextScale::settingsKey())) {
         AppTextScale::currentPercent() = AppTextScale::clampPercent(
             settings.value(AppTextScale::settingsKey()).toInt());

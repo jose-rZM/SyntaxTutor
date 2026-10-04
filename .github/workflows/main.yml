@@ -76,7 +76,7 @@ jobs:
             <key>CFBundleExecutable</key>
             <string>SyntaxTutor</string>
             <key>CFBundleIdentifier</key>
-            <string>com.uma.syntaxtutor</string>
+            <string>me.jram.syntaxtutor</string>
             <key>CFBundleVersion</key>
             <string>${VERSION}</string>
             <key>CFBundleShortVersionString</key>
@@ -218,10 +218,23 @@ jobs:
           # GNU make would prefer over the qmake-generated Makefile.
           make -f Makefile -j$(nproc)
 
+      - name: Install Wayland client libraries
+        # Needed so linuxdeploy can resolve the Qt Wayland plugin's
+        # dependencies. The libraries themselves stay out of the AppImage:
+        # every Wayland system has its own.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwayland-client0 libwayland-cursor0 libwayland-egl1
+
       - name: Generate AppImage
         run: |
           export APPIMAGE_EXTRACT_AND_RUN=1
           export LD_VER=continuous
+          # Ship the Wayland platform plugin next to X11 (xcb). The app still
+          # starts on X11 - through XWayland on a Wayland desktop - and uses
+          # Wayland only without an X server or with QT_QPA_PLATFORM=wayland
+          # (see main.cpp).
+          export EXTRA_PLATFORM_PLUGINS="libqwayland-egl.so;libqwayland-generic.so"
           APPDIR=SyntaxTutor.AppDir
 
           wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/${LD_VER}/linuxdeploy-x86_64.AppImage \

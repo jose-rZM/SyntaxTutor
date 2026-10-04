@@ -42,6 +42,7 @@ class TutorWindowTest : public QObject {
     void slrStateFConflictBranchAdvancesToFAAndThenG();
     void slrLr0ConflictsIgnoreTheAcceptItem();
     void slrReduceReduceIsAnLr0Conflict();
+    void slrAcceptNextToAReductionIsAnLr0Conflict();
     void slrStateGWrongThenCorrectReachesH();
     void slrStateHIncorrectTableKeepsDialogOpen();
     void slrGuidedModeWizardUsesCustomNavigationAndAllowsExit();
@@ -82,6 +83,7 @@ class TutorWindowTest : public QObject {
     void layoutDialogsShowAllTextAtEveryTextSize();
     void layoutTutorsShowAllTextAtEveryTextSize();
     void layoutScrollBarsFollowTheDarkTheme();
+    void layoutProgressPanelsMeetTextContrast();
 
     void mainCustomGrammarToggleDisablesLevels();
     void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();
@@ -91,5 +93,6 @@ class TutorWindowTest : public QObject {
     void mainCustomGrammarEditorRestoresLastGrammar();
     void llUserGrammarKeepsWrittenRuleOrder();
     void slrUserGrammarKeepsWrittenRuleOrder();
+    void slrInitialItemQuestionUsesTheGrammar();
     void mainExamModeCheckboxLaunchesExamTutor();
 };

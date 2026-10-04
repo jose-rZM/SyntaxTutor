@@ -28,6 +28,7 @@
 #include <QScrollArea>
 #include <QStackedWidget>
 #include "appicon.h"
+#include "appsettings.h"
 #include "apptypography.h"
 #include "applayout.h"
 #include <QActionGroup>
@@ -48,13 +49,6 @@ constexpr int kBaseMinimumHeight = 600;
 /// Widest the home column gets, at the design text size.
 constexpr int kHomeColumnMaxWidth = 560;
 
-#ifdef SYNTAXTUTOR_TESTING
-constexpr auto kSettingsOrg = "UMA-Test";
-constexpr auto kSettingsApp = "SyntaxTutor-Test";
-#else
-constexpr auto kSettingsOrg = "UMA";
-constexpr auto kSettingsApp = "SyntaxTutor";
-#endif
 
 void showInfoDialog(QWidget* parent, const QString& windowTitle,
                     const QString& eyebrow, const QString& title,
@@ -110,7 +104,7 @@ void showInfoDialog(QWidget* parent, const QString& windowTitle,
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
-      settings(kSettingsOrg, kSettingsApp) {
+      settings(AppSettings::open()) {
     factory.Init();
     ui->setupUi(this);
     ui->homeEyebrow->setText(tr("Tutores interactivos"));

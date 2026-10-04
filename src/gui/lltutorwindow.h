@@ -237,8 +237,6 @@ class LLTutorWindow : public QWidget {
     QString examSolutionText(); ///< Expected answer for the current state.
     void    scoreExamTable();   ///< Grades the LL table cell by cell.
     void    showExamReport();   ///< Opens the end-of-exam report dialog.
-    void    exportExamReportToPdf(const QString& filePath,
-                                  const QString& html) const;
 #ifdef SYNTAXTUTOR_TESTING
   public:
     QString     currentStateForTest() const;

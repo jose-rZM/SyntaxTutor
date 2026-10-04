@@ -2,6 +2,7 @@
 
 #include "appicon.h"
 #include "apppalette.h"
+#include "appsettings.h"
 #include "apptypography.h"
 #include "production_typography.h"
 #include "customtextedit.h"
@@ -37,7 +38,7 @@
 namespace {
 
 QSettings testAppSettings() {
-    return QSettings("UMA-Test", "SyntaxTutor-Test");
+    return AppSettings::open();
 }
 
 void clearTestAppSettings() {

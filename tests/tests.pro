@@ -63,12 +63,14 @@ HEADERS += \
     ../src/widgets/appicon.h \
     ../src/widgets/applayout.h \
     ../src/widgets/apppalette.h \
+    ../src/widgets/appsettings.h \
     ../src/widgets/appshortcuts.h \
     ../src/widgets/automatonview.h \
     ../src/widgets/customtextedit.h \
     ../src/widgets/grammarview.h \
     ../src/widgets/tutorialmanager.h \
     ../src/gui/automatonviewerdialog.h \
+    ../src/gui/conversationpdf.h \
     ../src/gui/examreportdialog.h \
     ../src/gui/examsession.h \
     ../src/gui/grammareditordialog.h \

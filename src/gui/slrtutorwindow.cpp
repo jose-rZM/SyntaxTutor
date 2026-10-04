@@ -17,6 +17,7 @@
  */
 
 #include "slrtutorwindow.h"
+#include "conversationpdf.h"
 #include "apptypography.h"
 #include "automatonviewerdialog.h"
 #include "examreportdialog.h"
@@ -255,19 +256,18 @@ SLRTutorWindow::SLRTutorWindow(const Grammar& g, TutorialManager* tm,
 #endif
 
     // ====== Conflict & Reduction State Identification =========
-    // A state has an LR(0) conflict when it can reduce and also shift
-    // (shift-reduce) or reduce by more than one rule (reduce-reduce). SLR
-    // then settles both with FOLLOW. It is decided per state: deciding it
-    // item by item, as the loop went, made the answer depend on the order
-    // the unordered_set lists the items in, which differs between standard
-    // libraries.
+    // A state has an LR(0) conflict when it can reduce and also do anything
+    // else: shift (shift-reduce), reduce by another rule (reduce-reduce) or
+    // accept, which is not a reduction but is still an action. SLR settles
+    // all of them with FOLLOW. A state whose only item is a reduction goes
+    // to G instead. It is decided per state: deciding it item by item, as
+    // the loop went, made the answer depend on the order the unordered_set
+    // lists the items in, which differs between standard libraries.
     std::ranges::for_each(slr1.states_, [this](const state& st) {
         const auto reductions = std::ranges::count_if(
             st.items_, [this](const Lr0Item& it) { return isReduction(it); });
-        const bool shifts = std::ranges::any_of(
-            st.items_, [](const Lr0Item& it) { return !it.IsComplete(); });
         const bool reduces = reductions > 0;
-        if (reductions > 1 || (reduces && shifts)) {
+        if (reduces && st.items_.size() > 1) {
             statesWithLr0Conflict.append(&st);
             conflictStatesIdQueue.push(st.id_);
         } else if (reduces) {
@@ -465,250 +465,51 @@ void SLRTutorWindow::on_backButton_clicked() {
 }
 
 void SLRTutorWindow::exportConversationToPdf(const QString& filePath) {
-    QTextDocument doc;
-    QString       html;
+    ConversationPdf pdf(tr("Ejercicio SLR(1)"));
+    // Numbered: the rN entries of the table refer to these numbers.
+    pdf.addGrammar(sortedGrammar, true);
 
-    html += R"(
-        <html>
-        <head>
-        </head>
-        <body>
-    )";
-    html += R"(
-    <style>
-    body {
-        font-size: 11pt;
-        line-height: 1.6;
-        margin: 20px;
+    QVector<ConversationPdf::Message> messages;
+    for (const MessageLog& message : std::as_const(conversationLog)) {
+        messages.append({message.message, message.isUser, message.isCorrect});
     }
+    pdf.addConversation(messages);
 
-    h2 {
-        font-size: 16pt;
-        color: #393E46;
-        border-bottom: 2px solid #ccc;
-        padding-bottom: 5px;
-        margin-top: 40px;
-        margin-bottom: 20px;
+    pdf.addSection(tr("Estados del Autómata"), true);
+    std::vector<const state*> states;
+    for (const state& st : userMadeStates) {
+        states.push_back(&st);
     }
-
-    h3 {
-        font-size: 13pt;
-        color: #007B8A;
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }
-
-    .entry {
-        border-left: 4px solid #007B8A;
-        padding: 10px 15px;
-        margin: 15px 0;
-        border-radius: 4px;
-    }
-
-    .entry .role {
-        font-weight: bold;
-        margin-bottom: 6px;
-        color: #2c3e50;
-    }
-
-    ul {
-        padding-left: 20px;
-        margin-bottom: 20px;
-        font-size: 11pt;
-    }
-    li {
-        margin-bottom: 4px;
-    }
-
-    table {
-        border-collapse: collapse;
-        margin: 0 auto 20px auto;
-        width: auto;
-        font-size: 10.5pt;
-    }
-
-    th, td {
-        border: 1px solid #999;
-        padding: 6px 10px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f0f0f0;
-        font-weight: bold;
-    }
-
-    td {
-        background-color: #fafafa;
-    }
-
-    tr:nth-child(even) td {
-        background-color: #f0f0f0;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-
-    .page-break {
-        page-break-before: always;
-    }
-    </style>
-    )";
-    html += "<div style='text-align: center; font-size: 8pt; color: #888; "
-            "margin-top: 60px;'>";
-    html += tr("Generado automáticamente por SyntaxTutor el ") +
-            QDate::currentDate().toString("dd/MM/yyyy");
-    html += "</div>";
-
-    html += "<h2>" + tr("Conversación") + "</h2>";
-
-    for (auto it = conversationLog.constBegin();
-         it != conversationLog.constEnd(); ++it) {
-        const MessageLog& message = *it;
-        QString           safeText =
-            message.message.toHtmlEscaped().replace("\n", "<br>");
-        html += "<div class='entry'>";
-        html += "<div class='role'>";
-        html += (message.isUser ? tr("Usuario: ") : tr("Tutor: "));
-        html += "</div>";
-        if (!message.isCorrect) {
-            html +=
-                "<span style='background-color: red;'>" + safeText + "</span>";
-        } else {
-            html += safeText;
+    std::ranges::sort(states, {}, &state::id_);
+    for (const state* st : states) {
+        QStringList items;
+        for (const Lr0Item& item : st->items_) {
+            items << QString::fromStdString(item.ToString());
         }
-        html += "</div>";
+        items.sort();
+        pdf.addSubheading(QStringLiteral("I%1").arg(st->id_));
+        pdf.addLines(items);
     }
 
-    html += "</body></html>";
-    html += R"(<div class='page-break'></div>)";
-
-    html += "<h2>" + tr("Estados del Autómata") + "</h2>";
-    for (size_t i = 0; i < userMadeStates.size(); ++i) {
-        const state& st = *std::ranges::find_if(
-            userMadeStates, [i](const state& st) { return st.id_ == i; });
-        html += QString("<h3>%1 %2</h3><ul>").arg(tr("Estado")).arg(st.id_);
-        for (const Lr0Item& item : st.items_) {
-            html += "<li>" +
-                    QString::fromStdString(item.ToString()).toHtmlEscaped() +
-                    "</li>";
+    // The same columns and cells as the table the student filled.
+    pdf.addSection(tr("Tabla de análisis SLR"), true);
+    const QStringList    columns = tableColumns();
+    QStringList          headers{tr("Estado")};
+    QVector<QStringList> table;
+    headers += columns;
+    for (unsigned id = 0; id < slr1.states_.size(); ++id) {
+        QStringList row{QString::number(id)};
+        for (const QString& symbol : columns) {
+            row << solutionCell(id, symbol);
         }
-        html += "</ul><br>";
+        table.append(row);
     }
-    html += R"(<div class='page-break'></div>)";
+    pdf.addTable(headers, table);
 
-    html += "<h2>" + tr("Tabla de análisis SLR") + "</h2><br>";
-    html +=
-        R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
-    html += "<tr><th>" + tr("Estado") + "</th>";
-    std::vector<std::string> columns;
-    columns.reserve(slr1.gr_.st_.terminals_.size() +
-                    slr1.gr_.st_.non_terminals_.size());
-    for (const auto& s : slr1.gr_.st_.terminals_) {
-        if (s == slr1.gr_.st_.EPSILON_) {
-            continue;
-        }
-        columns.push_back(s);
-    }
-    columns.insert(columns.end(), slr1.gr_.st_.non_terminals_.begin(),
-                   slr1.gr_.st_.non_terminals_.end());
-
-    for (const auto& symbol : columns) {
-        html += "<th>" + QString::fromStdString(symbol) + "</th>";
-    }
-    html += "</tr>";
-
-    for (unsigned state = 0; state < slr1.states_.size(); ++state) {
-        html += "<tr><td align='center'>" + QString::number(state) + "</td>";
-        const auto  action_entry = slr1.actions_.find(state);
-        const auto  trans_entry  = slr1.transitions_.find(state);
-        const auto& transitions  = trans_entry->second;
-        for (const auto& symbol : columns) {
-            QString    cell       = "-";
-            const bool isTerminal = slr1.gr_.st_.IsTerminal(symbol);
-            if (!isTerminal) {
-                if (trans_entry != slr1.transitions_.end()) {
-                    const auto it = transitions.find(symbol);
-                    if (it != transitions.end()) {
-                        cell =
-                            QString::fromStdString(std::to_string(it->second));
-                    }
-                }
-            } else {
-                if (action_entry != slr1.actions_.end()) {
-                    const auto action_it = action_entry->second.find(symbol);
-                    if (action_it != action_entry->second.end()) {
-                        switch (action_it->second.action) {
-                        case SLR1Parser::Action::Accept:
-                            cell = "A";
-                            break;
-                        case SLR1Parser::Action::Reduce:
-                            cell = "R";
-                            break;
-                        case SLR1Parser::Action::Shift:
-                            if (trans_entry != slr1.transitions_.end()) {
-                                const auto shift_it = transitions.find(symbol);
-                                if (shift_it != transitions.end()) {
-                                    cell = QString::fromStdString(
-                                        "S" + std::to_string(shift_it->second));
-                                }
-                            }
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                }
-            }
-            html += "<td align='center'>" + cell + "</td>";
-        }
-        html += "</tr>";
-    }
-    html += "</table></div>";
-
-    html += R"(<div class='page-break'></div>)";
-    html += "<h2>" + tr("Acciones Reduce") + "</h2><br>";
-    html += R"(<div class="container">)";
-    html += "<table border='1' cellspacing='0' cellpadding='5'>";
-    html += "<tr><th>" + tr("Estado") + "</th><th>" + tr("Símbolo") +
-            "</th><th>" + tr("Regla") + "</th>";
-    for (const auto& [state, actions] : slr1.actions_) {
-        for (const auto& [symbol, action] : actions) {
-            if (action.action == SLR1Parser::Action::Reduce) {
-                std::string rule = action.item->antecedent_ + " → ";
-                for (const auto& sym : action.item->consequent_) {
-                    rule += sym + " ";
-                }
-
-                html += "<tr>";
-                html +=
-                    "<td align='center'>" + QString::number(state) + "</td>";
-                html += "<td align='center'>" + QString::fromStdString(symbol) +
-                        "</td>";
-                html += "<td>" + QString::fromStdString(rule) + "</td>";
-                html += "</tr>";
-            }
-        }
-    }
-
-    html += "</table></div>";
-    doc.setHtml(html);
-
-    {
-        QPrinter printer(QPrinter::HighResolution);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName(filePath);
-        printer.setPageSize(QPageSize(QPageSize::A4));
-        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
-
-        doc.print(&printer);
-    }
+    pdf.print(filePath);
 }
 
-void SLRTutorWindow::showTable() {
+QStringList SLRTutorWindow::tableColumns() {
     QStringList colHeaders;
     for (const auto& symbol : slr1.gr_.st_.terminals_) {
         if (symbol == slr1.gr_.st_.EPSILON_)
@@ -732,6 +533,54 @@ void SLRTutorWindow::showTable() {
                   int rb = rank(b);
                   return (ra != rb) ? (ra < rb) : (a < b);
               });
+    return colHeaders;
+}
+
+QString SLRTutorWindow::solutionCell(unsigned stateId,
+                                     const QString& symbol) {
+    const std::string sym = symbol.toStdString();
+    if (!slr1.gr_.st_.IsTerminal(sym)) {
+        const auto row = slr1.transitions_.find(stateId);
+        if (row != slr1.transitions_.end()) {
+            const auto to = row->second.find(sym);
+            if (to != row->second.end()) {
+                return QString::number(to->second);
+            }
+        }
+        return {};
+    }
+
+    const auto row = slr1.actions_.find(stateId);
+    if (row == slr1.actions_.end()) {
+        return {};
+    }
+    const auto action = row->second.find(sym);
+    if (action == row->second.end()) {
+        return {};
+    }
+    switch (action->second.action) {
+    case SLR1Parser::Action::Shift:
+        return QString("s%1").arg(slr1.transitions_.at(stateId).at(sym));
+    case SLR1Parser::Action::Reduce: {
+        const Lr0Item* item = action->second.item;
+        for (int k = 0; k < sortedGrammar.size(); ++k) {
+            const auto& rule = sortedGrammar[k];
+            if (rule.first.toStdString() == item->antecedent_ &&
+                stdVectorToQVector(item->consequent_) == rule.second) {
+                return QString("r%1").arg(k);
+            }
+        }
+        return QStringLiteral("r-1");
+    }
+    case SLR1Parser::Action::Accept:
+        return QStringLiteral("acc");
+    default:
+        return {};
+    }
+}
+
+void SLRTutorWindow::showTable() {
+    const QStringList colHeaders = tableColumns();
     auto* dialog = new SLRTableDialog(slr1.states_.size(), colHeaders.size(),
                                       colHeaders, this, &rawTable);
     if (examMode) {
@@ -1064,7 +913,7 @@ void SLRTutorWindow::updateProgressPanel() {
                             "margin-top:4px;'>" +
                             tr("Transiciones:") +
                             "</div><ul "
-                            "style='list-style-type:circle; color:#777777; "
+                            "style='list-style-type:circle; color:#9AA5A8; "
                             "margin-left:20px;'>";
                     for (const auto& entry : it->second) {
                         const QString symbol =
@@ -1768,8 +1617,9 @@ QString SLRTutorWindow::generateQuestion() {
         return tr("¿Cuál es el axioma de la gramática?");
 
     case StateSlr::A2:
-        return tr("Dado el ítem:  S -> · A $\n"
-                  "¿Qué símbolo aparece justo después del punto (·)?");
+        return tr("Dado el ítem: %1\n"
+                  "¿Qué símbolo aparece justo después del punto (·)?")
+            .arg(initialItemText());
 
     case StateSlr::A3:
         return tr("Si ese símbolo es un no terminal,\n"
@@ -2807,12 +2657,23 @@ QString SLRTutorWindow::feedback() {
     }
 }
 
+QString SLRTutorWindow::initialItemText() const {
+    // Built from the grammar: a fixed "S -> · A $" only matched the
+    // generated grammars, which always start at A.
+    QStringList consequent;
+    for (const std::string& symbol : grammar.g_.at(grammar.axiom_).at(0)) {
+        consequent << QString::fromStdString(symbol);
+    }
+    return QStringLiteral("%1 -> · %2")
+        .arg(QString::fromStdString(grammar.axiom_),
+             consequent.join(QLatin1Char(' ')));
+}
+
 QString SLRTutorWindow::feedbackForA() {
     return tr("El estado inicial se construye a partir del cierre del ítem "
-              "asociado al axioma: S -> · "
-              "A $. Esto representa que aún no se ha leído nada y se quiere "
-              "derivar desde el símbolo "
-              "inicial.");
+              "asociado al axioma: %1. Esto representa que aún no se ha leído "
+              "nada y se quiere derivar desde el símbolo inicial.")
+        .arg(initialItemText());
 }
 
 QString SLRTutorWindow::feedbackForA1() {
@@ -3567,53 +3428,12 @@ QString SLRTutorWindow::examSolutionText() {
 
 void SLRTutorWindow::scoreExamTable(const QStringList& colHeaders) {
     const QString emptyCell = tr("(vacía)");
-    const int     nTerm     = slr1.gr_.st_.terminals_.size();
 
     for (int stateId = 0; stateId < rawTable.size(); ++stateId) {
         for (int col = 0; col < colHeaders.size(); ++col) {
             const QString sym = colHeaders[col];
-            QString       expectedText;
-
-            if (col < nTerm) {
-                const auto& actMap = slr1.actions_.at(stateId);
-                auto        itAct  = actMap.find(sym.toStdString());
-                if (itAct != actMap.end()) {
-                    switch (itAct->second.action) {
-                    case SLR1Parser::Action::Shift:
-                        expectedText = QString("s%1").arg(
-                            slr1.transitions_.at(stateId).at(
-                                sym.toStdString()));
-                        break;
-                    case SLR1Parser::Action::Reduce: {
-                        const Lr0Item* item    = itAct->second.item;
-                        int            prodIdx = -1;
-                        for (int k = 0; k < sortedGrammar.size(); ++k) {
-                            const auto& rule = sortedGrammar[k];
-                            if (rule.first.toStdString() ==
-                                    item->antecedent_ &&
-                                stdVectorToQVector(item->consequent_) ==
-                                    rule.second) {
-                                prodIdx = k;
-                                break;
-                            }
-                        }
-                        expectedText = QString("r%1").arg(prodIdx);
-                        break;
-                    }
-                    case SLR1Parser::Action::Accept:
-                        expectedText = QStringLiteral("acc");
-                        break;
-                    default:
-                        break;
-                    }
-                }
-            } else if (slr1.transitions_.contains(stateId)) {
-                const auto& transMap = slr1.transitions_.at(stateId);
-                auto        itTrans  = transMap.find(sym.toStdString());
-                if (itTrans != transMap.end()) {
-                    expectedText = QString::number(itTrans->second);
-                }
-            }
+            const QString expectedText =
+                solutionCell(static_cast<unsigned>(stateId), sym);
 
             const QString userText = rawTable[stateId][col].trimmed();
             if (expectedText.isEmpty() && userText.isEmpty()) {
@@ -3632,36 +3452,19 @@ void SLRTutorWindow::scoreExamTable(const QStringList& colHeaders) {
 }
 
 void SLRTutorWindow::showExamReport() {
-    auto* report = new ExamReportDialog(examSession, tr("Examen SLR(1)"), this);
+    auto* report = new ExamReportDialog(examSession, tr("Examen SLR(1)"),
+                                        sortedGrammar, true, this);
     report->setAttribute(Qt::WA_DeleteOnClose);
     report->setWindowModality(Qt::WindowModal);
     connect(report, &ExamReportDialog::exportRequested, this,
             [this, report]() {
                 const QString filePath = promptExportFilePath();
                 if (!filePath.isEmpty()) {
-                    exportExamReportToPdf(filePath, report->reportHtml());
+                    report->printReport(filePath);
                     ReportPdfExportResult(this, filePath);
                 }
             });
     report->show();
-}
-
-void SLRTutorWindow::exportExamReportToPdf(const QString& filePath,
-                                           const QString& html) const {
-    QTextDocument doc;
-    doc.setHtml(html);
-
-    {
-        // Scoped so the print engine flushes and closes the file
-        // before the result is checked below.
-        QPrinter printer(QPrinter::HighResolution);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName(filePath);
-        printer.setPageSize(QPageSize(QPageSize::A4));
-        printer.setPageMargins(QMarginsF(10, 10, 10, 10));
-
-        doc.print(&printer);
-    }
 }
 
 QString SLRTutorWindow::FormatGrammar(const Grammar& grammar) {

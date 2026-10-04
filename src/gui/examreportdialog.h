@@ -19,7 +19,9 @@
 #ifndef EXAMREPORTDIALOG_H
 #define EXAMREPORTDIALOG_H
 
+#include "conversationpdf.h"
 #include "examsession.h"
+
 #include <QDialog>
 
 /**
@@ -40,34 +42,27 @@ class ExamReportDialog : public QDialog {
      * @param session Graded exam data.
      * @param examTitle Exercise name shown in the header (e.g. "Examen
      * LL(1)").
+     * @param grammar Grammar of the exam, printed before the review.
+     * @param numberedGrammar Whether the printed rules carry their numbers.
      * @param parent Parent widget.
      */
     ExamReportDialog(const ExamSession& session, const QString& examTitle,
-                     QWidget* parent = nullptr);
+                     const QVector<ConversationPdf::Rule>& grammar,
+                     bool numberedGrammar, QWidget* parent = nullptr);
 
-    /**
-     * @brief Full report as a printable HTML document (used for the PDF
-     * export).
-     */
-    QString reportHtml() const { return reportHtml_; }
+    /// @brief Prints the full report to @p filePath as a PDF.
+    void printReport(const QString& filePath) const {
+        report_.print(filePath);
+    }
 
   signals:
     /// @brief Emitted when the user asks to export the report to PDF.
     void exportRequested();
 
   private:
-    /**
-     * @brief Target medium for the review table's styling.
-     *
-     * Screen renders onto the dark dialog; Print renders onto white paper,
-     * where the dark fills and px sizes of the screen variant are unusable.
-     */
-    enum class ReviewStyle { Screen, Print };
+    QString buildReviewHtml(const ExamSession& session) const;
 
-    QString buildReviewHtml(const ExamSession& session,
-                            ReviewStyle style) const;
-
-    QString reportHtml_;
+    ConversationPdf report_;
 };
 
 #endif // EXAMREPORTDIALOG_H
