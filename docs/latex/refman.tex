@@ -27,6 +27,7 @@
     \IfFormatAtLeastTF{2015/01/01}{\pdfsuppresswarningpagegroup=1}{}
   \fi
   \usepackage{doxygen}
+  \usepackage{doxygen-unicode}
   \usepackage{graphicx}
   \iftutex
     \usepackage{fontspec}
@@ -133,6 +134,8 @@
   \setcounter{secnumdepth}{5}
   % creating indexes
   \makeindex
+  % Packages requested by user
+\usepackage{amsmath}
   \ifPDFTeX
 \usepackage{newunicodechar}
   \makeatletter

@@ -11,8 +11,7 @@ Represents a context-\/free grammar, including its rules, symbol table, and star
 
 
 
-Collaboration diagram for Grammar:
-\nopagebreak
+Collaboration diagram for Grammar:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -70,16 +69,14 @@ This structure encapsulates all components required to define and manipulate a g
 {\footnotesize\ttfamily \label{struct_grammar_aa201250a002a7d07d398fee189a74427} 
 Grammar::\+\+Grammar (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
 
-Here is the call graph for this function:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{struct_grammar_aa201250a002a7d07d398fee189a74427_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -92,8 +89,7 @@ Here is the caller graph for this function:
 {\footnotesize\ttfamily \label{struct_grammar_aadc4653fd0a6173388fe4692772c59ad} 
 Grammar::\+\+Grammar (\begin{DoxyParamCaption}\item[{const std::\+unordered\+\_\+map$<$ std::\+string, std::\+vector$<$ \doxymbox{\hyperlink{grammar_8hpp_a2be7a1ae52aeac89069389092e7268c0}{production}} $>$ $>$ \&}]{grammar}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
-Here is the call graph for this function:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -123,8 +119,7 @@ This function inserts a new production of the form A → α into the grammar, wh
 {\em consequent} & The right-\/hand side sequence of grammar symbols. \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -141,8 +136,7 @@ void Grammar::\+\+Debug (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) con
 
 Prints the current grammar structure to standard output. 
 
-This function provides a debug view of the grammar by printing out all rules, the axiom, and other relevant details. Here is the caller graph for this function:
-\nopagebreak
+This function provides a debug view of the grammar by printing out all rules, the axiom, and other relevant details. Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -167,8 +161,7 @@ Filters grammar rules that contain a specific token in their consequent.
 \begin{DoxyReturn}{Returns}
 std::\+vector of pairs where each pair contains an antecedent and its respective production that includes the specified token.
 \end{DoxyReturn}
-Searches for rules in which the specified token is part of the consequent and returns those rules. Here is the caller graph for this function:
-\nopagebreak
+Searches for rules in which the specified token is part of the consequent and returns those rules. Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -193,8 +186,7 @@ Checks if a given antecedent has an empty production.
 \begin{DoxyReturn}{Returns}
 true if there exists an empty production for the antecedent, otherwise false.
 \end{DoxyReturn}
-An empty production is represented as {\ttfamily \texorpdfstring{$<$}{<}antecedent\texorpdfstring{$>$}{>} -\/\texorpdfstring{$>$}{>} ;}, indicating that the antecedent can produce an empty string. Here is the caller graph for this function:
-\nopagebreak
+An empty production is represented as {\ttfamily \texorpdfstring{$<$}{<}antecedent\texorpdfstring{$>$}{>} -\/\texorpdfstring{$>$}{>} ;}, indicating that the antecedent can produce an empty string. Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -223,16 +215,14 @@ Compares \doxylink{struct_grammar_a753563f170d65c9e286eb171c945c495}{Presentatio
 \begin{DoxyReturn}{Returns}
 true if {\ttfamily lhs} should be shown before {\ttfamily rhs}. 
 \end{DoxyReturn}
-Here is the call graph for this function:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{struct_grammar_a022dfdd9e12d6f5396aa7adc4b5f19ba_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -249,8 +239,7 @@ std::\+vector$<$ std::\+string $>$ Grammar::\+\+Presentation\+Order (\begin{Doxy
 
 Antecedents other than the axiom, in presentation order. 
 
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -277,8 +266,7 @@ The axiom always ranks first, because the tutors show its rule at the top. A use
 \begin{DoxyReturn}{Returns}
 Rank, lowest first. 
 \end{DoxyReturn}
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -300,8 +288,7 @@ Sets the axiom (entry point) of the grammar.
 {\em axiom} & The entry point or start symbol of the grammar.\\
 \hline
 \end{DoxyParams}
-Defines the starting point for the grammar, which is used in parsing algorithms and must be a non-\/terminal symbol present in the grammar. Here is the caller graph for this function:
-\nopagebreak
+Defines the starting point for the grammar, which is used in parsing algorithms and must be a non-\/terminal symbol present in the grammar. Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -328,16 +315,14 @@ This function tokenizes the input string {\ttfamily s} into a sequence of gramma
 \begin{DoxyReturn}{Returns}
 A vector of grammar symbols extracted from the string. 
 \end{DoxyReturn}
-Here is the call graph for this function:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=249pt]{struct_grammar_add2f414fe2ddf7e578a70c255daa1996_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

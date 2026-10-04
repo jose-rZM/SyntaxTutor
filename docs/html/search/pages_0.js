@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['1_20tutor_0',['1 Tutor',['../index.html#autotoc_md10',1,'📘 LL(1) Tutor'],['../index.html#autotoc_md11',1,'🧠 SLR(1) Tutor']]]
+  ['background_0',['Background',['../index.html#autotoc_md8',1,'']]],
+  ['building_20from_20source_1',['Building from source',['../index.html#autotoc_md6',1,'']]]
 ];

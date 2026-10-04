@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['grammar_0',['✍️ Your Own Grammar',['../index.html#autotoc_md12',1,'']]]
+  ['it_20works_0',['How it works',['../index.html#autotoc_md3',1,'']]]
 ];

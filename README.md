@@ -1,147 +1,164 @@
-![SyntaxTutor](resources/icon/lockup/syntaxtutor-banner.svg)
+![SyntaxTutor](resources/icon/lockup/syntaxtutor-banner.png)
 
-# SyntaxTutor: An Interactive Tool for Learning Syntax Analysis
+**An interactive tutor for learning LL(1) and SLR(1) parsing.**
 
-SyntaxTutor is an educational application designed to help compiler students understand LL(1) and SLR(1) parsing algorithms. Through a visual and interactive interface, it guides users step-by-step through the computation of FIRST, FOLLOW, CLOSURE, GOTO, predictive parsing tables, and LR automata, offering real-time pedagogical feedback.
+[![Latest release](https://img.shields.io/github/v/release/jose-rZM/SyntaxTutor?label=release)](https://github.com/jose-rZM/SyntaxTutor/releases/latest)
+[![Tests](https://github.com/jose-rZM/SyntaxTutor/actions/workflows/tests.yml/badge.svg)](https://github.com/jose-rZM/SyntaxTutor/actions/workflows/tests.yml)
+[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
+![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
-Rather than acting as a mere calculator, SyntaxTutor functions as a learning companion. It explains the reasoning behind each step, highlights common mistakes, and encourages students to engage with the theory behind the algorithms.
+SyntaxTutor helps compiler students understand how LL(1) and SLR(1) parsers are built. The
+student works through each algorithm one question at a time: FIRST and FOLLOW sets,
+prediction symbols, LR(0) items, closures, transitions and, finally, the parsing table. Every
+answer is checked on the spot, and a wrong answer leads to smaller questions that rebuild the
+reasoning step by step, so the student learns why a result is what it is.
 
----
+> [!NOTE]
+> **Project status.** SyntaxTutor 2.0 is the final release. The project is complete and no
+> further versions are planned. The source code remains available under the GPLv3 for anyone
+> who wants to study it or build on it.
 
-## 🎓 About the Project
-SyntaxTutor 1.x was the Final Degree Project "Interactive Tutorial About Syntax Analyzers" (2025).
-Version 2 is a later extension and redesign, developed independently of that project.
+## Contents
 
----
+- [Features](#features)
+- [Getting started](#getting-started)
+- [How it works](#how-it-works)
+- [Screenshots](#screenshots)
+- [Documentation](#documentation)
+- [Building from source](#building-from-source)
+- [Project structure](#project-structure)
+- [Background](#background)
+- [License](#license)
 
-## 🎯 Key Features
-- **Educational focus**: built to teach, not just compute. Wrong answers branch into smaller questions instead of revealing the result.
-- **LL(1) and SLR(1) tutors**: FIRST, FOLLOW and prediction symbols; LR(0) items, closures, transitions and the parsing tables.
-- **Your own grammars**: type any grammar, with live validation, or practise with generated ones at three difficulty levels.
-- **Exam mode**: no feedback during the exercise and a 0-10 grade with a full question-by-question review.
-- **LR(0) automaton**: drawn progressively as you build the states.
-- **Guided table modes**: fill in the LL(1) and SLR(1) tables one cell at a time, with hints.
-- **PDF export** of the conversation, sets, automaton states, tables and exam reports.
-- **Spanish and English**, adjustable text size and gamified progress.
+## Features
 
----
+- **Step-by-step tutors** for LL(1) and SLR(1), with immediate feedback on every answer.
+- **Pedagogical branching**: mistakes open smaller questions instead of revealing the result.
+- **Your own grammars**: a grammar editor with live validation, or generated grammars at three
+  difficulty levels.
+- **Exam mode**: no feedback during the exercise, a 0–10 grade at the end and a
+  question-by-question review.
+- **LR(0) automaton** drawn progressively as the student computes states and transitions.
+- **Guided table modes** that walk through the LL(1) and SLR(1) tables one cell at a time.
+- **PDF export** of the conversation, sets, automaton states, parsing tables and exam reports.
+- **Quick references** for the theory of both algorithms.
+- **Spanish and English** interface, adjustable text size and gamified progress.
 
-## 📖 User Manual
-- 🇬🇧 [English](manual/SyntaxTutor-Manual-EN.pdf)
-- 🇪🇸 [Español](manual/SyntaxTutor-Manual-ES.pdf)
+## Getting started
 
----
+Download the build for your system from the
+[latest release](https://github.com/jose-rZM/SyntaxTutor/releases/latest). No installation or
+Internet connection is needed.
 
-## 🖼️ Interface Screenshots
+| System | Download | Requirements |
+|---|---|---|
+| Windows | `SyntaxTutor-<version>-windows-x64.zip` | Windows 10 or 11, 64-bit |
+| macOS | `SyntaxTutor-<version>-macos-arm64.zip` | Apple Silicon (M1 or later) |
+| Linux | `SyntaxTutor-<version>-x86_64.AppImage` | Ubuntu 22.04, Debian 12 or newer |
 
-### 🏠 Home
-
-![Home screen](.github/screenshots/home.png)
-
-Pick a tutor, the difficulty, your own grammar or exam mode.
-
-### 📘 LL(1) Tutor
-
-![LL(1) tutor](.github/screenshots/ll-tutor.png)
-
-The tutor asks one question at a time; a wrong answer leads to smaller questions about FIRST and FOLLOW.
-
-![LL(1) table with a wrong cell](.github/screenshots/ll-table-retry.png)
-
-The LL(1) table, with the wrong cells highlighted after a submission.
-
-![LL(1) guided mode](.github/screenshots/ll-guided.png)
-
-Guided mode walks through the table one cell at a time.
-
-### 🧠 SLR(1) Tutor
-
-![SLR(1) tutor](.github/screenshots/slr-tutor.png)
-
-Building the LR(0) collection: items, symbols after the dot and transitions.
-
-![LR(0) automaton](.github/screenshots/slr-automaton.png)
-
-The LR(0) automaton grows as you compute each state and transition.
-
-![SLR(1) table](.github/screenshots/slr-table.png)
-
-The SLR(1) parsing table, with `sN`, `rN`, `acc` and goto entries.
-
-![SLR(1) guided mode](.github/screenshots/slr-guided.png)
-
-Guided mode for the SLR(1) table.
-
-### ✍️ Your Own Grammar
-
-![Grammar editor](.github/screenshots/grammar-editor.png)
-
-The editor checks the grammar as you type and only accepts LL(1) or SLR(1) grammars, depending on the tutor.
-
-### 📝 Exam Mode
-
-![Exam report](.github/screenshots/exam-report.png)
-
-At the end of an exam: the grade and a review of every answer, exportable to PDF.
-
----
-
-## 🛠️ Technologies Used
-- **C++**: efficient implementation of parsing algorithms
-- **Qt6**: modern, cross-platform graphical user interface.
-- **Modular architecture**: clean separation between logic and UI, designed for easy extensibility.
-
----
-
-## 📦 Downloads
-Precompiled builds of SyntaxTutor are available in the Releases tab:
-- 🐧 Linux: executable AppImage (Ubuntu 22.04, Debian 12 or newer). It runs on X11, and on
-  Wayland desktops through XWayland; to run it natively on Wayland, start it with
-  `QT_QPA_PLATFORM=wayland ./SyntaxTutor-<version>-x86_64.AppImage`
-- 🪟 Windows: ZIP archive with the .exe
-- 🍎 macOS: .app bundle for Apple Silicon (ARM)
+- **Windows**: unzip and run `SyntaxTutor.exe`.
+- **macOS**: unzip, move `SyntaxTutor.app` to *Applications* and open it.
+- **Linux**: `chmod +x SyntaxTutor-<version>-x86_64.AppImage` and run it. It uses X11, or
+  XWayland on Wayland desktops; start it with `QT_QPA_PLATFORM=wayland` to run natively on
+  Wayland.
 
 > [!WARNING]
-> The Windows and macOS versions are not digitally signed. Your operating system may display a warning when running the application. You can bypass it manually if you trust the source.
+> The Windows and macOS builds are not digitally signed, so the system may warn you the first
+> time you open them. The [user manual](#documentation) explains how to open them anyway. Only
+> do so with files downloaded from this repository.
 
----
+Once the application is open, the **Tutorial** button on the home screen gives a short tour of
+the interface and the first exercises.
 
-## 🛠️ Building from Source
-To build SyntaxTutor from source, you need:
-- Qt6 (including `qmake6` and the Qt SVG module)
-- A C++20-compliant compiler (GCC 11 or newer works)
-- [GoogleTest](https://github.com/google/googletest), only to run the backend tests
+## How it works
+
+**LL(1).** The tutor asks for the size of the predictive table and then, rule by rule, for the
+prediction symbols. A wrong answer is broken down into the FIRST set of the right-hand side and
+the FOLLOW set of the left-hand side before the question is asked again. The exercise ends with
+the LL(1) table, where wrong cells are highlighted and a guided mode is available.
+
+**SLR(1).** The tutor starts from the closure of the initial item and builds the LR(0)
+collection state by state: number of items, symbols after the dot and every transition
+δ(I, X). It then covers the table dimensions, states with complete items, LR(0) conflicts
+resolved with FOLLOW sets and reduce-only states, and ends with the SLR(1) parsing table.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Home screen](.github/screenshots/home.png) | ![Grammar editor](.github/screenshots/grammar-editor.png) |
+| **Home.** Choose a tutor, the difficulty, your own grammar or exam mode. | **Grammar editor.** Live validation; only LL(1) or SLR(1) grammars are accepted. |
+| ![LL(1) tutor](.github/screenshots/ll-tutor.png) | ![LL(1) table](.github/screenshots/ll-table-retry.png) |
+| **LL(1) tutor.** A wrong answer leads to questions about FIRST and FOLLOW. | **LL(1) table.** Wrong cells are highlighted after each submission. |
+| ![SLR(1) tutor](.github/screenshots/slr-tutor.png) | ![LR(0) automaton](.github/screenshots/slr-automaton.png) |
+| **SLR(1) tutor.** Building the LR(0) collection, transition by transition. | **LR(0) automaton.** It grows as each state is computed. |
+| ![SLR(1) table](.github/screenshots/slr-table.png) | ![SLR(1) guided mode](.github/screenshots/slr-guided.png) |
+| **SLR(1) table.** `sN`, `rN`, `acc` and goto entries. | **Guided mode.** One cell at a time, with a hint for each. |
+| ![LL(1) guided mode](.github/screenshots/ll-guided.png) | ![Exam report](.github/screenshots/exam-report.png) |
+| **LL(1) guided mode.** The same help for the predictive table. | **Exam report.** The grade and a review of every answer, exportable to PDF. |
+
+## Documentation
+
+- **User manual**: [English](manual/SyntaxTutor-Manual-EN.pdf) ·
+  [Español](manual/SyntaxTutor-Manual-ES.pdf)
+- **Developer documentation** (Doxygen): [online](https://jose-rzm.github.io/SyntaxTutor/) ·
+  [PDF](manual/SyntaxTutor-Developer-Manual.pdf)
+- **Changes between versions**: [CHANGELOG](CHANGELOG.md)
+
+The developer documentation covers every class and function, with dependency and inheritance
+graphs. To regenerate it, install [Doxygen](https://www.doxygen.nl/) and Graphviz and run
+`doxygen` from the repository root; the output goes to `docs/`.
+
+## Building from source
+
+Requirements:
+
+- Qt 6, including `qmake6` and the Qt SVG module
+- A C++20 compiler: GCC 11 or newer, a recent Clang, or MSVC 2022
+- [GoogleTest](https://github.com/google/googletest), only for the backend tests
 
 With GNU make, the repository's `GNUmakefile` builds out of tree:
+
 ```bash
 make app     # the application, in build/app
 make check   # backend and GUI tests
 ```
-To use qmake directly instead, pass `-f Makefile`: in the repository root GNU make
-would otherwise pick up the `GNUmakefile` above.
+
+`make check-core` and `make check-ui` run each suite on its own; the same tests run in CI on
+every push and pull request. To use qmake directly, pass `-f Makefile`, because GNU make would
+otherwise pick up the `GNUmakefile`:
+
 ```bash
 qmake6
 make -f Makefile
 ```
----
 
-### 📚 Documentation
+## Project structure
 
-Full documentation for the source code is available via Doxygen:
+| Path | Contents |
+|---|---|
+| `src/backend/` | Grammar model and parsing engine: FIRST/FOLLOW, LL(1) table, LR(0) items and the SLR(1) table, in plain C++20 with no Qt dependency. |
+| `src/gui/` | Main window, the LL(1) and SLR(1) tutors with their question flows, table dialogs, guided modes, exam report and PDF export. |
+| `src/widgets/` | Reusable widgets and helpers: chat input, grammar view, LR(0) automaton view, tutorial overlay, typography and settings. |
+| `src/app/` | Application entry point. |
+| `tests/` | GUI tests with fixed grammar fixtures; the backend tests live in `src/backend/tests.cpp`. |
+| `resources/` | Icon, logo, fonts and the application style sheet. |
+| `translations/` | Spanish and English translations. |
+| `manual/`, `docs/` | User and developer manuals, and the generated Doxygen output. |
 
-* **🌐 Online HTML Documentation**: [https://jose-rzm.github.io/SyntaxTutor/](https://jose-rzm.github.io/SyntaxTutor/)
-* **📄 PDF Developer Manual**: [SyntaxTutor-Developer-Manual.pdf](manual/SyntaxTutor-Developer-Manual.pdf)
+## Background
 
-The documentation includes:
+SyntaxTutor 1.x was the Final Degree Project "Interactive Tutorial About Syntax Analyzers"
+(2025). Version 2 is a later extension and redesign, developed independently of that project:
+it adds custom grammars, exam mode, the LR(0) automaton, guided table modes and a new
+interface. See the [CHANGELOG](CHANGELOG.md) for the full list.
 
-* Detailed class and function reference
-* Graphs of dependencies and inheritance
-* Descriptions of parsing algorithms and internal logic
+## License
 
-To regenerate it locally, install [Doxygen](https://www.doxygen.nl/) and run:
+SyntaxTutor is free software, released under the
+[GNU General Public License v3.0](LICENSE). It is built with [Qt 6](https://www.qt.io/), also
+available under the GPLv3, and bundles the JetBrains Mono font under the
+[SIL Open Font License](resources/fonts/OFL.txt).
 
-```bash
-doxygen
-```
-
-This will update the contents of the `docs/` folder with both HTML and LaTeX output.
+Created by [José R.](https://github.com/jose-rZM). If you use SyntaxTutor in a course or build
+on it, a mention of the project is appreciated.

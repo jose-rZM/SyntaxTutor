@@ -1,351 +1,351 @@
 \begin{theindex}
 
   \item {/Users/jose/Documents/cpp/SyntaxTutor/README.md}, 
-		\hyperpage{217}
+		\hyperpage{245}
   \item {\texorpdfstring{$\sim$}{\string~}AutomatonViewerDialog}
-    \subitem {AutomatonViewerDialog}, \hyperpage{52}
+    \subitem {AutomatonViewerDialog}, \hyperpage{50}
   \item {\texorpdfstring{$\sim$}{\string~}LLTutorWindow}
-    \subitem {LLTutorWindow}, \hyperpage{117}
+    \subitem {LLTutorWindow}, \hyperpage{126}
   \item {\texorpdfstring{$\sim$}{\string~}MainWindow}
-    \subitem {MainWindow}, \hyperpage{145}
+    \subitem {MainWindow}, \hyperpage{160}
   \item {\texorpdfstring{$\sim$}{\string~}SLRTutorWindow}
-    \subitem {SLRTutorWindow}, \hyperpage{168}
+    \subitem {SLRTutorWindow}, \hyperpage{187}
 
   \indexspace
 
   \item {A}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {A1}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {A2}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {A3}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {A4}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {A\_prime}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {Accept}
-    \subitem {SLR1Parser}, \hyperpage{152}
+    \subitem {SLR1Parser}, \hyperpage{169}
   \item {accept}
-    \subitem {GrammarEditorDialog}, \hyperpage{75}
+    \subitem {GrammarEditorDialog}, \hyperpage{79}
   \item {Action}
-    \subitem {AppTypography}, \hyperpage{36}
-    \subitem {SLR1Parser}, \hyperpage{152}
+    \subitem {AppTypography}, \hyperpage{30}
+    \subitem {SLR1Parser}, \hyperpage{169}
   \item {action}
-    \subitem {SLR1Parser::s\_action}, \hyperpage{149}
+    \subitem {SLR1Parser::s\_action}, \hyperpage{165}
   \item {action\_table}
-    \subitem {SLR1Parser}, \hyperpage{151}
+    \subitem {SLR1Parser}, \hyperpage{168}
   \item {actions\_}
-    \subitem {SLR1Parser}, \hyperpage{160}
+    \subitem {SLR1Parser}, \hyperpage{178}
   \item {addConversation}
-    \subitem {ConversationPdf}, \hyperpage{55}
+    \subitem {ConversationPdf}, \hyperpage{54}
   \item {addDefinitions}
-    \subitem {ConversationPdf}, \hyperpage{55}
+    \subitem {ConversationPdf}, \hyperpage{54}
   \item {addGrammar}
-    \subitem {ConversationPdf}, \hyperpage{55}
+    \subitem {ConversationPdf}, \hyperpage{54}
   \item {addGrammarMessage}
-    \subitem {LLTutorWindow}, \hyperpage{117}
-    \subitem {SLRTutorWindow}, \hyperpage{168}
+    \subitem {LLTutorWindow}, \hyperpage{127}
+    \subitem {SLRTutorWindow}, \hyperpage{187}
   \item {addLines}
-    \subitem {ConversationPdf}, \hyperpage{55}
+    \subitem {ConversationPdf}, \hyperpage{54}
   \item {addMessage}
-    \subitem {LLTutorWindow}, \hyperpage{117}
-    \subitem {SLRTutorWindow}, \hyperpage{168}
+    \subitem {LLTutorWindow}, \hyperpage{127}
+    \subitem {SLRTutorWindow}, \hyperpage{187}
   \item {AddProduction}
-    \subitem {Grammar}, \hyperpage{69}
+    \subitem {Grammar}, \hyperpage{72}
   \item {addResult}
-    \subitem {ConversationPdf}, \hyperpage{56}
+    \subitem {ConversationPdf}, \hyperpage{55}
   \item {addReview}
-    \subitem {ConversationPdf}, \hyperpage{56}
+    \subitem {ConversationPdf}, \hyperpage{55}
   \item {addSection}
-    \subitem {ConversationPdf}, \hyperpage{56}
+    \subitem {ConversationPdf}, \hyperpage{55}
   \item {addStep}
-    \subitem {TutorialManager}, \hyperpage{210}
+    \subitem {TutorialManager}, \hyperpage{236}
   \item {addSubheading}
-    \subitem {ConversationPdf}, \hyperpage{56}
+    \subitem {ConversationPdf}, \hyperpage{55}
   \item {addTable}
     \subitem {ConversationPdf}, \hyperpage{56}
   \item {addUserState}
-    \subitem {SLRTutorWindow}, \hyperpage{168}
+    \subitem {SLRTutorWindow}, \hyperpage{187}
   \item {addUserTransition}
-    \subitem {SLRTutorWindow}, \hyperpage{168}
+    \subitem {SLRTutorWindow}, \hyperpage{187}
   \item {addWidgetMessage}
-    \subitem {LLTutorWindow}, \hyperpage{117}
-    \subitem {SLRTutorWindow}, \hyperpage{169}
+    \subitem {LLTutorWindow}, \hyperpage{127}
+    \subitem {SLRTutorWindow}, \hyperpage{188}
   \item {AdjustTerminals}
-    \subitem {GrammarFactory}, \hyperpage{78}
+    \subitem {GrammarFactory}, \hyperpage{81}
   \item {AdvanceDot}
-    \subitem {Lr0Item}, \hyperpage{141}
+    \subitem {Lr0Item}, \hyperpage{156}
   \item {AllItems}
-    \subitem {SLR1Parser}, \hyperpage{153}
+    \subitem {SLR1Parser}, \hyperpage{170}
   \item {animateLabelColor}
-    \subitem {LLTutorWindow}, \hyperpage{117}
-    \subitem {SLRTutorWindow}, \hyperpage{169}
+    \subitem {LLTutorWindow}, \hyperpage{127}
+    \subitem {SLRTutorWindow}, \hyperpage{188}
   \item {animateLabelPop}
-    \subitem {LLTutorWindow}, \hyperpage{117}
-    \subitem {SLRTutorWindow}, \hyperpage{169}
+    \subitem {LLTutorWindow}, \hyperpage{127}
+    \subitem {SLRTutorWindow}, \hyperpage{188}
   \item {antecedent\_}
-    \subitem {Lr0Item}, \hyperpage{143}
-  \item {app Directory Reference}, \hyperpage{23}
-  \item {app/main.cpp}, \hyperpage{217}
+    \subitem {Lr0Item}, \hyperpage{158}
+  \item {app Directory Reference}, \hyperpage{15}
+  \item {app/main.cpp}, \hyperpage{245}
   \item {appfonts.h}
-    \subitem {appMonospaceFont}, \hyperpage{282}
-  \item {AppIcon}, \hyperpage{27}
-    \subitem {icon}, \hyperpage{27}
-    \subitem {kSizes}, \hyperpage{27}
-  \item {AppLayout}, \hyperpage{28}
-    \subitem {keepHeightForWidth}, \hyperpage{28}
-  \item {AppLayout::HeightForWidthKeeper}, \hyperpage{102}
-    \subitem {eventFilter}, \hyperpage{103}
-    \subitem {HeightForWidthKeeper}, \hyperpage{102}
+    \subitem {appMonospaceFont}, \hyperpage{313}
+  \item {AppIcon}, \hyperpage{19}
+    \subitem {icon}, \hyperpage{19}
+    \subitem {kSizes}, \hyperpage{20}
+  \item {AppLayout}, \hyperpage{20}
+    \subitem {keepHeightForWidth}, \hyperpage{20}
+  \item {AppLayout::HeightForWidthKeeper}, \hyperpage{109}
+    \subitem {eventFilter}, \hyperpage{111}
+    \subitem {HeightForWidthKeeper}, \hyperpage{110}
   \item {applicationFont}
-    \subitem {AppTypography}, \hyperpage{37}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {apply}
-    \subitem {AppPalette}, \hyperpage{29}
+    \subitem {AppPalette}, \hyperpage{21}
   \item {applyAppStyle}
-    \subitem {main.cpp}, \hyperpage{217}
+    \subitem {main.cpp}, \hyperpage{246}
   \item {applyTextScale}
-    \subitem {LLTutorWindow}, \hyperpage{118}
-    \subitem {SLRTutorWindow}, \hyperpage{169}
+    \subitem {LLTutorWindow}, \hyperpage{128}
+    \subitem {SLRTutorWindow}, \hyperpage{188}
   \item {appMonospaceFont}
-    \subitem {appfonts.h}, \hyperpage{282}
-  \item {AppPalette}, \hyperpage{29}
-    \subitem {apply}, \hyperpage{29}
-    \subitem {linkColor}, \hyperpage{29}
-  \item {AppSettings}, \hyperpage{29}
-    \subitem {open}, \hyperpage{30}
-    \subitem {registerIdentity}, \hyperpage{30}
-  \item {AppShortcuts}, \hyperpage{31}
-    \subitem {primaryModifierName}, \hyperpage{31}
-  \item {AppTextScale}, \hyperpage{31}
-    \subitem {clampPercent}, \hyperpage{32}
-    \subitem {currentPercent}, \hyperpage{32}
-    \subitem {factor}, \hyperpage{33}
-    \subitem {kDefaultPercent}, \hyperpage{35}
-    \subitem {kMaxPercent}, \hyperpage{35}
-    \subitem {kMinPercent}, \hyperpage{35}
-    \subitem {kPresetPercents}, \hyperpage{35}
-    \subitem {legacySettingsKey}, \hyperpage{33}
-    \subitem {percentFromLegacyValue}, \hyperpage{34}
-    \subitem {settingsKey}, \hyperpage{34}
-  \item {AppTypography}, \hyperpage{35}
-    \subitem {Action}, \hyperpage{36}
-    \subitem {applicationFont}, \hyperpage{37}
-    \subitem {basePoints}, \hyperpage{37}
-    \subitem {Body}, \hyperpage{36}
-    \subitem {BodyLarge}, \hyperpage{36}
-    \subitem {Caption}, \hyperpage{36}
-    \subitem {cssSize}, \hyperpage{37}
-    \subitem {Display}, \hyperpage{36}
-    \subitem {font}, \hyperpage{38}
-    \subitem {formatPoints}, \hyperpage{38}
-    \subitem {Headline}, \hyperpage{36}
-    \subitem {Hero}, \hyperpage{36}
-    \subitem {kTokens}, \hyperpage{41}
-    \subitem {Label}, \hyperpage{36}
-    \subitem {lengthForText}, \hyperpage{38}
-    \subitem {loadStyleSheet}, \hyperpage{39}
-    \subitem {Micro}, \hyperpage{36}
-    \subitem {points}, \hyperpage{39}
-    \subitem {Reading}, \hyperpage{36}
-    \subitem {resolveStyleSheet}, \hyperpage{40}
-    \subitem {Role}, \hyperpage{36}
-    \subitem {systemFont}, \hyperpage{40}
-    \subitem {Title}, \hyperpage{36}
-    \subitem {TitleSmall}, \hyperpage{36}
-  \item {AppTypography::Token}, \hyperpage{207}
-    \subitem {name}, \hyperpage{208}
-    \subitem {points}, \hyperpage{208}
-    \subitem {role}, \hyperpage{208}
-  \item {appversion.h}, \hyperpage{218}
-  \item {AutomatonStateInfo}, \hyperpage{43}
-    \subitem {id}, \hyperpage{43}
-    \subitem {itemsText}, \hyperpage{43}
-  \item {AutomatonTransitionInfo}, \hyperpage{43}
-    \subitem {from}, \hyperpage{44}
-    \subitem {symbol}, \hyperpage{44}
-    \subitem {to}, \hyperpage{44}
-  \item {AutomatonView}, \hyperpage{44}
-    \subitem {AutomatonView}, \hyperpage{46}
-    \subitem {centerOnCurrentState}, \hyperpage{46}
-    \subitem {clearStateMarks}, \hyperpage{46}
-    \subitem {conflictStates}, \hyperpage{46}
-    \subitem {currentStateId}, \hyperpage{46}
-    \subitem {fitToView}, \hyperpage{46}
-    \subitem {hideStateDetails}, \hyperpage{46}
-    \subitem {isFullyRevealed}, \hyperpage{47}
-    \subitem {isStateVisible}, \hyperpage{47}
-    \subitem {keyPressEvent}, \hyperpage{47}
-    \subitem {mousePressEvent}, \hyperpage{47}
-    \subitem {mouseReleaseEvent}, \hyperpage{47}
-    \subitem {reduceStates}, \hyperpage{48}
-    \subitem {revealAll}, \hyperpage{48}
-    \subitem {revealState}, \hyperpage{48}
-    \subitem {revealTransition}, \hyperpage{48}
-    \subitem {setAutomaton}, \hyperpage{48}
-    \subitem {setConflictStates}, \hyperpage{49}
-    \subitem {setCurrentState}, \hyperpage{49}
-    \subitem {setReduceStates}, \hyperpage{49}
-    \subitem {shownStateId}, \hyperpage{49}
-    \subitem {showStateDetails}, \hyperpage{49}
-    \subitem {totalStateCount}, \hyperpage{50}
-    \subitem {visibleStateCount}, \hyperpage{50}
-    \subitem {visibleTransitionCount}, \hyperpage{50}
-    \subitem {wheelEvent}, \hyperpage{50}
-    \subitem {zoomIn}, \hyperpage{50}
-    \subitem {zoomOut}, \hyperpage{50}
-  \item {AutomatonViewerDialog}, \hyperpage{51}
+    \subitem {appfonts.h}, \hyperpage{313}
+  \item {AppPalette}, \hyperpage{21}
+    \subitem {apply}, \hyperpage{21}
+    \subitem {linkColor}, \hyperpage{21}
+  \item {AppSettings}, \hyperpage{22}
+    \subitem {open}, \hyperpage{23}
+    \subitem {registerIdentity}, \hyperpage{23}
+  \item {AppShortcuts}, \hyperpage{24}
+    \subitem {primaryModifierName}, \hyperpage{24}
+  \item {AppTextScale}, \hyperpage{24}
+    \subitem {clampPercent}, \hyperpage{25}
+    \subitem {currentPercent}, \hyperpage{25}
+    \subitem {factor}, \hyperpage{26}
+    \subitem {kDefaultPercent}, \hyperpage{28}
+    \subitem {kMaxPercent}, \hyperpage{28}
+    \subitem {kMinPercent}, \hyperpage{28}
+    \subitem {kPresetPercents}, \hyperpage{28}
+    \subitem {legacySettingsKey}, \hyperpage{26}
+    \subitem {percentFromLegacyValue}, \hyperpage{27}
+    \subitem {settingsKey}, \hyperpage{27}
+  \item {AppTypography}, \hyperpage{29}
+    \subitem {Action}, \hyperpage{30}
+    \subitem {applicationFont}, \hyperpage{30}
+    \subitem {basePoints}, \hyperpage{31}
+    \subitem {Body}, \hyperpage{30}
+    \subitem {BodyLarge}, \hyperpage{30}
+    \subitem {Caption}, \hyperpage{30}
+    \subitem {cssSize}, \hyperpage{31}
+    \subitem {Display}, \hyperpage{30}
+    \subitem {font}, \hyperpage{32}
+    \subitem {formatPoints}, \hyperpage{32}
+    \subitem {Headline}, \hyperpage{30}
+    \subitem {Hero}, \hyperpage{30}
+    \subitem {kTokens}, \hyperpage{36}
+    \subitem {Label}, \hyperpage{30}
+    \subitem {lengthForText}, \hyperpage{33}
+    \subitem {loadStyleSheet}, \hyperpage{33}
+    \subitem {Micro}, \hyperpage{30}
+    \subitem {points}, \hyperpage{34}
+    \subitem {Reading}, \hyperpage{30}
+    \subitem {resolveStyleSheet}, \hyperpage{34}
+    \subitem {Role}, \hyperpage{30}
+    \subitem {systemFont}, \hyperpage{35}
+    \subitem {Title}, \hyperpage{30}
+    \subitem {TitleSmall}, \hyperpage{30}
+  \item {AppTypography::Token}, \hyperpage{233}
+    \subitem {name}, \hyperpage{233}
+    \subitem {points}, \hyperpage{233}
+    \subitem {role}, \hyperpage{233}
+  \item {appversion.h}, \hyperpage{247}
+  \item {AutomatonStateInfo}, \hyperpage{39}
+    \subitem {id}, \hyperpage{39}
+    \subitem {itemsText}, \hyperpage{39}
+  \item {AutomatonTransitionInfo}, \hyperpage{40}
+    \subitem {from}, \hyperpage{40}
+    \subitem {symbol}, \hyperpage{40}
+    \subitem {to}, \hyperpage{40}
+  \item {AutomatonView}, \hyperpage{41}
+    \subitem {AutomatonView}, \hyperpage{42}
+    \subitem {centerOnCurrentState}, \hyperpage{43}
+    \subitem {clearStateMarks}, \hyperpage{43}
+    \subitem {conflictStates}, \hyperpage{43}
+    \subitem {currentStateId}, \hyperpage{43}
+    \subitem {fitToView}, \hyperpage{43}
+    \subitem {hideStateDetails}, \hyperpage{43}
+    \subitem {isFullyRevealed}, \hyperpage{44}
+    \subitem {isStateVisible}, \hyperpage{44}
+    \subitem {keyPressEvent}, \hyperpage{44}
+    \subitem {mousePressEvent}, \hyperpage{44}
+    \subitem {mouseReleaseEvent}, \hyperpage{45}
+    \subitem {reduceStates}, \hyperpage{45}
+    \subitem {revealAll}, \hyperpage{45}
+    \subitem {revealState}, \hyperpage{45}
+    \subitem {revealTransition}, \hyperpage{45}
+    \subitem {setAutomaton}, \hyperpage{46}
+    \subitem {setConflictStates}, \hyperpage{46}
+    \subitem {setCurrentState}, \hyperpage{46}
+    \subitem {setReduceStates}, \hyperpage{46}
+    \subitem {shownStateId}, \hyperpage{47}
+    \subitem {showStateDetails}, \hyperpage{47}
+    \subitem {totalStateCount}, \hyperpage{47}
+    \subitem {visibleStateCount}, \hyperpage{47}
+    \subitem {visibleTransitionCount}, \hyperpage{48}
+    \subitem {wheelEvent}, \hyperpage{48}
+    \subitem {zoomIn}, \hyperpage{48}
+    \subitem {zoomOut}, \hyperpage{48}
+  \item {AutomatonViewerDialog}, \hyperpage{49}
     \subitem {\texorpdfstring{$\sim$}{\string~}AutomatonViewerDialog}, 
-		\hyperpage{52}
-    \subitem {AutomatonViewerDialog}, \hyperpage{52}
+		\hyperpage{50}
+    \subitem {AutomatonViewerDialog}, \hyperpage{50}
   \item {axiom\_}
-    \subitem {Grammar}, \hyperpage{73}
+    \subitem {Grammar}, \hyperpage{76}
 
   \indexspace
 
   \item {B}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {B1}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
   \item {B2}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
   \item {B\_prime}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-  \item {backend Directory Reference}, \hyperpage{23}
-  \item {backend/grammar.cpp}, \hyperpage{220}
-  \item {backend/grammar.hpp}, \hyperpage{220, 221}
-  \item {backend/grammar\_factory.cpp}, \hyperpage{222}
-  \item {backend/grammar\_factory.hpp}, \hyperpage{222, 223}
-  \item {backend/grammar\_parser.cpp}, \hyperpage{224}
-  \item {backend/grammar\_parser.hpp}, \hyperpage{225, 226}
-  \item {backend/ll1\_parser.cpp}, \hyperpage{226}
-  \item {backend/ll1\_parser.hpp}, \hyperpage{227}
-  \item {backend/lr0\_item.cpp}, \hyperpage{228}
-  \item {backend/lr0\_item.hpp}, \hyperpage{229}
-  \item {backend/slr1\_parser.cpp}, \hyperpage{230}
-  \item {backend/slr1\_parser.hpp}, \hyperpage{231}
-  \item {backend/state.hpp}, \hyperpage{233}
-  \item {backend/symbol\_table.cpp}, \hyperpage{234}
-  \item {backend/symbol\_table.hpp}, \hyperpage{234, 235}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+  \item {backend Directory Reference}, \hyperpage{15}
+  \item {backend/grammar.cpp}, \hyperpage{248}
+  \item {backend/grammar.hpp}, \hyperpage{248}, \hyperpage{250}
+  \item {backend/grammar\_factory.cpp}, \hyperpage{250}
+  \item {backend/grammar\_factory.hpp}, \hyperpage{251, 252}
+  \item {backend/grammar\_parser.cpp}, \hyperpage{253}
+  \item {backend/grammar\_parser.hpp}, \hyperpage{254}
+  \item {backend/ll1\_parser.cpp}, \hyperpage{255}
+  \item {backend/ll1\_parser.hpp}, \hyperpage{256, 257}
+  \item {backend/lr0\_item.cpp}, \hyperpage{257}
+  \item {backend/lr0\_item.hpp}, \hyperpage{258, 259}
+  \item {backend/slr1\_parser.cpp}, \hyperpage{259}
+  \item {backend/slr1\_parser.hpp}, \hyperpage{260, 261}
+  \item {backend/state.hpp}, \hyperpage{262}
+  \item {backend/symbol\_table.cpp}, \hyperpage{263}
+  \item {backend/symbol\_table.hpp}, \hyperpage{263}, \hyperpage{265}
   \item {basePoints}
-    \subitem {AppTypography}, \hyperpage{37}
+    \subitem {AppTypography}, \hyperpage{31}
   \item {Body}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {BodyLarge}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {buildGrammarRows}
-    \subitem {LLTutorWindow}, \hyperpage{118}
-    \subitem {SLRTutorWindow}, \hyperpage{169}
+    \subitem {LLTutorWindow}, \hyperpage{128}
+    \subitem {SLRTutorWindow}, \hyperpage{189}
   \item {buildTreeNode}
-    \subitem {LLTutorWindow}, \hyperpage{118}
+    \subitem {LLTutorWindow}, \hyperpage{128}
 
   \indexspace
 
   \item {C}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {C\_prime}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
   \item {CA}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {Caption}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {CB}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
-  \item {CenterAlignDelegate}, \hyperpage{52}
-    \subitem {initStyleOption}, \hyperpage{53}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
+  \item {CenterAlignDelegate}, \hyperpage{51}
+    \subitem {initStyleOption}, \hyperpage{51}
   \item {centerOnCurrentState}
-    \subitem {AutomatonView}, \hyperpage{46}
+    \subitem {AutomatonView}, \hyperpage{43}
   \item {changeEvent}
     \subitem {CustomTextEdit}, \hyperpage{59}
   \item {children}
-    \subitem {LLTutorWindow::TreeNode}, \hyperpage{208}
+    \subitem {LLTutorWindow::TreeNode}, \hyperpage{234}
   \item {clampPercent}
-    \subitem {AppTextScale}, \hyperpage{32}
+    \subitem {AppTextScale}, \hyperpage{25}
   \item {clear}
-    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{215}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{242}
   \item {clearStateMarks}
-    \subitem {AutomatonView}, \hyperpage{46}
+    \subitem {AutomatonView}, \hyperpage{43}
   \item {clearSteps}
-    \subitem {TutorialManager}, \hyperpage{210}
+    \subitem {TutorialManager}, \hyperpage{236}
   \item {closeButton}
-    \subitem {LLWizard}, \hyperpage{137}
-    \subitem {SLRWizard}, \hyperpage{199}
+    \subitem {LLWizard}, \hyperpage{150}
+    \subitem {SLRWizard}, \hyperpage{222}
   \item {closeEvent}
-    \subitem {LLTutorWindow}, \hyperpage{118}
-    \subitem {SLRTutorWindow}, \hyperpage{170}
+    \subitem {LLTutorWindow}, \hyperpage{128}
+    \subitem {SLRTutorWindow}, \hyperpage{189}
   \item {Closure}
-    \subitem {SLR1Parser}, \hyperpage{153}
+    \subitem {SLR1Parser}, \hyperpage{170}
   \item {ClosureUtil}
-    \subitem {SLR1Parser}, \hyperpage{154}
+    \subitem {SLR1Parser}, \hyperpage{171}
   \item {completionChanged}
-    \subitem {LLWizardPage}, \hyperpage{139}
-    \subitem {SLRWizardPage}, \hyperpage{201}
+    \subitem {LLWizardPage}, \hyperpage{153}
+    \subitem {SLRWizardPage}, \hyperpage{226}
   \item {ComputeFirstSets}
-    \subitem {LL1Parser}, \hyperpage{105}
-    \subitem {SLR1Parser}, \hyperpage{155}
+    \subitem {LL1Parser}, \hyperpage{113}
+    \subitem {SLR1Parser}, \hyperpage{171}
   \item {ComputeFollowSets}
-    \subitem {LL1Parser}, \hyperpage{105}
-    \subitem {SLR1Parser}, \hyperpage{155}
+    \subitem {LL1Parser}, \hyperpage{113}
+    \subitem {SLR1Parser}, \hyperpage{172}
   \item {computeSubtreeWidth}
-    \subitem {LLTutorWindow}, \hyperpage{119}
+    \subitem {LLTutorWindow}, \hyperpage{129}
   \item {confirmExitToHome}
-    \subitem {LLTutorWindow}, \hyperpage{119}
-    \subitem {SLRTutorWindow}, \hyperpage{170}
+    \subitem {LLTutorWindow}, \hyperpage{129}
+    \subitem {SLRTutorWindow}, \hyperpage{189}
   \item {conflictStates}
-    \subitem {AutomatonView}, \hyperpage{46}
+    \subitem {AutomatonView}, \hyperpage{43}
   \item {connectGuidedMode}
-    \subitem {LLTutorWindow}, \hyperpage{119}
+    \subitem {LLTutorWindow}, \hyperpage{129}
   \item {consequent\_}
-    \subitem {Lr0Item}, \hyperpage{143}
-  \item {ConversationPdf}, \hyperpage{53}
-    \subitem {addConversation}, \hyperpage{55}
-    \subitem {addDefinitions}, \hyperpage{55}
-    \subitem {addGrammar}, \hyperpage{55}
-    \subitem {addLines}, \hyperpage{55}
-    \subitem {addResult}, \hyperpage{56}
-    \subitem {addReview}, \hyperpage{56}
-    \subitem {addSection}, \hyperpage{56}
-    \subitem {addSubheading}, \hyperpage{56}
+    \subitem {Lr0Item}, \hyperpage{158}
+  \item {ConversationPdf}, \hyperpage{52}
+    \subitem {addConversation}, \hyperpage{54}
+    \subitem {addDefinitions}, \hyperpage{54}
+    \subitem {addGrammar}, \hyperpage{54}
+    \subitem {addLines}, \hyperpage{54}
+    \subitem {addResult}, \hyperpage{55}
+    \subitem {addReview}, \hyperpage{55}
+    \subitem {addSection}, \hyperpage{55}
+    \subitem {addSubheading}, \hyperpage{55}
     \subitem {addTable}, \hyperpage{56}
-    \subitem {ConversationPdf}, \hyperpage{54}
-    \subitem {html}, \hyperpage{57}
+    \subitem {ConversationPdf}, \hyperpage{53}
+    \subitem {html}, \hyperpage{56}
     \subitem {kMaxTableColumns}, \hyperpage{57}
-    \subitem {print}, \hyperpage{57}
-    \subitem {Rule}, \hyperpage{54}
-  \item {ConversationPdf::Message}, \hyperpage{148}
-    \subitem {correct}, \hyperpage{148}
-    \subitem {fromStudent}, \hyperpage{148}
-    \subitem {text}, \hyperpage{148}
+    \subitem {print}, \hyperpage{56}
+    \subitem {Rule}, \hyperpage{53}
+  \item {ConversationPdf::Message}, \hyperpage{163}
+    \subitem {correct}, \hyperpage{164}
+    \subitem {fromStudent}, \hyperpage{164}
+    \subitem {text}, \hyperpage{164}
   \item {correct}
-    \subitem {ConversationPdf::Message}, \hyperpage{148}
-    \subitem {ExamRecord}, \hyperpage{61}
+    \subitem {ConversationPdf::Message}, \hyperpage{164}
+    \subitem {ExamRecord}, \hyperpage{62}
   \item {correctAnswer}
-    \subitem {ExamRecord}, \hyperpage{61}
+    \subitem {ExamRecord}, \hyperpage{62}
   \item {CreateLL1Table}
-    \subitem {LL1Parser}, \hyperpage{106}
+    \subitem {LL1Parser}, \hyperpage{114}
   \item {CreateLv2Item}
-    \subitem {GrammarFactory}, \hyperpage{78}
+    \subitem {GrammarFactory}, \hyperpage{82}
   \item {cssSize}
-    \subitem {AppTypography}, \hyperpage{37}
+    \subitem {AppTypography}, \hyperpage{31}
   \item {current}
-    \subitem {SyntaxTutor::Version}, \hyperpage{41}
+    \subitem {SyntaxTutor::Version}, \hyperpage{36}
   \item {currentPage}
-    \subitem {LLWizard}, \hyperpage{137}
-    \subitem {SLRWizard}, \hyperpage{199}
+    \subitem {LLWizard}, \hyperpage{150}
+    \subitem {SLRWizard}, \hyperpage{222}
   \item {currentPercent}
-    \subitem {AppTextScale}, \hyperpage{32}
+    \subitem {AppTextScale}, \hyperpage{25}
   \item {currentStateId}
-    \subitem {AutomatonView}, \hyperpage{46}
-  \item {CustomTextEdit}, \hyperpage{58}
+    \subitem {AutomatonView}, \hyperpage{43}
+  \item {CustomTextEdit}, \hyperpage{57}
     \subitem {changeEvent}, \hyperpage{59}
-    \subitem {CustomTextEdit}, \hyperpage{59}
+    \subitem {CustomTextEdit}, \hyperpage{58}
     \subitem {growHeight}, \hyperpage{61}
     \subitem {keyPressEvent}, \hyperpage{59}
     \subitem {minimumGrowHeight}, \hyperpage{59}
@@ -353,1393 +353,1393 @@
     \subitem {newlineShortcutText}, \hyperpage{60}
     \subitem {sendRequested}, \hyperpage{60}
     \subitem {setAutoGrowLines}, \hyperpage{60}
-    \subitem {showEvent}, \hyperpage{60}
+    \subitem {showEvent}, \hyperpage{61}
 
   \indexspace
 
   \item {D}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {D1}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {D2}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {D\_prime}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {Debug}
-    \subitem {Grammar}, \hyperpage{70}
+    \subitem {Grammar}, \hyperpage{72}
   \item {Delta}
-    \subitem {SLR1Parser}, \hyperpage{156}
+    \subitem {SLR1Parser}, \hyperpage{173}
   \item {detail}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {Display}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {dot\_}
-    \subitem {Lr0Item}, \hyperpage{143}
+    \subitem {Lr0Item}, \hyperpage{158}
   \item {drawTree}
-    \subitem {LLTutorWindow}, \hyperpage{119}
+    \subitem {LLTutorWindow}, \hyperpage{130}
 
   \indexspace
 
   \item {E}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {E1}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {E2}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {Empty}
-    \subitem {SLR1Parser}, \hyperpage{152}
+    \subitem {SLR1Parser}, \hyperpage{169}
   \item {empty}
-    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{215}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{242}
   \item {EmptyGrammar}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {EmptyLeftHandSide}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {EOL\_}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {SymbolTable}, \hyperpage{231}
   \item {eol\_}
-    \subitem {Lr0Item}, \hyperpage{143}
+    \subitem {Lr0Item}, \hyperpage{158}
   \item {EPSILON\_}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {SymbolTable}, \hyperpage{231}
   \item {epsilon\_}
-    \subitem {Lr0Item}, \hyperpage{143}
+    \subitem {Lr0Item}, \hyperpage{158}
   \item {errors}
-    \subitem {GrammarParseResult}, \hyperpage{98}
+    \subitem {GrammarParseResult}, \hyperpage{105}
   \item {eventFilter}
-    \subitem {AppLayout::HeightForWidthKeeper}, \hyperpage{103}
-    \subitem {LLTutorWindow}, \hyperpage{120}
-    \subitem {SLRTutorWindow}, \hyperpage{170}
-    \subitem {TutorialManager}, \hyperpage{210}
+    \subitem {AppLayout::HeightForWidthKeeper}, \hyperpage{111}
+    \subitem {LLTutorWindow}, \hyperpage{130}
+    \subitem {SLRTutorWindow}, \hyperpage{189}
+    \subitem {TutorialManager}, \hyperpage{236}
   \item {ExamRecord}, \hyperpage{61}
-    \subitem {correct}, \hyperpage{61}
-    \subitem {correctAnswer}, \hyperpage{61}
-    \subitem {question}, \hyperpage{61}
-    \subitem {userAnswer}, \hyperpage{61}
-  \item {ExamReportDialog}, \hyperpage{62}
-    \subitem {ExamReportDialog}, \hyperpage{63}
-    \subitem {exportRequested}, \hyperpage{63}
-    \subitem {printReport}, \hyperpage{63}
-  \item {ExamSession}, \hyperpage{64}
-    \subitem {grade}, \hyperpage{64}
-    \subitem {record}, \hyperpage{64}
-    \subitem {records}, \hyperpage{65}
-    \subitem {right}, \hyperpage{65}
-    \subitem {total}, \hyperpage{65}
+    \subitem {correct}, \hyperpage{62}
+    \subitem {correctAnswer}, \hyperpage{62}
+    \subitem {question}, \hyperpage{62}
+    \subitem {userAnswer}, \hyperpage{62}
+  \item {ExamReportDialog}, \hyperpage{63}
+    \subitem {ExamReportDialog}, \hyperpage{64}
+    \subitem {exportRequested}, \hyperpage{64}
+    \subitem {printReport}, \hyperpage{64}
+  \item {ExamSession}, \hyperpage{65}
+    \subitem {grade}, \hyperpage{66}
+    \subitem {record}, \hyperpage{66}
+    \subitem {records}, \hyperpage{66}
+    \subitem {right}, \hyperpage{67}
+    \subitem {total}, \hyperpage{67}
   \item {examSolutionText}
-    \subitem {LLTutorWindow}, \hyperpage{120}
-    \subitem {SLRTutorWindow}, \hyperpage{170}
+    \subitem {LLTutorWindow}, \hyperpage{130}
+    \subitem {SLRTutorWindow}, \hyperpage{190}
   \item {exitRequested}
-    \subitem {LLTutorWindow}, \hyperpage{120}
-    \subitem {SLRTutorWindow}, \hyperpage{170}
+    \subitem {LLTutorWindow}, \hyperpage{130}
+    \subitem {SLRTutorWindow}, \hyperpage{190}
   \item {exportConversationToPdf}
-    \subitem {LLTutorWindow}, \hyperpage{120}
-    \subitem {SLRTutorWindow}, \hyperpage{170}
+    \subitem {LLTutorWindow}, \hyperpage{131}
+    \subitem {SLRTutorWindow}, \hyperpage{190}
   \item {exportRequested}
-    \subitem {ExamReportDialog}, \hyperpage{63}
+    \subitem {ExamReportDialog}, \hyperpage{64}
   \item {ExtraArrow}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
 
   \indexspace
 
   \item {F}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {FA}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {factor}
-    \subitem {AppTextScale}, \hyperpage{33}
+    \subitem {AppTextScale}, \hyperpage{26}
   \item {FactoryItem}
-    \subitem {GrammarFactory::FactoryItem}, \hyperpage{66}
+    \subitem {GrammarFactory::FactoryItem}, \hyperpage{68}
   \item {feedback}
-    \subitem {LLTutorWindow}, \hyperpage{121}
-    \subitem {SLRTutorWindow}, \hyperpage{171}
+    \subitem {LLTutorWindow}, \hyperpage{131}
+    \subitem {SLRTutorWindow}, \hyperpage{190}
   \item {feedbackForA}
-    \subitem {LLTutorWindow}, \hyperpage{121}
-    \subitem {SLRTutorWindow}, \hyperpage{171}
+    \subitem {LLTutorWindow}, \hyperpage{131}
+    \subitem {SLRTutorWindow}, \hyperpage{191}
   \item {feedbackForA1}
-    \subitem {LLTutorWindow}, \hyperpage{121}
-    \subitem {SLRTutorWindow}, \hyperpage{172}
+    \subitem {LLTutorWindow}, \hyperpage{132}
+    \subitem {SLRTutorWindow}, \hyperpage{191}
   \item {feedbackForA2}
-    \subitem {LLTutorWindow}, \hyperpage{122}
-    \subitem {SLRTutorWindow}, \hyperpage{172}
+    \subitem {LLTutorWindow}, \hyperpage{132}
+    \subitem {SLRTutorWindow}, \hyperpage{192}
   \item {feedbackForA3}
-    \subitem {SLRTutorWindow}, \hyperpage{172}
+    \subitem {SLRTutorWindow}, \hyperpage{192}
   \item {feedbackForA4}
-    \subitem {SLRTutorWindow}, \hyperpage{173}
+    \subitem {SLRTutorWindow}, \hyperpage{192}
   \item {feedbackForAPrime}
-    \subitem {LLTutorWindow}, \hyperpage{122}
-    \subitem {SLRTutorWindow}, \hyperpage{173}
+    \subitem {LLTutorWindow}, \hyperpage{133}
+    \subitem {SLRTutorWindow}, \hyperpage{193}
   \item {feedbackForB}
-    \subitem {LLTutorWindow}, \hyperpage{122}
-    \subitem {SLRTutorWindow}, \hyperpage{173}
+    \subitem {LLTutorWindow}, \hyperpage{133}
+    \subitem {SLRTutorWindow}, \hyperpage{193}
   \item {feedbackForB1}
-    \subitem {LLTutorWindow}, \hyperpage{122}
-    \subitem {SLRTutorWindow}, \hyperpage{173}
+    \subitem {LLTutorWindow}, \hyperpage{133}
+    \subitem {SLRTutorWindow}, \hyperpage{193}
   \item {feedbackForB1TreeGraphics}
-    \subitem {LLTutorWindow}, \hyperpage{123}
+    \subitem {LLTutorWindow}, \hyperpage{133}
   \item {feedbackForB1TreeWidget}
-    \subitem {LLTutorWindow}, \hyperpage{123}
+    \subitem {LLTutorWindow}, \hyperpage{134}
   \item {feedbackForB2}
-    \subitem {LLTutorWindow}, \hyperpage{123}
-    \subitem {SLRTutorWindow}, \hyperpage{173}
+    \subitem {LLTutorWindow}, \hyperpage{134}
+    \subitem {SLRTutorWindow}, \hyperpage{193}
   \item {feedbackForBPrime}
-    \subitem {LLTutorWindow}, \hyperpage{123}
-    \subitem {SLRTutorWindow}, \hyperpage{173}
+    \subitem {LLTutorWindow}, \hyperpage{134}
+    \subitem {SLRTutorWindow}, \hyperpage{193}
   \item {feedbackForC}
-    \subitem {LLTutorWindow}, \hyperpage{124}
-    \subitem {SLRTutorWindow}, \hyperpage{174}
+    \subitem {LLTutorWindow}, \hyperpage{135}
+    \subitem {SLRTutorWindow}, \hyperpage{194}
   \item {feedbackForCA}
-    \subitem {SLRTutorWindow}, \hyperpage{175}
+    \subitem {SLRTutorWindow}, \hyperpage{195}
   \item {feedbackForCB}
-    \subitem {SLRTutorWindow}, \hyperpage{175}
+    \subitem {SLRTutorWindow}, \hyperpage{195}
   \item {feedbackForCPrime}
-    \subitem {LLTutorWindow}, \hyperpage{124}
+    \subitem {LLTutorWindow}, \hyperpage{135}
   \item {feedbackForD}
-    \subitem {SLRTutorWindow}, \hyperpage{175}
+    \subitem {SLRTutorWindow}, \hyperpage{195}
   \item {feedbackForD1}
-    \subitem {SLRTutorWindow}, \hyperpage{175}
+    \subitem {SLRTutorWindow}, \hyperpage{196}
   \item {feedbackForD2}
-    \subitem {SLRTutorWindow}, \hyperpage{176}
+    \subitem {SLRTutorWindow}, \hyperpage{196}
   \item {feedbackForDPrime}
-    \subitem {SLRTutorWindow}, \hyperpage{176}
+    \subitem {SLRTutorWindow}, \hyperpage{196}
   \item {feedbackForE}
-    \subitem {SLRTutorWindow}, \hyperpage{176}
+    \subitem {SLRTutorWindow}, \hyperpage{196}
   \item {feedbackForE1}
-    \subitem {SLRTutorWindow}, \hyperpage{176}
+    \subitem {SLRTutorWindow}, \hyperpage{197}
   \item {feedbackForE2}
-    \subitem {SLRTutorWindow}, \hyperpage{177}
+    \subitem {SLRTutorWindow}, \hyperpage{197}
   \item {feedbackForF}
-    \subitem {SLRTutorWindow}, \hyperpage{177}
+    \subitem {SLRTutorWindow}, \hyperpage{197}
   \item {feedbackForFA}
-    \subitem {SLRTutorWindow}, \hyperpage{177}
+    \subitem {SLRTutorWindow}, \hyperpage{197}
   \item {feedbackForG}
-    \subitem {SLRTutorWindow}, \hyperpage{177}
+    \subitem {SLRTutorWindow}, \hyperpage{198}
   \item {fillSortedGrammar}
-    \subitem {SLRTutorWindow}, \hyperpage{178}
+    \subitem {SLRTutorWindow}, \hyperpage{198}
   \item {FilterRulesByConsequent}
-    \subitem {Grammar}, \hyperpage{70}
+    \subitem {Grammar}, \hyperpage{72}
   \item {fin}
-    \subitem {lltutorwindow.h}, \hyperpage{252}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {finishLL1}
-    \subitem {TutorialManager}, \hyperpage{211}
+    \subitem {TutorialManager}, \hyperpage{236}
   \item {finishSLR1}
-    \subitem {TutorialManager}, \hyperpage{211}
+    \subitem {TutorialManager}, \hyperpage{237}
   \item {First}
-    \subitem {LL1Parser}, \hyperpage{107}
-    \subitem {SLR1Parser}, \hyperpage{156}
+    \subitem {LL1Parser}, \hyperpage{115}
+    \subitem {SLR1Parser}, \hyperpage{173}
   \item {first\_sets\_}
-    \subitem {LL1Parser}, \hyperpage{109}
-    \subitem {SLR1Parser}, \hyperpage{160}
+    \subitem {LL1Parser}, \hyperpage{117}
+    \subitem {SLR1Parser}, \hyperpage{178}
   \item {fitToView}
-    \subitem {AutomatonView}, \hyperpage{46}
+    \subitem {AutomatonView}, \hyperpage{43}
   \item {focusAnswerField}
-    \subitem {LLWizardPage}, \hyperpage{139}
-    \subitem {SLRWizardPage}, \hyperpage{202}
+    \subitem {LLWizardPage}, \hyperpage{153}
+    \subitem {SLRWizardPage}, \hyperpage{226}
   \item {Follow}
-    \subitem {LL1Parser}, \hyperpage{107}
-    \subitem {SLR1Parser}, \hyperpage{157}
+    \subitem {LL1Parser}, \hyperpage{116}
+    \subitem {SLR1Parser}, \hyperpage{174}
   \item {follow\_sets\_}
-    \subitem {LL1Parser}, \hyperpage{109}
-    \subitem {SLR1Parser}, \hyperpage{160}
+    \subitem {LL1Parser}, \hyperpage{117}
+    \subitem {SLR1Parser}, \hyperpage{178}
   \item {font}
-    \subitem {AppTypography}, \hyperpage{38}
+    \subitem {AppTypography}, \hyperpage{32}
   \item {FormatGrammar}
-    \subitem {LLTutorWindow}, \hyperpage{125}
-    \subitem {SLRTutorWindow}, \hyperpage{178}
+    \subitem {LLTutorWindow}, \hyperpage{136}
+    \subitem {SLRTutorWindow}, \hyperpage{198}
   \item {formatPoints}
-    \subitem {AppTypography}, \hyperpage{38}
+    \subitem {AppTypography}, \hyperpage{32}
   \item {from}
-    \subitem {AutomatonTransitionInfo}, \hyperpage{44}
+    \subitem {AutomatonTransitionInfo}, \hyperpage{40}
   \item {fromStudent}
-    \subitem {ConversationPdf::Message}, \hyperpage{148}
+    \subitem {ConversationPdf::Message}, \hyperpage{164}
   \item {front}
-    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{215}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{242}
 
   \indexspace
 
   \item {G}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {g\_}
-    \subitem {Grammar}, \hyperpage{73}
-    \subitem {GrammarFactory::FactoryItem}, \hyperpage{67}
+    \subitem {Grammar}, \hyperpage{76}
+    \subitem {GrammarFactory::FactoryItem}, \hyperpage{69}
   \item {GenerateNewNonTerminal}
-    \subitem {GrammarFactory}, \hyperpage{79}
+    \subitem {GrammarFactory}, \hyperpage{82}
   \item {generateQuestion}
-    \subitem {LLTutorWindow}, \hyperpage{125}
-    \subitem {SLRTutorWindow}, \hyperpage{178}
+    \subitem {LLTutorWindow}, \hyperpage{136}
+    \subitem {SLRTutorWindow}, \hyperpage{198}
   \item {GenLL1Grammar}
-    \subitem {GrammarFactory}, \hyperpage{79}
+    \subitem {GrammarFactory}, \hyperpage{83}
   \item {GenSLR1Grammar}
-    \subitem {GrammarFactory}, \hyperpage{80}
+    \subitem {GrammarFactory}, \hyperpage{84}
   \item {getTableData}
-    \subitem {LLTableDialog}, \hyperpage{111}
-    \subitem {SLRTableDialog}, \hyperpage{162}
+    \subitem {LLTableDialog}, \hyperpage{120}
+    \subitem {SLRTableDialog}, \hyperpage{181}
   \item {gr\_}
-    \subitem {LL1Parser}, \hyperpage{109}
-    \subitem {SLR1Parser}, \hyperpage{160}
+    \subitem {LL1Parser}, \hyperpage{118}
+    \subitem {SLR1Parser}, \hyperpage{178}
   \item {grade}
-    \subitem {ExamSession}, \hyperpage{64}
-  \item {Grammar}, \hyperpage{67}
-    \subitem {AddProduction}, \hyperpage{69}
-    \subitem {axiom\_}, \hyperpage{73}
-    \subitem {Debug}, \hyperpage{70}
-    \subitem {FilterRulesByConsequent}, \hyperpage{70}
-    \subitem {g\_}, \hyperpage{73}
-    \subitem {Grammar}, \hyperpage{68, 69}
-    \subitem {HasEmptyProduction}, \hyperpage{70}
-    \subitem {lhs\_order\_}, \hyperpage{73}
-    \subitem {PresentationLess}, \hyperpage{71}
-    \subitem {PresentationOrder}, \hyperpage{71}
-    \subitem {PresentationRank}, \hyperpage{72}
-    \subitem {SetAxiom}, \hyperpage{72}
-    \subitem {Split}, \hyperpage{73}
-    \subitem {st\_}, \hyperpage{74}
+    \subitem {ExamSession}, \hyperpage{66}
+  \item {Grammar}, \hyperpage{70}
+    \subitem {AddProduction}, \hyperpage{72}
+    \subitem {axiom\_}, \hyperpage{76}
+    \subitem {Debug}, \hyperpage{72}
+    \subitem {FilterRulesByConsequent}, \hyperpage{72}
+    \subitem {g\_}, \hyperpage{76}
+    \subitem {Grammar}, \hyperpage{71}
+    \subitem {HasEmptyProduction}, \hyperpage{73}
+    \subitem {lhs\_order\_}, \hyperpage{76}
+    \subitem {PresentationLess}, \hyperpage{73}
+    \subitem {PresentationOrder}, \hyperpage{74}
+    \subitem {PresentationRank}, \hyperpage{74}
+    \subitem {SetAxiom}, \hyperpage{75}
+    \subitem {Split}, \hyperpage{75}
+    \subitem {st\_}, \hyperpage{77}
   \item {grammar}
-    \subitem {GrammarEditorDialog}, \hyperpage{76}
-    \subitem {GrammarParseResult}, \hyperpage{98}
+    \subitem {GrammarEditorDialog}, \hyperpage{79}
+    \subitem {GrammarParseResult}, \hyperpage{105}
   \item {grammar.hpp}
-    \subitem {production}, \hyperpage{221}
-  \item {GrammarEditorDialog}, \hyperpage{74}
-    \subitem {accept}, \hyperpage{75}
-    \subitem {grammar}, \hyperpage{76}
-    \subitem {GrammarEditorDialog}, \hyperpage{75}
-    \subitem {LL1}, \hyperpage{75}
-    \subitem {Mode}, \hyperpage{75}
-    \subitem {SLR1}, \hyperpage{75}
-  \item {GrammarFactory}, \hyperpage{76}
-    \subitem {AdjustTerminals}, \hyperpage{78}
-    \subitem {CreateLv2Item}, \hyperpage{78}
-    \subitem {GenerateNewNonTerminal}, \hyperpage{79}
-    \subitem {GenLL1Grammar}, \hyperpage{79}
-    \subitem {GenSLR1Grammar}, \hyperpage{80}
-    \subitem {HasCycle}, \hyperpage{81}
-    \subitem {HasDirectLeftRecursion}, \hyperpage{81}
-    \subitem {HasIndirectLeftRecursion}, \hyperpage{82}
-    \subitem {HasUnreachableSymbols}, \hyperpage{82}
-    \subitem {Init}, \hyperpage{83}
-    \subitem {IsInfinite}, \hyperpage{83}
-    \subitem {items}, \hyperpage{95}
-    \subitem {LeftFactorize}, \hyperpage{83}
-    \subitem {LongestCommonPrefix}, \hyperpage{84}
-    \subitem {Lv1}, \hyperpage{85}
-    \subitem {Lv2}, \hyperpage{85}
-    \subitem {Lv3}, \hyperpage{86}
-    \subitem {Lv4}, \hyperpage{87}
-    \subitem {Lv5}, \hyperpage{88}
-    \subitem {Lv6}, \hyperpage{89}
-    \subitem {Lv7}, \hyperpage{90}
-    \subitem {Merge}, \hyperpage{91}
-    \subitem {non\_terminal\_alphabet\_}, \hyperpage{95}
-    \subitem {NormalizeNonTerminals}, \hyperpage{92}
-    \subitem {NullableSymbols}, \hyperpage{92}
-    \subitem {PickOne}, \hyperpage{93}
-    \subitem {RemoveLeftRecursion}, \hyperpage{93}
-    \subitem {StartsWith}, \hyperpage{94}
-    \subitem {terminal\_alphabet\_}, \hyperpage{95}
-  \item {GrammarFactory::FactoryItem}, \hyperpage{66}
-    \subitem {FactoryItem}, \hyperpage{66}
-    \subitem {g\_}, \hyperpage{67}
-    \subitem {st\_}, \hyperpage{67}
-  \item {GrammarParseError}, \hyperpage{95}
-    \subitem {detail}, \hyperpage{96}
-    \subitem {EmptyGrammar}, \hyperpage{96}
-    \subitem {EmptyLeftHandSide}, \hyperpage{96}
-    \subitem {ExtraArrow}, \hyperpage{96}
-    \subitem {Kind}, \hyperpage{96}
-    \subitem {kind}, \hyperpage{96}
-    \subitem {line}, \hyperpage{96}
-    \subitem {MissingArrow}, \hyperpage{96}
-    \subitem {MissingEndDot}, \hyperpage{96}
-    \subitem {MultipleLeftHandSide}, \hyperpage{96}
-    \subitem {ReservedSymbol}, \hyperpage{96}
-  \item {GrammarParser}, \hyperpage{96}
-    \subitem {IsReservedToken}, \hyperpage{97}
-    \subitem {Parse}, \hyperpage{97}
-  \item {GrammarParseResult}, \hyperpage{98}
-    \subitem {errors}, \hyperpage{98}
-    \subitem {grammar}, \hyperpage{98}
-    \subitem {Ok}, \hyperpage{98}
-  \item {GrammarSyntaxHighlighter}, \hyperpage{99}
-    \subitem {GrammarSyntaxHighlighter}, \hyperpage{100}
-    \subitem {highlightBlock}, \hyperpage{100}
-    \subitem {setNonTerminals}, \hyperpage{100}
-  \item {GrammarView}, \hyperpage{100}
-    \subitem {GrammarView}, \hyperpage{101}
-    \subitem {naturalWidth}, \hyperpage{101}
-    \subitem {refresh}, \hyperpage{101}
-    \subitem {setRows}, \hyperpage{101}
-  \item {GrammarView::Row}, \hyperpage{148}
-    \subitem {index}, \hyperpage{148}
-    \subitem {lhs}, \hyperpage{148}
-    \subitem {marker}, \hyperpage{148}
-    \subitem {rhs}, \hyperpage{148}
+    \subitem {production}, \hyperpage{249}
+  \item {GrammarEditorDialog}, \hyperpage{77}
+    \subitem {accept}, \hyperpage{79}
+    \subitem {grammar}, \hyperpage{79}
+    \subitem {GrammarEditorDialog}, \hyperpage{79}
+    \subitem {LL1}, \hyperpage{78}
+    \subitem {Mode}, \hyperpage{78}
+    \subitem {SLR1}, \hyperpage{78}
+  \item {GrammarFactory}, \hyperpage{80}
+    \subitem {AdjustTerminals}, \hyperpage{81}
+    \subitem {CreateLv2Item}, \hyperpage{82}
+    \subitem {GenerateNewNonTerminal}, \hyperpage{82}
+    \subitem {GenLL1Grammar}, \hyperpage{83}
+    \subitem {GenSLR1Grammar}, \hyperpage{84}
+    \subitem {HasCycle}, \hyperpage{85}
+    \subitem {HasDirectLeftRecursion}, \hyperpage{85}
+    \subitem {HasIndirectLeftRecursion}, \hyperpage{86}
+    \subitem {HasUnreachableSymbols}, \hyperpage{86}
+    \subitem {Init}, \hyperpage{87}
+    \subitem {IsInfinite}, \hyperpage{87}
+    \subitem {items}, \hyperpage{100}
+    \subitem {LeftFactorize}, \hyperpage{88}
+    \subitem {LongestCommonPrefix}, \hyperpage{89}
+    \subitem {Lv1}, \hyperpage{89}
+    \subitem {Lv2}, \hyperpage{90}
+    \subitem {Lv3}, \hyperpage{91}
+    \subitem {Lv4}, \hyperpage{92}
+    \subitem {Lv5}, \hyperpage{93}
+    \subitem {Lv6}, \hyperpage{94}
+    \subitem {Lv7}, \hyperpage{95}
+    \subitem {Merge}, \hyperpage{96}
+    \subitem {non\_terminal\_alphabet\_}, \hyperpage{100}
+    \subitem {NormalizeNonTerminals}, \hyperpage{97}
+    \subitem {NullableSymbols}, \hyperpage{97}
+    \subitem {PickOne}, \hyperpage{98}
+    \subitem {RemoveLeftRecursion}, \hyperpage{99}
+    \subitem {StartsWith}, \hyperpage{99}
+    \subitem {terminal\_alphabet\_}, \hyperpage{100}
+  \item {GrammarFactory::FactoryItem}, \hyperpage{68}
+    \subitem {FactoryItem}, \hyperpage{68}
+    \subitem {g\_}, \hyperpage{69}
+    \subitem {st\_}, \hyperpage{69}
+  \item {GrammarParseError}, \hyperpage{101}
+    \subitem {detail}, \hyperpage{102}
+    \subitem {EmptyGrammar}, \hyperpage{102}
+    \subitem {EmptyLeftHandSide}, \hyperpage{102}
+    \subitem {ExtraArrow}, \hyperpage{102}
+    \subitem {Kind}, \hyperpage{102}
+    \subitem {kind}, \hyperpage{102}
+    \subitem {line}, \hyperpage{102}
+    \subitem {MissingArrow}, \hyperpage{102}
+    \subitem {MissingEndDot}, \hyperpage{102}
+    \subitem {MultipleLeftHandSide}, \hyperpage{102}
+    \subitem {ReservedSymbol}, \hyperpage{102}
+  \item {GrammarParser}, \hyperpage{102}
+    \subitem {IsReservedToken}, \hyperpage{103}
+    \subitem {Parse}, \hyperpage{103}
+  \item {GrammarParseResult}, \hyperpage{104}
+    \subitem {errors}, \hyperpage{105}
+    \subitem {grammar}, \hyperpage{105}
+    \subitem {Ok}, \hyperpage{105}
+  \item {GrammarSyntaxHighlighter}, \hyperpage{106}
+    \subitem {GrammarSyntaxHighlighter}, \hyperpage{107}
+    \subitem {highlightBlock}, \hyperpage{107}
+    \subitem {setNonTerminals}, \hyperpage{107}
+  \item {GrammarView}, \hyperpage{107}
+    \subitem {GrammarView}, \hyperpage{108}
+    \subitem {naturalWidth}, \hyperpage{108}
+    \subitem {refresh}, \hyperpage{108}
+    \subitem {setRows}, \hyperpage{109}
+  \item {GrammarView::Row}, \hyperpage{164}
+    \subitem {index}, \hyperpage{164}
+    \subitem {lhs}, \hyperpage{164}
+    \subitem {marker}, \hyperpage{164}
+    \subitem {rhs}, \hyperpage{165}
   \item {growHeight}
     \subitem {CustomTextEdit}, \hyperpage{61}
-  \item {gui Directory Reference}, \hyperpage{24}
-  \item {gui/automatonviewerdialog.cpp}, \hyperpage{236}
-  \item {gui/automatonviewerdialog.h}, \hyperpage{236, 237}
-  \item {gui/conversationpdf.h}, \hyperpage{238}
-  \item {gui/examreportdialog.cpp}, \hyperpage{242}
-  \item {gui/examreportdialog.h}, \hyperpage{243}
-  \item {gui/examsession.h}, \hyperpage{244, 245}
-  \item {gui/grammareditordialog.cpp}, \hyperpage{245}
-  \item {gui/grammareditordialog.h}, \hyperpage{246, 247}
-  \item {gui/lltabledialog.cpp}, \hyperpage{248}
-  \item {gui/lltabledialog.h}, \hyperpage{248, 249}
-  \item {gui/lltutorwindow.cpp}, \hyperpage{250}
-  \item {gui/lltutorwindow.h}, \hyperpage{250}, \hyperpage{252}
-  \item {gui/llwizard.h}, \hyperpage{255, 256}
-  \item {gui/llwizardpage.h}, \hyperpage{259}
-  \item {gui/mainwindow.cpp}, \hyperpage{261}
-  \item {gui/mainwindow.h}, \hyperpage{262}
-  \item {gui/slrtabledialog.cpp}, \hyperpage{264}
-  \item {gui/slrtabledialog.h}, \hyperpage{265}
-  \item {gui/slrtutorwindow.cpp}, \hyperpage{266}
-  \item {gui/slrtutorwindow.h}, \hyperpage{267}, \hyperpage{269}
-  \item {gui/slrwizard.h}, \hyperpage{273, 274}
-  \item {gui/slrwizardpage.h}, \hyperpage{277, 278}
-  \item {gui/UniqueQueue.h}, \hyperpage{280, 281}
+  \item {gui Directory Reference}, \hyperpage{16}
+  \item {gui/automatonviewerdialog.cpp}, \hyperpage{265}
+  \item {gui/automatonviewerdialog.h}, \hyperpage{266, 267}
+  \item {gui/conversationpdf.h}, \hyperpage{267, 268}
+  \item {gui/examreportdialog.cpp}, \hyperpage{272}
+  \item {gui/examreportdialog.h}, \hyperpage{272, 273}
+  \item {gui/examsession.h}, \hyperpage{274}
+  \item {gui/grammareditordialog.cpp}, \hyperpage{275}
+  \item {gui/grammareditordialog.h}, \hyperpage{276, 277}
+  \item {gui/lltabledialog.cpp}, \hyperpage{278}
+  \item {gui/lltabledialog.h}, \hyperpage{278, 279}
+  \item {gui/lltutorwindow.cpp}, \hyperpage{280}
+  \item {gui/lltutorwindow.h}, \hyperpage{280}, \hyperpage{282}
+  \item {gui/llwizard.h}, \hyperpage{286}
+  \item {gui/llwizardpage.h}, \hyperpage{289, 290}
+  \item {gui/mainwindow.cpp}, \hyperpage{292}
+  \item {gui/mainwindow.h}, \hyperpage{292, 293}
+  \item {gui/slrtabledialog.cpp}, \hyperpage{295}
+  \item {gui/slrtabledialog.h}, \hyperpage{295, 296}
+  \item {gui/slrtutorwindow.cpp}, \hyperpage{297}
+  \item {gui/slrtutorwindow.h}, \hyperpage{298}, \hyperpage{300}
+  \item {gui/slrwizard.h}, \hyperpage{304, 305}
+  \item {gui/slrwizardpage.h}, \hyperpage{309}
+  \item {gui/UniqueQueue.h}, \hyperpage{311, 312}
   \item {guidedRequested}
-    \subitem {LLTableDialog}, \hyperpage{111}
-    \subitem {SLRTableDialog}, \hyperpage{163}
+    \subitem {LLTableDialog}, \hyperpage{120}
+    \subitem {SLRTableDialog}, \hyperpage{181}
 
   \indexspace
 
   \item {H}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {H\_prime}
-    \subitem {slrtutorwindow.h}, \hyperpage{269}
+    \subitem {slrtutorwindow.h}, \hyperpage{300}
   \item {handleTableSubmission}
-    \subitem {LLTutorWindow}, \hyperpage{125}
+    \subitem {LLTutorWindow}, \hyperpage{137}
   \item {HasCycle}
-    \subitem {GrammarFactory}, \hyperpage{81}
+    \subitem {GrammarFactory}, \hyperpage{85}
   \item {HasDirectLeftRecursion}
-    \subitem {GrammarFactory}, \hyperpage{81}
+    \subitem {GrammarFactory}, \hyperpage{85}
   \item {HasEmptyProduction}
-    \subitem {Grammar}, \hyperpage{70}
+    \subitem {Grammar}, \hyperpage{73}
   \item {HasIndirectLeftRecursion}
-    \subitem {GrammarFactory}, \hyperpage{82}
+    \subitem {GrammarFactory}, \hyperpage{86}
   \item {HasUnreachableSymbols}
-    \subitem {GrammarFactory}, \hyperpage{82}
+    \subitem {GrammarFactory}, \hyperpage{86}
   \item {Headline}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {HeightForWidthKeeper}
-    \subitem {AppLayout::HeightForWidthKeeper}, \hyperpage{102}
+    \subitem {AppLayout::HeightForWidthKeeper}, \hyperpage{110}
   \item {Hero}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {hideOverlay}
-    \subitem {TutorialManager}, \hyperpage{211}
+    \subitem {TutorialManager}, \hyperpage{237}
   \item {hideStateDetails}
-    \subitem {AutomatonView}, \hyperpage{46}
+    \subitem {AutomatonView}, \hyperpage{43}
   \item {highlightBlock}
-    \subitem {GrammarSyntaxHighlighter}, \hyperpage{100}
+    \subitem {GrammarSyntaxHighlighter}, \hyperpage{107}
   \item {highlightIncorrectCells}
-    \subitem {LLTableDialog}, \hyperpage{111}
-    \subitem {SLRTableDialog}, \hyperpage{163}
+    \subitem {LLTableDialog}, \hyperpage{120}
+    \subitem {SLRTableDialog}, \hyperpage{181}
   \item {highlightInvalidCells}
-    \subitem {SLRTableDialog}, \hyperpage{163}
+    \subitem {SLRTableDialog}, \hyperpage{181}
   \item {html}
-    \subitem {ConversationPdf}, \hyperpage{57}
+    \subitem {ConversationPdf}, \hyperpage{56}
   \item {htmlText}
-    \subitem {TutorialStep}, \hyperpage{214}
+    \subitem {TutorialStep}, \hyperpage{240}
 
   \indexspace
 
   \item {icon}
-    \subitem {AppIcon}, \hyperpage{27}
+    \subitem {AppIcon}, \hyperpage{19}
   \item {id}
-    \subitem {AutomatonStateInfo}, \hyperpage{43}
+    \subitem {AutomatonStateInfo}, \hyperpage{39}
   \item {id\_}
-    \subitem {state}, \hyperpage{203}
+    \subitem {state}, \hyperpage{227}
   \item {In}
-    \subitem {SymbolTable}, \hyperpage{204}
+    \subitem {SymbolTable}, \hyperpage{229}
   \item {index}
-    \subitem {GrammarView::Row}, \hyperpage{148}
+    \subitem {GrammarView::Row}, \hyperpage{164}
   \item {Init}
-    \subitem {GrammarFactory}, \hyperpage{83}
+    \subitem {GrammarFactory}, \hyperpage{87}
   \item {initialItemText}
-    \subitem {SLRTutorWindow}, \hyperpage{178}
+    \subitem {SLRTutorWindow}, \hyperpage{199}
   \item {initStyleOption}
-    \subitem {CenterAlignDelegate}, \hyperpage{53}
+    \subitem {CenterAlignDelegate}, \hyperpage{51}
   \item {IsComplete}
-    \subitem {Lr0Item}, \hyperpage{142}
+    \subitem {Lr0Item}, \hyperpage{156}
   \item {isComplete}
-    \subitem {LLWizardPage}, \hyperpage{139}
-    \subitem {SLRWizardPage}, \hyperpage{202}
+    \subitem {LLWizardPage}, \hyperpage{153}
+    \subitem {SLRWizardPage}, \hyperpage{226}
   \item {isFullyRevealed}
-    \subitem {AutomatonView}, \hyperpage{47}
+    \subitem {AutomatonView}, \hyperpage{44}
   \item {IsInfinite}
-    \subitem {GrammarFactory}, \hyperpage{83}
+    \subitem {GrammarFactory}, \hyperpage{87}
   \item {IsMeta}
-    \subitem {SymbolTable}, \hyperpage{204}
+    \subitem {SymbolTable}, \hyperpage{229}
   \item {IsNonTerminal}
-    \subitem {SymbolTable}, \hyperpage{205}
+    \subitem {SymbolTable}, \hyperpage{229}
   \item {isOnLastPage}
-    \subitem {LLWizard}, \hyperpage{137}
-    \subitem {SLRWizard}, \hyperpage{199}
+    \subitem {LLWizard}, \hyperpage{151}
+    \subitem {SLRWizard}, \hyperpage{223}
   \item {isReduction}
-    \subitem {SLRTutorWindow}, \hyperpage{179}
+    \subitem {SLRTutorWindow}, \hyperpage{199}
   \item {IsReservedToken}
-    \subitem {GrammarParser}, \hyperpage{97}
+    \subitem {GrammarParser}, \hyperpage{103}
   \item {isStateVisible}
-    \subitem {AutomatonView}, \hyperpage{47}
+    \subitem {AutomatonView}, \hyperpage{44}
   \item {IsTerminal}
-    \subitem {SymbolTable}, \hyperpage{205}
+    \subitem {SymbolTable}, \hyperpage{230}
   \item {IsTerminalWthoEol}
-    \subitem {SymbolTable}, \hyperpage{206}
+    \subitem {SymbolTable}, \hyperpage{230}
   \item {item}
-    \subitem {SLR1Parser::s\_action}, \hyperpage{149}
+    \subitem {SLR1Parser::s\_action}, \hyperpage{165}
   \item {items}
-    \subitem {GrammarFactory}, \hyperpage{95}
+    \subitem {GrammarFactory}, \hyperpage{100}
   \item {items\_}
-    \subitem {state}, \hyperpage{203}
+    \subitem {state}, \hyperpage{227}
   \item {itemsText}
-    \subitem {AutomatonStateInfo}, \hyperpage{43}
+    \subitem {AutomatonStateInfo}, \hyperpage{39}
 
   \indexspace
 
   \item {kDefaultPercent}
-    \subitem {AppTextScale}, \hyperpage{35}
+    \subitem {AppTextScale}, \hyperpage{28}
   \item {keepHeightForWidth}
-    \subitem {AppLayout}, \hyperpage{28}
+    \subitem {AppLayout}, \hyperpage{20}
   \item {keyPressEvent}
-    \subitem {AutomatonView}, \hyperpage{47}
+    \subitem {AutomatonView}, \hyperpage{44}
     \subitem {CustomTextEdit}, \hyperpage{59}
   \item {Kind}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {kind}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {kMaxPercent}
-    \subitem {AppTextScale}, \hyperpage{35}
+    \subitem {AppTextScale}, \hyperpage{28}
   \item {kMaxTableColumns}
     \subitem {ConversationPdf}, \hyperpage{57}
   \item {kMinPercent}
-    \subitem {AppTextScale}, \hyperpage{35}
+    \subitem {AppTextScale}, \hyperpage{28}
   \item {kPresetPercents}
-    \subitem {AppTextScale}, \hyperpage{35}
+    \subitem {AppTextScale}, \hyperpage{28}
   \item {kSizes}
-    \subitem {AppIcon}, \hyperpage{27}
+    \subitem {AppIcon}, \hyperpage{20}
   \item {kTokens}
-    \subitem {AppTypography}, \hyperpage{41}
+    \subitem {AppTypography}, \hyperpage{36}
 
   \indexspace
 
   \item {Label}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {label}
-    \subitem {LLTutorWindow::TreeNode}, \hyperpage{208}
+    \subitem {LLTutorWindow::TreeNode}, \hyperpage{234}
   \item {launchSLRWizard}
-    \subitem {SLRTutorWindow}, \hyperpage{179}
+    \subitem {SLRTutorWindow}, \hyperpage{200}
   \item {LeftFactorize}
-    \subitem {GrammarFactory}, \hyperpage{83}
-  \item {legacySettingsKey}
-    \subitem {AppTextScale}, \hyperpage{33}
-  \item {lengthForText}
-    \subitem {AppTypography}, \hyperpage{38}
-  \item {lhs}
-    \subitem {GrammarView::Row}, \hyperpage{148}
-  \item {lhs\_order\_}
-    \subitem {Grammar}, \hyperpage{73}
-  \item {line}
-    \subitem {GrammarParseError}, \hyperpage{96}
-  \item {linkColor}
-    \subitem {AppPalette}, \hyperpage{29}
-  \item {LL1}
-    \subitem {GrammarEditorDialog}, \hyperpage{75}
-  \item {ll1\_t\_}
-    \subitem {LL1Parser}, \hyperpage{109}
-  \item {ll1Finished}
-    \subitem {TutorialManager}, \hyperpage{211}
-  \item {LL1Parser}, \hyperpage{103}
-    \subitem {ComputeFirstSets}, \hyperpage{105}
-    \subitem {ComputeFollowSets}, \hyperpage{105}
-    \subitem {CreateLL1Table}, \hyperpage{106}
-    \subitem {First}, \hyperpage{107}
-    \subitem {first\_sets\_}, \hyperpage{109}
-    \subitem {Follow}, \hyperpage{107}
-    \subitem {follow\_sets\_}, \hyperpage{109}
-    \subitem {gr\_}, \hyperpage{109}
-    \subitem {ll1\_t\_}, \hyperpage{109}
-    \subitem {LL1Parser}, \hyperpage{104}
-    \subitem {PredictionSymbols}, \hyperpage{108}
-  \item {LLTableDialog}, \hyperpage{109}
-    \subitem {getTableData}, \hyperpage{111}
-    \subitem {guidedRequested}, \hyperpage{111}
-    \subitem {highlightIncorrectCells}, \hyperpage{111}
-    \subitem {LLTableDialog}, \hyperpage{110}
-    \subitem {setGuidedButtonVisible}, \hyperpage{112}
-    \subitem {setGuidedModeActive}, \hyperpage{112}
-    \subitem {setInitialData}, \hyperpage{112}
-    \subitem {submitted}, \hyperpage{112}
-  \item {LLTutorWindow}, \hyperpage{113}
-    \subitem {\texorpdfstring{$\sim$}{\string~}LLTutorWindow}, 
-		\hyperpage{117}
-    \subitem {addGrammarMessage}, \hyperpage{117}
-    \subitem {addMessage}, \hyperpage{117}
-    \subitem {addWidgetMessage}, \hyperpage{117}
-    \subitem {animateLabelColor}, \hyperpage{117}
-    \subitem {animateLabelPop}, \hyperpage{117}
-    \subitem {applyTextScale}, \hyperpage{118}
-    \subitem {buildGrammarRows}, \hyperpage{118}
-    \subitem {buildTreeNode}, \hyperpage{118}
-    \subitem {closeEvent}, \hyperpage{118}
-    \subitem {computeSubtreeWidth}, \hyperpage{119}
-    \subitem {confirmExitToHome}, \hyperpage{119}
-    \subitem {connectGuidedMode}, \hyperpage{119}
-    \subitem {drawTree}, \hyperpage{119}
-    \subitem {eventFilter}, \hyperpage{120}
-    \subitem {examSolutionText}, \hyperpage{120}
-    \subitem {exitRequested}, \hyperpage{120}
-    \subitem {exportConversationToPdf}, \hyperpage{120}
-    \subitem {feedback}, \hyperpage{121}
-    \subitem {feedbackForA}, \hyperpage{121}
-    \subitem {feedbackForA1}, \hyperpage{121}
-    \subitem {feedbackForA2}, \hyperpage{122}
-    \subitem {feedbackForAPrime}, \hyperpage{122}
-    \subitem {feedbackForB}, \hyperpage{122}
-    \subitem {feedbackForB1}, \hyperpage{122}
-    \subitem {feedbackForB1TreeGraphics}, \hyperpage{123}
-    \subitem {feedbackForB1TreeWidget}, \hyperpage{123}
-    \subitem {feedbackForB2}, \hyperpage{123}
-    \subitem {feedbackForBPrime}, \hyperpage{123}
-    \subitem {feedbackForC}, \hyperpage{124}
-    \subitem {feedbackForCPrime}, \hyperpage{124}
-    \subitem {FormatGrammar}, \hyperpage{125}
-    \subitem {generateQuestion}, \hyperpage{125}
-    \subitem {handleTableSubmission}, \hyperpage{125}
-    \subitem {LLTutorWindow}, \hyperpage{116}
-    \subitem {markLastUserIncorrect}, \hyperpage{126}
-    \subitem {postQuestion}, \hyperpage{126}
-    \subitem {promptExportFilePath}, \hyperpage{126}
-    \subitem {scoreExamTable}, \hyperpage{127}
-    \subitem {sessionFinished}, \hyperpage{127}
-    \subitem {showExamReport}, \hyperpage{128}
-    \subitem {showTable}, \hyperpage{128}
-    \subitem {showTableForCPrime}, \hyperpage{128}
-    \subitem {showTreeGraphics}, \hyperpage{128}
-    \subitem {solution}, \hyperpage{128}
-    \subitem {solutionForA}, \hyperpage{129}
-    \subitem {solutionForA1}, \hyperpage{129}
-    \subitem {solutionForA2}, \hyperpage{129}
-    \subitem {solutionForB}, \hyperpage{130}
-    \subitem {solutionForB1}, \hyperpage{130}
-    \subitem {solutionForB2}, \hyperpage{130}
-    \subitem {TeachFirstTree}, \hyperpage{131}
-    \subitem {TeachFollow}, \hyperpage{131}
-    \subitem {TeachLL1Table}, \hyperpage{131}
-    \subitem {TeachPredictionSymbols}, \hyperpage{132}
-    \subitem {updatePlaceholder}, \hyperpage{132}
-    \subitem {updateProgressPanel}, \hyperpage{132}
-    \subitem {updateState}, \hyperpage{133}
-    \subitem {verifyResponse}, \hyperpage{133}
-    \subitem {verifyResponseForA}, \hyperpage{133}
-    \subitem {verifyResponseForA1}, \hyperpage{134}
-    \subitem {verifyResponseForA2}, \hyperpage{134}
-    \subitem {verifyResponseForB}, \hyperpage{134}
-    \subitem {verifyResponseForB1}, \hyperpage{135}
-    \subitem {verifyResponseForB2}, \hyperpage{135}
-    \subitem {verifyResponseForC}, \hyperpage{135}
-    \subitem {wrongAnimation}, \hyperpage{135}
-    \subitem {wrongUserResponseAnimation}, \hyperpage{135}
-  \item {lltutorwindow.h}
-    \subitem {A}, \hyperpage{252}
-    \subitem {A1}, \hyperpage{252}
-    \subitem {A2}, \hyperpage{252}
-    \subitem {A\_prime}, \hyperpage{252}
-    \subitem {B}, \hyperpage{252}
-    \subitem {B1}, \hyperpage{252}
-    \subitem {B2}, \hyperpage{252}
-    \subitem {B\_prime}, \hyperpage{252}
-    \subitem {C}, \hyperpage{252}
-    \subitem {C\_prime}, \hyperpage{252}
-    \subitem {fin}, \hyperpage{252}
-    \subitem {State}, \hyperpage{251}
-  \item {LLTutorWindow::TreeNode}, \hyperpage{208}
-    \subitem {children}, \hyperpage{208}
-    \subitem {label}, \hyperpage{208}
-  \item {LLWizard}, \hyperpage{136}
-    \subitem {closeButton}, \hyperpage{137}
-    \subitem {currentPage}, \hyperpage{137}
-    \subitem {isOnLastPage}, \hyperpage{137}
-    \subitem {LLWizard}, \hyperpage{136}
-    \subitem {nextButton}, \hyperpage{137}
-  \item {LLWizardPage}, \hyperpage{137}
-    \subitem {completionChanged}, \hyperpage{139}
-    \subitem {focusAnswerField}, \hyperpage{139}
-    \subitem {isComplete}, \hyperpage{139}
-    \subitem {LLWizardPage}, \hyperpage{138}
-    \subitem {resizeEvent}, \hyperpage{139}
-    \subitem {submitRequested}, \hyperpage{139}
-    \subitem {titleText}, \hyperpage{140}
-  \item {loadStyleSheet}
-    \subitem {AppTypography}, \hyperpage{39}
-  \item {LongestCommonPrefix}
-    \subitem {GrammarFactory}, \hyperpage{84}
-  \item {Lr0Item}, \hyperpage{140}
-    \subitem {AdvanceDot}, \hyperpage{141}
-    \subitem {antecedent\_}, \hyperpage{143}
-    \subitem {consequent\_}, \hyperpage{143}
-    \subitem {dot\_}, \hyperpage{143}
-    \subitem {eol\_}, \hyperpage{143}
-    \subitem {epsilon\_}, \hyperpage{143}
-    \subitem {IsComplete}, \hyperpage{142}
-    \subitem {Lr0Item}, \hyperpage{141}
-    \subitem {NextToDot}, \hyperpage{142}
-    \subitem {operator==}, \hyperpage{142}
-    \subitem {PrintItem}, \hyperpage{142}
-    \subitem {ToString}, \hyperpage{143}
-  \item {Lv1}
-    \subitem {GrammarFactory}, \hyperpage{85}
-  \item {Lv2}
-    \subitem {GrammarFactory}, \hyperpage{85}
-  \item {Lv3}
-    \subitem {GrammarFactory}, \hyperpage{86}
-  \item {Lv4}
-    \subitem {GrammarFactory}, \hyperpage{87}
-  \item {Lv5}
     \subitem {GrammarFactory}, \hyperpage{88}
-  \item {Lv6}
+  \item {legacySettingsKey}
+    \subitem {AppTextScale}, \hyperpage{26}
+  \item {lengthForText}
+    \subitem {AppTypography}, \hyperpage{33}
+  \item {lhs}
+    \subitem {GrammarView::Row}, \hyperpage{164}
+  \item {lhs\_order\_}
+    \subitem {Grammar}, \hyperpage{76}
+  \item {line}
+    \subitem {GrammarParseError}, \hyperpage{102}
+  \item {linkColor}
+    \subitem {AppPalette}, \hyperpage{21}
+  \item {LL1}
+    \subitem {GrammarEditorDialog}, \hyperpage{78}
+  \item {ll1\_t\_}
+    \subitem {LL1Parser}, \hyperpage{118}
+  \item {ll1Finished}
+    \subitem {TutorialManager}, \hyperpage{237}
+  \item {LL1Parser}, \hyperpage{111}
+    \subitem {ComputeFirstSets}, \hyperpage{113}
+    \subitem {ComputeFollowSets}, \hyperpage{113}
+    \subitem {CreateLL1Table}, \hyperpage{114}
+    \subitem {First}, \hyperpage{115}
+    \subitem {first\_sets\_}, \hyperpage{117}
+    \subitem {Follow}, \hyperpage{116}
+    \subitem {follow\_sets\_}, \hyperpage{117}
+    \subitem {gr\_}, \hyperpage{118}
+    \subitem {ll1\_t\_}, \hyperpage{118}
+    \subitem {LL1Parser}, \hyperpage{112}
+    \subitem {PredictionSymbols}, \hyperpage{116}
+  \item {LLTableDialog}, \hyperpage{118}
+    \subitem {getTableData}, \hyperpage{120}
+    \subitem {guidedRequested}, \hyperpage{120}
+    \subitem {highlightIncorrectCells}, \hyperpage{120}
+    \subitem {LLTableDialog}, \hyperpage{119}
+    \subitem {setGuidedButtonVisible}, \hyperpage{121}
+    \subitem {setGuidedModeActive}, \hyperpage{121}
+    \subitem {setInitialData}, \hyperpage{121}
+    \subitem {submitted}, \hyperpage{122}
+  \item {LLTutorWindow}, \hyperpage{122}
+    \subitem {\texorpdfstring{$\sim$}{\string~}LLTutorWindow}, 
+		\hyperpage{126}
+    \subitem {addGrammarMessage}, \hyperpage{127}
+    \subitem {addMessage}, \hyperpage{127}
+    \subitem {addWidgetMessage}, \hyperpage{127}
+    \subitem {animateLabelColor}, \hyperpage{127}
+    \subitem {animateLabelPop}, \hyperpage{127}
+    \subitem {applyTextScale}, \hyperpage{128}
+    \subitem {buildGrammarRows}, \hyperpage{128}
+    \subitem {buildTreeNode}, \hyperpage{128}
+    \subitem {closeEvent}, \hyperpage{128}
+    \subitem {computeSubtreeWidth}, \hyperpage{129}
+    \subitem {confirmExitToHome}, \hyperpage{129}
+    \subitem {connectGuidedMode}, \hyperpage{129}
+    \subitem {drawTree}, \hyperpage{130}
+    \subitem {eventFilter}, \hyperpage{130}
+    \subitem {examSolutionText}, \hyperpage{130}
+    \subitem {exitRequested}, \hyperpage{130}
+    \subitem {exportConversationToPdf}, \hyperpage{131}
+    \subitem {feedback}, \hyperpage{131}
+    \subitem {feedbackForA}, \hyperpage{131}
+    \subitem {feedbackForA1}, \hyperpage{132}
+    \subitem {feedbackForA2}, \hyperpage{132}
+    \subitem {feedbackForAPrime}, \hyperpage{133}
+    \subitem {feedbackForB}, \hyperpage{133}
+    \subitem {feedbackForB1}, \hyperpage{133}
+    \subitem {feedbackForB1TreeGraphics}, \hyperpage{133}
+    \subitem {feedbackForB1TreeWidget}, \hyperpage{134}
+    \subitem {feedbackForB2}, \hyperpage{134}
+    \subitem {feedbackForBPrime}, \hyperpage{134}
+    \subitem {feedbackForC}, \hyperpage{135}
+    \subitem {feedbackForCPrime}, \hyperpage{135}
+    \subitem {FormatGrammar}, \hyperpage{136}
+    \subitem {generateQuestion}, \hyperpage{136}
+    \subitem {handleTableSubmission}, \hyperpage{137}
+    \subitem {LLTutorWindow}, \hyperpage{125}
+    \subitem {markLastUserIncorrect}, \hyperpage{137}
+    \subitem {postQuestion}, \hyperpage{137}
+    \subitem {promptExportFilePath}, \hyperpage{138}
+    \subitem {scoreExamTable}, \hyperpage{139}
+    \subitem {sessionFinished}, \hyperpage{139}
+    \subitem {showExamReport}, \hyperpage{140}
+    \subitem {showTable}, \hyperpage{140}
+    \subitem {showTableForCPrime}, \hyperpage{140}
+    \subitem {showTreeGraphics}, \hyperpage{140}
+    \subitem {solution}, \hyperpage{141}
+    \subitem {solutionForA}, \hyperpage{141}
+    \subitem {solutionForA1}, \hyperpage{142}
+    \subitem {solutionForA2}, \hyperpage{142}
+    \subitem {solutionForB}, \hyperpage{142}
+    \subitem {solutionForB1}, \hyperpage{142}
+    \subitem {solutionForB2}, \hyperpage{143}
+    \subitem {TeachFirstTree}, \hyperpage{143}
+    \subitem {TeachFollow}, \hyperpage{144}
+    \subitem {TeachLL1Table}, \hyperpage{144}
+    \subitem {TeachPredictionSymbols}, \hyperpage{144}
+    \subitem {updatePlaceholder}, \hyperpage{144}
+    \subitem {updateProgressPanel}, \hyperpage{145}
+    \subitem {updateState}, \hyperpage{145}
+    \subitem {verifyResponse}, \hyperpage{146}
+    \subitem {verifyResponseForA}, \hyperpage{146}
+    \subitem {verifyResponseForA1}, \hyperpage{146}
+    \subitem {verifyResponseForA2}, \hyperpage{147}
+    \subitem {verifyResponseForB}, \hyperpage{147}
+    \subitem {verifyResponseForB1}, \hyperpage{147}
+    \subitem {verifyResponseForB2}, \hyperpage{148}
+    \subitem {verifyResponseForC}, \hyperpage{148}
+    \subitem {wrongAnimation}, \hyperpage{148}
+    \subitem {wrongUserResponseAnimation}, \hyperpage{148}
+  \item {lltutorwindow.h}
+    \subitem {A}, \hyperpage{282}
+    \subitem {A1}, \hyperpage{282}
+    \subitem {A2}, \hyperpage{282}
+    \subitem {A\_prime}, \hyperpage{282}
+    \subitem {B}, \hyperpage{282}
+    \subitem {B1}, \hyperpage{282}
+    \subitem {B2}, \hyperpage{282}
+    \subitem {B\_prime}, \hyperpage{282}
+    \subitem {C}, \hyperpage{282}
+    \subitem {C\_prime}, \hyperpage{282}
+    \subitem {fin}, \hyperpage{282}
+    \subitem {State}, \hyperpage{282}
+  \item {LLTutorWindow::TreeNode}, \hyperpage{233}
+    \subitem {children}, \hyperpage{234}
+    \subitem {label}, \hyperpage{234}
+  \item {LLWizard}, \hyperpage{149}
+    \subitem {closeButton}, \hyperpage{150}
+    \subitem {currentPage}, \hyperpage{150}
+    \subitem {isOnLastPage}, \hyperpage{151}
+    \subitem {LLWizard}, \hyperpage{150}
+    \subitem {nextButton}, \hyperpage{151}
+  \item {LLWizardPage}, \hyperpage{151}
+    \subitem {completionChanged}, \hyperpage{153}
+    \subitem {focusAnswerField}, \hyperpage{153}
+    \subitem {isComplete}, \hyperpage{153}
+    \subitem {LLWizardPage}, \hyperpage{152}
+    \subitem {resizeEvent}, \hyperpage{153}
+    \subitem {submitRequested}, \hyperpage{153}
+    \subitem {titleText}, \hyperpage{154}
+  \item {loadStyleSheet}
+    \subitem {AppTypography}, \hyperpage{33}
+  \item {LongestCommonPrefix}
     \subitem {GrammarFactory}, \hyperpage{89}
-  \item {Lv7}
+  \item {Lr0Item}, \hyperpage{154}
+    \subitem {AdvanceDot}, \hyperpage{156}
+    \subitem {antecedent\_}, \hyperpage{158}
+    \subitem {consequent\_}, \hyperpage{158}
+    \subitem {dot\_}, \hyperpage{158}
+    \subitem {eol\_}, \hyperpage{158}
+    \subitem {epsilon\_}, \hyperpage{158}
+    \subitem {IsComplete}, \hyperpage{156}
+    \subitem {Lr0Item}, \hyperpage{155}
+    \subitem {NextToDot}, \hyperpage{156}
+    \subitem {operator==}, \hyperpage{157}
+    \subitem {PrintItem}, \hyperpage{157}
+    \subitem {ToString}, \hyperpage{157}
+  \item {Lv1}
+    \subitem {GrammarFactory}, \hyperpage{89}
+  \item {Lv2}
     \subitem {GrammarFactory}, \hyperpage{90}
+  \item {Lv3}
+    \subitem {GrammarFactory}, \hyperpage{91}
+  \item {Lv4}
+    \subitem {GrammarFactory}, \hyperpage{92}
+  \item {Lv5}
+    \subitem {GrammarFactory}, \hyperpage{93}
+  \item {Lv6}
+    \subitem {GrammarFactory}, \hyperpage{94}
+  \item {Lv7}
+    \subitem {GrammarFactory}, \hyperpage{95}
 
   \indexspace
 
   \item {main}
-    \subitem {main.cpp}, \hyperpage{218}
+    \subitem {main.cpp}, \hyperpage{246}
   \item {main.cpp}
-    \subitem {applyAppStyle}, \hyperpage{217}
-    \subitem {main}, \hyperpage{218}
-  \item {MainWindow}, \hyperpage{144}
+    \subitem {applyAppStyle}, \hyperpage{246}
+    \subitem {main}, \hyperpage{246}
+  \item {MainWindow}, \hyperpage{159}
     \subitem {\texorpdfstring{$\sim$}{\string~}MainWindow}, 
-		\hyperpage{145}
-    \subitem {MainWindow}, \hyperpage{145}
-    \subitem {setUserLevel}, \hyperpage{145}
-    \subitem {thresholdFor}, \hyperpage{146}
-    \subitem {userLevel}, \hyperpage{146, 147}
-    \subitem {userLevelChanged}, \hyperpage{146}
-    \subitem {userLevelUp}, \hyperpage{147}
+		\hyperpage{160}
+    \subitem {MainWindow}, \hyperpage{160}
+    \subitem {setUserLevel}, \hyperpage{161}
+    \subitem {thresholdFor}, \hyperpage{161}
+    \subitem {userLevel}, \hyperpage{162, 163}
+    \subitem {userLevelChanged}, \hyperpage{162}
+    \subitem {userLevelUp}, \hyperpage{162}
   \item {MakeInitialState}
-    \subitem {SLR1Parser}, \hyperpage{158}
+    \subitem {SLR1Parser}, \hyperpage{175}
   \item {MakeParser}
-    \subitem {SLR1Parser}, \hyperpage{158}
+    \subitem {SLR1Parser}, \hyperpage{175}
   \item {marker}
-    \subitem {GrammarView::Row}, \hyperpage{148}
+    \subitem {GrammarView::Row}, \hyperpage{164}
   \item {markLastUserIncorrect}
-    \subitem {LLTutorWindow}, \hyperpage{126}
-    \subitem {SLRTutorWindow}, \hyperpage{180}
+    \subitem {LLTutorWindow}, \hyperpage{137}
+    \subitem {SLRTutorWindow}, \hyperpage{200}
   \item {Merge}
-    \subitem {GrammarFactory}, \hyperpage{91}
+    \subitem {GrammarFactory}, \hyperpage{96}
   \item {META}
-    \subitem {symbol\_table.hpp}, \hyperpage{235}
+    \subitem {symbol\_table.hpp}, \hyperpage{265}
   \item {meta\_symbols\_}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {SymbolTable}, \hyperpage{232}
   \item {Micro}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {minimumGrowHeight}
     \subitem {CustomTextEdit}, \hyperpage{59}
   \item {minimumGrowHeightChanged}
     \subitem {CustomTextEdit}, \hyperpage{59}
   \item {MissingArrow}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {MissingEndDot}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {Mode}
-    \subitem {GrammarEditorDialog}, \hyperpage{75}
+    \subitem {GrammarEditorDialog}, \hyperpage{78}
   \item {mousePressEvent}
-    \subitem {AutomatonView}, \hyperpage{47}
+    \subitem {AutomatonView}, \hyperpage{44}
   \item {mouseReleaseEvent}
-    \subitem {AutomatonView}, \hyperpage{47}
+    \subitem {AutomatonView}, \hyperpage{45}
   \item {MultipleLeftHandSide}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
 
   \indexspace
 
   \item {name}
-    \subitem {AppTypography::Token}, \hyperpage{208}
+    \subitem {AppTypography::Token}, \hyperpage{233}
   \item {naturalWidth}
-    \subitem {GrammarView}, \hyperpage{101}
+    \subitem {GrammarView}, \hyperpage{108}
   \item {newlineShortcutText}
     \subitem {CustomTextEdit}, \hyperpage{60}
   \item {nextButton}
-    \subitem {LLWizard}, \hyperpage{137}
-    \subitem {SLRWizard}, \hyperpage{199}
+    \subitem {LLWizard}, \hyperpage{151}
+    \subitem {SLRWizard}, \hyperpage{223}
   \item {nextStep}
-    \subitem {TutorialManager}, \hyperpage{212}
+    \subitem {TutorialManager}, \hyperpage{238}
   \item {NextToDot}
-    \subitem {Lr0Item}, \hyperpage{142}
+    \subitem {Lr0Item}, \hyperpage{156}
   \item {NO\_TERMINAL}
-    \subitem {symbol\_table.hpp}, \hyperpage{235}
+    \subitem {symbol\_table.hpp}, \hyperpage{264}
   \item {non\_terminal\_alphabet\_}
-    \subitem {GrammarFactory}, \hyperpage{95}
+    \subitem {GrammarFactory}, \hyperpage{100}
   \item {non\_terminals\_}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {SymbolTable}, \hyperpage{232}
   \item {NormalizeNonTerminals}
-    \subitem {GrammarFactory}, \hyperpage{92}
+    \subitem {GrammarFactory}, \hyperpage{97}
   \item {NullableSymbols}
-    \subitem {GrammarFactory}, \hyperpage{92}
+    \subitem {GrammarFactory}, \hyperpage{97}
 
   \indexspace
 
   \item {Ok}
-    \subitem {GrammarParseResult}, \hyperpage{98}
+    \subitem {GrammarParseResult}, \hyperpage{105}
   \item {open}
-    \subitem {AppSettings}, \hyperpage{30}
+    \subitem {AppSettings}, \hyperpage{23}
   \item {openAutomatonViewer}
-    \subitem {SLRTutorWindow}, \hyperpage{180}
+    \subitem {SLRTutorWindow}, \hyperpage{201}
   \item {operator==}
-    \subitem {Lr0Item}, \hyperpage{142}
-    \subitem {state}, \hyperpage{203}
+    \subitem {Lr0Item}, \hyperpage{157}
+    \subitem {state}, \hyperpage{227}
 
   \indexspace
 
   \item {Parse}
-    \subitem {GrammarParser}, \hyperpage{97}
+    \subitem {GrammarParser}, \hyperpage{103}
   \item {percentFromLegacyValue}
-    \subitem {AppTextScale}, \hyperpage{34}
+    \subitem {AppTextScale}, \hyperpage{27}
   \item {PickOne}
-    \subitem {GrammarFactory}, \hyperpage{93}
+    \subitem {GrammarFactory}, \hyperpage{98}
   \item {points}
-    \subitem {AppTypography}, \hyperpage{39}
-    \subitem {AppTypography::Token}, \hyperpage{208}
+    \subitem {AppTypography}, \hyperpage{34}
+    \subitem {AppTypography::Token}, \hyperpage{233}
   \item {pop}
-    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{215}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{242}
   \item {postQuestion}
-    \subitem {LLTutorWindow}, \hyperpage{126}
-    \subitem {SLRTutorWindow}, \hyperpage{180}
+    \subitem {LLTutorWindow}, \hyperpage{137}
+    \subitem {SLRTutorWindow}, \hyperpage{201}
   \item {PredictionSymbols}
-    \subitem {LL1Parser}, \hyperpage{108}
+    \subitem {LL1Parser}, \hyperpage{116}
   \item {PresentationLess}
-    \subitem {Grammar}, \hyperpage{71}
+    \subitem {Grammar}, \hyperpage{73}
   \item {PresentationOrder}
-    \subitem {Grammar}, \hyperpage{71}
+    \subitem {Grammar}, \hyperpage{74}
   \item {PresentationRank}
-    \subitem {Grammar}, \hyperpage{72}
+    \subitem {Grammar}, \hyperpage{74}
   \item {primaryModifierName}
-    \subitem {AppShortcuts}, \hyperpage{31}
+    \subitem {AppShortcuts}, \hyperpage{24}
   \item {print}
-    \subitem {ConversationPdf}, \hyperpage{57}
+    \subitem {ConversationPdf}, \hyperpage{56}
   \item {PrintItem}
-    \subitem {Lr0Item}, \hyperpage{142}
+    \subitem {Lr0Item}, \hyperpage{157}
   \item {PrintItems}
-    \subitem {SLR1Parser}, \hyperpage{159}
+    \subitem {SLR1Parser}, \hyperpage{176}
   \item {printReport}
-    \subitem {ExamReportDialog}, \hyperpage{63}
+    \subitem {ExamReportDialog}, \hyperpage{64}
   \item {production}
-    \subitem {grammar.hpp}, \hyperpage{221}
+    \subitem {grammar.hpp}, \hyperpage{249}
   \item {promptExportFilePath}
-    \subitem {LLTutorWindow}, \hyperpage{126}
-    \subitem {SLRTutorWindow}, \hyperpage{181}
+    \subitem {LLTutorWindow}, \hyperpage{138}
+    \subitem {SLRTutorWindow}, \hyperpage{201}
   \item {push}
-    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{215}
+    \subitem {UniqueQueue$<$ T $>$}, \hyperpage{242}
   \item {PutSymbol}
-    \subitem {SymbolTable}, \hyperpage{206}
+    \subitem {SymbolTable}, \hyperpage{231}
 
   \indexspace
 
   \item {question}
-    \subitem {ExamRecord}, \hyperpage{61}
+    \subitem {ExamRecord}, \hyperpage{62}
 
   \indexspace
 
   \item {raw}
-    \subitem {SyntaxTutor::Version}, \hyperpage{42}
+    \subitem {SyntaxTutor::Version}, \hyperpage{37}
   \item {Reading}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {record}
-    \subitem {ExamSession}, \hyperpage{64}
+    \subitem {ExamSession}, \hyperpage{66}
   \item {records}
-    \subitem {ExamSession}, \hyperpage{65}
+    \subitem {ExamSession}, \hyperpage{66}
   \item {Reduce}
-    \subitem {SLR1Parser}, \hyperpage{152}
+    \subitem {SLR1Parser}, \hyperpage{169}
   \item {reduceStates}
-    \subitem {AutomatonView}, \hyperpage{48}
+    \subitem {AutomatonView}, \hyperpage{45}
   \item {refresh}
-    \subitem {GrammarView}, \hyperpage{101}
+    \subitem {GrammarView}, \hyperpage{108}
   \item {registerIdentity}
-    \subitem {AppSettings}, \hyperpage{30}
+    \subitem {AppSettings}, \hyperpage{23}
   \item {RemoveLeftRecursion}
-    \subitem {GrammarFactory}, \hyperpage{93}
+    \subitem {GrammarFactory}, \hyperpage{99}
   \item {ReservedSymbol}
-    \subitem {GrammarParseError}, \hyperpage{96}
+    \subitem {GrammarParseError}, \hyperpage{102}
   \item {resizeEvent}
-    \subitem {LLWizardPage}, \hyperpage{139}
-    \subitem {SLRWizardPage}, \hyperpage{202}
+    \subitem {LLWizardPage}, \hyperpage{153}
+    \subitem {SLRWizardPage}, \hyperpage{226}
   \item {resolveStyleSheet}
-    \subitem {AppTypography}, \hyperpage{40}
+    \subitem {AppTypography}, \hyperpage{34}
   \item {revealAll}
-    \subitem {AutomatonView}, \hyperpage{48}
+    \subitem {AutomatonView}, \hyperpage{45}
   \item {revealState}
-    \subitem {AutomatonView}, \hyperpage{48}
+    \subitem {AutomatonView}, \hyperpage{45}
   \item {revealTransition}
-    \subitem {AutomatonView}, \hyperpage{48}
+    \subitem {AutomatonView}, \hyperpage{45}
   \item {rhs}
-    \subitem {GrammarView::Row}, \hyperpage{148}
+    \subitem {GrammarView::Row}, \hyperpage{165}
   \item {right}
-    \subitem {ExamSession}, \hyperpage{65}
+    \subitem {ExamSession}, \hyperpage{67}
   \item {Role}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {role}
-    \subitem {AppTypography::Token}, \hyperpage{208}
+    \subitem {AppTypography::Token}, \hyperpage{233}
   \item {Rule}
-    \subitem {ConversationPdf}, \hyperpage{54}
+    \subitem {ConversationPdf}, \hyperpage{53}
 
   \indexspace
 
   \item {scoreExamTable}
-    \subitem {LLTutorWindow}, \hyperpage{127}
-    \subitem {SLRTutorWindow}, \hyperpage{181}
+    \subitem {LLTutorWindow}, \hyperpage{139}
+    \subitem {SLRTutorWindow}, \hyperpage{202}
   \item {sendRequested}
     \subitem {CustomTextEdit}, \hyperpage{60}
   \item {sessionFinished}
-    \subitem {LLTutorWindow}, \hyperpage{127}
-    \subitem {SLRTutorWindow}, \hyperpage{182}
+    \subitem {LLTutorWindow}, \hyperpage{139}
+    \subitem {SLRTutorWindow}, \hyperpage{202}
   \item {setAutoGrowLines}
     \subitem {CustomTextEdit}, \hyperpage{60}
   \item {setAutomaton}
-    \subitem {AutomatonView}, \hyperpage{48}
+    \subitem {AutomatonView}, \hyperpage{46}
   \item {SetAxiom}
-    \subitem {Grammar}, \hyperpage{72}
+    \subitem {Grammar}, \hyperpage{75}
   \item {setConflictStates}
-    \subitem {AutomatonView}, \hyperpage{49}
+    \subitem {AutomatonView}, \hyperpage{46}
   \item {setCurrentState}
-    \subitem {AutomatonView}, \hyperpage{49}
+    \subitem {AutomatonView}, \hyperpage{46}
   \item {setGuidedButtonVisible}
-    \subitem {LLTableDialog}, \hyperpage{112}
-    \subitem {SLRTableDialog}, \hyperpage{163}
+    \subitem {LLTableDialog}, \hyperpage{121}
+    \subitem {SLRTableDialog}, \hyperpage{181}
   \item {setGuidedModeActive}
-    \subitem {LLTableDialog}, \hyperpage{112}
-    \subitem {SLRTableDialog}, \hyperpage{163}
+    \subitem {LLTableDialog}, \hyperpage{121}
+    \subitem {SLRTableDialog}, \hyperpage{182}
   \item {setInitialData}
-    \subitem {LLTableDialog}, \hyperpage{112}
-    \subitem {SLRTableDialog}, \hyperpage{163}
+    \subitem {LLTableDialog}, \hyperpage{121}
+    \subitem {SLRTableDialog}, \hyperpage{182}
   \item {setNonTerminals}
-    \subitem {GrammarSyntaxHighlighter}, \hyperpage{100}
+    \subitem {GrammarSyntaxHighlighter}, \hyperpage{107}
   \item {setReduceStates}
-    \subitem {AutomatonView}, \hyperpage{49}
+    \subitem {AutomatonView}, \hyperpage{46}
   \item {setRootWindow}
-    \subitem {TutorialManager}, \hyperpage{212}
+    \subitem {TutorialManager}, \hyperpage{238}
   \item {setRows}
-    \subitem {GrammarView}, \hyperpage{101}
+    \subitem {GrammarView}, \hyperpage{109}
   \item {settingsKey}
-    \subitem {AppTextScale}, \hyperpage{34}
+    \subitem {AppTextScale}, \hyperpage{27}
   \item {setupAutomatonPanel}
-    \subitem {SLRTutorWindow}, \hyperpage{182}
+    \subitem {SLRTutorWindow}, \hyperpage{203}
   \item {setUserLevel}
-    \subitem {MainWindow}, \hyperpage{145}
+    \subitem {MainWindow}, \hyperpage{161}
   \item {Shift}
-    \subitem {SLR1Parser}, \hyperpage{152}
+    \subitem {SLR1Parser}, \hyperpage{169}
   \item {showEvent}
-    \subitem {CustomTextEdit}, \hyperpage{60}
+    \subitem {CustomTextEdit}, \hyperpage{61}
   \item {showExamReport}
-    \subitem {LLTutorWindow}, \hyperpage{128}
-    \subitem {SLRTutorWindow}, \hyperpage{182}
+    \subitem {LLTutorWindow}, \hyperpage{140}
+    \subitem {SLRTutorWindow}, \hyperpage{203}
   \item {shownStateId}
-    \subitem {AutomatonView}, \hyperpage{49}
+    \subitem {AutomatonView}, \hyperpage{47}
   \item {showStateDetails}
-    \subitem {AutomatonView}, \hyperpage{49}
+    \subitem {AutomatonView}, \hyperpage{47}
   \item {showTable}
-    \subitem {LLTutorWindow}, \hyperpage{128}
-    \subitem {SLRTutorWindow}, \hyperpage{183}
+    \subitem {LLTutorWindow}, \hyperpage{140}
+    \subitem {SLRTutorWindow}, \hyperpage{203}
   \item {showTableForCPrime}
-    \subitem {LLTutorWindow}, \hyperpage{128}
+    \subitem {LLTutorWindow}, \hyperpage{140}
   \item {showTreeGraphics}
-    \subitem {LLTutorWindow}, \hyperpage{128}
+    \subitem {LLTutorWindow}, \hyperpage{140}
   \item {SLR1}
-    \subitem {GrammarEditorDialog}, \hyperpage{75}
+    \subitem {GrammarEditorDialog}, \hyperpage{78}
   \item {slr1Finished}
-    \subitem {TutorialManager}, \hyperpage{212}
-  \item {SLR1Parser}, \hyperpage{149}
-    \subitem {Accept}, \hyperpage{152}
-    \subitem {Action}, \hyperpage{152}
-    \subitem {action\_table}, \hyperpage{151}
-    \subitem {actions\_}, \hyperpage{160}
-    \subitem {AllItems}, \hyperpage{153}
-    \subitem {Closure}, \hyperpage{153}
-    \subitem {ClosureUtil}, \hyperpage{154}
-    \subitem {ComputeFirstSets}, \hyperpage{155}
-    \subitem {ComputeFollowSets}, \hyperpage{155}
-    \subitem {Delta}, \hyperpage{156}
-    \subitem {Empty}, \hyperpage{152}
-    \subitem {First}, \hyperpage{156}
-    \subitem {first\_sets\_}, \hyperpage{160}
-    \subitem {Follow}, \hyperpage{157}
-    \subitem {follow\_sets\_}, \hyperpage{160}
-    \subitem {gr\_}, \hyperpage{160}
-    \subitem {MakeInitialState}, \hyperpage{158}
-    \subitem {MakeParser}, \hyperpage{158}
-    \subitem {PrintItems}, \hyperpage{159}
-    \subitem {Reduce}, \hyperpage{152}
-    \subitem {Shift}, \hyperpage{152}
-    \subitem {SLR1Parser}, \hyperpage{152, 153}
-    \subitem {SolveLRConflicts}, \hyperpage{159}
-    \subitem {states\_}, \hyperpage{160}
-    \subitem {transition\_table}, \hyperpage{151}
-    \subitem {transitions\_}, \hyperpage{160}
-  \item {SLR1Parser::s\_action}, \hyperpage{149}
-    \subitem {action}, \hyperpage{149}
-    \subitem {item}, \hyperpage{149}
-  \item {SLRTableDialog}, \hyperpage{161}
-    \subitem {getTableData}, \hyperpage{162}
-    \subitem {guidedRequested}, \hyperpage{163}
-    \subitem {highlightIncorrectCells}, \hyperpage{163}
-    \subitem {highlightInvalidCells}, \hyperpage{163}
-    \subitem {setGuidedButtonVisible}, \hyperpage{163}
-    \subitem {setGuidedModeActive}, \hyperpage{163}
-    \subitem {setInitialData}, \hyperpage{163}
-    \subitem {SLRTableDialog}, \hyperpage{162}
-    \subitem {submitted}, \hyperpage{164}
-  \item {SLRTutorWindow}, \hyperpage{164}
+    \subitem {TutorialManager}, \hyperpage{238}
+  \item {SLR1Parser}, \hyperpage{166}
+    \subitem {Accept}, \hyperpage{169}
+    \subitem {Action}, \hyperpage{169}
+    \subitem {action\_table}, \hyperpage{168}
+    \subitem {actions\_}, \hyperpage{178}
+    \subitem {AllItems}, \hyperpage{170}
+    \subitem {Closure}, \hyperpage{170}
+    \subitem {ClosureUtil}, \hyperpage{171}
+    \subitem {ComputeFirstSets}, \hyperpage{171}
+    \subitem {ComputeFollowSets}, \hyperpage{172}
+    \subitem {Delta}, \hyperpage{173}
+    \subitem {Empty}, \hyperpage{169}
+    \subitem {First}, \hyperpage{173}
+    \subitem {first\_sets\_}, \hyperpage{178}
+    \subitem {Follow}, \hyperpage{174}
+    \subitem {follow\_sets\_}, \hyperpage{178}
+    \subitem {gr\_}, \hyperpage{178}
+    \subitem {MakeInitialState}, \hyperpage{175}
+    \subitem {MakeParser}, \hyperpage{175}
+    \subitem {PrintItems}, \hyperpage{176}
+    \subitem {Reduce}, \hyperpage{169}
+    \subitem {Shift}, \hyperpage{169}
+    \subitem {SLR1Parser}, \hyperpage{169}
+    \subitem {SolveLRConflicts}, \hyperpage{177}
+    \subitem {states\_}, \hyperpage{178}
+    \subitem {transition\_table}, \hyperpage{168}
+    \subitem {transitions\_}, \hyperpage{178}
+  \item {SLR1Parser::s\_action}, \hyperpage{165}
+    \subitem {action}, \hyperpage{165}
+    \subitem {item}, \hyperpage{165}
+  \item {SLRTableDialog}, \hyperpage{179}
+    \subitem {getTableData}, \hyperpage{181}
+    \subitem {guidedRequested}, \hyperpage{181}
+    \subitem {highlightIncorrectCells}, \hyperpage{181}
+    \subitem {highlightInvalidCells}, \hyperpage{181}
+    \subitem {setGuidedButtonVisible}, \hyperpage{181}
+    \subitem {setGuidedModeActive}, \hyperpage{182}
+    \subitem {setInitialData}, \hyperpage{182}
+    \subitem {SLRTableDialog}, \hyperpage{180}
+    \subitem {submitted}, \hyperpage{182}
+  \item {SLRTutorWindow}, \hyperpage{183}
     \subitem {\texorpdfstring{$\sim$}{\string~}SLRTutorWindow}, 
-		\hyperpage{168}
-    \subitem {addGrammarMessage}, \hyperpage{168}
-    \subitem {addMessage}, \hyperpage{168}
-    \subitem {addUserState}, \hyperpage{168}
-    \subitem {addUserTransition}, \hyperpage{168}
-    \subitem {addWidgetMessage}, \hyperpage{169}
-    \subitem {animateLabelColor}, \hyperpage{169}
-    \subitem {animateLabelPop}, \hyperpage{169}
-    \subitem {applyTextScale}, \hyperpage{169}
-    \subitem {buildGrammarRows}, \hyperpage{169}
-    \subitem {closeEvent}, \hyperpage{170}
-    \subitem {confirmExitToHome}, \hyperpage{170}
-    \subitem {eventFilter}, \hyperpage{170}
-    \subitem {examSolutionText}, \hyperpage{170}
-    \subitem {exitRequested}, \hyperpage{170}
-    \subitem {exportConversationToPdf}, \hyperpage{170}
-    \subitem {feedback}, \hyperpage{171}
-    \subitem {feedbackForA}, \hyperpage{171}
-    \subitem {feedbackForA1}, \hyperpage{172}
-    \subitem {feedbackForA2}, \hyperpage{172}
-    \subitem {feedbackForA3}, \hyperpage{172}
-    \subitem {feedbackForA4}, \hyperpage{173}
-    \subitem {feedbackForAPrime}, \hyperpage{173}
-    \subitem {feedbackForB}, \hyperpage{173}
-    \subitem {feedbackForB1}, \hyperpage{173}
-    \subitem {feedbackForB2}, \hyperpage{173}
-    \subitem {feedbackForBPrime}, \hyperpage{173}
-    \subitem {feedbackForC}, \hyperpage{174}
-    \subitem {feedbackForCA}, \hyperpage{175}
-    \subitem {feedbackForCB}, \hyperpage{175}
-    \subitem {feedbackForD}, \hyperpage{175}
-    \subitem {feedbackForD1}, \hyperpage{175}
-    \subitem {feedbackForD2}, \hyperpage{176}
-    \subitem {feedbackForDPrime}, \hyperpage{176}
-    \subitem {feedbackForE}, \hyperpage{176}
-    \subitem {feedbackForE1}, \hyperpage{176}
-    \subitem {feedbackForE2}, \hyperpage{177}
-    \subitem {feedbackForF}, \hyperpage{177}
-    \subitem {feedbackForFA}, \hyperpage{177}
-    \subitem {feedbackForG}, \hyperpage{177}
-    \subitem {fillSortedGrammar}, \hyperpage{178}
-    \subitem {FormatGrammar}, \hyperpage{178}
-    \subitem {generateQuestion}, \hyperpage{178}
-    \subitem {initialItemText}, \hyperpage{178}
-    \subitem {isReduction}, \hyperpage{179}
-    \subitem {launchSLRWizard}, \hyperpage{179}
-    \subitem {markLastUserIncorrect}, \hyperpage{180}
-    \subitem {openAutomatonViewer}, \hyperpage{180}
-    \subitem {postQuestion}, \hyperpage{180}
-    \subitem {promptExportFilePath}, \hyperpage{181}
-    \subitem {scoreExamTable}, \hyperpage{181}
-    \subitem {sessionFinished}, \hyperpage{182}
-    \subitem {setupAutomatonPanel}, \hyperpage{182}
-    \subitem {showExamReport}, \hyperpage{182}
-    \subitem {showTable}, \hyperpage{183}
-    \subitem {SLRTutorWindow}, \hyperpage{167}
-    \subitem {solution}, \hyperpage{183}
-    \subitem {solutionCell}, \hyperpage{184}
-    \subitem {solutionForA}, \hyperpage{185}
-    \subitem {solutionForA1}, \hyperpage{185}
-    \subitem {solutionForA2}, \hyperpage{185}
-    \subitem {solutionForA3}, \hyperpage{185}
-    \subitem {solutionForA4}, \hyperpage{186}
-    \subitem {solutionForB}, \hyperpage{186}
-    \subitem {solutionForC}, \hyperpage{186}
-    \subitem {solutionForCA}, \hyperpage{186}
-    \subitem {solutionForCB}, \hyperpage{186}
-    \subitem {solutionForD}, \hyperpage{187}
-    \subitem {solutionForD1}, \hyperpage{187}
-    \subitem {solutionForD2}, \hyperpage{187}
-    \subitem {solutionForE}, \hyperpage{187}
-    \subitem {solutionForE1}, \hyperpage{187}
-    \subitem {solutionForE2}, \hyperpage{188}
-    \subitem {solutionForF}, \hyperpage{188}
-    \subitem {solutionForFA}, \hyperpage{188}
-    \subitem {solutionForG}, \hyperpage{188}
-    \subitem {tableColumns}, \hyperpage{189}
-    \subitem {TeachClosure}, \hyperpage{189}
-    \subitem {TeachClosureStep}, \hyperpage{189}
-    \subitem {TeachDeltaFunction}, \hyperpage{189}
-    \subitem {updateAutomatonButton}, \hyperpage{190}
-    \subitem {updateAutomatonPanel}, \hyperpage{190}
-    \subitem {updatePlaceholder}, \hyperpage{190}
-    \subitem {updateProgressPanel}, \hyperpage{191}
-    \subitem {updateState}, \hyperpage{191}
-    \subitem {verifyResponse}, \hyperpage{191}
-    \subitem {verifyResponseForA}, \hyperpage{191}
-    \subitem {verifyResponseForA1}, \hyperpage{192}
-    \subitem {verifyResponseForA2}, \hyperpage{192}
-    \subitem {verifyResponseForA3}, \hyperpage{192}
-    \subitem {verifyResponseForA4}, \hyperpage{193}
-    \subitem {verifyResponseForB}, \hyperpage{193}
-    \subitem {verifyResponseForC}, \hyperpage{193}
-    \subitem {verifyResponseForCA}, \hyperpage{194}
-    \subitem {verifyResponseForCB}, \hyperpage{194}
-    \subitem {verifyResponseForD}, \hyperpage{194}
-    \subitem {verifyResponseForD1}, \hyperpage{195}
-    \subitem {verifyResponseForD2}, \hyperpage{195}
-    \subitem {verifyResponseForE}, \hyperpage{195}
-    \subitem {verifyResponseForE1}, \hyperpage{195}
-    \subitem {verifyResponseForE2}, \hyperpage{196}
-    \subitem {verifyResponseForF}, \hyperpage{196}
-    \subitem {verifyResponseForFA}, \hyperpage{196}
-    \subitem {verifyResponseForG}, \hyperpage{196}
-    \subitem {verifyResponseForH}, \hyperpage{196}
-    \subitem {wrongAnimation}, \hyperpage{197}
-    \subitem {wrongUserResponseAnimation}, \hyperpage{197}
+		\hyperpage{187}
+    \subitem {addGrammarMessage}, \hyperpage{187}
+    \subitem {addMessage}, \hyperpage{187}
+    \subitem {addUserState}, \hyperpage{187}
+    \subitem {addUserTransition}, \hyperpage{187}
+    \subitem {addWidgetMessage}, \hyperpage{188}
+    \subitem {animateLabelColor}, \hyperpage{188}
+    \subitem {animateLabelPop}, \hyperpage{188}
+    \subitem {applyTextScale}, \hyperpage{188}
+    \subitem {buildGrammarRows}, \hyperpage{189}
+    \subitem {closeEvent}, \hyperpage{189}
+    \subitem {confirmExitToHome}, \hyperpage{189}
+    \subitem {eventFilter}, \hyperpage{189}
+    \subitem {examSolutionText}, \hyperpage{190}
+    \subitem {exitRequested}, \hyperpage{190}
+    \subitem {exportConversationToPdf}, \hyperpage{190}
+    \subitem {feedback}, \hyperpage{190}
+    \subitem {feedbackForA}, \hyperpage{191}
+    \subitem {feedbackForA1}, \hyperpage{191}
+    \subitem {feedbackForA2}, \hyperpage{192}
+    \subitem {feedbackForA3}, \hyperpage{192}
+    \subitem {feedbackForA4}, \hyperpage{192}
+    \subitem {feedbackForAPrime}, \hyperpage{193}
+    \subitem {feedbackForB}, \hyperpage{193}
+    \subitem {feedbackForB1}, \hyperpage{193}
+    \subitem {feedbackForB2}, \hyperpage{193}
+    \subitem {feedbackForBPrime}, \hyperpage{193}
+    \subitem {feedbackForC}, \hyperpage{194}
+    \subitem {feedbackForCA}, \hyperpage{195}
+    \subitem {feedbackForCB}, \hyperpage{195}
+    \subitem {feedbackForD}, \hyperpage{195}
+    \subitem {feedbackForD1}, \hyperpage{196}
+    \subitem {feedbackForD2}, \hyperpage{196}
+    \subitem {feedbackForDPrime}, \hyperpage{196}
+    \subitem {feedbackForE}, \hyperpage{196}
+    \subitem {feedbackForE1}, \hyperpage{197}
+    \subitem {feedbackForE2}, \hyperpage{197}
+    \subitem {feedbackForF}, \hyperpage{197}
+    \subitem {feedbackForFA}, \hyperpage{197}
+    \subitem {feedbackForG}, \hyperpage{198}
+    \subitem {fillSortedGrammar}, \hyperpage{198}
+    \subitem {FormatGrammar}, \hyperpage{198}
+    \subitem {generateQuestion}, \hyperpage{198}
+    \subitem {initialItemText}, \hyperpage{199}
+    \subitem {isReduction}, \hyperpage{199}
+    \subitem {launchSLRWizard}, \hyperpage{200}
+    \subitem {markLastUserIncorrect}, \hyperpage{200}
+    \subitem {openAutomatonViewer}, \hyperpage{201}
+    \subitem {postQuestion}, \hyperpage{201}
+    \subitem {promptExportFilePath}, \hyperpage{201}
+    \subitem {scoreExamTable}, \hyperpage{202}
+    \subitem {sessionFinished}, \hyperpage{202}
+    \subitem {setupAutomatonPanel}, \hyperpage{203}
+    \subitem {showExamReport}, \hyperpage{203}
+    \subitem {showTable}, \hyperpage{203}
+    \subitem {SLRTutorWindow}, \hyperpage{186}
+    \subitem {solution}, \hyperpage{204}
+    \subitem {solutionCell}, \hyperpage{205}
+    \subitem {solutionForA}, \hyperpage{206}
+    \subitem {solutionForA1}, \hyperpage{206}
+    \subitem {solutionForA2}, \hyperpage{206}
+    \subitem {solutionForA3}, \hyperpage{206}
+    \subitem {solutionForA4}, \hyperpage{207}
+    \subitem {solutionForB}, \hyperpage{207}
+    \subitem {solutionForC}, \hyperpage{207}
+    \subitem {solutionForCA}, \hyperpage{207}
+    \subitem {solutionForCB}, \hyperpage{208}
+    \subitem {solutionForD}, \hyperpage{208}
+    \subitem {solutionForD1}, \hyperpage{208}
+    \subitem {solutionForD2}, \hyperpage{208}
+    \subitem {solutionForE}, \hyperpage{209}
+    \subitem {solutionForE1}, \hyperpage{209}
+    \subitem {solutionForE2}, \hyperpage{209}
+    \subitem {solutionForF}, \hyperpage{209}
+    \subitem {solutionForFA}, \hyperpage{210}
+    \subitem {solutionForG}, \hyperpage{210}
+    \subitem {tableColumns}, \hyperpage{210}
+    \subitem {TeachClosure}, \hyperpage{211}
+    \subitem {TeachClosureStep}, \hyperpage{211}
+    \subitem {TeachDeltaFunction}, \hyperpage{211}
+    \subitem {updateAutomatonButton}, \hyperpage{212}
+    \subitem {updateAutomatonPanel}, \hyperpage{212}
+    \subitem {updatePlaceholder}, \hyperpage{213}
+    \subitem {updateProgressPanel}, \hyperpage{213}
+    \subitem {updateState}, \hyperpage{213}
+    \subitem {verifyResponse}, \hyperpage{214}
+    \subitem {verifyResponseForA}, \hyperpage{214}
+    \subitem {verifyResponseForA1}, \hyperpage{214}
+    \subitem {verifyResponseForA2}, \hyperpage{214}
+    \subitem {verifyResponseForA3}, \hyperpage{215}
+    \subitem {verifyResponseForA4}, \hyperpage{215}
+    \subitem {verifyResponseForB}, \hyperpage{216}
+    \subitem {verifyResponseForC}, \hyperpage{216}
+    \subitem {verifyResponseForCA}, \hyperpage{216}
+    \subitem {verifyResponseForCB}, \hyperpage{217}
+    \subitem {verifyResponseForD}, \hyperpage{217}
+    \subitem {verifyResponseForD1}, \hyperpage{217}
+    \subitem {verifyResponseForD2}, \hyperpage{218}
+    \subitem {verifyResponseForE}, \hyperpage{218}
+    \subitem {verifyResponseForE1}, \hyperpage{218}
+    \subitem {verifyResponseForE2}, \hyperpage{218}
+    \subitem {verifyResponseForF}, \hyperpage{219}
+    \subitem {verifyResponseForFA}, \hyperpage{219}
+    \subitem {verifyResponseForG}, \hyperpage{219}
+    \subitem {verifyResponseForH}, \hyperpage{219}
+    \subitem {wrongAnimation}, \hyperpage{220}
+    \subitem {wrongUserResponseAnimation}, \hyperpage{220}
   \item {slrtutorwindow.h}
-    \subitem {A}, \hyperpage{268}
-    \subitem {A1}, \hyperpage{268}
-    \subitem {A2}, \hyperpage{268}
-    \subitem {A3}, \hyperpage{268}
-    \subitem {A4}, \hyperpage{268}
-    \subitem {A\_prime}, \hyperpage{268}
-    \subitem {B}, \hyperpage{268}
-    \subitem {C}, \hyperpage{268}
-    \subitem {CA}, \hyperpage{268}
-    \subitem {CB}, \hyperpage{268}
-    \subitem {D}, \hyperpage{268}
-    \subitem {D1}, \hyperpage{268}
-    \subitem {D2}, \hyperpage{268}
-    \subitem {D\_prime}, \hyperpage{269}
-    \subitem {E}, \hyperpage{269}
-    \subitem {E1}, \hyperpage{269}
-    \subitem {E2}, \hyperpage{269}
-    \subitem {F}, \hyperpage{269}
-    \subitem {FA}, \hyperpage{269}
-    \subitem {fin}, \hyperpage{269}
-    \subitem {G}, \hyperpage{269}
-    \subitem {H}, \hyperpage{269}
-    \subitem {H\_prime}, \hyperpage{269}
-    \subitem {StateSlr}, \hyperpage{268}
-  \item {SLRWizard}, \hyperpage{197}
-    \subitem {closeButton}, \hyperpage{199}
-    \subitem {currentPage}, \hyperpage{199}
-    \subitem {isOnLastPage}, \hyperpage{199}
-    \subitem {nextButton}, \hyperpage{199}
-    \subitem {SLRWizard}, \hyperpage{198}
-    \subitem {stdVectorToQVector}, \hyperpage{199}
-  \item {SLRWizardPage}, \hyperpage{200}
-    \subitem {completionChanged}, \hyperpage{201}
-    \subitem {focusAnswerField}, \hyperpage{202}
-    \subitem {isComplete}, \hyperpage{202}
-    \subitem {resizeEvent}, \hyperpage{202}
-    \subitem {SLRWizardPage}, \hyperpage{201}
-    \subitem {submitRequested}, \hyperpage{202}
-    \subitem {titleText}, \hyperpage{202}
+    \subitem {A}, \hyperpage{299}
+    \subitem {A1}, \hyperpage{299}
+    \subitem {A2}, \hyperpage{299}
+    \subitem {A3}, \hyperpage{299}
+    \subitem {A4}, \hyperpage{299}
+    \subitem {A\_prime}, \hyperpage{299}
+    \subitem {B}, \hyperpage{299}
+    \subitem {C}, \hyperpage{299}
+    \subitem {CA}, \hyperpage{300}
+    \subitem {CB}, \hyperpage{300}
+    \subitem {D}, \hyperpage{300}
+    \subitem {D1}, \hyperpage{300}
+    \subitem {D2}, \hyperpage{300}
+    \subitem {D\_prime}, \hyperpage{300}
+    \subitem {E}, \hyperpage{300}
+    \subitem {E1}, \hyperpage{300}
+    \subitem {E2}, \hyperpage{300}
+    \subitem {F}, \hyperpage{300}
+    \subitem {FA}, \hyperpage{300}
+    \subitem {fin}, \hyperpage{300}
+    \subitem {G}, \hyperpage{300}
+    \subitem {H}, \hyperpage{300}
+    \subitem {H\_prime}, \hyperpage{300}
+    \subitem {StateSlr}, \hyperpage{299}
+  \item {SLRWizard}, \hyperpage{221}
+    \subitem {closeButton}, \hyperpage{222}
+    \subitem {currentPage}, \hyperpage{222}
+    \subitem {isOnLastPage}, \hyperpage{223}
+    \subitem {nextButton}, \hyperpage{223}
+    \subitem {SLRWizard}, \hyperpage{222}
+    \subitem {stdVectorToQVector}, \hyperpage{223}
+  \item {SLRWizardPage}, \hyperpage{224}
+    \subitem {completionChanged}, \hyperpage{226}
+    \subitem {focusAnswerField}, \hyperpage{226}
+    \subitem {isComplete}, \hyperpage{226}
+    \subitem {resizeEvent}, \hyperpage{226}
+    \subitem {SLRWizardPage}, \hyperpage{225}
+    \subitem {submitRequested}, \hyperpage{226}
+    \subitem {titleText}, \hyperpage{226}
   \item {solution}
-    \subitem {LLTutorWindow}, \hyperpage{128}
-    \subitem {SLRTutorWindow}, \hyperpage{183}
+    \subitem {LLTutorWindow}, \hyperpage{141}
+    \subitem {SLRTutorWindow}, \hyperpage{204}
   \item {solutionCell}
-    \subitem {SLRTutorWindow}, \hyperpage{184}
+    \subitem {SLRTutorWindow}, \hyperpage{205}
   \item {solutionForA}
-    \subitem {LLTutorWindow}, \hyperpage{129}
-    \subitem {SLRTutorWindow}, \hyperpage{185}
+    \subitem {LLTutorWindow}, \hyperpage{141}
+    \subitem {SLRTutorWindow}, \hyperpage{206}
   \item {solutionForA1}
-    \subitem {LLTutorWindow}, \hyperpage{129}
-    \subitem {SLRTutorWindow}, \hyperpage{185}
+    \subitem {LLTutorWindow}, \hyperpage{142}
+    \subitem {SLRTutorWindow}, \hyperpage{206}
   \item {solutionForA2}
-    \subitem {LLTutorWindow}, \hyperpage{129}
-    \subitem {SLRTutorWindow}, \hyperpage{185}
+    \subitem {LLTutorWindow}, \hyperpage{142}
+    \subitem {SLRTutorWindow}, \hyperpage{206}
   \item {solutionForA3}
-    \subitem {SLRTutorWindow}, \hyperpage{185}
+    \subitem {SLRTutorWindow}, \hyperpage{206}
   \item {solutionForA4}
-    \subitem {SLRTutorWindow}, \hyperpage{186}
+    \subitem {SLRTutorWindow}, \hyperpage{207}
   \item {solutionForB}
-    \subitem {LLTutorWindow}, \hyperpage{130}
-    \subitem {SLRTutorWindow}, \hyperpage{186}
+    \subitem {LLTutorWindow}, \hyperpage{142}
+    \subitem {SLRTutorWindow}, \hyperpage{207}
   \item {solutionForB1}
-    \subitem {LLTutorWindow}, \hyperpage{130}
+    \subitem {LLTutorWindow}, \hyperpage{142}
   \item {solutionForB2}
-    \subitem {LLTutorWindow}, \hyperpage{130}
+    \subitem {LLTutorWindow}, \hyperpage{143}
   \item {solutionForC}
-    \subitem {SLRTutorWindow}, \hyperpage{186}
+    \subitem {SLRTutorWindow}, \hyperpage{207}
   \item {solutionForCA}
-    \subitem {SLRTutorWindow}, \hyperpage{186}
+    \subitem {SLRTutorWindow}, \hyperpage{207}
   \item {solutionForCB}
-    \subitem {SLRTutorWindow}, \hyperpage{186}
+    \subitem {SLRTutorWindow}, \hyperpage{208}
   \item {solutionForD}
-    \subitem {SLRTutorWindow}, \hyperpage{187}
+    \subitem {SLRTutorWindow}, \hyperpage{208}
   \item {solutionForD1}
-    \subitem {SLRTutorWindow}, \hyperpage{187}
+    \subitem {SLRTutorWindow}, \hyperpage{208}
   \item {solutionForD2}
-    \subitem {SLRTutorWindow}, \hyperpage{187}
+    \subitem {SLRTutorWindow}, \hyperpage{208}
   \item {solutionForE}
-    \subitem {SLRTutorWindow}, \hyperpage{187}
+    \subitem {SLRTutorWindow}, \hyperpage{209}
   \item {solutionForE1}
-    \subitem {SLRTutorWindow}, \hyperpage{187}
+    \subitem {SLRTutorWindow}, \hyperpage{209}
   \item {solutionForE2}
-    \subitem {SLRTutorWindow}, \hyperpage{188}
+    \subitem {SLRTutorWindow}, \hyperpage{209}
   \item {solutionForF}
-    \subitem {SLRTutorWindow}, \hyperpage{188}
+    \subitem {SLRTutorWindow}, \hyperpage{209}
   \item {solutionForFA}
-    \subitem {SLRTutorWindow}, \hyperpage{188}
+    \subitem {SLRTutorWindow}, \hyperpage{210}
   \item {solutionForG}
-    \subitem {SLRTutorWindow}, \hyperpage{188}
+    \subitem {SLRTutorWindow}, \hyperpage{210}
   \item {SolveLRConflicts}
-    \subitem {SLR1Parser}, \hyperpage{159}
+    \subitem {SLR1Parser}, \hyperpage{177}
   \item {Split}
-    \subitem {Grammar}, \hyperpage{73}
+    \subitem {Grammar}, \hyperpage{75}
   \item {st\_}
-    \subitem {Grammar}, \hyperpage{74}
-    \subitem {GrammarFactory::FactoryItem}, \hyperpage{67}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {Grammar}, \hyperpage{77}
+    \subitem {GrammarFactory::FactoryItem}, \hyperpage{69}
+    \subitem {SymbolTable}, \hyperpage{232}
   \item {start}
-    \subitem {TutorialManager}, \hyperpage{213}
+    \subitem {TutorialManager}, \hyperpage{239}
   \item {StartsWith}
-    \subitem {GrammarFactory}, \hyperpage{94}
+    \subitem {GrammarFactory}, \hyperpage{99}
   \item {State}
-    \subitem {lltutorwindow.h}, \hyperpage{251}
-  \item {state}, \hyperpage{202}
-    \subitem {id\_}, \hyperpage{203}
-    \subitem {items\_}, \hyperpage{203}
-    \subitem {operator==}, \hyperpage{203}
+    \subitem {lltutorwindow.h}, \hyperpage{282}
+  \item {state}, \hyperpage{227}
+    \subitem {id\_}, \hyperpage{227}
+    \subitem {items\_}, \hyperpage{227}
+    \subitem {operator==}, \hyperpage{227}
   \item {states\_}
-    \subitem {SLR1Parser}, \hyperpage{160}
+    \subitem {SLR1Parser}, \hyperpage{178}
   \item {StateSlr}
-    \subitem {slrtutorwindow.h}, \hyperpage{268}
+    \subitem {slrtutorwindow.h}, \hyperpage{299}
   \item {stdVectorToQVector}
-    \subitem {SLRWizard}, \hyperpage{199}
+    \subitem {SLRWizard}, \hyperpage{223}
   \item {stepStarted}
-    \subitem {TutorialManager}, \hyperpage{213}
+    \subitem {TutorialManager}, \hyperpage{239}
   \item {submitRequested}
-    \subitem {LLWizardPage}, \hyperpage{139}
-    \subitem {SLRWizardPage}, \hyperpage{202}
+    \subitem {LLWizardPage}, \hyperpage{153}
+    \subitem {SLRWizardPage}, \hyperpage{226}
   \item {submitted}
-    \subitem {LLTableDialog}, \hyperpage{112}
-    \subitem {SLRTableDialog}, \hyperpage{164}
+    \subitem {LLTableDialog}, \hyperpage{122}
+    \subitem {SLRTableDialog}, \hyperpage{182}
   \item {symbol}
-    \subitem {AutomatonTransitionInfo}, \hyperpage{44}
+    \subitem {AutomatonTransitionInfo}, \hyperpage{40}
   \item {symbol\_table.hpp}
-    \subitem {META}, \hyperpage{235}
-    \subitem {NO\_TERMINAL}, \hyperpage{235}
-    \subitem {symbol\_type}, \hyperpage{235}
-    \subitem {TERMINAL}, \hyperpage{235}
+    \subitem {META}, \hyperpage{265}
+    \subitem {NO\_TERMINAL}, \hyperpage{264}
+    \subitem {symbol\_type}, \hyperpage{264}
+    \subitem {TERMINAL}, \hyperpage{264}
   \item {symbol\_type}
-    \subitem {symbol\_table.hpp}, \hyperpage{235}
-  \item {SymbolTable}, \hyperpage{203}
-    \subitem {EOL\_}, \hyperpage{207}
-    \subitem {EPSILON\_}, \hyperpage{207}
-    \subitem {In}, \hyperpage{204}
-    \subitem {IsMeta}, \hyperpage{204}
-    \subitem {IsNonTerminal}, \hyperpage{205}
-    \subitem {IsTerminal}, \hyperpage{205}
-    \subitem {IsTerminalWthoEol}, \hyperpage{206}
-    \subitem {meta\_symbols\_}, \hyperpage{207}
-    \subitem {non\_terminals\_}, \hyperpage{207}
-    \subitem {PutSymbol}, \hyperpage{206}
-    \subitem {st\_}, \hyperpage{207}
-    \subitem {terminals\_}, \hyperpage{207}
-    \subitem {terminals\_wtho\_eol\_}, \hyperpage{207}
-  \item {SyntaxTutor}, \hyperpage{1}, \hyperpage{41}
-  \item {SyntaxTutor::Version}, \hyperpage{41}
-    \subitem {current}, \hyperpage{41}
-    \subitem {raw}, \hyperpage{42}
+    \subitem {symbol\_table.hpp}, \hyperpage{264}
+  \item {SymbolTable}, \hyperpage{228}
+    \subitem {EOL\_}, \hyperpage{231}
+    \subitem {EPSILON\_}, \hyperpage{231}
+    \subitem {In}, \hyperpage{229}
+    \subitem {IsMeta}, \hyperpage{229}
+    \subitem {IsNonTerminal}, \hyperpage{229}
+    \subitem {IsTerminal}, \hyperpage{230}
+    \subitem {IsTerminalWthoEol}, \hyperpage{230}
+    \subitem {meta\_symbols\_}, \hyperpage{232}
+    \subitem {non\_terminals\_}, \hyperpage{232}
+    \subitem {PutSymbol}, \hyperpage{231}
+    \subitem {st\_}, \hyperpage{232}
+    \subitem {terminals\_}, \hyperpage{232}
+    \subitem {terminals\_wtho\_eol\_}, \hyperpage{232}
+  \item {SyntaxTutor}, \hyperpage{1}, \hyperpage{36}
+  \item {SyntaxTutor::Version}, \hyperpage{36}
+    \subitem {current}, \hyperpage{36}
+    \subitem {raw}, \hyperpage{37}
   \item {systemFont}
-    \subitem {AppTypography}, \hyperpage{40}
+    \subitem {AppTypography}, \hyperpage{35}
 
   \indexspace
 
   \item {tableColumns}
-    \subitem {SLRTutorWindow}, \hyperpage{189}
+    \subitem {SLRTutorWindow}, \hyperpage{210}
   \item {target}
-    \subitem {TutorialStep}, \hyperpage{214}
+    \subitem {TutorialStep}, \hyperpage{240}
   \item {TeachClosure}
-    \subitem {SLRTutorWindow}, \hyperpage{189}
+    \subitem {SLRTutorWindow}, \hyperpage{211}
   \item {TeachClosureStep}
-    \subitem {SLRTutorWindow}, \hyperpage{189}
+    \subitem {SLRTutorWindow}, \hyperpage{211}
   \item {TeachDeltaFunction}
-    \subitem {SLRTutorWindow}, \hyperpage{189}
+    \subitem {SLRTutorWindow}, \hyperpage{211}
   \item {TeachFirstTree}
-    \subitem {LLTutorWindow}, \hyperpage{131}
+    \subitem {LLTutorWindow}, \hyperpage{143}
   \item {TeachFollow}
-    \subitem {LLTutorWindow}, \hyperpage{131}
+    \subitem {LLTutorWindow}, \hyperpage{144}
   \item {TeachLL1Table}
-    \subitem {LLTutorWindow}, \hyperpage{131}
+    \subitem {LLTutorWindow}, \hyperpage{144}
   \item {TeachPredictionSymbols}
-    \subitem {LLTutorWindow}, \hyperpage{132}
+    \subitem {LLTutorWindow}, \hyperpage{144}
   \item {TERMINAL}
-    \subitem {symbol\_table.hpp}, \hyperpage{235}
+    \subitem {symbol\_table.hpp}, \hyperpage{264}
   \item {terminal\_alphabet\_}
-    \subitem {GrammarFactory}, \hyperpage{95}
+    \subitem {GrammarFactory}, \hyperpage{100}
   \item {terminals\_}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {SymbolTable}, \hyperpage{232}
   \item {terminals\_wtho\_eol\_}
-    \subitem {SymbolTable}, \hyperpage{207}
+    \subitem {SymbolTable}, \hyperpage{232}
   \item {text}
-    \subitem {ConversationPdf::Message}, \hyperpage{148}
+    \subitem {ConversationPdf::Message}, \hyperpage{164}
   \item {thresholdFor}
-    \subitem {MainWindow}, \hyperpage{146}
+    \subitem {MainWindow}, \hyperpage{161}
   \item {Title}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {TitleSmall}
-    \subitem {AppTypography}, \hyperpage{36}
+    \subitem {AppTypography}, \hyperpage{30}
   \item {titleText}
-    \subitem {LLWizardPage}, \hyperpage{140}
-    \subitem {SLRWizardPage}, \hyperpage{202}
+    \subitem {LLWizardPage}, \hyperpage{154}
+    \subitem {SLRWizardPage}, \hyperpage{226}
   \item {to}
-    \subitem {AutomatonTransitionInfo}, \hyperpage{44}
+    \subitem {AutomatonTransitionInfo}, \hyperpage{40}
   \item {ToString}
-    \subitem {Lr0Item}, \hyperpage{143}
+    \subitem {Lr0Item}, \hyperpage{157}
   \item {total}
-    \subitem {ExamSession}, \hyperpage{65}
+    \subitem {ExamSession}, \hyperpage{67}
   \item {totalStateCount}
-    \subitem {AutomatonView}, \hyperpage{50}
+    \subitem {AutomatonView}, \hyperpage{47}
   \item {transition\_table}
-    \subitem {SLR1Parser}, \hyperpage{151}
+    \subitem {SLR1Parser}, \hyperpage{168}
   \item {transitions\_}
-    \subitem {SLR1Parser}, \hyperpage{160}
+    \subitem {SLR1Parser}, \hyperpage{178}
   \item {tutorialFinished}
-    \subitem {TutorialManager}, \hyperpage{213}
-  \item {TutorialManager}, \hyperpage{208}
-    \subitem {addStep}, \hyperpage{210}
-    \subitem {clearSteps}, \hyperpage{210}
-    \subitem {eventFilter}, \hyperpage{210}
-    \subitem {finishLL1}, \hyperpage{211}
-    \subitem {finishSLR1}, \hyperpage{211}
-    \subitem {hideOverlay}, \hyperpage{211}
-    \subitem {ll1Finished}, \hyperpage{211}
-    \subitem {nextStep}, \hyperpage{212}
-    \subitem {setRootWindow}, \hyperpage{212}
-    \subitem {slr1Finished}, \hyperpage{212}
-    \subitem {start}, \hyperpage{213}
-    \subitem {stepStarted}, \hyperpage{213}
-    \subitem {tutorialFinished}, \hyperpage{213}
-    \subitem {TutorialManager}, \hyperpage{210}
-  \item {TutorialStep}, \hyperpage{214}
-    \subitem {htmlText}, \hyperpage{214}
-    \subitem {target}, \hyperpage{214}
+    \subitem {TutorialManager}, \hyperpage{239}
+  \item {TutorialManager}, \hyperpage{234}
+    \subitem {addStep}, \hyperpage{236}
+    \subitem {clearSteps}, \hyperpage{236}
+    \subitem {eventFilter}, \hyperpage{236}
+    \subitem {finishLL1}, \hyperpage{236}
+    \subitem {finishSLR1}, \hyperpage{237}
+    \subitem {hideOverlay}, \hyperpage{237}
+    \subitem {ll1Finished}, \hyperpage{237}
+    \subitem {nextStep}, \hyperpage{238}
+    \subitem {setRootWindow}, \hyperpage{238}
+    \subitem {slr1Finished}, \hyperpage{238}
+    \subitem {start}, \hyperpage{239}
+    \subitem {stepStarted}, \hyperpage{239}
+    \subitem {tutorialFinished}, \hyperpage{239}
+    \subitem {TutorialManager}, \hyperpage{236}
+  \item {TutorialStep}, \hyperpage{240}
+    \subitem {htmlText}, \hyperpage{240}
+    \subitem {target}, \hyperpage{240}
 
   \indexspace
 
-  \item {UniqueQueue$<$ T $>$}, \hyperpage{214}
-    \subitem {clear}, \hyperpage{215}
-    \subitem {empty}, \hyperpage{215}
-    \subitem {front}, \hyperpage{215}
-    \subitem {pop}, \hyperpage{215}
-    \subitem {push}, \hyperpage{215}
+  \item {UniqueQueue$<$ T $>$}, \hyperpage{241}
+    \subitem {clear}, \hyperpage{242}
+    \subitem {empty}, \hyperpage{242}
+    \subitem {front}, \hyperpage{242}
+    \subitem {pop}, \hyperpage{242}
+    \subitem {push}, \hyperpage{242}
   \item {updateAutomatonButton}
-    \subitem {SLRTutorWindow}, \hyperpage{190}
+    \subitem {SLRTutorWindow}, \hyperpage{212}
   \item {updateAutomatonPanel}
-    \subitem {SLRTutorWindow}, \hyperpage{190}
+    \subitem {SLRTutorWindow}, \hyperpage{212}
   \item {updatePlaceholder}
-    \subitem {LLTutorWindow}, \hyperpage{132}
-    \subitem {SLRTutorWindow}, \hyperpage{190}
+    \subitem {LLTutorWindow}, \hyperpage{144}
+    \subitem {SLRTutorWindow}, \hyperpage{213}
   \item {updateProgressPanel}
-    \subitem {LLTutorWindow}, \hyperpage{132}
-    \subitem {SLRTutorWindow}, \hyperpage{191}
+    \subitem {LLTutorWindow}, \hyperpage{145}
+    \subitem {SLRTutorWindow}, \hyperpage{213}
   \item {updateState}
-    \subitem {LLTutorWindow}, \hyperpage{133}
-    \subitem {SLRTutorWindow}, \hyperpage{191}
+    \subitem {LLTutorWindow}, \hyperpage{145}
+    \subitem {SLRTutorWindow}, \hyperpage{213}
   \item {userAnswer}
-    \subitem {ExamRecord}, \hyperpage{61}
+    \subitem {ExamRecord}, \hyperpage{62}
   \item {userLevel}
-    \subitem {MainWindow}, \hyperpage{146, 147}
+    \subitem {MainWindow}, \hyperpage{162, 163}
   \item {userLevelChanged}
-    \subitem {MainWindow}, \hyperpage{146}
+    \subitem {MainWindow}, \hyperpage{162}
   \item {userLevelUp}
-    \subitem {MainWindow}, \hyperpage{147}
+    \subitem {MainWindow}, \hyperpage{162}
 
   \indexspace
 
   \item {verifyResponse}
-    \subitem {LLTutorWindow}, \hyperpage{133}
-    \subitem {SLRTutorWindow}, \hyperpage{191}
+    \subitem {LLTutorWindow}, \hyperpage{146}
+    \subitem {SLRTutorWindow}, \hyperpage{214}
   \item {verifyResponseForA}
-    \subitem {LLTutorWindow}, \hyperpage{133}
-    \subitem {SLRTutorWindow}, \hyperpage{191}
+    \subitem {LLTutorWindow}, \hyperpage{146}
+    \subitem {SLRTutorWindow}, \hyperpage{214}
   \item {verifyResponseForA1}
-    \subitem {LLTutorWindow}, \hyperpage{134}
-    \subitem {SLRTutorWindow}, \hyperpage{192}
+    \subitem {LLTutorWindow}, \hyperpage{146}
+    \subitem {SLRTutorWindow}, \hyperpage{214}
   \item {verifyResponseForA2}
-    \subitem {LLTutorWindow}, \hyperpage{134}
-    \subitem {SLRTutorWindow}, \hyperpage{192}
+    \subitem {LLTutorWindow}, \hyperpage{147}
+    \subitem {SLRTutorWindow}, \hyperpage{214}
   \item {verifyResponseForA3}
-    \subitem {SLRTutorWindow}, \hyperpage{192}
+    \subitem {SLRTutorWindow}, \hyperpage{215}
   \item {verifyResponseForA4}
-    \subitem {SLRTutorWindow}, \hyperpage{193}
+    \subitem {SLRTutorWindow}, \hyperpage{215}
   \item {verifyResponseForB}
-    \subitem {LLTutorWindow}, \hyperpage{134}
-    \subitem {SLRTutorWindow}, \hyperpage{193}
+    \subitem {LLTutorWindow}, \hyperpage{147}
+    \subitem {SLRTutorWindow}, \hyperpage{216}
   \item {verifyResponseForB1}
-    \subitem {LLTutorWindow}, \hyperpage{135}
+    \subitem {LLTutorWindow}, \hyperpage{147}
   \item {verifyResponseForB2}
-    \subitem {LLTutorWindow}, \hyperpage{135}
+    \subitem {LLTutorWindow}, \hyperpage{148}
   \item {verifyResponseForC}
-    \subitem {LLTutorWindow}, \hyperpage{135}
-    \subitem {SLRTutorWindow}, \hyperpage{193}
+    \subitem {LLTutorWindow}, \hyperpage{148}
+    \subitem {SLRTutorWindow}, \hyperpage{216}
   \item {verifyResponseForCA}
-    \subitem {SLRTutorWindow}, \hyperpage{194}
+    \subitem {SLRTutorWindow}, \hyperpage{216}
   \item {verifyResponseForCB}
-    \subitem {SLRTutorWindow}, \hyperpage{194}
+    \subitem {SLRTutorWindow}, \hyperpage{217}
   \item {verifyResponseForD}
-    \subitem {SLRTutorWindow}, \hyperpage{194}
+    \subitem {SLRTutorWindow}, \hyperpage{217}
   \item {verifyResponseForD1}
-    \subitem {SLRTutorWindow}, \hyperpage{195}
+    \subitem {SLRTutorWindow}, \hyperpage{217}
   \item {verifyResponseForD2}
-    \subitem {SLRTutorWindow}, \hyperpage{195}
+    \subitem {SLRTutorWindow}, \hyperpage{218}
   \item {verifyResponseForE}
-    \subitem {SLRTutorWindow}, \hyperpage{195}
+    \subitem {SLRTutorWindow}, \hyperpage{218}
   \item {verifyResponseForE1}
-    \subitem {SLRTutorWindow}, \hyperpage{195}
+    \subitem {SLRTutorWindow}, \hyperpage{218}
   \item {verifyResponseForE2}
-    \subitem {SLRTutorWindow}, \hyperpage{196}
+    \subitem {SLRTutorWindow}, \hyperpage{218}
   \item {verifyResponseForF}
-    \subitem {SLRTutorWindow}, \hyperpage{196}
+    \subitem {SLRTutorWindow}, \hyperpage{219}
   \item {verifyResponseForFA}
-    \subitem {SLRTutorWindow}, \hyperpage{196}
+    \subitem {SLRTutorWindow}, \hyperpage{219}
   \item {verifyResponseForG}
-    \subitem {SLRTutorWindow}, \hyperpage{196}
+    \subitem {SLRTutorWindow}, \hyperpage{219}
   \item {verifyResponseForH}
-    \subitem {SLRTutorWindow}, \hyperpage{196}
+    \subitem {SLRTutorWindow}, \hyperpage{219}
   \item {visibleStateCount}
-    \subitem {AutomatonView}, \hyperpage{50}
+    \subitem {AutomatonView}, \hyperpage{47}
   \item {visibleTransitionCount}
-    \subitem {AutomatonView}, \hyperpage{50}
+    \subitem {AutomatonView}, \hyperpage{48}
 
   \indexspace
 
   \item {wheelEvent}
-    \subitem {AutomatonView}, \hyperpage{50}
-  \item {widgets Directory Reference}, \hyperpage{24}
-  \item {widgets/appfonts.h}, \hyperpage{281, 282}
-  \item {widgets/appicon.h}, \hyperpage{283}
-  \item {widgets/applayout.h}, \hyperpage{284, 285}
-  \item {widgets/apppalette.h}, \hyperpage{286}
-  \item {widgets/appsettings.h}, \hyperpage{287, 288}
-  \item {widgets/appshortcuts.h}, \hyperpage{288, 289}
-  \item {widgets/apptextscale.h}, \hyperpage{289}, \hyperpage{291}
-  \item {widgets/apptypography.h}, \hyperpage{291}, \hyperpage{293}
-  \item {widgets/automatonview.cpp}, \hyperpage{295}
-  \item {widgets/automatonview.h}, \hyperpage{295, 296}
-  \item {widgets/customtextedit.cpp}, \hyperpage{298}
-  \item {widgets/customtextedit.h}, \hyperpage{298, 299}
-  \item {widgets/grammarview.cpp}, \hyperpage{299}
-  \item {widgets/grammarview.h}, \hyperpage{300}
-  \item {widgets/tutorialmanager.cpp}, \hyperpage{301}
-  \item {widgets/tutorialmanager.h}, \hyperpage{301, 302}
+    \subitem {AutomatonView}, \hyperpage{48}
+  \item {widgets Directory Reference}, \hyperpage{16}
+  \item {widgets/appfonts.h}, \hyperpage{313, 314}
+  \item {widgets/appicon.h}, \hyperpage{314, 315}
+  \item {widgets/applayout.h}, \hyperpage{316, 317}
+  \item {widgets/apppalette.h}, \hyperpage{318, 319}
+  \item {widgets/appsettings.h}, \hyperpage{319, 320}
+  \item {widgets/appshortcuts.h}, \hyperpage{321}
+  \item {widgets/apptextscale.h}, \hyperpage{322, 323}
+  \item {widgets/apptypography.h}, \hyperpage{324, 325}
+  \item {widgets/automatonview.cpp}, \hyperpage{327}
+  \item {widgets/automatonview.h}, \hyperpage{328, 329}
+  \item {widgets/customtextedit.cpp}, \hyperpage{330}
+  \item {widgets/customtextedit.h}, \hyperpage{331}
+  \item {widgets/grammarview.cpp}, \hyperpage{332}
+  \item {widgets/grammarview.h}, \hyperpage{333}
+  \item {widgets/tutorialmanager.cpp}, \hyperpage{334}
+  \item {widgets/tutorialmanager.h}, \hyperpage{334, 335}
   \item {wrongAnimation}
-    \subitem {LLTutorWindow}, \hyperpage{135}
-    \subitem {SLRTutorWindow}, \hyperpage{197}
+    \subitem {LLTutorWindow}, \hyperpage{148}
+    \subitem {SLRTutorWindow}, \hyperpage{220}
   \item {wrongUserResponseAnimation}
-    \subitem {LLTutorWindow}, \hyperpage{135}
-    \subitem {SLRTutorWindow}, \hyperpage{197}
+    \subitem {LLTutorWindow}, \hyperpage{148}
+    \subitem {SLRTutorWindow}, \hyperpage{220}
 
   \indexspace
 
   \item {zoomIn}
-    \subitem {AutomatonView}, \hyperpage{50}
+    \subitem {AutomatonView}, \hyperpage{48}
   \item {zoomOut}
-    \subitem {AutomatonView}, \hyperpage{50}
+    \subitem {AutomatonView}, \hyperpage{48}
 
 \end{theindex}

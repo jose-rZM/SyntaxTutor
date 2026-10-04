@@ -96,144 +96,158 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
   <div class="headertitle"><div class="title"><a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__2_users_2jose_2_documents_2cpp_2_syntax_tutor_2_r_e_a_d_m_e"></a> <img src="syntaxtutor-banner.svg" alt="" style="pointer-events: none;" class="inline" title="SyntaxTutor"/>    </p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
-SyntaxTutor: An Interactive Tool for Learning Syntax Analysis</h1>
-<p><a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> is an educational application designed to help compiler students understand LL(1) and SLR(1) parsing algorithms. Through a visual and interactive interface, it guides users step-by-step through the computation of FIRST, FOLLOW, CLOSURE, GOTO, predictive parsing tables, and LR automata, offering real-time pedagogical feedback.</p>
-<p>Rather than acting as a mere calculator, <a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> functions as a learning companion. It explains the reasoning behind each step, highlights common mistakes, and encourages students to engage with the theory behind the algorithms.</p>
-<hr  />
+<div class="textblock"><p><a class="anchor" id="md__2_users_2jose_2_documents_2cpp_2_syntax_tutor_2_r_e_a_d_m_e"></a> <img src="syntaxtutor-banner.png" alt="" class="inline" title="SyntaxTutor"/>    </p>
+<p><b>An interactive tutor for learning LL(1) and SLR(1) parsing.</b></p>
+<p><a href="https://github.com/jose-rZM/SyntaxTutor/releases/latest"><img src="https://img.shields.io/github/v/release/jose-rZM/SyntaxTutor?label=release" alt="Latest release" class="inline"/></a> <a href="https://github.com/jose-rZM/SyntaxTutor/actions/workflows/tests.yml"><img src="https://github.com/jose-rZM/SyntaxTutor/actions/workflows/tests.yml/badge.svg" alt="Tests" style="pointer-events: none;" class="inline"/></a> [<img src="https://img.shields.io/badge/license-GPLv3-blue.svg" alt="License: GPL v3" style="pointer-events: none;" class="inline"/>](LICENSE) <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey" alt="Platforms" class="inline"/></p>
+<p><a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> helps compiler students understand how LL(1) and SLR(1) parsers are built. The student works through each algorithm one question at a time: FIRST and FOLLOW sets, prediction symbols, LR(0) items, closures, transitions and, finally, the parsing table. Every answer is checked on the spot, and a wrong answer leads to smaller questions that rebuild the reasoning step by step, so the student learns why a result is what it is.</p>
+<dl class="section note"><dt>Note</dt><dd><b>Project status.</b> <a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> 2.0 is the final release. The project is complete and no further versions are planned. The source code remains available under the GPLv3 for anyone who wants to study it or build on it.</dd></dl>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
+Contents</h2>
+<ul>
+<li>Features</li>
+<li>Getting started</li>
+<li>How it works</li>
+<li>Screenshots</li>
+<li>Documentation</li>
+<li>Building from source</li>
+<li>Project structure</li>
+<li>Background</li>
+<li>License</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Features</h2>
+<ul>
+<li><b>Step-by-step tutors</b> for LL(1) and SLR(1), with immediate feedback on every answer.</li>
+<li><b>Pedagogical branching</b>: mistakes open smaller questions instead of revealing the result.</li>
+<li><b>Your own grammars</b>: a grammar editor with live validation, or generated grammars at three difficulty levels.</li>
+<li><b>Exam mode</b>: no feedback during the exercise, a 0–10 grade at the end and a question-by-question review.</li>
+<li><b>LR(0) automaton</b> drawn progressively as the student computes states and transitions.</li>
+<li><b>Guided table modes</b> that walk through the LL(1) and SLR(1) tables one cell at a time.</li>
+<li><b>PDF export</b> of the conversation, sets, automaton states, parsing tables and exam reports.</li>
+<li><b>Quick references</b> for the theory of both algorithms.</li>
+<li><b>Spanish and English</b> interface, adjustable text size and gamified progress.</li>
+</ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
-🎓 About the Project</h2>
-<p><a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> 1.x was the Final Degree Project "Interactive Tutorial About Syntax Analyzers" (2025). Version 2 is a later extension and redesign, developed independently of that project.</p>
-<hr  />
+Getting started</h2>
+<p>Download the build for your system from the <a href="https://github.com/jose-rZM/SyntaxTutor/releases/latest">latest release</a>. No installation or Internet connection is needed.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">System  </th><th class="markdownTableHeadNone">Download  </th><th class="markdownTableHeadNone">Requirements  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Windows  </td><td class="markdownTableBodyNone"><span class="tt">SyntaxTutor-&lt;version&gt;-windows-x64.zip</span>  </td><td class="markdownTableBodyNone">Windows 10 or 11, 64-bit  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">macOS  </td><td class="markdownTableBodyNone"><span class="tt">SyntaxTutor-&lt;version&gt;-macos-arm64.zip</span>  </td><td class="markdownTableBodyNone">Apple Silicon (M1 or later)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Linux  </td><td class="markdownTableBodyNone"><span class="tt">SyntaxTutor-&lt;version&gt;-x86_64.AppImage</span>  </td><td class="markdownTableBodyNone">Ubuntu 22.04, Debian 12 or newer  </td></tr>
+</table>
+<ul>
+<li><b>Windows</b>: unzip and run <span class="tt">SyntaxTutor.exe</span>.</li>
+<li><b>macOS</b>: unzip, move <span class="tt">SyntaxTutor.app</span> to <em>Applications</em> and open it.</li>
+<li><b>Linux</b>: <span class="tt">chmod +x SyntaxTutor-&lt;version&gt;-x86_64.AppImage</span> and run it. It uses X11, or XWayland on Wayland desktops; start it with <span class="tt">QT_QPA_PLATFORM=wayland</span> to run natively on Wayland.</li>
+</ul>
+<dl class="section warning"><dt>Warning</dt><dd>The Windows and macOS builds are not digitally signed, so the system may warn you the first time you open them. The user manual explains how to open them anyway. Only do so with files downloaded from this repository.</dd></dl>
+<p>Once the application is open, the <b>Tutorial</b> button on the home screen gives a short tour of the interface and the first exercises.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+How it works</h2>
+<p><b>LL(1).</b> The tutor asks for the size of the predictive table and then, rule by rule, for the prediction symbols. A wrong answer is broken down into the FIRST set of the right-hand side and the FOLLOW set of the left-hand side before the question is asked again. The exercise ends with the LL(1) table, where wrong cells are highlighted and a guided mode is available.</p>
+<p><b>SLR(1).</b> The tutor starts from the closure of the initial item and builds the LR(0) collection state by state: number of items, symbols after the dot and every transition δ(I, X). It then covers the table dimensions, states with complete items, LR(0) conflicts resolved with FOLLOW sets and reduce-only states, and ends with the SLR(1) parsing table.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-🎯 Key Features</h2>
+Screenshots</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone"></th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="home.png" alt="" class="inline" title="Home screen"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone"><p class="starttd"><img src="grammar-editor.png" alt="" class="inline" title="Grammar editor"/>    </p>
+<p class="endtd"></p>
+</td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Home.</b> Choose a tutor, the difficulty, your own grammar or exam mode.  </td><td class="markdownTableBodyNone"><b><a class="el" href="struct_grammar.html" title="Represents a context-free grammar, including its rules, symbol table, and starting symbol.">Grammar</a> editor.</b> Live validation; only LL(1) or SLR(1) grammars are accepted.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="ll-tutor.png" alt="" class="inline" title="LL(1) tutor"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone"><p class="starttd"><img src="ll-table-retry.png" alt="" class="inline" title="LL(1) table"/>    </p>
+<p class="endtd"></p>
+</td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LL(1) tutor.</b> A wrong answer leads to questions about FIRST and FOLLOW.  </td><td class="markdownTableBodyNone"><b>LL(1) table.</b> Wrong cells are highlighted after each submission.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="slr-tutor.png" alt="" class="inline" title="SLR(1) tutor"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone"><p class="starttd"><img src="slr-automaton.png" alt="" class="inline" title="LR(0) automaton"/>    </p>
+<p class="endtd"></p>
+</td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SLR(1) tutor.</b> Building the LR(0) collection, transition by transition.  </td><td class="markdownTableBodyNone"><b>LR(0) automaton.</b> It grows as each state is computed.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="slr-table.png" alt="" class="inline" title="SLR(1) table"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone"><p class="starttd"><img src="slr-guided.png" alt="" class="inline" title="SLR(1) guided mode"/>    </p>
+<p class="endtd"></p>
+</td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SLR(1) table.</b> <span class="tt">sN</span>, <span class="tt">rN</span>, <span class="tt">acc</span> and goto entries.  </td><td class="markdownTableBodyNone"><b>Guided mode.</b> One cell at a time, with a hint for each.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="ll-guided.png" alt="" class="inline" title="LL(1) guided mode"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone"><p class="starttd"><img src="exam-report.png" alt="" class="inline" title="Exam report"/>    </p>
+<p class="endtd"></p>
+</td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LL(1) guided mode.</b> The same help for the predictive table.  </td><td class="markdownTableBodyNone"><b>Exam report.</b> The grade and a review of every answer, exportable to PDF.  </td></tr>
+</table>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Documentation</h2>
 <ul>
-<li><b>Educational focus</b>: built to teach, not just compute. Wrong answers branch into smaller questions instead of revealing the result.</li>
-<li><b>LL(1) and SLR(1) tutors</b>: FIRST, FOLLOW and prediction symbols; LR(0) items, closures, transitions and the parsing tables.</li>
-<li><b>Your own grammars</b>: type any grammar, with live validation, or practise with generated ones at three difficulty levels.</li>
-<li><b>Exam mode</b>: no feedback during the exercise and a 0-10 grade with a full question-by-question review.</li>
-<li><b>LR(0) automaton</b>: drawn progressively as you build the states.</li>
-<li><b>Guided table modes</b>: fill in the LL(1) and SLR(1) tables one cell at a time, with hints.</li>
-<li><b>PDF export</b> of the conversation, sets, automaton states, tables and exam reports.</li>
-<li><b>Spanish and English</b>, adjustable text size and gamified progress.</li>
+<li><b>User manual</b>: <a href="manual/SyntaxTutor-Manual-EN.pdf">English</a> · <a href="manual/SyntaxTutor-Manual-ES.pdf">Español</a></li>
+<li><b>Developer documentation</b> (Doxygen): <a href="https://jose-rzm.github.io/SyntaxTutor/">online</a> · <a href="manual/SyntaxTutor-Developer-Manual.pdf">PDF</a></li>
+<li><b>Changes between versions</b>: CHANGELOG</li>
 </ul>
-<hr  />
+<p>The developer documentation covers every class and function, with dependency and inheritance graphs. To regenerate it, install <a href="https://www.doxygen.nl/">Doxygen</a> and Graphviz and run <span class="tt">doxygen</span> from the repository root; the output goes to <span class="tt">docs/</span>.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
-📖 User Manual</h2>
+Building from source</h2>
+<p>Requirements:</p>
 <ul>
-<li>🇬🇧 <a href="manual/SyntaxTutor-Manual-EN.pdf">English</a></li>
-<li>🇪🇸 <a href="manual/SyntaxTutor-Manual-ES.pdf">Español</a></li>
+<li>Qt 6, including <span class="tt">qmake6</span> and the Qt SVG module</li>
+<li>A C++20 compiler: GCC 11 or newer, a recent Clang, or MSVC 2022</li>
+<li><a href="https://github.com/google/googletest">GoogleTest</a>, only for the backend tests</li>
 </ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
-🖼️ Interface Screenshots</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-🏠 Home</h3>
-<div class="image">
-<img src="home.png" alt=""/>
-<div class="caption">
-Home screen</div></div>
-    <p>Pick a tutor, the difficulty, your own grammar or exam mode.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
-📘 LL(1) Tutor</h3>
-<div class="image">
-<img src="ll-tutor.png" alt=""/>
-<div class="caption">
-LL(1) tutor</div></div>
-    <p>The tutor asks one question at a time; a wrong answer leads to smaller questions about FIRST and FOLLOW.</p>
-<div class="image">
-<img src="ll-table-retry.png" alt=""/>
-<div class="caption">
-LL(1) table with a wrong cell</div></div>
-    <p>The LL(1) table, with the wrong cells highlighted after a submission.</p>
-<div class="image">
-<img src="ll-guided.png" alt=""/>
-<div class="caption">
-LL(1) guided mode</div></div>
-    <p>Guided mode walks through the table one cell at a time.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
-🧠 SLR(1) Tutor</h3>
-<div class="image">
-<img src="slr-tutor.png" alt=""/>
-<div class="caption">
-SLR(1) tutor</div></div>
-    <p>Building the LR(0) collection: items, symbols after the dot and transitions.</p>
-<div class="image">
-<img src="slr-automaton.png" alt=""/>
-<div class="caption">
-LR(0) automaton</div></div>
-    <p>The LR(0) automaton grows as you compute each state and transition.</p>
-<div class="image">
-<img src="slr-table.png" alt=""/>
-<div class="caption">
-SLR(1) table</div></div>
-    <p>The SLR(1) parsing table, with <span class="tt">sN</span>, <span class="tt">rN</span>, <span class="tt">acc</span> and goto entries.</p>
-<div class="image">
-<img src="slr-guided.png" alt=""/>
-<div class="caption">
-SLR(1) guided mode</div></div>
-    <p>Guided mode for the SLR(1) table.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
-✍️ Your Own Grammar</h3>
-<div class="image">
-<img src="grammar-editor.png" alt=""/>
-<div class="caption">
-Grammar editor</div></div>
-    <p>The editor checks the grammar as you type and only accepts LL(1) or SLR(1) grammars, depending on the tutor.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
-📝 Exam Mode</h3>
-<div class="image">
-<img src="exam-report.png" alt=""/>
-<div class="caption">
-Exam report</div></div>
-    <p>At the end of an exam: the grade and a review of every answer, exportable to PDF.</p>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-🛠️ Technologies Used</h2>
-<ul>
-<li><b>C++</b>: efficient implementation of parsing algorithms</li>
-<li><b>Qt6</b>: modern, cross-platform graphical user interface.</li>
-<li><b>Modular architecture</b>: clean separation between logic and UI, designed for easy extensibility.</li>
-</ul>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
-📦 Downloads</h2>
-<p>Precompiled builds of <a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> are available in the Releases tab:</p><ul>
-<li>🐧 Linux: executable AppImage (Ubuntu 22.04, Debian 12 or newer). It runs on X11, and on Wayland desktops through XWayland; to run it natively on Wayland, start it with <span class="tt">QT_QPA_PLATFORM=wayland ./SyntaxTutor-&lt;version&gt;-x86_64.AppImage</span></li>
-<li>🪟 Windows: ZIP archive with the .exe</li>
-<li>🍎 macOS: .app bundle for Apple Silicon (ARM)</li>
-</ul>
-<dl class="section warning"><dt>Warning</dt><dd>The Windows and macOS versions are not digitally signed. Your operating system may display a warning when running the application. You can bypass it manually if you trust the source.</dd></dl>
-<hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
-🛠️ Building from Source</h2>
-<p>To build <a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> from source, you need:</p><ul>
-<li>Qt6 (including <span class="tt">qmake6</span> and the Qt SVG module)</li>
-<li>A C++20-compliant compiler (GCC 11 or newer works)</li>
-<li><a href="https://github.com/google/googletest">GoogleTest</a>, only to run the backend tests</li>
-</ul>
-<p>With GNU make, the repository's <span class="tt">GNUmakefile</span> builds out of tree: </p><div class="fragment"><div class="line">make app     # the application, in build/app</div>
+<p>With GNU make, the repository's <span class="tt">GNUmakefile</span> builds out of tree:</p>
+<div class="fragment"><div class="line">make app     # the application, in build/app</div>
 <div class="line">make check   # backend and GUI tests</div>
-</div><!-- fragment --><p> To use qmake directly instead, pass <span class="tt">-f Makefile</span>: in the repository root GNU make would otherwise pick up the <span class="tt">GNUmakefile</span> above. </p><div class="fragment"><div class="line">qmake6</div>
+</div><!-- fragment --><p><span class="tt">make check-core</span> and <span class="tt">make check-ui</span> run each suite on its own; the same tests run in CI on every push and pull request. To use qmake directly, pass <span class="tt">-f Makefile</span>, because GNU make would otherwise pick up the <span class="tt">GNUmakefile</span>:</p>
+<div class="fragment"><div class="line">qmake6</div>
 <div class="line">make -f Makefile</div>
-</div><!-- fragment --> <hr  />
-<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
-📚 Documentation</h3>
-<p>Full documentation for the source code is available via Doxygen:</p>
-<ul>
-<li><b>🌐 Online HTML Documentation</b>: <a href="https://jose-rzm.github.io/SyntaxTutor/">https://jose-rzm.github.io/SyntaxTutor/</a></li>
-<li><b>📄 PDF Developer Manual</b>: <a href="manual/SyntaxTutor-Developer-Manual.pdf">SyntaxTutor-Developer-Manual.pdf</a></li>
-</ul>
-<p>The documentation includes:</p>
-<ul>
-<li>Detailed class and function reference</li>
-<li>Graphs of dependencies and inheritance</li>
-<li>Descriptions of parsing algorithms and internal logic</li>
-</ul>
-<p>To regenerate it locally, install <a href="https://www.doxygen.nl/">Doxygen</a> and run:</p>
-<div class="fragment"><div class="line">doxygen</div>
-</div><!-- fragment --><p>This will update the contents of the <span class="tt">docs/</span> folder with both HTML and LaTeX output. </p>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+Project structure</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Path  </th><th class="markdownTableHeadNone">Contents  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">src/backend/</span>  </td><td class="markdownTableBodyNone"><a class="el" href="struct_grammar.html" title="Represents a context-free grammar, including its rules, symbol table, and starting symbol.">Grammar</a> model and parsing engine: FIRST/FOLLOW, LL(1) table, LR(0) items and the SLR(1) table, in plain C++20 with no Qt dependency.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">src/gui/</span>  </td><td class="markdownTableBodyNone">Main window, the LL(1) and SLR(1) tutors with their question flows, table dialogs, guided modes, exam report and PDF export.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">src/widgets/</span>  </td><td class="markdownTableBodyNone">Reusable widgets and helpers: chat input, grammar view, LR(0) automaton view, tutorial overlay, typography and settings.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">src/app/</span>  </td><td class="markdownTableBodyNone">Application entry point.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">tests/</span>  </td><td class="markdownTableBodyNone">GUI tests with fixed grammar fixtures; the backend tests live in <span class="tt">src/backend/tests.cpp</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">resources/</span>  </td><td class="markdownTableBodyNone">Icon, logo, fonts and the application style sheet.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">translations/</span>  </td><td class="markdownTableBodyNone">Spanish and English translations.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">manual/</span>, <span class="tt">docs/</span>  </td><td class="markdownTableBodyNone">User and developer manuals, and the generated Doxygen output.  </td></tr>
+</table>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+Background</h2>
+<p><a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> 1.x was the Final Degree Project "Interactive Tutorial About Syntax Analyzers" (2025). Version 2 is a later extension and redesign, developed independently of that project: it adds custom grammars, exam mode, the LR(0) automaton, guided table modes and a new interface. See the CHANGELOG for the full list.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+License</h2>
+<p><a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> is free software, released under the [GNU General Public License v3.0](LICENSE). It is built with <a href="https://www.qt.io/">Qt 6</a>, also available under the GPLv3, and bundles the JetBrains Mono font under the <a href="resources/fonts/OFL.txt">SIL Open Font License</a>.</p>
+<p>Created by <a href="https://github.com/jose-rZM">José R.</a>. If you use <a class="el" href="namespace_syntax_tutor.html">SyntaxTutor</a> in a course or build on it, a mention of the project is appreciated. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

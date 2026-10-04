@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['exam_20mode_0',['📝 Exam Mode',['../index.html#autotoc_md13',1,'']]]
+  ['getting_20started_0',['Getting started',['../index.html#autotoc_md2',1,'']]]
 ];
