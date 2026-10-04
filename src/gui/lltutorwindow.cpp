@@ -263,7 +263,7 @@ bool LLTutorWindow::confirmExitToHome() {
     QMessageBox msg(this);
     msg.setWindowTitle(tr("Salir del ejercicio LL(1)"));
     msg.setTextFormat(Qt::RichText);
-    msg.setText(tr("Quieres volver al menu principal? Se perdera el progreso "
+    msg.setText(tr("¿Quieres volver al menú principal? Se perderá el progreso "
                    "actual."));
     msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msg.setDefaultButton(QMessageBox::No);
@@ -272,7 +272,7 @@ bool LLTutorWindow::confirmExitToHome() {
     QAbstractButton* noBtn  = msg.button(QMessageBox::No);
 
     if (yesBtn) {
-        yesBtn->setText(tr("Si"));
+        yesBtn->setText(tr("Sí"));
         yesBtn->setCursor(Qt::PointingHandCursor);
         yesBtn->setIcon(QIcon());
         yesBtn->setProperty("role", "primary");

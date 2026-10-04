@@ -397,12 +397,12 @@ T -&gt; ( E ) | id .</translation>
     </message>
     <message>
         <location filename="../src/gui/lltutorwindow.cpp" line="266"/>
-        <source>Quieres volver al menu principal? Se perdera el progreso actual.</source>
+        <source>¿Quieres volver al menú principal? Se perderá el progreso actual.</source>
         <translation>Do you want to go back to the main menu? Current progress will be lost.</translation>
     </message>
     <message>
         <location filename="../src/gui/lltutorwindow.cpp" line="275"/>
-        <source>Si</source>
+        <source>Sí</source>
         <translation>Yes</translation>
     </message>
     <message>
@@ -1744,12 +1744,12 @@ Check that you have write permission for that folder.</translation>
     </message>
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="381"/>
-        <source>Quieres volver al menu principal? Se perdera el progreso actual.</source>
+        <source>¿Quieres volver al menú principal? Se perderá el progreso actual.</source>
         <translation>Do you want to go back to the main menu? Current progress will be lost.</translation>
     </message>
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="390"/>
-        <source>Si</source>
+        <source>Sí</source>
         <translation>Yes</translation>
     </message>
     <message>

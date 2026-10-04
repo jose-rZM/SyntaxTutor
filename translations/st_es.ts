@@ -401,12 +401,12 @@ En esta gramática: %1</source>
     </message>
     <message>
         <location filename="../src/gui/lltutorwindow.cpp" line="266"/>
-        <source>Quieres volver al menu principal? Se perdera el progreso actual.</source>
+        <source>¿Quieres volver al menú principal? Se perderá el progreso actual.</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/lltutorwindow.cpp" line="275"/>
-        <source>Si</source>
+        <source>Sí</source>
         <translation></translation>
     </message>
     <message>
@@ -2320,12 +2320,12 @@ No has listado ningún estado conflictivo. </source>
     </message>
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="381"/>
-        <source>Quieres volver al menu principal? Se perdera el progreso actual.</source>
+        <source>¿Quieres volver al menú principal? Se perderá el progreso actual.</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/slrtutorwindow.cpp" line="390"/>
-        <source>Si</source>
+        <source>Sí</source>
         <translation></translation>
     </message>
     <message>
