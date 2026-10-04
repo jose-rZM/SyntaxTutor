@@ -9,6 +9,7 @@
 #include "lltutorwindow.h"
 #include "mainwindow.h"
 #include "production_typography.h"
+#include "slr_tutor_test_utils.h"
 #include "slrtutorwindow.h"
 #include "tutor_grammar_fixtures.h"
 
@@ -24,6 +25,9 @@
 #include <QSettings>
 #include <QTest>
 #include <QTimer>
+#include <cmath>
+#include <QTextEdit>
+#include <QRegularExpression>
 #include <QTranslator>
 
 namespace {
@@ -171,6 +175,44 @@ void auditDialogs(const QString& language, int percent) {
     check("exam report", auditAcrossWidths(&examReport));
 }
 
+// WCAG contrast ratio between two colours, from 1:1 to 21:1.
+double contrastRatio(const QColor& a, const QColor& b) {
+    const auto luminance = [](const QColor& c) {
+        const auto channel = [](double v) {
+            return v <= 0.03928 ? v / 12.92
+                                : std::pow((v + 0.055) / 1.055, 2.4);
+        };
+        return 0.2126 * channel(c.redF()) + 0.7152 * channel(c.greenF()) +
+               0.0722 * channel(c.blueF());
+    };
+    const double la = luminance(a), lb = luminance(b);
+    return (std::max(la, lb) + 0.05) / (std::min(la, lb) + 0.05);
+}
+
+// Text colours used in a panel's rich text that fall short of the 4.5:1
+// WCAG asks of body text against @p background.
+QStringList lowContrastColours(const QString& html, const QColor& background) {
+    static const QRegularExpression textColour(
+        QStringLiteral("(?<![-\\w])color:\\s*(#[0-9a-fA-F]{6})"));
+    QStringList problems;
+    QStringList seen;
+    auto        it = textColour.globalMatch(html);
+    while (it.hasNext()) {
+        const QColor colour(it.next().captured(1));
+        if (seen.contains(colour.name())) {
+            continue;
+        }
+        seen << colour.name();
+        const double ratio = contrastRatio(colour, background);
+        if (ratio < 4.5) {
+            problems << QStringLiteral("%1 at %2:1")
+                            .arg(colour.name())
+                            .arg(ratio, 0, 'f', 1);
+        }
+    }
+    return problems;
+}
+
 } // namespace
 
 // -----------------------------------------------------------------------------
@@ -289,4 +331,30 @@ void TutorWindowTest::layoutScrollBarsFollowTheDarkTheme() {
                                 .arg(pixel.name())
                                 .arg(y)));
     }
+}
+
+// -----------------------------------------------------------------------------
+// Test: layoutProgressPanelsMeetTextContrast
+// Expected:
+//   Every text colour in the LL(1) and SLR(1) progress panels reaches the
+//   4.5:1 contrast WCAG asks of body text against the panel background. The
+//   SLR transitions were #777777, 3.5:1, and barely readable.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::layoutProgressPanelsMeetTextContrast() {
+    const QColor panel(QStringLiteral("#212526"));
+
+    SLRTutorWindow slr(TutorGrammarFixtures::makeSlrSimpleGrammar(), nullptr);
+    // Far enough for the panel to list states and their transitions.
+    for (int i = 0; i < 12 && slr.currentStateForTest() != "D"; ++i) {
+        SlrTutorTestUtils::submitCorrectAnswerForCurrentState(slr);
+    }
+    const QString slrHtml = slr.findChild<QTextEdit*>("textEdit")->toHtml();
+    QVERIFY(slrHtml.contains(QStringLiteral("δ(")));
+    QStringList problems = lowContrastColours(slrHtml, panel);
+    QVERIFY2(problems.isEmpty(), qPrintable(problems.join(", ")));
+
+    LLTutorWindow ll(TutorGrammarFixtures::makeLl1SimpleGrammar(), nullptr);
+    problems = lowContrastColours(
+        ll.findChild<QTextEdit*>("textEdit")->toHtml(), panel);
+    QVERIFY2(problems.isEmpty(), qPrintable(problems.join(", ")));
 }

@@ -82,6 +82,7 @@ class TutorWindowTest : public QObject {
     void layoutDialogsShowAllTextAtEveryTextSize();
     void layoutTutorsShowAllTextAtEveryTextSize();
     void layoutScrollBarsFollowTheDarkTheme();
+    void layoutProgressPanelsMeetTextContrast();
 
     void mainCustomGrammarToggleDisablesLevels();
     void mainCustomGrammarLlFlowStartsTutorWithUserGrammar();
