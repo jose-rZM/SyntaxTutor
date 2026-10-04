@@ -38,6 +38,12 @@
 #include <algorithm>
 
 namespace {
+// Horizontal space a chat bubble adds around its text: on each side 16 px
+// of padding, a 1 px border and the 4 px document margin of the text
+// control a selectable QLabel lays out with, plus 2 px so fractional glyph
+// advances never push the last word onto a line of its own.
+constexpr int kBubbleChrome = 2 * (16 + 1 + 4) + 2;
+
 // The export path comes from a save dialog, but the target can still be
 // unwritable (read-only volume, revoked permission). QPrinter reports
 // nothing, so confirm the file really landed and tell the user if not.
@@ -1128,11 +1134,12 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
     const int bubbleMaxWidth = qMax(180, listWidth - 72);
 
     QFontMetrics fm(label->font());
-    int          textWidth = fm.boundingRect(0, 0, bubbleMaxWidth, 0,
-                                             Qt::TextWordWrap, text)
-                        .width();
+    int          textWidth =
+        fm.boundingRect(0, 0, bubbleMaxWidth - kBubbleChrome, 0,
+                        Qt::TextWordWrap, messageText)
+            .width();
 
-    int adjustedWidth = qBound(80, textWidth + 32, bubbleMaxWidth);
+    int adjustedWidth = qBound(80, textWidth + kBubbleChrome, bubbleMaxWidth);
     label->setFixedWidth(adjustedWidth);
 
     if (isUser) {
@@ -1174,7 +1181,7 @@ void SLRTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(255, 255, 255, 0.05);
         )");
     }
-    label->setAlignment(Qt::AlignJustify);
+    label->setAlignment(Qt::AlignLeft);
     label->adjustSize();
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
@@ -1305,9 +1312,11 @@ void SLRTutorWindow::relayoutChatMessages() {
             const QString text = label->property("chatText").toString();
             QFontMetrics   fm(label->font());
             const int textWidth =
-                fm.boundingRect(0, 0, bubbleMaxWidth, 0, Qt::TextWordWrap, text)
+                fm.boundingRect(0, 0, bubbleMaxWidth - kBubbleChrome, 0,
+                                Qt::TextWordWrap, text)
                     .width();
-            label->setFixedWidth(qBound(80, textWidth + 32, bubbleMaxWidth));
+            label->setFixedWidth(
+                qBound(80, textWidth + kBubbleChrome, bubbleMaxWidth));
         }
 
         // updateGeometry() only schedules a recalculation, so sizeHint()
