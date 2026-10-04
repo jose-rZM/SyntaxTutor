@@ -1,11 +1,18 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/check.svg</file>
         <file>resources/send.svg</file>
-        <file>resources/syntaxtutor.png</file>
-        <file>resources/NotoSans-Bold.ttf</file>
-        <file>resources/NotoSans-Italic.ttf</file>
-        <file>resources/NotoSans-Regular.ttf</file>
-        <file>resources/trophy.svg</file>
+        <file>resources/icon/png/syntaxtutor-16.png</file>
+        <file>resources/icon/png/syntaxtutor-24.png</file>
+        <file>resources/icon/png/syntaxtutor-32.png</file>
+        <file>resources/icon/png/syntaxtutor-48.png</file>
+        <file>resources/icon/png/syntaxtutor-64.png</file>
+        <file>resources/icon/png/syntaxtutor-128.png</file>
+        <file>resources/icon/png/syntaxtutor-256.png</file>
+        <file>resources/icon/png/syntaxtutor-512.png</file>
+        <file>resources/fonts/JetBrainsMono-Regular.ttf</file>
+        <file>resources/fonts/JetBrainsMono-Bold.ttf</file>
+        <file>resources/styles/app.qss</file>
         <file>translations/st_en.qm</file>
         <file>translations/st_es.qm</file>
     </qresource>

@@ -1,0 +1,6 @@
+<map id="ConversationPdf::ConversationPdf" name="ConversationPdf::ConversationPdf">
+<area shape="rect" id="Node000001" title="Starts a document for the exercise named exercise." alt="" coords="5,37,229,62"/>
+<area shape="rect" id="Node000002" href="$namespace_syntax_tutor_1_1_version.html#a665e768d4d2c12eda507ffb657c3400c" title=" " alt="" coords="277,29,421,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,47,264,50,259,50,229,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="306,27,303,19,310,10,326,5,349,3,374,5,390,14,385,13,373,10,349,8,327,10,313,15,308,21,310,30"/>
+</map>

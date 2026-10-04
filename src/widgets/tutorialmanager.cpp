@@ -17,6 +17,7 @@
  */
 
 #include "tutorialmanager.h"
+#include "apptypography.h"
 #include <QVBoxLayout>
 
 TutorialManager::TutorialManager(QWidget* rootWindow)
@@ -104,7 +105,6 @@ void TutorialManager::nextStep() {
     showOverlay();
 }
 
-#include <QScrollBar>
 void TutorialManager::showOverlay() {
     if (m_overlay) {
         hideOverlay();
@@ -129,42 +129,20 @@ void TutorialManager::showOverlay() {
         padding:12px;
         border-radius:8px;
     )");
-    m_textBox->verticalScrollBar()->setStyleSheet(R"(
-    QScrollBar:vertical {
-        background: #2E2E2E;
-        width: 12px;
-        margin: 0px;
-        border-radius: 6px;
-    }
-    QScrollBar::handle:vertical {
-        background: #555555;
-        min-height: 20px;
-        border-radius: 6px;
-    }
-    QScrollBar::handle:vertical:hover {
-        background: #777777;
-    }
-    QScrollBar::add-line, QScrollBar::sub-line {
-        height: 0px;
-    }
-    QScrollBar::add-page, QScrollBar::sub-page {
-        background: none;
-    }
-)");
     m_textBox->setHtml(m_steps[m_index].htmlText);
     m_textBox->show();
 
-    m_nextBtn = new QPushButton("&Siguiente", m_overlay);
+    m_nextBtn = new QPushButton(tr("&Siguiente"), m_overlay);
+    m_nextBtn->setObjectName("tutorialNextButton");
     m_nextBtn->setCursor(Qt::PointingHandCursor);
-    m_nextBtn->setStyleSheet(R"(
+    m_nextBtn->setStyleSheet(AppTypography::resolveStyleSheet(R"(
     QPushButton {
         background-color: #00ADB5;
         color: #FFFFFF;
         border: none;
         padding: 10px 20px;
         border-radius: 8px;
-        font-size: 14px;
-        font-family: 'Noto Sans';
+        font-size: $font-body-large;
         font-weight: bold;
     }
     QPushButton:hover {
@@ -173,7 +151,7 @@ void TutorialManager::showOverlay() {
     QPushButton:pressed {
         background-color: #007F86;
     }
-    )");
+    )"));
     connect(m_nextBtn, &QPushButton::clicked, this, &TutorialManager::nextStep);
     m_nextBtn->show();
 

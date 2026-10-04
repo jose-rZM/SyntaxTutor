@@ -1,0 +1,333 @@
+\doxysection{conversationpdf.\+h}
+\label{conversationpdf_8h_source}\index{gui/conversationpdf.h@{gui/conversationpdf.h}}
+\doxymbox{\hyperlink{conversationpdf_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ CONVERSATIONPDF\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ CONVERSATIONPDF\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}apptypography.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}appversion.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}examsession.h"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QCoreApplication>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QDateTime>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QFontDatabase>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QLatin1StringView>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QMarginsF>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <QPageSize>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <QPair>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <QPrinter>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <QStringList>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <QTextDocument>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <QVector>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }ConversationPdf\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ Q\_DECLARE\_TR\_FUNCTIONS(ConversationPdf)}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{struct\ }Message\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ QString\ text;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ fromStudent\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ correct\ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{using\ }Rule\ =\ QPair<QString,\ QVector<QString>>;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ kMaxTableColumns\ =\ 10;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{explicit}\ ConversationPdf(\textcolor{keyword}{const}\ QString\&\ exercise)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<html><head><style>\%1</style></head><body>"{}})}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(styleSheet());}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ PNG,\ not\ the\ SVG:\ Qt\ SVG\ drops\ the\ icon's\ clip\ paths.}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<table\ class='header'\ cellspacing='0'\ cellpadding='0'>"{}}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<tr><td\ class='logo'><img\ src='\%1'\ width='46'\ "{}}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}height='46'></td><td><p\ class='kicker'>SyntaxTutor</p>"{}}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<h1>\%2</h1><p\ class='meta'>\%3</p></td></tr></table>"{}})}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QStringLiteral(}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:/resources/icon/png/syntaxtutor-\/256.png"{}}))}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(exercise.toHtmlEscaped(),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}Generado\ el\ \%1\ con\ SyntaxTutor\ \%2"{}})}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QDateTime::currentDateTime().toString(}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringLiteral(\textcolor{stringliteral}{"{}dd/MM/yyyy\ HH:mm"{}})),}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SyntaxTutor::Version::current())}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .toHtmlEscaped());}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ addGrammar(\textcolor{keyword}{const}\ QVector<Rule>\&\ rules,\ \textcolor{keywordtype}{bool}\ numbered)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ addSection(tr(\textcolor{stringliteral}{"{}Gramática"{}}));}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<table\ class='grammar'\ cellspacing='0'\ "{}}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cellpadding='1'>"{}});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ rules.size();\ ++i)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<tr>"{}});}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (numbered)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<td\ class='num'>(\%1)</td>"{}}).arg(i);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<td\ class='mono'>\%1\ →\ \%2</td></tr>"{}})}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(rules[i].first.toHtmlEscaped(),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringList(rules[i].second.begin(),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rules[i].second.end())}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .join(QLatin1Char(\textcolor{charliteral}{'\ '}))}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .toHtmlEscaped());}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</table>"{}});}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ addConversation(\textcolor{keyword}{const}\ QVector<Message>\&\ messages)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ addSection(tr(\textcolor{stringliteral}{"{}Conversación"{}}));}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<table\ class='chat'\ width='100\%'\ "{}}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cellspacing='0'\ cellpadding='6'>"{}});}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ Message\&\ message\ :\ messages)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \ \ \ wrong\ =\ message.fromStudent\ \&\&\ !message.correct;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ rowClass\ =}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wrong\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}wrong"{}})}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ (message.fromStudent\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}student"{}})}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QStringLiteral(\textcolor{stringliteral}{"{}tutor"{}}));}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ QString\ who\ =\ message.fromStudent\ ?\ tr(\textcolor{stringliteral}{"{}Usuario"{}})\ :\ tr(\textcolor{stringliteral}{"{}Tutor"{}});}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (wrong)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ who\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<br><span\ class='flag'>\%1</span>"{}})}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(tr(\textcolor{stringliteral}{"{}incorrecta"{}}));}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<tr\ class='\%1'><td\ class='who'\ "{}}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}width='14\%'>\%2</td><td>\%3</td></tr>"{}})}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(rowClass,\ who,\ multiline(message.text));}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</table>"{}});}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ addResult(\textcolor{keyword}{const}\ QString\&\ grade,\ \textcolor{keywordtype}{bool}\ passed,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ lines)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ tone\ =}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ passed\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}pass"{}})\ :\ QStringLiteral(\textcolor{stringliteral}{"{}fail"{}});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<table\ class='result'\ cellspacing='0'\ "{}}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cellpadding='0'><tr><td\ class='grade\ \%1'>"{}}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\%2</td><td>"{}})}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(tone,\ grade.toHtmlEscaped());}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ lines.size();\ ++i)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ last\ =\ i\ ==\ lines.size()\ -\/\ 1;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<p\ class='\%1'>\%2</p>"{}})}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(last\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}verdict\ "{}})\ +\ tone}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QStringLiteral(\textcolor{stringliteral}{"{}summary"{}}),}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lines[i].toHtmlEscaped());}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</td></tr></table>"{}});}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{void}\ addReview(\textcolor{keyword}{const}\ QVector<ExamRecord>\&\ records)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ addSection(tr(\textcolor{stringliteral}{"{}Revisión"{}}));}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<table\ class='review'\ width='100\%'\ cellspacing='0'\ "{}}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cellpadding='5'><thead><tr><th\ width='40\%'>\%1</th>"{}}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<th\ width='27\%'>\%2</th><th\ width='27\%'>\%3</th>"{}}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<th\ width='6\%'></th></tr></thead><tbody>"{}})}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(tr(\textcolor{stringliteral}{"{}Pregunta"{}}),\ tr(\textcolor{stringliteral}{"{}Tu\ respuesta"{}}),}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}Respuesta\ correcta"{}}));}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ ExamRecord\&\ record\ :\ records)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ answer\ =\ record.userAnswer.trimmed().isEmpty()}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ tr(\textcolor{stringliteral}{"{}(vacía)"{}})}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ record.userAnswer;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<tr\ class='\%1'><td>\%2</td><td\ class='mono'>\%3</td>"{}}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<td\ class='mono'>\%4</td><td\ class='mark'>\%5</td>"{}}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}</tr>"{}})}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(record.correct\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}right"{}})}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QStringLiteral(\textcolor{stringliteral}{"{}wrong"{}}),}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiline(record.question),\ multiline(answer),}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ multiline(record.correctAnswer),}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ record.correct\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}✔"{}})}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QStringLiteral(\textcolor{stringliteral}{"{}✘"{}}));}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</tbody></table>"{}});}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ addSection(\textcolor{keyword}{const}\ QString\&\ title,\ \textcolor{keywordtype}{bool}\ newPage\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<h2\%1>\%2</h2>"{}})}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(newPage\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}\ class='newpage'"{}})}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QString(),}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ title.toHtmlEscaped());}
+\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{void}\ addDefinitions(\textcolor{keyword}{const}\ QVector<QPair<QString,\ QString>>\&\ rows)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<table\ class='defs'\ cellspacing='0'\ "{}}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cellpadding='1'>"{}});}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [name,\ value]\ :\ rows)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<tr><td\ class='mono\ name'>\%1</td>"{}}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}<td\ class='mono'>\%2</td></tr>"{}})}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(name.toHtmlEscaped(),\ value.toHtmlEscaped());}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</table>"{}});}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordtype}{void}\ addSubheading(\textcolor{keyword}{const}\ QString\&\ text)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<h3>\%1</h3>"{}}).arg(text.toHtmlEscaped());}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{void}\ addLines(\textcolor{keyword}{const}\ QStringList\&\ lines)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ QStringList\ escaped;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ QString\&\ line\ :\ lines)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ escaped\ <<\ line.toHtmlEscaped();}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<p\ class='mono\ lines'>\%1</p>"{}})}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(escaped.join(QStringLiteral(\textcolor{stringliteral}{"{}<br>"{}})));}
+\DoxyCodeLine{00214\ \ \ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{void}\ addTable(\textcolor{keyword}{const}\ QStringList\&\ \ \ \ \ \ \ \ \ \ headers,}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<QStringList>\&\ rows)\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ dataColumns\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(headers.size())\ -\/\ 1;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ first\ =\ 0;\ first\ <\ qMax(dataColumns,\ 1);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ first\ +=\ kMaxTableColumns)\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ last\ =\ qMin(first\ +\ kMaxTableColumns,\ dataColumns);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dataColumns\ >\ kMaxTableColumns)\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<p\ class='caption'>\%1</p>"{}})}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(tr(\textcolor{stringliteral}{"{}Columnas\ \%1\ a\ \%2\ de\ \%3"{}})}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(first\ +\ 1)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(last)}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(dataColumns));}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<table\ class='grid'\ cellspacing='0'\ "{}}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cellpadding='4'><thead><tr>"{}});}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<th>\%1</th>"{}})}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(headers.value(0).toHtmlEscaped());}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ c\ =\ first;\ c\ <\ last;\ ++c)\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<th\ class='mono'>\%1</th>"{}})}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(headers.value(c\ +\ 1).toHtmlEscaped());}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</tr></thead><tbody>"{}});}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ r\ =\ 0;\ r\ <\ rows.size();\ ++r)\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<tr\ class='\%1'>"{}})}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(r\ \%\ 2\ ?\ QStringLiteral(\textcolor{stringliteral}{"{}odd"{}})}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QStringLiteral(\textcolor{stringliteral}{"{}even"{}}));}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<th\ class='mono'>\%1</th>"{}})}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(rows[r].value(0).toHtmlEscaped());}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ c\ =\ first;\ c\ <\ last;\ ++c)\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}<td\ class='mono'>\%1</td>"{}})}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(rows[r].value(c\ +\ 1).toHtmlEscaped());}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</tr>"{}});}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ html\_\ +=\ QStringLiteral(\textcolor{stringliteral}{"{}</tbody></table>"{}});}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00263\ \ \ \ \ QString\ html()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ html\_\ +\ QStringLiteral(\textcolor{stringliteral}{"{}</body></html>"{}});\ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordtype}{void}\ print(\textcolor{keyword}{const}\ QString\&\ filePath)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ ensureMonospaceFont();}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ QTextDocument\ doc;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ A\ fixed\ size:\ paper\ does\ not\ follow\ the\ on-\/screen\ text\ scale.}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ QFont\ font\ =\ AppTypography::systemFont();}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ font.setPointSizeF(10.0);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ doc.setDefaultFont(font);}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ doc.setHtml(html());}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ QPrinter\ printer(QPrinter::HighResolution);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ printer.setOutputFormat(QPrinter::PdfFormat);}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ printer.setOutputFileName(filePath);}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ printer.setPageSize(QPageSize(QPageSize::A4));}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ printer.setPageMargins(QMarginsF(15,\ 15,\ 15,\ 15),}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QPageLayout::Millimeter);}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ doc.print(\&printer);}
+\DoxyCodeLine{00282\ \ \ \ \ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keyword}{static}\ QString\ multiline(\textcolor{keyword}{const}\ QString\&\ text)\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text.toHtmlEscaped().replace(QLatin1Char(\textcolor{charliteral}{'\(\backslash\)n'}),}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringLiteral(\textcolor{stringliteral}{"{}<br>"{}}));}
+\DoxyCodeLine{00288\ \ \ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ kMonospaceFamily\ =\ \textcolor{stringliteral}{"{}JetBrains\ Mono"{}};}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{comment}{//\ The\ PDF\ names\ its\ monospaced\ font\ in\ CSS,\ which\ needs\ a\ real\ family:}}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{comment}{//\ the\ platform's\ fixed\ font\ is\ an\ internal\ family\ on\ macOS\ that\ the}}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{comment}{//\ printer\ cannot\ resolve.\ The\ bundled\ JetBrains\ Mono\ is\ the\ same}}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{comment}{//\ everywhere;\ main()\ only\ loads\ it\ on\ Windows\ and\ Linux.}}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ensureMonospaceFont()\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!QFontDatabase::families().contains(}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QLatin1StringView(kMonospaceFamily)))\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ QFontDatabase::addApplicationFont(}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringLiteral(\textcolor{stringliteral}{"{}:/resources/fonts/JetBrainsMono-\/Regular.ttf"{}}));}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ QFontDatabase::addApplicationFont(}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringLiteral(\textcolor{stringliteral}{"{}:/resources/fonts/JetBrainsMono-\/Bold.ttf"{}}));}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keyword}{static}\ QString\ styleSheet()\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print\ palette\ shared\ with\ the\ exam\ report.}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ QStringLiteral(}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}body\ \{\ color:\ \#1A1A1A;\ font-\/size:\ 10pt;\ \}"{}}}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}p.kicker\ \{\ color:\ \#007B8A;\ font-\/size:\ 9pt;\ "{}}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}font-\/weight:\ bold;\ margin:\ 0;\ \}"{}}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}h1\ \{\ font-\/size:\ 18pt;\ margin:\ 2px\ 0\ 2px\ 0;\ \}"{}}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}p.meta\ \{\ color:\ \#666666;\ font-\/size:\ 9pt;\ margin:\ 0;\ \}"{}}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.header\ \{\ margin-\/bottom:\ 12px;\ \}"{}}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}td.logo\ \{\ padding-\/right:\ 12px;\ vertical-\/align:\ middle;\ \}"{}}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}h2\ \{\ color:\ \#007B8A;\ font-\/size:\ 13pt;\ "{}}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}margin:\ 18px\ 0\ 6px\ 0;\ \}"{}}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}h2.newpage\ \{\ page-\/break-\/before:\ always;\ \}"{}}}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}h3\ \{\ font-\/size:\ 10.5pt;\ margin:\ 10px\ 0\ 2px\ 0;\ \}"{}}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}.mono\ \{\ font-\/family:\ '\%1';\ \}"{}}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}p.lines\ \{\ margin:\ 0\ 0\ 4px\ 12px;\ \}"{}}}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}p.caption\ \{\ color:\ \#666666;\ font-\/size:\ 8.5pt;\ "{}}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}margin:\ 10px\ 0\ 2px\ 0;\ \}"{}}}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}td.num\ \{\ color:\ \#666666;\ \}"{}}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}td.name\ \{\ padding-\/right:\ 12px;\ \}"{}}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.chat\ \{\ margin-\/top:\ 2px;\ \}"{}}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.chat\ td\ \{\ border-\/bottom:\ 1px\ solid\ \#E0E0E0;\ \}"{}}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}td.who\ \{\ color:\ \#007B8A;\ font-\/weight:\ bold;\ "{}}}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}font-\/size:\ 9pt;\ \}"{}}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.student\ td.who\ \{\ color:\ \#555555;\ \}"{}}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.wrong\ td\ \{\ background-\/color:\ \#FBEAEA;\ \}"{}}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.wrong\ td.who\ \{\ color:\ \#B23A37;\ \}"{}}}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}span.flag\ \{\ font-\/size:\ 8pt;\ font-\/weight:\ normal;\ \}"{}}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.grid\ \{\ border-\/collapse:\ collapse;\ font-\/size:\ 9pt;\ "{}}}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}margin-\/bottom:\ 6px;\ \}"{}}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.grid\ th,\ table.grid\ td\ \{\ border:\ 1px\ solid\ "{}}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\#BBBBBB;\ text-\/align:\ center;\ \}"{}}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.grid\ thead\ th\ \{\ background-\/color:\ \#E8E8E8;\ \}"{}}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.grid\ tbody\ th\ \{\ background-\/color:\ \#F3F3F3;\ \}"{}}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.odd\ td\ \{\ background-\/color:\ \#FAFAFA;\ \}"{}}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.result\ \{\ margin:\ 4px\ 0\ 6px\ 0;\ \}"{}}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}td.grade\ \{\ font-\/size:\ 30pt;\ font-\/weight:\ bold;\ "{}}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}padding-\/right:\ 16px;\ vertical-\/align:\ middle;\ \}"{}}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}.pass\ \{\ color:\ \#007B8A;\ \}"{}}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}.fail\ \{\ color:\ \#B23A37;\ \}"{}}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}p.summary\ \{\ color:\ \#444444;\ margin:\ 0;\ \}"{}}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}p.verdict\ \{\ font-\/weight:\ bold;\ margin:\ 2px\ 0\ 0\ 0;\ \}"{}}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.review\ \{\ border-\/collapse:\ collapse;\ "{}}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}font-\/size:\ 9pt;\ \}"{}}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.review\ thead\ th\ \{\ background-\/color:\ \#E8E8E8;\ "{}}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}text-\/align:\ left;\ \}"{}}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}table.review\ td\ \{\ border-\/bottom:\ 1px\ solid\ \#E0E0E0;\ "{}}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}vertical-\/align:\ top;\ \}"{}}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.wrong\ td\ \{\ background-\/color:\ \#FBEAEA;\ \}"{}}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}td.mark\ \{\ text-\/align:\ center;\ font-\/weight:\ bold;\ \}"{}}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.right\ td.mark\ \{\ color:\ \#007B8A;\ \}"{}}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}tr.wrong\ td.mark\ \{\ color:\ \#B23A37;\ \}"{}})}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QLatin1StringView(kMonospaceFamily));}
+\DoxyCodeLine{00359\ \ \ \ \ \}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ QString\ html\_;}
+\DoxyCodeLine{00362\ \};}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONVERSATIONPDF\_H}}
+
+\end{DoxyCode}

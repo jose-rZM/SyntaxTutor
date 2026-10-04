@@ -1,0 +1,8 @@
+<map id="AppShortcuts::primaryModifierName" name="AppShortcuts::primaryModifierName">
+<area shape="rect" id="Node000001" title="Name of the key behind Qt::ControlModifier on this platform." alt="" coords="295,42,527,68"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="460,28,445,24,411,21,380,23,364,28,360,33,369,43,364,41,355,34,360,24,379,18,411,16,447,18,465,29"/>
+<area shape="rect" id="Node000002" href="$class_automaton_viewer_dialog.html#a0dca877c8e4b561bca963d349ae999f2" title="Builds the viewer around an existing automaton view." alt="" coords="41,5,211,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="277,42,211,37,211,32,282,41"/>
+<area shape="rect" id="Node000003" href="$class_custom_text_edit.html#a16e6725147bf86c40c376ad62f02929f" title="User&#45;visible name of the newline shortcut for the current platform." alt="" coords="5,70,247,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="277,68,247,74,247,68,282,68"/>
+</map>

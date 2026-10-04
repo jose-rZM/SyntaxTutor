@@ -1,3 +1,17 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structTutorialStep.html" title="Represents a single step in the tutorial sequence." alt="" coords="5,5,104,33"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,153,74,179"/>
+<area shape="rect" id="Node000001" href="$class_automaton_viewer_dialog.html" title="Non&#45;modal floating window that hosts the LR(0) automaton view." alt="" coords="122,5,283,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="49,138,77,88,96,62,120,40,142,30,139,34,123,44,100,66,81,91,54,140"/>
+<area shape="rect" id="Node000002" href="$class_exam_report_dialog.html" title="End&#45;of&#45;exam report: grade, stats and a question&#45;by&#45;question review." alt="" coords="137,55,268,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="60,140,87,113,120,89,147,79,143,83,123,94,90,117,64,143"/>
+<area shape="rect" id="Node000003" href="$class_grammar_editor_dialog.html" title="Dialog where the user writes their own grammar for an exercise." alt="" coords="129,104,276,130"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="87,149,121,138,159,128,154,132,122,143,90,153"/>
+<area shape="rect" id="Node000004" href="$class_l_l_table_dialog.html" title="Dialog for filling and submitting an LL(1) parsing table." alt="" coords="151,153,254,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="88,164,152,164,148,168,90,169"/>
+<area shape="rect" id="Node000005" href="$class_l_l_wizard.html" title="Interactive assistant that guides the student step&#45;by&#45;step through the LL(1) parsing table." alt="" coords="165,203,240,228"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="88,179,122,189,167,203,162,206,121,194,89,184"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_table_dialog.html" title="Dialog window for completing and submitting an SLR(1) parsing table." alt="" coords="145,252,260,278"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="62,188,90,215,123,239,148,251,142,252,120,243,87,219,62,193"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r_wizard.html" title="Interactive assistant that guides the student step&#45;by&#45;step through the SLR(1) parsing table." alt="" coords="159,301,246,327"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="53,191,81,242,100,267,123,288,140,298,161,307,155,307,138,303,120,292,96,270,77,244,51,196"/>
 </map>

@@ -1,0 +1,1050 @@
+#include "tutor_window_test.h"
+
+#include "appicon.h"
+#include "apppalette.h"
+#include "appsettings.h"
+#include "apptypography.h"
+#include "production_typography.h"
+#include "customtextedit.h"
+#include "grammareditordialog.h"
+#include "mainwindow.h"
+#include "lltutorwindow.h"
+#include "qt_modal_test_utils.h"
+#include "slrtutorwindow.h"
+#include "tutor_grammar_fixtures.h"
+
+#include <QCheckBox>
+#include <QGuiApplication>
+#include <QClipboard>
+#include <QCoreApplication>
+#include <QDialog>
+#include <QFile>
+#include <QFontInfo>
+#include <QIcon>
+#include <QLabel>
+#include <QPixmap>
+#include <QPlainTextEdit>
+#include <QProgressBar>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QRegularExpression>
+#include <QSettings>
+#include <QTest>
+#include <QTextBrowser>
+#include <QTranslator>
+#include <QtMath>
+#include <algorithm>
+
+namespace {
+
+QSettings testAppSettings() {
+    return AppSettings::open();
+}
+
+void clearTestAppSettings() {
+    QSettings settings = testAppSettings();
+    settings.clear();
+    settings.sync();
+}
+
+QDialog* findInfoDialog() {
+    for (QWidget* widget : QApplication::topLevelWidgets()) {
+        if (auto* dialog = qobject_cast<QDialog*>(widget);
+            dialog != nullptr && dialog->objectName() == "infoDialog" &&
+            dialog->isVisible()) {
+            return dialog;
+        }
+    }
+    return nullptr;
+}
+
+QPushButton* findVisibleTutorialNextButton() {
+    for (QWidget* widget : QApplication::topLevelWidgets()) {
+        for (QPushButton* button : widget->findChildren<QPushButton*>()) {
+            if (button->objectName() == "tutorialNextButton" &&
+                button->isVisible()) {
+                return button;
+            }
+        }
+    }
+    return nullptr;
+}
+
+void clickInfoDialogClose(QDialog* dialog) {
+    QVERIFY(dialog != nullptr);
+    QPushButton* closeButton = QtModalTestUtils::findButtonByText(dialog, "Cerrar");
+    if (closeButton == nullptr) {
+        closeButton = QtModalTestUtils::findButtonByText(dialog, "Close");
+    }
+    QVERIFY(closeButton != nullptr);
+    QTest::mouseClick(closeButton, Qt::LeftButton);
+}
+
+void installLanguageTranslator(QTranslator& translator, const QString& langCode) {
+    QVERIFY(translator.load(langCode == "en" ? ":/translations/st_en.qm"
+                                               : ":/translations/st_es.qm"));
+    qApp->installTranslator(&translator);
+}
+
+} // namespace
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-01
+// Summary:
+//   Verifies that the main window appears correctly with its primary entry
+//   controls and gamification indicators visible.
+//
+// Situation:
+//   Application freshly opened on the home screen with empty test settings.
+//
+// Action:
+//   The test shows `MainWindow` and locates the main buttons, progress bar,
+//   level badge, and score label.
+//
+// Expected:
+//   The window is visible without errors, the controls are enabled, and the
+//   initial state is consistent.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainInitialUiIsVisibleAndEnabled() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    QCoreApplication::processEvents();
+
+    auto* llButton = window.findChild<QPushButton*>("pushButton");
+    auto* slrButton = window.findChild<QPushButton*>("pushButton_2");
+    auto* tutorialButton = window.findChild<QPushButton*>("tutorial");
+    auto* languageButton = window.findChild<QPushButton*>("idiom");
+    auto* scoreLabel = window.findChild<QLabel*>("labelScore");
+    auto* levelBadge = window.findChild<QLabel*>("badgeNivel");
+    auto* progressBar = window.findChild<QProgressBar*>("progressBarNivel");
+
+    QVERIFY(llButton != nullptr && llButton->isEnabled());
+    QVERIFY(slrButton != nullptr && slrButton->isEnabled());
+    QVERIFY(tutorialButton != nullptr && tutorialButton->isEnabled());
+    QVERIFY(languageButton != nullptr && languageButton->isEnabled());
+    QVERIFY(scoreLabel != nullptr && scoreLabel->isVisible());
+    QVERIFY(levelBadge != nullptr && levelBadge->isVisible());
+    QVERIFY(progressBar != nullptr && progressBar->isVisible());
+    QCOMPARE(levelBadge->text(), QString("1"));
+    QCOMPARE(scoreLabel->text(), QString("Puntos: 0"));
+    QCOMPARE(progressBar->value(), 0);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-02
+// Summary:
+//   Checks the language switch to English and persistence of the selected
+//   preference.
+//
+// Situation:
+//   Main window open in the default language and using isolated test settings.
+//
+// Action:
+//   The user opens the language selector, chooses English, and confirms the
+//   informational message.
+//
+// Expected:
+//   The `en` selection is stored and a newly opened window can use that saved
+//   preference.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainSwitchLanguageToEnglishPersistsSelection() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    QtModalTestUtils::scheduleUntilHandled([]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        auto* englishButton = dialog->findChild<QPushButton*>("languageEnglishButton");
+        if (englishButton == nullptr) {
+            return false;
+        }
+        QTest::mouseClick(englishButton, Qt::LeftButton);
+        return true;
+    });
+    QtModalTestUtils::scheduleMessageBoxResponse(QMessageBox::Ok);
+    QTest::mouseClick(window.findChild<QPushButton*>("idiom"), Qt::LeftButton);
+
+    QCOMPARE(testAppSettings().value("lang/language").toString(), QString("en"));
+
+    QTranslator translator;
+    installLanguageTranslator(translator, "en");
+    MainWindow reopened;
+    reopened.show();
+    auto* difficultyTitle = reopened.findChild<QLabel*>("difficultyTitle");
+    QVERIFY(difficultyTitle != nullptr);
+    QVERIFY(!difficultyTitle->text().isEmpty());
+    qApp->removeTranslator(&translator);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-03
+// Summary:
+//   Checks the language switch back to Spanish from a state where English was
+//   previously selected.
+//
+// Situation:
+//   Main window open with the `en` preference already stored in test settings.
+//
+// Action:
+//   The user opens the language selector, chooses Spanish, and confirms the
+//   informational message.
+//
+// Expected:
+//   The `es` selection is stored and a newly opened window shows the main text
+//   in Spanish again.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainSwitchLanguageToSpanishPersistsSelection() {
+    clearTestAppSettings();
+    testAppSettings().setValue("lang/language", "en");
+
+    QTranslator translator;
+    installLanguageTranslator(translator, "en");
+    MainWindow window;
+    window.show();
+
+    QtModalTestUtils::scheduleUntilHandled([]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        auto* spanishButton = dialog->findChild<QPushButton*>("languageSpanishButton");
+        if (spanishButton == nullptr) {
+            return false;
+        }
+        QTest::mouseClick(spanishButton, Qt::LeftButton);
+        return true;
+    });
+    QtModalTestUtils::scheduleMessageBoxResponse(QMessageBox::Ok);
+    QTest::mouseClick(window.findChild<QPushButton*>("idiom"), Qt::LeftButton);
+
+    QCOMPARE(testAppSettings().value("lang/language").toString(), QString("es"));
+    qApp->removeTranslator(&translator);
+
+    MainWindow reopened;
+    reopened.show();
+    auto* difficultyTitle = reopened.findChild<QLabel*>("difficultyTitle");
+    QVERIFY(difficultyTitle != nullptr);
+    QCOMPARE(difficultyTitle->text(), QString("Dificultad"));
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-04
+// Summary:
+//   Verifies that the About dialog presents the application's main metadata.
+//
+// Situation:
+//   Main window open with the menu actions available.
+//
+// Action:
+//   The user opens the `About the app` action.
+//
+// Expected:
+//   The dialog shows author, license, and repository information.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainAboutDialogShowsMetadata() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* action = window.findChild<QAction*>("actionSobre_la_aplicaci_n");
+    QVERIFY(action != nullptr);
+    // An explicit role, so macOS files it under the application menu in
+    // every language: left to the text heuristic, only the English "About"
+    // was moved there.
+    QCOMPARE(action->menuRole(), QAction::AboutRole);
+    QCOMPARE(action->text(), QStringLiteral("Sobre SyntaxTutor"));
+    bool contentVerified = false;
+    QtModalTestUtils::scheduleUntilHandled([&contentVerified]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        auto* title   = dialog->findChild<QLabel*>("aboutTitle");
+        auto* note    = dialog->findChild<QLabel*>("aboutNote");
+        auto* credits = dialog->findChild<QLabel*>("aboutCredits");
+        if (title == nullptr || note == nullptr || credits == nullptr) {
+            return false;
+        }
+        contentVerified =
+            title->text().startsWith("SyntaxTutor") &&
+            note->text().contains("versión 1") &&
+            note->text().contains("Trabajo Fin de Grado") &&
+            credits->text().contains("José R.") &&
+            credits->text().contains("GPLv3") &&
+            credits->text().contains("GitHub");
+        clickInfoDialogClose(dialog);
+        return true;
+    });
+    action->trigger();
+    QVERIFY(contentVerified);
+
+    // "Copiar y cerrar" leaves what a bug report needs on the clipboard.
+    QGuiApplication::clipboard()->clear();
+    QtModalTestUtils::scheduleUntilHandled([]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        auto* copy = dialog->findChild<QPushButton*>("aboutCopyButton");
+        if (copy == nullptr) {
+            return false;
+        }
+        QTest::mouseClick(copy, Qt::LeftButton);
+        return true;
+    });
+    action->trigger();
+    const QString copied = QGuiApplication::clipboard()->text();
+    QVERIFY2(copied.startsWith("SyntaxTutor") && copied.contains("Qt "),
+             qPrintable(copied));
+    QVERIFY(findInfoDialog() == nullptr);
+}
+
+// -----------------------------------------------------------------------------
+// Test: mainAppIconHasEverySize
+// Expected:
+//   The application icon finds a bitmap of its own for every size it lists,
+//   so a broken resource path shows up here instead of as a blank icon.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainAppIconHasEverySize() {
+    const QIcon icon = AppIcon::icon();
+    QVERIFY(!icon.isNull());
+    for (const int size : AppIcon::kSizes) {
+        QVERIFY2(icon.availableSizes().contains(QSize(size, size)),
+                 qPrintable(QString::number(size)));
+        const QPixmap pixmap = icon.pixmap(QSize(size, size), 1.0);
+        QCOMPARE(pixmap.size(), QSize(size, size));
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Test: mainLinksUseTheThemeColour
+// Expected:
+//   Links in rich text are drawn in the theme's teal, whatever palette the
+//   platform hands over: app.qss cannot colour them, and the light palette's
+//   dark blue was unreadable on the dark theme.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainLinksUseTheThemeColour() {
+    const QPalette saved = QApplication::palette();
+    AppPalette::apply();
+
+    QLabel label(QStringLiteral("<a href='https://www.qt.io/'>Qt</a>"));
+    QCOMPARE(label.palette().color(QPalette::Link), AppPalette::linkColor());
+    QCOMPARE(label.palette().color(QPalette::LinkVisited),
+             AppPalette::linkColor());
+
+    QApplication::setPalette(saved);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-05
+// Summary:
+//   Checks that the LL(1) and SLR(1) quick references open and return to the
+//   main flow without errors.
+//
+// Situation:
+//   Main window open with the reference menu actions available.
+//
+// Action:
+//   The user opens the LL(1) reference, closes it, and repeats the process for
+//   the SLR(1) reference.
+//
+// Expected:
+//   Both dialogs appear with the correct title and can be closed normally.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainQuickReferencesOpen() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* llRef  = window.findChild<QAction*>("actionReferencia_LL_1");
+    auto* slrRef = window.findChild<QAction*>("actionReferencia_SLR_1");
+    QVERIFY(llRef != nullptr);
+    QVERIFY(slrRef != nullptr);
+
+    bool llSeen = false;
+    QtModalTestUtils::scheduleUntilHandled([&llSeen]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        llSeen = dialog->windowTitle().contains("LL(1)");
+        clickInfoDialogClose(dialog);
+        return true;
+    });
+    llRef->trigger();
+    QVERIFY(llSeen);
+
+    bool slrSeen = false;
+    QtModalTestUtils::scheduleUntilHandled([&slrSeen]() {
+        QDialog* dialog = findInfoDialog();
+        if (dialog == nullptr) {
+            return false;
+        }
+        slrSeen = dialog->windowTitle().contains("SLR(1)");
+        clickInfoDialogClose(dialog);
+        return true;
+    });
+    slrRef->trigger();
+    QVERIFY(slrSeen);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-01, MAIN-TC-09
+// Summary:
+//   Verifies that the LL(1) and SLR(1) entry points on the home screen open the
+//   corresponding tutor windows.
+//
+// Situation:
+//   Main window in its initial state with navigation enabled.
+//
+// Action:
+//   The user presses `LL(1)` in one window and `SLR(1)` in another.
+//
+// Expected:
+//   The matching tutor window is created in each case.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainLlAndSlrEntryPointsOpenTutors() {
+    clearTestAppSettings();
+
+    MainWindow llWindow;
+    llWindow.show();
+    QTest::mouseClick(llWindow.findChild<QPushButton*>("pushButton"), Qt::LeftButton);
+    QTRY_VERIFY(llWindow.findChild<LLTutorWindow*>() != nullptr);
+
+    MainWindow slrWindow;
+    slrWindow.show();
+    QTest::mouseClick(slrWindow.findChild<QPushButton*>("pushButton_2"), Qt::LeftButton);
+    QTRY_VERIFY(slrWindow.findChild<SLRTutorWindow*>() != nullptr);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-06
+// Summary:
+//   Runs a smoke test of the full tutorial, verifying that it opens both tutors
+//   and restores main navigation at the end.
+//
+// Situation:
+//   Main window open with the tutorial available.
+//
+// Action:
+//   The user presses `Tutorial` and advances through all steps with `Next`.
+//
+// Expected:
+//   The tutorial visits LL(1) and SLR(1), finishes without errors, and leaves
+//   the main controls enabled again.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainTutorialFlowCompletesAndReenablesControls() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* llButton       = window.findChild<QPushButton*>("pushButton");
+    auto* slrButton      = window.findChild<QPushButton*>("pushButton_2");
+    auto* tutorialButton = window.findChild<QPushButton*>("tutorial");
+    QVERIFY(llButton != nullptr);
+    QVERIFY(slrButton != nullptr);
+    QVERIFY(tutorialButton != nullptr);
+
+    QTest::mouseClick(tutorialButton, Qt::LeftButton);
+    QVERIFY(!llButton->isEnabled());
+    QVERIFY(!slrButton->isEnabled());
+
+    bool sawLlTutor  = false;
+    bool sawSlrTutor = false;
+    for (int guard = 0; guard < 40 && !llButton->isEnabled(); ++guard) {
+        if (window.findChild<LLTutorWindow*>() != nullptr) {
+            sawLlTutor = true;
+        }
+        if (window.findChild<SLRTutorWindow*>() != nullptr) {
+            sawSlrTutor = true;
+        }
+        QPushButton* nextButton = findVisibleTutorialNextButton();
+        QVERIFY(nextButton != nullptr);
+        QTest::mouseClick(nextButton, Qt::LeftButton);
+        QTest::qWait(20);
+    }
+
+    QVERIFY(sawLlTutor);
+    QVERIFY(sawSlrTutor);
+    QVERIFY(llButton->isEnabled());
+    QVERIFY(slrButton->isEnabled());
+    QVERIFY(tutorialButton->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-11
+// Summary:
+//   Checks that a completed session updates score, progress, and level, and
+//   that those values persist when the main window is recreated.
+//
+// Situation:
+//   Main window open with clean test settings and an LL(1) session launched from
+//   the UI.
+//
+// Action:
+//   The test simulates the tutor finishing with more correct answers than wrong
+//   ones.
+//
+// Expected:
+//   Score, progress bar, and level are updated, and the same values reappear
+//   when the main window is opened again.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainGamificationPersistsAcrossRestart() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"), Qt::LeftButton);
+    auto* tutor = window.findChild<LLTutorWindow*>();
+    QVERIFY(tutor != nullptr);
+
+    QVERIFY(QMetaObject::invokeMethod(tutor, "exitRequested", Qt::DirectConnection,
+                                      Q_ARG(bool, true), Q_ARG(int, 12), Q_ARG(int, 0)));
+
+    auto* levelBadge  = window.findChild<QLabel*>("badgeNivel");
+    auto* scoreLabel  = window.findChild<QLabel*>("labelScore");
+    auto* progressBar = window.findChild<QProgressBar*>("progressBarNivel");
+    QVERIFY(levelBadge != nullptr);
+    QVERIFY(scoreLabel != nullptr);
+    QVERIFY(progressBar != nullptr);
+    QCOMPARE(levelBadge->text(), QString("2"));
+    QCOMPARE(scoreLabel->text(), QString("Puntos: 2"));
+    QCOMPARE(progressBar->value(), 10);
+
+    MainWindow reopened;
+    reopened.show();
+    QCOMPARE(reopened.findChild<QLabel*>("badgeNivel")->text(), QString("2"));
+    QCOMPARE(reopened.findChild<QLabel*>("labelScore")->text(), QString("Puntos: 2"));
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-12
+// Summary:
+//   Verifies that the main window loads persisted level, score, and language
+//   state correctly.
+//
+// Situation:
+//   Test settings preloaded manually before creating `MainWindow`.
+//
+// Action:
+//   The test opens the main window while reading the previously saved state.
+//
+// Expected:
+//   The visible indicators match the persisted values exactly.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainStatePersistenceAcrossRestart() {
+    clearTestAppSettings();
+    QSettings settings = testAppSettings();
+    settings.setValue("gamification/level", 3);
+    settings.setValue("gamification/score", 7);
+    settings.setValue("lang/language", "es");
+    settings.sync();
+
+    MainWindow window;
+    window.show();
+
+    QCOMPARE(window.findChild<QLabel*>("badgeNivel")->text(), QString("3"));
+    QCOMPARE(window.findChild<QLabel*>("labelScore")->text(), QString("Puntos: 7"));
+    QCOMPARE(window.findChild<QProgressBar*>("progressBarNivel")->value(), 23);
+}
+
+namespace {
+
+void scheduleGrammarEditorSubmission(const QString& grammarText) {
+    QtModalTestUtils::scheduleUntilHandled([grammarText]() {
+        auto* dialog =
+            QtModalTestUtils::findVisibleTopLevelWidget<GrammarEditorDialog>();
+        if (dialog == nullptr) {
+            return false;
+        }
+
+        dialog->setGrammarTextForTest(grammarText);
+        if (!dialog->isGrammarValidForTest()) {
+            return false;
+        }
+
+        auto* start =
+            dialog->findChild<QPushButton*>("grammarEditorStartButton");
+        if (start == nullptr || !start->isEnabled()) {
+            return false;
+        }
+        QTest::mouseClick(start, Qt::LeftButton);
+        return true;
+    });
+}
+
+void scheduleGrammarEditorCancel() {
+    QtModalTestUtils::scheduleUntilHandled([]() {
+        auto* dialog =
+            QtModalTestUtils::findVisibleTopLevelWidget<GrammarEditorDialog>();
+        if (dialog == nullptr) {
+            return false;
+        }
+
+        auto* cancel =
+            dialog->findChild<QPushButton*>("grammarEditorCancelButton");
+        if (cancel == nullptr) {
+            return false;
+        }
+        QTest::mouseClick(cancel, Qt::LeftButton);
+        return true;
+    });
+}
+
+bool anyLabelContains(QWidget* root, const QString& needle) {
+    const QList<QLabel*> labels = root->findChildren<QLabel*>();
+    return std::any_of(labels.cbegin(), labels.cend(),
+                       [&needle](const QLabel* label) {
+                           return label->text().contains(needle);
+                       });
+}
+
+} // namespace
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-13
+// Summary:
+//   Verifies that enabling "use my own grammar" disables difficulty levels and
+//   that disabling it restores them.
+//
+// Situation:
+//   Main window freshly opened on the home screen.
+//
+// Action:
+//   The test toggles the custom grammar checkbox on and off.
+//
+// Expected:
+//   Level radio buttons are disabled while the checkbox is checked and enabled
+//   again when unchecked.
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Test: typographyStyleSheetDeclaresSizesOnlyThroughRoles
+// Expected:
+//   app.qss spells out no font size at all, in px or pt: every one is a
+//   `$font-<role>` of the type scale, and every role it names exists.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyStyleSheetDeclaresSizesOnlyThroughRoles() {
+    QFile file(QStringLiteral(":/resources/styles/app.qss"));
+    QVERIFY(file.open(QFile::ReadOnly | QFile::Text));
+    // Comments may talk about the syntax; only the rules have to obey it.
+    static const QRegularExpression comment(
+        QStringLiteral("/\\*.*?\\*/"),
+        QRegularExpression::DotMatchesEverythingOption);
+    const QString raw =
+        QString::fromUtf8(file.readAll()).remove(comment);
+
+    static const QRegularExpression literalSize(
+        QStringLiteral("font-size:\\s*[0-9.]+\\s*(px|pt)"));
+    const QRegularExpressionMatch literal = literalSize.match(raw);
+    QVERIFY2(!literal.hasMatch(),
+             qPrintable(QStringLiteral("literal size in app.qss: ") +
+                        literal.captured(0)));
+    QVERIFY(raw.contains(QStringLiteral("$font-")));
+
+    QStringList     unresolved;
+    const QString   resolved =
+        AppTypography::resolveStyleSheet(raw, &unresolved);
+    QVERIFY2(unresolved.isEmpty(),
+             qPrintable(QStringLiteral("unknown roles: ") +
+                        unresolved.join(QStringLiteral(", "))));
+    QVERIFY(!resolved.contains(QStringLiteral("$font-")));
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyResolvesRolesAtTheCurrentTextScale
+// Expected:
+//   A role resolves to its point size times the user's text scale, and an
+//   unknown role is left alone and reported instead of guessed.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyResolvesRolesAtTheCurrentTextScale() {
+    const int saved = AppTextScale::currentPercent();
+    const QString rule = QStringLiteral("QLabel { font-size: $font-body; }");
+
+    AppTextScale::currentPercent() = 100;
+    QCOMPARE(AppTypography::resolveStyleSheet(rule),
+             QStringLiteral("QLabel { font-size: 13pt; }"));
+
+    AppTextScale::currentPercent() = 150;
+    QCOMPARE(AppTypography::resolveStyleSheet(rule),
+             QStringLiteral("QLabel { font-size: 19.5pt; }"));
+    QCOMPARE(AppTypography::cssSize(AppTypography::Role::Reading),
+             QStringLiteral("22.5pt"));
+
+    QStringList unresolved;
+    QCOMPARE(AppTypography::resolveStyleSheet(
+                 QStringLiteral("font-size: $font-nope;"), &unresolved),
+             QStringLiteral("font-size: $font-nope;"));
+    QCOMPARE(unresolved, QStringList{QStringLiteral("nope")});
+
+    AppTextScale::currentPercent() = saved;
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyAppliesPointSizesToWidgets
+// Expected:
+//   With the production style applied, widgets styled from app.qss and fonts
+//   built in C++ both carry point sizes from the type scale - never a pixel
+//   size - and follow the user's text scale.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyAppliesPointSizesToWidgets() {
+    clearTestAppSettings();
+    ProductionTypography typography(130);
+
+    MainWindow window;
+    window.show();
+    QCoreApplication::processEvents();
+
+    auto* title = window.findChild<QLabel*>("homeTitle");
+    auto* score = window.findChild<QLabel*>("labelScore");
+    QVERIFY(title != nullptr && score != nullptr);
+
+    QCOMPARE(title->font().pixelSize(), -1);
+    QVERIFY(qFuzzyCompare(title->font().pointSizeF(), 30.0 * 1.3));
+    QVERIFY(qFuzzyCompare(score->font().pointSizeF(), 15.0 * 1.3));
+
+    // Text without a QSS rule, like the chat bubbles, uses the app font.
+    QCOMPARE(QApplication::font().pixelSize(), -1);
+    QVERIFY(qFuzzyCompare(QApplication::font().pointSizeF(), 13.0 * 1.3));
+
+    const QFont reading = AppTypography::font(AppTypography::Role::Reading);
+    QCOMPARE(reading.pixelSize(), -1);
+    QVERIFY(qFuzzyCompare(reading.pointSizeF(), 15.0 * 1.3));
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyLengthsForTextFollowTheRenderedBodyText
+// Expected:
+//   A length drawn for body-sized text grows exactly as body text renders
+//   here, so boxes that hold text keep up with both the text scale and the
+//   platform's point-to-pixel mapping.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyLengthsForTextFollowTheRenderedBodyText() {
+    int normal = 0;
+    {
+        ProductionTypography typography(100);
+        const int bodyPixels = QFontInfo(QApplication::font()).pixelSize();
+        QCOMPARE(AppTypography::lengthForText(13), bodyPixels);
+        normal = AppTypography::lengthForText(480);
+    }
+    {
+        ProductionTypography typography(150);
+        const int bodyPixels = QFontInfo(QApplication::font()).pixelSize();
+        QCOMPARE(AppTypography::lengthForText(13), bodyPixels);
+        QVERIFY(AppTypography::lengthForText(480) > normal);
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Test: typographyAnswerBoxGrowsByLinesOfItsOwnFont
+// Expected:
+//   The answer box is exactly one line of its own font tall when it holds a
+//   single line - no dead space however big the text is - grows line by line
+//   and stops at four, where it starts scrolling. The send button is square
+//   and as tall as the one-line box.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::typographyAnswerBoxGrowsByLinesOfItsOwnFont() {
+    for (const int percent : {100, 150}) {
+        ProductionTypography typography(percent);
+
+        LLTutorWindow tutor(TutorGrammarFixtures::makeLl1SimpleGrammar(),
+                            nullptr);
+        tutor.resize(1000, 700);
+        tutor.show();
+        QTest::qWait(50);
+
+        auto* box    = tutor.findChild<CustomTextEdit*>("userResponse");
+        auto* button = tutor.findChild<QWidget*>("confirmButton");
+        QVERIFY(box != nullptr && button != nullptr);
+
+        const auto chrome = [box]() {
+            return box->height() - box->viewport()->height();
+        };
+        const auto contentHeight = [box, &chrome]() {
+            return qCeil(box->document()->size().height()) + chrome();
+        };
+
+        box->setPlainText(QStringLiteral("x"));
+        QTest::qWait(300);
+        QCOMPARE(box->height(), contentHeight());
+        QCOMPARE(box->height(), box->minimumGrowHeight());
+        QCOMPARE(button->size(), QSize(box->height(), box->height()));
+
+        const int oneLine = box->height();
+        box->setPlainText(QStringLiteral("x\nx"));
+        QTest::qWait(300);
+        QVERIFY2(box->height() > oneLine, qPrintable(QString::number(percent)));
+        QCOMPARE(box->height(), contentHeight());
+
+        box->setPlainText(QStringLiteral("1\n2\n3\n4\n5\n6\n7"));
+        QTest::qWait(300);
+        const int fourLines = box->height();
+        QVERIFY(fourLines < contentHeight());
+        box->setPlainText(QStringLiteral("1\n2\n3\n4"));
+        QTest::qWait(300);
+        QCOMPARE(box->height(), fourLines);
+    }
+}
+
+void TutorWindowTest::mainCustomGrammarToggleDisablesLevels() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* check = window.findChild<QCheckBox*>("customGrammarCheck");
+    QVERIFY(check != nullptr);
+    QVERIFY(check->isEnabled());
+    QVERIFY(!check->isChecked());
+
+    check->setChecked(true);
+    QVERIFY(!window.findChild<QRadioButton*>("lv1Button")->isEnabled());
+    QVERIFY(!window.findChild<QRadioButton*>("lv2Button")->isEnabled());
+    QVERIFY(!window.findChild<QRadioButton*>("lv3Button")->isEnabled());
+
+    check->setChecked(false);
+    QVERIFY(window.findChild<QRadioButton*>("lv1Button")->isEnabled());
+    QVERIFY(window.findChild<QRadioButton*>("lv2Button")->isEnabled());
+    QVERIFY(window.findChild<QRadioButton*>("lv3Button")->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-14
+// Summary:
+//   Starts an LL(1) exercise with a user-written grammar that uses
+//   multi-character tokens.
+//
+// Situation:
+//   Custom grammar mode enabled on the home screen.
+//
+// Action:
+//   The test clicks the LL(1) button, writes an LL(1) grammar in the editor
+//   dialog and presses the start button.
+//
+// Expected:
+//   The LL(1) tutor opens showing the user's symbols and the grammar text is
+//   persisted for the next session.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarLlFlowStartsTutorWithUserGrammar() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    window.findChild<QCheckBox*>("customGrammarCheck")->setChecked(true);
+
+    const QString grammarText =
+        QStringLiteral("Expr -> id Resto .\nResto -> + id Resto | .");
+    scheduleGrammarEditorSubmission(grammarText);
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+
+    LLTutorWindow* tutor = nullptr;
+    QTRY_VERIFY((tutor = window.findChild<LLTutorWindow*>()) != nullptr);
+    QVERIFY(anyLabelContains(tutor, QStringLiteral("Resto")));
+
+    QSettings settings = testAppSettings();
+    QCOMPARE(settings.value("userGrammar/lastText").toString(), grammarText);
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-15
+// Summary:
+//   Starts an SLR(1) exercise with a user-written left-recursive grammar.
+//
+// Situation:
+//   Custom grammar mode enabled on the home screen.
+//
+// Action:
+//   The test clicks the SLR(1) button and submits a left-recursive grammar
+//   (valid SLR(1), invalid LL(1)) through the editor dialog.
+//
+// Expected:
+//   The SLR(1) tutor opens showing the user's symbols.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarSlrFlowStartsTutorWithUserGrammar() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    window.findChild<QCheckBox*>("customGrammarCheck")->setChecked(true);
+
+    scheduleGrammarEditorSubmission(QStringLiteral("Expr -> Expr + id | id ."));
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton_2"),
+                      Qt::LeftButton);
+
+    SLRTutorWindow* tutor = nullptr;
+    QTRY_VERIFY((tutor = window.findChild<SLRTutorWindow*>()) != nullptr);
+    QVERIFY(anyLabelContains(tutor, QStringLiteral("Expr")));
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-16
+// Summary:
+//   Exercises the grammar editor validation: format errors, reserved symbols,
+//   the LL(1) check, and a final valid grammar.
+//
+// Situation:
+//   Grammar editor dialog opened directly in LL(1) mode.
+//
+// Action:
+//   The test writes several invalid grammars followed by a valid one.
+//
+// Expected:
+//   The start button stays disabled and an error message is shown until the
+//   grammar becomes valid.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarEditorRejectsInvalidAndNonLl1Grammars() {
+    clearTestAppSettings();
+
+    GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1);
+    dialog.show();
+
+    auto* start  = dialog.findChild<QPushButton*>("grammarEditorStartButton");
+    auto* status = dialog.findChild<QLabel*>("grammarEditorStatus");
+    QVERIFY(start != nullptr);
+    QVERIFY(status != nullptr);
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a"));
+    QVERIFY(!dialog.isGrammarValidForTest());
+    QVERIFY(!start->isEnabled());
+    QVERIFY(!status->text().isEmpty());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A B -> a ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a $ ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a\nB -> b ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    // Left recursion is fine for SLR(1) but must be rejected in LL(1) mode.
+    dialog.setGrammarTextForTest(QStringLiteral("Expr -> Expr + id | id ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    // Non-productive grammars never derive a terminal string.
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a B .\nB -> B b ."));
+    QVERIFY(!dialog.isGrammarValidForTest());
+
+    dialog.setGrammarTextForTest(QStringLiteral("A -> a A | b ."));
+    QVERIFY(dialog.isGrammarValidForTest());
+    QVERIFY(start->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-17
+// Summary:
+//   Cancels the grammar editor and verifies no tutor is started.
+//
+// Situation:
+//   Custom grammar mode enabled on the home screen.
+//
+// Action:
+//   The test clicks the LL(1) button and dismisses the editor dialog.
+//
+// Expected:
+//   The application stays on the home page with no tutor created.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarEditorCancelKeepsHomePage() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+    window.findChild<QCheckBox*>("customGrammarCheck")->setChecked(true);
+
+    scheduleGrammarEditorCancel();
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+
+    QTest::qWait(50);
+    QVERIFY(window.findChild<LLTutorWindow*>() == nullptr);
+    QVERIFY(window.findChild<QPushButton*>("pushButton")->isEnabled());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-18
+// Summary:
+//   Verifies that the last accepted grammar is restored when the editor is
+//   reopened.
+//
+// Situation:
+//   A grammar was accepted in a previous editor session.
+//
+// Action:
+//   The test accepts a grammar in one dialog instance and opens a new one.
+//
+// Expected:
+//   The new editor starts pre-filled with the persisted grammar and is
+//   immediately valid.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainCustomGrammarEditorRestoresLastGrammar() {
+    clearTestAppSettings();
+
+    const QString grammarText = QStringLiteral("A -> a A | b .");
+    {
+        GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1);
+        dialog.show();
+        dialog.setGrammarTextForTest(grammarText);
+        QVERIFY(dialog.isGrammarValidForTest());
+        QTest::mouseClick(
+            dialog.findChild<QPushButton*>("grammarEditorStartButton"),
+            Qt::LeftButton);
+    }
+
+    GrammarEditorDialog reopened(GrammarEditorDialog::Mode::LL1);
+    QCOMPARE(reopened.findChild<QPlainTextEdit*>("grammarEditorInput")
+                 ->toPlainText(),
+             grammarText);
+    QVERIFY(reopened.isGrammarValidForTest());
+}
+
+// -----------------------------------------------------------------------------
+// Case: MAIN-TC-19
+// Summary:
+//   Verifies that the "Modo examen" checkbox launches tutors in exam mode.
+//
+// Situation:
+//   Main window freshly opened on the home screen.
+//
+// Action:
+//   The test checks the exam mode checkbox and opens the LL(1) tutor.
+//
+// Expected:
+//   The tutor starts with the feedback counters hidden (exam mode active);
+//   without the checkbox the counters are visible.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::mainExamModeCheckboxLaunchesExamTutor() {
+    clearTestAppSettings();
+
+    MainWindow window;
+    window.show();
+
+    auto* examCheck = window.findChild<QCheckBox*>("examModeCheck");
+    QVERIFY(examCheck != nullptr);
+    QVERIFY(examCheck->isEnabled());
+    examCheck->setChecked(true);
+
+    QTest::mouseClick(window.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+    LLTutorWindow* tutor = nullptr;
+    QTRY_VERIFY((tutor = window.findChild<LLTutorWindow*>()) != nullptr);
+    QVERIFY(tutor->findChild<QLabel*>("cntRight")->isHidden());
+    QVERIFY(tutor->findChild<QLabel*>("cntWrong")->isHidden());
+
+    MainWindow normalWindow;
+    normalWindow.show();
+    QTest::mouseClick(normalWindow.findChild<QPushButton*>("pushButton"),
+                      Qt::LeftButton);
+    LLTutorWindow* normalTutor = nullptr;
+    QTRY_VERIFY((normalTutor = normalWindow.findChild<LLTutorWindow*>()) !=
+                nullptr);
+    QVERIFY(!normalTutor->findChild<QLabel*>("cntRight")->isHidden());
+}

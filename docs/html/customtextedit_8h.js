@@ -1,4 +1,4 @@
 var customtextedit_8h =
 [
-    [ "CustomTextEdit", "classCustomTextEdit.html", "classCustomTextEdit" ]
+    [ "CustomTextEdit", "class_custom_text_edit.html", "class_custom_text_edit" ]
 ];

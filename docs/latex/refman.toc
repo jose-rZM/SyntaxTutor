@@ -1,479 +1,819 @@
 \@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
-\contentsline {chapter}{\numberline {1}Syntax\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Tutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}: An interactive Tool for Learning Syntax Analysis }{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}🎓 Academic Context}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}🎯 Key Features}{1}{section.1.2}%
-\contentsline {section}{\numberline {1.3}🖼️ Interface Screenshots}{2}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}🏠 Main Menu}{2}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}📘 LL(1) Learning Mode}{3}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}🧠 SLR(1) Learning Mode}{5}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}✨ Assisted Mode\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}: Guided Table Completion}{8}{subsection.1.3.4}%
-\contentsline {section}{\numberline {1.4}🛠️ Technologies Used}{8}{section.1.4}%
-\contentsline {section}{\numberline {1.5}📦 Downloads}{8}{section.1.5}%
-\contentsline {section}{\numberline {1.6}🛠️ Building from Source}{9}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}📚 Documentation}{9}{subsection.1.6.1}%
-\contentsline {chapter}{\numberline {2}Directory Hierarchy}{11}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Directories}{11}{section.2.1}%
-\contentsline {chapter}{\numberline {3}Namespace Index}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Namespace List}{13}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Hierarchical Index}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Class Hierarchy}{15}{section.4.1}%
-\contentsline {chapter}{\numberline {5}Class Index}{17}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Class List}{17}{section.5.1}%
-\contentsline {chapter}{\numberline {6}File Index}{19}{chapter.6}%
-\contentsline {section}{\numberline {6.1}File List}{19}{section.6.1}%
-\contentsline {chapter}{\numberline {7}Directory Documentation}{21}{chapter.7}%
-\contentsline {section}{\numberline {7.1}app Directory Reference}{21}{section.7.1}%
-\contentsline {section}{\numberline {7.2}backend Directory Reference}{21}{section.7.2}%
-\contentsline {section}{\numberline {7.3}gui Directory Reference}{22}{section.7.3}%
-\contentsline {section}{\numberline {7.4}widgets Directory Reference}{22}{section.7.4}%
-\contentsline {chapter}{\numberline {8}Namespace Documentation}{23}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Syntax\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Tutor Namespace Reference}{23}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Syntax\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Tutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Version Namespace Reference}{23}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}Function Documentation}{23}{subsection.8.2.1}%
-\contentsline {subsubsection}{\numberline {8.2.1.1}current()}{23}{subsubsection.8.2.1.1}%
-\contentsline {subsubsection}{\numberline {8.2.1.2}raw()}{23}{subsubsection.8.2.1.2}%
-\contentsline {chapter}{\numberline {9}Class Documentation}{25}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Center\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Align\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Delegate Class Reference}{25}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Member Function Documentation}{25}{subsection.9.1.1}%
-\contentsline {subsubsection}{\numberline {9.1.1.1}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{25}{subsubsection.9.1.1.1}%
-\contentsline {subsubsection}{\numberline {9.1.1.2}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{26}{subsubsection.9.1.1.2}%
-\contentsline {section}{\numberline {9.2}Custom\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Text\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Edit Class Reference}{26}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Constructor \& Destructor Documentation}{26}{subsection.9.2.1}%
-\contentsline {subsubsection}{\numberline {9.2.1.1}CustomTextEdit()}{26}{subsubsection.9.2.1.1}%
-\contentsline {subsection}{\numberline {9.2.2}Member Function Documentation}{27}{subsection.9.2.2}%
-\contentsline {subsubsection}{\numberline {9.2.2.1}keyPressEvent()}{27}{subsubsection.9.2.2.1}%
-\contentsline {subsubsection}{\numberline {9.2.2.2}sendRequested}{27}{subsubsection.9.2.2.2}%
-\contentsline {section}{\numberline {9.3}Grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Factory\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Factory\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item Struct Reference}{27}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}Detailed Description}{28}{subsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.3.2}Constructor \& Destructor Documentation}{28}{subsection.9.3.2}%
-\contentsline {subsubsection}{\numberline {9.3.2.1}FactoryItem()}{28}{subsubsection.9.3.2.1}%
-\contentsline {subsection}{\numberline {9.3.3}Member Data Documentation}{28}{subsection.9.3.3}%
-\contentsline {subsubsection}{\numberline {9.3.3.1}g\_}{28}{subsubsection.9.3.3.1}%
-\contentsline {subsubsection}{\numberline {9.3.3.2}st\_}{28}{subsubsection.9.3.3.2}%
-\contentsline {section}{\numberline {9.4}Grammar Struct Reference}{28}{section.9.4}%
-\contentsline {subsection}{\numberline {9.4.1}Detailed Description}{29}{subsection.9.4.1}%
-\contentsline {subsection}{\numberline {9.4.2}Constructor \& Destructor Documentation}{29}{subsection.9.4.2}%
-\contentsline {subsubsection}{\numberline {9.4.2.1}Grammar()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{29}{subsubsection.9.4.2.1}%
-\contentsline {subsubsection}{\numberline {9.4.2.2}Grammar()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{30}{subsubsection.9.4.2.2}%
-\contentsline {subsection}{\numberline {9.4.3}Member Function Documentation}{30}{subsection.9.4.3}%
-\contentsline {subsubsection}{\numberline {9.4.3.1}AddProduction()}{30}{subsubsection.9.4.3.1}%
-\contentsline {subsubsection}{\numberline {9.4.3.2}Debug()}{30}{subsubsection.9.4.3.2}%
-\contentsline {subsubsection}{\numberline {9.4.3.3}FilterRulesByConsequent()}{30}{subsubsection.9.4.3.3}%
-\contentsline {subsubsection}{\numberline {9.4.3.4}HasEmptyProduction()}{30}{subsubsection.9.4.3.4}%
-\contentsline {subsubsection}{\numberline {9.4.3.5}SetAxiom()}{31}{subsubsection.9.4.3.5}%
-\contentsline {subsubsection}{\numberline {9.4.3.6}Split()}{31}{subsubsection.9.4.3.6}%
-\contentsline {subsection}{\numberline {9.4.4}Member Data Documentation}{31}{subsection.9.4.4}%
-\contentsline {subsubsection}{\numberline {9.4.4.1}axiom\_}{31}{subsubsection.9.4.4.1}%
-\contentsline {subsubsection}{\numberline {9.4.4.2}g\_}{31}{subsubsection.9.4.4.2}%
-\contentsline {subsubsection}{\numberline {9.4.4.3}st\_}{31}{subsubsection.9.4.4.3}%
-\contentsline {section}{\numberline {9.5}Grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Factory Struct Reference}{32}{section.9.5}%
-\contentsline {subsection}{\numberline {9.5.1}Detailed Description}{33}{subsection.9.5.1}%
-\contentsline {subsection}{\numberline {9.5.2}Member Function Documentation}{33}{subsection.9.5.2}%
-\contentsline {subsubsection}{\numberline {9.5.2.1}AdjustTerminals()}{33}{subsubsection.9.5.2.1}%
-\contentsline {subsubsection}{\numberline {9.5.2.2}CreateLv2Item()}{34}{subsubsection.9.5.2.2}%
-\contentsline {subsubsection}{\numberline {9.5.2.3}GenerateNewNonTerminal()}{34}{subsubsection.9.5.2.3}%
-\contentsline {subsubsection}{\numberline {9.5.2.4}GenLL1Grammar()}{35}{subsubsection.9.5.2.4}%
-\contentsline {subsubsection}{\numberline {9.5.2.5}GenSLR1Grammar()}{35}{subsubsection.9.5.2.5}%
-\contentsline {subsubsection}{\numberline {9.5.2.6}HasCycle()}{36}{subsubsection.9.5.2.6}%
-\contentsline {subsubsection}{\numberline {9.5.2.7}HasDirectLeftRecursion()}{36}{subsubsection.9.5.2.7}%
-\contentsline {subsubsection}{\numberline {9.5.2.8}HasIndirectLeftRecursion()}{37}{subsubsection.9.5.2.8}%
-\contentsline {subsubsection}{\numberline {9.5.2.9}HasUnreachableSymbols()}{37}{subsubsection.9.5.2.9}%
-\contentsline {subsubsection}{\numberline {9.5.2.10}Init()}{38}{subsubsection.9.5.2.10}%
-\contentsline {subsubsection}{\numberline {9.5.2.11}IsInfinite()}{38}{subsubsection.9.5.2.11}%
-\contentsline {subsubsection}{\numberline {9.5.2.12}LeftFactorize()}{39}{subsubsection.9.5.2.12}%
-\contentsline {subsubsection}{\numberline {9.5.2.13}LongestCommonPrefix()}{39}{subsubsection.9.5.2.13}%
-\contentsline {subsubsection}{\numberline {9.5.2.14}Lv1()}{40}{subsubsection.9.5.2.14}%
-\contentsline {subsubsection}{\numberline {9.5.2.15}Lv2()}{40}{subsubsection.9.5.2.15}%
-\contentsline {subsubsection}{\numberline {9.5.2.16}Lv3()}{40}{subsubsection.9.5.2.16}%
-\contentsline {subsubsection}{\numberline {9.5.2.17}Lv4()}{41}{subsubsection.9.5.2.17}%
-\contentsline {subsubsection}{\numberline {9.5.2.18}Lv5()}{41}{subsubsection.9.5.2.18}%
-\contentsline {subsubsection}{\numberline {9.5.2.19}Lv6()}{42}{subsubsection.9.5.2.19}%
-\contentsline {subsubsection}{\numberline {9.5.2.20}Lv7()}{43}{subsubsection.9.5.2.20}%
-\contentsline {subsubsection}{\numberline {9.5.2.21}Merge()}{43}{subsubsection.9.5.2.21}%
-\contentsline {subsubsection}{\numberline {9.5.2.22}NormalizeNonTerminals()}{44}{subsubsection.9.5.2.22}%
-\contentsline {subsubsection}{\numberline {9.5.2.23}NullableSymbols()}{44}{subsubsection.9.5.2.23}%
-\contentsline {subsubsection}{\numberline {9.5.2.24}PickOne()}{45}{subsubsection.9.5.2.24}%
-\contentsline {subsubsection}{\numberline {9.5.2.25}RemoveLeftRecursion()}{45}{subsubsection.9.5.2.25}%
-\contentsline {subsubsection}{\numberline {9.5.2.26}StartsWith()}{46}{subsubsection.9.5.2.26}%
-\contentsline {subsection}{\numberline {9.5.3}Member Data Documentation}{47}{subsection.9.5.3}%
-\contentsline {subsubsection}{\numberline {9.5.3.1}items}{47}{subsubsection.9.5.3.1}%
-\contentsline {subsubsection}{\numberline {9.5.3.2}non\_terminal\_alphabet\_}{47}{subsubsection.9.5.3.2}%
-\contentsline {subsubsection}{\numberline {9.5.3.3}terminal\_alphabet\_}{47}{subsubsection.9.5.3.3}%
-\contentsline {section}{\numberline {9.6}LL1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser Class Reference}{47}{section.9.6}%
-\contentsline {subsection}{\numberline {9.6.1}Constructor \& Destructor Documentation}{48}{subsection.9.6.1}%
-\contentsline {subsubsection}{\numberline {9.6.1.1}LL1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{48}{subsubsection.9.6.1.1}%
-\contentsline {subsubsection}{\numberline {9.6.1.2}LL1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{48}{subsubsection.9.6.1.2}%
-\contentsline {subsection}{\numberline {9.6.2}Member Function Documentation}{49}{subsection.9.6.2}%
-\contentsline {subsubsection}{\numberline {9.6.2.1}ComputeFirstSets()}{49}{subsubsection.9.6.2.1}%
-\contentsline {subsubsection}{\numberline {9.6.2.2}ComputeFollowSets()}{49}{subsubsection.9.6.2.2}%
-\contentsline {subsubsection}{\numberline {9.6.2.3}CreateLL1Table()}{50}{subsubsection.9.6.2.3}%
-\contentsline {subsubsection}{\numberline {9.6.2.4}First()}{50}{subsubsection.9.6.2.4}%
-\contentsline {subsubsection}{\numberline {9.6.2.5}Follow()}{51}{subsubsection.9.6.2.5}%
-\contentsline {subsubsection}{\numberline {9.6.2.6}PredictionSymbols()}{52}{subsubsection.9.6.2.6}%
-\contentsline {subsection}{\numberline {9.6.3}Member Data Documentation}{52}{subsection.9.6.3}%
-\contentsline {subsubsection}{\numberline {9.6.3.1}first\_sets\_}{52}{subsubsection.9.6.3.1}%
-\contentsline {subsubsection}{\numberline {9.6.3.2}follow\_sets\_}{52}{subsubsection.9.6.3.2}%
-\contentsline {subsubsection}{\numberline {9.6.3.3}gr\_}{53}{subsubsection.9.6.3.3}%
-\contentsline {subsubsection}{\numberline {9.6.3.4}ll1\_t\_}{53}{subsubsection.9.6.3.4}%
-\contentsline {section}{\numberline {9.7}LLTable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog Class Reference}{53}{section.9.7}%
-\contentsline {subsection}{\numberline {9.7.1}Detailed Description}{54}{subsection.9.7.1}%
-\contentsline {subsection}{\numberline {9.7.2}Constructor \& Destructor Documentation}{54}{subsection.9.7.2}%
-\contentsline {subsubsection}{\numberline {9.7.2.1}LLTableDialog()}{54}{subsubsection.9.7.2.1}%
-\contentsline {subsection}{\numberline {9.7.3}Member Function Documentation}{54}{subsection.9.7.3}%
-\contentsline {subsubsection}{\numberline {9.7.3.1}getTableData()}{54}{subsubsection.9.7.3.1}%
-\contentsline {subsubsection}{\numberline {9.7.3.2}highlightIncorrectCells()}{54}{subsubsection.9.7.3.2}%
-\contentsline {subsubsection}{\numberline {9.7.3.3}setInitialData()}{54}{subsubsection.9.7.3.3}%
-\contentsline {subsubsection}{\numberline {9.7.3.4}submitted}{55}{subsubsection.9.7.3.4}%
-\contentsline {section}{\numberline {9.8}LLTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{55}{section.9.8}%
-\contentsline {subsection}{\numberline {9.8.1}Detailed Description}{57}{subsection.9.8.1}%
-\contentsline {subsection}{\numberline {9.8.2}Constructor \& Destructor Documentation}{58}{subsection.9.8.2}%
-\contentsline {subsubsection}{\numberline {9.8.2.1}LLTutorWindow()}{58}{subsubsection.9.8.2.1}%
-\contentsline {subsubsection}{\numberline {9.8.2.2}$\sim $LLTutorWindow()}{58}{subsubsection.9.8.2.2}%
-\contentsline {subsection}{\numberline {9.8.3}Member Function Documentation}{59}{subsection.9.8.3}%
-\contentsline {subsubsection}{\numberline {9.8.3.1}addMessage()}{59}{subsubsection.9.8.3.1}%
-\contentsline {subsubsection}{\numberline {9.8.3.2}addWidgetMessage()}{59}{subsubsection.9.8.3.2}%
-\contentsline {subsubsection}{\numberline {9.8.3.3}animateLabelColor()}{59}{subsubsection.9.8.3.3}%
-\contentsline {subsubsection}{\numberline {9.8.3.4}animateLabelPop()}{59}{subsubsection.9.8.3.4}%
-\contentsline {subsubsection}{\numberline {9.8.3.5}buildTreeNode()}{59}{subsubsection.9.8.3.5}%
-\contentsline {subsubsection}{\numberline {9.8.3.6}closeEvent()}{59}{subsubsection.9.8.3.6}%
-\contentsline {subsubsection}{\numberline {9.8.3.7}computeSubtreeWidth()}{60}{subsubsection.9.8.3.7}%
-\contentsline {subsubsection}{\numberline {9.8.3.8}drawTree()}{60}{subsubsection.9.8.3.8}%
-\contentsline {subsubsection}{\numberline {9.8.3.9}eventFilter()}{60}{subsubsection.9.8.3.9}%
-\contentsline {subsubsection}{\numberline {9.8.3.10}exportConversationToPdf()}{60}{subsubsection.9.8.3.10}%
-\contentsline {subsubsection}{\numberline {9.8.3.11}feedback()}{60}{subsubsection.9.8.3.11}%
-\contentsline {subsubsection}{\numberline {9.8.3.12}feedbackForA()}{60}{subsubsection.9.8.3.12}%
-\contentsline {subsubsection}{\numberline {9.8.3.13}feedbackForA1()}{60}{subsubsection.9.8.3.13}%
-\contentsline {subsubsection}{\numberline {9.8.3.14}feedbackForA2()}{60}{subsubsection.9.8.3.14}%
-\contentsline {subsubsection}{\numberline {9.8.3.15}feedbackForAPrime()}{60}{subsubsection.9.8.3.15}%
-\contentsline {subsubsection}{\numberline {9.8.3.16}feedbackForB()}{60}{subsubsection.9.8.3.16}%
-\contentsline {subsubsection}{\numberline {9.8.3.17}feedbackForB1()}{61}{subsubsection.9.8.3.17}%
-\contentsline {subsubsection}{\numberline {9.8.3.18}feedbackForB1TreeGraphics()}{61}{subsubsection.9.8.3.18}%
-\contentsline {subsubsection}{\numberline {9.8.3.19}feedbackForB1TreeWidget()}{61}{subsubsection.9.8.3.19}%
-\contentsline {subsubsection}{\numberline {9.8.3.20}feedbackForB2()}{61}{subsubsection.9.8.3.20}%
-\contentsline {subsubsection}{\numberline {9.8.3.21}feedbackForBPrime()}{61}{subsubsection.9.8.3.21}%
-\contentsline {subsubsection}{\numberline {9.8.3.22}feedbackForC()}{61}{subsubsection.9.8.3.22}%
-\contentsline {subsubsection}{\numberline {9.8.3.23}feedbackForCPrime()}{61}{subsubsection.9.8.3.23}%
-\contentsline {subsubsection}{\numberline {9.8.3.24}FormatGrammar()}{61}{subsubsection.9.8.3.24}%
-\contentsline {subsubsection}{\numberline {9.8.3.25}generateQuestion()}{62}{subsubsection.9.8.3.25}%
-\contentsline {subsubsection}{\numberline {9.8.3.26}handleTableSubmission()}{62}{subsubsection.9.8.3.26}%
-\contentsline {subsubsection}{\numberline {9.8.3.27}markLastUserIncorrect()}{62}{subsubsection.9.8.3.27}%
-\contentsline {subsubsection}{\numberline {9.8.3.28}sessionFinished}{62}{subsubsection.9.8.3.28}%
-\contentsline {subsubsection}{\numberline {9.8.3.29}showTable()}{63}{subsubsection.9.8.3.29}%
-\contentsline {subsubsection}{\numberline {9.8.3.30}showTableForCPrime()}{63}{subsubsection.9.8.3.30}%
-\contentsline {subsubsection}{\numberline {9.8.3.31}showTreeGraphics()}{63}{subsubsection.9.8.3.31}%
-\contentsline {subsubsection}{\numberline {9.8.3.32}solution()}{63}{subsubsection.9.8.3.32}%
-\contentsline {subsubsection}{\numberline {9.8.3.33}solutionForA()}{63}{subsubsection.9.8.3.33}%
-\contentsline {subsubsection}{\numberline {9.8.3.34}solutionForA1()}{63}{subsubsection.9.8.3.34}%
-\contentsline {subsubsection}{\numberline {9.8.3.35}solutionForA2()}{63}{subsubsection.9.8.3.35}%
-\contentsline {subsubsection}{\numberline {9.8.3.36}solutionForB()}{63}{subsubsection.9.8.3.36}%
-\contentsline {subsubsection}{\numberline {9.8.3.37}solutionForB1()}{64}{subsubsection.9.8.3.37}%
-\contentsline {subsubsection}{\numberline {9.8.3.38}solutionForB2()}{64}{subsubsection.9.8.3.38}%
-\contentsline {subsubsection}{\numberline {9.8.3.39}TeachFirstTree()}{64}{subsubsection.9.8.3.39}%
-\contentsline {subsubsection}{\numberline {9.8.3.40}TeachFollow()}{64}{subsubsection.9.8.3.40}%
-\contentsline {subsubsection}{\numberline {9.8.3.41}TeachLL1Table()}{64}{subsubsection.9.8.3.41}%
-\contentsline {subsubsection}{\numberline {9.8.3.42}TeachPredictionSymbols()}{64}{subsubsection.9.8.3.42}%
-\contentsline {subsubsection}{\numberline {9.8.3.43}updateProgressPanel()}{64}{subsubsection.9.8.3.43}%
-\contentsline {subsubsection}{\numberline {9.8.3.44}updateState()}{65}{subsubsection.9.8.3.44}%
-\contentsline {subsubsection}{\numberline {9.8.3.45}verifyResponse()}{65}{subsubsection.9.8.3.45}%
-\contentsline {subsubsection}{\numberline {9.8.3.46}verifyResponseForA()}{65}{subsubsection.9.8.3.46}%
-\contentsline {subsubsection}{\numberline {9.8.3.47}verifyResponseForA1()}{65}{subsubsection.9.8.3.47}%
-\contentsline {subsubsection}{\numberline {9.8.3.48}verifyResponseForA2()}{65}{subsubsection.9.8.3.48}%
-\contentsline {subsubsection}{\numberline {9.8.3.49}verifyResponseForB()}{65}{subsubsection.9.8.3.49}%
-\contentsline {subsubsection}{\numberline {9.8.3.50}verifyResponseForB1()}{65}{subsubsection.9.8.3.50}%
-\contentsline {subsubsection}{\numberline {9.8.3.51}verifyResponseForB2()}{65}{subsubsection.9.8.3.51}%
-\contentsline {subsubsection}{\numberline {9.8.3.52}verifyResponseForC()}{65}{subsubsection.9.8.3.52}%
-\contentsline {subsubsection}{\numberline {9.8.3.53}wrongAnimation()}{65}{subsubsection.9.8.3.53}%
-\contentsline {subsubsection}{\numberline {9.8.3.54}wrongUserResponseAnimation()}{66}{subsubsection.9.8.3.54}%
-\contentsline {section}{\numberline {9.9}Lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Item Struct Reference}{66}{section.9.9}%
-\contentsline {subsection}{\numberline {9.9.1}Detailed Description}{66}{subsection.9.9.1}%
-\contentsline {subsection}{\numberline {9.9.2}Constructor \& Destructor Documentation}{67}{subsection.9.9.2}%
-\contentsline {subsubsection}{\numberline {9.9.2.1}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{67}{subsubsection.9.9.2.1}%
-\contentsline {subsubsection}{\numberline {9.9.2.2}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{67}{subsubsection.9.9.2.2}%
-\contentsline {subsection}{\numberline {9.9.3}Member Function Documentation}{67}{subsection.9.9.3}%
-\contentsline {subsubsection}{\numberline {9.9.3.1}AdvanceDot()}{67}{subsubsection.9.9.3.1}%
-\contentsline {subsubsection}{\numberline {9.9.3.2}IsComplete()}{68}{subsubsection.9.9.3.2}%
-\contentsline {subsubsection}{\numberline {9.9.3.3}NextToDot()}{68}{subsubsection.9.9.3.3}%
-\contentsline {subsubsection}{\numberline {9.9.3.4}operator==()}{68}{subsubsection.9.9.3.4}%
-\contentsline {subsubsection}{\numberline {9.9.3.5}PrintItem()}{68}{subsubsection.9.9.3.5}%
-\contentsline {subsubsection}{\numberline {9.9.3.6}ToString()}{69}{subsubsection.9.9.3.6}%
-\contentsline {subsection}{\numberline {9.9.4}Member Data Documentation}{69}{subsection.9.9.4}%
-\contentsline {subsubsection}{\numberline {9.9.4.1}antecedent\_}{69}{subsubsection.9.9.4.1}%
-\contentsline {subsubsection}{\numberline {9.9.4.2}consequent\_}{69}{subsubsection.9.9.4.2}%
-\contentsline {subsubsection}{\numberline {9.9.4.3}dot\_}{69}{subsubsection.9.9.4.3}%
-\contentsline {subsubsection}{\numberline {9.9.4.4}eol\_}{69}{subsubsection.9.9.4.4}%
-\contentsline {subsubsection}{\numberline {9.9.4.5}epsilon\_}{69}{subsubsection.9.9.4.5}%
-\contentsline {section}{\numberline {9.10}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{69}{section.9.10}%
-\contentsline {subsection}{\numberline {9.10.1}Detailed Description}{70}{subsection.9.10.1}%
-\contentsline {subsection}{\numberline {9.10.2}Constructor \& Destructor Documentation}{71}{subsection.9.10.2}%
-\contentsline {subsubsection}{\numberline {9.10.2.1}MainWindow()}{71}{subsubsection.9.10.2.1}%
-\contentsline {subsubsection}{\numberline {9.10.2.2}$\sim $MainWindow()}{71}{subsubsection.9.10.2.2}%
-\contentsline {subsection}{\numberline {9.10.3}Member Function Documentation}{71}{subsection.9.10.3}%
-\contentsline {subsubsection}{\numberline {9.10.3.1}setUserLevel()}{71}{subsubsection.9.10.3.1}%
-\contentsline {subsubsection}{\numberline {9.10.3.2}thresholdFor()}{71}{subsubsection.9.10.3.2}%
-\contentsline {subsubsection}{\numberline {9.10.3.3}userLevel()}{72}{subsubsection.9.10.3.3}%
-\contentsline {subsubsection}{\numberline {9.10.3.4}userLevelChanged}{72}{subsubsection.9.10.3.4}%
-\contentsline {subsubsection}{\numberline {9.10.3.5}userLevelUp}{72}{subsubsection.9.10.3.5}%
-\contentsline {subsection}{\numberline {9.10.4}Property Documentation}{73}{subsection.9.10.4}%
-\contentsline {subsubsection}{\numberline {9.10.4.1}userLevel}{73}{subsubsection.9.10.4.1}%
-\contentsline {section}{\numberline {9.11}SLR1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::s\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}action Struct Reference}{73}{section.9.11}%
-\contentsline {subsection}{\numberline {9.11.1}Member Data Documentation}{73}{subsection.9.11.1}%
-\contentsline {subsubsection}{\numberline {9.11.1.1}action}{73}{subsubsection.9.11.1.1}%
-\contentsline {subsubsection}{\numberline {9.11.1.2}item}{73}{subsubsection.9.11.1.2}%
-\contentsline {section}{\numberline {9.12}SLR1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Parser Class Reference}{73}{section.9.12}%
-\contentsline {subsection}{\numberline {9.12.1}Detailed Description}{75}{subsection.9.12.1}%
-\contentsline {subsection}{\numberline {9.12.2}Member Typedef Documentation}{75}{subsection.9.12.2}%
-\contentsline {subsubsection}{\numberline {9.12.2.1}action\_table}{75}{subsubsection.9.12.2.1}%
-\contentsline {subsubsection}{\numberline {9.12.2.2}transition\_table}{76}{subsubsection.9.12.2.2}%
-\contentsline {subsection}{\numberline {9.12.3}Member Enumeration Documentation}{76}{subsection.9.12.3}%
-\contentsline {subsubsection}{\numberline {9.12.3.1}Action}{76}{subsubsection.9.12.3.1}%
-\contentsline {subsection}{\numberline {9.12.4}Constructor \& Destructor Documentation}{76}{subsection.9.12.4}%
-\contentsline {subsubsection}{\numberline {9.12.4.1}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{76}{subsubsection.9.12.4.1}%
-\contentsline {subsubsection}{\numberline {9.12.4.2}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{76}{subsubsection.9.12.4.2}%
-\contentsline {subsection}{\numberline {9.12.5}Member Function Documentation}{77}{subsection.9.12.5}%
-\contentsline {subsubsection}{\numberline {9.12.5.1}AllItems()}{77}{subsubsection.9.12.5.1}%
-\contentsline {subsubsection}{\numberline {9.12.5.2}Closure()}{77}{subsubsection.9.12.5.2}%
-\contentsline {subsubsection}{\numberline {9.12.5.3}ClosureUtil()}{77}{subsubsection.9.12.5.3}%
-\contentsline {subsubsection}{\numberline {9.12.5.4}ComputeFirstSets()}{78}{subsubsection.9.12.5.4}%
-\contentsline {subsubsection}{\numberline {9.12.5.5}ComputeFollowSets()}{78}{subsubsection.9.12.5.5}%
-\contentsline {subsubsection}{\numberline {9.12.5.6}Delta()}{79}{subsubsection.9.12.5.6}%
-\contentsline {subsubsection}{\numberline {9.12.5.7}First()}{79}{subsubsection.9.12.5.7}%
-\contentsline {subsubsection}{\numberline {9.12.5.8}Follow()}{80}{subsubsection.9.12.5.8}%
-\contentsline {subsubsection}{\numberline {9.12.5.9}MakeInitialState()}{81}{subsubsection.9.12.5.9}%
-\contentsline {subsubsection}{\numberline {9.12.5.10}MakeParser()}{81}{subsubsection.9.12.5.10}%
-\contentsline {subsubsection}{\numberline {9.12.5.11}PrintItems()}{82}{subsubsection.9.12.5.11}%
-\contentsline {subsubsection}{\numberline {9.12.5.12}SolveLRConflicts()}{82}{subsubsection.9.12.5.12}%
-\contentsline {subsection}{\numberline {9.12.6}Member Data Documentation}{83}{subsection.9.12.6}%
-\contentsline {subsubsection}{\numberline {9.12.6.1}actions\_}{83}{subsubsection.9.12.6.1}%
-\contentsline {subsubsection}{\numberline {9.12.6.2}first\_sets\_}{83}{subsubsection.9.12.6.2}%
-\contentsline {subsubsection}{\numberline {9.12.6.3}follow\_sets\_}{83}{subsubsection.9.12.6.3}%
-\contentsline {subsubsection}{\numberline {9.12.6.4}gr\_}{83}{subsubsection.9.12.6.4}%
-\contentsline {subsubsection}{\numberline {9.12.6.5}states\_}{83}{subsubsection.9.12.6.5}%
-\contentsline {subsubsection}{\numberline {9.12.6.6}transitions\_}{83}{subsubsection.9.12.6.6}%
-\contentsline {section}{\numberline {9.13}SLRTable\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dialog Class Reference}{83}{section.9.13}%
-\contentsline {subsection}{\numberline {9.13.1}Detailed Description}{84}{subsection.9.13.1}%
-\contentsline {subsection}{\numberline {9.13.2}Constructor \& Destructor Documentation}{84}{subsection.9.13.2}%
-\contentsline {subsubsection}{\numberline {9.13.2.1}SLRTableDialog()}{84}{subsubsection.9.13.2.1}%
-\contentsline {subsection}{\numberline {9.13.3}Member Function Documentation}{85}{subsection.9.13.3}%
-\contentsline {subsubsection}{\numberline {9.13.3.1}getTableData()}{85}{subsubsection.9.13.3.1}%
-\contentsline {subsubsection}{\numberline {9.13.3.2}setInitialData()}{85}{subsubsection.9.13.3.2}%
-\contentsline {section}{\numberline {9.14}SLRTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window Class Reference}{85}{section.9.14}%
-\contentsline {subsection}{\numberline {9.14.1}Detailed Description}{88}{subsection.9.14.1}%
-\contentsline {subsection}{\numberline {9.14.2}Constructor \& Destructor Documentation}{88}{subsection.9.14.2}%
-\contentsline {subsubsection}{\numberline {9.14.2.1}SLRTutorWindow()}{88}{subsubsection.9.14.2.1}%
-\contentsline {subsubsection}{\numberline {9.14.2.2}$\sim $SLRTutorWindow()}{89}{subsubsection.9.14.2.2}%
-\contentsline {subsection}{\numberline {9.14.3}Member Function Documentation}{89}{subsection.9.14.3}%
-\contentsline {subsubsection}{\numberline {9.14.3.1}addMessage()}{89}{subsubsection.9.14.3.1}%
-\contentsline {subsubsection}{\numberline {9.14.3.2}addUserState()}{89}{subsubsection.9.14.3.2}%
-\contentsline {subsubsection}{\numberline {9.14.3.3}addUserTransition()}{89}{subsubsection.9.14.3.3}%
-\contentsline {subsubsection}{\numberline {9.14.3.4}animateLabelColor()}{89}{subsubsection.9.14.3.4}%
-\contentsline {subsubsection}{\numberline {9.14.3.5}animateLabelPop()}{89}{subsubsection.9.14.3.5}%
-\contentsline {subsubsection}{\numberline {9.14.3.6}closeEvent()}{89}{subsubsection.9.14.3.6}%
-\contentsline {subsubsection}{\numberline {9.14.3.7}exportConversationToPdf()}{90}{subsubsection.9.14.3.7}%
-\contentsline {subsubsection}{\numberline {9.14.3.8}feedback()}{90}{subsubsection.9.14.3.8}%
-\contentsline {subsubsection}{\numberline {9.14.3.9}feedbackForA()}{90}{subsubsection.9.14.3.9}%
-\contentsline {subsubsection}{\numberline {9.14.3.10}feedbackForA1()}{90}{subsubsection.9.14.3.10}%
-\contentsline {subsubsection}{\numberline {9.14.3.11}feedbackForA2()}{90}{subsubsection.9.14.3.11}%
-\contentsline {subsubsection}{\numberline {9.14.3.12}feedbackForA3()}{90}{subsubsection.9.14.3.12}%
-\contentsline {subsubsection}{\numberline {9.14.3.13}feedbackForA4()}{90}{subsubsection.9.14.3.13}%
-\contentsline {subsubsection}{\numberline {9.14.3.14}feedbackForAPrime()}{90}{subsubsection.9.14.3.14}%
-\contentsline {subsubsection}{\numberline {9.14.3.15}feedbackForB()}{90}{subsubsection.9.14.3.15}%
-\contentsline {subsubsection}{\numberline {9.14.3.16}feedbackForB1()}{90}{subsubsection.9.14.3.16}%
-\contentsline {subsubsection}{\numberline {9.14.3.17}feedbackForB2()}{90}{subsubsection.9.14.3.17}%
-\contentsline {subsubsection}{\numberline {9.14.3.18}feedbackForBPrime()}{91}{subsubsection.9.14.3.18}%
-\contentsline {subsubsection}{\numberline {9.14.3.19}feedbackForC()}{91}{subsubsection.9.14.3.19}%
-\contentsline {subsubsection}{\numberline {9.14.3.20}feedbackForCA()}{91}{subsubsection.9.14.3.20}%
-\contentsline {subsubsection}{\numberline {9.14.3.21}feedbackForCB()}{91}{subsubsection.9.14.3.21}%
-\contentsline {subsubsection}{\numberline {9.14.3.22}feedbackForD()}{91}{subsubsection.9.14.3.22}%
-\contentsline {subsubsection}{\numberline {9.14.3.23}feedbackForD1()}{91}{subsubsection.9.14.3.23}%
-\contentsline {subsubsection}{\numberline {9.14.3.24}feedbackForD2()}{91}{subsubsection.9.14.3.24}%
-\contentsline {subsubsection}{\numberline {9.14.3.25}feedbackForDPrime()}{91}{subsubsection.9.14.3.25}%
-\contentsline {subsubsection}{\numberline {9.14.3.26}feedbackForE()}{91}{subsubsection.9.14.3.26}%
-\contentsline {subsubsection}{\numberline {9.14.3.27}feedbackForE1()}{91}{subsubsection.9.14.3.27}%
-\contentsline {subsubsection}{\numberline {9.14.3.28}feedbackForE2()}{91}{subsubsection.9.14.3.28}%
-\contentsline {subsubsection}{\numberline {9.14.3.29}feedbackForF()}{91}{subsubsection.9.14.3.29}%
-\contentsline {subsubsection}{\numberline {9.14.3.30}feedbackForFA()}{91}{subsubsection.9.14.3.30}%
-\contentsline {subsubsection}{\numberline {9.14.3.31}feedbackForG()}{91}{subsubsection.9.14.3.31}%
-\contentsline {subsubsection}{\numberline {9.14.3.32}fillSortedGrammar()}{91}{subsubsection.9.14.3.32}%
-\contentsline {subsubsection}{\numberline {9.14.3.33}FormatGrammar()}{92}{subsubsection.9.14.3.33}%
-\contentsline {subsubsection}{\numberline {9.14.3.34}generateQuestion()}{92}{subsubsection.9.14.3.34}%
-\contentsline {subsubsection}{\numberline {9.14.3.35}launchSLRWizard()}{92}{subsubsection.9.14.3.35}%
-\contentsline {subsubsection}{\numberline {9.14.3.36}markLastUserIncorrect()}{92}{subsubsection.9.14.3.36}%
-\contentsline {subsubsection}{\numberline {9.14.3.37}sessionFinished}{92}{subsubsection.9.14.3.37}%
-\contentsline {subsubsection}{\numberline {9.14.3.38}showTable()}{92}{subsubsection.9.14.3.38}%
-\contentsline {subsubsection}{\numberline {9.14.3.39}solution()}{92}{subsubsection.9.14.3.39}%
-\contentsline {subsubsection}{\numberline {9.14.3.40}solutionForA()}{92}{subsubsection.9.14.3.40}%
-\contentsline {subsubsection}{\numberline {9.14.3.41}solutionForA1()}{92}{subsubsection.9.14.3.41}%
-\contentsline {subsubsection}{\numberline {9.14.3.42}solutionForA2()}{93}{subsubsection.9.14.3.42}%
-\contentsline {subsubsection}{\numberline {9.14.3.43}solutionForA3()}{93}{subsubsection.9.14.3.43}%
-\contentsline {subsubsection}{\numberline {9.14.3.44}solutionForA4()}{93}{subsubsection.9.14.3.44}%
-\contentsline {subsubsection}{\numberline {9.14.3.45}solutionForB()}{93}{subsubsection.9.14.3.45}%
-\contentsline {subsubsection}{\numberline {9.14.3.46}solutionForC()}{93}{subsubsection.9.14.3.46}%
-\contentsline {subsubsection}{\numberline {9.14.3.47}solutionForCA()}{93}{subsubsection.9.14.3.47}%
-\contentsline {subsubsection}{\numberline {9.14.3.48}solutionForCB()}{93}{subsubsection.9.14.3.48}%
-\contentsline {subsubsection}{\numberline {9.14.3.49}solutionForD()}{93}{subsubsection.9.14.3.49}%
-\contentsline {subsubsection}{\numberline {9.14.3.50}solutionForD1()}{94}{subsubsection.9.14.3.50}%
-\contentsline {subsubsection}{\numberline {9.14.3.51}solutionForD2()}{94}{subsubsection.9.14.3.51}%
-\contentsline {subsubsection}{\numberline {9.14.3.52}solutionForE()}{94}{subsubsection.9.14.3.52}%
-\contentsline {subsubsection}{\numberline {9.14.3.53}solutionForE1()}{94}{subsubsection.9.14.3.53}%
-\contentsline {subsubsection}{\numberline {9.14.3.54}solutionForE2()}{94}{subsubsection.9.14.3.54}%
-\contentsline {subsubsection}{\numberline {9.14.3.55}solutionForF()}{94}{subsubsection.9.14.3.55}%
-\contentsline {subsubsection}{\numberline {9.14.3.56}solutionForFA()}{94}{subsubsection.9.14.3.56}%
-\contentsline {subsubsection}{\numberline {9.14.3.57}solutionForG()}{94}{subsubsection.9.14.3.57}%
-\contentsline {subsubsection}{\numberline {9.14.3.58}TeachClosure()}{95}{subsubsection.9.14.3.58}%
-\contentsline {subsubsection}{\numberline {9.14.3.59}TeachClosureStep()}{95}{subsubsection.9.14.3.59}%
-\contentsline {subsubsection}{\numberline {9.14.3.60}TeachDeltaFunction()}{95}{subsubsection.9.14.3.60}%
-\contentsline {subsubsection}{\numberline {9.14.3.61}updateProgressPanel()}{95}{subsubsection.9.14.3.61}%
-\contentsline {subsubsection}{\numberline {9.14.3.62}updateState()}{95}{subsubsection.9.14.3.62}%
-\contentsline {subsubsection}{\numberline {9.14.3.63}verifyResponse()}{95}{subsubsection.9.14.3.63}%
-\contentsline {subsubsection}{\numberline {9.14.3.64}verifyResponseForA()}{95}{subsubsection.9.14.3.64}%
-\contentsline {subsubsection}{\numberline {9.14.3.65}verifyResponseForA1()}{95}{subsubsection.9.14.3.65}%
-\contentsline {subsubsection}{\numberline {9.14.3.66}verifyResponseForA2()}{96}{subsubsection.9.14.3.66}%
-\contentsline {subsubsection}{\numberline {9.14.3.67}verifyResponseForA3()}{96}{subsubsection.9.14.3.67}%
-\contentsline {subsubsection}{\numberline {9.14.3.68}verifyResponseForA4()}{96}{subsubsection.9.14.3.68}%
-\contentsline {subsubsection}{\numberline {9.14.3.69}verifyResponseForB()}{96}{subsubsection.9.14.3.69}%
-\contentsline {subsubsection}{\numberline {9.14.3.70}verifyResponseForC()}{96}{subsubsection.9.14.3.70}%
-\contentsline {subsubsection}{\numberline {9.14.3.71}verifyResponseForCA()}{96}{subsubsection.9.14.3.71}%
-\contentsline {subsubsection}{\numberline {9.14.3.72}verifyResponseForCB()}{96}{subsubsection.9.14.3.72}%
-\contentsline {subsubsection}{\numberline {9.14.3.73}verifyResponseForD()}{96}{subsubsection.9.14.3.73}%
-\contentsline {subsubsection}{\numberline {9.14.3.74}verifyResponseForD1()}{96}{subsubsection.9.14.3.74}%
-\contentsline {subsubsection}{\numberline {9.14.3.75}verifyResponseForD2()}{96}{subsubsection.9.14.3.75}%
-\contentsline {subsubsection}{\numberline {9.14.3.76}verifyResponseForE()}{96}{subsubsection.9.14.3.76}%
-\contentsline {subsubsection}{\numberline {9.14.3.77}verifyResponseForE1()}{97}{subsubsection.9.14.3.77}%
-\contentsline {subsubsection}{\numberline {9.14.3.78}verifyResponseForE2()}{97}{subsubsection.9.14.3.78}%
-\contentsline {subsubsection}{\numberline {9.14.3.79}verifyResponseForF()}{97}{subsubsection.9.14.3.79}%
-\contentsline {subsubsection}{\numberline {9.14.3.80}verifyResponseForFA()}{97}{subsubsection.9.14.3.80}%
-\contentsline {subsubsection}{\numberline {9.14.3.81}verifyResponseForG()}{97}{subsubsection.9.14.3.81}%
-\contentsline {subsubsection}{\numberline {9.14.3.82}verifyResponseForH()}{97}{subsubsection.9.14.3.82}%
-\contentsline {subsubsection}{\numberline {9.14.3.83}wrongAnimation()}{97}{subsubsection.9.14.3.83}%
-\contentsline {subsubsection}{\numberline {9.14.3.84}wrongUserResponseAnimation()}{97}{subsubsection.9.14.3.84}%
-\contentsline {section}{\numberline {9.15}SLRWizard Class Reference}{98}{section.9.15}%
-\contentsline {subsection}{\numberline {9.15.1}Detailed Description}{98}{subsection.9.15.1}%
-\contentsline {subsection}{\numberline {9.15.2}Constructor \& Destructor Documentation}{99}{subsection.9.15.2}%
-\contentsline {subsubsection}{\numberline {9.15.2.1}SLRWizard()}{99}{subsubsection.9.15.2.1}%
-\contentsline {subsection}{\numberline {9.15.3}Member Function Documentation}{99}{subsection.9.15.3}%
-\contentsline {subsubsection}{\numberline {9.15.3.1}stdVectorToQVector()}{99}{subsubsection.9.15.3.1}%
-\contentsline {section}{\numberline {9.16}SLRWizard\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Page Class Reference}{100}{section.9.16}%
-\contentsline {subsection}{\numberline {9.16.1}Detailed Description}{100}{subsection.9.16.1}%
-\contentsline {subsection}{\numberline {9.16.2}Constructor \& Destructor Documentation}{100}{subsection.9.16.2}%
-\contentsline {subsubsection}{\numberline {9.16.2.1}SLRWizardPage()}{100}{subsubsection.9.16.2.1}%
-\contentsline {section}{\numberline {9.17}state Struct Reference}{101}{section.9.17}%
-\contentsline {subsection}{\numberline {9.17.1}Detailed Description}{101}{subsection.9.17.1}%
-\contentsline {subsection}{\numberline {9.17.2}Member Function Documentation}{101}{subsection.9.17.2}%
-\contentsline {subsubsection}{\numberline {9.17.2.1}operator==()}{101}{subsubsection.9.17.2.1}%
-\contentsline {subsection}{\numberline {9.17.3}Member Data Documentation}{102}{subsection.9.17.3}%
-\contentsline {subsubsection}{\numberline {9.17.3.1}id\_}{102}{subsubsection.9.17.3.1}%
-\contentsline {subsubsection}{\numberline {9.17.3.2}items\_}{102}{subsubsection.9.17.3.2}%
-\contentsline {section}{\numberline {9.18}Symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Table Struct Reference}{102}{section.9.18}%
-\contentsline {subsection}{\numberline {9.18.1}Detailed Description}{102}{subsection.9.18.1}%
-\contentsline {subsection}{\numberline {9.18.2}Member Function Documentation}{103}{subsection.9.18.2}%
-\contentsline {subsubsection}{\numberline {9.18.2.1}In()}{103}{subsubsection.9.18.2.1}%
-\contentsline {subsubsection}{\numberline {9.18.2.2}IsTerminal()}{103}{subsubsection.9.18.2.2}%
-\contentsline {subsubsection}{\numberline {9.18.2.3}IsTerminalWthoEol()}{103}{subsubsection.9.18.2.3}%
-\contentsline {subsubsection}{\numberline {9.18.2.4}PutSymbol()}{104}{subsubsection.9.18.2.4}%
-\contentsline {subsection}{\numberline {9.18.3}Member Data Documentation}{104}{subsection.9.18.3}%
-\contentsline {subsubsection}{\numberline {9.18.3.1}EOL\_}{104}{subsubsection.9.18.3.1}%
-\contentsline {subsubsection}{\numberline {9.18.3.2}EPSILON\_}{104}{subsubsection.9.18.3.2}%
-\contentsline {subsubsection}{\numberline {9.18.3.3}non\_terminals\_}{104}{subsubsection.9.18.3.3}%
-\contentsline {subsubsection}{\numberline {9.18.3.4}st\_}{104}{subsubsection.9.18.3.4}%
-\contentsline {subsubsection}{\numberline {9.18.3.5}terminals\_}{104}{subsubsection.9.18.3.5}%
-\contentsline {subsubsection}{\numberline {9.18.3.6}terminals\_wtho\_eol\_}{104}{subsubsection.9.18.3.6}%
-\contentsline {section}{\numberline {9.19}LLTutor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Window\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Tree\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Node Struct Reference}{105}{section.9.19}%
-\contentsline {subsection}{\numberline {9.19.1}Detailed Description}{105}{subsection.9.19.1}%
-\contentsline {subsection}{\numberline {9.19.2}Member Data Documentation}{105}{subsection.9.19.2}%
-\contentsline {subsubsection}{\numberline {9.19.2.1}children}{105}{subsubsection.9.19.2.1}%
-\contentsline {subsubsection}{\numberline {9.19.2.2}label}{105}{subsubsection.9.19.2.2}%
-\contentsline {section}{\numberline {9.20}Tutorial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Manager Class Reference}{105}{section.9.20}%
-\contentsline {subsection}{\numberline {9.20.1}Detailed Description}{106}{subsection.9.20.1}%
-\contentsline {subsection}{\numberline {9.20.2}Constructor \& Destructor Documentation}{106}{subsection.9.20.2}%
-\contentsline {subsubsection}{\numberline {9.20.2.1}TutorialManager()}{106}{subsubsection.9.20.2.1}%
-\contentsline {subsection}{\numberline {9.20.3}Member Function Documentation}{107}{subsection.9.20.3}%
-\contentsline {subsubsection}{\numberline {9.20.3.1}addStep()}{107}{subsubsection.9.20.3.1}%
-\contentsline {subsubsection}{\numberline {9.20.3.2}clearSteps()}{107}{subsubsection.9.20.3.2}%
-\contentsline {subsubsection}{\numberline {9.20.3.3}eventFilter()}{107}{subsubsection.9.20.3.3}%
-\contentsline {subsubsection}{\numberline {9.20.3.4}finishLL1()}{107}{subsubsection.9.20.3.4}%
-\contentsline {subsubsection}{\numberline {9.20.3.5}finishSLR1()}{107}{subsubsection.9.20.3.5}%
-\contentsline {subsubsection}{\numberline {9.20.3.6}hideOverlay()}{108}{subsubsection.9.20.3.6}%
-\contentsline {subsubsection}{\numberline {9.20.3.7}ll1Finished}{108}{subsubsection.9.20.3.7}%
-\contentsline {subsubsection}{\numberline {9.20.3.8}nextStep}{108}{subsubsection.9.20.3.8}%
-\contentsline {subsubsection}{\numberline {9.20.3.9}setRootWindow()}{109}{subsubsection.9.20.3.9}%
-\contentsline {subsubsection}{\numberline {9.20.3.10}slr1Finished}{109}{subsubsection.9.20.3.10}%
-\contentsline {subsubsection}{\numberline {9.20.3.11}start()}{109}{subsubsection.9.20.3.11}%
-\contentsline {subsubsection}{\numberline {9.20.3.12}stepStarted}{110}{subsubsection.9.20.3.12}%
-\contentsline {subsubsection}{\numberline {9.20.3.13}tutorialFinished}{110}{subsubsection.9.20.3.13}%
-\contentsline {section}{\numberline {9.21}Tutorial\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Step Struct Reference}{110}{section.9.21}%
-\contentsline {subsection}{\numberline {9.21.1}Detailed Description}{110}{subsection.9.21.1}%
-\contentsline {subsection}{\numberline {9.21.2}Member Data Documentation}{110}{subsection.9.21.2}%
-\contentsline {subsubsection}{\numberline {9.21.2.1}htmlText}{110}{subsubsection.9.21.2.1}%
-\contentsline {subsubsection}{\numberline {9.21.2.2}target}{111}{subsubsection.9.21.2.2}%
-\contentsline {section}{\numberline {9.22}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue$<$ T $>$ Class Template Reference}{111}{section.9.22}%
-\contentsline {subsection}{\numberline {9.22.1}Detailed Description}{111}{subsection.9.22.1}%
-\contentsline {subsection}{\numberline {9.22.2}Member Function Documentation}{111}{subsection.9.22.2}%
-\contentsline {subsubsection}{\numberline {9.22.2.1}clear()}{111}{subsubsection.9.22.2.1}%
-\contentsline {subsubsection}{\numberline {9.22.2.2}empty()}{111}{subsubsection.9.22.2.2}%
-\contentsline {subsubsection}{\numberline {9.22.2.3}front()}{112}{subsubsection.9.22.2.3}%
-\contentsline {subsubsection}{\numberline {9.22.2.4}pop()}{112}{subsubsection.9.22.2.4}%
-\contentsline {subsubsection}{\numberline {9.22.2.5}push()}{112}{subsubsection.9.22.2.5}%
-\contentsline {chapter}{\numberline {10}File Documentation}{113}{chapter.10}%
-\contentsline {section}{\numberline {10.1}/home/jose/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Documentos/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}UMA/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}TFG/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Syntax\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Tutor/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}README.md File Reference}{113}{section.10.1}%
-\contentsline {section}{\numberline {10.2}app/main.cpp File Reference}{113}{section.10.2}%
-\contentsline {subsection}{\numberline {10.2.1}Function Documentation}{113}{subsection.10.2.1}%
-\contentsline {subsubsection}{\numberline {10.2.1.1}loadFonts()}{113}{subsubsection.10.2.1.1}%
-\contentsline {subsubsection}{\numberline {10.2.1.2}main()}{113}{subsubsection.10.2.1.2}%
-\contentsline {section}{\numberline {10.3}appversion.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{114}{section.10.3}%
-\contentsline {section}{\numberline {10.4}appversion.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{114}{section.10.4}%
-\contentsline {section}{\numberline {10.5}backend/grammar.cpp File Reference}{115}{section.10.5}%
-\contentsline {section}{\numberline {10.6}backend/grammar.hpp File Reference}{115}{section.10.6}%
-\contentsline {subsection}{\numberline {10.6.1}Typedef Documentation}{116}{subsection.10.6.1}%
-\contentsline {subsubsection}{\numberline {10.6.1.1}production}{116}{subsubsection.10.6.1.1}%
-\contentsline {section}{\numberline {10.7}grammar.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{116}{section.10.7}%
-\contentsline {section}{\numberline {10.8}backend/grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.cpp File Reference}{117}{section.10.8}%
-\contentsline {section}{\numberline {10.9}backend/grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.hpp File Reference}{117}{section.10.9}%
-\contentsline {section}{\numberline {10.10}grammar\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}factory.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{118}{section.10.10}%
-\contentsline {section}{\numberline {10.11}backend/ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.cpp File Reference}{120}{section.10.11}%
-\contentsline {section}{\numberline {10.12}backend/ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.hpp File Reference}{120}{section.10.12}%
-\contentsline {section}{\numberline {10.13}ll1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{121}{section.10.13}%
-\contentsline {section}{\numberline {10.14}backend/lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.cpp File Reference}{122}{section.10.14}%
-\contentsline {section}{\numberline {10.15}backend/lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.hpp File Reference}{122}{section.10.15}%
-\contentsline {section}{\numberline {10.16}lr0\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}item.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{123}{section.10.16}%
-\contentsline {section}{\numberline {10.17}backend/slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.cpp File Reference}{124}{section.10.17}%
-\contentsline {section}{\numberline {10.18}backend/slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.hpp File Reference}{124}{section.10.18}%
-\contentsline {section}{\numberline {10.19}slr1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}parser.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{125}{section.10.19}%
-\contentsline {section}{\numberline {10.20}backend/state.hpp File Reference}{126}{section.10.20}%
-\contentsline {section}{\numberline {10.21}state.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{127}{section.10.21}%
-\contentsline {section}{\numberline {10.22}backend/symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.cpp File Reference}{128}{section.10.22}%
-\contentsline {section}{\numberline {10.23}backend/symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.hpp File Reference}{128}{section.10.23}%
-\contentsline {subsection}{\numberline {10.23.1}Enumeration Type Documentation}{129}{subsection.10.23.1}%
-\contentsline {subsubsection}{\numberline {10.23.1.1}symbol\_type}{129}{subsubsection.10.23.1.1}%
-\contentsline {section}{\numberline {10.24}symbol\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}hpp}{129}{section.10.24}%
-\contentsline {section}{\numberline {10.25}gui/lltabledialog.cpp File Reference}{129}{section.10.25}%
-\contentsline {section}{\numberline {10.26}gui/lltabledialog.h File Reference}{130}{section.10.26}%
-\contentsline {section}{\numberline {10.27}lltabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{131}{section.10.27}%
-\contentsline {section}{\numberline {10.28}gui/lltutorwindow.cpp File Reference}{131}{section.10.28}%
-\contentsline {section}{\numberline {10.29}gui/lltutorwindow.h File Reference}{132}{section.10.29}%
-\contentsline {subsection}{\numberline {10.29.1}Enumeration Type Documentation}{133}{subsection.10.29.1}%
-\contentsline {subsubsection}{\numberline {10.29.1.1}State}{133}{subsubsection.10.29.1.1}%
-\contentsline {section}{\numberline {10.30}lltutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{133}{section.10.30}%
-\contentsline {section}{\numberline {10.31}gui/mainwindow.cpp File Reference}{136}{section.10.31}%
-\contentsline {section}{\numberline {10.32}gui/mainwindow.h File Reference}{136}{section.10.32}%
-\contentsline {section}{\numberline {10.33}mainwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{137}{section.10.33}%
-\contentsline {section}{\numberline {10.34}gui/slrtabledialog.cpp File Reference}{138}{section.10.34}%
-\contentsline {section}{\numberline {10.35}gui/slrtabledialog.h File Reference}{139}{section.10.35}%
-\contentsline {section}{\numberline {10.36}slrtabledialog.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{140}{section.10.36}%
-\contentsline {section}{\numberline {10.37}gui/slrtutorwindow.cpp File Reference}{140}{section.10.37}%
-\contentsline {section}{\numberline {10.38}gui/slrtutorwindow.h File Reference}{140}{section.10.38}%
-\contentsline {subsection}{\numberline {10.38.1}Enumeration Type Documentation}{142}{subsection.10.38.1}%
-\contentsline {subsubsection}{\numberline {10.38.1.1}StateSlr}{142}{subsubsection.10.38.1.1}%
-\contentsline {section}{\numberline {10.39}slrtutorwindow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{142}{section.10.39}%
-\contentsline {section}{\numberline {10.40}gui/slrwizard.h File Reference}{146}{section.10.40}%
-\contentsline {section}{\numberline {10.41}slrwizard.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{146}{section.10.41}%
-\contentsline {section}{\numberline {10.42}gui/slrwizardpage.h File Reference}{148}{section.10.42}%
-\contentsline {section}{\numberline {10.43}slrwizardpage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{149}{section.10.43}%
-\contentsline {section}{\numberline {10.44}gui/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue.h File Reference}{150}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Unique\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Queue.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{151}{section.10.45}%
-\contentsline {section}{\numberline {10.46}widgets/customtextedit.cpp File Reference}{152}{section.10.46}%
-\contentsline {section}{\numberline {10.47}widgets/customtextedit.h File Reference}{152}{section.10.47}%
-\contentsline {section}{\numberline {10.48}customtextedit.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{153}{section.10.48}%
-\contentsline {section}{\numberline {10.49}widgets/tutorialmanager.cpp File Reference}{153}{section.10.49}%
-\contentsline {section}{\numberline {10.50}widgets/tutorialmanager.h File Reference}{154}{section.10.50}%
-\contentsline {section}{\numberline {10.51}tutorialmanager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{154}{section.10.51}%
-\contentsline {chapter}{Index}{157}{section*.304}%
+\contentsline {chapter}{\numberline {1}Syntax\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Tutor }{1}{chapter.1}%
+\contentsline {subsection}{\numberline {1.0.1}Contents}{1}{subsection.1.0.1}%
+\contentsline {subsection}{\numberline {1.0.2}Features}{2}{subsection.1.0.2}%
+\contentsline {subsection}{\numberline {1.0.3}Getting started}{2}{subsection.1.0.3}%
+\contentsline {subsection}{\numberline {1.0.4}How it works}{2}{subsection.1.0.4}%
+\contentsline {subsection}{\numberline {1.0.5}Screenshots}{3}{subsection.1.0.5}%
+\contentsline {subsection}{\numberline {1.0.6}Documentation}{3}{subsection.1.0.6}%
+\contentsline {subsection}{\numberline {1.0.7}Building from source}{3}{subsection.1.0.7}%
+\contentsline {subsection}{\numberline {1.0.8}Project structure}{4}{subsection.1.0.8}%
+\contentsline {subsection}{\numberline {1.0.9}Background}{4}{subsection.1.0.9}%
+\contentsline {subsection}{\numberline {1.0.10}License}{4}{subsection.1.0.10}%
+\contentsline {chapter}{\numberline {2}Directory Hierarchy}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Directories}{5}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Namespace Index}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Namespace List}{7}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Hierarchical Index}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Class Hierarchy}{9}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Class Index}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Class List}{11}{section.5.1}%
+\contentsline {chapter}{\numberline {6}File Index}{13}{chapter.6}%
+\contentsline {section}{\numberline {6.1}File List}{13}{section.6.1}%
+\contentsline {chapter}{\numberline {7}Directory Documentation}{15}{chapter.7}%
+\contentsline {section}{\numberline {7.1}app Directory Reference}{15}{section.7.1}%
+\contentsline {section}{\numberline {7.2}backend Directory Reference}{15}{section.7.2}%
+\contentsline {section}{\numberline {7.3}gui Directory Reference}{16}{section.7.3}%
+\contentsline {section}{\numberline {7.4}widgets Directory Reference}{16}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Namespace Documentation}{19}{chapter.8}%
+\contentsline {section}{\numberline {8.1}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Icon Namespace Reference}{19}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Function Documentation}{19}{subsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.1.1}icon()}{19}{subsubsection.8.1.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Variable Documentation}{20}{subsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.2.1}kSizes}{20}{subsubsection.8.1.2.1}%
+\contentsline {section}{\numberline {8.2}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Layout Namespace Reference}{20}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Detailed Description}{20}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Function Documentation}{20}{subsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.2.1}keepHeightForWidth()}{20}{subsubsection.8.2.2.1}%
+\contentsline {section}{\numberline {8.3}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Palette Namespace Reference}{21}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Function Documentation}{21}{subsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.1.1}apply()}{21}{subsubsection.8.3.1.1}%
+\contentsline {subsubsection}{\numberline {8.3.1.2}linkColor()}{22}{subsubsection.8.3.1.2}%
+\contentsline {section}{\numberline {8.4}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Settings Namespace Reference}{22}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Detailed Description}{22}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Function Documentation}{23}{subsection.8.4.2}%
+\contentsline {subsubsection}{\numberline {8.4.2.1}open()}{23}{subsubsection.8.4.2.1}%
+\contentsline {subsubsection}{\numberline {8.4.2.2}registerIdentity()}{23}{subsubsection.8.4.2.2}%
+\contentsline {section}{\numberline {8.5}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Shortcuts Namespace Reference}{24}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Function Documentation}{24}{subsection.8.5.1}%
+\contentsline {subsubsection}{\numberline {8.5.1.1}primaryModifierName()}{24}{subsubsection.8.5.1.1}%
+\contentsline {section}{\numberline {8.6}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Text\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Scale Namespace Reference}{24}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}Detailed Description}{25}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Function Documentation}{25}{subsection.8.6.2}%
+\contentsline {subsubsection}{\numberline {8.6.2.1}clampPercent()}{25}{subsubsection.8.6.2.1}%
+\contentsline {subsubsection}{\numberline {8.6.2.2}currentPercent()}{26}{subsubsection.8.6.2.2}%
+\contentsline {subsubsection}{\numberline {8.6.2.3}factor()}{26}{subsubsection.8.6.2.3}%
+\contentsline {subsubsection}{\numberline {8.6.2.4}legacySettingsKey()}{27}{subsubsection.8.6.2.4}%
+\contentsline {subsubsection}{\numberline {8.6.2.5}percentFromLegacyValue()}{27}{subsubsection.8.6.2.5}%
+\contentsline {subsubsection}{\numberline {8.6.2.6}settingsKey()}{28}{subsubsection.8.6.2.6}%
+\contentsline {subsection}{\numberline {8.6.3}Variable Documentation}{28}{subsection.8.6.3}%
+\contentsline {subsubsection}{\numberline {8.6.3.1}kDefaultPercent}{28}{subsubsection.8.6.3.1}%
+\contentsline {subsubsection}{\numberline {8.6.3.2}kMaxPercent}{28}{subsubsection.8.6.3.2}%
+\contentsline {subsubsection}{\numberline {8.6.3.3}kMinPercent}{28}{subsubsection.8.6.3.3}%
+\contentsline {subsubsection}{\numberline {8.6.3.4}kPresetPercents}{28}{subsubsection.8.6.3.4}%
+\contentsline {section}{\numberline {8.7}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Typography Namespace Reference}{29}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}Detailed Description}{30}{subsection.8.7.1}%
+\contentsline {subsection}{\numberline {8.7.2}Enumeration Type Documentation}{30}{subsection.8.7.2}%
+\contentsline {subsubsection}{\numberline {8.7.2.1}Role}{30}{subsubsection.8.7.2.1}%
+\contentsline {subsection}{\numberline {8.7.3}Function Documentation}{30}{subsection.8.7.3}%
+\contentsline {subsubsection}{\numberline {8.7.3.1}applicationFont()}{30}{subsubsection.8.7.3.1}%
+\contentsline {subsubsection}{\numberline {8.7.3.2}basePoints()}{31}{subsubsection.8.7.3.2}%
+\contentsline {subsubsection}{\numberline {8.7.3.3}cssSize()}{31}{subsubsection.8.7.3.3}%
+\contentsline {subsubsection}{\numberline {8.7.3.4}font()}{32}{subsubsection.8.7.3.4}%
+\contentsline {subsubsection}{\numberline {8.7.3.5}formatPoints()}{32}{subsubsection.8.7.3.5}%
+\contentsline {subsubsection}{\numberline {8.7.3.6}lengthForText()}{33}{subsubsection.8.7.3.6}%
+\contentsline {subsubsection}{\numberline {8.7.3.7}loadStyleSheet()}{34}{subsubsection.8.7.3.7}%
+\contentsline {subsubsection}{\numberline {8.7.3.8}points()}{34}{subsubsection.8.7.3.8}%
+\contentsline {subsubsection}{\numberline {8.7.3.9}resolveStyleSheet()}{35}{subsubsection.8.7.3.9}%
+\contentsline {subsubsection}{\numberline {8.7.3.10}systemFont()}{35}{subsubsection.8.7.3.10}%
+\contentsline {subsection}{\numberline {8.7.4}Variable Documentation}{36}{subsection.8.7.4}%
+\contentsline {subsubsection}{\numberline {8.7.4.1}kTokens}{36}{subsubsection.8.7.4.1}%
+\contentsline {section}{\numberline {8.8}Syntax\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Tutor Namespace Reference}{36}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Syntax\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Tutor::Version Namespace Reference}{36}{section.8.9}%
+\contentsline {subsection}{\numberline {8.9.1}Function Documentation}{36}{subsection.8.9.1}%
+\contentsline {subsubsection}{\numberline {8.9.1.1}current()}{36}{subsubsection.8.9.1.1}%
+\contentsline {subsubsection}{\numberline {8.9.1.2}raw()}{37}{subsubsection.8.9.1.2}%
+\contentsline {chapter}{\numberline {9}Class Documentation}{39}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Automaton\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}State\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Info Struct Reference}{39}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Detailed Description}{39}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}Member Data Documentation}{39}{subsection.9.1.2}%
+\contentsline {subsubsection}{\numberline {9.1.2.1}id}{39}{subsubsection.9.1.2.1}%
+\contentsline {subsubsection}{\numberline {9.1.2.2}itemsText}{39}{subsubsection.9.1.2.2}%
+\contentsline {section}{\numberline {9.2}Automaton\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Transition\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Info Struct Reference}{40}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Detailed Description}{40}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Member Data Documentation}{40}{subsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.2.1}from}{40}{subsubsection.9.2.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.2.2}symbol}{40}{subsubsection.9.2.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.2.3}to}{40}{subsubsection.9.2.2.3}%
+\contentsline {section}{\numberline {9.3}Automaton\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}View Class Reference}{41}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Detailed Description}{42}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Constructor \& Destructor Documentation}{42}{subsection.9.3.2}%
+\contentsline {subsubsection}{\numberline {9.3.2.1}AutomatonView()}{42}{subsubsection.9.3.2.1}%
+\contentsline {subsection}{\numberline {9.3.3}Member Function Documentation}{43}{subsection.9.3.3}%
+\contentsline {subsubsection}{\numberline {9.3.3.1}centerOnCurrentState()}{43}{subsubsection.9.3.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.3.2}clearStateMarks()}{43}{subsubsection.9.3.3.2}%
+\contentsline {subsubsection}{\numberline {9.3.3.3}conflictStates()}{43}{subsubsection.9.3.3.3}%
+\contentsline {subsubsection}{\numberline {9.3.3.4}currentStateId()}{43}{subsubsection.9.3.3.4}%
+\contentsline {subsubsection}{\numberline {9.3.3.5}fitToView()}{43}{subsubsection.9.3.3.5}%
+\contentsline {subsubsection}{\numberline {9.3.3.6}hideStateDetails()}{44}{subsubsection.9.3.3.6}%
+\contentsline {subsubsection}{\numberline {9.3.3.7}isFullyRevealed()}{44}{subsubsection.9.3.3.7}%
+\contentsline {subsubsection}{\numberline {9.3.3.8}isStateVisible()}{44}{subsubsection.9.3.3.8}%
+\contentsline {subsubsection}{\numberline {9.3.3.9}keyPressEvent()}{44}{subsubsection.9.3.3.9}%
+\contentsline {subsubsection}{\numberline {9.3.3.10}mousePressEvent()}{45}{subsubsection.9.3.3.10}%
+\contentsline {subsubsection}{\numberline {9.3.3.11}mouseReleaseEvent()}{45}{subsubsection.9.3.3.11}%
+\contentsline {subsubsection}{\numberline {9.3.3.12}reduceStates()}{45}{subsubsection.9.3.3.12}%
+\contentsline {subsubsection}{\numberline {9.3.3.13}revealAll()}{45}{subsubsection.9.3.3.13}%
+\contentsline {subsubsection}{\numberline {9.3.3.14}revealState()}{45}{subsubsection.9.3.3.14}%
+\contentsline {subsubsection}{\numberline {9.3.3.15}revealTransition()}{46}{subsubsection.9.3.3.15}%
+\contentsline {subsubsection}{\numberline {9.3.3.16}setAutomaton()}{46}{subsubsection.9.3.3.16}%
+\contentsline {subsubsection}{\numberline {9.3.3.17}setConflictStates()}{46}{subsubsection.9.3.3.17}%
+\contentsline {subsubsection}{\numberline {9.3.3.18}setCurrentState()}{46}{subsubsection.9.3.3.18}%
+\contentsline {subsubsection}{\numberline {9.3.3.19}setReduceStates()}{47}{subsubsection.9.3.3.19}%
+\contentsline {subsubsection}{\numberline {9.3.3.20}shownStateId()}{47}{subsubsection.9.3.3.20}%
+\contentsline {subsubsection}{\numberline {9.3.3.21}showStateDetails()}{47}{subsubsection.9.3.3.21}%
+\contentsline {subsubsection}{\numberline {9.3.3.22}totalStateCount()}{47}{subsubsection.9.3.3.22}%
+\contentsline {subsubsection}{\numberline {9.3.3.23}visibleStateCount()}{48}{subsubsection.9.3.3.23}%
+\contentsline {subsubsection}{\numberline {9.3.3.24}visibleTransitionCount()}{48}{subsubsection.9.3.3.24}%
+\contentsline {subsubsection}{\numberline {9.3.3.25}wheelEvent()}{48}{subsubsection.9.3.3.25}%
+\contentsline {subsubsection}{\numberline {9.3.3.26}zoomIn()}{48}{subsubsection.9.3.3.26}%
+\contentsline {subsubsection}{\numberline {9.3.3.27}zoomOut()}{49}{subsubsection.9.3.3.27}%
+\contentsline {section}{\numberline {9.4}Automaton\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Viewer\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Dialog Class Reference}{49}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Detailed Description}{50}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.2}Constructor \& Destructor Documentation}{50}{subsection.9.4.2}%
+\contentsline {subsubsection}{\numberline {9.4.2.1}AutomatonViewerDialog()}{50}{subsubsection.9.4.2.1}%
+\contentsline {subsubsection}{\numberline {9.4.2.2}$\sim $AutomatonViewerDialog()}{51}{subsubsection.9.4.2.2}%
+\contentsline {section}{\numberline {9.5}Center\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Align\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Delegate Class Reference}{51}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Member Function Documentation}{51}{subsection.9.5.1}%
+\contentsline {subsubsection}{\numberline {9.5.1.1}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{51}{subsubsection.9.5.1.1}%
+\contentsline {subsubsection}{\numberline {9.5.1.2}initStyleOption()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{52}{subsubsection.9.5.1.2}%
+\contentsline {section}{\numberline {9.6}Conversation\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Pdf Class Reference}{52}{section.9.6}%
+\contentsline {subsection}{\numberline {9.6.1}Detailed Description}{53}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}Member Typedef Documentation}{53}{subsection.9.6.2}%
+\contentsline {subsubsection}{\numberline {9.6.2.1}Rule}{53}{subsubsection.9.6.2.1}%
+\contentsline {subsection}{\numberline {9.6.3}Constructor \& Destructor Documentation}{53}{subsection.9.6.3}%
+\contentsline {subsubsection}{\numberline {9.6.3.1}ConversationPdf()}{53}{subsubsection.9.6.3.1}%
+\contentsline {subsection}{\numberline {9.6.4}Member Function Documentation}{54}{subsection.9.6.4}%
+\contentsline {subsubsection}{\numberline {9.6.4.1}addConversation()}{54}{subsubsection.9.6.4.1}%
+\contentsline {subsubsection}{\numberline {9.6.4.2}addDefinitions()}{54}{subsubsection.9.6.4.2}%
+\contentsline {subsubsection}{\numberline {9.6.4.3}addGrammar()}{54}{subsubsection.9.6.4.3}%
+\contentsline {subsubsection}{\numberline {9.6.4.4}addLines()}{55}{subsubsection.9.6.4.4}%
+\contentsline {subsubsection}{\numberline {9.6.4.5}addResult()}{55}{subsubsection.9.6.4.5}%
+\contentsline {subsubsection}{\numberline {9.6.4.6}addReview()}{55}{subsubsection.9.6.4.6}%
+\contentsline {subsubsection}{\numberline {9.6.4.7}addSection()}{55}{subsubsection.9.6.4.7}%
+\contentsline {subsubsection}{\numberline {9.6.4.8}addSubheading()}{56}{subsubsection.9.6.4.8}%
+\contentsline {subsubsection}{\numberline {9.6.4.9}addTable()}{56}{subsubsection.9.6.4.9}%
+\contentsline {subsubsection}{\numberline {9.6.4.10}html()}{56}{subsubsection.9.6.4.10}%
+\contentsline {subsubsection}{\numberline {9.6.4.11}print()}{57}{subsubsection.9.6.4.11}%
+\contentsline {subsection}{\numberline {9.6.5}Member Data Documentation}{57}{subsection.9.6.5}%
+\contentsline {subsubsection}{\numberline {9.6.5.1}kMaxTableColumns}{57}{subsubsection.9.6.5.1}%
+\contentsline {section}{\numberline {9.7}Custom\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Text\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Edit Class Reference}{57}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}Constructor \& Destructor Documentation}{58}{subsection.9.7.1}%
+\contentsline {subsubsection}{\numberline {9.7.1.1}CustomTextEdit()}{58}{subsubsection.9.7.1.1}%
+\contentsline {subsection}{\numberline {9.7.2}Member Function Documentation}{59}{subsection.9.7.2}%
+\contentsline {subsubsection}{\numberline {9.7.2.1}changeEvent()}{59}{subsubsection.9.7.2.1}%
+\contentsline {subsubsection}{\numberline {9.7.2.2}keyPressEvent()}{59}{subsubsection.9.7.2.2}%
+\contentsline {subsubsection}{\numberline {9.7.2.3}minimumGrowHeight()}{59}{subsubsection.9.7.2.3}%
+\contentsline {subsubsection}{\numberline {9.7.2.4}minimumGrowHeightChanged}{60}{subsubsection.9.7.2.4}%
+\contentsline {subsubsection}{\numberline {9.7.2.5}newlineShortcutText()}{60}{subsubsection.9.7.2.5}%
+\contentsline {subsubsection}{\numberline {9.7.2.6}sendRequested}{60}{subsubsection.9.7.2.6}%
+\contentsline {subsubsection}{\numberline {9.7.2.7}setAutoGrowLines()}{61}{subsubsection.9.7.2.7}%
+\contentsline {subsubsection}{\numberline {9.7.2.8}showEvent()}{61}{subsubsection.9.7.2.8}%
+\contentsline {subsection}{\numberline {9.7.3}Property Documentation}{61}{subsection.9.7.3}%
+\contentsline {subsubsection}{\numberline {9.7.3.1}growHeight}{61}{subsubsection.9.7.3.1}%
+\contentsline {section}{\numberline {9.8}Exam\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Record Struct Reference}{61}{section.9.8}%
+\contentsline {subsection}{\numberline {9.8.1}Detailed Description}{62}{subsection.9.8.1}%
+\contentsline {subsection}{\numberline {9.8.2}Member Data Documentation}{62}{subsection.9.8.2}%
+\contentsline {subsubsection}{\numberline {9.8.2.1}correct}{62}{subsubsection.9.8.2.1}%
+\contentsline {subsubsection}{\numberline {9.8.2.2}correctAnswer}{62}{subsubsection.9.8.2.2}%
+\contentsline {subsubsection}{\numberline {9.8.2.3}question}{62}{subsubsection.9.8.2.3}%
+\contentsline {subsubsection}{\numberline {9.8.2.4}userAnswer}{62}{subsubsection.9.8.2.4}%
+\contentsline {section}{\numberline {9.9}Exam\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Report\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Dialog Class Reference}{63}{section.9.9}%
+\contentsline {subsection}{\numberline {9.9.1}Detailed Description}{63}{subsection.9.9.1}%
+\contentsline {subsection}{\numberline {9.9.2}Constructor \& Destructor Documentation}{64}{subsection.9.9.2}%
+\contentsline {subsubsection}{\numberline {9.9.2.1}ExamReportDialog()}{64}{subsubsection.9.9.2.1}%
+\contentsline {subsection}{\numberline {9.9.3}Member Function Documentation}{64}{subsection.9.9.3}%
+\contentsline {subsubsection}{\numberline {9.9.3.1}exportRequested}{64}{subsubsection.9.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.9.3.2}printReport()}{65}{subsubsection.9.9.3.2}%
+\contentsline {section}{\numberline {9.10}Exam\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Session Class Reference}{65}{section.9.10}%
+\contentsline {subsection}{\numberline {9.10.1}Detailed Description}{65}{subsection.9.10.1}%
+\contentsline {subsection}{\numberline {9.10.2}Member Function Documentation}{66}{subsection.9.10.2}%
+\contentsline {subsubsection}{\numberline {9.10.2.1}grade()}{66}{subsubsection.9.10.2.1}%
+\contentsline {subsubsection}{\numberline {9.10.2.2}record()}{66}{subsubsection.9.10.2.2}%
+\contentsline {subsubsection}{\numberline {9.10.2.3}records()}{67}{subsubsection.9.10.2.3}%
+\contentsline {subsubsection}{\numberline {9.10.2.4}right()}{67}{subsubsection.9.10.2.4}%
+\contentsline {subsubsection}{\numberline {9.10.2.5}total()}{67}{subsubsection.9.10.2.5}%
+\contentsline {section}{\numberline {9.11}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Factory::Factory\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Item Struct Reference}{68}{section.9.11}%
+\contentsline {subsection}{\numberline {9.11.1}Detailed Description}{68}{subsection.9.11.1}%
+\contentsline {subsection}{\numberline {9.11.2}Constructor \& Destructor Documentation}{68}{subsection.9.11.2}%
+\contentsline {subsubsection}{\numberline {9.11.2.1}FactoryItem()}{68}{subsubsection.9.11.2.1}%
+\contentsline {subsection}{\numberline {9.11.3}Member Data Documentation}{69}{subsection.9.11.3}%
+\contentsline {subsubsection}{\numberline {9.11.3.1}g\_}{69}{subsubsection.9.11.3.1}%
+\contentsline {subsubsection}{\numberline {9.11.3.2}st\_}{69}{subsubsection.9.11.3.2}%
+\contentsline {section}{\numberline {9.12}Grammar Struct Reference}{70}{section.9.12}%
+\contentsline {subsection}{\numberline {9.12.1}Detailed Description}{71}{subsection.9.12.1}%
+\contentsline {subsection}{\numberline {9.12.2}Constructor \& Destructor Documentation}{71}{subsection.9.12.2}%
+\contentsline {subsubsection}{\numberline {9.12.2.1}Grammar()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{71}{subsubsection.9.12.2.1}%
+\contentsline {subsubsection}{\numberline {9.12.2.2}Grammar()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{72}{subsubsection.9.12.2.2}%
+\contentsline {subsection}{\numberline {9.12.3}Member Function Documentation}{72}{subsection.9.12.3}%
+\contentsline {subsubsection}{\numberline {9.12.3.1}AddProduction()}{72}{subsubsection.9.12.3.1}%
+\contentsline {subsubsection}{\numberline {9.12.3.2}Debug()}{72}{subsubsection.9.12.3.2}%
+\contentsline {subsubsection}{\numberline {9.12.3.3}FilterRulesByConsequent()}{73}{subsubsection.9.12.3.3}%
+\contentsline {subsubsection}{\numberline {9.12.3.4}HasEmptyProduction()}{73}{subsubsection.9.12.3.4}%
+\contentsline {subsubsection}{\numberline {9.12.3.5}PresentationLess()}{74}{subsubsection.9.12.3.5}%
+\contentsline {subsubsection}{\numberline {9.12.3.6}PresentationOrder()}{74}{subsubsection.9.12.3.6}%
+\contentsline {subsubsection}{\numberline {9.12.3.7}PresentationRank()}{75}{subsubsection.9.12.3.7}%
+\contentsline {subsubsection}{\numberline {9.12.3.8}SetAxiom()}{75}{subsubsection.9.12.3.8}%
+\contentsline {subsubsection}{\numberline {9.12.3.9}Split()}{76}{subsubsection.9.12.3.9}%
+\contentsline {subsection}{\numberline {9.12.4}Member Data Documentation}{76}{subsection.9.12.4}%
+\contentsline {subsubsection}{\numberline {9.12.4.1}axiom\_}{76}{subsubsection.9.12.4.1}%
+\contentsline {subsubsection}{\numberline {9.12.4.2}g\_}{76}{subsubsection.9.12.4.2}%
+\contentsline {subsubsection}{\numberline {9.12.4.3}lhs\_order\_}{77}{subsubsection.9.12.4.3}%
+\contentsline {subsubsection}{\numberline {9.12.4.4}st\_}{77}{subsubsection.9.12.4.4}%
+\contentsline {section}{\numberline {9.13}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Editor\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Dialog Class Reference}{77}{section.9.13}%
+\contentsline {subsection}{\numberline {9.13.1}Detailed Description}{78}{subsection.9.13.1}%
+\contentsline {subsection}{\numberline {9.13.2}Member Enumeration Documentation}{78}{subsection.9.13.2}%
+\contentsline {subsubsection}{\numberline {9.13.2.1}Mode}{78}{subsubsection.9.13.2.1}%
+\contentsline {subsection}{\numberline {9.13.3}Constructor \& Destructor Documentation}{79}{subsection.9.13.3}%
+\contentsline {subsubsection}{\numberline {9.13.3.1}GrammarEditorDialog()}{79}{subsubsection.9.13.3.1}%
+\contentsline {subsection}{\numberline {9.13.4}Member Function Documentation}{79}{subsection.9.13.4}%
+\contentsline {subsubsection}{\numberline {9.13.4.1}accept()}{79}{subsubsection.9.13.4.1}%
+\contentsline {subsubsection}{\numberline {9.13.4.2}grammar()}{79}{subsubsection.9.13.4.2}%
+\contentsline {section}{\numberline {9.14}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Factory Struct Reference}{80}{section.9.14}%
+\contentsline {subsection}{\numberline {9.14.1}Detailed Description}{81}{subsection.9.14.1}%
+\contentsline {subsection}{\numberline {9.14.2}Member Function Documentation}{81}{subsection.9.14.2}%
+\contentsline {subsubsection}{\numberline {9.14.2.1}AdjustTerminals()}{81}{subsubsection.9.14.2.1}%
+\contentsline {subsubsection}{\numberline {9.14.2.2}CreateLv2Item()}{82}{subsubsection.9.14.2.2}%
+\contentsline {subsubsection}{\numberline {9.14.2.3}GenerateNewNonTerminal()}{83}{subsubsection.9.14.2.3}%
+\contentsline {subsubsection}{\numberline {9.14.2.4}GenLL1Grammar()}{83}{subsubsection.9.14.2.4}%
+\contentsline {subsubsection}{\numberline {9.14.2.5}GenSLR1Grammar()}{84}{subsubsection.9.14.2.5}%
+\contentsline {subsubsection}{\numberline {9.14.2.6}HasCycle()}{85}{subsubsection.9.14.2.6}%
+\contentsline {subsubsection}{\numberline {9.14.2.7}HasDirectLeftRecursion()}{86}{subsubsection.9.14.2.7}%
+\contentsline {subsubsection}{\numberline {9.14.2.8}HasIndirectLeftRecursion()}{86}{subsubsection.9.14.2.8}%
+\contentsline {subsubsection}{\numberline {9.14.2.9}HasUnreachableSymbols()}{87}{subsubsection.9.14.2.9}%
+\contentsline {subsubsection}{\numberline {9.14.2.10}Init()}{87}{subsubsection.9.14.2.10}%
+\contentsline {subsubsection}{\numberline {9.14.2.11}IsInfinite()}{87}{subsubsection.9.14.2.11}%
+\contentsline {subsubsection}{\numberline {9.14.2.12}LeftFactorize()}{88}{subsubsection.9.14.2.12}%
+\contentsline {subsubsection}{\numberline {9.14.2.13}LongestCommonPrefix()}{89}{subsubsection.9.14.2.13}%
+\contentsline {subsubsection}{\numberline {9.14.2.14}Lv1()}{90}{subsubsection.9.14.2.14}%
+\contentsline {subsubsection}{\numberline {9.14.2.15}Lv2()}{90}{subsubsection.9.14.2.15}%
+\contentsline {subsubsection}{\numberline {9.14.2.16}Lv3()}{91}{subsubsection.9.14.2.16}%
+\contentsline {subsubsection}{\numberline {9.14.2.17}Lv4()}{92}{subsubsection.9.14.2.17}%
+\contentsline {subsubsection}{\numberline {9.14.2.18}Lv5()}{93}{subsubsection.9.14.2.18}%
+\contentsline {subsubsection}{\numberline {9.14.2.19}Lv6()}{94}{subsubsection.9.14.2.19}%
+\contentsline {subsubsection}{\numberline {9.14.2.20}Lv7()}{95}{subsubsection.9.14.2.20}%
+\contentsline {subsubsection}{\numberline {9.14.2.21}Merge()}{96}{subsubsection.9.14.2.21}%
+\contentsline {subsubsection}{\numberline {9.14.2.22}NormalizeNonTerminals()}{97}{subsubsection.9.14.2.22}%
+\contentsline {subsubsection}{\numberline {9.14.2.23}NullableSymbols()}{98}{subsubsection.9.14.2.23}%
+\contentsline {subsubsection}{\numberline {9.14.2.24}PickOne()}{98}{subsubsection.9.14.2.24}%
+\contentsline {subsubsection}{\numberline {9.14.2.25}RemoveLeftRecursion()}{99}{subsubsection.9.14.2.25}%
+\contentsline {subsubsection}{\numberline {9.14.2.26}StartsWith()}{100}{subsubsection.9.14.2.26}%
+\contentsline {subsection}{\numberline {9.14.3}Member Data Documentation}{100}{subsection.9.14.3}%
+\contentsline {subsubsection}{\numberline {9.14.3.1}items}{100}{subsubsection.9.14.3.1}%
+\contentsline {subsubsection}{\numberline {9.14.3.2}non\_terminal\_alphabet\_}{100}{subsubsection.9.14.3.2}%
+\contentsline {subsubsection}{\numberline {9.14.3.3}terminal\_alphabet\_}{101}{subsubsection.9.14.3.3}%
+\contentsline {section}{\numberline {9.15}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Parse\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Error Struct Reference}{101}{section.9.15}%
+\contentsline {subsection}{\numberline {9.15.1}Detailed Description}{101}{subsection.9.15.1}%
+\contentsline {subsection}{\numberline {9.15.2}Member Enumeration Documentation}{102}{subsection.9.15.2}%
+\contentsline {subsubsection}{\numberline {9.15.2.1}Kind}{102}{subsubsection.9.15.2.1}%
+\contentsline {subsection}{\numberline {9.15.3}Member Data Documentation}{102}{subsection.9.15.3}%
+\contentsline {subsubsection}{\numberline {9.15.3.1}detail}{102}{subsubsection.9.15.3.1}%
+\contentsline {subsubsection}{\numberline {9.15.3.2}kind}{102}{subsubsection.9.15.3.2}%
+\contentsline {subsubsection}{\numberline {9.15.3.3}line}{102}{subsubsection.9.15.3.3}%
+\contentsline {section}{\numberline {9.16}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Parser Struct Reference}{102}{section.9.16}%
+\contentsline {subsection}{\numberline {9.16.1}Detailed Description}{103}{subsection.9.16.1}%
+\contentsline {subsection}{\numberline {9.16.2}Member Function Documentation}{103}{subsection.9.16.2}%
+\contentsline {subsubsection}{\numberline {9.16.2.1}IsReservedToken()}{103}{subsubsection.9.16.2.1}%
+\contentsline {subsubsection}{\numberline {9.16.2.2}Parse()}{104}{subsubsection.9.16.2.2}%
+\contentsline {section}{\numberline {9.17}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Parse\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Result Struct Reference}{104}{section.9.17}%
+\contentsline {subsection}{\numberline {9.17.1}Detailed Description}{105}{subsection.9.17.1}%
+\contentsline {subsection}{\numberline {9.17.2}Member Function Documentation}{105}{subsection.9.17.2}%
+\contentsline {subsubsection}{\numberline {9.17.2.1}Ok()}{105}{subsubsection.9.17.2.1}%
+\contentsline {subsection}{\numberline {9.17.3}Member Data Documentation}{105}{subsection.9.17.3}%
+\contentsline {subsubsection}{\numberline {9.17.3.1}errors}{105}{subsubsection.9.17.3.1}%
+\contentsline {subsubsection}{\numberline {9.17.3.2}grammar}{105}{subsubsection.9.17.3.2}%
+\contentsline {section}{\numberline {9.18}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Syntax\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Highlighter Class Reference}{106}{section.9.18}%
+\contentsline {subsection}{\numberline {9.18.1}Detailed Description}{106}{subsection.9.18.1}%
+\contentsline {subsection}{\numberline {9.18.2}Constructor \& Destructor Documentation}{107}{subsection.9.18.2}%
+\contentsline {subsubsection}{\numberline {9.18.2.1}GrammarSyntaxHighlighter()}{107}{subsubsection.9.18.2.1}%
+\contentsline {subsection}{\numberline {9.18.3}Member Function Documentation}{107}{subsection.9.18.3}%
+\contentsline {subsubsection}{\numberline {9.18.3.1}highlightBlock()}{107}{subsubsection.9.18.3.1}%
+\contentsline {subsubsection}{\numberline {9.18.3.2}setNonTerminals()}{107}{subsubsection.9.18.3.2}%
+\contentsline {section}{\numberline {9.19}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}View Class Reference}{107}{section.9.19}%
+\contentsline {subsection}{\numberline {9.19.1}Constructor \& Destructor Documentation}{108}{subsection.9.19.1}%
+\contentsline {subsubsection}{\numberline {9.19.1.1}GrammarView()}{108}{subsubsection.9.19.1.1}%
+\contentsline {subsection}{\numberline {9.19.2}Member Function Documentation}{108}{subsection.9.19.2}%
+\contentsline {subsubsection}{\numberline {9.19.2.1}naturalWidth()}{108}{subsubsection.9.19.2.1}%
+\contentsline {subsubsection}{\numberline {9.19.2.2}refresh()}{109}{subsubsection.9.19.2.2}%
+\contentsline {subsubsection}{\numberline {9.19.2.3}setRows()}{109}{subsubsection.9.19.2.3}%
+\contentsline {section}{\numberline {9.20}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Layout::Height\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}For\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Width\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Keeper Class Reference}{109}{section.9.20}%
+\contentsline {subsection}{\numberline {9.20.1}Detailed Description}{110}{subsection.9.20.1}%
+\contentsline {subsection}{\numberline {9.20.2}Constructor \& Destructor Documentation}{110}{subsection.9.20.2}%
+\contentsline {subsubsection}{\numberline {9.20.2.1}HeightForWidthKeeper()}{110}{subsubsection.9.20.2.1}%
+\contentsline {subsection}{\numberline {9.20.3}Member Function Documentation}{111}{subsection.9.20.3}%
+\contentsline {subsubsection}{\numberline {9.20.3.1}eventFilter()}{111}{subsubsection.9.20.3.1}%
+\contentsline {section}{\numberline {9.21}LL1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Parser Class Reference}{111}{section.9.21}%
+\contentsline {subsection}{\numberline {9.21.1}Constructor \& Destructor Documentation}{112}{subsection.9.21.1}%
+\contentsline {subsubsection}{\numberline {9.21.1.1}LL1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{112}{subsubsection.9.21.1.1}%
+\contentsline {subsubsection}{\numberline {9.21.1.2}LL1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{113}{subsubsection.9.21.1.2}%
+\contentsline {subsection}{\numberline {9.21.2}Member Function Documentation}{113}{subsection.9.21.2}%
+\contentsline {subsubsection}{\numberline {9.21.2.1}ComputeFirstSets()}{113}{subsubsection.9.21.2.1}%
+\contentsline {subsubsection}{\numberline {9.21.2.2}ComputeFollowSets()}{114}{subsubsection.9.21.2.2}%
+\contentsline {subsubsection}{\numberline {9.21.2.3}CreateLL1Table()}{114}{subsubsection.9.21.2.3}%
+\contentsline {subsubsection}{\numberline {9.21.2.4}First()}{115}{subsubsection.9.21.2.4}%
+\contentsline {subsubsection}{\numberline {9.21.2.5}Follow()}{116}{subsubsection.9.21.2.5}%
+\contentsline {subsubsection}{\numberline {9.21.2.6}PredictionSymbols()}{117}{subsubsection.9.21.2.6}%
+\contentsline {subsection}{\numberline {9.21.3}Member Data Documentation}{117}{subsection.9.21.3}%
+\contentsline {subsubsection}{\numberline {9.21.3.1}first\_sets\_}{117}{subsubsection.9.21.3.1}%
+\contentsline {subsubsection}{\numberline {9.21.3.2}follow\_sets\_}{118}{subsubsection.9.21.3.2}%
+\contentsline {subsubsection}{\numberline {9.21.3.3}gr\_}{118}{subsubsection.9.21.3.3}%
+\contentsline {subsubsection}{\numberline {9.21.3.4}ll1\_t\_}{118}{subsubsection.9.21.3.4}%
+\contentsline {section}{\numberline {9.22}LLTable\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Dialog Class Reference}{118}{section.9.22}%
+\contentsline {subsection}{\numberline {9.22.1}Detailed Description}{119}{subsection.9.22.1}%
+\contentsline {subsection}{\numberline {9.22.2}Constructor \& Destructor Documentation}{119}{subsection.9.22.2}%
+\contentsline {subsubsection}{\numberline {9.22.2.1}LLTableDialog()}{119}{subsubsection.9.22.2.1}%
+\contentsline {subsection}{\numberline {9.22.3}Member Function Documentation}{120}{subsection.9.22.3}%
+\contentsline {subsubsection}{\numberline {9.22.3.1}getTableData()}{120}{subsubsection.9.22.3.1}%
+\contentsline {subsubsection}{\numberline {9.22.3.2}guidedRequested}{120}{subsubsection.9.22.3.2}%
+\contentsline {subsubsection}{\numberline {9.22.3.3}highlightIncorrectCells()}{121}{subsubsection.9.22.3.3}%
+\contentsline {subsubsection}{\numberline {9.22.3.4}setGuidedButtonVisible()}{121}{subsubsection.9.22.3.4}%
+\contentsline {subsubsection}{\numberline {9.22.3.5}setGuidedModeActive()}{121}{subsubsection.9.22.3.5}%
+\contentsline {subsubsection}{\numberline {9.22.3.6}setInitialData()}{121}{subsubsection.9.22.3.6}%
+\contentsline {subsubsection}{\numberline {9.22.3.7}submitted}{122}{subsubsection.9.22.3.7}%
+\contentsline {section}{\numberline {9.23}LLTutor\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Window Class Reference}{122}{section.9.23}%
+\contentsline {subsection}{\numberline {9.23.1}Detailed Description}{125}{subsection.9.23.1}%
+\contentsline {subsection}{\numberline {9.23.2}Constructor \& Destructor Documentation}{125}{subsection.9.23.2}%
+\contentsline {subsubsection}{\numberline {9.23.2.1}LLTutorWindow()}{125}{subsubsection.9.23.2.1}%
+\contentsline {subsubsection}{\numberline {9.23.2.2}$\sim $LLTutorWindow()}{126}{subsubsection.9.23.2.2}%
+\contentsline {subsection}{\numberline {9.23.3}Member Function Documentation}{127}{subsection.9.23.3}%
+\contentsline {subsubsection}{\numberline {9.23.3.1}addGrammarMessage()}{127}{subsubsection.9.23.3.1}%
+\contentsline {subsubsection}{\numberline {9.23.3.2}addMessage()}{127}{subsubsection.9.23.3.2}%
+\contentsline {subsubsection}{\numberline {9.23.3.3}addWidgetMessage()}{127}{subsubsection.9.23.3.3}%
+\contentsline {subsubsection}{\numberline {9.23.3.4}animateLabelColor()}{127}{subsubsection.9.23.3.4}%
+\contentsline {subsubsection}{\numberline {9.23.3.5}animateLabelPop()}{128}{subsubsection.9.23.3.5}%
+\contentsline {subsubsection}{\numberline {9.23.3.6}applyTextScale()}{128}{subsubsection.9.23.3.6}%
+\contentsline {subsubsection}{\numberline {9.23.3.7}buildGrammarRows()}{128}{subsubsection.9.23.3.7}%
+\contentsline {subsubsection}{\numberline {9.23.3.8}buildTreeNode()}{128}{subsubsection.9.23.3.8}%
+\contentsline {subsubsection}{\numberline {9.23.3.9}closeEvent()}{129}{subsubsection.9.23.3.9}%
+\contentsline {subsubsection}{\numberline {9.23.3.10}computeSubtreeWidth()}{129}{subsubsection.9.23.3.10}%
+\contentsline {subsubsection}{\numberline {9.23.3.11}confirmExitToHome()}{129}{subsubsection.9.23.3.11}%
+\contentsline {subsubsection}{\numberline {9.23.3.12}connectGuidedMode()}{129}{subsubsection.9.23.3.12}%
+\contentsline {subsubsection}{\numberline {9.23.3.13}drawTree()}{130}{subsubsection.9.23.3.13}%
+\contentsline {subsubsection}{\numberline {9.23.3.14}eventFilter()}{130}{subsubsection.9.23.3.14}%
+\contentsline {subsubsection}{\numberline {9.23.3.15}examSolutionText()}{130}{subsubsection.9.23.3.15}%
+\contentsline {subsubsection}{\numberline {9.23.3.16}exitRequested}{131}{subsubsection.9.23.3.16}%
+\contentsline {subsubsection}{\numberline {9.23.3.17}exportConversationToPdf()}{131}{subsubsection.9.23.3.17}%
+\contentsline {subsubsection}{\numberline {9.23.3.18}feedback()}{131}{subsubsection.9.23.3.18}%
+\contentsline {subsubsection}{\numberline {9.23.3.19}feedbackForA()}{132}{subsubsection.9.23.3.19}%
+\contentsline {subsubsection}{\numberline {9.23.3.20}feedbackForA1()}{132}{subsubsection.9.23.3.20}%
+\contentsline {subsubsection}{\numberline {9.23.3.21}feedbackForA2()}{133}{subsubsection.9.23.3.21}%
+\contentsline {subsubsection}{\numberline {9.23.3.22}feedbackForAPrime()}{133}{subsubsection.9.23.3.22}%
+\contentsline {subsubsection}{\numberline {9.23.3.23}feedbackForB()}{133}{subsubsection.9.23.3.23}%
+\contentsline {subsubsection}{\numberline {9.23.3.24}feedbackForB1()}{133}{subsubsection.9.23.3.24}%
+\contentsline {subsubsection}{\numberline {9.23.3.25}feedbackForB1TreeGraphics()}{134}{subsubsection.9.23.3.25}%
+\contentsline {subsubsection}{\numberline {9.23.3.26}feedbackForB1TreeWidget()}{134}{subsubsection.9.23.3.26}%
+\contentsline {subsubsection}{\numberline {9.23.3.27}feedbackForB2()}{134}{subsubsection.9.23.3.27}%
+\contentsline {subsubsection}{\numberline {9.23.3.28}feedbackForBPrime()}{135}{subsubsection.9.23.3.28}%
+\contentsline {subsubsection}{\numberline {9.23.3.29}feedbackForC()}{135}{subsubsection.9.23.3.29}%
+\contentsline {subsubsection}{\numberline {9.23.3.30}feedbackForCPrime()}{136}{subsubsection.9.23.3.30}%
+\contentsline {subsubsection}{\numberline {9.23.3.31}FormatGrammar()}{136}{subsubsection.9.23.3.31}%
+\contentsline {subsubsection}{\numberline {9.23.3.32}generateQuestion()}{137}{subsubsection.9.23.3.32}%
+\contentsline {subsubsection}{\numberline {9.23.3.33}handleTableSubmission()}{137}{subsubsection.9.23.3.33}%
+\contentsline {subsubsection}{\numberline {9.23.3.34}markLastUserIncorrect()}{137}{subsubsection.9.23.3.34}%
+\contentsline {subsubsection}{\numberline {9.23.3.35}postQuestion()}{138}{subsubsection.9.23.3.35}%
+\contentsline {subsubsection}{\numberline {9.23.3.36}promptExportFilePath()}{138}{subsubsection.9.23.3.36}%
+\contentsline {subsubsection}{\numberline {9.23.3.37}scoreExamTable()}{139}{subsubsection.9.23.3.37}%
+\contentsline {subsubsection}{\numberline {9.23.3.38}sessionFinished}{140}{subsubsection.9.23.3.38}%
+\contentsline {subsubsection}{\numberline {9.23.3.39}showExamReport()}{140}{subsubsection.9.23.3.39}%
+\contentsline {subsubsection}{\numberline {9.23.3.40}showTable()}{140}{subsubsection.9.23.3.40}%
+\contentsline {subsubsection}{\numberline {9.23.3.41}showTableForCPrime()}{140}{subsubsection.9.23.3.41}%
+\contentsline {subsubsection}{\numberline {9.23.3.42}showTreeGraphics()}{141}{subsubsection.9.23.3.42}%
+\contentsline {subsubsection}{\numberline {9.23.3.43}solution()}{141}{subsubsection.9.23.3.43}%
+\contentsline {subsubsection}{\numberline {9.23.3.44}solutionForA()}{142}{subsubsection.9.23.3.44}%
+\contentsline {subsubsection}{\numberline {9.23.3.45}solutionForA1()}{142}{subsubsection.9.23.3.45}%
+\contentsline {subsubsection}{\numberline {9.23.3.46}solutionForA2()}{142}{subsubsection.9.23.3.46}%
+\contentsline {subsubsection}{\numberline {9.23.3.47}solutionForB()}{142}{subsubsection.9.23.3.47}%
+\contentsline {subsubsection}{\numberline {9.23.3.48}solutionForB1()}{143}{subsubsection.9.23.3.48}%
+\contentsline {subsubsection}{\numberline {9.23.3.49}solutionForB2()}{143}{subsubsection.9.23.3.49}%
+\contentsline {subsubsection}{\numberline {9.23.3.50}TeachFirstTree()}{144}{subsubsection.9.23.3.50}%
+\contentsline {subsubsection}{\numberline {9.23.3.51}TeachFollow()}{144}{subsubsection.9.23.3.51}%
+\contentsline {subsubsection}{\numberline {9.23.3.52}TeachLL1Table()}{144}{subsubsection.9.23.3.52}%
+\contentsline {subsubsection}{\numberline {9.23.3.53}TeachPredictionSymbols()}{144}{subsubsection.9.23.3.53}%
+\contentsline {subsubsection}{\numberline {9.23.3.54}updatePlaceholder()}{145}{subsubsection.9.23.3.54}%
+\contentsline {subsubsection}{\numberline {9.23.3.55}updateProgressPanel()}{145}{subsubsection.9.23.3.55}%
+\contentsline {subsubsection}{\numberline {9.23.3.56}updateState()}{146}{subsubsection.9.23.3.56}%
+\contentsline {subsubsection}{\numberline {9.23.3.57}verifyResponse()}{146}{subsubsection.9.23.3.57}%
+\contentsline {subsubsection}{\numberline {9.23.3.58}verifyResponseForA()}{146}{subsubsection.9.23.3.58}%
+\contentsline {subsubsection}{\numberline {9.23.3.59}verifyResponseForA1()}{147}{subsubsection.9.23.3.59}%
+\contentsline {subsubsection}{\numberline {9.23.3.60}verifyResponseForA2()}{147}{subsubsection.9.23.3.60}%
+\contentsline {subsubsection}{\numberline {9.23.3.61}verifyResponseForB()}{147}{subsubsection.9.23.3.61}%
+\contentsline {subsubsection}{\numberline {9.23.3.62}verifyResponseForB1()}{148}{subsubsection.9.23.3.62}%
+\contentsline {subsubsection}{\numberline {9.23.3.63}verifyResponseForB2()}{148}{subsubsection.9.23.3.63}%
+\contentsline {subsubsection}{\numberline {9.23.3.64}verifyResponseForC()}{148}{subsubsection.9.23.3.64}%
+\contentsline {subsubsection}{\numberline {9.23.3.65}wrongAnimation()}{148}{subsubsection.9.23.3.65}%
+\contentsline {subsubsection}{\numberline {9.23.3.66}wrongUserResponseAnimation()}{149}{subsubsection.9.23.3.66}%
+\contentsline {section}{\numberline {9.24}LLWizard Class Reference}{149}{section.9.24}%
+\contentsline {subsection}{\numberline {9.24.1}Detailed Description}{150}{subsection.9.24.1}%
+\contentsline {subsection}{\numberline {9.24.2}Constructor \& Destructor Documentation}{150}{subsection.9.24.2}%
+\contentsline {subsubsection}{\numberline {9.24.2.1}LLWizard()}{150}{subsubsection.9.24.2.1}%
+\contentsline {subsection}{\numberline {9.24.3}Member Function Documentation}{150}{subsection.9.24.3}%
+\contentsline {subsubsection}{\numberline {9.24.3.1}closeButton()}{150}{subsubsection.9.24.3.1}%
+\contentsline {subsubsection}{\numberline {9.24.3.2}currentPage()}{151}{subsubsection.9.24.3.2}%
+\contentsline {subsubsection}{\numberline {9.24.3.3}isOnLastPage()}{151}{subsubsection.9.24.3.3}%
+\contentsline {subsubsection}{\numberline {9.24.3.4}nextButton()}{151}{subsubsection.9.24.3.4}%
+\contentsline {section}{\numberline {9.25}LLWizard\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Page Class Reference}{151}{section.9.25}%
+\contentsline {subsection}{\numberline {9.25.1}Detailed Description}{152}{subsection.9.25.1}%
+\contentsline {subsection}{\numberline {9.25.2}Constructor \& Destructor Documentation}{152}{subsection.9.25.2}%
+\contentsline {subsubsection}{\numberline {9.25.2.1}LLWizardPage()}{152}{subsubsection.9.25.2.1}%
+\contentsline {subsection}{\numberline {9.25.3}Member Function Documentation}{153}{subsection.9.25.3}%
+\contentsline {subsubsection}{\numberline {9.25.3.1}completionChanged}{153}{subsubsection.9.25.3.1}%
+\contentsline {subsubsection}{\numberline {9.25.3.2}focusAnswerField()}{153}{subsubsection.9.25.3.2}%
+\contentsline {subsubsection}{\numberline {9.25.3.3}isComplete()}{153}{subsubsection.9.25.3.3}%
+\contentsline {subsubsection}{\numberline {9.25.3.4}resizeEvent()}{153}{subsubsection.9.25.3.4}%
+\contentsline {subsubsection}{\numberline {9.25.3.5}submitRequested}{154}{subsubsection.9.25.3.5}%
+\contentsline {subsubsection}{\numberline {9.25.3.6}titleText()}{154}{subsubsection.9.25.3.6}%
+\contentsline {section}{\numberline {9.26}Lr0\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Item Struct Reference}{154}{section.9.26}%
+\contentsline {subsection}{\numberline {9.26.1}Detailed Description}{155}{subsection.9.26.1}%
+\contentsline {subsection}{\numberline {9.26.2}Constructor \& Destructor Documentation}{155}{subsection.9.26.2}%
+\contentsline {subsubsection}{\numberline {9.26.2.1}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{155}{subsubsection.9.26.2.1}%
+\contentsline {subsubsection}{\numberline {9.26.2.2}Lr0Item()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{156}{subsubsection.9.26.2.2}%
+\contentsline {subsection}{\numberline {9.26.3}Member Function Documentation}{156}{subsection.9.26.3}%
+\contentsline {subsubsection}{\numberline {9.26.3.1}AdvanceDot()}{156}{subsubsection.9.26.3.1}%
+\contentsline {subsubsection}{\numberline {9.26.3.2}IsComplete()}{156}{subsubsection.9.26.3.2}%
+\contentsline {subsubsection}{\numberline {9.26.3.3}NextToDot()}{157}{subsubsection.9.26.3.3}%
+\contentsline {subsubsection}{\numberline {9.26.3.4}operator==()}{157}{subsubsection.9.26.3.4}%
+\contentsline {subsubsection}{\numberline {9.26.3.5}PrintItem()}{157}{subsubsection.9.26.3.5}%
+\contentsline {subsubsection}{\numberline {9.26.3.6}ToString()}{158}{subsubsection.9.26.3.6}%
+\contentsline {subsection}{\numberline {9.26.4}Member Data Documentation}{158}{subsection.9.26.4}%
+\contentsline {subsubsection}{\numberline {9.26.4.1}antecedent\_}{158}{subsubsection.9.26.4.1}%
+\contentsline {subsubsection}{\numberline {9.26.4.2}consequent\_}{158}{subsubsection.9.26.4.2}%
+\contentsline {subsubsection}{\numberline {9.26.4.3}dot\_}{158}{subsubsection.9.26.4.3}%
+\contentsline {subsubsection}{\numberline {9.26.4.4}eol\_}{158}{subsubsection.9.26.4.4}%
+\contentsline {subsubsection}{\numberline {9.26.4.5}epsilon\_}{159}{subsubsection.9.26.4.5}%
+\contentsline {section}{\numberline {9.27}Main\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Window Class Reference}{159}{section.9.27}%
+\contentsline {subsection}{\numberline {9.27.1}Detailed Description}{160}{subsection.9.27.1}%
+\contentsline {subsection}{\numberline {9.27.2}Constructor \& Destructor Documentation}{160}{subsection.9.27.2}%
+\contentsline {subsubsection}{\numberline {9.27.2.1}MainWindow()}{160}{subsubsection.9.27.2.1}%
+\contentsline {subsubsection}{\numberline {9.27.2.2}$\sim $MainWindow()}{161}{subsubsection.9.27.2.2}%
+\contentsline {subsection}{\numberline {9.27.3}Member Function Documentation}{161}{subsection.9.27.3}%
+\contentsline {subsubsection}{\numberline {9.27.3.1}setUserLevel()}{161}{subsubsection.9.27.3.1}%
+\contentsline {subsubsection}{\numberline {9.27.3.2}thresholdFor()}{161}{subsubsection.9.27.3.2}%
+\contentsline {subsubsection}{\numberline {9.27.3.3}userLevel()}{162}{subsubsection.9.27.3.3}%
+\contentsline {subsubsection}{\numberline {9.27.3.4}userLevelChanged}{162}{subsubsection.9.27.3.4}%
+\contentsline {subsubsection}{\numberline {9.27.3.5}userLevelUp}{163}{subsubsection.9.27.3.5}%
+\contentsline {subsection}{\numberline {9.27.4}Property Documentation}{163}{subsection.9.27.4}%
+\contentsline {subsubsection}{\numberline {9.27.4.1}userLevel}{163}{subsubsection.9.27.4.1}%
+\contentsline {section}{\numberline {9.28}Conversation\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Pdf::Message Struct Reference}{163}{section.9.28}%
+\contentsline {subsection}{\numberline {9.28.1}Detailed Description}{164}{subsection.9.28.1}%
+\contentsline {subsection}{\numberline {9.28.2}Member Data Documentation}{164}{subsection.9.28.2}%
+\contentsline {subsubsection}{\numberline {9.28.2.1}correct}{164}{subsubsection.9.28.2.1}%
+\contentsline {subsubsection}{\numberline {9.28.2.2}fromStudent}{164}{subsubsection.9.28.2.2}%
+\contentsline {subsubsection}{\numberline {9.28.2.3}text}{164}{subsubsection.9.28.2.3}%
+\contentsline {section}{\numberline {9.29}Grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}View::Row Struct Reference}{164}{section.9.29}%
+\contentsline {subsection}{\numberline {9.29.1}Member Data Documentation}{164}{subsection.9.29.1}%
+\contentsline {subsubsection}{\numberline {9.29.1.1}index}{164}{subsubsection.9.29.1.1}%
+\contentsline {subsubsection}{\numberline {9.29.1.2}lhs}{164}{subsubsection.9.29.1.2}%
+\contentsline {subsubsection}{\numberline {9.29.1.3}marker}{165}{subsubsection.9.29.1.3}%
+\contentsline {subsubsection}{\numberline {9.29.1.4}rhs}{165}{subsubsection.9.29.1.4}%
+\contentsline {section}{\numberline {9.30}SLR1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Parser::s\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}action Struct Reference}{165}{section.9.30}%
+\contentsline {subsection}{\numberline {9.30.1}Member Data Documentation}{165}{subsection.9.30.1}%
+\contentsline {subsubsection}{\numberline {9.30.1.1}action}{165}{subsubsection.9.30.1.1}%
+\contentsline {subsubsection}{\numberline {9.30.1.2}item}{165}{subsubsection.9.30.1.2}%
+\contentsline {section}{\numberline {9.31}SLR1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Parser Class Reference}{166}{section.9.31}%
+\contentsline {subsection}{\numberline {9.31.1}Detailed Description}{167}{subsection.9.31.1}%
+\contentsline {subsection}{\numberline {9.31.2}Member Typedef Documentation}{168}{subsection.9.31.2}%
+\contentsline {subsubsection}{\numberline {9.31.2.1}action\_table}{168}{subsubsection.9.31.2.1}%
+\contentsline {subsubsection}{\numberline {9.31.2.2}transition\_table}{168}{subsubsection.9.31.2.2}%
+\contentsline {subsection}{\numberline {9.31.3}Member Enumeration Documentation}{169}{subsection.9.31.3}%
+\contentsline {subsubsection}{\numberline {9.31.3.1}Action}{169}{subsubsection.9.31.3.1}%
+\contentsline {subsection}{\numberline {9.31.4}Constructor \& Destructor Documentation}{169}{subsection.9.31.4}%
+\contentsline {subsubsection}{\numberline {9.31.4.1}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{169}{subsubsection.9.31.4.1}%
+\contentsline {subsubsection}{\numberline {9.31.4.2}SLR1Parser()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{170}{subsubsection.9.31.4.2}%
+\contentsline {subsection}{\numberline {9.31.5}Member Function Documentation}{170}{subsection.9.31.5}%
+\contentsline {subsubsection}{\numberline {9.31.5.1}AllItems()}{170}{subsubsection.9.31.5.1}%
+\contentsline {subsubsection}{\numberline {9.31.5.2}Closure()}{170}{subsubsection.9.31.5.2}%
+\contentsline {subsubsection}{\numberline {9.31.5.3}ClosureUtil()}{171}{subsubsection.9.31.5.3}%
+\contentsline {subsubsection}{\numberline {9.31.5.4}ComputeFirstSets()}{172}{subsubsection.9.31.5.4}%
+\contentsline {subsubsection}{\numberline {9.31.5.5}ComputeFollowSets()}{172}{subsubsection.9.31.5.5}%
+\contentsline {subsubsection}{\numberline {9.31.5.6}Delta()}{173}{subsubsection.9.31.5.6}%
+\contentsline {subsubsection}{\numberline {9.31.5.7}First()}{174}{subsubsection.9.31.5.7}%
+\contentsline {subsubsection}{\numberline {9.31.5.8}Follow()}{175}{subsubsection.9.31.5.8}%
+\contentsline {subsubsection}{\numberline {9.31.5.9}MakeInitialState()}{175}{subsubsection.9.31.5.9}%
+\contentsline {subsubsection}{\numberline {9.31.5.10}MakeParser()}{176}{subsubsection.9.31.5.10}%
+\contentsline {subsubsection}{\numberline {9.31.5.11}PrintItems()}{176}{subsubsection.9.31.5.11}%
+\contentsline {subsubsection}{\numberline {9.31.5.12}SolveLRConflicts()}{177}{subsubsection.9.31.5.12}%
+\contentsline {subsection}{\numberline {9.31.6}Member Data Documentation}{178}{subsection.9.31.6}%
+\contentsline {subsubsection}{\numberline {9.31.6.1}actions\_}{178}{subsubsection.9.31.6.1}%
+\contentsline {subsubsection}{\numberline {9.31.6.2}first\_sets\_}{178}{subsubsection.9.31.6.2}%
+\contentsline {subsubsection}{\numberline {9.31.6.3}follow\_sets\_}{178}{subsubsection.9.31.6.3}%
+\contentsline {subsubsection}{\numberline {9.31.6.4}gr\_}{178}{subsubsection.9.31.6.4}%
+\contentsline {subsubsection}{\numberline {9.31.6.5}states\_}{178}{subsubsection.9.31.6.5}%
+\contentsline {subsubsection}{\numberline {9.31.6.6}transitions\_}{178}{subsubsection.9.31.6.6}%
+\contentsline {section}{\numberline {9.32}SLRTable\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Dialog Class Reference}{179}{section.9.32}%
+\contentsline {subsection}{\numberline {9.32.1}Detailed Description}{180}{subsection.9.32.1}%
+\contentsline {subsection}{\numberline {9.32.2}Constructor \& Destructor Documentation}{180}{subsection.9.32.2}%
+\contentsline {subsubsection}{\numberline {9.32.2.1}SLRTableDialog()}{180}{subsubsection.9.32.2.1}%
+\contentsline {subsection}{\numberline {9.32.3}Member Function Documentation}{181}{subsection.9.32.3}%
+\contentsline {subsubsection}{\numberline {9.32.3.1}getTableData()}{181}{subsubsection.9.32.3.1}%
+\contentsline {subsubsection}{\numberline {9.32.3.2}guidedRequested}{181}{subsubsection.9.32.3.2}%
+\contentsline {subsubsection}{\numberline {9.32.3.3}highlightIncorrectCells()}{181}{subsubsection.9.32.3.3}%
+\contentsline {subsubsection}{\numberline {9.32.3.4}highlightInvalidCells()}{181}{subsubsection.9.32.3.4}%
+\contentsline {subsubsection}{\numberline {9.32.3.5}setGuidedButtonVisible()}{182}{subsubsection.9.32.3.5}%
+\contentsline {subsubsection}{\numberline {9.32.3.6}setGuidedModeActive()}{182}{subsubsection.9.32.3.6}%
+\contentsline {subsubsection}{\numberline {9.32.3.7}setInitialData()}{182}{subsubsection.9.32.3.7}%
+\contentsline {subsubsection}{\numberline {9.32.3.8}submitted}{182}{subsubsection.9.32.3.8}%
+\contentsline {section}{\numberline {9.33}SLRTutor\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Window Class Reference}{183}{section.9.33}%
+\contentsline {subsection}{\numberline {9.33.1}Detailed Description}{186}{subsection.9.33.1}%
+\contentsline {subsection}{\numberline {9.33.2}Constructor \& Destructor Documentation}{186}{subsection.9.33.2}%
+\contentsline {subsubsection}{\numberline {9.33.2.1}SLRTutorWindow()}{186}{subsubsection.9.33.2.1}%
+\contentsline {subsubsection}{\numberline {9.33.2.2}$\sim $SLRTutorWindow()}{187}{subsubsection.9.33.2.2}%
+\contentsline {subsection}{\numberline {9.33.3}Member Function Documentation}{187}{subsection.9.33.3}%
+\contentsline {subsubsection}{\numberline {9.33.3.1}addGrammarMessage()}{187}{subsubsection.9.33.3.1}%
+\contentsline {subsubsection}{\numberline {9.33.3.2}addMessage()}{187}{subsubsection.9.33.3.2}%
+\contentsline {subsubsection}{\numberline {9.33.3.3}addUserState()}{187}{subsubsection.9.33.3.3}%
+\contentsline {subsubsection}{\numberline {9.33.3.4}addUserTransition()}{188}{subsubsection.9.33.3.4}%
+\contentsline {subsubsection}{\numberline {9.33.3.5}addWidgetMessage()}{188}{subsubsection.9.33.3.5}%
+\contentsline {subsubsection}{\numberline {9.33.3.6}animateLabelColor()}{188}{subsubsection.9.33.3.6}%
+\contentsline {subsubsection}{\numberline {9.33.3.7}animateLabelPop()}{188}{subsubsection.9.33.3.7}%
+\contentsline {subsubsection}{\numberline {9.33.3.8}applyTextScale()}{189}{subsubsection.9.33.3.8}%
+\contentsline {subsubsection}{\numberline {9.33.3.9}buildGrammarRows()}{189}{subsubsection.9.33.3.9}%
+\contentsline {subsubsection}{\numberline {9.33.3.10}closeEvent()}{189}{subsubsection.9.33.3.10}%
+\contentsline {subsubsection}{\numberline {9.33.3.11}confirmExitToHome()}{189}{subsubsection.9.33.3.11}%
+\contentsline {subsubsection}{\numberline {9.33.3.12}eventFilter()}{190}{subsubsection.9.33.3.12}%
+\contentsline {subsubsection}{\numberline {9.33.3.13}examSolutionText()}{190}{subsubsection.9.33.3.13}%
+\contentsline {subsubsection}{\numberline {9.33.3.14}exitRequested}{190}{subsubsection.9.33.3.14}%
+\contentsline {subsubsection}{\numberline {9.33.3.15}exportConversationToPdf()}{190}{subsubsection.9.33.3.15}%
+\contentsline {subsubsection}{\numberline {9.33.3.16}feedback()}{191}{subsubsection.9.33.3.16}%
+\contentsline {subsubsection}{\numberline {9.33.3.17}feedbackForA()}{191}{subsubsection.9.33.3.17}%
+\contentsline {subsubsection}{\numberline {9.33.3.18}feedbackForA1()}{191}{subsubsection.9.33.3.18}%
+\contentsline {subsubsection}{\numberline {9.33.3.19}feedbackForA2()}{192}{subsubsection.9.33.3.19}%
+\contentsline {subsubsection}{\numberline {9.33.3.20}feedbackForA3()}{192}{subsubsection.9.33.3.20}%
+\contentsline {subsubsection}{\numberline {9.33.3.21}feedbackForA4()}{193}{subsubsection.9.33.3.21}%
+\contentsline {subsubsection}{\numberline {9.33.3.22}feedbackForAPrime()}{193}{subsubsection.9.33.3.22}%
+\contentsline {subsubsection}{\numberline {9.33.3.23}feedbackForB()}{193}{subsubsection.9.33.3.23}%
+\contentsline {subsubsection}{\numberline {9.33.3.24}feedbackForB1()}{193}{subsubsection.9.33.3.24}%
+\contentsline {subsubsection}{\numberline {9.33.3.25}feedbackForB2()}{193}{subsubsection.9.33.3.25}%
+\contentsline {subsubsection}{\numberline {9.33.3.26}feedbackForBPrime()}{194}{subsubsection.9.33.3.26}%
+\contentsline {subsubsection}{\numberline {9.33.3.27}feedbackForC()}{194}{subsubsection.9.33.3.27}%
+\contentsline {subsubsection}{\numberline {9.33.3.28}feedbackForCA()}{195}{subsubsection.9.33.3.28}%
+\contentsline {subsubsection}{\numberline {9.33.3.29}feedbackForCB()}{195}{subsubsection.9.33.3.29}%
+\contentsline {subsubsection}{\numberline {9.33.3.30}feedbackForD()}{196}{subsubsection.9.33.3.30}%
+\contentsline {subsubsection}{\numberline {9.33.3.31}feedbackForD1()}{196}{subsubsection.9.33.3.31}%
+\contentsline {subsubsection}{\numberline {9.33.3.32}feedbackForD2()}{196}{subsubsection.9.33.3.32}%
+\contentsline {subsubsection}{\numberline {9.33.3.33}feedbackForDPrime()}{196}{subsubsection.9.33.3.33}%
+\contentsline {subsubsection}{\numberline {9.33.3.34}feedbackForE()}{197}{subsubsection.9.33.3.34}%
+\contentsline {subsubsection}{\numberline {9.33.3.35}feedbackForE1()}{197}{subsubsection.9.33.3.35}%
+\contentsline {subsubsection}{\numberline {9.33.3.36}feedbackForE2()}{197}{subsubsection.9.33.3.36}%
+\contentsline {subsubsection}{\numberline {9.33.3.37}feedbackForF()}{197}{subsubsection.9.33.3.37}%
+\contentsline {subsubsection}{\numberline {9.33.3.38}feedbackForFA()}{198}{subsubsection.9.33.3.38}%
+\contentsline {subsubsection}{\numberline {9.33.3.39}feedbackForG()}{198}{subsubsection.9.33.3.39}%
+\contentsline {subsubsection}{\numberline {9.33.3.40}fillSortedGrammar()}{198}{subsubsection.9.33.3.40}%
+\contentsline {subsubsection}{\numberline {9.33.3.41}FormatGrammar()}{198}{subsubsection.9.33.3.41}%
+\contentsline {subsubsection}{\numberline {9.33.3.42}generateQuestion()}{199}{subsubsection.9.33.3.42}%
+\contentsline {subsubsection}{\numberline {9.33.3.43}initialItemText()}{199}{subsubsection.9.33.3.43}%
+\contentsline {subsubsection}{\numberline {9.33.3.44}isReduction()}{200}{subsubsection.9.33.3.44}%
+\contentsline {subsubsection}{\numberline {9.33.3.45}launchSLRWizard()}{200}{subsubsection.9.33.3.45}%
+\contentsline {subsubsection}{\numberline {9.33.3.46}markLastUserIncorrect()}{201}{subsubsection.9.33.3.46}%
+\contentsline {subsubsection}{\numberline {9.33.3.47}openAutomatonViewer()}{201}{subsubsection.9.33.3.47}%
+\contentsline {subsubsection}{\numberline {9.33.3.48}postQuestion()}{201}{subsubsection.9.33.3.48}%
+\contentsline {subsubsection}{\numberline {9.33.3.49}promptExportFilePath()}{202}{subsubsection.9.33.3.49}%
+\contentsline {subsubsection}{\numberline {9.33.3.50}scoreExamTable()}{202}{subsubsection.9.33.3.50}%
+\contentsline {subsubsection}{\numberline {9.33.3.51}sessionFinished}{203}{subsubsection.9.33.3.51}%
+\contentsline {subsubsection}{\numberline {9.33.3.52}setupAutomatonPanel()}{203}{subsubsection.9.33.3.52}%
+\contentsline {subsubsection}{\numberline {9.33.3.53}showExamReport()}{203}{subsubsection.9.33.3.53}%
+\contentsline {subsubsection}{\numberline {9.33.3.54}showTable()}{204}{subsubsection.9.33.3.54}%
+\contentsline {subsubsection}{\numberline {9.33.3.55}solution()}{204}{subsubsection.9.33.3.55}%
+\contentsline {subsubsection}{\numberline {9.33.3.56}solutionCell()}{205}{subsubsection.9.33.3.56}%
+\contentsline {subsubsection}{\numberline {9.33.3.57}solutionForA()}{206}{subsubsection.9.33.3.57}%
+\contentsline {subsubsection}{\numberline {9.33.3.58}solutionForA1()}{206}{subsubsection.9.33.3.58}%
+\contentsline {subsubsection}{\numberline {9.33.3.59}solutionForA2()}{206}{subsubsection.9.33.3.59}%
+\contentsline {subsubsection}{\numberline {9.33.3.60}solutionForA3()}{207}{subsubsection.9.33.3.60}%
+\contentsline {subsubsection}{\numberline {9.33.3.61}solutionForA4()}{207}{subsubsection.9.33.3.61}%
+\contentsline {subsubsection}{\numberline {9.33.3.62}solutionForB()}{207}{subsubsection.9.33.3.62}%
+\contentsline {subsubsection}{\numberline {9.33.3.63}solutionForC()}{207}{subsubsection.9.33.3.63}%
+\contentsline {subsubsection}{\numberline {9.33.3.64}solutionForCA()}{208}{subsubsection.9.33.3.64}%
+\contentsline {subsubsection}{\numberline {9.33.3.65}solutionForCB()}{208}{subsubsection.9.33.3.65}%
+\contentsline {subsubsection}{\numberline {9.33.3.66}solutionForD()}{208}{subsubsection.9.33.3.66}%
+\contentsline {subsubsection}{\numberline {9.33.3.67}solutionForD1()}{208}{subsubsection.9.33.3.67}%
+\contentsline {subsubsection}{\numberline {9.33.3.68}solutionForD2()}{209}{subsubsection.9.33.3.68}%
+\contentsline {subsubsection}{\numberline {9.33.3.69}solutionForE()}{209}{subsubsection.9.33.3.69}%
+\contentsline {subsubsection}{\numberline {9.33.3.70}solutionForE1()}{209}{subsubsection.9.33.3.70}%
+\contentsline {subsubsection}{\numberline {9.33.3.71}solutionForE2()}{209}{subsubsection.9.33.3.71}%
+\contentsline {subsubsection}{\numberline {9.33.3.72}solutionForF()}{210}{subsubsection.9.33.3.72}%
+\contentsline {subsubsection}{\numberline {9.33.3.73}solutionForFA()}{210}{subsubsection.9.33.3.73}%
+\contentsline {subsubsection}{\numberline {9.33.3.74}solutionForG()}{210}{subsubsection.9.33.3.74}%
+\contentsline {subsubsection}{\numberline {9.33.3.75}tableColumns()}{211}{subsubsection.9.33.3.75}%
+\contentsline {subsubsection}{\numberline {9.33.3.76}TeachClosure()}{211}{subsubsection.9.33.3.76}%
+\contentsline {subsubsection}{\numberline {9.33.3.77}TeachClosureStep()}{211}{subsubsection.9.33.3.77}%
+\contentsline {subsubsection}{\numberline {9.33.3.78}TeachDeltaFunction()}{212}{subsubsection.9.33.3.78}%
+\contentsline {subsubsection}{\numberline {9.33.3.79}updateAutomatonButton()}{212}{subsubsection.9.33.3.79}%
+\contentsline {subsubsection}{\numberline {9.33.3.80}updateAutomatonPanel()}{212}{subsubsection.9.33.3.80}%
+\contentsline {subsubsection}{\numberline {9.33.3.81}updatePlaceholder()}{213}{subsubsection.9.33.3.81}%
+\contentsline {subsubsection}{\numberline {9.33.3.82}updateProgressPanel()}{213}{subsubsection.9.33.3.82}%
+\contentsline {subsubsection}{\numberline {9.33.3.83}updateState()}{213}{subsubsection.9.33.3.83}%
+\contentsline {subsubsection}{\numberline {9.33.3.84}verifyResponse()}{214}{subsubsection.9.33.3.84}%
+\contentsline {subsubsection}{\numberline {9.33.3.85}verifyResponseForA()}{214}{subsubsection.9.33.3.85}%
+\contentsline {subsubsection}{\numberline {9.33.3.86}verifyResponseForA1()}{214}{subsubsection.9.33.3.86}%
+\contentsline {subsubsection}{\numberline {9.33.3.87}verifyResponseForA2()}{215}{subsubsection.9.33.3.87}%
+\contentsline {subsubsection}{\numberline {9.33.3.88}verifyResponseForA3()}{215}{subsubsection.9.33.3.88}%
+\contentsline {subsubsection}{\numberline {9.33.3.89}verifyResponseForA4()}{215}{subsubsection.9.33.3.89}%
+\contentsline {subsubsection}{\numberline {9.33.3.90}verifyResponseForB()}{216}{subsubsection.9.33.3.90}%
+\contentsline {subsubsection}{\numberline {9.33.3.91}verifyResponseForC()}{216}{subsubsection.9.33.3.91}%
+\contentsline {subsubsection}{\numberline {9.33.3.92}verifyResponseForCA()}{217}{subsubsection.9.33.3.92}%
+\contentsline {subsubsection}{\numberline {9.33.3.93}verifyResponseForCB()}{217}{subsubsection.9.33.3.93}%
+\contentsline {subsubsection}{\numberline {9.33.3.94}verifyResponseForD()}{217}{subsubsection.9.33.3.94}%
+\contentsline {subsubsection}{\numberline {9.33.3.95}verifyResponseForD1()}{218}{subsubsection.9.33.3.95}%
+\contentsline {subsubsection}{\numberline {9.33.3.96}verifyResponseForD2()}{218}{subsubsection.9.33.3.96}%
+\contentsline {subsubsection}{\numberline {9.33.3.97}verifyResponseForE()}{218}{subsubsection.9.33.3.97}%
+\contentsline {subsubsection}{\numberline {9.33.3.98}verifyResponseForE1()}{218}{subsubsection.9.33.3.98}%
+\contentsline {subsubsection}{\numberline {9.33.3.99}verifyResponseForE2()}{219}{subsubsection.9.33.3.99}%
+\contentsline {subsubsection}{\numberline {9.33.3.100}verifyResponseForF()}{219}{subsubsection.9.33.3.100}%
+\contentsline {subsubsection}{\numberline {9.33.3.101}verifyResponseForFA()}{219}{subsubsection.9.33.3.101}%
+\contentsline {subsubsection}{\numberline {9.33.3.102}verifyResponseForG()}{219}{subsubsection.9.33.3.102}%
+\contentsline {subsubsection}{\numberline {9.33.3.103}verifyResponseForH()}{220}{subsubsection.9.33.3.103}%
+\contentsline {subsubsection}{\numberline {9.33.3.104}wrongAnimation()}{220}{subsubsection.9.33.3.104}%
+\contentsline {subsubsection}{\numberline {9.33.3.105}wrongUserResponseAnimation()}{220}{subsubsection.9.33.3.105}%
+\contentsline {section}{\numberline {9.34}SLRWizard Class Reference}{221}{section.9.34}%
+\contentsline {subsection}{\numberline {9.34.1}Detailed Description}{221}{subsection.9.34.1}%
+\contentsline {subsection}{\numberline {9.34.2}Constructor \& Destructor Documentation}{222}{subsection.9.34.2}%
+\contentsline {subsubsection}{\numberline {9.34.2.1}SLRWizard()}{222}{subsubsection.9.34.2.1}%
+\contentsline {subsection}{\numberline {9.34.3}Member Function Documentation}{222}{subsection.9.34.3}%
+\contentsline {subsubsection}{\numberline {9.34.3.1}closeButton()}{222}{subsubsection.9.34.3.1}%
+\contentsline {subsubsection}{\numberline {9.34.3.2}currentPage()}{223}{subsubsection.9.34.3.2}%
+\contentsline {subsubsection}{\numberline {9.34.3.3}isOnLastPage()}{223}{subsubsection.9.34.3.3}%
+\contentsline {subsubsection}{\numberline {9.34.3.4}nextButton()}{223}{subsubsection.9.34.3.4}%
+\contentsline {subsubsection}{\numberline {9.34.3.5}stdVectorToQVector()}{223}{subsubsection.9.34.3.5}%
+\contentsline {section}{\numberline {9.35}SLRWizard\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Page Class Reference}{224}{section.9.35}%
+\contentsline {subsection}{\numberline {9.35.1}Detailed Description}{225}{subsection.9.35.1}%
+\contentsline {subsection}{\numberline {9.35.2}Constructor \& Destructor Documentation}{225}{subsection.9.35.2}%
+\contentsline {subsubsection}{\numberline {9.35.2.1}SLRWizardPage()}{225}{subsubsection.9.35.2.1}%
+\contentsline {subsection}{\numberline {9.35.3}Member Function Documentation}{226}{subsection.9.35.3}%
+\contentsline {subsubsection}{\numberline {9.35.3.1}completionChanged}{226}{subsubsection.9.35.3.1}%
+\contentsline {subsubsection}{\numberline {9.35.3.2}focusAnswerField()}{226}{subsubsection.9.35.3.2}%
+\contentsline {subsubsection}{\numberline {9.35.3.3}isComplete()}{226}{subsubsection.9.35.3.3}%
+\contentsline {subsubsection}{\numberline {9.35.3.4}resizeEvent()}{226}{subsubsection.9.35.3.4}%
+\contentsline {subsubsection}{\numberline {9.35.3.5}submitRequested}{226}{subsubsection.9.35.3.5}%
+\contentsline {subsubsection}{\numberline {9.35.3.6}titleText()}{226}{subsubsection.9.35.3.6}%
+\contentsline {section}{\numberline {9.36}state Struct Reference}{227}{section.9.36}%
+\contentsline {subsection}{\numberline {9.36.1}Detailed Description}{227}{subsection.9.36.1}%
+\contentsline {subsection}{\numberline {9.36.2}Member Function Documentation}{227}{subsection.9.36.2}%
+\contentsline {subsubsection}{\numberline {9.36.2.1}operator==()}{227}{subsubsection.9.36.2.1}%
+\contentsline {subsection}{\numberline {9.36.3}Member Data Documentation}{227}{subsection.9.36.3}%
+\contentsline {subsubsection}{\numberline {9.36.3.1}id\_}{227}{subsubsection.9.36.3.1}%
+\contentsline {subsubsection}{\numberline {9.36.3.2}items\_}{228}{subsubsection.9.36.3.2}%
+\contentsline {section}{\numberline {9.37}Symbol\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Table Struct Reference}{228}{section.9.37}%
+\contentsline {subsection}{\numberline {9.37.1}Detailed Description}{229}{subsection.9.37.1}%
+\contentsline {subsection}{\numberline {9.37.2}Member Function Documentation}{229}{subsection.9.37.2}%
+\contentsline {subsubsection}{\numberline {9.37.2.1}In()}{229}{subsubsection.9.37.2.1}%
+\contentsline {subsubsection}{\numberline {9.37.2.2}IsMeta()}{229}{subsubsection.9.37.2.2}%
+\contentsline {subsubsection}{\numberline {9.37.2.3}IsNonTerminal()}{230}{subsubsection.9.37.2.3}%
+\contentsline {subsubsection}{\numberline {9.37.2.4}IsTerminal()}{230}{subsubsection.9.37.2.4}%
+\contentsline {subsubsection}{\numberline {9.37.2.5}IsTerminalWthoEol()}{231}{subsubsection.9.37.2.5}%
+\contentsline {subsubsection}{\numberline {9.37.2.6}PutSymbol()}{231}{subsubsection.9.37.2.6}%
+\contentsline {subsection}{\numberline {9.37.3}Member Data Documentation}{231}{subsection.9.37.3}%
+\contentsline {subsubsection}{\numberline {9.37.3.1}EOL\_}{231}{subsubsection.9.37.3.1}%
+\contentsline {subsubsection}{\numberline {9.37.3.2}EPSILON\_}{232}{subsubsection.9.37.3.2}%
+\contentsline {subsubsection}{\numberline {9.37.3.3}meta\_symbols\_}{232}{subsubsection.9.37.3.3}%
+\contentsline {subsubsection}{\numberline {9.37.3.4}non\_terminals\_}{232}{subsubsection.9.37.3.4}%
+\contentsline {subsubsection}{\numberline {9.37.3.5}st\_}{232}{subsubsection.9.37.3.5}%
+\contentsline {subsubsection}{\numberline {9.37.3.6}terminals\_}{232}{subsubsection.9.37.3.6}%
+\contentsline {subsubsection}{\numberline {9.37.3.7}terminals\_wtho\_eol\_}{232}{subsubsection.9.37.3.7}%
+\contentsline {section}{\numberline {9.38}App\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Typography::Token Struct Reference}{233}{section.9.38}%
+\contentsline {subsection}{\numberline {9.38.1}Detailed Description}{233}{subsection.9.38.1}%
+\contentsline {subsection}{\numberline {9.38.2}Member Data Documentation}{233}{subsection.9.38.2}%
+\contentsline {subsubsection}{\numberline {9.38.2.1}name}{233}{subsubsection.9.38.2.1}%
+\contentsline {subsubsection}{\numberline {9.38.2.2}points}{233}{subsubsection.9.38.2.2}%
+\contentsline {subsubsection}{\numberline {9.38.2.3}role}{233}{subsubsection.9.38.2.3}%
+\contentsline {section}{\numberline {9.39}LLTutor\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Window::Tree\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Node Struct Reference}{233}{section.9.39}%
+\contentsline {subsection}{\numberline {9.39.1}Detailed Description}{234}{subsection.9.39.1}%
+\contentsline {subsection}{\numberline {9.39.2}Member Data Documentation}{234}{subsection.9.39.2}%
+\contentsline {subsubsection}{\numberline {9.39.2.1}children}{234}{subsubsection.9.39.2.1}%
+\contentsline {subsubsection}{\numberline {9.39.2.2}label}{234}{subsubsection.9.39.2.2}%
+\contentsline {section}{\numberline {9.40}Tutorial\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Manager Class Reference}{234}{section.9.40}%
+\contentsline {subsection}{\numberline {9.40.1}Detailed Description}{235}{subsection.9.40.1}%
+\contentsline {subsection}{\numberline {9.40.2}Constructor \& Destructor Documentation}{236}{subsection.9.40.2}%
+\contentsline {subsubsection}{\numberline {9.40.2.1}TutorialManager()}{236}{subsubsection.9.40.2.1}%
+\contentsline {subsection}{\numberline {9.40.3}Member Function Documentation}{236}{subsection.9.40.3}%
+\contentsline {subsubsection}{\numberline {9.40.3.1}addStep()}{236}{subsubsection.9.40.3.1}%
+\contentsline {subsubsection}{\numberline {9.40.3.2}clearSteps()}{236}{subsubsection.9.40.3.2}%
+\contentsline {subsubsection}{\numberline {9.40.3.3}eventFilter()}{236}{subsubsection.9.40.3.3}%
+\contentsline {subsubsection}{\numberline {9.40.3.4}finishLL1()}{237}{subsubsection.9.40.3.4}%
+\contentsline {subsubsection}{\numberline {9.40.3.5}finishSLR1()}{237}{subsubsection.9.40.3.5}%
+\contentsline {subsubsection}{\numberline {9.40.3.6}hideOverlay()}{237}{subsubsection.9.40.3.6}%
+\contentsline {subsubsection}{\numberline {9.40.3.7}ll1Finished}{238}{subsubsection.9.40.3.7}%
+\contentsline {subsubsection}{\numberline {9.40.3.8}nextStep}{238}{subsubsection.9.40.3.8}%
+\contentsline {subsubsection}{\numberline {9.40.3.9}setRootWindow()}{238}{subsubsection.9.40.3.9}%
+\contentsline {subsubsection}{\numberline {9.40.3.10}slr1Finished}{239}{subsubsection.9.40.3.10}%
+\contentsline {subsubsection}{\numberline {9.40.3.11}start()}{239}{subsubsection.9.40.3.11}%
+\contentsline {subsubsection}{\numberline {9.40.3.12}stepStarted}{239}{subsubsection.9.40.3.12}%
+\contentsline {subsubsection}{\numberline {9.40.3.13}tutorialFinished}{240}{subsubsection.9.40.3.13}%
+\contentsline {section}{\numberline {9.41}Tutorial\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Step Struct Reference}{240}{section.9.41}%
+\contentsline {subsection}{\numberline {9.41.1}Detailed Description}{240}{subsection.9.41.1}%
+\contentsline {subsection}{\numberline {9.41.2}Member Data Documentation}{240}{subsection.9.41.2}%
+\contentsline {subsubsection}{\numberline {9.41.2.1}htmlText}{240}{subsubsection.9.41.2.1}%
+\contentsline {subsubsection}{\numberline {9.41.2.2}target}{241}{subsubsection.9.41.2.2}%
+\contentsline {section}{\numberline {9.42}Unique\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Queue$<$ T $>$ Class Template Reference}{241}{section.9.42}%
+\contentsline {subsection}{\numberline {9.42.1}Detailed Description}{241}{subsection.9.42.1}%
+\contentsline {subsection}{\numberline {9.42.2}Member Function Documentation}{242}{subsection.9.42.2}%
+\contentsline {subsubsection}{\numberline {9.42.2.1}clear()}{242}{subsubsection.9.42.2.1}%
+\contentsline {subsubsection}{\numberline {9.42.2.2}empty()}{242}{subsubsection.9.42.2.2}%
+\contentsline {subsubsection}{\numberline {9.42.2.3}front()}{242}{subsubsection.9.42.2.3}%
+\contentsline {subsubsection}{\numberline {9.42.2.4}pop()}{242}{subsubsection.9.42.2.4}%
+\contentsline {subsubsection}{\numberline {9.42.2.5}push()}{243}{subsubsection.9.42.2.5}%
+\contentsline {chapter}{\numberline {10}File Documentation}{245}{chapter.10}%
+\contentsline {section}{\numberline {10.1}/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Users/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}jose/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Documents/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}cpp/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Syntax\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Tutor/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}README.md File Reference}{245}{section.10.1}%
+\contentsline {section}{\numberline {10.2}app/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}main.cpp File Reference}{245}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Function Documentation}{246}{subsection.10.2.1}%
+\contentsline {subsubsection}{\numberline {10.2.1.1}applyAppStyle()}{246}{subsubsection.10.2.1.1}%
+\contentsline {subsubsection}{\numberline {10.2.1.2}main()}{246}{subsubsection.10.2.1.2}%
+\contentsline {section}{\numberline {10.3}appversion.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h File Reference}{247}{section.10.3}%
+\contentsline {section}{\numberline {10.4}appversion.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{248}{section.10.4}%
+\contentsline {section}{\numberline {10.5}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammar.cpp File Reference}{248}{section.10.5}%
+\contentsline {section}{\numberline {10.6}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammar.hpp File Reference}{248}{section.10.6}%
+\contentsline {subsection}{\numberline {10.6.1}Typedef Documentation}{249}{subsection.10.6.1}%
+\contentsline {subsubsection}{\numberline {10.6.1.1}production}{249}{subsubsection.10.6.1.1}%
+\contentsline {section}{\numberline {10.7}grammar.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{250}{section.10.7}%
+\contentsline {section}{\numberline {10.8}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}factory.cpp File Reference}{250}{section.10.8}%
+\contentsline {section}{\numberline {10.9}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}factory.hpp File Reference}{251}{section.10.9}%
+\contentsline {section}{\numberline {10.10}grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}factory.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{252}{section.10.10}%
+\contentsline {section}{\numberline {10.11}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.cpp File Reference}{253}{section.10.11}%
+\contentsline {section}{\numberline {10.12}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.hpp File Reference}{254}{section.10.12}%
+\contentsline {section}{\numberline {10.13}grammar\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{254}{section.10.13}%
+\contentsline {section}{\numberline {10.14}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}ll1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.cpp File Reference}{255}{section.10.14}%
+\contentsline {section}{\numberline {10.15}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}ll1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.hpp File Reference}{256}{section.10.15}%
+\contentsline {section}{\numberline {10.16}ll1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{257}{section.10.16}%
+\contentsline {section}{\numberline {10.17}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}lr0\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}item.cpp File Reference}{257}{section.10.17}%
+\contentsline {section}{\numberline {10.18}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}lr0\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}item.hpp File Reference}{258}{section.10.18}%
+\contentsline {section}{\numberline {10.19}lr0\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}item.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{259}{section.10.19}%
+\contentsline {section}{\numberline {10.20}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slr1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.cpp File Reference}{259}{section.10.20}%
+\contentsline {section}{\numberline {10.21}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slr1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.hpp File Reference}{260}{section.10.21}%
+\contentsline {section}{\numberline {10.22}slr1\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}parser.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{261}{section.10.22}%
+\contentsline {section}{\numberline {10.23}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}state.hpp File Reference}{262}{section.10.23}%
+\contentsline {section}{\numberline {10.24}state.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{262}{section.10.24}%
+\contentsline {section}{\numberline {10.25}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}symbol\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}table.cpp File Reference}{263}{section.10.25}%
+\contentsline {section}{\numberline {10.26}backend/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}symbol\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}table.hpp File Reference}{263}{section.10.26}%
+\contentsline {subsection}{\numberline {10.26.1}Enumeration Type Documentation}{264}{subsection.10.26.1}%
+\contentsline {subsubsection}{\numberline {10.26.1.1}symbol\_type}{264}{subsubsection.10.26.1.1}%
+\contentsline {section}{\numberline {10.27}symbol\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}table.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}hpp}{265}{section.10.27}%
+\contentsline {section}{\numberline {10.28}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}automatonviewerdialog.cpp File Reference}{265}{section.10.28}%
+\contentsline {section}{\numberline {10.29}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}automatonviewerdialog.h File Reference}{266}{section.10.29}%
+\contentsline {section}{\numberline {10.30}automatonviewerdialog.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{267}{section.10.30}%
+\contentsline {section}{\numberline {10.31}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}conversationpdf.h File Reference}{267}{section.10.31}%
+\contentsline {section}{\numberline {10.32}conversationpdf.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{268}{section.10.32}%
+\contentsline {section}{\numberline {10.33}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}examreportdialog.cpp File Reference}{272}{section.10.33}%
+\contentsline {section}{\numberline {10.34}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}examreportdialog.h File Reference}{272}{section.10.34}%
+\contentsline {section}{\numberline {10.35}examreportdialog.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{273}{section.10.35}%
+\contentsline {section}{\numberline {10.36}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}examsession.h File Reference}{274}{section.10.36}%
+\contentsline {section}{\numberline {10.37}examsession.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{274}{section.10.37}%
+\contentsline {section}{\numberline {10.38}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammareditordialog.cpp File Reference}{275}{section.10.38}%
+\contentsline {section}{\numberline {10.39}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammareditordialog.h File Reference}{276}{section.10.39}%
+\contentsline {section}{\numberline {10.40}grammareditordialog.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{277}{section.10.40}%
+\contentsline {section}{\numberline {10.41}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}lltabledialog.cpp File Reference}{278}{section.10.41}%
+\contentsline {section}{\numberline {10.42}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}lltabledialog.h File Reference}{278}{section.10.42}%
+\contentsline {section}{\numberline {10.43}lltabledialog.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{279}{section.10.43}%
+\contentsline {section}{\numberline {10.44}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}lltutorwindow.cpp File Reference}{280}{section.10.44}%
+\contentsline {section}{\numberline {10.45}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}lltutorwindow.h File Reference}{280}{section.10.45}%
+\contentsline {subsection}{\numberline {10.45.1}Enumeration Type Documentation}{282}{subsection.10.45.1}%
+\contentsline {subsubsection}{\numberline {10.45.1.1}State}{282}{subsubsection.10.45.1.1}%
+\contentsline {section}{\numberline {10.46}lltutorwindow.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{282}{section.10.46}%
+\contentsline {section}{\numberline {10.47}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}llwizard.h File Reference}{286}{section.10.47}%
+\contentsline {section}{\numberline {10.48}llwizard.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{286}{section.10.48}%
+\contentsline {section}{\numberline {10.49}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}llwizardpage.h File Reference}{289}{section.10.49}%
+\contentsline {section}{\numberline {10.50}llwizardpage.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{290}{section.10.50}%
+\contentsline {section}{\numberline {10.51}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}mainwindow.cpp File Reference}{292}{section.10.51}%
+\contentsline {section}{\numberline {10.52}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}mainwindow.h File Reference}{292}{section.10.52}%
+\contentsline {section}{\numberline {10.53}mainwindow.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{293}{section.10.53}%
+\contentsline {section}{\numberline {10.54}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slrtabledialog.cpp File Reference}{295}{section.10.54}%
+\contentsline {section}{\numberline {10.55}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slrtabledialog.h File Reference}{295}{section.10.55}%
+\contentsline {section}{\numberline {10.56}slrtabledialog.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{296}{section.10.56}%
+\contentsline {section}{\numberline {10.57}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slrtutorwindow.cpp File Reference}{297}{section.10.57}%
+\contentsline {section}{\numberline {10.58}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slrtutorwindow.h File Reference}{298}{section.10.58}%
+\contentsline {subsection}{\numberline {10.58.1}Enumeration Type Documentation}{299}{subsection.10.58.1}%
+\contentsline {subsubsection}{\numberline {10.58.1.1}StateSlr}{299}{subsubsection.10.58.1.1}%
+\contentsline {section}{\numberline {10.59}slrtutorwindow.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{300}{section.10.59}%
+\contentsline {section}{\numberline {10.60}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slrwizard.h File Reference}{304}{section.10.60}%
+\contentsline {section}{\numberline {10.61}slrwizard.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{305}{section.10.61}%
+\contentsline {section}{\numberline {10.62}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}slrwizardpage.h File Reference}{309}{section.10.62}%
+\contentsline {section}{\numberline {10.63}slrwizardpage.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{309}{section.10.63}%
+\contentsline {section}{\numberline {10.64}gui/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Unique\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Queue.h File Reference}{311}{section.10.64}%
+\contentsline {section}{\numberline {10.65}Unique\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}Queue.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{312}{section.10.65}%
+\contentsline {section}{\numberline {10.66}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}appfonts.h File Reference}{313}{section.10.66}%
+\contentsline {subsection}{\numberline {10.66.1}Function Documentation}{313}{subsection.10.66.1}%
+\contentsline {subsubsection}{\numberline {10.66.1.1}appMonospaceFont()}{313}{subsubsection.10.66.1.1}%
+\contentsline {section}{\numberline {10.67}appfonts.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{314}{section.10.67}%
+\contentsline {section}{\numberline {10.68}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}appicon.h File Reference}{314}{section.10.68}%
+\contentsline {section}{\numberline {10.69}appicon.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{315}{section.10.69}%
+\contentsline {section}{\numberline {10.70}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}applayout.h File Reference}{316}{section.10.70}%
+\contentsline {section}{\numberline {10.71}applayout.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{317}{section.10.71}%
+\contentsline {section}{\numberline {10.72}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}apppalette.h File Reference}{318}{section.10.72}%
+\contentsline {section}{\numberline {10.73}apppalette.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{319}{section.10.73}%
+\contentsline {section}{\numberline {10.74}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}appsettings.h File Reference}{319}{section.10.74}%
+\contentsline {section}{\numberline {10.75}appsettings.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{320}{section.10.75}%
+\contentsline {section}{\numberline {10.76}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}appshortcuts.h File Reference}{321}{section.10.76}%
+\contentsline {section}{\numberline {10.77}appshortcuts.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{321}{section.10.77}%
+\contentsline {section}{\numberline {10.78}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}apptextscale.h File Reference}{322}{section.10.78}%
+\contentsline {section}{\numberline {10.79}apptextscale.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{323}{section.10.79}%
+\contentsline {section}{\numberline {10.80}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}apptypography.h File Reference}{324}{section.10.80}%
+\contentsline {section}{\numberline {10.81}apptypography.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{325}{section.10.81}%
+\contentsline {section}{\numberline {10.82}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}automatonview.cpp File Reference}{327}{section.10.82}%
+\contentsline {section}{\numberline {10.83}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}automatonview.h File Reference}{328}{section.10.83}%
+\contentsline {section}{\numberline {10.84}automatonview.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{329}{section.10.84}%
+\contentsline {section}{\numberline {10.85}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}customtextedit.cpp File Reference}{330}{section.10.85}%
+\contentsline {section}{\numberline {10.86}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}customtextedit.h File Reference}{331}{section.10.86}%
+\contentsline {section}{\numberline {10.87}customtextedit.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{331}{section.10.87}%
+\contentsline {section}{\numberline {10.88}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammarview.cpp File Reference}{332}{section.10.88}%
+\contentsline {section}{\numberline {10.89}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}grammarview.h File Reference}{333}{section.10.89}%
+\contentsline {section}{\numberline {10.90}grammarview.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{333}{section.10.90}%
+\contentsline {section}{\numberline {10.91}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}tutorialmanager.cpp File Reference}{334}{section.10.91}%
+\contentsline {section}{\numberline {10.92}widgets/\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}tutorialmanager.h File Reference}{334}{section.10.92}%
+\contentsline {section}{\numberline {10.93}tutorialmanager.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}h}{335}{section.10.93}%
+\contentsline {chapter}{Index}{337}{section*.772}%

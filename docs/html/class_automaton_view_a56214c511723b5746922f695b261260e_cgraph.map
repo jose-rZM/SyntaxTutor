@@ -1,0 +1,17 @@
+<map id="AutomatonView::setAutomaton" name="AutomatonView::setAutomaton">
+<area shape="rect" id="Node000001" title="Loads the automaton and computes the layout. Everything starts hidden." alt="" coords="5,54,208,80"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a364a8481f47f19cc3e54a65454ce9c9c" title="Hides the items shown by a click, if any." alt="" coords="256,5,432,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,51,243,43,238,45,185,56"/>
+<area shape="rect" id="Node000003" href="$namespace_app_typography.html#ad9e0d7a05805bae97441da9cf8ae4126" title="Size of role at the current text scale, in points." alt="" coords="267,94,421,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,78,254,91,249,92,187,83"/>
+<area shape="poly" id="edge9_Node000003_Node000003" title=" " alt="" coords="306,93,299,86,303,76,318,70,344,68,372,70,387,80,382,79,370,75,344,73,320,75,307,80,304,85,311,95"/>
+<area shape="rect" id="Node000004" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="480,57,664,82"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="421,92,472,86,477,85,422,97"/>
+<area shape="rect" id="Node000005" href="$namespace_app_text_scale.html#a01feb2d6132cdbe0da4069ea092cf050" title="Multiplier currently in effect." alt="" coords="500,130,644,156"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="422,117,488,129,482,129,421,122"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="534,56,527,48,531,38,547,32,572,30,600,33,616,42,610,42,599,38,572,35,548,38,535,42,532,48,539,57"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="534,129,527,122,531,112,547,106,572,104,600,106,616,116,610,115,599,111,572,109,548,111,535,116,532,121,539,131"/>
+<area shape="rect" id="Node000006" href="$namespace_app_text_scale.html#a7709873d381717abe050597c999c4102" title="The selected size, in percent." alt="" coords="712,130,908,156"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="644,140,700,143,694,143,644,146"/>
+<area shape="poly" id="edge7_Node000006_Node000006" title=" " alt="" coords="770,129,763,122,768,112,784,106,810,104,840,106,856,116,850,115,838,111,810,109,785,111,771,116,768,121,775,131"/>
+</map>

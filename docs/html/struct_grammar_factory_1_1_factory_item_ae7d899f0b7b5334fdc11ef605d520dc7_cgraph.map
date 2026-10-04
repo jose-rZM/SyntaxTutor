@@ -1,0 +1,5 @@
+<map id="GrammarFactory::FactoryItem::FactoryItem" name="GrammarFactory::FactoryItem::FactoryItem">
+<area shape="rect" id="Node000001" title="Constructor that initializes a FactoryItem with the provided grammar." alt="" coords="5,5,203,46"/>
+<area shape="rect" id="Node000002" href="$struct_symbol_table.html#aba5ea04e1b9eec27e041bb9422121340" title="Adds a symbol to the symbol table." alt="" coords="251,13,419,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,23,238,26,232,26,203,28"/>
+</map>

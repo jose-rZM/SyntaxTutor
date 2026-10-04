@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,42,75,68"/>
+<area shape="rect" id="Node000001" href="$class_app_layout_1_1_height_for_width_keeper.html" title="Event filter behind keepHeightForWidth." alt="" coords="123,5,305,46"/>
+<area shape="poly" id="edge11_Node000000_Node000001" title=" " alt="" coords="89,44,125,40,120,42,91,49"/>
+<area shape="rect" id="Node000002" href="$class_tutorial_manager.html" title="Manages interactive tutorials by highlighting UI elements and guiding the user." alt="" coords="157,70,271,96"/>
+<area shape="poly" id="edge12_Node000000_Node000002" title=" " alt="" coords="90,60,159,73,154,75,90,66"/>
+</map>

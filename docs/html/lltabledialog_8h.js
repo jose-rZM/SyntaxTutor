@@ -1,4 +1,4 @@
 var lltabledialog_8h =
 [
-    [ "LLTableDialog", "classLLTableDialog.html", "classLLTableDialog" ]
+    [ "LLTableDialog", "class_l_l_table_dialog.html", "class_l_l_table_dialog" ]
 ];

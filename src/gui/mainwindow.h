@@ -25,7 +25,11 @@
 #include "slrtutorwindow.h"
 #include "tutorialmanager.h"
 #include <QMainWindow>
+#include "apptypography.h"
 #include <QSettings>
+
+class QStackedWidget;
+class QWidget;
 
 static const QVector<QString> levelColors = {
     "#2C3E50", // 1: Navy oscuro
@@ -104,6 +108,14 @@ class MainWindow : public QMainWindow {
     void on_lv3Button_clicked(bool checked);
 
     /**
+     * @brief Toggles between random grammars and user-written grammars.
+     *
+     * When checked, difficulty levels no longer apply and starting an
+     * exercise opens the grammar editor first.
+     */
+    void on_customGrammarCheck_toggled(bool checked);
+
+    /**
      * @brief Opens the LL(1) exercise dialog.
      */
     void on_pushButton_clicked();
@@ -158,9 +170,59 @@ class MainWindow : public QMainWindow {
     void setupTutorial();
 
     /**
+     * @brief Updates level-dependent styles (badge/progress bar).
+     * @param lvl Current user level.
+     */
+    void applyLevelStyling(unsigned lvl);
+
+    /**
      * @brief Restarts the tutorial from scratch.
      */
     void restartTutorial();
+
+    void setNavigationEnabled(bool enabled);
+
+    /**
+     * @brief Enables or disables the whole difficulty selector.
+     *
+     * Covers the "Dificultad" heading as well as the three level radio
+     * buttons, so the group always dims as one block.
+     */
+    void setDifficultySelectorEnabled(bool enabled);
+
+    /**
+     * @brief Scales the window minimum size to the current text size.
+     *
+     * Clamped to the available screen so the minimum can never exceed the
+     * display.
+     */
+    void applyScaledMinimumSize();
+
+    /// @brief Builds the text size menu from the stored preference.
+    void setupTextSizeMenu();
+
+    /**
+     * @brief Applies and stores a text size, as a percentage.
+     *
+     * Every text size in the UI is a role of the AppTypography type scale,
+     * reached through `app.qss`, the application font or an explicit
+     * `AppTypography::font()`, so re-applying them updates the whole window
+     * without a restart.
+     */
+    void setTextScale(int percent);
+
+    /// @brief Asks the user for a percentage and applies it.
+    void promptCustomTextScale();
+
+    /// @brief Ticks the menu entry matching the size in effect.
+    void syncTextSizeMenu();
+    void showHomePage();
+    void cleanupTutorPages();
+    LLTutorWindow*  startLLTutor(const Grammar& grammar, TutorialManager* tm,
+                                 bool examMode = false);
+    SLRTutorWindow* startSLRTutor(const Grammar& grammar, TutorialManager* tm,
+                                  bool examMode = false);
+    void abortTutorialFlow();
 
     /**
      * @brief Handles the result of a finished ll/slr tutor session.
@@ -183,6 +245,14 @@ class MainWindow : public QMainWindow {
     GrammarFactory   factory;         ///< Generator for random grammars.
     int              level = 1;       ///< Current selected level (1–3).
     TutorialManager* tm    = nullptr; ///< Manages step-by-step tutorial mode.
+    QStackedWidget*  stack = nullptr;
+    QWidget*         homePage = nullptr;
+    QActionGroup* textSizeGroup_        = nullptr;
+    QAction*      customTextSizeAction_ = nullptr;
+
+    LLTutorWindow*   llTutorPage = nullptr;
+    SLRTutorWindow*  slrTutorPage = nullptr;
+    QString          defaultWindowTitle;
 
     static constexpr unsigned MAX_LEVEL = 10;  ///< Maximum level supported.
     static constexpr unsigned MAX_SCORE = 999; ///< Max user score for display.

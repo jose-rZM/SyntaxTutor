@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['1_20learning_20mode_0',['1 Learning Mode',['../index.html#autotoc_md8',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md9',1,'🧠 SLR(1) Learning Mode']]]
+  ['background_0',['Background',['../index.html#autotoc_md8',1,'']]],
+  ['building_20from_20source_1',['Building from source',['../index.html#autotoc_md6',1,'']]]
 ];

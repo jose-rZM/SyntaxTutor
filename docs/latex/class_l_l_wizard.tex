@@ -1,0 +1,119 @@
+\doxysection{LLWizard Class Reference}
+\label{class_l_l_wizard}\index{LLWizard@{LLWizard}}
+
+
+Interactive assistant that guides the student step-\/by-\/step through the LL(1) parsing table.  
+
+
+
+
+{\ttfamily \+\#include $<$llwizard.\+h$>$}
+
+
+
+Inheritance diagram for LLWizard:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=101pt]{class_l_l_wizard__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for LLWizard:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=101pt]{class_l_l_wizard__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_l_l_wizard_afe8ec82259ea29642659594ad0ddb873}{LLWizard}} (\doxymbox{\hyperlink{class_l_l1_parser}{LL1\+Parser}} \&parser, const QString\+List \&row\+Headers, const QString\+List \&col\+Headers, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the LL(1) guided dialog from the computed table. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_l_l_wizard_page}{LLWizard\+Page}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_l_l_wizard_aa589d9785f8398abe01d16e31cb3024a}{current\+Page}} () const
+\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_l_l_wizard_ad368cfdda05f34452440852e6d1d0a07}{next\+Button}} () const
+\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_l_l_wizard_af8260b0ed6f6cbd2b0ccbdcf089e714a}{close\+Button}} () const
+\item 
+bool \doxymbox{\hyperlink{class_l_l_wizard_ab26653bfd607390e0d042a10e1c30dca}{is\+On\+Last\+Page}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interactive assistant that guides the student step-\/by-\/step through the LL(1) parsing table. 
+
+This dialog presents one non-\/empty cell of the LL(1) table at a time, asking the user to deduce the production that belongs in it from the prediction symbols (símbolos directores): the cell (A, b) holds the production A → α with b ∈ SD(A → α). It mirrors the SLR(1) guided dialog and intentionally avoids the native wizard widget to keep a consistent look across platforms. 
+
+\label{class_l_l_wizard_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{LLWizard@{LLWizard}!LLWizard@{LLWizard}}
+\index{LLWizard@{LLWizard}!LLWizard@{LLWizard}}
+\doxysubsubsection{\texorpdfstring{LLWizard()}{LLWizard()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_afe8ec82259ea29642659594ad0ddb873} 
+LLWizard::\+\+LLWizard (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_l_l1_parser}{LL1\+Parser}} \&}]{parser}{, }\item[{const QString\+List \&}]{row\+Headers}{, }\item[{const QString\+List \&}]{col\+Headers}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs the LL(1) guided dialog from the computed table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & The LL(1) parser instance holding the reference table. \\
+\hline
+{\em row\+Headers} & Non-\/terminal symbols in display order. \\
+\hline
+{\em col\+Headers} & Terminal symbols in display order. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_l_l_wizard_afe8ec82259ea29642659594ad0ddb873_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_l_l_wizard_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{LLWizard@{LLWizard}!closeButton@{closeButton}}
+\index{closeButton@{closeButton}!LLWizard@{LLWizard}}
+\doxysubsubsection{\texorpdfstring{closeButton()}{closeButton()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_af8260b0ed6f6cbd2b0ccbdcf089e714a} 
+QPush\+Button \texorpdfstring{$\ast$}{*} LLWizard::\+close\+Button (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{LLWizard@{LLWizard}!currentPage@{currentPage}}
+\index{currentPage@{currentPage}!LLWizard@{LLWizard}}
+\doxysubsubsection{\texorpdfstring{currentPage()}{currentPage()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_aa589d9785f8398abe01d16e31cb3024a} 
+\doxymbox{\hyperlink{class_l_l_wizard_page}{LLWizard\+Page}} \texorpdfstring{$\ast$}{*} LLWizard::\+current\+Page (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{class_l_l_wizard_aa589d9785f8398abe01d16e31cb3024a_icgraph}
+\end{center}
+\end{figure}
+\index{LLWizard@{LLWizard}!isOnLastPage@{isOnLastPage}}
+\index{isOnLastPage@{isOnLastPage}!LLWizard@{LLWizard}}
+\doxysubsubsection{\texorpdfstring{isOnLastPage()}{isOnLastPage()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_ab26653bfd607390e0d042a10e1c30dca} 
+bool LLWizard::\+is\+On\+Last\+Page (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{LLWizard@{LLWizard}!nextButton@{nextButton}}
+\index{nextButton@{nextButton}!LLWizard@{LLWizard}}
+\doxysubsubsection{\texorpdfstring{nextButton()}{nextButton()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_ad368cfdda05f34452440852e6d1d0a07} 
+QPush\+Button \texorpdfstring{$\ast$}{*} LLWizard::\+next\+Button (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{llwizard_8h}{llwizard.\+h}}\end{DoxyCompactItemize}

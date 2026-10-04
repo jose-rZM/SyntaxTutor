@@ -1,0 +1,12 @@
+<map id="SLR1Parser::Delta" name="SLR1Parser::Delta">
+<area shape="rect" id="Node000001" title="Computes the GOTO transition ( ) for a given set of LR(0) items and a symbol. This function is equiva..." alt="" coords="5,55,137,80"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r1_parser.html#a0ff2187985600bff50ff8235543d96fb" title="Computes the closure of a set of LR(0) items." alt="" coords="185,29,330,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,56,172,53,167,55,138,61"/>
+<area shape="rect" id="Node000005" href="$struct_lr0_item.html#a485ab0289f3353b47ea38dcee418a0b6" title="Returns the symbol immediately after the dot, or empty if the dot is at the end." alt="" coords="189,79,326,104"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="137,73,177,80,171,81,137,79"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r1_parser.html#a00101890c3c4d2871a8c100209abf122" title="Helper function for computing the closure of LR(0) items." alt="" coords="378,29,543,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="330,40,365,42,360,42,331,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="426,28,420,21,424,11,438,5,461,3,486,5,500,15,494,14,484,10,461,8,439,10,428,15,425,20,431,30"/>
+<area shape="rect" id="Node000004" href="$struct_symbol_table.html#af84e0721003bd24abf542c2b2f1a534c" title="Checks if a symbol is a non&#45;terminal." alt="" coords="591,29,780,55"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="543,40,578,42,573,42,544,45"/>
+</map>

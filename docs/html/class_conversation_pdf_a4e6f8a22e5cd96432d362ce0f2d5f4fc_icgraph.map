@@ -1,0 +1,11 @@
+<map id="ConversationPdf::addTable" name="ConversationPdf::addTable">
+<area shape="rect" id="Node000001" title="A table with a row header column." alt="" coords="568,46,746,72"/>
+<area shape="rect" id="Node000002" href="$class_l_l_tutor_window.html#ad327a0a69d7d746652f27d68af18d891" title="&lt; Add widget (e.g., table, tree)" alt="" coords="281,5,514,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="550,46,514,43,514,38,556,46"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="275,71,520,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="555,72,521,79,520,73,550,72"/>
+<area shape="rect" id="Node000003" href="$class_l_l_tutor_window.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="5,13,227,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="263,26,228,28,227,23,268,25"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="25,71,207,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="256,91,208,94,207,88,262,91"/>
+</map>

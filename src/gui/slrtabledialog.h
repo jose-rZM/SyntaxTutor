@@ -22,10 +22,13 @@
 #include <QDialog>
 #include <QGuiApplication>
 #include <QHeaderView>
+#include <QList>
+#include <QPair>
 #include <QPushButton>
 #include <QScreen>
 #include <QTableWidget>
 #include <QVBoxLayout>
+#include <QVector>
 
 /**
  * @class SLRTableDialog
@@ -67,10 +70,30 @@ class SLRTableDialog : public QDialog {
      * @param data 2D vector containing the table data to display.
      */
     void setInitialData(const QVector<QVector<QString>>& data);
+    void setGuidedModeActive(bool active);
+
+    /**
+     * @brief Shows or hides the guided mode button.
+     *
+     * Exam mode hides it: the guided walkthrough would reveal the answers.
+     *
+     * @param visible Whether the button should be visible.
+     */
+    void setGuidedButtonVisible(bool visible);
+
+    void highlightIncorrectCells(const QList<QPair<int, int>>& coords);
+    void highlightInvalidCells(const QList<QPair<int, int>>& coords);
 
   private:
+    void commitPendingEdit();
+
     QTableWidget* table;        ///< Widget for editing the SLR(1) table.
-    QPushButton*  submitButton; ///< Button used to submit the filled table.
+    QPushButton*  submitButton; ///< Button used to validate/submit the table.
+    QPushButton*  guidedButton; ///< Button to launch guided mode.
+
+  signals:
+    void submitted(const QVector<QVector<QString>>& data);
+    void guidedRequested(const QVector<QVector<QString>>& data);
 };
 
 #endif // SLRTABLEDIALOG_H

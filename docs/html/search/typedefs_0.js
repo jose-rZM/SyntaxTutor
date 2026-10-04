@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['action_5ftable_0',['action_table',['../classSLR1Parser.html#a8eae4c68e04f33947c69190bacd1a3bd',1,'SLR1Parser']]]
+  ['action_5ftable_0',['action_table',['../class_s_l_r1_parser.html#afcd165bbeea678a837675e743503c32b',1,'SLR1Parser']]]
 ];

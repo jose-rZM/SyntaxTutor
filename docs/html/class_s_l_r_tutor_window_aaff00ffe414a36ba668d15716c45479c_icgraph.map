@@ -1,0 +1,12 @@
+<map id="SLRTutorWindow::solutionForCA" name="SLRTutorWindow::solutionForCA">
+<area shape="rect" id="Node000001" title=" " alt="" coords="725,85,903,126"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#ae12625e4747be634f7acbacb9a5aefcc" title=" " alt="" coords="492,56,677,97"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="707,92,678,91,678,86,713,92"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="5,96,183,121"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="707,108,677,111,183,112,183,106,677,106,712,108"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="245,5,430,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="474,54,430,47,431,42,480,54"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#abaecaf3d6c02f272073c801f62486d85" title="The grammar&#39;s initial item, e.g. &quot;S &#45;&gt; · A $&quot;." alt="" coords="231,70,444,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="474,79,445,83,444,77,479,79"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="212,96,184,102,183,96,218,95"/>
+</map>

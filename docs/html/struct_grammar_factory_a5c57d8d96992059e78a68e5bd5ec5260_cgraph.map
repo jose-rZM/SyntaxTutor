@@ -1,0 +1,80 @@
+<map id="GrammarFactory::PickOne" name="GrammarFactory::PickOne">
+<area shape="rect" id="Node000001" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="5,474,183,500"/>
+<area shape="rect" id="Node000002" href="$struct_grammar_factory.html#a4aa75c7d88bef418639ca3ba5ee3404b" title="Generates a Level 1 grammar." alt="" coords="427,980,575,1006"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,497,99,576,104,631,114,693,131,759,155,823,188,883,209,910,232,934,272,962,318,979,366,990,414,996,409,997,365,995,317,984,270,966,229,938,205,913,184,886,150,825,126,760,109,695,99,632,94,576,95,502"/>
+<area shape="rect" id="Node000014" href="$struct_grammar_factory.html#a5368eb47dd1f9d7de083c41c0250e7e4" title="Generates a Level 2 grammar by combining Level 1 items." alt="" coords="1016,904,1164,930"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="100,497,143,595,179,663,224,734,279,803,310,833,344,860,379,883,417,900,457,911,500,915,699,915,1003,917,998,918,699,920,500,920,456,916,415,905,377,887,340,865,307,837,275,806,220,737,174,665,138,597,100,503"/>
+<area shape="rect" id="Node000022" href="$struct_grammar_factory.html#aa5d138c30fed1776d37e6fa63e1048fc" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="1016,448,1164,474"/>
+<area shape="poly" id="edge23_Node000001_Node000022" title=" " alt="" coords="110,472,170,428,263,374,318,348,377,327,438,312,500,307,699,307,753,311,806,321,858,337,908,356,995,399,1059,439,1054,440,992,404,906,361,856,342,805,326,752,316,699,312,500,312,439,317,379,332,320,353,266,378,173,433,114,475"/>
+<area shape="rect" id="Node000023" href="$struct_grammar_factory.html#a8e3ce26320d4bd74ba47a4f4d5c4ba4f" title="Generates a Level 4 grammar by combining Level 3 and Level 1 items." alt="" coords="820,448,968,474"/>
+<area shape="poly" id="edge29_Node000001_Node000023" title=" " alt="" coords="122,472,172,452,230,436,381,414,500,409,620,417,772,433,828,444,823,445,771,439,619,422,500,414,382,419,231,441,174,457,126,475"/>
+<area shape="rect" id="Node000024" href="$struct_grammar_factory.html#a6c928859881a49c81ec6be76a36c74d7" title="Generates a Level 5 grammar by combining Level 4 and Level 1 items." alt="" coords="623,448,772,474"/>
+<area shape="poly" id="edge35_Node000001_Node000024" title=" " alt="" coords="153,471,230,459,332,452,433,450,610,455,606,458,433,456,332,458,231,464,156,475"/>
+<area shape="rect" id="Node000025" href="$struct_grammar_factory.html#a06b08500014ade97db2a3b6fd72096d9" title="Generates a Level 6 grammar by combining Level 5 and Level 1 items." alt="" coords="427,474,575,500"/>
+<area shape="poly" id="edge41_Node000001_Node000025" title=" " alt="" coords="153,498,231,509,305,514,379,509,435,502,430,505,379,515,305,520,230,515,155,503"/>
+<area shape="rect" id="Node000026" href="$struct_grammar_factory.html#ae4773738861fc98eb1aff9dc78cf019b" title="Generates a Level 7 grammar by combining Level 6 and Level 1 items." alt="" coords="231,474,379,500"/>
+<area shape="poly" id="edge47_Node000001_Node000026" title=" " alt="" coords="182,484,217,485,213,488,184,489"/>
+<area shape="rect" id="Node000003" href="$struct_grammar.html#aa201250a002a7d07d398fee189a74427" title=" " alt="" coords="1250,855,1388,881"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="572,1004,688,1020,838,1029,919,1027,1002,1020,1084,1006,1163,984,1203,966,1239,941,1294,894,1298,891,1242,945,1205,970,1165,989,1086,1011,1003,1025,919,1033,837,1034,688,1025,572,1009"/>
+<area shape="rect" id="Node000004" href="$struct_grammar.html#aa8ba510e14b7d86c9f030611343ed130" title="Adds a production rule to the grammar and updates the symbol table." alt="" coords="1506,756,1674,782"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1342,852,1400,822,1473,791,1494,787,1499,786,1475,796,1402,826,1344,857"/>
+<area shape="rect" id="Node000005" href="$struct_grammar.html#a95e0f2efad2652f2048670b87894d033" title="Prints the current grammar structure to standard output." alt="" coords="1529,806,1650,832"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="1388,853,1511,833,1517,832,1388,858"/>
+<area shape="rect" id="Node000006" href="$struct_grammar.html#a561bf0737bee1806306e3a33becde483" title="Filters grammar rules that contain a specific token in their consequent." alt="" coords="1474,855,1706,881"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="1388,865,1461,868,1456,868,1388,871"/>
+<area shape="rect" id="Node000007" href="$struct_grammar.html#a833632e1ccfa0f84222a4b7168cf975e" title="Checks if a given antecedent has an empty production." alt="" coords="1486,904,1694,930"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="1388,878,1503,901,1498,901,1388,883"/>
+<area shape="rect" id="Node000008" href="$struct_grammar.html#a022dfdd9e12d6f5396aa7adc4b5f19ba" title="Orders two antecedents for presentation." alt="" coords="1498,954,1682,980"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="1343,879,1402,910,1475,940,1500,950,1494,949,1473,945,1400,914,1342,884"/>
+<area shape="rect" id="Node000009" href="$struct_grammar.html#a753563f170d65c9e286eb171c945c495" title="Ordering rank of an antecedent for display and question order." alt="" coords="1754,979,1942,1005"/>
+<area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="1332,879,1356,905,1389,936,1429,967,1475,989,1548,1007,1625,1014,1698,1012,1760,1008,1765,1007,1698,1017,1624,1019,1547,1013,1473,995,1426,971,1385,940,1352,909,1330,884"/>
+<area shape="rect" id="Node000010" href="$struct_grammar.html#a1b3e0c211d198cdc9cb1502ae8815514" title="Antecedents other than the axiom, in presentation order." alt="" coords="1496,1055,1684,1081"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="1330,879,1385,953,1427,997,1475,1034,1505,1050,1500,1049,1472,1038,1423,1001,1381,956,1327,884"/>
+<area shape="rect" id="Node000011" href="$struct_grammar.html#a27ecdbca735ffb275a2bad9d1ea539c3" title="Sets the axiom (entry point) of the grammar." alt="" coords="1520,658,1660,684"/>
+<area shape="poly" id="edge11_Node000003_Node000011" title=" " alt="" coords="1341,852,1381,823,1424,782,1438,758,1444,736,1453,714,1472,693,1502,680,1507,678,1475,697,1457,717,1449,737,1443,760,1428,786,1385,827,1343,857"/>
+<area shape="rect" id="Node000012" href="$struct_grammar.html#add2f414fe2ddf7e578a70c255daa1996" title="Splits a string into grammar symbols using the current symbol table." alt="" coords="1535,707,1644,733"/>
+<area shape="poly" id="edge12_Node000003_Node000012" title=" " alt="" coords="1336,852,1424,782,1447,760,1472,742,1517,729,1522,728,1475,746,1450,764,1427,786,1338,857"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1682,973,1742,981,1736,981,1682,978"/>
+<area shape="rect" id="Node000013" href="$struct_symbol_table.html#a6fc61b8d63539a3a85042874db6c6d6b" title="Checks if a symbol exists in the symbol table." alt="" coords="1790,707,1906,733"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1645,717,1778,720,1772,720,1645,723"/>
+<area shape="poly" id="edge22_Node000014_Node000003" title=" " alt="" coords="1153,901,1239,885,1244,884,1154,906"/>
+<area shape="rect" id="Node000015" href="$struct_grammar_factory.html#a0048c0c61b253a0f2d29bcce7c6ead44" title="Creates a Level 2 grammar item for use in grammar generation." alt="" coords="1212,499,1426,525"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="1097,902,1301,539,1305,537,1101,906"/>
+<area shape="rect" id="Node000016" href="$struct_grammar_factory.html#a384f98c92be56b27c65e20edebd32bcd" title="Adjusts the terminal symbols between two grammar items." alt="" coords="1480,144,1700,170"/>
+<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="1329,497,1567,184,1572,181,1332,500"/>
+<area shape="rect" id="Node000017" href="$struct_grammar_factory_1_1_factory_item.html#ae7d899f0b7b5334fdc11ef605d520dc7" title="Constructor that initializes a FactoryItem with the provided grammar." alt="" coords="1491,492,1688,532"/>
+<area shape="poly" id="edge17_Node000015_Node000017" title=" " alt="" coords="1426,509,1478,511,1473,513,1427,515"/>
+<area shape="rect" id="Node000019" href="$struct_grammar_factory.html#a44b66cee9f82b5643992e1290f3653bb" title="Merges the grammar rules of two grammar items into a single grammar." alt="" coords="1508,372,1672,398"/>
+<area shape="poly" id="edge19_Node000015_Node000019" title=" " alt="" coords="1372,496,1425,478,1496,441,1554,408,1559,406,1498,446,1427,482,1374,501"/>
+<area shape="rect" id="Node000020" href="$struct_grammar_factory.html#a7eb4aeb1e55ff7e38e9f5b8a1fbfd464" title="Replaces all non&#45;terminal symbols in a grammar item with a single target non&#45;terminal." alt="" coords="1497,593,1683,634"/>
+<area shape="poly" id="edge20_Node000015_Node000020" title=" " alt="" coords="1368,523,1427,541,1532,586,1526,586,1425,547,1368,528"/>
+<area shape="rect" id="Node000018" href="$struct_symbol_table.html#aba5ea04e1b9eec27e041bb9422121340" title="Adds a symbol to the symbol table." alt="" coords="1764,499,1932,525"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="1689,509,1752,512,1746,512,1689,515"/>
+<area shape="rect" id="Node000021" href="$struct_symbol_table.html#af84e0721003bd24abf542c2b2f1a534c" title="Checks if a symbol is a non&#45;terminal." alt="" coords="1754,600,1942,626"/>
+<area shape="poly" id="edge21_Node000020_Node000021" title=" " alt="" coords="1683,611,1741,613,1736,614,1684,616"/>
+<area shape="poly" id="edge26_Node000022_Node000003" title=" " alt="" coords="1100,472,1306,842,1300,841,1097,477"/>
+<area shape="poly" id="edge25_Node000022_Node000015" title=" " alt="" coords="1151,472,1246,495,1240,496,1152,477"/>
+<area shape="poly" id="edge24_Node000022_Node000016" title=" " alt="" coords="1112,446,1552,180,1556,177,1115,450"/>
+<area shape="poly" id="edge27_Node000022_Node000019" title=" " alt="" coords="1164,455,1287,445,1425,427,1534,402,1529,404,1426,432,1288,451,1166,460"/>
+<area shape="poly" id="edge28_Node000022_Node000020" title=" " alt="" coords="1109,472,1155,504,1213,535,1281,558,1351,576,1484,602,1479,602,1350,581,1279,563,1211,540,1152,509,1108,477"/>
+<area shape="poly" id="edge31_Node000023_Node000003" title=" " alt="" coords="909,472,1018,579,1295,845,1290,845,1014,583,908,477"/>
+<area shape="poly" id="edge30_Node000023_Node000016" title=" " alt="" coords="919,446,1044,381,1211,302,1389,229,1539,175,1534,177,1391,234,1213,306,1046,386,922,450"/>
+<area shape="poly" id="edge33_Node000023_Node000019" title=" " alt="" coords="951,445,1016,433,1144,417,1274,404,1495,390,1490,391,1274,409,1145,422,1016,439,953,450"/>
+<area shape="poly" id="edge34_Node000023_Node000020" title=" " alt="" coords="919,472,1043,533,1126,566,1213,592,1281,604,1352,611,1483,617,1478,618,1351,617,1281,610,1212,597,1124,571,1041,538,919,477"/>
+<area shape="poly" id="edge32_Node000023_Node000022" title=" " alt="" coords="968,459,1003,461,998,462,969,464"/>
+<area shape="poly" id="edge37_Node000024_Node000003" title=" " alt="" coords="706,472,750,546,782,590,821,630,875,671,932,708,1051,770,1165,816,1258,850,1252,850,1163,821,1049,775,929,712,871,675,818,634,778,593,745,549,705,477"/>
+<area shape="poly" id="edge36_Node000024_Node000016" title=" " alt="" coords="727,446,819,404,1012,316,1098,279,1212,240,1361,200,1499,173,1494,175,1362,205,1213,245,1100,284,1015,320,821,409,729,450"/>
+<area shape="poly" id="edge39_Node000024_Node000019" title=" " alt="" coords="758,445,819,433,917,418,1016,405,1114,391,1212,381,1319,379,1426,381,1495,384,1490,385,1426,387,1319,384,1212,387,1114,396,1016,411,918,423,820,439,760,450"/>
+<area shape="poly" id="edge40_Node000024_Node000020" title=" " alt="" coords="727,472,852,526,933,557,1017,584,1129,612,1218,623,1309,624,1426,620,1484,620,1479,621,1426,625,1309,629,1218,628,1128,617,1015,589,931,562,850,531,727,477"/>
+<area shape="poly" id="edge38_Node000024_Node000023" title=" " alt="" coords="771,459,807,460,802,462,773,464"/>
+<area shape="poly" id="edge43_Node000025_Node000003" title=" " alt="" coords="508,497,524,535,548,583,582,635,625,681,697,730,777,770,860,802,945,825,1028,842,1106,854,1237,867,1232,867,1105,859,1027,848,944,831,859,807,775,775,695,735,622,685,578,639,544,586,519,537,506,502"/>
+<area shape="poly" id="edge42_Node000025_Node000016" title=" " alt="" coords="517,471,563,438,622,403,781,326,908,275,1040,236,1212,195,1341,173,1467,162,1462,164,1342,178,1213,200,1042,241,910,280,783,331,625,408,566,442,521,475"/>
+<area shape="poly" id="edge45_Node000025_Node000019" title=" " alt="" coords="528,471,572,451,623,433,677,421,720,415,819,404,989,378,1122,361,1255,355,1426,361,1495,370,1490,371,1425,367,1255,360,1122,367,990,384,820,409,721,420,678,426,624,439,574,456,531,475"/>
+<area shape="poly" id="edge46_Node000025_Node000020" title=" " alt="" coords="547,497,820,575,918,603,961,613,1016,623,1131,636,1220,639,1425,629,1484,627,1479,628,1426,635,1220,645,1130,641,1016,628,959,619,916,608,819,580,548,503"/>
+<area shape="poly" id="edge44_Node000025_Node000024" title=" " alt="" coords="575,475,610,472,605,474,577,479"/>
+<area shape="poly" id="edge49_Node000026_Node000003" title=" " alt="" coords="307,497,313,561,330,652,345,701,366,750,393,794,429,833,519,902,604,951,645,968,686,981,769,995,855,995,948,985,1050,966,1164,940,1197,930,1229,917,1282,890,1288,889,1231,921,1199,935,1165,945,1051,971,949,990,856,1001,769,1000,685,986,643,973,602,955,516,906,425,837,389,798,361,752,340,703,325,653,308,562,306,503"/>
+<area shape="poly" id="edge48_Node000026_Node000016" title=" " alt="" coords="307,472,342,366,373,290,416,209,468,131,499,96,532,65,569,40,608,20,651,7,696,3,1092,3,1159,7,1227,17,1294,33,1358,53,1470,96,1553,137,1547,137,1468,101,1356,58,1292,39,1226,23,1159,12,1091,8,696,8,652,12,610,25,572,44,536,70,503,100,473,135,420,212,378,292,347,368,312,474"/>
+<area shape="poly" id="edge51_Node000026_Node000019" title=" " alt="" coords="311,472,357,397,394,345,440,290,494,239,556,196,589,179,623,166,659,158,696,155,1092,155,1165,161,1238,179,1308,205,1374,236,1434,270,1486,304,1564,363,1558,362,1483,308,1431,274,1371,241,1306,209,1236,184,1164,166,1091,160,696,160,660,163,625,171,591,184,558,200,498,243,444,294,399,348,361,399,315,475"/>
+<area shape="poly" id="edge52_Node000026_Node000020" title=" " alt="" coords="348,498,551,556,684,591,820,620,918,635,1016,643,1114,645,1212,644,1319,648,1366,648,1425,644,1491,637,1485,638,1426,649,1366,653,1319,653,1212,649,1114,651,1016,648,917,641,819,625,683,596,550,562,349,503"/>
+<area shape="poly" id="edge50_Node000026_Node000025" title=" " alt="" coords="378,484,414,485,409,488,381,489"/>
+</map>

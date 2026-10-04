@@ -1,0 +1,9 @@
+<map id="widgets/appfonts.h" name="widgets/appfonts.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="238,5,370,31"/>
+<area shape="rect" id="Node000002" href="$grammareditordialog_8cpp.html" title=" " alt="" coords="5,79,190,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,38,134,81,132,76,253,35"/>
+<area shape="rect" id="Node000003" href="$automatonview_8cpp.html" title=" " alt="" coords="214,79,395,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="306,45,306,80,302,77,302,48"/>
+<area shape="rect" id="Node000004" href="$grammarview_8cpp.html" title=" " alt="" coords="418,79,590,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="353,34,473,78,467,79,352,39"/>
+</map>

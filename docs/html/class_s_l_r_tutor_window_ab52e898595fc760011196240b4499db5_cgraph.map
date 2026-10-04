@@ -1,0 +1,4 @@
+<map id="SLRTutorWindow::updateAutomatonButton" name="SLRTutorWindow::updateAutomatonButton">
+<area shape="rect" id="Node000001" title="Enables the viewer button once at least one state (I0) exists." alt="" coords="5,29,240,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="78,28,76,19,83,10,99,5,123,3,148,5,164,14,159,14,147,10,122,8,100,10,87,15,81,21,84,30"/>
+</map>

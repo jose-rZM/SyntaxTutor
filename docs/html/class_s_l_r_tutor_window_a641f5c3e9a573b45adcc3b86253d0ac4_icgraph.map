@@ -1,0 +1,12 @@
+<map id="SLRTutorWindow::SLRTutorWindow" name="SLRTutorWindow::SLRTutorWindow">
+<area shape="rect" id="Node000001" title="Constructs the SLR(1) tutor window with a given grammar." alt="" coords="559,55,747,96"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="692,39,679,36,653,34,629,36,615,41,610,46,612,56,607,53,604,45,612,36,628,31,653,29,680,31,697,40"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#af6f53e2065ffb436315ceca02b9c85b2" title=" " alt="" coords="301,55,511,96"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="541,76,512,78,511,73,546,75"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#ad245be15ddf8194ff4ba179d485c20ae" title="&lt; Utility for displaying grammar" alt="" coords="5,5,253,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="288,52,252,46,196,34,196,29,253,41,293,51"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="36,55,222,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="282,76,222,78,222,73,287,75"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="38,120,220,161"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="305,99,219,122,218,117,299,100"/>
+</map>

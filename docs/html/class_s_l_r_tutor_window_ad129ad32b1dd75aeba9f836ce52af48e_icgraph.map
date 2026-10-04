@@ -1,0 +1,12 @@
+<map id="SLRTutorWindow::tableColumns" name="SLRTutorWindow::tableColumns">
+<area shape="rect" id="Node000001" title="Columns of the SLR(1) table: terminals, $, non&#45;terminals." alt="" coords="529,94,741,120"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="236,5,481,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="577,89,480,60,441,49,442,44,482,55,583,89"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="261,94,456,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="511,107,456,110,456,104,516,107"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="270,144,447,169"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="547,123,435,146,434,140,541,123"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="5,5,188,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,27,189,28,188,23,222,25"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="403,80,389,75,358,73,330,75,315,80,312,85,320,94,315,93,307,86,312,76,329,70,358,68,391,70,408,80"/>
+</map>

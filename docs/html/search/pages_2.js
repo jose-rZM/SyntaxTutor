@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['building_20from_20source_0',['🛠️ Building from Source',['../index.html#autotoc_md16',1,'']]]
+  ['documentation_0',['Documentation',['../index.html#autotoc_md5',1,'']]]
 ];

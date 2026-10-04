@@ -19,6 +19,7 @@
 #include "grammar.hpp"
 #include "symbol_table.hpp"
 #include <algorithm>
+#include <limits>
 #include <iostream>
 #include <ranges>
 #include <unordered_map>
@@ -73,7 +74,7 @@ Grammar::FilterRulesByConsequent(const std::string& arg) const {
 
 // GCOVR_EXCL_START
 // LCOV_EXCL_START
-void Grammar::Debug() const // NOSONAR
+void Grammar::Debug() const
 {
     std::cout << "Grammar:\n";
     for (const auto& entry : g_) {
@@ -128,4 +129,41 @@ std::vector<std::string> Grammar::Split(const std::string& s) {
         return {};
     }
     return splitted;
+}
+
+int Grammar::PresentationRank(const std::string& antecedent) const {
+    if (antecedent == axiom_) {
+        return -1;
+    }
+    const auto it =
+        std::find(lhs_order_.cbegin(), lhs_order_.cend(), antecedent);
+    if (it == lhs_order_.cend()) {
+        return std::numeric_limits<int>::max();
+    }
+    return static_cast<int>(std::distance(lhs_order_.cbegin(), it));
+}
+
+bool Grammar::PresentationLess(const std::string& lhs,
+                               const std::string& rhs) const {
+    const int lhsRank = PresentationRank(lhs);
+    const int rhsRank = PresentationRank(rhs);
+    if (lhsRank != rhsRank) {
+        return lhsRank < rhsRank;
+    }
+    return lhs < rhs;
+}
+
+std::vector<std::string> Grammar::PresentationOrder() const {
+    std::vector<std::string> order;
+    order.reserve(g_.size());
+    for (const auto& [antecedent, productions] : g_) {
+        if (antecedent != axiom_) {
+            order.push_back(antecedent);
+        }
+    }
+    std::sort(order.begin(), order.end(),
+              [this](const std::string& lhs, const std::string& rhs) {
+                  return PresentationLess(lhs, rhs);
+              });
+    return order;
 }

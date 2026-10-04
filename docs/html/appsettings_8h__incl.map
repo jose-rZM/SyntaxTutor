@@ -1,0 +1,9 @@
+<map id="widgets/appsettings.h" name="widgets/appsettings.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="118,5,266,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,129,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,31,103,73,100,69,168,32"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="153,79,232,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,29,195,65,190,62,190,33"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="256,79,321,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="209,29,263,70,258,70,208,34"/>
+</map>

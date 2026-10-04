@@ -1,0 +1,209 @@
+\doxysection{Custom\+Text\+Edit Class Reference}
+\label{class_custom_text_edit}\index{CustomTextEdit@{CustomTextEdit}}
+
+
+{\ttfamily \+\#include $<$customtextedit.\+h$>$}
+
+
+
+Inheritance diagram for Custom\+Text\+Edit:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=131pt]{class_custom_text_edit__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Custom\+Text\+Edit:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=131pt]{class_custom_text_edit__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_custom_text_edit_a418fa720fd5e46a1f856e859c4989892}{send\+Requested}} ()
+\item 
+void \doxymbox{\hyperlink{class_custom_text_edit_a8f161a60d8d6dfda8a568fbfc0a9fed1}{minimum\+Grow\+Height\+Changed}} (int height)
+\begin{DoxyCompactList}\small\item\em The height for the minimum number of lines has changed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_custom_text_edit_a18556a723c91a01bd82d10c1cf41d325}{Custom\+Text\+Edit}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+void \doxymbox{\hyperlink{class_custom_text_edit_a58e95876e9f45dbe73728fe9e83152e5}{set\+Auto\+Grow\+Lines}} (int min\+Lines, int max\+Lines)
+\begin{DoxyCompactList}\small\item\em Makes the height follow the content, animated, between {\ttfamily min\+Lines} and {\ttfamily max\+Lines} lines of text. Content beyond that scrolls. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_custom_text_edit_aeca33294f3d979682374b71684b865d9}{minimum\+Grow\+Height}} () const
+\begin{DoxyCompactList}\small\item\em Height of the box when it holds its minimum number of lines. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static QString \doxymbox{\hyperlink{class_custom_text_edit_a16e6725147bf86c40c376ad62f02929f}{newline\+Shortcut\+Text}} ()
+\begin{DoxyCompactList}\small\item\em User-\/visible name of the newline shortcut for the current platform. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_custom_text_edit_a7dcc7e53f64b26ce412974df2be6a936}{show\+Event}} (QShow\+Event \texorpdfstring{$\ast$}{*}event) override
+\item 
+void \doxymbox{\hyperlink{class_custom_text_edit_af5ef9dfc855cba8431067a6ea39613e5}{change\+Event}} (QEvent \texorpdfstring{$\ast$}{*}event) override
+\item 
+void \doxymbox{\hyperlink{class_custom_text_edit_ac87765b7ed4b3752474893bae4df08bf}{key\+Press\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event) override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{class_custom_text_edit_af9d21878791b7ca98824f2a1b85cdbc4}{grow\+Height}}
+\end{DoxyCompactItemize}
+
+
+\label{class_custom_text_edit_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{CustomTextEdit@{CustomTextEdit}!CustomTextEdit@{CustomTextEdit}}
+\index{CustomTextEdit@{CustomTextEdit}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{CustomTextEdit()}{CustomTextEdit()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_a18556a723c91a01bd82d10c1cf41d325} 
+Custom\+Text\+Edit::\+\+Custom\+Text\+Edit (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\label{class_custom_text_edit_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{CustomTextEdit@{CustomTextEdit}!changeEvent@{changeEvent}}
+\index{changeEvent@{changeEvent}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{changeEvent()}{changeEvent()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_af5ef9dfc855cba8431067a6ea39613e5} 
+void Custom\+Text\+Edit::\+change\+Event (\begin{DoxyParamCaption}\item[{QEvent \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_af5ef9dfc855cba8431067a6ea39613e5_icgraph}
+\end{center}
+\end{figure}
+\index{CustomTextEdit@{CustomTextEdit}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_ac87765b7ed4b3752474893bae4df08bf} 
+void Custom\+Text\+Edit::\+key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_ac87765b7ed4b3752474893bae4df08bf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_ac87765b7ed4b3752474893bae4df08bf_icgraph}
+\end{center}
+\end{figure}
+\index{CustomTextEdit@{CustomTextEdit}!minimumGrowHeight@{minimumGrowHeight}}
+\index{minimumGrowHeight@{minimumGrowHeight}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{minimumGrowHeight()}{minimumGrowHeight()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_aeca33294f3d979682374b71684b865d9} 
+int Custom\+Text\+Edit::\+minimum\+Grow\+Height (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Height of the box when it holds its minimum number of lines. 
+
+\index{CustomTextEdit@{CustomTextEdit}!minimumGrowHeightChanged@{minimumGrowHeightChanged}}
+\index{minimumGrowHeightChanged@{minimumGrowHeightChanged}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{minimumGrowHeightChanged}{minimumGrowHeightChanged}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_a8f161a60d8d6dfda8a568fbfc0a9fed1} 
+void Custom\+Text\+Edit::\+minimum\+Grow\+Height\+Changed (\begin{DoxyParamCaption}\item[{int}]{height}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+The height for the minimum number of lines has changed. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_a8f161a60d8d6dfda8a568fbfc0a9fed1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_a8f161a60d8d6dfda8a568fbfc0a9fed1_icgraph}
+\end{center}
+\end{figure}
+\index{CustomTextEdit@{CustomTextEdit}!newlineShortcutText@{newlineShortcutText}}
+\index{newlineShortcutText@{newlineShortcutText}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{newlineShortcutText()}{newlineShortcutText()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_a16e6725147bf86c40c376ad62f02929f} 
+QString Custom\+Text\+Edit::\+newline\+Shortcut\+Text (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+User-\/visible name of the newline shortcut for the current platform. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_a16e6725147bf86c40c376ad62f02929f_cgraph}
+\end{center}
+\end{figure}
+\index{CustomTextEdit@{CustomTextEdit}!sendRequested@{sendRequested}}
+\index{sendRequested@{sendRequested}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{sendRequested}{sendRequested}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_a418fa720fd5e46a1f856e859c4989892} 
+void Custom\+Text\+Edit::\+send\+Requested (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_a418fa720fd5e46a1f856e859c4989892_icgraph}
+\end{center}
+\end{figure}
+\index{CustomTextEdit@{CustomTextEdit}!setAutoGrowLines@{setAutoGrowLines}}
+\index{setAutoGrowLines@{setAutoGrowLines}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{setAutoGrowLines()}{setAutoGrowLines()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_a58e95876e9f45dbe73728fe9e83152e5} 
+void Custom\+Text\+Edit::\+set\+Auto\+Grow\+Lines (\begin{DoxyParamCaption}\item[{int}]{min\+Lines}{, }\item[{int}]{max\+Lines}{}\end{DoxyParamCaption})}
+
+
+
+Makes the height follow the content, animated, between {\ttfamily min\+Lines} and {\ttfamily max\+Lines} lines of text. Content beyond that scrolls. 
+
+The bounds are measured from the widget\textquotesingle{}s own font and style, so they stay right at any text size and on any platform. \index{CustomTextEdit@{CustomTextEdit}!showEvent@{showEvent}}
+\index{showEvent@{showEvent}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{showEvent()}{showEvent()}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_a7dcc7e53f64b26ce412974df2be6a936} 
+void Custom\+Text\+Edit::\+show\+Event (\begin{DoxyParamCaption}\item[{QShow\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_custom_text_edit_a7dcc7e53f64b26ce412974df2be6a936_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_custom_text_edit_doc-property-members}
+\doxysubsection{Property Documentation}
+\index{CustomTextEdit@{CustomTextEdit}!growHeight@{growHeight}}
+\index{growHeight@{growHeight}!CustomTextEdit@{CustomTextEdit}}
+\doxysubsubsection{\texorpdfstring{growHeight}{growHeight}}
+{\footnotesize\ttfamily \label{class_custom_text_edit_af9d21878791b7ca98824f2a1b85cdbc4} 
+int Custom\+Text\+Edit::\+grow\+Height\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+widgets/\doxymbox{\hyperlink{customtextedit_8h}{customtextedit.\+h}}\item 
+widgets/\doxymbox{\hyperlink{customtextedit_8cpp}{customtextedit.\+cpp}}\end{DoxyCompactItemize}

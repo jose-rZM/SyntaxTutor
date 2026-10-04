@@ -1,0 +1,12 @@
+<map id="AutomatonView::hideStateDetails" name="AutomatonView::hideStateDetails">
+<area shape="rect" id="Node000001" title="Hides the items shown by a click, if any." alt="" coords="520,74,696,114"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a8cb7c68273f24421f94b273a23f78bc7" title=" " alt="" coords="262,5,472,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="527,69,471,53,412,34,412,29,473,48,532,69"/>
+<area shape="rect" id="Node000003" href="$class_automaton_view.html#a0bd33dfc63c9e82fd2e6ada788e07961" title=" " alt="" coords="5,103,214,144"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="502,90,388,91,262,97,204,105,203,100,261,92,388,85,507,89"/>
+<area shape="rect" id="Node000004" href="$class_automaton_view.html#a56214c511723b5746922f695b261260e" title="Loads the automaton and computes the layout. Everything starts hidden." alt="" coords="266,107,468,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="502,105,469,111,468,106,507,105"/>
+<area shape="rect" id="Node000005" href="$class_automaton_view.html#a68b25f65adf9db1e00d570d82409c0bc" title="Shows the items of state id next to its node." alt="" coords="275,156,458,197"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="542,120,473,147,439,158,438,153,471,142,536,121"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="257,155,211,147,211,142,263,154"/>
+</map>

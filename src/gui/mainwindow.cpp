@@ -17,128 +17,146 @@
  */
 
 #include "mainwindow.h"
+#include "grammareditordialog.h"
 #include "tutorialmanager.h"
 #include "ui_mainwindow.h"
+#include <QDialog>
+#include <QHBoxLayout>
+#include <QLabel>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QScrollArea>
+#include <QStackedWidget>
+#include "appicon.h"
+#include "appsettings.h"
+#include "apptypography.h"
+#include "applayout.h"
+#include <QActionGroup>
+#include <QClipboard>
+#include <QGuiApplication>
+#include <QMenu>
+#include <QScreen>
+#include <QSlider>
+#include <QSysInfo>
+#include <QTextBrowser>
+#include <QVBoxLayout>
+
+namespace {
+
+/// @brief Window minimum from the .ui, before the text scale is applied.
+constexpr int kBaseMinimumWidth  = 800;
+constexpr int kBaseMinimumHeight = 600;
+/// Widest the home column gets, at the design text size.
+constexpr int kHomeColumnMaxWidth = 560;
+
+
+void showInfoDialog(QWidget* parent, const QString& windowTitle,
+                    const QString& eyebrow, const QString& title,
+                    const QString& html) {
+    auto* dialog = new QDialog(parent);
+    dialog->setObjectName("infoDialog");
+    dialog->setWindowTitle(windowTitle);
+    dialog->setModal(true);
+    dialog->resize(AppTypography::lengthForText(620),
+                   AppTypography::lengthForText(480));
+    AppLayout::keepHeightForWidth(dialog);
+
+    auto* layout = new QVBoxLayout(dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrowLabel = new QLabel(eyebrow, dialog);
+    eyebrowLabel->setObjectName("infoDialogEyebrow");
+
+    auto* titleLabel = new QLabel(title, dialog);
+    titleLabel->setObjectName("infoDialogTitle");
+    titleLabel->setWordWrap(true);
+
+    auto* content = new QTextBrowser(dialog);
+    content->setObjectName("infoDialogContent");
+    content->setOpenExternalLinks(true);
+    content->setFrameShape(QFrame::NoFrame);
+    content->setHtml(html);
+
+    auto* buttonRow = new QHBoxLayout;
+    buttonRow->addStretch(1);
+
+    auto* closeButton = new QPushButton(QObject::tr("Cerrar"), dialog);
+    closeButton->setObjectName("infoDialogCloseButton");
+    closeButton->setCursor(Qt::PointingHandCursor);
+    closeButton->setProperty("role", "primary");
+    closeButton->setAutoDefault(false);
+    buttonRow->addWidget(closeButton);
+
+    QObject::connect(closeButton, &QPushButton::clicked, dialog,
+                     &QDialog::accept);
+
+    layout->addWidget(eyebrowLabel);
+    layout->addWidget(titleLabel);
+    layout->addWidget(content, 1);
+    layout->addLayout(buttonRow);
+
+    dialog->exec();
+    dialog->deleteLater();
+}
+
+} // namespace
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
-      settings("UMA", "SyntaxTutor") {
+      settings(AppSettings::open()) {
     factory.Init();
     ui->setupUi(this);
+    ui->homeEyebrow->setText(tr("Tutores interactivos"));
+    ui->homeTitle->setText(tr("Elige cómo quieres practicar"));
+    // Without wrapping, a longer translation (the English title is wider)
+    // pushes the whole window past the screen and gets clipped.
+    ui->homeTitle->setWordWrap(true);
+    ui->homeEyebrow->setWordWrap(true);
+    ui->homeSubtitle->setText(
+        tr("Inicia un tutor y ajusta la "
+           "dificultad de la gramática antes de empezar."));
+    ui->pushButton->setText(tr("LL(1)"));
+    ui->pushButton_2->setText(tr("SLR(1)"));
+    ui->tutorial->setText(tr("Tutorial"));
+    ui->difficultyTitle->setText(tr("Dificultad"));
+    ui->lv1Button->setText(tr("Nivel 1"));
+    ui->lv2Button->setText(tr("Nivel 2"));
+    ui->lv3Button->setText(tr("Nivel 3"));
+    ui->idiom->setText(tr("Idioma"));
+    defaultWindowTitle = windowTitle();
+
+    // The home lives in a scroll area for two reasons. A main window ignores
+    // height-for-width, so a title that wraps to one more line than Qt
+    // guessed would be cut in half; a scroll area sizes its content by it.
+    // And at a large text size on a small screen the home can need more
+    // height than the screen has: it scrolls then, instead of being cut.
+    auto* homeScroll = new QScrollArea(this);
+    homeScroll->setObjectName("homeScroll");
+    homeScroll->setFrameShape(QFrame::NoFrame);
+    homeScroll->setWidgetResizable(true);
+    homeScroll->setWidget(takeCentralWidget());
+    homePage = homeScroll;
+    stack    = new QStackedWidget(this);
+    stack->setContentsMargins(0, 0, 0, 0);
+    setCentralWidget(stack);
+    stack->addWidget(homePage);
+    stack->setCurrentWidget(homePage);
+
     Qt::WindowFlags f = windowFlags();
     f &= ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(f);
-    ui->pushButton->setStyleSheet(R"(
-    QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-family: 'Noto Sans';
-        font-weight: bold;
-    }
-
-    QPushButton:hover {
-        background-color: #00CED1;
-    }
-
-    QPushButton:pressed {
-        background-color: #007F86;
-    }
-)");
-
-    ui->pushButton_2->setStyleSheet(R"(
-    QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 16px;
-        font-family: 'Noto Sans';
-        font-weight: bold;
-    }
-
-    QPushButton:hover {
-        background-color: #00CED1;
-    }
-
-    QPushButton:pressed {
-        background-color: #007F86;
-    }
-)");
 
     ui->pushButton->setCursor(Qt::PointingHandCursor);
     ui->pushButton_2->setCursor(Qt::PointingHandCursor);
     ui->menuAcercaDe->setObjectName("menuAcercaDe");
-    ui->menuAcercaDe->setStyleSheet(R"(
-  QMenu#menuAcercaDe::item {
-    padding: 6px 24px;
-  }
-  QMenu#menuAcercaDe::item:selected {
-    background-color: #00ADB5;
-    color: white;
-  }
-  QMenu#menuAcercaDe::icon {
-    padding-left: 4px;
-  }
-)");
+    setupTextSizeMenu();
+    applyScaledMinimumSize();
 
     setupTutorial();
 
-    ui->labelScore->setStyleSheet(R"(
-    QLabel {
-        font-weight: bold;
-        font-size: 15px;
-        color: white;
-        font-family: 'Noto Sans';
-})");
-
-    connect(this, &MainWindow::userLevelChanged, this, [this](unsigned lvl) {
-        int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
-        QString c      = levelColors[idx];
-        QString border = QColor(c).darker(120).name();
-
-        ui->badgeNivel->setStyleSheet(QString(R"(
-    QLabel {
-    min-width: 24px;
-    min-height: 24px;
-    padding: 0px 6px;
-    font-weight: bold;
-    font-size: 12px;
-    background-color: %1;
-    color: white;
-    border-radius: 12px;
-    border: 1px solid %2;
-    qproperty-alignment: 'AlignCenter';
-}       
-    )")
-                                          .arg(c)
-                                          .arg(border));
-
-        ui->badgeNivel->setText(QString::number(lvl));
-        ui->progressBarNivel->setStyleSheet(QString(R"(
-    QProgressBar {
-        background-color: #2A2A2A;
-        border: 1px solid #666666;   
-        border-radius: 3px;
-        min-height: 5px;
-        max-height: 5px;
-        text-align: center;
-        color: transparent;
-    }
-    QProgressBar::chunk {
-        background-color: %1;
-        border-radius: 3px;
-        margin: 0px;
-    }
-)")
-                                                .arg(c));
-    });
+    connect(this, &MainWindow::userLevelChanged, this,
+            &MainWindow::applyLevelStyling);
 
     connect(this, &MainWindow::userLevelUp, this, [this]() {
         QPropertyAnimation* anim =
@@ -165,13 +183,13 @@ MainWindow::MainWindow(QWidget* parent)
 
         QLabel* floatLabel =
             new QLabel(tr("+1 Nivel"), ui->badgeNivel->parentWidget());
-        floatLabel->setStyleSheet(R"(
+        floatLabel->setStyleSheet(AppTypography::resolveStyleSheet(R"(
     QLabel {
         font-weight: bold;
-        font-size: 20px;
+        font-size: $font-headline;
         background: transparent;
     }
-)");
+)"));
         floatLabel->adjustSize();
 
         QPoint badgePos   = ui->badgeNivel->geometry().topLeft();
@@ -188,15 +206,16 @@ MainWindow::MainWindow(QWidget* parent)
                 [floatLabel, rainbowColors, colorIndex = 0]() mutable {
                     QString color =
                         rainbowColors[colorIndex % rainbowColors.size()];
-                    floatLabel->setStyleSheet(QString(R"(
+                    floatLabel->setStyleSheet(
+                        AppTypography::resolveStyleSheet(QString(R"(
         QLabel {
             font-weight: bold;
-            font-size: 20px;
+            font-size: $font-headline;
             background: transparent;
             color: %1;
         }
     )")
-                                                  .arg(color));
+                                                             .arg(color)));
                     colorIndex++;
                 });
         rainbowTimer->start(100);
@@ -247,7 +266,52 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow() {
     saveSettings();
+    cleanupTutorPages();
+    delete tm;
     delete ui;
+}
+
+void MainWindow::applyLevelStyling(unsigned lvl) {
+    int     idx    = qBound(1, static_cast<int>(lvl), 10) - 1;
+    QString c      = levelColors[idx];
+
+    ui->badgeNivel->setStyleSheet(AppTypography::resolveStyleSheet(QString(R"(
+    QLabel {
+    min-width: 28px;
+    min-height: 24px;
+    padding: 0px 10px;
+    font-weight: 700;
+    font-size: $font-label;
+    background-color: rgba(%1, %2, %3, 0.18);
+    color: %4;
+    border-radius: 12px;
+    border: none;
+    qproperty-alignment: 'AlignCenter';
+}       
+    )")
+                                      .arg(QColor(c).red())
+                                      .arg(QColor(c).green())
+                                      .arg(QColor(c).blue())
+                                      .arg(c)));
+
+    ui->badgeNivel->setText(QString::number(lvl));
+    ui->progressBarNivel->setStyleSheet(QString(R"(
+    QProgressBar {
+        background-color: #2A2E30;
+        border: none;
+        border-radius: 4px;
+        min-height: 8px;
+        max-height: 8px;
+        text-align: center;
+        color: transparent;
+    }
+    QProgressBar::chunk {
+        background-color: %1;
+        border-radius: 4px;
+        margin: 0px;
+    }
+)")
+                                            .arg(c));
 }
 
 void MainWindow::on_lv1Button_clicked(bool checked) {
@@ -266,7 +330,11 @@ void MainWindow::on_lv3Button_clicked(bool checked) {
 }
 
 void MainWindow::loadSettings() {
+    unsigned prevLevel = userLevel();
     setUserLevel(settings.value("gamification/level", 1).toUInt());
+    if (prevLevel == userLevel()) {
+        applyLevelStyling(userLevel());
+    }
     userScore = settings.value("gamification/score", 0).toUInt();
     ui->labelScore->setText(tr("Puntos: %1").arg(userScore));
 
@@ -284,6 +352,355 @@ void MainWindow::loadSettings() {
 void MainWindow::saveSettings() {
     settings.setValue("gamification/level", userLevel());
     settings.setValue("gamification/score", userScore);
+}
+
+void MainWindow::applyScaledMinimumSize() {
+    // The minimum was drawn for body text at its design size. Text renders
+    // bigger at a larger text size and on platforms that map a point to more
+    // pixels, so grow the minimum with it, but clamp to the available
+    // screen: a minimum bigger than the display would leave the window
+    // unusable on a small monitor.
+    ui->homeContent->setMaximumWidth(
+        AppTypography::lengthForText(kHomeColumnMaxWidth));
+    // Larger text grows the minimum; smaller text does not shrink it below
+    // the size the layouts were drawn for. The tutors put three columns side
+    // by side, and below that width the chat is the one squeezed.
+    QSize wanted(qMax(kBaseMinimumWidth,
+                      AppTypography::lengthForText(kBaseMinimumWidth)),
+                 qMax(kBaseMinimumHeight,
+                      AppTypography::lengthForText(kBaseMinimumHeight)));
+
+    // The design floor is not enough on its own: the home also has to fit,
+    // with every line its wrapped text needs at this width and the spacing
+    // intact. Without this the layout squeezes it, closing the gaps between
+    // the buttons first and then cutting text.
+    if (QLayout* page = ui->centralwidget->layout()) {
+        int chrome = 0;
+        if (!menuBar()->isNativeMenuBar()) {
+            chrome += menuBar()->sizeHint().height();
+        }
+        if (statusBar() != nullptr && !statusBar()->isHidden()) {
+            chrome += statusBar()->sizeHint().height();
+        }
+        // The preferred height, not the minimum: it is what the scroll area
+        // measures to decide whether to show a scroll bar, and the window
+        // should not open showing one when the screen has room.
+        wanted.setHeight(qMax(wanted.height(),
+                              page->totalHeightForWidth(wanted.width()) +
+                                  chrome));
+    }
+    if (QScreen* screen = QGuiApplication::primaryScreen()) {
+        const QSize available = screen->availableGeometry().size();
+        wanted = wanted.boundedTo(available);
+    }
+    setMinimumSize(wanted);
+    if (width() < wanted.width() || height() < wanted.height()) {
+        resize(qMax(width(), wanted.width()), qMax(height(), wanted.height()));
+    }
+}
+
+void MainWindow::setupTextSizeMenu() {
+    QMenu* menu = ui->menubar->addMenu(tr("Tamaño del texto"));
+    menu->setObjectName("menuTextSize");
+
+    textSizeGroup_ = new QActionGroup(this);
+    textSizeGroup_->setExclusive(true);
+
+    for (const int percent : AppTextScale::kPresetPercents) {
+        QAction* action = menu->addAction(tr("%1 %").arg(percent));
+        action->setObjectName(QStringLiteral("actionTextSize%1").arg(percent));
+        action->setCheckable(true);
+        action->setData(percent);
+        textSizeGroup_->addAction(action);
+        connect(action, &QAction::triggered, this,
+                [this, percent]() { setTextScale(percent); });
+    }
+
+    menu->addSeparator();
+    customTextSizeAction_ = menu->addAction(tr("Personalizar…"));
+    customTextSizeAction_->setObjectName("actionTextSizeCustom");
+    customTextSizeAction_->setCheckable(true);
+    textSizeGroup_->addAction(customTextSizeAction_);
+    connect(customTextSizeAction_, &QAction::triggered, this,
+            &MainWindow::promptCustomTextScale);
+
+    syncTextSizeMenu();
+}
+
+void MainWindow::syncTextSizeMenu() {
+    if (textSizeGroup_ == nullptr) {
+        return;
+    }
+    const int current = AppTextScale::currentPercent();
+    bool      matched = false;
+    for (QAction* action : textSizeGroup_->actions()) {
+        if (action == customTextSizeAction_) {
+            continue;
+        }
+        const bool isCurrent = action->data().toInt() == current;
+        action->setChecked(isCurrent);
+        matched = matched || isCurrent;
+    }
+    if (customTextSizeAction_ != nullptr) {
+        // A value that is not one of the presets is shown on the custom
+        // entry, so the menu always tells the user where they are.
+        customTextSizeAction_->setChecked(!matched);
+        customTextSizeAction_->setText(
+            matched ? tr("Personalizar…")
+                    : tr("Personalizar… (%1 %)").arg(current));
+    }
+}
+
+void MainWindow::promptCustomTextScale() {
+    // Built by hand rather than with QInputDialog: that one renders with the
+    // platform's native look and ignores app.qss entirely, which would stand
+    // out against every other dialog in the app.
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setWindowTitle(tr("Tamaño del texto"));
+    dialog.setModal(true);
+    AppLayout::keepHeightForWidth(&dialog);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrow = new QLabel(tr("TAMAÑO DEL TEXTO"), &dialog);
+    eyebrow->setObjectName("infoDialogEyebrow");
+    layout->addWidget(eyebrow);
+
+    auto* title = new QLabel(tr("Elige el tamaño que te resulte cómodo"),
+                             &dialog);
+    title->setObjectName("infoDialogTitle");
+    title->setWordWrap(true);
+    layout->addWidget(title);
+
+    auto* subtitle = new QLabel(
+        tr("Puedes necesitar redimensionar la ventana."), &dialog);
+    subtitle->setObjectName("infoDialogSubtitle");
+    subtitle->setWordWrap(true);
+    layout->addWidget(subtitle);
+
+    auto* slider = new QSlider(Qt::Horizontal, &dialog);
+    slider->setObjectName("textSizeSlider");
+    slider->setRange(AppTextScale::kMinPercent, AppTextScale::kMaxPercent);
+    slider->setSingleStep(5);
+    slider->setPageStep(10);
+    slider->setValue(AppTextScale::currentPercent());
+
+    auto* value = new QLabel(&dialog);
+    value->setObjectName("textSizeValueLabel");
+    value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+    auto* sliderRow = new QHBoxLayout;
+    sliderRow->setSpacing(12);
+    sliderRow->addWidget(slider, 1);
+    sliderRow->addWidget(value, 0);
+    layout->addLayout(sliderRow);
+
+    const int restore = AppTextScale::currentPercent();
+    auto      showValue = [value](int percent) {
+        value->setText(tr("%1 %").arg(percent));
+    };
+    showValue(restore);
+
+    // Live preview: applying as the slider moves is the only way to judge
+    // whether a size is comfortable.
+    connect(slider, &QSlider::valueChanged, this,
+            [this, showValue](int percent) {
+                showValue(percent);
+                setTextScale(percent);
+            });
+
+    auto* buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setSpacing(10);
+    buttonsLayout->addStretch(1);
+
+    auto* cancelButton = new QPushButton(tr("Cancelar"), &dialog);
+    cancelButton->setObjectName("textSizeCancelButton");
+    cancelButton->setCursor(Qt::PointingHandCursor);
+    cancelButton->setProperty("role", "danger");
+    cancelButton->setAutoDefault(false);
+    buttonsLayout->addWidget(cancelButton);
+
+    auto* acceptButton = new QPushButton(tr("Aplicar"), &dialog);
+    acceptButton->setObjectName("textSizeAcceptButton");
+    acceptButton->setCursor(Qt::PointingHandCursor);
+    acceptButton->setProperty("role", "primary");
+    acceptButton->setAutoDefault(false);
+    buttonsLayout->addWidget(acceptButton);
+
+    layout->addLayout(buttonsLayout);
+
+    connect(cancelButton, &QPushButton::clicked, &dialog, &QDialog::reject);
+    connect(acceptButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        setTextScale(restore);   // undo the live preview
+        return;
+    }
+    setTextScale(slider->value());
+}
+
+void MainWindow::setTextScale(int percent) {
+    AppTextScale::currentPercent() = AppTextScale::clampPercent(percent);
+    settings.setValue(AppTextScale::settingsKey(),
+                      AppTextScale::currentPercent());
+    syncTextSizeMenu();
+
+    // Two channels: the style sheet carries every size declared in QSS, and
+    // the application font carries the text that has no QSS rule at all -
+    // the chat bubbles among it. The font goes first: lengths that follow
+    // the text are measured from it.
+    qApp->setFont(AppTypography::applicationFont());
+
+    const QString styleSheet = AppTypography::loadStyleSheet();
+    if (!styleSheet.isEmpty()) {
+        qApp->setStyleSheet(styleSheet);
+    }
+
+    // Inline style sheets resolved their sizes when they were set.
+    applyLevelStyling(userLevel());
+    applyScaledMinimumSize();
+
+    // Widgets that size themselves from font metrics cannot pick this up on
+    // their own, so tell the open tutor to recompute.
+    if (llTutorPage != nullptr) {
+        llTutorPage->applyTextScale();
+    }
+    if (slrTutorPage != nullptr) {
+        slrTutorPage->applyTextScale();
+    }
+}
+
+void MainWindow::setDifficultySelectorEnabled(bool enabled) {
+    ui->difficultyTitle->setEnabled(enabled);
+    ui->lv1Button->setEnabled(enabled);
+    ui->lv2Button->setEnabled(enabled);
+    ui->lv3Button->setEnabled(enabled);
+}
+
+void MainWindow::setNavigationEnabled(bool enabled) {
+    ui->pushButton->setDisabled(!enabled);
+    ui->pushButton_2->setDisabled(!enabled);
+    ui->tutorial->setDisabled(!enabled);
+    setDifficultySelectorEnabled(enabled &&
+                                 !ui->customGrammarCheck->isChecked());
+    ui->customGrammarCheck->setEnabled(enabled);
+    ui->examModeCheck->setEnabled(enabled);
+}
+
+void MainWindow::showHomePage() {
+    if (stack && homePage) {
+        stack->setCurrentWidget(homePage);
+    }
+    setWindowTitle(defaultWindowTitle);
+}
+
+void MainWindow::cleanupTutorPages() {
+    if (tm) {
+        tm->setRootWindow(homePage);
+    }
+
+    if (llTutorPage) {
+        stack->removeWidget(llTutorPage);
+        llTutorPage->deleteLater();
+        llTutorPage = nullptr;
+    }
+
+    if (slrTutorPage) {
+        stack->removeWidget(slrTutorPage);
+        slrTutorPage->deleteLater();
+        slrTutorPage = nullptr;
+    }
+}
+
+LLTutorWindow* MainWindow::startLLTutor(const Grammar& grammar,
+                                        TutorialManager* tutorialManager,
+                                        bool             examMode) {
+    if (llTutorPage) {
+        stack->removeWidget(llTutorPage);
+        llTutorPage->deleteLater();
+    }
+
+    llTutorPage = new LLTutorWindow(grammar, tutorialManager, stack, examMode);
+    stack->addWidget(llTutorPage);
+    stack->setCurrentWidget(llTutorPage);
+    setWindowTitle(tr("LL(1)"));
+
+    connect(llTutorPage, &LLTutorWindow::exitRequested, this,
+            [this, tutorialManager](bool applyResults, int cntRight,
+                                    int cntWrong) {
+                if (applyResults && tutorialManager == nullptr) {
+                    handleTutorFinished(cntRight, cntWrong);
+                }
+
+                if (tutorialManager != nullptr) {
+                    abortTutorialFlow();
+                    return;
+                }
+
+                showHomePage();
+                if (llTutorPage) {
+                    stack->removeWidget(llTutorPage);
+                    llTutorPage->deleteLater();
+                    llTutorPage = nullptr;
+                }
+            });
+
+    return llTutorPage;
+}
+
+SLRTutorWindow* MainWindow::startSLRTutor(const Grammar& grammar,
+                                          TutorialManager* tutorialManager,
+                                          bool             examMode) {
+    if (slrTutorPage) {
+        stack->removeWidget(slrTutorPage);
+        slrTutorPage->deleteLater();
+    }
+
+    slrTutorPage =
+        new SLRTutorWindow(grammar, tutorialManager, stack, examMode);
+    stack->addWidget(slrTutorPage);
+    stack->setCurrentWidget(slrTutorPage);
+    setWindowTitle(tr("SLR(1)"));
+
+    connect(slrTutorPage, &SLRTutorWindow::exitRequested, this,
+            [this, tutorialManager](bool applyResults, int cntRight,
+                                    int cntWrong) {
+                if (applyResults && tutorialManager == nullptr) {
+                    handleTutorFinished(cntRight, cntWrong);
+                }
+
+                if (tutorialManager != nullptr) {
+                    abortTutorialFlow();
+                    return;
+                }
+
+                showHomePage();
+                if (slrTutorPage) {
+                    stack->removeWidget(slrTutorPage);
+                    slrTutorPage->deleteLater();
+                    slrTutorPage = nullptr;
+                }
+            });
+
+    return slrTutorPage;
+}
+
+void MainWindow::abortTutorialFlow() {
+    cleanupTutorPages();
+    showHomePage();
+    setNavigationEnabled(true);
+
+    if (tm) {
+        tm->hideOverlay();
+        tm->clearSteps();
+        delete tm;
+        tm = nullptr;
+    }
+
+    setupTutorial();
 }
 
 void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
@@ -315,46 +732,54 @@ void MainWindow::handleTutorFinished(int cntRight, int cntWrong) {
     saveSettings();
 }
 
+void MainWindow::on_customGrammarCheck_toggled(bool checked) {
+    setDifficultySelectorEnabled(!checked);
+}
+
 void MainWindow::on_pushButton_clicked() {
+    const bool examMode = ui->examModeCheck->isChecked();
+    if (ui->customGrammarCheck->isChecked()) {
+        GrammarEditorDialog dialog(GrammarEditorDialog::Mode::LL1, this);
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        }
+        startLLTutor(dialog.grammar(), nullptr, examMode);
+        return;
+    }
     Grammar grammar = factory.GenLL1Grammar(level);
-    this->hide();
-    LLTutorWindow* tutor = new LLTutorWindow(grammar, nullptr, this);
-    tutor->setAttribute(Qt::WA_DeleteOnClose);
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
-    connect(tutor, &LLTutorWindow::sessionFinished, this,
-            &MainWindow::handleTutorFinished);
-    tutor->show();
+    startLLTutor(grammar, nullptr, examMode);
 }
 
 void MainWindow::on_pushButton_2_clicked() {
+    const bool examMode = ui->examModeCheck->isChecked();
+    if (ui->customGrammarCheck->isChecked()) {
+        GrammarEditorDialog dialog(GrammarEditorDialog::Mode::SLR1, this);
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        }
+        startSLRTutor(dialog.grammar(), nullptr, examMode);
+        return;
+    }
     Grammar grammar = factory.GenSLR1Grammar(level);
-    this->hide();
-    SLRTutorWindow* tutor = new SLRTutorWindow(grammar, nullptr, this);
-    tutor->setAttribute(Qt::WA_DeleteOnClose);
-
-    connect(tutor, &QWidget::destroyed, this, [this]() { this->show(); });
-    connect(tutor, &SLRTutorWindow::sessionFinished, this,
-            &MainWindow::handleTutorFinished);
-    tutor->show();
+    startSLRTutor(grammar, nullptr, examMode);
 }
 
 void MainWindow::on_tutorial_clicked() {
+    cleanupTutorPages();
+    showHomePage();
+
     if (tm) {
         delete tm;
         tm = nullptr;
-        setupTutorial();
-        ui->pushButton->setDisabled(true);
-        ui->pushButton_2->setDisabled(true);
-        ui->tutorial->setDisabled(true);
-        ui->lv1Button->setDisabled(true);
-        ui->lv2Button->setDisabled(true);
-        ui->lv3Button->setDisabled(true);
-        tm->start();
     }
+
+    setupTutorial();
+    setNavigationEnabled(false);
+    tm->start();
 }
 
 void MainWindow::setupTutorial() {
-    tm = new TutorialManager(this);
+    tm = new TutorialManager(homePage);
 
     // Paso 1: explicación de botones LL(1) y SLR(1)
     tm->addStep(ui->pushButton, tr("<h3>LL(1)</h3><p>Con este botón puedes "
@@ -369,358 +794,363 @@ void MainWindow::setupTutorial() {
                    "repercute en la longitud de la gramática.</p>"));
 
     // Paso 3: LL(1)
-    tm->addStep(ui->pushButton, tr("<p>Ahora se abrirá la ventana LL(1).</p>"));
+    tm->addStep(ui->pushButton, tr("<p>Ahora se abrirá el tutor LL(1).</p>"));
     tm->addStep(nullptr, "");
 
     connect(tm, &TutorialManager::stepStarted, this, [this](int idx) {
         if (idx == 4) {
-            // 1) Abre LL
             Grammar grammarLL = factory.GenLL1Grammar(1);
-            auto*   llTutor   = new LLTutorWindow(grammarLL, tm, nullptr);
-            llTutor->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint |
-                                    Qt::WindowTitleHint);
-            llTutor->setAttribute(Qt::WA_DeleteOnClose);
-            this->hide();
-            llTutor->show();
+            LLTutorWindow* llTutor = startLLTutor(grammarLL, tm);
 
-            // 2) Preparar SLR
-            connect(tm, &TutorialManager::ll1Finished, this, [this, llTutor]() {
-                llTutor->close();
-                this->show();
-                disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
-                disconnect(tm, &TutorialManager::tutorialFinished, this,
-                           nullptr);
-
-                tm->setRootWindow(this);
-
-                tm->clearSteps();
-                tm->addStep(
-                    ui->pushButton_2,
-                    tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
-                tm->addStep(ui->lv3Button,
-                            tr("<p>Esta vez se usará una gramática más "
-                               "compleja (Nivel 3).</p>"));
-                tm->addStep(ui->pushButton_2,
-                            tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
-                tm->addStep(nullptr, "");
-                // a) Arranca el tutorial de SLR
-                tm->start();
-
-                // b) Abrir SLR
-                connect(
-                    tm, &TutorialManager::stepStarted, this, [this](int idx2) {
-                        if (idx2 == 3) {
-                            Grammar grammarSLR = factory.GenSLR1Grammar(3);
-                            auto*   slrTutor =
-                                new SLRTutorWindow(grammarSLR, tm, nullptr);
-                            slrTutor->setWindowFlags(Qt::Window |
-                                                     Qt::CustomizeWindowHint |
-                                                     Qt::WindowTitleHint);
-                            slrTutor->setAttribute(Qt::WA_DeleteOnClose);
-                            slrTutor->show();
-                            this->hide();
-                            QTimer::singleShot(50, [this, slrTutor]() {
-                                tm->setRootWindow(slrTutor);
-                                tm->nextStep();
-                            });
-                        }
-                    });
-
-                // c) Acaba SLR
-                connect(tm, &TutorialManager::slr1Finished, this, [this]() {
-                    disconnect(tm, &TutorialManager::stepStarted, this,
-                               nullptr);
-                    disconnect(tm, &TutorialManager::tutorialFinished, this,
-                               nullptr);
-                    this->show();
-                    tm->setRootWindow(this);
-                    tm->clearSteps();
-                    tm->addStep(ui->badgeNivel,
-                                tr("<h2>Nivel</h2>"
-                                   "<p>¡Practicar tiene recompensa! Cada vez "
-                                   "que resuelvas ejercicios "
-                                   "o avances en el estudio, "
-                                   "ganarás puntos. Estos puntos te ayudarán a "
-                                   "subir de nivel: hay un "
-                                   "total de 10. "
-                                   "¡Intenta llegar al máximo!</p>"));
-
-                    tm->addStep(this, tr("<h2>¡Tutorial completado!</h2><p>Ya "
-                                         "puedes comenzar a practicar.</p>"));
-
-                    connect(tm, &TutorialManager::tutorialFinished, this,
-                            [this]() {
-                                tm->clearSteps();
-                                delete tm;
-                                ui->pushButton->setDisabled(false);
-                                ui->pushButton_2->setDisabled(false);
-                                ui->tutorial->setDisabled(false);
-                                ui->lv1Button->setDisabled(false);
-                                ui->lv2Button->setDisabled(false);
-                                ui->lv3Button->setDisabled(false);
-                                setupTutorial();
-                            });
-                    tm->start();
-                });
-            });
-
-            QTimer::singleShot(50, [this, llTutor]() {
+            QTimer::singleShot(0, this, [this, llTutor]() {
+                if (!tm || llTutor != llTutorPage) {
+                    return;
+                }
                 tm->setRootWindow(llTutor);
                 tm->nextStep();
             });
         }
     });
+
+    connect(tm, &TutorialManager::ll1Finished, this, [this]() {
+        tm->setRootWindow(homePage);
+
+        if (llTutorPage) {
+            stack->removeWidget(llTutorPage);
+            llTutorPage->deleteLater();
+            llTutorPage = nullptr;
+        }
+
+        showHomePage();
+        disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
+        disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+
+        tm->clearSteps();
+        tm->addStep(ui->pushButton_2,
+                    tr("<h3>SLR(1)</h3><p>Pasemos al tutor SLR(1).</p>"));
+        tm->addStep(ui->lv3Button,
+                    tr("<p>Esta vez se usará una gramática más compleja "
+                       "(Nivel 3).</p>"));
+        tm->addStep(ui->pushButton_2,
+                    tr("<p>Ahora se abrirá el tutor SLR(1).</p>"));
+        tm->addStep(nullptr, "");
+
+        connect(tm, &TutorialManager::stepStarted, this, [this](int idx2) {
+            if (idx2 == 3) {
+                Grammar grammarSLR = factory.GenSLR1Grammar(3);
+                SLRTutorWindow* slrTutor = startSLRTutor(grammarSLR, tm);
+
+                QTimer::singleShot(0, this, [this, slrTutor]() {
+                    if (!tm || slrTutor != slrTutorPage) {
+                        return;
+                    }
+                    tm->setRootWindow(slrTutor);
+                    tm->nextStep();
+                });
+            }
+        });
+
+        connect(tm, &TutorialManager::slr1Finished, this, [this]() {
+            tm->setRootWindow(homePage);
+
+            if (slrTutorPage) {
+                stack->removeWidget(slrTutorPage);
+                slrTutorPage->deleteLater();
+                slrTutorPage = nullptr;
+            }
+
+            showHomePage();
+            disconnect(tm, &TutorialManager::stepStarted, this, nullptr);
+            disconnect(tm, &TutorialManager::tutorialFinished, this, nullptr);
+
+            tm->clearSteps();
+            tm->addStep(ui->badgeNivel,
+                        tr("<h2>Nivel</h2>"
+                           "<p>¡Practicar tiene recompensa! Cada vez que "
+                           "resuelvas ejercicios o avances en el estudio, "
+                           "ganarás puntos. Estos puntos te ayudarán a subir "
+                           "de nivel: hay un total de 10. "
+                           "¡Intenta llegar al máximo!</p>"));
+
+            tm->addStep(homePage, tr("<h2>¡Tutorial completado!</h2><p>Ya "
+                                     "puedes comenzar a practicar.</p>"));
+
+            connect(tm, &TutorialManager::tutorialFinished, this, [this]() {
+                if (tm) {
+                    tm->clearSteps();
+                    delete tm;
+                    tm = nullptr;
+                }
+                setNavigationEnabled(true);
+                setupTutorial();
+            });
+
+            tm->start();
+        });
+
+        tm->start();
+    });
 }
 
 void MainWindow::on_actionSobre_la_aplicaci_n_triggered() {
-    QMessageBox about(this);
-    about.setWindowTitle(tr("Sobre la aplicación"));
-    QPixmap pix(":/resources/syntaxtutor.png");
-    about.setIconPixmap(
-        pix.scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    // Laid out like the about box of a desktop IDE: the icon on the left,
+    // name and version, the environment, then credits, and a button that
+    // copies what a bug report needs.
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setProperty("aboutDialog", true);
+    dialog.setWindowTitle(tr("Sobre SyntaxTutor"));
+    dialog.setModal(true);
+    dialog.resize(AppTypography::lengthForText(560), 0);
+    AppLayout::keepHeightForWidth(&dialog);
 
-    about.setTextFormat(Qt::RichText);
-    const auto versionLine =
-        tr("<p><b>Versión:</b> %1</p>").arg(qApp->applicationVersion());
-    about.setText(
-        tr("<h2>SyntaxTutor</h2>") + versionLine +
-        tr("<p>Trabajo Fin de Grado – Tutorial Interactivo sobre Analizadores "
-           "Sintácticos.</p>") +
-        tr("<p><b>Autor:</b> José R.</p>") +
-        tr("<p><b>Licencia:</b> GPLv3</p>") +
-        tr("<p>Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y "
-           "C++20.</p>") +
-        tr("<p><a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub - "
-           "jose-rZM</a></p>") +
-        tr("<p>2025 Universidad de Málaga</p>"));
+    const QString version = qApp->applicationVersion();
+    const QString environment =
+        tr("Qt %1 (compilado con Qt %2)\n%3 (%4)")
+            .arg(QString::fromLatin1(qVersion()),
+                 QStringLiteral(QT_VERSION_STR),
+                 QSysInfo::prettyProductName(),
+                 QSysInfo::currentCpuArchitecture());
 
-    about.setStandardButtons(QMessageBox::Close);
-    auto* closeBtn = about.button(QMessageBox::Close);
-    if (closeBtn) {
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setIcon(QIcon());
-    }
-    about.setStyleSheet(R"(
-      QMessageBox {
-        background-color: #1F1F1F;
-        color: white;
-        font-family: 'Noto Sans';
-      }
-    QMessageBox QLabel {
-        color: #EEEEEE;
-    }
-      QMessageBox QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-      QMessageBox QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QMessageBox QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
-    about.exec();
+    auto*     icon   = new QLabel(&dialog);
+    const int iconPx = AppTypography::lengthForText(88);
+    icon->setPixmap(AppIcon::icon().pixmap(QSize(iconPx, iconPx),
+                                           devicePixelRatioF()));
+    icon->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+
+    auto* title = new QLabel(QStringLiteral("SyntaxTutor %1").arg(version),
+                             &dialog);
+    title->setObjectName("aboutTitle");
+    title->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    auto* subtitle = new QLabel(
+        tr("Tutor interactivo de análisis sintáctico LL(1) y SLR(1)."),
+        &dialog);
+    subtitle->setObjectName("aboutSubtitle");
+    subtitle->setWordWrap(true);
+
+    auto* details = new QLabel(environment, &dialog);
+    details->setObjectName("aboutDetails");
+    details->setWordWrap(true);
+    details->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    // Version 1 was the degree project, which is closed; this one builds on
+    // it but is not part of it.
+    auto* note = new QLabel(
+        tr("La versión 1 de SyntaxTutor fue el Trabajo Fin de Grado "
+           "«Tutorial Interactivo sobre Analizadores Sintácticos» "
+           "(Universidad de Málaga, 2025). Esta versión es una ampliación y "
+           "un rediseño posteriores, independientes del TFG."),
+        &dialog);
+    note->setObjectName("aboutNote");
+    note->setWordWrap(true);
+
+    auto* credits = new QLabel(
+        tr("Autor: José R.<br>"
+           "Licencia: GPLv3<br>"
+           "Desarrollado con <a href='https://www.qt.io/'>Qt 6</a> y C++20<br>"
+           "Código fuente en "
+           "<a href='https://github.com/jose-rZM/SyntaxTutor'>GitHub</a>"),
+        &dialog);
+    credits->setObjectName("aboutCredits");
+    credits->setWordWrap(true);
+    credits->setTextFormat(Qt::RichText);
+    credits->setOpenExternalLinks(true);
+    credits->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+    auto* text = new QVBoxLayout;
+    text->setSpacing(4);
+    text->addWidget(title);
+    text->addWidget(subtitle);
+    text->addSpacing(12);
+    text->addWidget(details);
+    text->addSpacing(12);
+    text->addWidget(note);
+    text->addSpacing(12);
+    text->addWidget(credits);
+
+    auto* body = new QHBoxLayout;
+    body->setSpacing(22);
+    body->addWidget(icon, 0, Qt::AlignTop);
+    body->addLayout(text, 1);
+
+    auto* copyButton = new QPushButton(tr("Copiar y cerrar"), &dialog);
+    copyButton->setObjectName("aboutCopyButton");
+    copyButton->setCursor(Qt::PointingHandCursor);
+    copyButton->setProperty("role", "primary");
+    copyButton->setAutoDefault(false);
+
+    auto* closeButton = new QPushButton(tr("Cerrar"), &dialog);
+    closeButton->setObjectName("infoDialogCloseButton");
+    closeButton->setCursor(Qt::PointingHandCursor);
+    closeButton->setProperty("role", "secondary");
+    closeButton->setDefault(true);
+
+    connect(copyButton, &QPushButton::clicked, &dialog,
+            [&dialog, version, environment]() {
+                QGuiApplication::clipboard()->setText(
+                    QStringLiteral("SyntaxTutor %1\n%2").arg(version,
+                                                            environment));
+                dialog.accept();
+            });
+    connect(closeButton, &QPushButton::clicked, &dialog, &QDialog::accept);
+
+    auto* buttons = new QHBoxLayout;
+    buttons->setSpacing(10);
+    buttons->addStretch(1);
+    buttons->addWidget(copyButton);
+    buttons->addWidget(closeButton);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setContentsMargins(28, 26, 24, 20);
+    layout->setSpacing(22);
+    layout->addLayout(body);
+    layout->addLayout(buttons);
+
+    dialog.exec();
 }
 
 void MainWindow::on_actionReferencia_LL_1_triggered() {
-    QMessageBox help(this);
-    help.setWindowTitle(tr("Referencia rápida LL(1)"));
-    help.setTextFormat(Qt::RichText);
-    help.setText(tr(R"(
-      <h3>Referencia LL(1)</h3>
-      <ul>
-        <li><b>CAB(X):</b> conjunto de símbolos terminales que comienzan cadenas derivables desde X.</li>
-        <li><b>SIG(A):</b> conjunto de terminales que pueden seguir a A en alguna derivación.</li>
-  <li><b>Construcción de la Tabla LL(1):</b>
-    <ul>
-      <li>Para cada producción <code>A → α</code> y cada terminal <code>a</code> tal que 
-          <code>a ∈ CAB(α)</code>, asignar  
-          <code>Tabla[A][a] = "α"</code>.</li>
-      <li>Si <code>ε ∈ CAB(α)</code>, entonces para cada terminal 
-          <code>b ∈ SIG(A)</code> asignar  
-          <code>Tabla[A][b] = "α"</code>.</li>
-      <li>Si <code>ε ∈ CAB(α)</code> y <code>$ ∈ SIG(A)</code>, entonces  
-          <code>Tabla[A][$] = "α"</code> (fin de cadena).</li>
-      <li><b>Aceptación:</b> Por convención, no se añade entrada especial; el parser termina cuando 
-          encuentra <code>$</code> en la pila y en la entrada.</li>
-    </ul>
-  </li>
-        <li><b>Conflictos:</b> Sitios donde CAB(α) ∩ CAB(β) ≠ ∅ o ε ∈ CAB(α) y CAB(β) ∩ SIG(A) ≠ ∅.</li>
-      </ul>
-    )"));
-    help.setStandardButtons(QMessageBox::Close);
-    auto* closeBtn = help.button(QMessageBox::Close);
-    if (closeBtn) {
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setIcon(QIcon());
-    }
-    help.setStyleSheet(R"(
-      QMessageBox {
-        background-color: #1F1F1F;
-        font-family: 'Noto Sans';
-      }
-    QMessageBox QLabel {
-        color: #EEEEEE;
-    }
-      QMessageBox QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-      QMessageBox QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QMessageBox QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
-    help.exec();
+    showInfoDialog(
+        this, tr("Referencia rápida LL(1)"), tr("LL(1)"),
+        tr("Resumen de conjuntos y construcción de la tabla predictiva"),
+        tr(R"(
+            <h3>Conceptos clave</h3>
+            <p><b>CAB(X):</b> conjunto de símbolos terminales que pueden comenzar cadenas derivables desde <code>X</code>.</p>
+            <p><b>SIG(A):</b> conjunto de terminales que pueden aparecer justo después de <code>A</code> en alguna derivación.</p>
+            <h3>Construcción de la tabla LL(1)</h3>
+            <ul>
+              <li>Para cada producción <code>A → α</code> y cada terminal <code>a ∈ CAB(α)</code>, asigna <code>Tabla[A][a] = α</code>.</li>
+              <li>Si <code>ε ∈ CAB(α)</code>, para cada <code>b ∈ SIG(A)</code> asigna <code>Tabla[A][b] = α</code>.</li>
+              <li>Si <code>ε ∈ CAB(α)</code> y <code>$ ∈ SIG(A)</code>, entonces <code>Tabla[A][$] = α</code>.</li>
+            </ul>
+            <h3>Conflictos</h3>
+            <p>Aparecen cuando dos producciones compiten por la misma celda, por ejemplo si <code>CAB(α) ∩ CAB(β) ≠ ∅</code> o si una producción con <code>ε</code> invade símbolos de <code>SIG(A)</code>.</p>
+        )"));
 }
 
 void MainWindow::on_actionReferencia_SLR_1_triggered() {
-    QMessageBox help(this);
-    help.setWindowTitle(tr("Referencia rápida SLR(1)"));
-    help.setTextFormat(Qt::RichText);
-    help.setText(tr(R"(
-      <h3>Referencia SLR(1)</h3>
-      <ul>
-        <li><b>Ítems LR(0):</b> producciones con “∙” marcando la posición de análisis.</li>
-        <li><b>Cierre( I ):</b> añadir ítems B → ∙ γ para cada ítem A → α ∙ B β. Repetir hasta que no se añadan más.</li>
-        <li><b>Goto( I, X ) o δ( I, X ):</b> desplazar “∙” sobre X en todos los ítems de I y calcular su cierre.</li>
-<li><b>Tabla SLR(1):</b>
-  <ul>
-    <li><b>Acciones (Action):</b>  
-      Para cada estado I y cada terminal a:
-      <ul>
-        <li>Si existe el ítem <code>A → α∙aβ</code> en I, entonces <code>Action[I,a] = s<sub>j</sub></code> (shift al estado j = Goto(I,a)).</li>
-        <li>Si existe el ítem <code>A → α∙</code> en I, entonces <code>Action[I,a] = r<sub>k</sub></code> (reduce usando la producción k = A→α) <em>para todo</em> <code>a ∈ SIG(A)</code>.</li>
-        <li><code>Action[I,$] = acc</code> si <code>S → A·$</code> está en I (aceptación).</li>
-      </ul>
-    </li>
-    <li><b>Transiciones (Goto):</b>  
-      Para cada estado I y cada no terminal A:
-      <ul>
-        <li>Si <code>Goto(I,A) = J</code>, entonces <code>Goto[I,A] = J</code>.</li>
-      </ul>
-    </li>
-  </ul>
-</li>
-      </ul>
-    )"));
-    help.setStandardButtons(QMessageBox::Close);
-    auto* closeBtn = help.button(QMessageBox::Close);
-    if (closeBtn) {
-        closeBtn->setCursor(Qt::PointingHandCursor);
-        closeBtn->setIcon(QIcon());
-    }
-    help.setStyleSheet(R"(
-      QMessageBox {
-        background-color: #1F1F1F;
-        color: white;
-        font-family: 'Noto Sans';
-      }
-    QMessageBox QLabel {
-        color: #EEEEEE;
-    }
-      QMessageBox QPushButton {
-        background-color: #00ADB5;
-        color: #FFFFFF;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-      QMessageBox QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QMessageBox QPushButton:pressed {
-        background-color: #007F86;
-      }
-    )");
-    help.exec();
+    showInfoDialog(
+        this, tr("Referencia rápida SLR(1)"), tr("SLR(1)"),
+        tr("Resumen de items LR(0), cierre, goto y tabla de análisis"),
+        tr(R"(
+            <h3>Conceptos clave</h3>
+            <p><b>Ítems LR(0):</b> producciones con un punto que marca la posición actual del análisis.</p>
+            <p><b>Cierre(I):</b> si un ítem contiene <code>∙ B</code>, añade los ítems <code>B → ∙ γ</code> correspondientes y repite hasta estabilizar.</p>
+            <p><b>Goto(I, X):</b> desplaza el punto sobre <code>X</code> en todos los ítems válidos y calcula después su cierre.</p>
+            <h3>Tabla SLR(1)</h3>
+            <ul>
+              <li><b>Action[I, a] = s<sub>j</sub></b> si existe un ítem <code>A → α ∙ a β</code> y <code>Goto(I, a) = j</code>.</li>
+              <li><b>Action[I, a] = r<sub>k</sub></b> si existe un ítem completo <code>A → α ∙</code> y <code>a ∈ SIG(A)</code>.</li>
+              <li><b>Action[I, $] = acc</b> cuando el estado contiene la situación de aceptación.</li>
+              <li><b>Goto[I, A] = J</b> para transiciones con no terminales.</li>
+            </ul>
+            <h3>Conflictos</h3>
+            <p>Un estado presenta conflicto cuando no puede elegirse una única acción válida, por ejemplo entre <i>shift</i> y <i>reduce</i> o entre dos reducciones distintas.</p>
+        )"));
 }
 
 #include <QProcess>
+
+namespace {
+void relaunchApplication() {
+#if defined(Q_OS_LINUX)
+    // Inside an AppImage applicationFilePath() points into the FUSE mount,
+    // which disappears when this process exits; relaunch the AppImage itself.
+    const QString appImage = qEnvironmentVariable("APPIMAGE");
+    if (!appImage.isEmpty()) {
+        QProcess::startDetached(appImage, QStringList());
+        return;
+    }
+#elif defined(Q_OS_MACOS)
+    // Relaunch the .app bundle instead of the inner binary.
+    const QString binaryDir = QCoreApplication::applicationDirPath();
+    const QString bundleSuffix = QStringLiteral(".app/Contents/MacOS");
+    if (binaryDir.endsWith(bundleSuffix)) {
+        const QString bundlePath =
+            binaryDir.left(binaryDir.size() - bundleSuffix.size() +
+                           QStringLiteral(".app").size());
+        QProcess::startDetached(QStringLiteral("open"),
+                                {QStringLiteral("-n"), bundlePath});
+        return;
+    }
+#endif
+    QProcess::startDetached(QCoreApplication::applicationFilePath(),
+                            QStringList());
+}
+} // namespace
+
 void MainWindow::on_idiom_clicked() {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle(tr("Idioma"));
-    msgBox.setText(tr("Selecciona el idioma de la aplicación:"));
-    QPushButton* btnEs =
-        msgBox.addButton(tr("Español"), QMessageBox::AcceptRole);
-    btnEs->setObjectName("btnEs");
-    QPushButton* btnEn =
-        msgBox.addButton(tr("Inglés"), QMessageBox::AcceptRole);
-    btnEn->setObjectName("btnEn");
-    QPushButton* btnCanc =
-        msgBox.addButton(tr("Cancelar"), QMessageBox::RejectRole);
-    btnCanc->setObjectName("btnCanc");
-    msgBox.setStyleSheet(R"(
-        QMessageBox {
-            background-color: #1F1F1F;
-            color: #EEEEEE;
-            font-family: 'Noto Sans';
-            font-size: 13px;
-            border: 1px solid #444444;
-            border-radius: 4px;
-        }
-        QMessageBox QLabel {
-            color: #EEEEEE;
-        }
-
-        QPushButton#btnEs, QPushButton#btnEn {
-            background-color: #00ADB5;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Noto Sans';
-        }
-        QPushButton#btnEs:hover, QPushButton#btnEn:hover {
-            background-color: #00CED1;
-        }
-        QPushButton#btnEs:pressed, QPushButton#btnEn:pressed {
-            background-color: #007F86;
-        }
-
-        QPushButton#btnCanc {
-            background-color: #D9534F;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Noto Sans';
-        }
-        QPushButton#btnCanc:hover {
-            background-color: #E14E50;
-        }
-        QPushButton#btnCanc:pressed {
-            background-color: #C12E2A;
-        }
-    )");
-    msgBox.exec();
-
     QString selectedLang;
 
-    if (msgBox.clickedButton() == btnEs) {
+    QDialog dialog(this);
+    dialog.setObjectName("infoDialog");
+    dialog.setWindowTitle(tr("Idioma"));
+    dialog.setModal(true);
+    // Only the width is chosen; the height follows the wrapped text.
+    dialog.resize(AppTypography::lengthForText(420), 0);
+    AppLayout::keepHeightForWidth(&dialog);
+
+    auto* layout = new QVBoxLayout(&dialog);
+    layout->setSpacing(14);
+    layout->setContentsMargins(24, 22, 24, 18);
+
+    auto* eyebrow = new QLabel(tr("Idioma"), &dialog);
+    eyebrow->setObjectName("infoDialogEyebrow");
+
+    auto* title = new QLabel(tr("Selecciona el idioma de la aplicación"), &dialog);
+    title->setObjectName("infoDialogTitle");
+    title->setWordWrap(true);
+
+    auto* subtitle = new QLabel(
+        tr("El cambio se aplicará al reiniciar la aplicación."), &dialog);
+    subtitle->setObjectName("infoDialogSubtitle");
+    subtitle->setWordWrap(true);
+
+    auto* buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setSpacing(10);
+
+    auto* btnEs = new QPushButton(tr("Español"), &dialog);
+    btnEs->setObjectName("languageSpanishButton");
+    btnEs->setCursor(Qt::PointingHandCursor);
+    btnEs->setProperty("role", "primary");
+
+    auto* btnEn = new QPushButton(tr("Inglés"), &dialog);
+    btnEn->setObjectName("languageEnglishButton");
+    btnEn->setCursor(Qt::PointingHandCursor);
+    btnEn->setProperty("role", "primary");
+
+    auto* btnCanc = new QPushButton(tr("Cancelar"), &dialog);
+    btnCanc->setObjectName("languageCancelButton");
+    btnCanc->setCursor(Qt::PointingHandCursor);
+    btnCanc->setProperty("role", "danger");
+
+    connect(btnEs, &QPushButton::clicked, &dialog, [&dialog, &selectedLang]() {
         selectedLang = "es";
-    } else if (msgBox.clickedButton() == btnEn) {
+        dialog.accept();
+    });
+    connect(btnEn, &QPushButton::clicked, &dialog, [&dialog, &selectedLang]() {
         selectedLang = "en";
-    } else {
+        dialog.accept();
+    });
+    connect(btnCanc, &QPushButton::clicked, &dialog, &QDialog::reject);
+
+    buttonsLayout->addWidget(btnEs);
+    buttonsLayout->addWidget(btnEn);
+    buttonsLayout->addStretch();
+    buttonsLayout->addWidget(btnCanc);
+
+    layout->addWidget(eyebrow);
+    layout->addWidget(title);
+    layout->addWidget(subtitle);
+    layout->addSpacing(6);
+    layout->addLayout(buttonsLayout);
+
+    if (dialog.exec() != QDialog::Accepted || selectedLang.isEmpty()) {
         return;
     }
 
-    QSettings settings("UMA", "SyntaxTutor");
-    QString   currentLang = settings.value("lang/language", "es").toString();
+    QString currentLang = settings.value("lang/language", "es").toString();
 
     if (selectedLang != currentLang) {
         settings.setValue("lang/language", selectedLang);
@@ -730,37 +1160,11 @@ void MainWindow::on_idiom_clicked() {
         info.setText(tr("Para aplicar el cambio de idioma, es necesario "
                         "reiniciar la aplicación."));
         info.setStandardButtons(QMessageBox::Ok);
-        info.setStyleSheet(R"(
-            QMessageBox {
-                background-color: #1F1F1F;
-                color: #EEEEEE;
-                font-family: 'Noto Sans';
-                font-size: 15px;
-                border: 1px solid #444444;
-                border-radius: 4px;
-            }
-            QMessageBox QLabel {
-                color: #EEEEEE;
-            }
-            QMessageBox QPushButton {
-                background-color: #00ADB5;
-                color: white;
-                border: none;
-                padding: 6px 14px;
-                border-radius: 4px;
-                font-weight: bold;
-                font-family: 'Noto Sans';
-            }
-            QMessageBox QPushButton:hover {
-                background-color: #00CED1;
-            }
-            QMessageBox QPushButton:pressed {
-                background-color: #007F86;
-            }
-        )");
         info.exec();
 
+#ifndef SYNTAXTUTOR_TESTING
         qApp->quit();
-        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+        relaunchApplication();
+#endif
     }
 }

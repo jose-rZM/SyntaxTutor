@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['st_5f_0',['st_',['../structGrammar.html#aa78dffbcc2b215a3184e588cbb272097',1,'Grammar::st_'],['../structGrammarFactory_1_1FactoryItem.html#a81f9c40d0e12aed4e8dec48750b94d5e',1,'GrammarFactory::FactoryItem::st_'],['../structSymbolTable.html#a53cb720edec40638f422b1003bd1d461',1,'SymbolTable::st_']]],
-  ['states_5f_1',['states_',['../classSLR1Parser.html#ad86b57d534785a9863b925619b7e8a12',1,'SLR1Parser']]]
+  ['marker_0',['marker',['../struct_grammar_view_1_1_row.html#a10f5cf3957fd3c6254ca6337e9f186a1',1,'GrammarView::Row']]],
+  ['meta_5fsymbols_5f_1',['meta_symbols_',['../struct_symbol_table.html#af55c84add9a4a35301b5b941b28539a3',1,'SymbolTable']]]
 ];

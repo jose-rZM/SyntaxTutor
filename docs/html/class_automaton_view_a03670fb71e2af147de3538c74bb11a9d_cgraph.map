@@ -1,0 +1,5 @@
+<map id="AutomatonView::revealAll" name="AutomatonView::revealAll">
+<area shape="rect" id="Node000001" title="Reveals every state and transition (consultation mode)." alt="" coords="5,5,177,31"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a7487c772b8821876779a0ad73e71c4c0" title="Fits all revealed content within the viewport." alt="" coords="225,5,400,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,16,212,18,206,18,177,21"/>
+</map>

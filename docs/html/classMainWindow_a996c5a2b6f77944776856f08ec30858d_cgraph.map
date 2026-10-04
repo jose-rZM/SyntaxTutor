@@ -1,8 +1,0 @@
-<map id="MainWindow::MainWindow" name="MainWindow::MainWindow">
-<area shape="rect" id="Node000001" title="Constructs the main window." alt="" coords="5,32,203,60"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="59,33,52,23,58,13,75,7,104,5,135,8,151,14,149,19,134,13,104,11,76,13,61,18,57,23,64,30"/>
-<area shape="rect" id="Node000002" href="$classMainWindow.html#abed50644ed307d4ab90a27bd13b30fcf" title="Emitted when the user&#39;s level changes." alt="" coords="251,5,484,33"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="203,33,235,30,235,35,203,38"/>
-<area shape="rect" id="Node000003" href="$classMainWindow.html#a86775822330a07b3884915eb88833954" title="Emitted when the user levels up." alt="" coords="270,57,464,85"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="203,53,255,58,255,63,203,58"/>
-</map>

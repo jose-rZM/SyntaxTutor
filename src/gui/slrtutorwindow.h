@@ -20,7 +20,11 @@
 #define SLRTUTORWINDOW_H
 
 #include "UniqueQueue.h"
+#include "automatonview.h"
+#include "automatonviewerdialog.h"
+#include "examsession.h"
 #include "grammar.hpp"
+#include "grammarview.h"
 #include "slr1_parser.hpp"
 #include "slrtabledialog.h"
 #include <QAbstractItemView>
@@ -28,7 +32,6 @@
 #include <QFileDialog>
 #include <QGraphicsColorizeEffect>
 #include <QListWidgetItem>
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QPropertyAnimation>
 #include <QPushButton>
@@ -41,6 +44,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtPrintSupport/QPrinter>
 
 namespace Ui {
@@ -91,19 +95,31 @@ class TutorialManager;
  * The tutor follows a finite-state flow (`StateSlr`) to structure learning,
  * with corrective explanations and automatic evaluation at each step.
  */
-class SLRTutorWindow : public QMainWindow {
+class SLRTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
+    /**
+     * @brief Re-applies the current text size to this tutor.
+     *
+     * The chat bubbles size themselves from font metrics and the grammar
+     * panel from the card's width, so both have to be recomputed when the
+     * user picks a different text size.
+     */
+    void applyTextScale();
+
     // ====== Constructor / Destructor =============================
     /**
      * @brief Constructs the SLR(1) tutor window with a given grammar.
      * @param g The grammar used for the session.
      * @param tm Optional pointer to the tutorial manager (for guided tour).
      * @param parent Parent widget.
+     * @param examMode When true, all feedback is suppressed: answers are
+     * recorded silently, error sub-questions never trigger, and a graded
+     * report is shown at the end.
      */
     explicit SLRTutorWindow(const Grammar& g, TutorialManager* tm = nullptr,
-                            QWidget* parent = nullptr);
+                            QWidget* parent = nullptr, bool examMode = false);
     ~SLRTutorWindow();
 
     // ====== Core Flow Control =====================================
@@ -120,10 +136,13 @@ class SLRTutorWindow : public QMainWindow {
     void updateState(bool isCorrect);
     QString
     FormatGrammar(const Grammar& grammar); /// < Utility for displaying grammar
+    QVector<GrammarView::Row> buildGrammarRows(const Grammar& grammar) const;
     void fillSortedGrammar(); /// < Prepares grammar in display-friendly format
 
     // ====== UI Interaction ========================================
     void addMessage(const QString& text, bool isUser); /// < Add message to chat
+    void addGrammarMessage();
+    void addWidgetMessage(QWidget* widget);
     void exportConversationToPdf(
         const QString& filePath); /// < Export full interaction
     void showTable();             /// < Render SLR(1) table
@@ -183,6 +202,24 @@ class SLRTutorWindow : public QMainWindow {
     QMap<unsigned, unsigned>    solutionForE2();
     QSet<unsigned>              solutionForF();
     QSet<QString>               solutionForFA();
+
+    /**
+     * @brief Whether @p item reduces: complete, and not the axiom's.
+     *
+     * The backend counts S -> A · $ as complete because that is where the
+     * input is accepted, but accepting is not a reduction.
+     */
+    bool isReduction(const Lr0Item& item) const;
+
+    /// @brief Columns of the SLR(1) table: terminals, $, non-terminals.
+    QStringList tableColumns();
+
+    /// @brief The correct content of a table cell, as the student writes it
+    /// (sN, rN, acc, or a state number for a non-terminal).
+    QString solutionCell(unsigned stateId, const QString& symbol);
+
+    /// @brief The grammar's initial item, e.g. "S -> · A $".
+    QString initialItemText() const;
     QSet<QString>               solutionForG();
 
     // ====== Pedagogical Feedback ==================================
@@ -216,12 +253,67 @@ class SLRTutorWindow : public QMainWindow {
                           std::unordered_set<std::string>& visited, int depth,
                           QString& output);
     QString TeachClosure(const std::unordered_set<Lr0Item>& initialItems);
+    void    updatePlaceholder();
+    bool    confirmExitToHome();
+    QString promptExportFilePath() const;
+
+    // ====== LR(0) Automaton Viewer ================================
+    /**
+     * @brief Builds the (hidden) automaton view and prepares the button.
+     *
+     * Does nothing in exam mode: the automaton would reveal the collection.
+     * The view is not embedded in the main layout; it lives in a separate
+     * floating viewer opened on demand.
+     */
+    void setupAutomatonPanel();
+
+    /**
+     * @brief Syncs the automaton view with the current tutor state.
+     *
+     * Highlights the state under analysis during the C/CA/CB loop, switches
+     * to full consultation mode from D onwards, and marks conflict (F/FA)
+     * and reduce (G) states. Updates apply whether or not the viewer is open.
+     */
+    void updateAutomatonPanel();
+
+    /**
+     * @brief Opens the floating automaton viewer, or raises it if already
+     * open.
+     */
+    void openAutomatonViewer();
+
+    /**
+     * @brief Enables the viewer button once at least one state (I0) exists.
+     */
+    void updateAutomatonButton();
+
+    // ====== Exam Mode =============================================
+    void    postQuestion();     ///< Shows and remembers the next question.
+    QString examSolutionText(); ///< Expected answer for the current state.
+    void    scoreExamTable(
+           const QStringList& colHeaders); ///< Grades the SLR table per cell.
+    void showExamReport();                 ///< Opens the end-of-exam report.
+#ifdef SYNTAXTUTOR_TESTING
+  public:
+    QString  currentStateForTest() const;
+    int      rightCountForTest() const;
+    int      wrongCountForTest() const;
+    void     setAnswerForTest(const QString& text);
+    void     submitForTest();
+    unsigned currentStateIdForTest() const;
+    QString  currentCbSymbolForTest() const;
+    void     setNextExportFilePathForTest(const QString& filePath);
+    double   examGradeForTest() const { return examSession.grade(); }
+    int      examTotalForTest() const { return examSession.total(); }
+    int      examRightForTest() const { return examSession.right(); }
+#endif
   private slots:
+    void on_backButton_clicked();
     void on_confirmButton_clicked();
-    void on_userResponse_textChanged();
 
   signals:
     void sessionFinished(int cntRight, int cntWrong);
+    void exitRequested(bool applyResults, int cntRight, int cntWrong);
 
   protected:
     void closeEvent(QCloseEvent* event) override {
@@ -229,7 +321,11 @@ class SLRTutorWindow : public QMainWindow {
         QWidget::closeEvent(event);
     }
 
+    bool eventFilter(QObject* obj, QEvent* event) override;
+
   private:
+    void relayoutChatMessages();
+
     // ====== Helper Functions ======================================
     std::vector<std::string> qvectorToStdVector(const QVector<QString>& qvec);
     QVector<QString> stdVectorToQVector(const std::vector<std::string>& vec);
@@ -241,6 +337,7 @@ class SLRTutorWindow : public QMainWindow {
     std::vector<std::pair<std::string, std::vector<std::string>>>
          ingestUserRules(const QString& userResponse);
     void setupTutorial();
+    void requestExit(bool applyResults);
     // ====== Core Components ========================================
     Ui::SLRTutorWindow* ui;
     Grammar             grammar;
@@ -251,9 +348,15 @@ class SLRTutorWindow : public QMainWindow {
     QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString                                   formattedGrammar;
+    GrammarView*                              grammarView = nullptr;
 
     unsigned cntRightAnswers = 0;
     unsigned cntWrongAnswers = 0;
+
+    // ====== Exam Mode ==============================================
+    bool        examMode = false;
+    ExamSession examSession;
+    QString     currentQuestionText;
 
     // ====== State Machine Runtime Variables ========================
     std::unordered_set<state> userMadeStates; // All states the user has created
@@ -271,6 +374,11 @@ class SLRTutorWindow : public QMainWindow {
     QVector<const state*> statesWithLr0Conflict; // Populated in F
     std::queue<unsigned>  conflictStatesIdQueue;
     unsigned              currentConflictStateId = 0;
+
+    // ====== LR(0) Automaton Viewer =================================
+    AutomatonView*         automatonView   = nullptr; // null in exam mode
+    AutomatonViewerDialog* automatonViewer = nullptr; // null when closed
+    QSet<unsigned>         reduceStateIds;            // States highlighted in G
     state                 currentConflictState;
 
     std::queue<unsigned>
@@ -311,6 +419,10 @@ class SLRTutorWindow : public QMainWindow {
                  // key
 
     TutorialManager* tm;
+
+#ifdef SYNTAXTUTOR_TESTING
+    mutable QString nextExportFilePathForTest;
+#endif
 
     QRegularExpression       re{"^\\s+|\\s+$"};
     const QRegularExpression kWhitespace{"\\s+"};

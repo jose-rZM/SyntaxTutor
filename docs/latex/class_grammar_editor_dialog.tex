@@ -1,0 +1,142 @@
+\doxysection{Grammar\+Editor\+Dialog Class Reference}
+\label{class_grammar_editor_dialog}\index{GrammarEditorDialog@{GrammarEditorDialog}}
+
+
+Dialog where the user writes their own grammar for an exercise.  
+
+
+
+
+{\ttfamily \+\#include $<$grammareditordialog.\+h$>$}
+
+
+
+Inheritance diagram for Grammar\+Editor\+Dialog:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{class_grammar_editor_dialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Grammar\+Editor\+Dialog:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{class_grammar_editor_dialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638}{Mode}} \{ \doxymbox{\hyperlink{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638afa0255747d8957b48ad8388c26b6db4b}{LL1}}
+, \doxymbox{\hyperlink{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638a5c4047cec7ca56692cd277ec59606704}{SLR1}}
+ \}
+\begin{DoxyCompactList}\small\item\em Exercise the grammar is being written for. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_grammar_editor_dialog_a5d7cbecc4f7a19e02b00943c1f69ba67}{Grammar\+Editor\+Dialog}} (\doxymbox{\hyperlink{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638}{Mode}} mode, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the editor for the given exercise kind. \end{DoxyCompactList}\item 
+const \doxymbox{\hyperlink{struct_grammar}{Grammar}} \& \doxymbox{\hyperlink{class_grammar_editor_dialog_aa4456d1a48292b920b4ddf635e5cb44f}{grammar}} () const
+\begin{DoxyCompactList}\small\item\em Returns the validated, augmented grammar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_grammar_editor_dialog_a69f1b5701d1a93cfec6ebc028ff68aac}{accept}} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Dialog where the user writes their own grammar for an exercise. 
+
+The user types rules in the {\ttfamily LHS -\/\texorpdfstring{$>$}{>} SYMBOL ... .} format. The text is parsed and validated live: format errors are reported with line numbers, the detected axiom / non-\/terminals / terminals are summarized, and the grammar is checked to be LL(1) or SLR(1) depending on the exercise the dialog was opened for. The last accepted grammar is persisted through QSettings so it can be practiced again. 
+
+\label{class_grammar_editor_dialog_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!Mode@{Mode}}
+\index{Mode@{Mode}!GrammarEditorDialog@{GrammarEditorDialog}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638} 
+enum class \doxymbox{\hyperlink{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638}{Grammar\+Editor\+Dialog::\+\+Mode}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Exercise the grammar is being written for. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LL1@{LL1}!GrammarEditorDialog@{GrammarEditorDialog}}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!LL1@{LL1}}
+}\label{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638afa0255747d8957b48ad8388c26b6db4b} 
+LL1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SLR1@{SLR1}!GrammarEditorDialog@{GrammarEditorDialog}}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!SLR1@{SLR1}}
+}\label{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638a5c4047cec7ca56692cd277ec59606704} 
+SLR1&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{class_grammar_editor_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!GrammarEditorDialog@{GrammarEditorDialog}}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!GrammarEditorDialog@{GrammarEditorDialog}}
+\doxysubsubsection{\texorpdfstring{GrammarEditorDialog()}{GrammarEditorDialog()}}
+{\footnotesize\ttfamily \label{class_grammar_editor_dialog_a5d7cbecc4f7a19e02b00943c1f69ba67} 
+Grammar\+Editor\+Dialog::\+\+Grammar\+Editor\+Dialog (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_grammar_editor_dialog_a5f5c5fb397b477babae41bb758139638}{Mode}}}]{mode}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs the editor for the given exercise kind. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & Exercise the grammar must be valid for. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{class_grammar_editor_dialog_a5d7cbecc4f7a19e02b00943c1f69ba67_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_grammar_editor_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!accept@{accept}}
+\index{accept@{accept}!GrammarEditorDialog@{GrammarEditorDialog}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \label{class_grammar_editor_dialog_a69f1b5701d1a93cfec6ebc028ff68aac} 
+void Grammar\+Editor\+Dialog::\+accept (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{class_grammar_editor_dialog_a69f1b5701d1a93cfec6ebc028ff68aac_cgraph}
+\end{center}
+\end{figure}
+\index{GrammarEditorDialog@{GrammarEditorDialog}!grammar@{grammar}}
+\index{grammar@{grammar}!GrammarEditorDialog@{GrammarEditorDialog}}
+\doxysubsubsection{\texorpdfstring{grammar()}{grammar()}}
+{\footnotesize\ttfamily \label{class_grammar_editor_dialog_aa4456d1a48292b920b4ddf635e5cb44f} 
+const \doxymbox{\hyperlink{struct_grammar}{Grammar}} \& Grammar\+Editor\+Dialog::\+grammar (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the validated, augmented grammar. 
+
+Only meaningful after the dialog was accepted. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{grammareditordialog_8h}{grammareditordialog.\+h}}\item 
+gui/\doxymbox{\hyperlink{grammareditordialog_8cpp}{grammareditordialog.\+cpp}}\end{DoxyCompactItemize}

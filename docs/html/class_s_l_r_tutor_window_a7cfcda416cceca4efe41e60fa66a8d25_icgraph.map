@@ -1,0 +1,5 @@
+<map id="SLRTutorWindow::openAutomatonViewer" name="SLRTutorWindow::openAutomatonViewer">
+<area shape="rect" id="Node000001" title="Opens the floating automaton viewer, or raises it if already open." alt="" coords="239,5,462,46"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="5,5,191,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,26,191,28,191,23,226,25"/>
+</map>

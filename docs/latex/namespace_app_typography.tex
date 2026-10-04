@@ -1,0 +1,434 @@
+\doxysection{App\+Typography Namespace Reference}
+\label{namespace_app_typography}\index{AppTypography@{AppTypography}}
+
+
+The application\textquotesingle{}s type scale: every text size on screen, in points.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_app_typography_1_1_token}{Token}}
+\begin{DoxyCompactList}\small\item\em One entry of the type scale. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} \{ \newline
+\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eadb1ce45d604c6b1d54c31dbc69bcdb56}{Micro}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea272ba7d164aa836995be6319a698be84}{Caption}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab021df6aac4654c454f46c77646e745f}{Label}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eaac101b32dda4448cf13a93fe283dddd8}{Body}}
+, \newline
+\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea04b0bee056bf3d988f87c912972bc7a5}{Body\+Large}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea26fccddf2f94b1685b184267996e10f8}{Reading}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea004bf6c9a40003140292e97330236c53}{Action}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eac6568e77f61109390e82d035aaacaef0}{Headline}}
+, \newline
+\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea2cf6efa33d5485440c882c5237cc87fc}{Title\+Small}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab78a3223503896721cca1303f776159b}{Title}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eae0a67c8c63f8f7362917abef6ca24c6b}{Hero}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab9987a246a537f4fe86f1f2e3d10dbdb}{Display}}
+ \}
+\begin{DoxyCompactList}\small\item\em What a piece of text is for, which fixes its size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+qreal \doxymbox{\hyperlink{namespace_app_typography_ac3c097af33e9a619a4c8a41671d5db5d}{base\+Points}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role)
+\begin{DoxyCompactList}\small\item\em Size of {\ttfamily role} at a 100\% text scale, in points. \end{DoxyCompactList}\item 
+qreal \doxymbox{\hyperlink{namespace_app_typography_ad9e0d7a05805bae97441da9cf8ae4126}{points}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role)
+\begin{DoxyCompactList}\small\item\em Size of {\ttfamily role} at the current text scale, in points. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a7ce516481a973e7af6b68624d18afb63}{format\+Points}} (qreal points)
+\begin{DoxyCompactList}\small\item\em A point size written the way CSS and QSS expect it, e.\+g. {\ttfamily 14.\+5pt}. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a5c2b3c26731613ad2991e00358243bfb}{css\+Size}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role)
+\begin{DoxyCompactList}\small\item\em Current size of {\ttfamily role} as a CSS length, for rich text and QSS. \end{DoxyCompactList}\item 
+QFont \& \doxymbox{\hyperlink{namespace_app_typography_a3e1e1aadfe8ff398aa60cb25503d2067}{system\+Font}} ()
+\begin{DoxyCompactList}\small\item\em The system font as it was before the app touched it. \end{DoxyCompactList}\item 
+QFont \doxymbox{\hyperlink{namespace_app_typography_a85c0c1a4f8e63c7429d2dbcec311cc71}{application\+Font}} ()
+\begin{DoxyCompactList}\small\item\em The application font: the system family at the body size. \end{DoxyCompactList}\item 
+QFont \doxymbox{\hyperlink{namespace_app_typography_a1d8837f59d9e412638b5a27be675c948}{font}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role, QFont base=QGui\+Application::\+font())
+\begin{DoxyCompactList}\small\item\em {\ttfamily base} resized to {\ttfamily role}, keeping its family and style. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a8ced112c8886506a81b4028ab9c3df37}{resolve\+Style\+Sheet}} (const QString \&style\+Sheet, QString\+List \texorpdfstring{$\ast$}{*}unresolved=nullptr)
+\begin{DoxyCompactList}\small\item\em Replaces every {\ttfamily \$font-\/\texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}} in {\ttfamily style\+Sheet} with its size. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a10a1ec42f188b8015dce05b9d8554aab}{load\+Style\+Sheet}} ()
+\begin{DoxyCompactList}\small\item\em The application style sheet with its sizes resolved. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{namespace_app_typography_aab34468dfba2dbcb811652547ecfaf89}{length\+For\+Text}} (int design\+Px)
+\begin{DoxyCompactList}\small\item\em A length that has to hold text, grown to how big text renders here. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \doxymbox{\hyperlink{struct_app_typography_1_1_token}{Token}} \doxymbox{\hyperlink{namespace_app_typography_a483383433be4ee5483bcd21c0f8023b8}{k\+Tokens}} \+[$\,$]
+\begin{DoxyCompactList}\small\item\em The type scale. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The application\textquotesingle{}s type scale: every text size on screen, in points. 
+
+Fonts are sized in points so Qt can map them to each platform\textquotesingle{}s logical DPI; nothing here reads the DPI or the device pixel ratio. The user\textquotesingle{}s text size preference (\doxylink{namespace_app_text_scale}{App\+Text\+Scale}) is a plain multiplier on top.
+
+{\ttfamily app.\+qss} never spells a size out. It names a role, as in {\ttfamily font-\/size: \$font-\/body;}, and \doxylink{namespace_app_typography_a8ced112c8886506a81b4028ab9c3df37}{resolve\+Style\+Sheet} substitutes the scaled value when the sheet is loaded. C++ code asks for the same roles through \doxylink{namespace_app_typography_a1d8837f59d9e412638b5a27be675c948}{font} or \doxylink{namespace_app_typography_a5c2b3c26731613ad2991e00358243bfb}{css\+Size}, so both channels share one table.
+
+Paper is a separate domain: the PDF exports keep their own {\ttfamily pt} sizes and never follow the screen preference. 
+
+\label{namespace_app_typography_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\index{AppTypography@{AppTypography}!Role@{Role}}
+\index{Role@{Role}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{Role}{Role}}
+{\footnotesize\ttfamily \label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e} 
+enum class \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{App\+Typography::\+\+Role}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+What a piece of text is for, which fixes its size. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Micro@{Micro}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Micro@{Micro}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eadb1ce45d604c6b1d54c31dbc69bcdb56} 
+Micro&Automaton edge labels. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Caption@{Caption}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Caption@{Caption}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea272ba7d164aa836995be6319a698be84} 
+Caption&Uppercase captions and the progress panel. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Label@{Label}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Label@{Label}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab021df6aac4654c454f46c77646e745f} 
+Label&Eyebrows, badges, small buttons and hints. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Body@{Body}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Body@{Body}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eaac101b32dda4448cf13a93fe283dddd8} 
+Body&Default UI text: chat, tables, dialog buttons. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BodyLarge@{BodyLarge}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!BodyLarge@{BodyLarge}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea04b0bee056bf3d988f87c912972bc7a5} 
+Body\+Large&Primary buttons and subtitles. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Reading@{Reading}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Reading@{Reading}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea26fccddf2f94b1685b184267996e10f8} 
+Reading&Main reading size: answers, hints, grammar, home options. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Action@{Action}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Action@{Action}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea004bf6c9a40003140292e97330236c53} 
+Action&The large actions on the home page. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Headline@{Headline}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Headline@{Headline}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eac6568e77f61109390e82d035aaacaef0} 
+Headline&Transient celebration text. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TitleSmall@{TitleSmall}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!TitleSmall@{TitleSmall}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea2cf6efa33d5485440c882c5237cc87fc} 
+Title\+Small&Titles of the small information dialogs. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Title@{Title}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Title@{Title}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab78a3223503896721cca1303f776159b} 
+Title&Titles of the large dialogs. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Hero@{Hero}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Hero@{Hero}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eae0a67c8c63f8f7362917abef6ca24c6b} 
+Hero&The home page title. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Display@{Display}!AppTypography@{AppTypography}}
+\index{AppTypography@{AppTypography}!Display@{Display}}
+}\label{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab9987a246a537f4fe86f1f2e3d10dbdb} 
+Display&The exam grade. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{namespace_app_typography_doc-func-members}
+\doxysubsection{Function Documentation}
+\index{AppTypography@{AppTypography}!applicationFont@{applicationFont}}
+\index{applicationFont@{applicationFont}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{applicationFont()}{applicationFont()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a85c0c1a4f8e63c7429d2dbcec311cc71} 
+QFont App\+Typography::\+application\+Font (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The application font: the system family at the body size. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a85c0c1a4f8e63c7429d2dbcec311cc71_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{namespace_app_typography_a85c0c1a4f8e63c7429d2dbcec311cc71_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!basePoints@{basePoints}}
+\index{basePoints@{basePoints}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{basePoints()}{basePoints()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_ac3c097af33e9a619a4c8a41671d5db5d} 
+qreal App\+Typography::\+base\+Points (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}}}]{role}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Size of {\ttfamily role} at a 100\% text scale, in points. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{namespace_app_typography_ac3c097af33e9a619a4c8a41671d5db5d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_ac3c097af33e9a619a4c8a41671d5db5d_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!cssSize@{cssSize}}
+\index{cssSize@{cssSize}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{cssSize()}{cssSize()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a5c2b3c26731613ad2991e00358243bfb} 
+QString App\+Typography::\+css\+Size (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}}}]{role}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Current size of {\ttfamily role} as a CSS length, for rich text and QSS. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a5c2b3c26731613ad2991e00358243bfb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a5c2b3c26731613ad2991e00358243bfb_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!font@{font}}
+\index{font@{font}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{font()}{font()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a1d8837f59d9e412638b5a27be675c948} 
+QFont App\+Typography::\+font (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}}}]{role}{, }\item[{QFont}]{base}{ = {\ttfamily QGuiApplication::font()}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+{\ttfamily base} resized to {\ttfamily role}, keeping its family and style. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a1d8837f59d9e412638b5a27be675c948_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a1d8837f59d9e412638b5a27be675c948_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!formatPoints@{formatPoints}}
+\index{formatPoints@{formatPoints}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{formatPoints()}{formatPoints()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a7ce516481a973e7af6b68624d18afb63} 
+QString App\+Typography::\+format\+Points (\begin{DoxyParamCaption}\item[{qreal}]{points}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A point size written the way CSS and QSS expect it, e.\+g. {\ttfamily 14.\+5pt}. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a7ce516481a973e7af6b68624d18afb63_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a7ce516481a973e7af6b68624d18afb63_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!lengthForText@{lengthForText}}
+\index{lengthForText@{lengthForText}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{lengthForText()}{lengthForText()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_aab34468dfba2dbcb811652547ecfaf89} 
+int App\+Typography::\+length\+For\+Text (\begin{DoxyParamCaption}\item[{int}]{design\+Px}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A length that has to hold text, grown to how big text renders here. 
+
+{\ttfamily design\+Px} is the length the layout was drawn with, when body text was \doxylink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eaac101b32dda4448cf13a93fe283dddd8}{Role::\+\+Body} points -\/ that is, as many pixels -\/ high. It grows in step with the body font as it actually renders, which covers both the user\textquotesingle{}s text scale and the platform\textquotesingle{}s point-\/to-\/pixel mapping. Use it for fixed or minimum sizes of things that contain text; leave decoration in plain logical pixels. Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_aab34468dfba2dbcb811652547ecfaf89_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_aab34468dfba2dbcb811652547ecfaf89_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!loadStyleSheet@{loadStyleSheet}}
+\index{loadStyleSheet@{loadStyleSheet}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{loadStyleSheet()}{loadStyleSheet()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a10a1ec42f188b8015dce05b9d8554aab} 
+QString App\+Typography::\+load\+Style\+Sheet (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The application style sheet with its sizes resolved. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a10a1ec42f188b8015dce05b9d8554aab_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a10a1ec42f188b8015dce05b9d8554aab_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!points@{points}}
+\index{points@{points}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{points()}{points()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_ad9e0d7a05805bae97441da9cf8ae4126} 
+qreal App\+Typography::\+points (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}}}]{role}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Size of {\ttfamily role} at the current text scale, in points. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_ad9e0d7a05805bae97441da9cf8ae4126_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_ad9e0d7a05805bae97441da9cf8ae4126_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!resolveStyleSheet@{resolveStyleSheet}}
+\index{resolveStyleSheet@{resolveStyleSheet}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{resolveStyleSheet()}{resolveStyleSheet()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a8ced112c8886506a81b4028ab9c3df37} 
+QString App\+Typography::\+resolve\+Style\+Sheet (\begin{DoxyParamCaption}\item[{const QString \&}]{style\+Sheet}{, }\item[{QString\+List \texorpdfstring{$\ast$}{*}}]{unresolved}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Replaces every {\ttfamily \$font-\/\texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}} in {\ttfamily style\+Sheet} with its size. 
+
+Names that are not in the type scale are left untouched, so Qt drops the declaration, and are reported through {\ttfamily unresolved} when given. Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a8ced112c8886506a81b4028ab9c3df37_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a8ced112c8886506a81b4028ab9c3df37_icgraph}
+\end{center}
+\end{figure}
+\index{AppTypography@{AppTypography}!systemFont@{systemFont}}
+\index{systemFont@{systemFont}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{systemFont()}{systemFont()}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a3e1e1aadfe8ff398aa60cb25503d2067} 
+QFont \& App\+Typography::\+system\+Font (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The system font as it was before the app touched it. 
+
+Captured once at startup. Only its family and rendering hints are used: the size always comes from the type scale. Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a3e1e1aadfe8ff398aa60cb25503d2067_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_typography_a3e1e1aadfe8ff398aa60cb25503d2067_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{namespace_app_typography_doc-var-members}
+\doxysubsection{Variable Documentation}
+\index{AppTypography@{AppTypography}!kTokens@{kTokens}}
+\index{kTokens@{kTokens}!AppTypography@{AppTypography}}
+\doxysubsubsection{\texorpdfstring{kTokens}{kTokens}}
+{\footnotesize\ttfamily \label{namespace_app_typography_a483383433be4ee5483bcd21c0f8023b8} 
+\doxymbox{\hyperlink{struct_app_typography_1_1_token}{Token}} App\+Typography::\+k\+Tokens\+[$\,$]\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{Role::Micro,\ QLatin1StringView(\textcolor{stringliteral}{"{}micro"{}}),\ 10.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Caption,\ QLatin1StringView(\textcolor{stringliteral}{"{}caption"{}}),\ 11.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Label,\ QLatin1StringView(\textcolor{stringliteral}{"{}label"{}}),\ 12.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Body,\ QLatin1StringView(\textcolor{stringliteral}{"{}body"{}}),\ 13.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::BodyLarge,\ QLatin1StringView(\textcolor{stringliteral}{"{}body-\/large"{}}),\ 14.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Reading,\ QLatin1StringView(\textcolor{stringliteral}{"{}reading"{}}),\ 15.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Action,\ QLatin1StringView(\textcolor{stringliteral}{"{}action"{}}),\ 16.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Headline,\ QLatin1StringView(\textcolor{stringliteral}{"{}headline"{}}),\ 20.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::TitleSmall,\ QLatin1StringView(\textcolor{stringliteral}{"{}title-\/small"{}}),\ 24.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Title,\ QLatin1StringView(\textcolor{stringliteral}{"{}title"{}}),\ 28.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Hero,\ QLatin1StringView(\textcolor{stringliteral}{"{}hero"{}}),\ 30.0\},}
+\DoxyCodeLine{\ \ \ \ \{Role::Display,\ QLatin1StringView(\textcolor{stringliteral}{"{}display"{}}),\ 56.0\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The type scale. 
+
+The values reproduce the original pixel design exactly on mac\+OS, the platform it was drawn on, where one point and one logical pixel coincide. Other platforms get the same physical size instead of the same pixel count. 

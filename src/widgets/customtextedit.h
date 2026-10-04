@@ -21,16 +21,54 @@
 
 #include <QTextEdit>
 
+class QPropertyAnimation;
+
 class CustomTextEdit : public QTextEdit {
     Q_OBJECT
+    Q_PROPERTY(int growHeight READ growHeight WRITE setGrowHeight)
   public:
     explicit CustomTextEdit(QWidget* parent = nullptr);
+
+    /// User-visible name of the newline shortcut for the current platform.
+    static QString newlineShortcutText();
+
+    /**
+     * @brief Makes the height follow the content, animated, between
+     * @p minLines and @p maxLines lines of text. Content beyond that scrolls.
+     *
+     * The bounds are measured from the widget's own font and style, so they
+     * stay right at any text size and on any platform.
+     */
+    void setAutoGrowLines(int minLines, int maxLines);
+
+    /// @brief Height of the box when it holds its minimum number of lines.
+    int minimumGrowHeight() const { return minGrowHeight_; }
 
   signals:
     void sendRequested();
 
+    /// @brief The height for the minimum number of lines has changed.
+    void minimumGrowHeightChanged(int height);
+
   protected:
+    void showEvent(QShowEvent* event) override;
+    void changeEvent(QEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
+
+  private:
+    int  growHeight() const;
+    void setGrowHeight(int height);
+    void updateGrowHeight();
+    void refreshGrowBounds();
+    int  heightForLines(int lines) const;
+
+    /// @brief Cached frame + padding, sampled only when geometry is settled.
+    int                 chrome_        = 0;
+    int                 minGrowLines_  = 0;
+    int                 maxGrowLines_  = 0;
+    int                 minGrowHeight_ = 0;
+    int                 maxGrowHeight_ = 0;
+    QPropertyAnimation* growAnimation_ = nullptr;
 };
 
 #endif // CUSTOMTEXTEDIT_H

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📚_20documentation_0',['📚 Documentation',['../index.html#autotoc_md18',1,'']]]
+  ['🎯_20key_20features_0',['🎯 Key Features',['../index.html#autotoc_md4',1,'']]]
 ];

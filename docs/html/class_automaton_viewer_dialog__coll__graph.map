@@ -1,0 +1,5 @@
+<map id="AutomatonViewerDialog" name="AutomatonViewerDialog">
+<area shape="rect" id="Node000001" title="Non&#45;modal floating window that hosts the LR(0) automaton view." alt="" coords="5,79,167,105"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="52,5,120,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,45,88,79,84,78,84,48"/>
+</map>

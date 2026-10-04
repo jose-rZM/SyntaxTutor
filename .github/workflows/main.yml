@@ -9,123 +9,28 @@ on:
       - '**/*.cpp'
       - '**/*.hpp'
       - '**/*.h'
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build-macos-intel:
-    runs-on: macos-15-intel
-
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-
-      - name: Install dbus
-        run: |
-          brew update
-          brew install dbus
-
-      - name: Install Qt6
-        run: |
-          brew install qt@6
-          echo "$(brew --prefix qt@6)/bin" >> $GITHUB_PATH
-
-      - name: Build for Intel (x86_64)
-        run: |
-          qmake6 -r -config release "QT+=dbus" "QMAKE_MACOS_ARCHITECTURES=x86_64"
-          make -j$(sysctl -n hw.ncpu)
-
-      - name: Verify arch
-        run: |
-          lipo -info SyntaxTutor.app/Contents/MacOS/SyntaxTutor
-
-      - name: Prepare icons
-        run: |
-          mkdir -p MyIcon.iconset
-
-          sips -z 16 16   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16.png
-          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16@2x.png
-          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32.png
-          sips -z 64 64   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32@2x.png
-          sips -z 128 128 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128.png
-          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128@2x.png
-          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256.png
-          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256@2x.png
-          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512.png
-          sips -z 1024 1024 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512@2x.png
-
-          iconutil -c icns MyIcon.iconset -o resources/SyntaxTutor.icns
-
-      - name: Prepare .app bundle
-        run: |
-          APP="SyntaxTutor.app"
-
-          chmod +x "$APP/Contents/MacOS/SyntaxTutor"
-          mkdir -p "$APP/Contents/Resources"
-          cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
-          chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
-
-          cat > "$APP/Contents/Info.plist" << 'EOF'
-            <?xml version="1.0" encoding="UTF-8"?>
-            <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-            "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-            <plist version="1.0">
-            <dict>
-            <key>CFBundleName</key>
-            <string>SyntaxTutor-Intel</string>
-            <key>CFBundleExecutable</key>
-            <string>SyntaxTutor</string>
-            <key>CFBundleIdentifier</key>
-            <string>com.uma.syntaxtutor.intel</string>
-            <key>CFBundleVersion</key>
-            <string>1.0.0</string>
-            <key>CFBundleIconFile</key>
-            <string>SyntaxTutor.icns</string>
-            <key>CFBundlePackageType</key>
-            <string>APPL</string>
-            </dict>
-            </plist>
-            EOF
-
-      - name: Run macdeployqt
-        run: |
-          macdeployqt SyntaxTutor.app \
-            -verbose=2
-
-      - name: Create entitlements
-        run: |
-          cat > entitlements.plist << 'EOF'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-          "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-          <key>com.apple.security.cs.disable-library-validation</key>
-          <true/>
-          </dict>
-          </plist>
-          EOF
-
-      - name: Ad-hoc code signing
-        run: |
-          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
-
-      - name: Create ZIP of .app
-        run: |
-          ditto -c -k --keepParent SyntaxTutor.app SyntaxTutor-intel.zip
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: SyntaxTutor-macos-intel
-          path: SyntaxTutor-intel.zip
   build-macos:
     runs-on: macos-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(tr -d ' \r\n' < APP_VERSION)" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install dbus
         run: |
@@ -140,38 +45,27 @@ jobs:
       - name: Build with qmake & make
         run: |
           qmake6 CONFIG+=release -r "QT+=dbus" "QMAKE_MACOS_ARCHITECTURES=arm64"
-          make -j$(sysctl -n hw.ncpu)
-
-      - name: Prepare icons
-        run: |
-          mkdir -p MyIcon.iconset
-
-          sips -z 16 16   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16.png
-          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_16x16@2x.png
-          sips -z 32 32   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32.png
-          sips -z 64 64   resources/syntaxtutor.png --out MyIcon.iconset/icon_32x32@2x.png
-          sips -z 128 128 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128.png
-          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_128x128@2x.png
-          sips -z 256 256 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256.png
-          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_256x256@2x.png
-          sips -z 512 512 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512.png
-          sips -z 1024 1024 resources/syntaxtutor.png --out MyIcon.iconset/icon_512x512@2x.png
-
-          iconutil -c icns MyIcon.iconset -o resources/SyntaxTutor.icns
+          # -f Makefile: the repo root also has a GNUmakefile (dev helper) that
+          # GNU make would prefer over the qmake-generated Makefile.
+          make -f Makefile -j$(sysctl -n hw.ncpu)
 
       - name: Prepare .app bundle
         run: |
-          ls -l
-          ls -l SyntaxTutor.app
-          APP="SyntaxTutor.app"
+          APP=".bin/SyntaxTutor.app"
+          VERSION="${{ steps.version.outputs.value }}"
           mkdir -p $APP/Contents/{MacOS,Resources}
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
 
-          cp resources/SyntaxTutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
-          chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
+          # The .icns ships ready in resources/icon (16 to 1024 px); qmake
+          # already copies it (ICON in the .pro). The name has to match
+          # CFBundleIconFile exactly, case included: the runner's disk is
+          # case-insensitive, so copying it as "SyntaxTutor.icns" kept the
+          # existing lowercase file and the bundle showed no icon.
+          cp resources/icon/syntaxtutor.icns "$APP/Contents/Resources/syntaxtutor.icns"
+          chmod 644 "$APP/Contents/Resources/syntaxtutor.icns"
 
-          cat > $APP/Contents/Info.plist << 'EOF'
+          cat > $APP/Contents/Info.plist << EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
             "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -182,11 +76,13 @@ jobs:
             <key>CFBundleExecutable</key>
             <string>SyntaxTutor</string>
             <key>CFBundleIdentifier</key>
-            <string>com.uma.syntaxtutor</string>
+            <string>me.jram.syntaxtutor</string>
             <key>CFBundleVersion</key>
-            <string>1.0.0</string>
+            <string>${VERSION}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${VERSION}</string>
             <key>CFBundleIconFile</key>
-            <string>SyntaxTutor.icns</string>
+            <string>syntaxtutor.icns</string>
             <key>CFBundlePackageType</key>
             <string>APPL</string>
           </dict>
@@ -195,7 +91,7 @@ jobs:
 
       - name: Run macdeployqt
         run: |
-          macdeployqt SyntaxTutor.app \
+          macdeployqt .bin/SyntaxTutor.app \
             -verbose=2
 
       - name: Create entitlements
@@ -214,23 +110,33 @@ jobs:
 
       - name: Ad-hoc code signing
         run: |
-          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - SyntaxTutor.app
+          codesign --deep --force --options runtime --entitlements entitlements.plist --sign - .bin/SyntaxTutor.app
 
       - name: Create ZIP of .app (arm64)
         run: |
-          zip -qry SyntaxTutor-macos-arm64.zip SyntaxTutor.app
+          cd .bin && ditto -c -k --keepParent SyntaxTutor.app ../SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: SyntaxTutor-macos-arm64
-          path: SyntaxTutor-macos-arm64.zip
+          path: SyntaxTutor-${{ steps.version.outputs.value }}-macos-arm64.zip
 
   build-windows:
     runs-on: windows-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+
+      - name: Determine version
+        id: version
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(tr -d ' \r\n' < APP_VERSION)" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install Qt 6 (x64)
         uses: jurplel/install-qt-action@v4
@@ -260,25 +166,41 @@ jobs:
       - name: Prepare Windows deploy
         shell: pwsh
         run: |
-          mkdir deploy
-          Copy-Item .\release\SyntaxTutor.exe deploy\
-          windeployqt --release .\deploy\SyntaxTutor.exe --dir deploy
+          $pkg = "SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64"
+          New-Item -ItemType Directory -Force -Path $pkg | Out-Null
+          Copy-Item .\.bin\SyntaxTutor.exe "$pkg\"
+          windeployqt --release "$pkg\SyntaxTutor.exe" --dir $pkg
 
       - name: Zip Windows bundle
-        run: powershell Compress-Archive -Path deploy -DestinationPath SyntaxTutor-windows-x64.zip
+        shell: pwsh
+        run: |
+          $pkg = "SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64"
+          Compress-Archive -Path $pkg -DestinationPath "$pkg.zip"
 
       - name: Upload zipped Windows bundle
         uses: actions/upload-artifact@v4
         with:
           name: SyntaxTutor-windows-x64
-          path: SyntaxTutor-windows-x64.zip
-
+          path: SyntaxTutor-${{ steps.version.outputs.value }}-windows-x64.zip
 
   build-linux:
-    runs-on: ubuntu-latest
+    # The oldest Ubuntu LTS GitHub still offers. The AppImage carries the C
+    # and C++ runtime requirements of the system it is built on, so built on
+    # ubuntu-latest (24.04) it would not start on Ubuntu 22.04, Debian 12 or
+    # anything else with an older glibc or libstdc++.
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(tr -d ' \r\n' < APP_VERSION)" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
@@ -292,12 +214,27 @@ jobs:
 
       - name: Build
         run: |
-          make -j$(nproc)
+          # -f Makefile: the repo root also has a GNUmakefile (dev helper) that
+          # GNU make would prefer over the qmake-generated Makefile.
+          make -f Makefile -j$(nproc)
+
+      - name: Install Wayland client libraries
+        # Needed so linuxdeploy can resolve the Qt Wayland plugin's
+        # dependencies. The libraries themselves stay out of the AppImage:
+        # every Wayland system has its own.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwayland-client0 libwayland-cursor0 libwayland-egl1
 
       - name: Generate AppImage
         run: |
           export APPIMAGE_EXTRACT_AND_RUN=1
           export LD_VER=continuous
+          # Ship the Wayland platform plugin next to X11 (xcb). The app still
+          # starts on X11 - through XWayland on a Wayland desktop - and uses
+          # Wayland only without an X server or with QT_QPA_PLATFORM=wayland
+          # (see main.cpp).
+          export EXTRA_PLATFORM_PLUGINS="libqwayland-egl.so;libqwayland-generic.so"
           APPDIR=SyntaxTutor.AppDir
 
           wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/${LD_VER}/linuxdeploy-x86_64.AppImage \
@@ -307,14 +244,16 @@ jobs:
           -O /usr/local/bin/linuxdeploy-plugin-qt && \
           chmod +x /usr/local/bin/linuxdeploy-plugin-qt
 
-          mkdir -p $APPDIR/usr/bin \
-             $APPDIR/usr/share/icons/hicolor/256x256/apps
+          mkdir -p $APPDIR/usr/bin
+          # Every size of the icon, so desktops do not scale the 256 px one.
+          for size in 16 24 32 48 64 128 256 512; do
+            install -Dm644 resources/icon/png/syntaxtutor-$size.png \
+              $APPDIR/usr/share/icons/hicolor/${size}x${size}/apps/syntaxtutor.png
+          done
 
-          cp SyntaxTutor $APPDIR/usr/bin/ && \
+          cp .bin/SyntaxTutor $APPDIR/usr/bin/ && \
             printf '[Desktop Entry]\nType=Application\nIcon=syntaxtutor\nName=SyntaxTutor\nExec=SyntaxTutor\nCategories=Education;\n' > $APPDIR/SyntaxTutor.desktop && \
             chmod +x $APPDIR/SyntaxTutor.desktop && \
-            install -Dm644 resources/syntaxtutor.png \
-            $APPDIR/usr/share/icons/hicolor/256x256/apps/syntaxtutor.png && \
             /usr/local/bin/linuxdeploy \
               --appdir $APPDIR \
               --desktop-file $APPDIR/SyntaxTutor.desktop \
@@ -322,19 +261,23 @@ jobs:
               --plugin qt \
               --output appimage
 
+      - name: Rename AppImage
+        run: |
+          # No "linux" in the name: every AppImage is for Linux (AppImage
+          # naming convention: App-1.0-x86_64.AppImage).
+          mv SyntaxTutor-x86_64.AppImage SyntaxTutor-${{ steps.version.outputs.value }}-x86_64.AppImage
 
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v4
         with:
           name: SyntaxTutor-linux-x86_64
-          path: '*.AppImage'
+          path: SyntaxTutor-${{ steps.version.outputs.value }}-x86_64.AppImage
 
   publish-prerelease:
-    if: github.ref == 'refs/heads/main'
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
     name: Publish prerelease
     runs-on: ubuntu-latest
     needs:
-      - build-macos-intel
       - build-macos
       - build-windows
       - build-linux
@@ -347,20 +290,18 @@ jobs:
       - name: Determine release version
         id: version
         run: |
-          VERSION=$(tr -d ' \r\n' < APP_VERSION)
-          if [ -z "$VERSION" ]; then
-            echo "VERSION file is empty" >&2
-            exit 1
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            VERSION=$(tr -d ' \r\n' < APP_VERSION)
+            if [ -z "$VERSION" ]; then
+              echo "APP_VERSION file is empty" >&2
+              exit 1
+            fi
+            echo "value=$VERSION" >> "$GITHUB_OUTPUT"
           fi
-          echo "value=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Download macOS (Intel) artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: SyntaxTutor-macos-intel
-          path: dist/macos-intel
-
-      - name: Download macOS (Apple Silicon) artifact
+      - name: Download macOS (arm64) artifact
         uses: actions/download-artifact@v4
         with:
           name: SyntaxTutor-macos-arm64
@@ -382,35 +323,23 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist/uploads
+          VERSION="${{ steps.version.outputs.value }}"
 
-          if [ -f dist/macos-intel/SyntaxTutor-intel.zip ]; then
-            cp dist/macos-intel/SyntaxTutor-intel.zip dist/uploads/
-          fi
-
-          if [ -d dist/macos-arm64/SyntaxTutor.app ]; then
-            (cd dist/macos-arm64 && zip -qry ../uploads/SyntaxTutor-macos-arm64.zip SyntaxTutor.app)
-          fi
-
-          if [ -d dist/windows-x64/deploy ]; then
-            (cd dist/windows-x64 && zip -qry ../uploads/SyntaxTutor-windows-x64.zip deploy)
-          fi
-
-          LINUX_APPIMAGE=$(find dist/linux-x86_64 -maxdepth 1 -type f -name '*.AppImage' | head -n 1)
-          if [ -n "$LINUX_APPIMAGE" ]; then
-            cp "$LINUX_APPIMAGE" dist/uploads/
-          fi
+          find dist/macos-arm64  -name "*.zip" -exec cp {} dist/uploads/ \;
+          find dist/windows-x64  -name "*.zip" -exec cp {} dist/uploads/ \;
+          find dist/linux-x86_64 -name "*.AppImage" -exec cp {} dist/uploads/ \;
 
           echo "Prepared artifacts:" >&2
           ls -al dist/uploads >&2
 
-      - name: Publish GitHub prerelease
+      - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.value }}
-          name: SyntaxTutor v${{ steps.version.outputs.value }} (prerelease)
+          name: SyntaxTutor v${{ steps.version.outputs.value }}
           body: |
-            Automated prerelease for commit ${{ github.sha }}.
-          prerelease: true
+            Automated build for v${{ steps.version.outputs.value }} — commit ${{ github.sha }}.
+          prerelease: ${{ contains(steps.version.outputs.value, '-rc') || contains(steps.version.outputs.value, '-beta') || contains(steps.version.outputs.value, '-alpha') || github.ref == 'refs/heads/main' }}
           files: dist/uploads/*
           fail_on_unmatched_files: true
           draft: false

@@ -1,0 +1,12 @@
+<map id="SLRTutorWindow::solutionForB" name="SLRTutorWindow::solutionForB">
+<area shape="rect" id="Node000001" title=" " alt="" coords="832,35,1038,60"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="584,5,761,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="814,34,762,31,762,25,820,34"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#aa8e3d1a0184100e4eb4a5f752991cebc" title=" " alt="" coords="561,55,784,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="819,60,785,66,784,61,814,60"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a39d32d1bbff324558de7daeadc1e6189" title="&lt; Render SLR(1) table" alt="" coords="5,63,242,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="543,72,513,74,290,74,242,75,242,70,290,69,513,69,548,72"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#ad94197a77eca0485a4e6e1ef73330c89" title=" " alt="" coords="290,83,513,124"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="548,88,513,95,513,89,543,89"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="272,91,242,90,242,85,277,91"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="SLR1Parser::ClosureUtil" name="SLR1Parser::ClosureUtil">
+<area shape="rect" id="Node000001" title="Helper function for computing the closure of LR(0) items." alt="" coords="5,29,171,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="50,29,43,21,48,11,63,5,88,3,115,5,131,15,126,15,114,10,88,8,64,10,51,15,49,20,55,29"/>
+<area shape="rect" id="Node000002" href="$struct_symbol_table.html#af84e0721003bd24abf542c2b2f1a534c" title="Checks if a symbol is a non&#45;terminal." alt="" coords="219,29,407,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="171,40,205,42,200,42,171,45"/>
+</map>

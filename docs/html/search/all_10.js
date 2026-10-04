@@ -1,7 +1,25 @@
 var searchData=
 [
-  ['raw_0',['raw',['../namespaceSyntaxTutor_1_1Version.html#ab1f620a0c8bef9fff84bd6ecf4c52480',1,'SyntaxTutor::Version']]],
-  ['readme_2emd_1',['README.md',['../README_8md.html',1,'']]],
-  ['reduce_2',['Reduce',['../classSLR1Parser.html#ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'SLR1Parser']]],
-  ['removeleftrecursion_3',['RemoveLeftRecursion',['../structGrammarFactory.html#a4f167379fa626f0734d6e99b34b96a54',1,'GrammarFactory']]]
+  ['raw_0',['raw',['../namespace_syntax_tutor_1_1_version.html#ab1f620a0c8bef9fff84bd6ecf4c52480',1,'SyntaxTutor::Version']]],
+  ['reading_1',['Reading',['../namespace_app_typography.html#aa29c8c558387b1ed5c038049e528585ea26fccddf2f94b1685b184267996e10f8',1,'AppTypography']]],
+  ['readme_2emd_2',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['record_3',['record',['../class_exam_session.html#a2290b2f623c48ffae4d650e390876253',1,'ExamSession']]],
+  ['records_4',['records',['../class_exam_session.html#ad668804f5d0650039e67616c5c93f237',1,'ExamSession']]],
+  ['reduce_5',['Reduce',['../class_s_l_r1_parser.html#ada5e4f3519f68c6b1857742b016c0895aec4875f03ff0bb0b26cf76ac7f41e3c8',1,'SLR1Parser']]],
+  ['reducestates_6',['reduceStates',['../class_automaton_view.html#afb72d59f729d640a4ec1585ae6b8b0f5',1,'AutomatonView']]],
+  ['refresh_7',['refresh',['../class_grammar_view.html#a7f3a0c9126451289e0a6c8950cbca93d',1,'GrammarView']]],
+  ['registeridentity_8',['registerIdentity',['../namespace_app_settings.html#a5bf47d579b373d8e4c5a3709f83f2fd0',1,'AppSettings']]],
+  ['removeleftrecursion_9',['RemoveLeftRecursion',['../struct_grammar_factory.html#a4f167379fa626f0734d6e99b34b96a54',1,'GrammarFactory']]],
+  ['reservedsymbol_10',['ReservedSymbol',['../struct_grammar_parse_error.html#a146c2bc784622fd0a8f939d97e14677aac182cd9db3cff0907cdbcfd3d668620a',1,'GrammarParseError']]],
+  ['resizeevent_11',['resizeEvent',['../class_l_l_wizard_page.html#a9cdca8d74d0a5679333e00615768bea6',1,'LLWizardPage::resizeEvent()'],['../class_s_l_r_wizard_page.html#abf9e03602b63503101b64ce2a36a49d5',1,'SLRWizardPage::resizeEvent()']]],
+  ['resolvestylesheet_12',['resolveStyleSheet',['../namespace_app_typography.html#a8ced112c8886506a81b4028ab9c3df37',1,'AppTypography']]],
+  ['revealall_13',['revealAll',['../class_automaton_view.html#a03670fb71e2af147de3538c74bb11a9d',1,'AutomatonView']]],
+  ['revealstate_14',['revealState',['../class_automaton_view.html#ae595a1e972eeecb85ed706fc4092a23e',1,'AutomatonView']]],
+  ['revealtransition_15',['revealTransition',['../class_automaton_view.html#a18849d59cd6aa265322d3b38362b2eb4',1,'AutomatonView']]],
+  ['rhs_16',['rhs',['../struct_grammar_view_1_1_row.html#aa147f36c9b08b5c273052f83f19cba09',1,'GrammarView::Row']]],
+  ['right_17',['right',['../class_exam_session.html#a352ba6b2936aedcff5784c565d221949',1,'ExamSession']]],
+  ['role_18',['Role',['../namespace_app_typography.html#aa29c8c558387b1ed5c038049e528585e',1,'AppTypography']]],
+  ['role_19',['role',['../struct_app_typography_1_1_token.html#ae0964f489799700f3736d5d0136b3619',1,'AppTypography::Token']]],
+  ['row_20',['Row',['../struct_grammar_view_1_1_row.html',1,'GrammarView']]],
+  ['rule_21',['Rule',['../class_conversation_pdf.html#abf31763c0c9ecf9b5de9ec8443f29e3f',1,'ConversationPdf']]]
 ];

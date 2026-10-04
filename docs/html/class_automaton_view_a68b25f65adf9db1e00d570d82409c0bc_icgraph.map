@@ -1,0 +1,5 @@
+<map id="AutomatonView::showStateDetails" name="AutomatonView::showStateDetails">
+<area shape="rect" id="Node000001" title="Shows the items of state id next to its node." alt="" coords="262,5,445,46"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a0bd33dfc63c9e82fd2e6ada788e07961" title=" " alt="" coords="5,5,214,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,26,214,28,214,23,249,26"/>
+</map>

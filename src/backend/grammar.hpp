@@ -51,6 +51,38 @@ struct Grammar {
             grammar);
 
     /**
+     * @brief Ordering rank of an antecedent for display and question order.
+     *
+     * The axiom always ranks first, because the tutors show its rule at the
+     * top. A user-written grammar then follows @ref lhs_order_; an
+     * antecedent with no recorded position ranks last so the caller's
+     * lexicographic tie-break decides, which is what every generated
+     * grammar gets.
+     *
+     * @param antecedent Left-hand side to rank.
+     * @return Rank, lowest first.
+     */
+    int PresentationRank(const std::string& antecedent) const;
+
+    /**
+     * @brief Orders two antecedents for presentation.
+     *
+     * Compares @ref PresentationRank and falls back to lexicographic order
+     * on a tie.
+     *
+     * @param lhs First antecedent.
+     * @param rhs Second antecedent.
+     * @return true if @p lhs should be shown before @p rhs.
+     */
+    bool PresentationLess(const std::string& lhs,
+                          const std::string& rhs) const;
+
+    /**
+     * @brief Antecedents other than the axiom, in presentation order.
+     */
+    std::vector<std::string> PresentationOrder() const;
+
+    /**
      * @brief Sets the axiom (entry point) of the grammar.
      *
      * @param axiom The entry point or start symbol of the grammar.
@@ -92,7 +124,7 @@ struct Grammar {
      * This function provides a debug view of the grammar by printing out all
      * rules, the axiom, and other relevant details.
      */
-    void Debug() const; // NOSONAR
+    void Debug() const;
 
     /**
      * @brief Adds a production rule to the grammar and updates the symbol
@@ -127,6 +159,16 @@ struct Grammar {
      * productions.
      */
     std::unordered_map<std::string, std::vector<production>> g_;
+
+    /**
+     * @brief Antecedents in the order the grammar was written.
+     *
+     * Only filled in for a grammar the user typed, where the order carries
+     * intent and the student expects to see their own rules back in the same
+     * sequence. A generated grammar leaves this empty, and presentation then
+     * falls back to lexicographic order.
+     */
+    std::vector<std::string> lhs_order_;
 
     /**
      * @brief The axiom or entry point of the grammar.

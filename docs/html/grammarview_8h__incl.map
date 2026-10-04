@@ -1,0 +1,9 @@
+<map id="widgets/grammarview.h" name="widgets/grammarview.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="52,5,209,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,74,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,31,68,72,65,67,112,32"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="98,79,163,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,29,133,64,128,62,128,33"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="188,79,257,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="147,29,198,69,192,70,145,34"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key_20features_0',['🎯 Key Features',['../index.html#autotoc_md4',1,'']]]
+  ['project_20structure_0',['Project structure',['../index.html#autotoc_md7',1,'']]]
 ];

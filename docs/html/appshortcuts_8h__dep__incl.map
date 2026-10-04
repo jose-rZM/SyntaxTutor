@@ -1,0 +1,7 @@
+<map id="widgets/appshortcuts.h" name="widgets/appshortcuts.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="134,5,290,31"/>
+<area shape="rect" id="Node000002" href="$automatonviewerdialog_8cpp.html" title=" " alt="" coords="5,79,206,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,39,125,81,122,76,179,40"/>
+<area shape="rect" id="Node000003" href="$customtextedit_8cpp.html" title=" " alt="" coords="230,79,411,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,37,304,78,299,78,242,42"/>
+</map>

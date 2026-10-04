@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['shift_0',['Shift',['../classSLR1Parser.html#ada5e4f3519f68c6b1857742b016c0895a825a3d98017bab11815ad2817201324c',1,'SLR1Parser']]]
+  ['no_5fterminal_0',['NO_TERMINAL',['../symbol__table_8hpp.html#a9e6705a3296471be728a3b6570b56231ae5e0e3ea5a4ed4670f1b5c09d66811f8',1,'symbol_table.hpp']]]
 ];

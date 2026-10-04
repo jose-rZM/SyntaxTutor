@@ -25,12 +25,23 @@
 var NAVTREE =
 [
   [ "SyntaxTutor", "index.html", [
-    [ "SyntaxTutor: An interactive Tool for Learning Syntax Analysis", "index.html", "index" ],
     [ "Namespaces", "namespaces.html", [
+      [ "Contents", "index.html#autotoc_md0", null ],
+      [ "Features", "index.html#autotoc_md1", null ],
+      [ "Getting started", "index.html#autotoc_md2", null ],
+      [ "How it works", "index.html#autotoc_md3", null ],
+      [ "Screenshots", "index.html#autotoc_md4", null ],
+      [ "Documentation", "index.html#autotoc_md5", null ],
+      [ "Building from source", "index.html#autotoc_md6", null ],
+      [ "Project structure", "index.html#autotoc_md7", null ],
+      [ "Background", "index.html#autotoc_md8", null ],
+      [ "License", "index.html#autotoc_md9", null ],
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -60,10 +71,12 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"UniqueQueue_8h.html",
-"files.html"
+"_unique_queue_8h.html",
+"class_s_l_r1_parser.html#ada5e4f3519f68c6b1857742b016c0895",
+"grammareditordialog_8h_source.html",
+"struct_lr0_item.html#a148948dd1d6c8afc1b2de9b1b163cead"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+const SYNCONMSG = 'click to disable panel synchronization';
+const SYNCOFFMSG = 'click to enable panel synchronization';
+const LISTOFALLMEMBERS = 'List of all members';

@@ -1,0 +1,84 @@
+\doxysection{widgets/\+apptypography.h File Reference}
+\label{apptypography_8h}\index{widgets/apptypography.h@{widgets/apptypography.h}}
+{\ttfamily \+\#include "{}apptextscale.\+h"{}}\newline
+{\ttfamily \+\#include $<$QFile$>$}\newline
+{\ttfamily \+\#include $<$QFont$>$}\newline
+{\ttfamily \+\#include $<$QFont\+Info$>$}\newline
+{\ttfamily \+\#include $<$QGui\+Application$>$}\newline
+{\ttfamily \+\#include $<$QLatin1\+String\+View$>$}\newline
+{\ttfamily \+\#include $<$QRegular\+Expression$>$}\newline
+{\ttfamily \+\#include $<$QString$>$}\newline
+{\ttfamily \+\#include $<$QString\+List$>$}\newline
+{\ttfamily \+\#include $<$Qt\+Global$>$}\newline
+Include dependency graph for apptypography.\+h:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{apptypography_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{apptypography_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_app_typography_1_1_token}{App\+Typography::\+\+Token}}
+\begin{DoxyCompactList}\small\item\em One entry of the type scale. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \doxymbox{\hyperlink{namespace_app_typography}{App\+Typography}}
+\begin{DoxyCompactList}\small\item\em The application\textquotesingle{}s type scale: every text size on screen, in points. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{App\+Typography::\+\+Role}} \{ \newline
+\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eadb1ce45d604c6b1d54c31dbc69bcdb56}{App\+Typography::\+\+Micro}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea272ba7d164aa836995be6319a698be84}{App\+Typography::\+\+Caption}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab021df6aac4654c454f46c77646e745f}{App\+Typography::\+\+Label}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eaac101b32dda4448cf13a93fe283dddd8}{App\+Typography::\+\+Body}}
+, \newline
+\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea04b0bee056bf3d988f87c912972bc7a5}{App\+Typography::\+\+Body\+Large}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea26fccddf2f94b1685b184267996e10f8}{App\+Typography::\+\+Reading}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea004bf6c9a40003140292e97330236c53}{App\+Typography::\+\+Action}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eac6568e77f61109390e82d035aaacaef0}{App\+Typography::\+\+Headline}}
+, \newline
+\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585ea2cf6efa33d5485440c882c5237cc87fc}{App\+Typography::\+\+Title\+Small}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab78a3223503896721cca1303f776159b}{App\+Typography::\+\+Title}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eae0a67c8c63f8f7362917abef6ca24c6b}{App\+Typography::\+\+Hero}}
+, \doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585eab9987a246a537f4fe86f1f2e3d10dbdb}{App\+Typography::\+\+Display}}
+ \}
+\begin{DoxyCompactList}\small\item\em What a piece of text is for, which fixes its size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+qreal \doxymbox{\hyperlink{namespace_app_typography_ac3c097af33e9a619a4c8a41671d5db5d}{App\+Typography::\+base\+Points}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role)
+\begin{DoxyCompactList}\small\item\em Size of {\ttfamily role} at a 100\% text scale, in points. \end{DoxyCompactList}\item 
+qreal \doxymbox{\hyperlink{namespace_app_typography_ad9e0d7a05805bae97441da9cf8ae4126}{App\+Typography::\+points}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role)
+\begin{DoxyCompactList}\small\item\em Size of {\ttfamily role} at the current text scale, in points. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a7ce516481a973e7af6b68624d18afb63}{App\+Typography::\+format\+Points}} (qreal points)
+\begin{DoxyCompactList}\small\item\em A point size written the way CSS and QSS expect it, e.\+g. {\ttfamily 14.\+5pt}. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a5c2b3c26731613ad2991e00358243bfb}{App\+Typography::\+css\+Size}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role)
+\begin{DoxyCompactList}\small\item\em Current size of {\ttfamily role} as a CSS length, for rich text and QSS. \end{DoxyCompactList}\item 
+QFont \& \doxymbox{\hyperlink{namespace_app_typography_a3e1e1aadfe8ff398aa60cb25503d2067}{App\+Typography::\+system\+Font}} ()
+\begin{DoxyCompactList}\small\item\em The system font as it was before the app touched it. \end{DoxyCompactList}\item 
+QFont \doxymbox{\hyperlink{namespace_app_typography_a85c0c1a4f8e63c7429d2dbcec311cc71}{App\+Typography::\+application\+Font}} ()
+\begin{DoxyCompactList}\small\item\em The application font: the system family at the body size. \end{DoxyCompactList}\item 
+QFont \doxymbox{\hyperlink{namespace_app_typography_a1d8837f59d9e412638b5a27be675c948}{App\+Typography::\+font}} (\doxymbox{\hyperlink{namespace_app_typography_aa29c8c558387b1ed5c038049e528585e}{Role}} role, QFont base=QGui\+Application::\+font())
+\begin{DoxyCompactList}\small\item\em {\ttfamily base} resized to {\ttfamily role}, keeping its family and style. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a8ced112c8886506a81b4028ab9c3df37}{App\+Typography::\+resolve\+Style\+Sheet}} (const QString \&style\+Sheet, QString\+List \texorpdfstring{$\ast$}{*}unresolved=nullptr)
+\begin{DoxyCompactList}\small\item\em Replaces every {\ttfamily \$font-\/\texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}} in {\ttfamily style\+Sheet} with its size. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_typography_a10a1ec42f188b8015dce05b9d8554aab}{App\+Typography::\+load\+Style\+Sheet}} ()
+\begin{DoxyCompactList}\small\item\em The application style sheet with its sizes resolved. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{namespace_app_typography_aab34468dfba2dbcb811652547ecfaf89}{App\+Typography::\+length\+For\+Text}} (int design\+Px)
+\begin{DoxyCompactList}\small\item\em A length that has to hold text, grown to how big text renders here. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \doxymbox{\hyperlink{struct_app_typography_1_1_token}{Token}} \doxymbox{\hyperlink{namespace_app_typography_a483383433be4ee5483bcd21c0f8023b8}{App\+Typography::\+k\+Tokens}} \+[$\,$]
+\begin{DoxyCompactList}\small\item\em The type scale. \end{DoxyCompactList}\end{DoxyCompactItemize}

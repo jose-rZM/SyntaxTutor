@@ -1,0 +1,7 @@
+<map id="AppTextScale::clampPercent" name="AppTextScale::clampPercent">
+<area shape="rect" id="Node000001" title="Keeps a percentage inside the allowed range." alt="" coords="110,29,300,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="232,14,224,10,205,8,188,10,178,15,176,20,181,30,176,28,171,21,174,11,186,5,205,3,226,5,237,15"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="13,29,62,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="92,43,62,45,62,40,97,42"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="65,16,57,11,37,8,19,10,10,15,9,21,15,29,10,31,3,22,6,12,18,5,37,3,60,6,71,16"/>
+</map>

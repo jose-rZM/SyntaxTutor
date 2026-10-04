@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['guided_20table_20completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md10',1,'']]]
+  ['it_20works_0',['How it works',['../index.html#autotoc_md3',1,'']]]
 ];

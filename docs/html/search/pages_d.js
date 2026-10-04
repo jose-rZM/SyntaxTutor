@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['used_0',['🛠️ Technologies Used',['../index.html#autotoc_md12',1,'']]]
+  ['project_0',['🎓 About the Project',['../index.html#autotoc_md2',1,'']]]
 ];

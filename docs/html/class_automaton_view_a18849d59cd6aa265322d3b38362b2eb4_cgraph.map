@@ -1,0 +1,5 @@
+<map id="AutomatonView::revealTransition" name="AutomatonView::revealTransition">
+<area shape="rect" id="Node000001" title="Makes a transition edge visible, together with both endpoint states." alt="" coords="5,5,219,31"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#ae595a1e972eeecb85ed706fc4092a23e" title="Makes a state node visible." alt="" coords="267,5,454,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,16,254,18,248,18,219,21"/>
+</map>

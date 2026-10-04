@@ -1,16 +1,14 @@
 var searchData=
 [
-  ['id_5f_0',['id_',['../structstate.html#ae4175bd8db542097060d70960296505d',1,'state']]],
-  ['in_1',['In',['../structSymbolTable.html#a6fc61b8d63539a3a85042874db6c6d6b',1,'SymbolTable']]],
-  ['init_2',['Init',['../structGrammarFactory.html#a7c7e94a38b31ab06b0b0276cb2530936',1,'GrammarFactory']]],
-  ['initstyleoption_3',['initStyleOption',['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override'],['../classCenterAlignDelegate.html#af46efb1227a550b0cf9bd23b48411c02',1,'CenterAlignDelegate::initStyleOption(QStyleOptionViewItem *opt, const QModelIndex &amp;idx) const override']]],
-  ['interactive_20tool_20for_20learning_20syntax_20analysis_4',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['interface_20screenshots_5',['🖼️ Interface Screenshots',['../index.html#autotoc_md6',1,'']]],
-  ['iscomplete_6',['IsComplete',['../structLr0Item.html#a4db23e1d025750a6ca817aa4998a03f4',1,'Lr0Item']]],
-  ['isinfinite_7',['IsInfinite',['../structGrammarFactory.html#a7bebc5a4fe3d80cf038767fe99b88883',1,'GrammarFactory']]],
-  ['isterminal_8',['IsTerminal',['../structSymbolTable.html#a160522330493cdaff35979ed6d2dfa21',1,'SymbolTable']]],
-  ['isterminalwthoeol_9',['IsTerminalWthoEol',['../structSymbolTable.html#a59a554074a649b1e6e55d4149b62743c',1,'SymbolTable']]],
-  ['item_10',['item',['../structSLR1Parser_1_1s__action.html#a571ec039a96e95bfa657a7bb5bc5b9bb',1,'SLR1Parser::s_action']]],
-  ['items_11',['items',['../structGrammarFactory.html#a4abe0dd76b57891bf88d72f96e609400',1,'GrammarFactory']]],
-  ['items_5f_12',['items_',['../structstate.html#a54da669fd7d80f2459478e228a5f8af6',1,'state']]]
+  ['kdefaultpercent_0',['kDefaultPercent',['../namespace_app_text_scale.html#ab99431b6455f8baffd8aeaff3dd0c54b',1,'AppTextScale']]],
+  ['keepheightforwidth_1',['keepHeightForWidth',['../namespace_app_layout.html#a2e8c035ca5f53e09369c3b4fc366ab99',1,'AppLayout']]],
+  ['keypressevent_2',['keyPressEvent',['../class_automaton_view.html#a8cb7c68273f24421f94b273a23f78bc7',1,'AutomatonView::keyPressEvent()'],['../class_custom_text_edit.html#ac87765b7ed4b3752474893bae4df08bf',1,'CustomTextEdit::keyPressEvent()']]],
+  ['kind_3',['Kind',['../struct_grammar_parse_error.html#a146c2bc784622fd0a8f939d97e14677a',1,'GrammarParseError']]],
+  ['kind_4',['kind',['../struct_grammar_parse_error.html#af6f065aef5baa85d5e8c5144833e4541',1,'GrammarParseError']]],
+  ['kmaxpercent_5',['kMaxPercent',['../namespace_app_text_scale.html#ad775e53e88e215072a096e93275d6feb',1,'AppTextScale']]],
+  ['kmaxtablecolumns_6',['kMaxTableColumns',['../class_conversation_pdf.html#ab376d5bcc34bc0cbddfd465f7df68009',1,'ConversationPdf']]],
+  ['kminpercent_7',['kMinPercent',['../namespace_app_text_scale.html#abb10302ab8b58188ee0ebdec5053e13f',1,'AppTextScale']]],
+  ['kpresetpercents_8',['kPresetPercents',['../namespace_app_text_scale.html#a04304b70c0ee9998c5c36f4aa2c5e4c2',1,'AppTextScale']]],
+  ['ksizes_9',['kSizes',['../namespace_app_icon.html#a234bb405a1754e83e3a8446b22dfd71e',1,'AppIcon']]],
+  ['ktokens_10',['kTokens',['../namespace_app_typography.html#a483383433be4ee5483bcd21c0f8023b8',1,'AppTypography']]]
 ];

@@ -1,0 +1,77 @@
+<map id="SLRTutorWindow::feedbackForBPrime" name="SLRTutorWindow::feedbackForBPrime">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,767,191,807"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a0b5b4c79d47e3203e6df677523a5020e" title=" " alt="" coords="259,5,458,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,766,108,625,132,412,150,300,173,198,202,114,218,81,237,56,247,48,245,53,241,59,223,84,207,116,178,199,155,301,137,412,113,626,103,766"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a9aa83ace6f8e933a0f02b4018b468505" title="Expected answer for the current state." alt="" coords="240,70,476,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="98,766,109,633,133,434,152,330,175,235,203,158,219,128,237,105,241,103,239,108,241,109,223,131,208,160,180,237,157,331,138,434,114,633,103,766"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#abe22ff89a00b192844adc59d064e3a0a" title=" " alt="" coords="251,120,466,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="98,766,111,641,137,458,155,363,178,276,205,204,220,177,237,156,244,152,241,157,241,159,225,180,210,206,183,277,161,364,142,459,116,642,104,766"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a79f71a84c1fb6fd18798d9b238384780" title=" " alt="" coords="266,169,451,210"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="99,766,115,655,143,493,162,410,184,333,209,270,237,227,254,214,251,219,241,230,214,272,189,335,167,411,149,494,120,656,104,767"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_tutor_window.html#a7f5f278e44249cbde487af1c43dbff3a" title=" " alt="" coords="526,206,738,232"/>
+<area shape="poly" id="edge32_Node000001_Node000006" title=" " alt="" coords="99,766,115,661,143,511,162,435,184,365,209,308,222,287,237,270,256,258,283,248,351,233,431,223,513,219,508,223,432,229,352,238,284,253,259,263,240,274,227,290,213,311,189,367,167,436,148,513,120,662,105,767"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r_tutor_window.html#ae12625e4747be634f7acbacb9a5aefcc" title=" " alt="" coords="266,284,451,325"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="96,766,101,686,107,631,119,570,136,507,161,444,194,386,237,334,253,324,251,328,241,338,198,389,166,447,141,509,124,571,113,632,106,687,102,767"/>
+<area shape="rect" id="Node000009" href="$class_s_l_r_tutor_window.html#a0faefc7db5d1d814fd39292f3b5669d4" title=" " alt="" coords="251,349,466,374"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="97,766,104,693,124,590,141,534,165,479,197,429,237,385,245,381,243,385,240,389,201,432,170,482,146,536,129,591,109,694,103,766"/>
+<area shape="rect" id="Node000010" href="$class_s_l_r_tutor_window.html#a1b5d5d7a6924120122b8ba8fc13e3f28" title=" " alt="" coords="266,399,451,439"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="99,766,110,704,134,619,152,573,175,529,203,487,237,450,254,440,251,445,240,454,207,490,179,531,157,576,139,621,115,705,104,767"/>
+<area shape="rect" id="Node000011" href="$class_s_l_r_tutor_window.html#a64d86b4e2ca1beacc5c2de6cbc35de91" title=" " alt="" coords="266,464,451,505"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="101,766,116,715,142,647,182,576,208,544,237,516,253,506,250,511,240,520,212,547,187,579,147,649,121,716,107,767"/>
+<area shape="rect" id="Node000012" href="$class_s_l_r_tutor_window.html#abf1bd38094495acfe41a8d4f71bb43e3" title=" " alt="" coords="266,529,451,570"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="105,766,123,726,152,675,190,624,212,600,237,579,253,572,250,576,240,584,216,604,194,627,156,678,128,728,110,767"/>
+<area shape="rect" id="Node000013" href="$class_s_l_r_tutor_window.html#af2505841179208ac64764eaebf25aa1a" title=" " alt="" coords="252,594,465,620"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="109,765,159,697,196,661,237,630,253,624,250,628,240,635,199,665,163,701,114,767"/>
+<area shape="rect" id="Node000014" href="$class_s_l_r_tutor_window.html#ab20064f5a66fa5e4c40591f03280417e" title=" " alt="" coords="266,644,451,685"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="124,765,176,729,238,695,259,688,255,692,240,700,178,734,128,768"/>
+<area shape="rect" id="Node000015" href="$class_s_l_r_tutor_window.html#a69e4d701acdccd4c603e46723bea08d0" title=" " alt="" coords="266,709,451,750"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="189,765,252,751,248,755,193,769"/>
+<area shape="rect" id="Node000016" href="$class_s_l_r_tutor_window.html#a9c31d3e02dc358a67ad4b4994114f29e" title=" " alt="" coords="252,774,464,800"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="190,785,239,785,235,789,193,789"/>
+<area shape="rect" id="Node000017" href="$class_s_l_r_tutor_window.html#ab726f1bcc94699c03fc5ec3a1ec67343" title=" " alt="" coords="266,824,451,865"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="190,805,252,819,248,822,193,810"/>
+<area shape="rect" id="Node000018" href="$class_s_l_r_tutor_window.html#a45bf0977171fb841be5d3a3bb78fda69" title=" " alt="" coords="251,889,466,914"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="125,805,178,841,240,874,263,883,259,885,238,879,175,845,126,810"/>
+<area shape="rect" id="Node000019" href="$class_s_l_r_tutor_window.html#a7cfcda416cceca4efe41e60fa66a8d25" title="Opens the floating automaton viewer, or raises it if already open." alt="" coords="247,939,470,979"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="114,805,167,866,202,898,240,925,251,931,246,933,237,929,198,902,163,869,115,811"/>
+<area shape="rect" id="Node000020" href="$class_s_l_r_tutor_window.html#af354f1473076474bef37f1d1c8c57d61" title="Shows and remembers the next question." alt="" coords="254,1004,463,1029"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="107,805,128,846,155,896,193,947,215,969,240,989,251,996,246,998,237,993,212,973,189,950,151,899,123,849,108,810"/>
+<area shape="rect" id="Node000021" href="$class_s_l_r_tutor_window.html#acee95c6fced6c81e46d3987c1717bad0" title="Opens the end&#45;of&#45;exam report." alt="" coords="534,1005,731,1046"/>
+<area shape="poly" id="edge31_Node000001_Node000021" title=" " alt="" coords="103,805,119,858,144,923,162,957,184,989,210,1017,240,1039,278,1057,319,1068,361,1074,404,1075,486,1065,560,1050,556,1052,487,1070,404,1080,361,1079,318,1074,276,1062,237,1044,206,1021,180,992,158,959,140,925,114,859,103,810"/>
+<area shape="rect" id="Node000025" href="$class_s_l_r_tutor_window.html#af6f53e2065ffb436315ceca02b9c85b2" title=" " alt="" coords="253,1104,464,1145"/>
+<area shape="poly" id="edge24_Node000001_Node000025" title=" " alt="" coords="103,805,119,862,144,937,162,976,184,1015,210,1052,240,1084,256,1096,250,1097,237,1088,206,1055,180,1018,157,979,139,939,114,864,103,810"/>
+<area shape="rect" id="Node000027" href="$class_s_l_r_tutor_window.html#a3ffb8f88721e380000a3eeda5dcac060" title="Grades the SLR table per cell." alt="" coords="259,1169,458,1210"/>
+<area shape="poly" id="edge27_Node000001_Node000027" title=" " alt="" coords="101,805,112,874,134,968,152,1018,175,1068,204,1114,241,1154,248,1162,243,1163,237,1158,200,1117,171,1071,147,1020,129,969,107,875,101,810"/>
+<area shape="rect" id="Node000030" href="$class_s_l_r_tutor_window.html#a5d6a0efab540b847afa41085fe7c0532" title="Builds the (hidden) automaton view and prepares the button." alt="" coords="245,1235,472,1275"/>
+<area shape="poly" id="edge30_Node000001_Node000030" title=" " alt="" coords="100,805,107,885,115,938,126,996,144,1056,168,1116,200,1171,241,1220,246,1225,240,1226,237,1224,195,1174,163,1118,139,1058,121,997,109,938,102,885,99,810"/>
+<area shape="rect" id="Node000031" href="$class_s_l_r_tutor_window.html#aae8ec8f3ea6caa8f7f7c4e2df47cc0d8" title=" " alt="" coords="239,1300,478,1325"/>
+<area shape="poly" id="edge33_Node000001_Node000031" title=" " alt="" coords="102,805,121,908,150,1053,169,1127,191,1194,215,1249,241,1285,246,1291,240,1291,237,1289,210,1252,186,1196,164,1128,145,1054,116,909,102,810"/>
+<area shape="rect" id="Node000032" href="$class_s_l_r_tutor_window.html#a45eddedb7792a98443718f224d06fc3a" title=" " alt="" coords="259,1349,458,1390"/>
+<area shape="poly" id="edge34_Node000001_Node000032" title=" " alt="" coords="102,805,120,917,148,1077,167,1159,189,1234,213,1295,241,1336,249,1344,244,1345,237,1339,209,1297,184,1235,162,1160,143,1078,114,918,102,810"/>
+<area shape="rect" id="Node000033" href="$class_s_l_r_tutor_window.html#ab52e898595fc760011196240b4499db5" title="Enables the viewer button once at least one state (I0) exists." alt="" coords="241,1439,476,1479"/>
+<area shape="poly" id="edge35_Node000001_Node000033" title=" " alt="" coords="102,805,119,927,148,1104,167,1196,189,1281,214,1351,241,1400,257,1416,278,1431,272,1432,254,1420,237,1403,209,1353,184,1282,162,1197,143,1105,114,928,101,810"/>
+<area shape="rect" id="Node000034" href="$class_s_l_r_tutor_window.html#a99036b2796ed0e0d0fe135076c4517d7" title="Syncs the automaton view with the current tutor state." alt="" coords="241,1504,476,1545"/>
+<area shape="poly" id="edge37_Node000001_Node000034" title=" " alt="" coords="101,805,114,944,139,1149,157,1256,180,1354,208,1435,224,1466,241,1489,245,1495,240,1494,237,1493,219,1469,203,1437,175,1356,152,1257,133,1150,109,944,100,810"/>
+<area shape="rect" id="Node000036" href="$class_s_l_r_tutor_window.html#a256c4525232d75d7da8eabe9b1bc9b0c" title=" " alt="" coords="239,1569,478,1594"/>
+<area shape="poly" id="edge39_Node000001_Node000036" title=" " alt="" coords="100,805,111,956,133,1182,151,1300,175,1407,204,1496,222,1529,241,1555,244,1560,239,1559,237,1558,217,1532,199,1498,170,1409,146,1300,128,1183,106,956,100,811"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="450,197,513,204,508,207,453,202"/>
+<area shape="rect" id="Node000008" href="$class_s_l_r_tutor_window.html#aaff00ffe414a36ba668d15716c45479c" title=" " alt="" coords="544,284,721,325"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="450,302,530,303,526,306,453,307"/>
+<area shape="poly" id="edge20_Node000020_Node000021" title=" " alt="" coords="462,1017,520,1021,516,1023,464,1022"/>
+<area shape="rect" id="Node000022" href="$class_s_l_r_tutor_window.html#a1ddc0f3362ec35ccbf7f3a326c50cfb6" title=" " alt="" coords="786,956,992,981"/>
+<area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="725,1002,816,984,811,986,727,1007"/>
+<area shape="rect" id="Node000023" href="$class_s_l_r_tutor_window.html#a81410ccd351a369f2198021c717e4f11" title=" " alt="" coords="800,1005,978,1046"/>
+<area shape="poly" id="edge22_Node000021_Node000023" title=" " alt="" coords="731,1023,787,1025,782,1027,732,1028"/>
+<area shape="rect" id="Node000024" href="$class_s_l_r_tutor_window.html#a6f63d2a8ba634d3a23f04eab6aac1158" title=" " alt="" coords="800,1071,978,1111"/>
+<area shape="poly" id="edge23_Node000021_Node000024" title=" " alt="" coords="715,1044,794,1066,789,1067,715,1049"/>
+<area shape="rect" id="Node000026" href="$class_s_l_r_tutor_window.html#a641f5c3e9a573b45adcc3b86253d0ac4" title="Constructs the SLR(1) tutor window with a given grammar." alt="" coords="538,1104,726,1145"/>
+<area shape="poly" id="edge25_Node000025_Node000026" title=" " alt="" coords="463,1122,525,1123,520,1125,465,1127"/>
+<area shape="poly" id="edge26_Node000026_Node000026" title=" " alt="" coords="584,1103,582,1094,590,1085,607,1079,632,1077,660,1080,678,1088,673,1089,659,1085,632,1083,608,1085,593,1089,587,1095,589,1104"/>
+<area shape="rect" id="Node000028" href="$class_s_l_r_tutor_window.html#a5ff056eb710cc8aaf8a81aac37713971" title=" " alt="" coords="544,1169,721,1210"/>
+<area shape="poly" id="edge28_Node000027_Node000028" title=" " alt="" coords="457,1187,531,1189,526,1191,459,1192"/>
+<area shape="rect" id="Node000029" href="$class_s_l_r_tutor_window.html#ab2b2565b40cd32e333af31719f3b63b0" title=" " alt="" coords="544,1235,721,1275"/>
+<area shape="poly" id="edge29_Node000027_Node000029" title=" " alt="" coords="446,1208,532,1230,527,1231,447,1213"/>
+<area shape="poly" id="edge36_Node000033_Node000033" title=" " alt="" coords="310,1437,307,1429,315,1420,332,1414,358,1412,386,1414,405,1423,399,1423,385,1420,358,1417,333,1419,318,1424,312,1430,315,1439"/>
+<area shape="rect" id="Node000035" href="$class_automaton_view.html#a7487c772b8821876779a0ad73e71c4c0" title="Fits all revealed content within the viewport." alt="" coords="544,1512,720,1537"/>
+<area shape="poly" id="edge38_Node000034_Node000035" title=" " alt="" coords="476,1522,532,1524,526,1525,476,1527"/>
+</map>

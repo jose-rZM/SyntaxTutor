@@ -1,0 +1,20 @@
+<map id="LLTutorWindow::verifyResponseForA" name="LLTutorWindow::verifyResponseForA">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,244,88"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="79,63,71,54,76,44,94,38,125,36,159,39,177,48,172,49,158,44,124,41,95,43,80,48,76,53,85,62"/>
+<area shape="rect" id="Node000002" href="$class_l_l_tutor_window.html#a560702b183dbcfed68850b0df1ec6641" title=" " alt="" coords="292,55,502,96"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="244,82,279,84,274,85,244,87"/>
+<area shape="poly" id="edge3_Node000002_Node000001" title=" " alt="" coords="289,67,260,69,259,64,294,66"/>
+<area shape="rect" id="Node000003" href="$class_l_l_tutor_window.html#a7d2fc87cdcdbf8528e2a5f47f0e5c05a" title=" " alt="" coords="550,55,760,96"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="502,73,537,75,531,76,503,78"/>
+<area shape="rect" id="Node000004" href="$class_l_l_tutor_window.html#a36fa8a40caeacd5be8d3ad5895320f25" title=" " alt="" coords="809,5,1047,31"/>
+<area shape="poly" id="edge9_Node000002_Node000004" title=" " alt="" coords="487,52,550,41,674,28,796,22,791,23,675,33,550,46,488,57"/>
+<area shape="rect" id="Node000008" href="$class_l_l_tutor_window.html#a6e037711b2e27cf298a6a1b0f0028f60" title=" " alt="" coords="550,120,760,161"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="480,94,560,116,555,116,480,99"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="755,52,846,35,851,34,756,57"/>
+<area shape="rect" id="Node000005" href="$class_l_l_tutor_window.html#abde0722625354cf58732008f8e530e5d" title=" " alt="" coords="823,55,1033,96"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="761,73,810,75,805,76,761,78"/>
+<area shape="rect" id="Node000007" href="$class_l_l_tutor_window.html#a667223abed46d411250b3a8e2c6baadd" title=" " alt="" coords="808,120,1048,146"/>
+<area shape="poly" id="edge8_Node000003_Node000007" title=" " alt="" coords="755,94,851,116,846,116,755,99"/>
+<area shape="rect" id="Node000006" href="$class_l_l_tutor_window.html#aa2741ddaaebe054599186f68169852c4" title=" " alt="" coords="1096,63,1288,88"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="1034,73,1083,75,1077,76,1034,78"/>
+</map>

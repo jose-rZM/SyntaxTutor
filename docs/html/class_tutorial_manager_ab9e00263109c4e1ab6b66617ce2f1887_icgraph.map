@@ -1,0 +1,16 @@
+<map id="TutorialManager::hideOverlay" name="TutorialManager::hideOverlay">
+<area shape="rect" id="Node000001" title="Hides the tutorial overlay immediately." alt="" coords="712,55,904,80"/>
+<area shape="rect" id="Node000002" href="$class_tutorial_manager.html#ab1a4a56a7150cf6f216a831e09dd7209" title="Clears all steps in the tutorial." alt="" coords="480,5,664,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="726,51,637,34,637,29,731,51"/>
+<area shape="rect" id="Node000003" href="$class_tutorial_manager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="485,55,659,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="694,77,660,79,660,74,699,76"/>
+<area shape="rect" id="Node000007" href="$class_tutorial_manager.html#a57817e60d063bad9ac188e1cf9c86588" title="Sets the root window (used for repositioning the overlay)." alt="" coords="488,104,656,145"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="740,84,657,107,656,102,735,85"/>
+<area shape="poly" id="edge3_Node000003_Node000001" title=" " alt="" coords="675,56,714,58,709,59,675,61"/>
+<area shape="rect" id="Node000004" href="$class_tutorial_manager.html#a43ead2fd97e8b0783026004724988cdf" title="Emitted when the SLR(1) tutorial ends." alt="" coords="240,31,432,56"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="467,57,433,56,433,51,472,57"/>
+<area shape="rect" id="Node000006" href="$class_tutorial_manager.html#a4fd17560c48c8f8646ef846b8f36bb30" title="Starts the tutorial from the beginning." alt="" coords="262,80,410,106"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="467,79,411,88,410,82,472,78"/>
+<area shape="rect" id="Node000005" href="$class_tutorial_manager.html#afffc44cf7c78c43e9f5c982389284272" title="Ends the SLR(1) tutorial sequence and emits its corresponding signal." alt="" coords="5,31,192,56"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="221,44,193,46,192,41,227,43"/>
+</map>

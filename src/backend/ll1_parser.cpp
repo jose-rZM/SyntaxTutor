@@ -144,7 +144,7 @@ void LL1Parser::ComputeFollowSets() {
             for (const production& rhs : rule.second) {
                 for (size_t i = 0; i < rhs.size(); ++i) {
                     const std::string& symbol = rhs[i];
-                    if (!gr_.st_.IsTerminal(symbol)) {
+                    if (gr_.st_.IsNonTerminal(symbol)) {
                         std::unordered_set<std::string> first_remaining;
 
                         if (i + 1 < rhs.size()) {

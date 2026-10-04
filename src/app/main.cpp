@@ -17,45 +17,74 @@
  */
 
 #include "appversion.h"
+#include "appicon.h"
+#include "appsettings.h"
+#include "apppalette.h"
+#include "apptypography.h"
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QFont>
+#include <QDebug>
 #include <QFontDatabase>
-#include <QImageReader>
 #include <QSettings>
+#include <QStyleHints>
 #include <QTranslator>
 
-void loadFonts() {
-    QFontDatabase::addApplicationFont(":/resources/NotoSans-Regular.ttf");
-    QFontDatabase::addApplicationFont(":/resources/NotoSans-Italic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/NotoSans-Bold.ttf");
+void applyAppStyle(QApplication& app) {
+    const QString styleSheet = AppTypography::loadStyleSheet();
+    if (!styleSheet.isEmpty()) {
+        app.setStyleSheet(styleSheet);
+    }
 }
 
 int main(int argc, char* argv[]) {
+#ifdef Q_OS_LINUX
+    // X11 first - through XWayland on a Wayland desktop, the tested path -
+    // and native Wayland only where there is no X server. Without this, Qt
+    // picks Wayland on its own as soon as its plugin is present. Native
+    // Wayland can still be asked for with QT_QPA_PLATFORM=wayland.
+    if (!qEnvironmentVariableIsSet("QT_QPA_PLATFORM")) {
+        qputenv("QT_QPA_PLATFORM", "xcb;wayland");
+    }
+#endif
     QApplication a(argc, argv);
-    QCoreApplication::setApplicationName("SyntaxTutor");
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+#endif
+    QApplication::setStyle("fusion");
+    AppPalette::apply();
+    QApplication::setWindowIcon(AppIcon::icon());
+    AppTypography::systemFont() = QApplication::font();
+#ifndef Q_OS_MACOS
+    QFontDatabase::addApplicationFont(
+        ":/resources/fonts/JetBrainsMono-Regular.ttf");
+    QFontDatabase::addApplicationFont(
+        ":/resources/fonts/JetBrainsMono-Bold.ttf");
+#endif
+    AppSettings::registerIdentity();
     QGuiApplication::setApplicationDisplayName("SyntaxTutor");
     QCoreApplication::setApplicationVersion(SyntaxTutor::Version::current());
-    QSettings   settings("UMA", "SyntaxTutor");
-    QString     langCode = settings.value("lang/language", "es").toString();
-    QTranslator translator;
-    if (langCode == "en") {
-        translator.load(":/translations/st_en.qm");
+    QSettings settings = AppSettings::open();
+    if (settings.contains(AppTextScale::settingsKey())) {
+        AppTextScale::currentPercent() = AppTextScale::clampPercent(
+            settings.value(AppTextScale::settingsKey()).toInt());
     } else {
-        translator.load(":/translations/st_es.qm");
+        AppTextScale::currentPercent() = AppTextScale::percentFromLegacyValue(
+            settings.value(AppTextScale::legacySettingsKey()).toString());
     }
-    a.installTranslator(&translator);
-    loadFonts();
-#ifdef Q_OS_WIN
-    QFont notoSans("Noto Sans");
-    notoSans.setHintingPreference(QFont::HintingPreference::PreferNoHinting);
-    QApplication::setFont(notoSans);
-#else
-    QFont notoSans("Noto Sans");
-    notoSans.setStyleStrategy(QFont::PreferQuality);
-    QApplication::setFont(notoSans);
-#endif
+    QString   langCode = settings.value("lang/language", "es").toString();
+    QTranslator   translator;
+    const QString qmPath = langCode == QStringLiteral("en")
+                               ? QStringLiteral(":/translations/st_en.qm")
+                               : QStringLiteral(":/translations/st_es.qm");
+    if (translator.load(qmPath)) {
+        a.installTranslator(&translator);
+    } else {
+        // Not fatal: tr() then falls back to the Spanish source strings.
+        qWarning() << "Could not load translations from" << qmPath;
+    }
+    a.setFont(AppTypography::applicationFont());
+    applyAppStyle(a);
     MainWindow w;
     w.show();
     return a.exec();

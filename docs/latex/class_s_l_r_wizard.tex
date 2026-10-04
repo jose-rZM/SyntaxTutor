@@ -1,0 +1,155 @@
+\doxysection{SLRWizard Class Reference}
+\label{class_s_l_r_wizard}\index{SLRWizard@{SLRWizard}}
+
+
+Interactive assistant that guides the student step-\/by-\/step through the SLR(1) parsing table.  
+
+
+
+
+{\ttfamily \+\#include $<$slrwizard.\+h$>$}
+
+
+
+Inheritance diagram for SLRWizard:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=110pt]{class_s_l_r_wizard__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SLRWizard:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=110pt]{class_s_l_r_wizard__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_s_l_r_wizard_a1833672694f25771c1b66c4e2b935610}{SLRWizard}} (\doxymbox{\hyperlink{class_s_l_r1_parser}{SLR1\+Parser}} \&parser, const QVector$<$ QVector$<$ QString $>$ $>$ \&raw\+Table, const QString\+List \&col\+Headers, const QVector$<$ QPair$<$ QString, QVector$<$ QString $>$ $>$ $>$ \&sorted\+Grammar, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the SLR(1) guided dialog with all necessary parsing context. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_s_l_r_wizard_page}{SLRWizard\+Page}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_s_l_r_wizard_a3830e2e93363d21966bb6ffadfc1e410}{current\+Page}} () const
+\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_s_l_r_wizard_a0223f7afd932d6f181c790304d6ca33e}{next\+Button}} () const
+\item 
+QPush\+Button \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_s_l_r_wizard_a743e459f25c16f7c1a0c609c26fbead6}{close\+Button}} () const
+\item 
+bool \doxymbox{\hyperlink{class_s_l_r_wizard_a2b5fd2e2021986cc99bfe289ea9824e8}{is\+On\+Last\+Page}} () const
+\item 
+QVector$<$ QString $>$ \doxymbox{\hyperlink{class_s_l_r_wizard_ada2751317642cb02e08bb1a3575627cd}{std\+Vector\+To\+QVector}} (const std::\+vector$<$ std::\+string $>$ \&vec)
+\begin{DoxyCompactList}\small\item\em Converts a std::\+vector$<$std::\+string$>$ to QVector$<$\+QString$>$ for UI compatibility. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interactive assistant that guides the student step-\/by-\/step through the SLR(1) parsing table. 
+
+This dialog presents one cell of the SLR(1) parsing table at a time, asking the user to deduce the correct ACTION or GOTO entry based on the LR(0) automaton and FOLLOW sets. It intentionally avoids the native wizard widget to keep a consistent look across platforms. 
+
+\label{class_s_l_r_wizard_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{SLRWizard@{SLRWizard}!SLRWizard@{SLRWizard}}
+\index{SLRWizard@{SLRWizard}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{SLRWizard()}{SLRWizard()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_a1833672694f25771c1b66c4e2b935610} 
+SLRWizard::\+\+SLRWizard (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_s_l_r1_parser}{SLR1\+Parser}} \&}]{parser}{, }\item[{const QVector$<$ QVector$<$ QString $>$ $>$ \&}]{raw\+Table}{, }\item[{const QString\+List \&}]{col\+Headers}{, }\item[{const QVector$<$ QPair$<$ QString, QVector$<$ QString $>$ $>$ $>$ \&}]{sorted\+Grammar}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs the SLR(1) guided dialog with all necessary parsing context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & The SLR(1) parser instance containing the LR(0) states and transitions. \\
+\hline
+{\em raw\+Table} & The target parsing table (student version or reference). \\
+\hline
+{\em col\+Headers} & Header symbols (terminals and non-\/terminals). \\
+\hline
+{\em sorted\+Grammar} & Ordered list of grammar rules for reduce explanations. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_a1833672694f25771c1b66c4e2b935610_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{class_s_l_r_wizard_a1833672694f25771c1b66c4e2b935610_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_s_l_r_wizard_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{SLRWizard@{SLRWizard}!closeButton@{closeButton}}
+\index{closeButton@{closeButton}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{closeButton()}{closeButton()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_a743e459f25c16f7c1a0c609c26fbead6} 
+QPush\+Button \texorpdfstring{$\ast$}{*} SLRWizard::\+close\+Button (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{SLRWizard@{SLRWizard}!currentPage@{currentPage}}
+\index{currentPage@{currentPage}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{currentPage()}{currentPage()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_a3830e2e93363d21966bb6ffadfc1e410} 
+\doxymbox{\hyperlink{class_s_l_r_wizard_page}{SLRWizard\+Page}} \texorpdfstring{$\ast$}{*} SLRWizard::\+current\+Page (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_a3830e2e93363d21966bb6ffadfc1e410_icgraph}
+\end{center}
+\end{figure}
+\index{SLRWizard@{SLRWizard}!isOnLastPage@{isOnLastPage}}
+\index{isOnLastPage@{isOnLastPage}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{isOnLastPage()}{isOnLastPage()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_a2b5fd2e2021986cc99bfe289ea9824e8} 
+bool SLRWizard::\+is\+On\+Last\+Page (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{SLRWizard@{SLRWizard}!nextButton@{nextButton}}
+\index{nextButton@{nextButton}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{nextButton()}{nextButton()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_a0223f7afd932d6f181c790304d6ca33e} 
+QPush\+Button \texorpdfstring{$\ast$}{*} SLRWizard::\+next\+Button (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{SLRWizard@{SLRWizard}!stdVectorToQVector@{stdVectorToQVector}}
+\index{stdVectorToQVector@{stdVectorToQVector}!SLRWizard@{SLRWizard}}
+\doxysubsubsection{\texorpdfstring{stdVectorToQVector()}{stdVectorToQVector()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_ada2751317642cb02e08bb1a3575627cd} 
+QVector$<$ QString $>$ SLRWizard::\+std\+Vector\+To\+QVector (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ std::\+string $>$ \&}]{vec}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts a std::\+vector$<$std::\+string$>$ to QVector$<$\+QString$>$ for UI compatibility. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & The input vector of strings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A QVector of QStrings. 
+\end{DoxyReturn}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_ada2751317642cb02e08bb1a3575627cd_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{slrwizard_8h}{slrwizard.\+h}}\end{DoxyCompactItemize}

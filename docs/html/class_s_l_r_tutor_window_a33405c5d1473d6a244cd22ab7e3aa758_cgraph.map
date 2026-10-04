@@ -1,0 +1,45 @@
+<map id="SLRTutorWindow::exportConversationToPdf" name="SLRTutorWindow::exportConversationToPdf">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,223,251,264"/>
+<area shape="rect" id="Node000002" href="$class_conversation_pdf.html#a859395c05186e7e5866c1850b5a0c551" title="The tutor&#39;s questions and the student&#39;s answers, in order." alt="" coords="299,5,523,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,221,164,184,200,137,245,89,297,48,328,35,324,39,300,52,249,93,204,140,169,187,144,224"/>
+<area shape="rect" id="Node000003" href="$class_conversation_pdf.html#a504eb4cdcf25ef9599954a50fce0b209" title="A heading for the next block; newPage starts a new page." alt="" coords="571,56,762,82"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="143,221,169,191,205,154,248,119,298,92,362,71,429,60,495,55,558,57,553,59,495,61,430,65,363,76,300,97,251,124,208,158,173,194,147,225"/>
+<area shape="rect" id="Node000004" href="$class_conversation_pdf.html#ae4376eb49060b27693ad49c51086b4f9" title="The grammar, one rule per line; numbered when numbered." alt="" coords="310,107,512,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="156,221,219,180,298,141,320,135,316,138,300,146,222,185,160,225"/>
+<area shape="rect" id="Node000005" href="$class_conversation_pdf.html#a8b5aae61f5506d682ce7ec2aea57bc67" title="Lines in a monospaced block, such as the items of a state." alt="" coords="322,156,500,182"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="194,220,298,190,331,184,327,187,299,195,196,225"/>
+<area shape="rect" id="Node000006" href="$class_conversation_pdf.html#aeabef80e3219115470acb1ec8e380a67" title="A small heading inside a section, such as a state&#39;s name." alt="" coords="303,205,518,231"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="250,230,290,228,285,230,252,235"/>
+<area shape="rect" id="Node000007" href="$class_conversation_pdf.html#a4e6f8a22e5cd96432d362ce0f2d5f4fc" title="A table with a row header column." alt="" coords="322,255,500,280"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="250,251,309,258,304,260,252,257"/>
+<area shape="rect" id="Node000008" href="$class_conversation_pdf.html#a6eda5b50445d0ae14eb5661f76dab418" title="Prints the document to filePath as an A4 PDF." alt="" coords="335,304,486,330"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="197,262,299,290,331,300,326,301,298,295,197,267"/>
+<area shape="rect" id="Node000016" href="$class_s_l_r_tutor_window.html#ada1e6ac6faf76c657e8cceff9db99a33" title="The correct content of a table cell, as the student writes it (sN, rN, acc, or a state number for a n..." alt="" coords="311,353,511,379"/>
+<area shape="poly" id="edge23_Node000001_Node000016" title=" " alt="" coords="159,262,222,302,300,340,320,349,315,349,298,345,220,306,158,267"/>
+<area shape="rect" id="Node000017" href="$class_s_l_r_tutor_window.html#ad129ad32b1dd75aeba9f836ce52af48e" title="Columns of the SLR(1) table: terminals, $, non&#45;terminals." alt="" coords="305,403,517,428"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="147,262,211,326,253,360,300,389,314,397,309,397,297,394,250,365,207,330,146,267"/>
+<area shape="rect" id="Node000018" href="$struct_lr0_item.html#af04204a80422464f843b7a8ef4a22965" title="Converts the item to a string representation, including the dot position." alt="" coords="350,452,472,478"/>
+<area shape="poly" id="edge25_Node000001_Node000018" title=" " alt="" coords="141,261,167,301,202,349,247,398,300,439,338,456,332,455,297,443,244,402,198,353,163,304,140,267"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="479,29,586,52,581,53,480,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="478,104,586,84,581,86,480,109"/>
+<area shape="rect" id="Node000009" href="$class_conversation_pdf.html#a983b60803f4b959adf614c93cd73ec33" title="The document as HTML, for inspection." alt="" coords="591,268,742,294"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="487,304,578,293,573,294,488,309"/>
+<area shape="rect" id="Node000010" href="$namespace_app_typography.html#a3e1e1aadfe8ff398aa60cb25503d2067" title="The system font as it was before the app touched it." alt="" coords="572,341,761,367"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="487,325,562,338,556,339,487,331"/>
+<area shape="poly" id="edge22_Node000010_Node000010" title=" " alt="" coords="631,340,624,333,628,323,643,317,667,315,693,317,708,327,702,326,691,322,667,320,644,322,632,327,629,332,636,342"/>
+<area shape="rect" id="Node000011" href="$namespace_app_typography.html#a1d8837f59d9e412638b5a27be675c948" title="base resized to role, keeping its family and style." alt="" coords="810,341,952,367"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="761,352,798,354,792,354,762,357"/>
+<area shape="poly" id="edge13_Node000011_Node000011" title=" " alt="" coords="848,340,842,333,846,323,859,317,881,315,905,317,919,327,913,326,903,322,881,320,860,322,849,327,847,332,853,342"/>
+<area shape="rect" id="Node000012" href="$namespace_app_typography.html#ad9e0d7a05805bae97441da9cf8ae4126" title="Size of role at the current text scale, in points." alt="" coords="1000,341,1154,367"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="952,352,987,354,982,354,952,357"/>
+<area shape="poly" id="edge21_Node000012_Node000012" title=" " alt="" coords="1044,340,1038,333,1041,323,1055,317,1077,315,1101,317,1115,327,1109,326,1099,322,1077,320,1056,322,1045,327,1043,332,1049,342"/>
+<area shape="rect" id="Node000013" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="1202,304,1386,330"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="1154,338,1198,333,1203,333,1155,344"/>
+<area shape="rect" id="Node000014" href="$namespace_app_text_scale.html#a01feb2d6132cdbe0da4069ea092cf050" title="Multiplier currently in effect." alt="" coords="1222,377,1366,403"/>
+<area shape="poly" id="edge17_Node000012_Node000014" title=" " alt="" coords="1155,364,1210,376,1204,376,1154,370"/>
+<area shape="poly" id="edge16_Node000013_Node000013" title=" " alt="" coords="1258,303,1251,295,1255,286,1270,279,1294,277,1321,280,1336,290,1331,289,1319,285,1294,283,1271,285,1259,289,1256,295,1263,305"/>
+<area shape="poly" id="edge20_Node000014_Node000014" title=" " alt="" coords="1258,376,1251,369,1255,359,1270,353,1294,351,1321,353,1336,363,1331,362,1319,358,1294,356,1271,358,1259,363,1256,368,1263,378"/>
+<area shape="rect" id="Node000015" href="$namespace_app_text_scale.html#a7709873d381717abe050597c999c4102" title="The selected size, in percent." alt="" coords="1434,377,1630,403"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="1366,388,1422,390,1416,390,1366,393"/>
+<area shape="poly" id="edge19_Node000015_Node000015" title=" " alt="" coords="1492,376,1485,369,1490,359,1506,353,1532,351,1562,354,1578,364,1572,363,1560,359,1532,356,1507,358,1493,363,1490,368,1497,378"/>
+</map>

@@ -1,0 +1,28 @@
+<map id="ExamReportDialog::ExamReportDialog" name="ExamReportDialog::ExamReportDialog">
+<area shape="rect" id="Node000001" title="Builds the report for a finished exam session." alt="" coords="5,164,218,205"/>
+<area shape="rect" id="Node000002" href="$class_exam_report_dialog.html#aba620a1f85047591376fa2c9fb58c495" title="Emitted when the user asks to export the report to PDF." alt="" coords="277,5,452,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,162,191,113,264,62,291,51,287,54,267,67,194,117,137,165"/>
+<area shape="rect" id="Node000003" href="$class_exam_session.html#a92327389e787905fc61de25843434c22" title="Grade on the Spanish 0&#45;10 scale." alt="" coords="294,121,436,146"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,161,284,149,280,152,218,166"/>
+<area shape="rect" id="Node000004" href="$class_exam_session.html#a352ba6b2936aedcff5784c565d221949" title="Number of correct items." alt="" coords="546,96,681,121"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="142,161,198,130,231,116,265,106,334,94,404,90,471,91,533,97,527,99,471,97,405,96,335,100,266,111,233,121,200,135,146,165"/>
+<area shape="rect" id="Node000006" href="$class_exam_session.html#a017c2844f59b9345d4297010ac523396" title="Total number of graded items." alt="" coords="546,158,681,184"/>
+<area shape="poly" id="edge15_Node000001_Node000006" title=" " alt="" coords="218,179,531,171,528,175,218,184"/>
+<area shape="rect" id="Node000007" href="$namespace_app_layout.html#a2e8c035ca5f53e09369c3b4fc366ab99" title="Keeps widget at least as tall as its layout needs at its current width." alt="" coords="277,245,453,286"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="177,203,287,239,282,241,177,208"/>
+<area shape="rect" id="Node000009" href="$namespace_app_typography.html#aab34468dfba2dbcb811652547ecfaf89" title="A length that has to hold text, grown to how big text renders here." alt="" coords="266,334,464,360"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="138,202,197,247,267,295,323,327,317,327,264,300,194,251,138,208"/>
+<area shape="rect" id="Node000011" href="$class_exam_session.html#ad668804f5d0650039e67616c5c93f237" title="All graded items in exam order." alt="" coords="288,384,442,409"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="124,202,147,240,179,285,219,331,267,370,277,378,271,377,264,375,216,335,175,289,143,243,123,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="436,124,533,116,528,118,437,129"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="436,142,533,158,528,159,437,147"/>
+<area shape="rect" id="Node000005" href="$class_exam_session.html#a2290b2f623c48ffae4d650e390876253" title="Records one graded item." alt="" coords="762,96,909,121"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="681,106,749,108,744,109,681,111"/>
+<area shape="poly" id="edge8_Node000007_Node000007" title=" " alt="" coords="318,244,316,235,324,226,340,221,365,219,392,221,409,230,404,230,390,226,365,224,341,226,327,231,321,237,323,246"/>
+<area shape="rect" id="Node000008" href="$class_app_layout_1_1_height_for_width_keeper.html#acfdec3a1b4b808bd81fdb04c818afd1f" title=" " alt="" coords="512,245,714,286"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="453,263,499,265,494,266,454,268"/>
+<area shape="poly" id="edge12_Node000009_Node000009" title=" " alt="" coords="323,333,316,326,321,316,337,310,365,308,396,310,412,320,407,320,394,315,365,313,338,315,324,320,321,325,329,335"/>
+<area shape="rect" id="Node000010" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="521,334,705,360"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="464,344,508,347,503,347,464,350"/>
+<area shape="poly" id="edge11_Node000010_Node000010" title=" " alt="" coords="576,333,569,326,573,316,588,310,613,308,640,310,656,320,650,319,639,315,613,313,590,315,577,320,574,325,581,335"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="AppTypography::lengthForText" name="AppTypography::lengthForText">
+<area shape="rect" id="Node000001" title="A length that has to hold text, grown to how big text renders here." alt="" coords="726,161,925,186"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="870,146,856,142,825,139,798,142,783,146,780,152,788,161,783,160,775,152,780,142,797,136,826,134,857,137,875,147"/>
+<area shape="rect" id="Node000002" href="$class_automaton_viewer_dialog.html#a0dca877c8e4b561bca963d349ae999f2" title="Builds the viewer around an existing automaton view." alt="" coords="483,5,652,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="797,150,745,106,712,82,677,61,650,49,650,44,680,57,715,78,748,102,803,151"/>
+<area shape="rect" id="Node000003" href="$class_exam_report_dialog.html#a52aeefab0b780967e473905045fdbb69" title="Builds the report for a finished exam session." alt="" coords="462,71,674,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="765,156,633,115,634,109,771,155"/>
+<area shape="rect" id="Node000004" href="$class_l_l_wizard.html#afe8ec82259ea29642659594ad0ddb873" title="Constructs the LL(1) guided dialog from the computed table." alt="" coords="260,161,397,186"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="708,175,398,176,397,171,713,172"/>
+<area shape="rect" id="Node000005" href="$class_l_l_wizard_page.html#af82df06d0f7611f130fdf180d9151e09" title="Constructs a page for a specific cell in the LL(1) table." alt="" coords="469,186,666,212"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="708,185,667,192,666,187,713,185"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_wizard.html#a1833672694f25771c1b66c4e2b935610" title="Constructs the SLR(1) guided dialog with all necessary parsing context." alt="" coords="248,262,409,288"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="780,192,679,227,537,254,410,270,409,265,536,249,678,222,775,193"/>
+<area shape="rect" id="Node000008" href="$class_s_l_r_wizard_page.html#ac06ec88e5ba53403211fff75cf4327b6" title="Constructs a page for a specific cell in the SLR(1) table." alt="" coords="457,288,678,313"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="798,195,744,235,679,271,627,290,626,284,677,266,741,231,792,197"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="451,187,398,184,397,178,456,187"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r_tutor_window.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="5,262,200,288"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="229,275,200,278,200,272,234,275"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="140,248,129,243,102,241,79,243,66,248,63,253,70,262,64,262,58,254,62,244,77,238,103,236,130,238,146,247"/>
+<area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="439,287,410,286,410,281,444,287"/>
+</map>

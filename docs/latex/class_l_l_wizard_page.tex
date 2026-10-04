@@ -1,0 +1,157 @@
+\doxysection{LLWizard\+Page Class Reference}
+\label{class_l_l_wizard_page}\index{LLWizardPage@{LLWizardPage}}
+
+
+A single guided step for constructing the LL(1) table.  
+
+
+
+
+{\ttfamily \+\#include $<$llwizardpage.\+h$>$}
+
+
+
+Inheritance diagram for LLWizard\+Page:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=123pt]{class_l_l_wizard_page__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for LLWizard\+Page:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=123pt]{class_l_l_wizard_page__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_l_l_wizard_page_a4f6643ad22dbbed9fd3e28a71f3f1e16}{completion\+Changed}} (bool complete)
+\item 
+void \doxymbox{\hyperlink{class_l_l_wizard_page_aeb86e7c4e5caf636b040cd368a66db31}{submit\+Requested}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_l_l_wizard_page_af82df06d0f7611f130fdf180d9151e09}{LLWizard\+Page}} (const QString \&non\+Terminal, const QString \&symbol, const QString \&explanation, const QString \&expected, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a page for a specific cell in the LL(1) table. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{class_l_l_wizard_page_a6f4f7a2c9c89cfcb6b1bf5b8ac79aabb}{title\+Text}} () const
+\item 
+bool \doxymbox{\hyperlink{class_l_l_wizard_page_a0d90b49450341978bfca8d1afa0e7b3a}{is\+Complete}} () const
+\item 
+void \doxymbox{\hyperlink{class_l_l_wizard_page_a968bbe9482980d7308d48282f0357ee3}{focus\+Answer\+Field}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_l_l_wizard_page_a9cdca8d74d0a5679333e00615768bea6}{resize\+Event}} (QResize\+Event \texorpdfstring{$\ast$}{*}event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A single guided step for constructing the LL(1) table. 
+
+This widget presents one (non-\/terminal, terminal) cell at a time with a compact explanation card and an answer card. The expected answer is the production that belongs in the cell; the input is validated ignoring whitespace so "{}a B"{}, "{}a  B"{} and "{}a\+B"{} are all accepted. It emits a signal whenever the completion state changes. 
+
+\label{class_l_l_wizard_page_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{LLWizardPage@{LLWizardPage}!LLWizardPage@{LLWizardPage}}
+\index{LLWizardPage@{LLWizardPage}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{LLWizardPage()}{LLWizardPage()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_af82df06d0f7611f130fdf180d9151e09} 
+LLWizard\+Page::\+\+LLWizard\+Page (\begin{DoxyParamCaption}\item[{const QString \&}]{non\+Terminal}{, }\item[{const QString \&}]{symbol}{, }\item[{const QString \&}]{explanation}{, }\item[{const QString \&}]{expected}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a page for a specific cell in the LL(1) table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em non\+Terminal} & The non-\/terminal symbol (row header). \\
+\hline
+{\em symbol} & The terminal symbol (column header). \\
+\hline
+{\em explanation} & A pedagogical explanation shown to the user. \\
+\hline
+{\em expected} & The expected production, space-\/separated (e.\+g. "{}a B"{} or "{}\+EPSILON"{}). \\
+\hline
+{\em parent} & The parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_l_l_wizard_page_af82df06d0f7611f130fdf180d9151e09_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{class_l_l_wizard_page_af82df06d0f7611f130fdf180d9151e09_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_l_l_wizard_page_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{LLWizardPage@{LLWizardPage}!completionChanged@{completionChanged}}
+\index{completionChanged@{completionChanged}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{completionChanged}{completionChanged}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_a4f6643ad22dbbed9fd3e28a71f3f1e16} 
+void LLWizard\+Page::\+completion\+Changed (\begin{DoxyParamCaption}\item[{bool}]{complete}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{class_l_l_wizard_page_a4f6643ad22dbbed9fd3e28a71f3f1e16_icgraph}
+\end{center}
+\end{figure}
+\index{LLWizardPage@{LLWizardPage}!focusAnswerField@{focusAnswerField}}
+\index{focusAnswerField@{focusAnswerField}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{focusAnswerField()}{focusAnswerField()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_a968bbe9482980d7308d48282f0357ee3} 
+void LLWizard\+Page::\+focus\+Answer\+Field (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{LLWizardPage@{LLWizardPage}!isComplete@{isComplete}}
+\index{isComplete@{isComplete}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{isComplete()}{isComplete()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_a0d90b49450341978bfca8d1afa0e7b3a} 
+bool LLWizard\+Page::\+is\+Complete (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{LLWizardPage@{LLWizardPage}!resizeEvent@{resizeEvent}}
+\index{resizeEvent@{resizeEvent}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{resizeEvent()}{resizeEvent()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_a9cdca8d74d0a5679333e00615768bea6} 
+void LLWizard\+Page::\+resize\+Event (\begin{DoxyParamCaption}\item[{QResize\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+\index{LLWizardPage@{LLWizardPage}!submitRequested@{submitRequested}}
+\index{submitRequested@{submitRequested}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{submitRequested}{submitRequested}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_aeb86e7c4e5caf636b040cd368a66db31} 
+void LLWizard\+Page::\+submit\+Requested (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_l_l_wizard_page_aeb86e7c4e5caf636b040cd368a66db31_icgraph}
+\end{center}
+\end{figure}
+\index{LLWizardPage@{LLWizardPage}!titleText@{titleText}}
+\index{titleText@{titleText}!LLWizardPage@{LLWizardPage}}
+\doxysubsubsection{\texorpdfstring{titleText()}{titleText()}}
+{\footnotesize\ttfamily \label{class_l_l_wizard_page_a6f4f7a2c9c89cfcb6b1bf5b8ac79aabb} 
+QString LLWizard\+Page::\+title\+Text (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{llwizardpage_8h}{llwizardpage.\+h}}\end{DoxyCompactItemize}

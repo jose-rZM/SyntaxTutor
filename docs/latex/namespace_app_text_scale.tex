@@ -1,0 +1,230 @@
+\doxysection{App\+Text\+Scale Namespace Reference}
+\label{namespace_app_text_scale}\index{AppTextScale@{AppTextScale}}
+
+
+The user\textquotesingle{}s text size preference, as a percentage.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{namespace_app_text_scale_a88be99fda47139c5d05fb165ed11df7c}{clamp\+Percent}} (int percent)
+\begin{DoxyCompactList}\small\item\em Keeps a percentage inside the allowed range. \end{DoxyCompactList}\item 
+int \& \doxymbox{\hyperlink{namespace_app_text_scale_a7709873d381717abe050597c999c4102}{current\+Percent}} ()
+\begin{DoxyCompactList}\small\item\em The selected size, in percent. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{namespace_app_text_scale_a01feb2d6132cdbe0da4069ea092cf050}{factor}} ()
+\begin{DoxyCompactList}\small\item\em Multiplier currently in effect. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_text_scale_a29ee2da74f7cfd18283b2bc29e44cd07}{settings\+Key}} ()
+\begin{DoxyCompactList}\small\item\em Settings key holding the selected size, in percent. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_text_scale_a648948601194d40e3750387608640bf9}{legacy\+Settings\+Key}} ()
+\begin{DoxyCompactList}\small\item\em Key used by the first version of this setting, which named steps. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{namespace_app_text_scale_a73e5ae40c3e4fa0a0a688bd07083dde3}{percent\+From\+Legacy\+Value}} (const QString \&value)
+\begin{DoxyCompactList}\small\item\em Percentage matching one of the original named steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_abb10302ab8b58188ee0ebdec5053e13f}{k\+Min\+Percent}} = 80
+\begin{DoxyCompactList}\small\item\em Smallest text size the user can pick, in percent. \end{DoxyCompactList}\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_ad775e53e88e215072a096e93275d6feb}{k\+Max\+Percent}} = 200
+\begin{DoxyCompactList}\small\item\em Largest text size the user can pick, in percent. \end{DoxyCompactList}\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_ab99431b6455f8baffd8aeaff3dd0c54b}{k\+Default\+Percent}} = 100
+\begin{DoxyCompactList}\small\item\em Size used until the user picks one, in percent. \end{DoxyCompactList}\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_a04304b70c0ee9998c5c36f4aa2c5e4c2}{k\+Preset\+Percents}} \+[$\,$] = \{90, 100, 115, 130, 150, 175, 200\}
+\begin{DoxyCompactList}\small\item\em Sizes offered directly in the menu, in percent. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The user\textquotesingle{}s text size preference, as a percentage. 
+
+Only the preference lives here: how big each piece of text is comes from the type scale in \doxylink{namespace_app_typography}{App\+Typography}, which multiplies its point sizes by \doxylink{namespace_app_text_scale_a01feb2d6132cdbe0da4069ea092cf050}{factor}. The platform\textquotesingle{}s own point-\/to-\/pixel mapping is left to Qt, so 100\% means "{}as designed"{} on every system rather than a DPI correction. 
+
+\label{namespace_app_text_scale_doc-func-members}
+\doxysubsection{Function Documentation}
+\index{AppTextScale@{AppTextScale}!clampPercent@{clampPercent}}
+\index{clampPercent@{clampPercent}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{clampPercent()}{clampPercent()}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a88be99fda47139c5d05fb165ed11df7c} 
+int App\+Text\+Scale::\+clamp\+Percent (\begin{DoxyParamCaption}\item[{int}]{percent}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Keeps a percentage inside the allowed range. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{namespace_app_text_scale_a88be99fda47139c5d05fb165ed11df7c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{namespace_app_text_scale_a88be99fda47139c5d05fb165ed11df7c_icgraph}
+\end{center}
+\end{figure}
+\index{AppTextScale@{AppTextScale}!currentPercent@{currentPercent}}
+\index{currentPercent@{currentPercent}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{currentPercent()}{currentPercent()}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a7709873d381717abe050597c999c4102} 
+int \& App\+Text\+Scale::\+current\+Percent (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The selected size, in percent. 
+
+An inline function with a static local so every translation unit shares one instance without needing a .cpp. Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{namespace_app_text_scale_a7709873d381717abe050597c999c4102_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_text_scale_a7709873d381717abe050597c999c4102_icgraph}
+\end{center}
+\end{figure}
+\index{AppTextScale@{AppTextScale}!factor@{factor}}
+\index{factor@{factor}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{factor()}{factor()}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a01feb2d6132cdbe0da4069ea092cf050} 
+double App\+Text\+Scale::\+factor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Multiplier currently in effect. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{namespace_app_text_scale_a01feb2d6132cdbe0da4069ea092cf050_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_text_scale_a01feb2d6132cdbe0da4069ea092cf050_icgraph}
+\end{center}
+\end{figure}
+\index{AppTextScale@{AppTextScale}!legacySettingsKey@{legacySettingsKey}}
+\index{legacySettingsKey@{legacySettingsKey}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{legacySettingsKey()}{legacySettingsKey()}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a648948601194d40e3750387608640bf9} 
+QString App\+Text\+Scale::\+legacy\+Settings\+Key (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Key used by the first version of this setting, which named steps. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{namespace_app_text_scale_a648948601194d40e3750387608640bf9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{namespace_app_text_scale_a648948601194d40e3750387608640bf9_icgraph}
+\end{center}
+\end{figure}
+\index{AppTextScale@{AppTextScale}!percentFromLegacyValue@{percentFromLegacyValue}}
+\index{percentFromLegacyValue@{percentFromLegacyValue}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{percentFromLegacyValue()}{percentFromLegacyValue()}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a73e5ae40c3e4fa0a0a688bd07083dde3} 
+int App\+Text\+Scale::\+percent\+From\+Legacy\+Value (\begin{DoxyParamCaption}\item[{const QString \&}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Percentage matching one of the original named steps. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{namespace_app_text_scale_a73e5ae40c3e4fa0a0a688bd07083dde3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{namespace_app_text_scale_a73e5ae40c3e4fa0a0a688bd07083dde3_icgraph}
+\end{center}
+\end{figure}
+\index{AppTextScale@{AppTextScale}!settingsKey@{settingsKey}}
+\index{settingsKey@{settingsKey}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{settingsKey()}{settingsKey()}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a29ee2da74f7cfd18283b2bc29e44cd07} 
+QString App\+Text\+Scale::\+settings\+Key (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Settings key holding the selected size, in percent. 
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{namespace_app_text_scale_a29ee2da74f7cfd18283b2bc29e44cd07_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{namespace_app_text_scale_a29ee2da74f7cfd18283b2bc29e44cd07_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{namespace_app_text_scale_doc-var-members}
+\doxysubsection{Variable Documentation}
+\index{AppTextScale@{AppTextScale}!kDefaultPercent@{kDefaultPercent}}
+\index{kDefaultPercent@{kDefaultPercent}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{kDefaultPercent}{kDefaultPercent}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_ab99431b6455f8baffd8aeaff3dd0c54b} 
+int App\+Text\+Scale::\+k\+Default\+Percent = 100\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Size used until the user picks one, in percent. 
+
+\index{AppTextScale@{AppTextScale}!kMaxPercent@{kMaxPercent}}
+\index{kMaxPercent@{kMaxPercent}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{kMaxPercent}{kMaxPercent}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_ad775e53e88e215072a096e93275d6feb} 
+int App\+Text\+Scale::\+k\+Max\+Percent = 200\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Largest text size the user can pick, in percent. 
+
+\index{AppTextScale@{AppTextScale}!kMinPercent@{kMinPercent}}
+\index{kMinPercent@{kMinPercent}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{kMinPercent}{kMinPercent}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_abb10302ab8b58188ee0ebdec5053e13f} 
+int App\+Text\+Scale::\+k\+Min\+Percent = 80\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Smallest text size the user can pick, in percent. 
+
+\index{AppTextScale@{AppTextScale}!kPresetPercents@{kPresetPercents}}
+\index{kPresetPercents@{kPresetPercents}!AppTextScale@{AppTextScale}}
+\doxysubsubsection{\texorpdfstring{kPresetPercents}{kPresetPercents}}
+{\footnotesize\ttfamily \label{namespace_app_text_scale_a04304b70c0ee9998c5c36f4aa2c5e4c2} 
+int App\+Text\+Scale::\+k\+Preset\+Percents\+[$\,$] = \{90, 100, 115, 130, 150, 175, 200\}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Sizes offered directly in the menu, in percent. 
+

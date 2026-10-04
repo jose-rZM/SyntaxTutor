@@ -1,0 +1,9 @@
+<map id="GrammarFactory::Lv2" name="GrammarFactory::Lv2">
+<area shape="rect" id="Node000001" title="Generates a Level 2 grammar by combining Level 1 items." alt="" coords="517,31,665,56"/>
+<area shape="rect" id="Node000002" href="$struct_grammar_factory.html#a5c57d8d96992059e78a68e5bd5ec5260" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="292,31,469,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="499,44,469,46,469,41,504,43"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="11,5,238,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,33,238,32,238,27,279,33"/>
+<area shape="rect" id="Node000004" href="$struct_grammar_factory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,55,244,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="273,54,245,59,244,54,279,53"/>
+</map>

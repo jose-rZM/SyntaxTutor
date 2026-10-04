@@ -1,0 +1,12 @@
+<map id="Lr0Item::NextToDot" name="Lr0Item::NextToDot">
+<area shape="rect" id="Node000001" title="Returns the symbol immediately after the dot, or empty if the dot is at the end." alt="" coords="761,31,898,56"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r1_parser.html#aee48bcbf0a93badeb5271a7299cc458b" title="Computes the GOTO transition ( ) for a given set of LR(0) items and a symbol. This function is equiva..." alt="" coords="546,5,678,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="743,34,678,28,678,23,748,34"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r1_parser.html#a6a31a57223b052028c74f5d70db41c16" title="Resolves LR conflicts in a given state." alt="" coords="511,55,713,80"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="748,53,714,59,713,54,743,53"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r1_parser.html#af61cf9a5210b5df543a0ffcff96ce295" title=" " alt="" coords="292,31,463,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="534,27,464,37,463,32,529,27"/>
+<area shape="rect" id="Node000004" href="$struct_grammar_factory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,31,244,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="273,44,244,46,244,41,279,43"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="493,56,464,55,464,50,498,56"/>
+</map>

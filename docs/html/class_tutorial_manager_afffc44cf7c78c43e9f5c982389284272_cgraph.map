@@ -1,0 +1,33 @@
+<map id="TutorialManager::finishSLR1" name="TutorialManager::finishSLR1">
+<area shape="rect" id="Node000001" title="Ends the SLR(1) tutorial sequence and emits its corresponding signal." alt="" coords="5,91,192,116"/>
+<area shape="rect" id="Node000002" href="$class_tutorial_manager.html#a43ead2fd97e8b0783026004724988cdf" title="Emitted when the SLR(1) tutorial ends." alt="" coords="240,91,432,116"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,101,227,103,222,104,193,106"/>
+<area shape="rect" id="Node000003" href="$class_tutorial_manager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="480,91,654,116"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="432,101,467,103,462,104,432,106"/>
+<area shape="rect" id="Node000004" href="$class_tutorial_manager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="702,65,894,91"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="654,100,732,93,727,94,655,105"/>
+<area shape="rect" id="Node000011" href="$class_tutorial_manager.html#aba61470a5090632d6df51b167e740054" title="Emitted when a new tutorial step starts." alt="" coords="703,115,893,140"/>
+<area shape="poly" id="edge18_Node000003_Node000011" title=" " alt="" coords="655,110,691,116,685,116,655,115"/>
+<area shape="rect" id="Node000012" href="$class_tutorial_manager.html#ac3e8c34792596992dc52d21de5198030" title="Emitted when the full tutorial is finished." alt="" coords="717,164,879,205"/>
+<area shape="poly" id="edge19_Node000003_Node000012" title=" " alt="" coords="605,114,703,150,723,159,717,159,701,155,604,120"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="699,80,635,90,635,85,705,79"/>
+<area shape="rect" id="Node000005" href="$namespace_app_typography.html#a8ced112c8886506a81b4028ab9c3df37" title="Replaces every $font&#45;&lt;name&gt; in styleSheet with its size." alt="" coords="942,58,1133,98"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="894,76,928,78,923,78,894,81"/>
+<area shape="poly" id="edge17_Node000005_Node000005" title=" " alt="" coords="993,56,990,48,998,39,1013,33,1037,31,1063,34,1080,43,1075,42,1062,39,1037,36,1014,38,1001,43,995,49,997,59"/>
+<area shape="rect" id="Node000006" href="$namespace_app_text_scale.html#a01feb2d6132cdbe0da4069ea092cf050" title="Multiplier currently in effect." alt="" coords="1645,29,1788,55"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="1133,67,1181,64,1425,50,1632,45,1627,45,1425,56,1181,69,1134,72"/>
+<area shape="rect" id="Node000008" href="$namespace_app_typography.html#a7ce516481a973e7af6b68624d18afb63" title="A point size written the way CSS and QSS expect it, e.g. 14.5pt." alt="" coords="1181,103,1374,128"/>
+<area shape="poly" id="edge10_Node000005_Node000008" title=" " alt="" coords="1134,90,1178,100,1173,100,1134,96"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="1680,28,1674,21,1678,11,1693,5,1717,3,1743,5,1758,15,1753,14,1742,10,1717,8,1694,10,1682,15,1679,20,1685,30"/>
+<area shape="rect" id="Node000007" href="$namespace_app_text_scale.html#a7709873d381717abe050597c999c4102" title="The selected size, in percent." alt="" coords="1857,29,2052,55"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="1789,40,1844,42,1839,42,1789,45"/>
+<area shape="poly" id="edge8_Node000007_Node000007" title=" " alt="" coords="1915,28,1908,21,1912,11,1928,5,1955,3,1984,6,2000,16,1995,15,1983,11,1955,8,1929,10,1916,15,1913,20,1920,30"/>
+<area shape="poly" id="edge11_Node000008_Node000008" title=" " alt="" coords="1240,101,1234,94,1238,84,1253,78,1278,76,1305,79,1320,88,1315,87,1303,84,1278,81,1254,83,1242,88,1239,93,1245,103"/>
+<area shape="rect" id="Node000009" href="$namespace_app_typography.html#ad9e0d7a05805bae97441da9cf8ae4126" title="Size of role at the current text scale, in points." alt="" coords="1422,103,1577,128"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="1374,113,1409,115,1404,116,1375,118"/>
+<area shape="poly" id="edge15_Node000009_Node000006" title=" " alt="" coords="1531,99,1624,64,1643,60,1648,59,1626,69,1532,105"/>
+<area shape="poly" id="edge16_Node000009_Node000009" title=" " alt="" coords="1463,101,1456,94,1461,84,1475,78,1500,76,1526,79,1541,88,1536,87,1525,84,1499,81,1477,83,1464,88,1462,93,1468,103"/>
+<area shape="rect" id="Node000010" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="1625,103,1809,128"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="1577,113,1612,115,1606,116,1577,118"/>
+<area shape="poly" id="edge14_Node000010_Node000010" title=" " alt="" coords="1680,101,1674,94,1678,84,1693,78,1717,76,1743,79,1758,88,1753,87,1742,84,1717,81,1694,83,1682,88,1679,93,1685,103"/>
+</map>

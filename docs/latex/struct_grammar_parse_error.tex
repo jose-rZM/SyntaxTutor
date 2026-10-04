@@ -1,0 +1,136 @@
+\doxysection{Grammar\+Parse\+Error Struct Reference}
+\label{struct_grammar_parse_error}\index{GrammarParseError@{GrammarParseError}}
+
+
+Describes one problem found while parsing user-\/written grammar text.  
+
+
+
+
+{\ttfamily \+\#include $<$grammar\+\_\+parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677a}{Kind}} \{ \newline
+\doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa4649a96f528033b765813b1f162caaa7}{Empty\+Grammar}}
+, \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aab065f9b6e9228f78671d56e671c59b2a}{Missing\+Arrow}}
+, \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa26ac9e850810989c304d73a02e9713c3}{Missing\+End\+Dot}}
+, \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa7117cc22a9902d8200cba982467ee145}{Empty\+Left\+Hand\+Side}}
+, \newline
+\doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa4a3d6314213f64e3575eb6150e385d18}{Multiple\+Left\+Hand\+Side}}
+, \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa1430848c5f9067145868ad8f6dd4c762}{Extra\+Arrow}}
+, \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aac182cd9db3cff0907cdbcfd3d668620a}{Reserved\+Symbol}}
+ \}
+\begin{DoxyCompactList}\small\item\em Machine-\/readable category of a grammar text error. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677a}{Kind}} \doxymbox{\hyperlink{struct_grammar_parse_error_af6f065aef5baa85d5e8c5144833e4541}{kind}}
+\begin{DoxyCompactList}\small\item\em Category of the error. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{struct_grammar_parse_error_ae6bc663a8cb282e5122b12cd7ecb5798}{line}}
+\begin{DoxyCompactList}\small\item\em 1-\/based line in the source text where the rule starts. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{struct_grammar_parse_error_addc970222cf4e0bdd475c5f868a0b090}{detail}}
+\begin{DoxyCompactList}\small\item\em Offending token or rule fragment, for diagnostics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Describes one problem found while parsing user-\/written grammar text. 
+
+Errors carry a machine-\/readable kind, the 1-\/based line where the offending rule starts, and the offending fragment so the GUI can build a localized, user-\/friendly message. 
+
+\label{struct_grammar_parse_error_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\index{GrammarParseError@{GrammarParseError}!Kind@{Kind}}
+\index{Kind@{Kind}!GrammarParseError@{GrammarParseError}}
+\doxysubsubsection{\texorpdfstring{Kind}{Kind}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677a} 
+enum class \doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677a}{Grammar\+Parse\+Error::\+\+Kind}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Machine-\/readable category of a grammar text error. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EmptyGrammar@{EmptyGrammar}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!EmptyGrammar@{EmptyGrammar}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa4649a96f528033b765813b1f162caaa7} 
+Empty\+Grammar&The text contains no rules at all. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MissingArrow@{MissingArrow}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!MissingArrow@{MissingArrow}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aab065f9b6e9228f78671d56e671c59b2a} 
+Missing\+Arrow&A rule has no "{}-\/$>$"{} separator. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MissingEndDot@{MissingEndDot}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!MissingEndDot@{MissingEndDot}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa26ac9e850810989c304d73a02e9713c3} 
+Missing\+End\+Dot&Text after the last "{}."{} looks like an unterminated rule. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EmptyLeftHandSide@{EmptyLeftHandSide}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!EmptyLeftHandSide@{EmptyLeftHandSide}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa7117cc22a9902d8200cba982467ee145} 
+Empty\+Left\+Hand\+Side&A rule has no symbol before "{}-\/$>$"{}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MultipleLeftHandSide@{MultipleLeftHandSide}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!MultipleLeftHandSide@{MultipleLeftHandSide}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa4a3d6314213f64e3575eb6150e385d18} 
+Multiple\+Left\+Hand\+Side&A rule has more than one symbol before "{}-\/$>$"{}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ExtraArrow@{ExtraArrow}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!ExtraArrow@{ExtraArrow}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aa1430848c5f9067145868ad8f6dd4c762} 
+Extra\+Arrow&A rule body contains another "{}-\/$>$"{}, usually a missing dot. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ReservedSymbol@{ReservedSymbol}!GrammarParseError@{GrammarParseError}}
+\index{GrammarParseError@{GrammarParseError}!ReservedSymbol@{ReservedSymbol}}
+}\label{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677aac182cd9db3cff0907cdbcfd3d668620a} 
+Reserved\+Symbol&A symbol uses a reserved character or reserved word. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{struct_grammar_parse_error_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\index{GrammarParseError@{GrammarParseError}!detail@{detail}}
+\index{detail@{detail}!GrammarParseError@{GrammarParseError}}
+\doxysubsubsection{\texorpdfstring{detail}{detail}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_error_addc970222cf4e0bdd475c5f868a0b090} 
+std::\+string Grammar\+Parse\+Error::\+detail}
+
+
+
+Offending token or rule fragment, for diagnostics. 
+
+\index{GrammarParseError@{GrammarParseError}!kind@{kind}}
+\index{kind@{kind}!GrammarParseError@{GrammarParseError}}
+\doxysubsubsection{\texorpdfstring{kind}{kind}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_error_af6f065aef5baa85d5e8c5144833e4541} 
+\doxymbox{\hyperlink{struct_grammar_parse_error_a146c2bc784622fd0a8f939d97e14677a}{Kind}} Grammar\+Parse\+Error::\+kind}
+
+
+
+Category of the error. 
+
+\index{GrammarParseError@{GrammarParseError}!line@{line}}
+\index{line@{line}!GrammarParseError@{GrammarParseError}}
+\doxysubsubsection{\texorpdfstring{line}{line}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_error_ae6bc663a8cb282e5122b12cd7ecb5798} 
+int Grammar\+Parse\+Error::\+line}
+
+
+
+1-\/based line in the source text where the rule starts. 
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+backend/\doxymbox{\hyperlink{grammar__parser_8hpp}{grammar\+\_\+parser.\+hpp}}\end{DoxyCompactItemize}

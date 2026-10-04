@@ -17,6 +17,8 @@
  */
 
 #include "lltabledialog.h"
+#include "applayout.h"
+#include <QApplication>
 #include <QFontDatabase>
 #include <QStyledItemDelegate>
 
@@ -27,7 +29,7 @@ class CenterAlignDelegate : public QStyledItemDelegate {
                          const QModelIndex&    idx) const override {
         QStyledItemDelegate::initStyleOption(opt, idx);
         opt->displayAlignment = Qt::AlignCenter;
-        opt->font             = QFontDatabase::font("Noto Sans", "Regular", 14);
+        opt->font             = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
     }
 };
 
@@ -35,59 +37,16 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
                              const QStringList& colHeaders, QWidget* parent,
                              QVector<QVector<QString>>* initialData)
     : QDialog(parent) {
+    setProperty("tableDialog", true);
+    setObjectName("llTableDialog");
     table = new QTableWidget(rowHeaders.size(), colHeaders.size(), this);
+    table->setObjectName("llTableWidget");
     table->setItemDelegate(new CenterAlignDelegate(table));
     table->setAlternatingRowColors(true);
-    table->setStyleSheet(R"(
-    /* Fondo general y texto */
-    QTableWidget {
-        background-color: #1F1F1F;
-        color:            #EEEEEE;
-        gridline-color:   #444444;
-        font-family:      'Noto Sans';
-        font-size:        13px;
-    }
-    /* Cabeceras horizontales */
-    QHeaderView::section {
-        background-color: #2E2E2E;
-        color:            #00ADB5;
-        padding:          6px;
-        border:           1px solid #444444;
-    }
-    /* Cabeceras verticales */
-    QTableWidget QHeaderView::section:vertical {
-        background-color: #2E2E2E;
-        color:            #CCCCCC;
-        padding:          6px;
-        border:           1px solid #444444;
-    }
-    /* Botón esquina superior-izquierda */
-    QTableCornerButton::section {
-        background-color: #2E2E2E;
-        border: 1px solid #444444;
-    }
-    /* Filas alternadas */
-    QTableWidget {
-        alternate-background-color: #252525;
-    }
-    /* Selección de celda */
-    QTableWidget::item:selected {
-        background-color: #00ADB5;
-        color:            #FFFFFF;
-    }
-    /* Sin líneas en los bordes exterior */
-    QTableWidget {
-        show-decoration-selected: 1;
-        selection-background-color: #00ADB5;
-        selection-color: #FFFFFF;
-    }
-)");
     table->setHorizontalHeaderLabels(colHeaders);
     table->setVerticalHeaderLabels(rowHeaders);
-    table->horizontalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Bold", 13));
-    table->verticalHeader()->setFont(
-        QFontDatabase::font("Noto Sans", "Bold", 13));
+    table->horizontalHeader()->setFont(table->font());
+    table->verticalHeader()->setFont(table->font());
     table->resizeColumnsToContents();
     table->resizeRowsToContents();
 
@@ -104,32 +63,29 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     table->horizontalHeader()->setStretchLastSection(true);
 
     submitButton           = new QPushButton(tr("Finalizar"), this);
-    QFont submitButtonFont = QFontDatabase::font("Noto Sans", "Regular", 12);
+    submitButton->setObjectName("llTableSubmitButton");
+    QFont submitButtonFont = submitButton->font();
     submitButtonFont.setBold(true);
     submitButton->setFont(submitButtonFont);
     submitButton->setCursor(Qt::PointingHandCursor);
-    submitButton->setStyleSheet(R"(
-  QPushButton {
-    background-color: #00ADB5;
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: 'Noto Sans';
-    font-weight: bold;
-  }
-  QPushButton:hover {
-    background-color: #00CED1;
-  }
-  QPushButton:pressed {
-    background-color: #007F86;
-  }
-)");
+    submitButton->setProperty("role", "primary");
+
+    guidedButton = new QPushButton(tr("Modo guiado"), this);
+    guidedButton->setObjectName("llTableGuidedButton");
+    guidedButton->setCursor(Qt::PointingHandCursor);
+    guidedButton->setProperty("role", "primary");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(table);
-    layout->addWidget(submitButton);
+
+    auto* buttons = new QHBoxLayout;
+    buttons->setContentsMargins(0, 0, 0, 0);
+    buttons->setSpacing(10);
+    buttons->addStretch();
+    buttons->addWidget(guidedButton);
+    buttons->addWidget(submitButton);
+
+    layout->addLayout(buttons);
     layout->setContentsMargins(10, 10, 10, 10);
     setLayout(layout);
 
@@ -157,8 +113,34 @@ LLTableDialog::LLTableDialog(const QStringList& rowHeaders,
     }
 
     resize(width, height);
+    AppLayout::keepHeightForWidth(this);
     connect(submitButton, &QPushButton::clicked, this,
-            [this]() { emit submitted(getTableData()); });
+            [this]() {
+                commitPendingEdit();
+                emit submitted(getTableData());
+            });
+    connect(guidedButton, &QPushButton::clicked, this,
+            [this]() {
+                commitPendingEdit();
+                emit guidedRequested(getTableData());
+            });
+}
+
+void LLTableDialog::setGuidedModeActive(bool active) {
+    guidedButton->setEnabled(!active);
+    submitButton->setEnabled(!active);
+}
+
+void LLTableDialog::setGuidedButtonVisible(bool visible) {
+    guidedButton->setVisible(visible);
+}
+
+void LLTableDialog::commitPendingEdit() {
+    if (QWidget* editor = QApplication::focusWidget();
+        editor != nullptr && table->isAncestorOf(editor)) {
+        submitButton->setFocus(Qt::OtherFocusReason);
+        QApplication::processEvents();
+    }
 }
 
 QVector<QVector<QString>> LLTableDialog::getTableData() const {

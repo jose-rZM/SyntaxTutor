@@ -1,0 +1,9 @@
+<map id="GrammarFactory::RemoveLeftRecursion" name="GrammarFactory::RemoveLeftRecursion">
+<area shape="rect" id="Node000001" title="Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its produ..." alt="" coords="5,71,204,111"/>
+<area shape="rect" id="Node000002" href="$struct_grammar_factory.html#aca2925bbcb27fa32b0b53d626dfd7b7e" title="Generates a new non&#45;terminal symbol that is unique in the grammar." alt="" coords="255,5,435,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,68,255,49,250,52,183,73"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a6bf9e0a5e0808f56165d488abde34c5f" title="Checks if a grammar contains direct left recursion (a non&#45;terminal can produce itself on the left sid..." alt="" coords="252,71,438,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,88,239,90,234,92,205,94"/>
+<area shape="rect" id="Node000004" href="$struct_symbol_table.html#aba5ea04e1b9eec27e041bb9422121340" title="Adds a symbol to the symbol table." alt="" coords="261,136,429,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,109,275,131,270,132,192,115"/>
+</map>

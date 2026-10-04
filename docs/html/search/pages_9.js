@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['learning_20mode_0',['Learning Mode',['../index.html#autotoc_md8',1,'📘 LL(1) Learning Mode'],['../index.html#autotoc_md9',1,'🧠 SLR(1) Learning Mode']]],
-  ['learning_20syntax_20analysis_1',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['ll_201_20learning_20mode_2',['📘 LL(1) Learning Mode',['../index.html#autotoc_md8',1,'']]]
+  ['screenshots_0',['Screenshots',['../index.html#autotoc_md4',1,'']]],
+  ['source_1',['Building from source',['../index.html#autotoc_md6',1,'']]],
+  ['started_2',['Getting started',['../index.html#autotoc_md2',1,'']]],
+  ['structure_3',['Project structure',['../index.html#autotoc_md7',1,'']]],
+  ['syntaxtutor_4',['SyntaxTutor',['../index.html',1,'']]]
 ];

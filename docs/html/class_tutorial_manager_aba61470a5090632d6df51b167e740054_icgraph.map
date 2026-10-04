@@ -1,0 +1,18 @@
+<map id="TutorialManager::stepStarted" name="TutorialManager::stepStarted">
+<area shape="rect" id="Node000001" title="Emitted when a new tutorial step starts." alt="" coords="702,88,892,114"/>
+<area shape="rect" id="Node000002" href="$class_tutorial_manager.html#aaa497afd5ce20be6249e2660f74b6dc3" title="Advances to the next tutorial step." alt="" coords="480,88,654,114"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="684,101,655,103,655,98,689,101"/>
+<area shape="rect" id="Node000003" href="$class_tutorial_manager.html#ab9e00263109c4e1ab6b66617ce2f1887" title="Hides the tutorial overlay immediately." alt="" coords="240,63,432,88"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="462,99,389,92,389,86,467,98"/>
+<area shape="rect" id="Node000006" href="$class_tutorial_manager.html#a43ead2fd97e8b0783026004724988cdf" title="Emitted when the SLR(1) tutorial ends." alt="" coords="240,112,432,138"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="461,112,433,117,432,112,467,111"/>
+<area shape="rect" id="Node000008" href="$class_tutorial_manager.html#a4fd17560c48c8f8646ef846b8f36bb30" title="Starts the tutorial from the beginning." alt="" coords="262,161,410,187"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="521,119,433,153,395,163,394,158,431,148,516,120"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="447,76,517,87,511,88,447,81"/>
+<area shape="rect" id="Node000004" href="$class_tutorial_manager.html#ab1a4a56a7150cf6f216a831e09dd7209" title="Clears all steps in the tutorial." alt="" coords="6,5,191,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="263,60,155,34,155,29,267,57"/>
+<area shape="rect" id="Node000005" href="$class_tutorial_manager.html#a57817e60d063bad9ac188e1cf9c86588" title="Sets the root window (used for repositioning the overlay)." alt="" coords="14,55,183,96"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="222,76,184,78,183,73,227,75"/>
+<area shape="rect" id="Node000007" href="$class_tutorial_manager.html#afffc44cf7c78c43e9f5c982389284272" title="Ends the SLR(1) tutorial sequence and emits its corresponding signal." alt="" coords="5,120,192,146"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="221,129,193,132,192,127,227,128"/>
+</map>

@@ -63,6 +63,15 @@ bool SLR1Parser::SolveLRConflicts(const state& st) {
         if (item.IsComplete()) {
             // Regla 3: Si el ítem es del axioma, ACCEPT en EOL
             if (item.antecedent_ == gr_.axiom_) {
+                // A reduction already written on EOL collides with accepting
+                // (ACCEPT/REDUCE). Overwriting it hid the conflict whenever
+                // the reduction happened to be visited first, which depends
+                // on the item set's iteration order.
+                auto it = actions_[st.id_].find(gr_.st_.EOL_);
+                if (it != actions_[st.id_].end() &&
+                    it->second.action != Action::Accept) {
+                    return false;
+                }
                 actions_[st.id_][gr_.st_.EOL_] = {nullptr, Action::Accept};
             } else {
                 // Regla 2: Si el ítem es completo, REDUCE en FOLLOW(A)
@@ -193,7 +202,7 @@ void SLR1Parser::ClosureUtil(std::unordered_set<Lr0Item>&     items,
         if (next == gr_.st_.EPSILON_) {
             continue;
         }
-        if (!gr_.st_.IsTerminal(next) &&
+        if (gr_.st_.IsNonTerminal(next) &&
             std::find(visited.cbegin(), visited.cend(), next) ==
                 visited.cend()) {
             const std::vector<production>& rules = gr_.g_.at(next);
@@ -328,7 +337,7 @@ void SLR1Parser::ComputeFollowSets() {
             for (const production& rhs : rule.second) {
                 for (size_t i = 0; i < rhs.size(); ++i) {
                     const std::string& symbol = rhs[i];
-                    if (!gr_.st_.IsTerminal(symbol)) {
+                    if (gr_.st_.IsNonTerminal(symbol)) {
                         std::unordered_set<std::string> first_remaining;
 
                         if (i + 1 < rhs.size()) {

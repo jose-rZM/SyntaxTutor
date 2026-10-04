@@ -1,0 +1,51 @@
+\doxysection{appsettings.\+h}
+\label{appsettings_8h_source}\index{widgets/appsettings.h@{widgets/appsettings.h}}
+\doxymbox{\hyperlink{appsettings_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ APPSETTINGS\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ APPSETTINGS\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <QCoreApplication>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <QSettings>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{namespace\ }AppSettings\ \{}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ registerIdentity()\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ QCoreApplication::setOrganizationName(QStringLiteral(\textcolor{stringliteral}{"{}SyntaxTutor"{}}));}
+\DoxyCodeLine{00040\ \ \ \ \ QCoreApplication::setOrganizationDomain(QStringLiteral(\textcolor{stringliteral}{"{}jram.me"{}}));}
+\DoxyCodeLine{00041\ \ \ \ \ QCoreApplication::setApplicationName(QStringLiteral(\textcolor{stringliteral}{"{}SyntaxTutor"{}}));}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{inline}\ QSettings\ open()\ \{}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ SYNTAXTUTOR\_TESTING}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ QSettings(QStringLiteral(\textcolor{stringliteral}{"{}SyntaxTutor-\/Test"{}}),}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringLiteral(\textcolor{stringliteral}{"{}SyntaxTutor-\/Test"{}}));}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ QSettings();}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00058\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \}\ \textcolor{comment}{//\ namespace\ AppSettings}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ APPSETTINGS\_H}}
+
+\end{DoxyCode}

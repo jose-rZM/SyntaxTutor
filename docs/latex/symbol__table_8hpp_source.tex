@@ -1,6 +1,6 @@
 \doxysection{symbol\+\_\+table.\+hpp}
 \label{symbol__table_8hpp_source}\index{backend/symbol\_table.hpp@{backend/symbol\_table.hpp}}
-\mbox{\hyperlink{symbol__table_8hpp}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{symbol__table_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
@@ -27,29 +27,35 @@
 \DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <utility>}}
 \DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00033\ \textcolor{keyword}{enum\ class}\ symbol\_type\ \{\ NO\_TERMINAL,\ TERMINAL\ \};}
+\DoxyCodeLine{00033\ \textcolor{keyword}{enum\ class}\ symbol\_type\ \{\ NO\_TERMINAL,\ TERMINAL,\ META\ \};}
 \DoxyCodeLine{00034\ }
 \DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }SymbolTable\ \{}
 \DoxyCodeLine{00047\ \ \ \ \ std::string\ EOL\_\{\textcolor{stringliteral}{"{}\$"{}}\};}
 \DoxyCodeLine{00048\ }
 \DoxyCodeLine{00051\ \ \ \ \ std::string\ EPSILON\_\{\textcolor{stringliteral}{"{}EPSILON"{}}\};}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00055\ \ \ \ \ std::unordered\_map<std::string,\ symbol\_type>\ st\_\{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \{EOL\_,\ symbol\_type::TERMINAL\},\ \{EPSILON\_,\ symbol\_type::TERMINAL\}\};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00061\ \ \ \ \ std::unordered\_set<std::string>\ terminals\_\{EOL\_\};}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00066\ \ \ \ \ std::unordered\_set<std::string>\ terminals\_wtho\_eol\_\{\};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00071\ \ \ \ \ std::unordered\_set<std::string>\ non\_terminals\_;}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ PutSymbol(\textcolor{keyword}{const}\ std::string\&\ identifier,\ \textcolor{keywordtype}{bool}\ isTerminal);}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ In(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsTerminal(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsTerminalWthoEol(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00054\ \ \ \ \ std::unordered\_map<std::string,\ symbol\_type>\ st\_\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{EOL\_,\ symbol\_type::TERMINAL\},\ \{EPSILON\_,\ symbol\_type::META\}\};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ \ \ \ \ std::unordered\_set<std::string>\ terminals\_\{EOL\_\};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00065\ \ \ \ \ std::unordered\_set<std::string>\ terminals\_wtho\_eol\_\{\};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00070\ \ \ \ \ std::unordered\_set<std::string>\ non\_terminals\_;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00075\ \ \ \ \ std::unordered\_set<std::string>\ meta\_symbols\_\{EPSILON\_\};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ PutSymbol(\textcolor{keyword}{const}\ std::string\&\ identifier,\ \textcolor{keywordtype}{bool}\ isTerminal);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ In(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsTerminal(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsTerminalWthoEol(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsNonTerminal(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsMeta(\textcolor{keyword}{const}\ std::string\&\ s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00124\ \};}
 
 \end{DoxyCode}

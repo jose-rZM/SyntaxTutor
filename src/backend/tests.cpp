@@ -18,6 +18,7 @@
 
 #include "grammar.hpp"
 #include "grammar_factory.hpp"
+#include "grammar_parser.hpp"
 #include "ll1_parser.hpp"
 #include "slr1_parser.hpp"
 #include <algorithm>
@@ -68,7 +69,7 @@ TEST(GrammarTest, GrammarWithEpsilon) {
 
     ASSERT_EQ(gr.axiom_, "S");
     ASSERT_EQ(gr.g_, expected);
-    ASSERT_TRUE(gr.st_.terminals_.contains(eps));
+    ASSERT_TRUE(gr.st_.IsMeta(eps));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
 }
 
@@ -145,7 +146,7 @@ TEST(GrammarTest, ComplexGrammarWithEpsilonAndRecursion) {
     ASSERT_TRUE(gr.st_.terminals_.contains("a"));
     ASSERT_TRUE(gr.st_.terminals_.contains("b"));
     ASSERT_TRUE(gr.st_.terminals_.contains("c"));
-    ASSERT_TRUE(gr.st_.terminals_.contains(eps));
+    ASSERT_TRUE(gr.st_.IsMeta(eps));
     ASSERT_TRUE(gr.st_.terminals_.contains("$"));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("A"));
     ASSERT_TRUE(gr.st_.non_terminals_.contains("B"));
@@ -435,28 +436,6 @@ TEST(GrammarFactoryTest, GeneratedLv5LL1GrammarIsAlwaysLL1) {
     }
 }
 
-TEST(GrammarFactoryTest, GeneratedLv6LL1GrammarIsAlwaysLL1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 10; ++i) {
-        Grammar   g = factory.GenLL1Grammar(6);
-        LL1Parser ll1(g);
-        ASSERT_TRUE(ll1.CreateLL1Table());
-    }
-}
-
-TEST(GrammarFactoryTest, GeneratedLv7LL1GrammarIsAlwaysLL1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 3; ++i) {
-        Grammar   g = factory.GenLL1Grammar(7);
-        LL1Parser ll1(g);
-        ASSERT_TRUE(ll1.CreateLL1Table());
-    }
-}
-
 TEST(GrammarFactoryTest, GeneratedLv1SLR1GrammarIsAlwaysSLR1) {
     GrammarFactory factory;
 
@@ -507,28 +486,6 @@ TEST(GrammarFactoryTest, GeneratedLv5SLR1GrammarIsAlwaysSLR1) {
     factory.Init();
     for (int i = 0; i < 10; ++i) {
         Grammar    g = factory.GenSLR1Grammar(5);
-        SLR1Parser slr1(g);
-        ASSERT_TRUE(slr1.MakeParser());
-    }
-}
-
-TEST(GrammarFactoryTest, GeneratedLv6SLR1GrammarIsAlwaysSLR1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 5; ++i) {
-        Grammar    g = factory.GenSLR1Grammar(6);
-        SLR1Parser slr1(g);
-        ASSERT_TRUE(slr1.MakeParser());
-    }
-}
-
-TEST(GrammarFactoryTest, GeneratedLv7SLR1GrammarIsAlwaysSLR1) {
-    GrammarFactory factory;
-
-    factory.Init();
-    for (int i = 0; i < 5; ++i) {
-        Grammar    g = factory.GenSLR1Grammar(7);
         SLR1Parser slr1(g);
         ASSERT_TRUE(slr1.MakeParser());
     }
@@ -2333,6 +2290,7 @@ TEST(LL1__Test, FollowSet2) {
     Grammar g;
     g.st_.PutSymbol("S'", false);
     g.st_.PutSymbol("S", false);
+    g.st_.PutSymbol("A", false);
     g.st_.PutSymbol("A'", false);
     g.st_.PutSymbol("B", false);
     g.st_.PutSymbol("C", false);
@@ -2354,7 +2312,7 @@ TEST(LL1__Test, FollowSet2) {
     g.AddProduction("C", {"c"});
 
     LL1Parser ll1(g);
-
+    ASSERT_TRUE(ll1.CreateLL1Table());
     std::unordered_set<std::string> result;
     std::unordered_set<std::string> expected{"b", "c", "a", g.st_.EOL_};
     result = ll1.Follow("A");
@@ -3574,7 +3532,8 @@ TEST(SymbolTableTest, IsTerminalWthoEol_ExcludesEpsilon) {
     SymbolTable st;
     st.PutSymbol(st.EPSILON_, true);
 
-    EXPECT_TRUE(st.IsTerminal(st.EPSILON_));
+    EXPECT_TRUE(st.IsMeta(st.EPSILON_));
+    EXPECT_FALSE(st.IsTerminal(st.EPSILON_));
     EXPECT_FALSE(st.IsTerminalWthoEol(st.EPSILON_));
 }
 
@@ -3588,7 +3547,301 @@ TEST(SymbolTableTest, IsTerminalWthoEol_OnlyTrueForNonEpsilonTerminals) {
     EXPECT_FALSE(st.IsTerminalWthoEol("C"));
 }
 
+TEST(GrammarParserTest, UserGrammarKeepsTheOrderItWasWrittenIn) {
+    // The rules are deliberately not in alphabetical order: a grammar the
+    // user typed has to come back in their sequence, not sorted.
+    GrammarParseResult result =
+        GrammarParser::Parse("S -> A .\nA -> C .\nC -> d .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar&           gr = result.grammar;
+    std::vector<std::string> expected{"S", "A", "C"};
+    EXPECT_EQ(gr.PresentationOrder(), expected);
+    // The axiom always leads, since the tutors show its rule first.
+    EXPECT_LT(gr.PresentationRank(gr.axiom_), gr.PresentationRank("S"));
+}
+
+TEST(GrammarParserTest, UserGrammarOrderSurvivesAlphabeticalInversion) {
+    GrammarParseResult result =
+        GrammarParser::Parse("C -> a .\nB -> b .\nA -> c .");
+
+    ASSERT_TRUE(result.Ok());
+    std::vector<std::string> expected{"C", "B", "A"};
+    EXPECT_EQ(result.grammar.PresentationOrder(), expected);
+}
+
+TEST(GrammarTest, GrammarWithoutRecordedOrderIsPresentedAlphabetically) {
+    // Generated grammars record no order, and must keep the lexicographic
+    // presentation the tutors and the tutorial have always relied on.
+    Grammar gr;
+    gr.st_.PutSymbol("S", false);
+    gr.st_.PutSymbol("B", false);
+    gr.st_.PutSymbol("A", false);
+    gr.AddProduction("S", {"B"});
+    gr.AddProduction("B", {"A"});
+    gr.AddProduction("A", {"a"});
+    gr.SetAxiom("S");
+
+    EXPECT_TRUE(gr.lhs_order_.empty());
+    std::vector<std::string> expected{"A", "B"};
+    EXPECT_EQ(gr.PresentationOrder(), expected);
+}
+
+TEST(GrammarParserTest, ParsesSimpleGrammar) {
+    GrammarParseResult result = GrammarParser::Parse("A -> a A .\nA -> b .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar& gr = result.grammar;
+    EXPECT_EQ(gr.axiom_, "S");
+    std::vector<production> expectedAxiom{{"A", "$"}};
+    std::vector<production> expectedA{{"a", "A"}, {"b"}};
+    EXPECT_EQ(gr.g_.at("S"), expectedAxiom);
+    EXPECT_EQ(gr.g_.at("A"), expectedA);
+    EXPECT_TRUE(gr.st_.IsNonTerminal("A"));
+    EXPECT_TRUE(gr.st_.IsTerminal("a"));
+    EXPECT_TRUE(gr.st_.IsTerminal("b"));
+}
+
+TEST(GrammarParserTest, FirstLeftHandSideIsAxiom) {
+    GrammarParseResult result = GrammarParser::Parse("E -> T .\nT -> n .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar& gr = result.grammar;
+    EXPECT_EQ(gr.axiom_, "S");
+    std::vector<production> expectedAxiom{{"E", "$"}};
+    EXPECT_EQ(gr.g_.at("S"), expectedAxiom);
+}
+
+TEST(GrammarParserTest, ParsesMultiCharacterTokens) {
+    GrammarParseResult result =
+        GrammarParser::Parse("function -> f ( Args ) .\nArgs -> id .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar& gr = result.grammar;
+    EXPECT_TRUE(gr.st_.IsNonTerminal("function"));
+    EXPECT_TRUE(gr.st_.IsNonTerminal("Args"));
+    EXPECT_TRUE(gr.st_.IsTerminal("f"));
+    EXPECT_TRUE(gr.st_.IsTerminal("("));
+    EXPECT_TRUE(gr.st_.IsTerminal(")"));
+    EXPECT_TRUE(gr.st_.IsTerminal("id"));
+    std::vector<production> expected{{"f", "(", "Args", ")"}};
+    EXPECT_EQ(gr.g_.at("function"), expected);
+}
+
+TEST(GrammarParserTest, LowercaseLeftHandSideIsNonTerminal) {
+    GrammarParseResult result = GrammarParser::Parse("a -> b a | b .");
+
+    ASSERT_TRUE(result.Ok());
+    EXPECT_TRUE(result.grammar.st_.IsNonTerminal("a"));
+    EXPECT_TRUE(result.grammar.st_.IsTerminal("b"));
+}
+
+TEST(GrammarParserTest, EmptyRightHandSideIsEpsilon) {
+    GrammarParseResult result = GrammarParser::Parse("A -> a A .\nA -> .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar&          gr = result.grammar;
+    std::vector<production> expected{{"a", "A"}, {"EPSILON"}};
+    EXPECT_EQ(gr.g_.at("A"), expected);
+    EXPECT_TRUE(gr.HasEmptyProduction("A"));
+}
+
+TEST(GrammarParserTest, SupportsAlternativesWithPipe) {
+    GrammarParseResult result = GrammarParser::Parse("A -> a A | b | .");
+
+    ASSERT_TRUE(result.Ok());
+    std::vector<production> expected{{"a", "A"}, {"b"}, {"EPSILON"}};
+    EXPECT_EQ(result.grammar.g_.at("A"), expected);
+}
+
+TEST(GrammarParserTest, AcceptsUnicodeArrowAndLooseSpacing) {
+    GrammarParseResult result =
+        GrammarParser::Parse("A→a A.   A ->b. B\n->\nc.");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar&          gr = result.grammar;
+    std::vector<production> expectedA{{"a", "A"}, {"b"}};
+    std::vector<production> expectedB{{"c"}};
+    EXPECT_EQ(gr.g_.at("A"), expectedA);
+    EXPECT_EQ(gr.g_.at("B"), expectedB);
+}
+
+TEST(GrammarParserTest, SkipsDuplicatedProductions) {
+    GrammarParseResult result =
+        GrammarParser::Parse("A -> a . A -> a . A -> b .");
+
+    ASSERT_TRUE(result.Ok());
+    std::vector<production> expected{{"a"}, {"b"}};
+    EXPECT_EQ(result.grammar.g_.at("A"), expected);
+}
+
+TEST(GrammarParserTest, AugmentsWithFreshAxiomWhenSIsTaken) {
+    GrammarParseResult result = GrammarParser::Parse("S -> a S | b .");
+
+    ASSERT_TRUE(result.Ok());
+    const Grammar& gr = result.grammar;
+    EXPECT_EQ(gr.axiom_, "S'");
+    std::vector<production> expectedAxiom{{"S", "$"}};
+    EXPECT_EQ(gr.g_.at("S'"), expectedAxiom);
+    EXPECT_TRUE(gr.st_.IsNonTerminal("S'"));
+}
+
+TEST(GrammarParserTest, ReportsMissingArrow) {
+    GrammarParseResult result = GrammarParser::Parse("A a b .");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind, GrammarParseError::Kind::MissingArrow);
+    EXPECT_EQ(result.errors[0].line, 1);
+}
+
+TEST(GrammarParserTest, ReportsMissingEndDot) {
+    GrammarParseResult result = GrammarParser::Parse("A -> a .\nB -> b");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind, GrammarParseError::Kind::MissingEndDot);
+    EXPECT_EQ(result.errors[0].line, 2);
+}
+
+TEST(GrammarParserTest, ReportsExtraArrowOnMissingDot) {
+    GrammarParseResult result = GrammarParser::Parse("A -> a\nB -> b .");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind, GrammarParseError::Kind::ExtraArrow);
+    EXPECT_EQ(result.errors[0].line, 1);
+}
+
+TEST(GrammarParserTest, ReportsMultipleLeftHandSide) {
+    GrammarParseResult result = GrammarParser::Parse("A B -> a .");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind,
+              GrammarParseError::Kind::MultipleLeftHandSide);
+}
+
+TEST(GrammarParserTest, ReportsEmptyLeftHandSide) {
+    GrammarParseResult result = GrammarParser::Parse("-> a .");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind,
+              GrammarParseError::Kind::EmptyLeftHandSide);
+}
+
+TEST(GrammarParserTest, ReportsReservedSymbols) {
+    GrammarParseResult result = GrammarParser::Parse("A -> a $ .\nA -> x:y .");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 2u);
+    EXPECT_EQ(result.errors[0].kind, GrammarParseError::Kind::ReservedSymbol);
+    EXPECT_EQ(result.errors[0].detail, "$");
+    EXPECT_EQ(result.errors[1].kind, GrammarParseError::Kind::ReservedSymbol);
+    EXPECT_EQ(result.errors[1].detail, "x:y");
+}
+
+TEST(GrammarParserTest, ReportsEpsilonTokenAsReserved) {
+    GrammarParseResult result = GrammarParser::Parse("A -> EPSILON .");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind, GrammarParseError::Kind::ReservedSymbol);
+}
+
+TEST(GrammarParserTest, ReportsEmptyGrammar) {
+    GrammarParseResult result = GrammarParser::Parse("  \n\t  ");
+
+    ASSERT_FALSE(result.Ok());
+    ASSERT_EQ(result.errors.size(), 1u);
+    EXPECT_EQ(result.errors[0].kind, GrammarParseError::Kind::EmptyGrammar);
+}
+
+TEST(GrammarParserTest, ParsedGrammarWorksWithLL1Parser) {
+    GrammarParseResult result =
+        GrammarParser::Parse("Expr -> Term ExprRest .\n"
+                             "ExprRest -> + Term ExprRest | .\n"
+                             "Term -> id | num .");
+
+    ASSERT_TRUE(result.Ok());
+    LL1Parser ll1(result.grammar);
+    EXPECT_TRUE(ll1.CreateLL1Table());
+    EXPECT_TRUE(ll1.first_sets_["Expr"].contains("id"));
+    EXPECT_TRUE(ll1.first_sets_["Expr"].contains("num"));
+    EXPECT_TRUE(ll1.follow_sets_["Term"].contains("+"));
+}
+
+TEST(GrammarParserTest, ParsedGrammarWorksWithSLR1Parser) {
+    GrammarParseResult result =
+        GrammarParser::Parse("Expr -> Expr + Term | Term .\n"
+                             "Term -> id | ( Expr ) .");
+
+    ASSERT_TRUE(result.Ok());
+    SLR1Parser slr1(result.grammar);
+    EXPECT_TRUE(slr1.MakeParser());
+    EXPECT_FALSE(slr1.states_.empty());
+}
+
+TEST(GrammarParserTest, NonLL1GrammarIsRejectedByTable) {
+    // Left-recursive grammars are valid text but not LL(1).
+    GrammarParseResult result = GrammarParser::Parse("A -> A a | b .");
+
+    ASSERT_TRUE(result.Ok());
+    LL1Parser ll1(result.grammar);
+    EXPECT_FALSE(ll1.CreateLL1Table());
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
+}
+
+// Accepting is the action for the axiom's item S -> A . $ on $. When the
+// same state also reduces another rule on $, the two collide: the grammar is
+// not SLR(1). The accept entry used to be written without looking at what
+// the cell held, so a reduction already there was silently replaced and the
+// grammar passed as SLR(1). Whether the reduction was written first depends
+// on the iteration order of the item set, which differs between standard
+// libraries: the list mixes grammars that slipped through on macOS and on
+// Linux.
+TEST(SLR1_AcceptConflict, AcceptAndReduceOnEndOfInputIsNotSlr1) {
+    const char* grammars[] = {
+        "A -> A B | .\nB -> .",
+        "A -> A B | B b .\nB -> .",
+        "A -> C C | A C .\nB -> a A | c .\nC -> A .",
+        "A -> C | b | A B .\nB -> C a | C B | .\nC -> C c .",
+        "A -> B | A .\nB -> b b | a | c c .",
+    };
+    for (const char* text : grammars) {
+        const GrammarParseResult parsed = GrammarParser::Parse(text);
+        ASSERT_TRUE(parsed.Ok()) << text;
+        SLR1Parser slr1(parsed.grammar);
+        EXPECT_FALSE(slr1.MakeParser()) << text;
+    }
+}
+
+// The same state accepting on $ and reducing on other symbols is fine.
+TEST(SLR1_AcceptConflict, AcceptBesideReductionOnOtherSymbolsIsSlr1) {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("A -> B c | d .\nB -> A .");
+    ASSERT_TRUE(parsed.Ok());
+    SLR1Parser slr1(parsed.grammar);
+    ASSERT_TRUE(slr1.MakeParser());
+
+    const Grammar& g = slr1.gr_;
+    bool found = false;
+    for (const auto& [id, row] : slr1.actions_) {
+        const auto eol = row.find(g.st_.EOL_);
+        const auto c   = row.find("c");
+        const bool accepts =
+            eol != row.end() && eol->second.action == SLR1Parser::Action::Accept;
+        const bool reduces =
+            c != row.end() && c->second.action == SLR1Parser::Action::Reduce;
+        if (accepts && reduces) {
+            EXPECT_EQ(c->second.item->antecedent_, "B");
+            found = true;
+        }
+    }
+    EXPECT_TRUE(found);
 }

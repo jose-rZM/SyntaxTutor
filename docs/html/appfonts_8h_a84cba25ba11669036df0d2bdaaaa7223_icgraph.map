@@ -1,0 +1,8 @@
+<map id="appMonospaceFont" name="appMonospaceFont">
+<area shape="rect" id="Node000001" title="Application&#45;wide monospace font." alt="" coords="493,29,628,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="595,14,585,10,561,8,539,10,527,15,525,20,531,30,526,28,519,21,523,11,537,5,561,3,586,5,600,15"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a68b25f65adf9db1e00d570d82409c0bc" title="Shows the items of state id next to its node." alt="" coords="262,22,445,62"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="475,42,445,45,445,40,480,42"/>
+<area shape="rect" id="Node000003" href="$class_automaton_view.html#a0bd33dfc63c9e82fd2e6ada788e07961" title=" " alt="" coords="5,22,214,62"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="243,42,214,45,214,40,249,42"/>
+</map>

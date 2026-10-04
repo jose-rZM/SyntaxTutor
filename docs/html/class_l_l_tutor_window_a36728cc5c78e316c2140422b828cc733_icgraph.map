@@ -1,0 +1,31 @@
+<map id="LLTutorWindow::drawTree" name="LLTutorWindow::drawTree">
+<area shape="rect" id="Node000001" title=" " alt="" coords="2214,144,2388,169"/>
+<area shape="rect" id="Node000002" href="$class_l_l_tutor_window.html#a9c2b0b4bfa0ae92b7ae8a86b78d9d4a9" title=" " alt="" coords="1974,144,2166,169"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2196,157,2167,159,2167,154,2202,157"/>
+<area shape="rect" id="Node000003" href="$class_l_l_tutor_window.html#ac949d35e0528713e92fd7bff0455e117" title=" " alt="" coords="1735,86,1926,126"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1989,140,1926,129,1927,124,1994,140"/>
+<area shape="rect" id="Node000005" href="$class_l_l_tutor_window.html#a68732a0b7ca355349e1cfff4e03665f0" title=" " alt="" coords="1274,102,1438,128"/>
+<area shape="poly" id="edge19_Node000002_Node000005" title=" " alt="" coords="1955,150,1735,141,1439,123,1439,118,1735,135,1961,151"/>
+<area shape="rect" id="Node000004" href="$class_l_l_tutor_window.html#a7aaded0d4be413f66c9468b5ceff3314" title=" " alt="" coords="1486,70,1687,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1716,96,1687,95,1687,90,1722,96"/>
+<area shape="poly" id="edge18_Node000003_Node000005" title=" " alt="" coords="1716,108,1439,116,1439,111,1722,108"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="1625,55,1613,52,1586,49,1562,51,1549,56,1546,61,1553,71,1548,69,1541,62,1545,52,1561,46,1587,44,1615,46,1630,56"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="1477,99,1439,106,1439,101,1472,99"/>
+<area shape="rect" id="Node000006" href="$class_l_l_tutor_window.html#aae56758be5ab1d25104df692506b8369" title=" " alt="" coords="1027,14,1226,40"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="1285,96,1225,74,1144,43,1145,38,1227,69,1291,97"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="1241,11,1338,5,1450,4,1570,11,1629,19,1687,31,1749,54,1801,86,1796,85,1746,59,1686,36,1629,25,1569,16,1450,9,1338,10,1242,16"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="1222,43,1227,45,1293,72,1344,102,1339,101,1290,77,1225,50,1222,48"/>
+<area shape="rect" id="Node000007" href="$class_l_l_tutor_window.html#a60b755f5082fa049eb48d5f1fc15d424" title=" " alt="" coords="752,60,979,85"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="1036,43,944,62,943,57,1031,44"/>
+<area shape="poly" id="edge17_Node000007_Node000005" title=" " alt="" coords="994,81,1276,108,1271,108,994,86"/>
+<area shape="rect" id="Node000008" href="$class_l_l_tutor_window.html#ad15dd9b88144f9123f905900a713026e" title="Constructs the LL(1) tutor window with a given grammar." alt="" coords="495,60,704,85"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="734,73,705,75,704,70,739,72"/>
+<area shape="poly" id="edge11_Node000008_Node000008" title=" " alt="" coords="642,45,629,41,600,38,573,40,558,45,555,51,563,60,558,59,550,51,555,41,572,35,600,33,631,36,648,46"/>
+<area shape="rect" id="Node000009" href="$class_l_l_tutor_window.html#ab7e720930213417b63841d80dcaaf61f" title=" " alt="" coords="250,104,447,145"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="522,89,448,107,447,102,517,90"/>
+<area shape="poly" id="edge16_Node000009_Node000005" title=" " alt="" coords="462,121,1274,113,1273,119,463,126"/>
+<area shape="rect" id="Node000010" href="$class_l_l_tutor_window.html#a46d831eda0be47f2cb2f555faef96b38" title="Shows and remembers the next question." alt="" coords="5,112,202,137"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="232,125,202,127,202,122,237,124"/>
+<area shape="poly" id="edge15_Node000010_Node000005" title=" " alt="" coords="172,139,250,154,424,175,598,179,867,179,986,174,1105,160,1211,143,1292,129,1298,128,1212,148,1105,165,987,179,867,185,598,185,423,180,249,159,172,144"/>
+<area shape="poly" id="edge14_Node000010_Node000008" title=" " alt="" coords="170,105,249,90,377,77,497,74,492,75,377,83,250,95,172,110"/>
+</map>

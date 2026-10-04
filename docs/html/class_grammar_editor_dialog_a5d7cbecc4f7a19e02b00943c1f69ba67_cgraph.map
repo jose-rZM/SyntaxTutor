@@ -1,0 +1,6 @@
+<map id="GrammarEditorDialog::GrammarEditorDialog" name="GrammarEditorDialog::GrammarEditorDialog">
+<area shape="rect" id="Node000001" title="Constructs the editor for the given exercise kind." alt="" coords="5,22,160,62"/>
+<area shape="rect" id="Node000002" href="$namespace_app_settings.html#a008c64128471608d1c8876b90decc737" title="The app&#39;s settings." alt="" coords="208,29,336,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,40,195,42,190,42,160,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="240,28,234,21,238,11,251,5,272,3,295,5,308,15,303,14,293,10,272,8,252,10,241,15,239,20,245,30"/>
+</map>

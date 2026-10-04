@@ -17,17 +17,168 @@
  */
 
 #include "lltutorwindow.h"
+#include "conversationpdf.h"
+#include "apptypography.h"
+#include "examreportdialog.h"
+#include "grammarview.h"
+#include "llwizard.h"
 #include "tutorialmanager.h"
 #include "ui_lltutorwindow.h"
 #include <QAbstractButton>
+#include <QApplication>
+#include <QDateTime>
+#include <QDir>
+#include <QFileInfo>
 #include <QFontDatabase>
+#include <QHBoxLayout>
+#include <QMessageBox>
 #include <QRandomGenerator>
 #include <QRegularExpression>
+#include <QStandardPaths>
+
+namespace {
+// Horizontal space a chat bubble adds around its text: on each side 16 px
+// of padding, a 1 px border and the 4 px document margin of the text
+// control a selectable QLabel lays out with, plus 2 px so fractional glyph
+// advances never push the last word onto a line of its own.
+constexpr int kBubbleChrome = 2 * (16 + 1 + 4) + 2;
+
+// The export path comes from a save dialog, but the target can still be
+// unwritable (read-only volume, revoked permission). QPrinter reports
+// nothing, so confirm the file really landed and tell the user if not.
+bool ReportPdfExportResult(const QWidget* parent,
+                           const QString& filePath) {
+    const QFileInfo info(filePath);
+    const QString   nativePath = QDir::toNativeSeparators(filePath);
+    if (info.exists() && info.size() > 0) {
+        QMessageBox::information(
+            const_cast<QWidget*>(parent), QObject::tr("Exportación completada"),
+            QObject::tr("PDF guardado en:\n%1").arg(nativePath));
+        return true;
+    }
+    QMessageBox::warning(
+        const_cast<QWidget*>(parent), QObject::tr("Error al exportar"),
+        QObject::tr("No se ha podido guardar el PDF en:\n%1\n\nComprueba "
+                    "que tienes permisos de escritura en esa carpeta.")
+            .arg(nativePath));
+    return false;
+}
+
+// Default name for an exported PDF, e.g. "LL1_2026-09-19_17-52-33.pdf", or
+// "EXAM_LL1_..." for an exam report. The date leads so a folder of exports
+// sorts chronologically, and the time is dash-separated because Windows
+// forbids ':' in file names.
+QString DefaultExportFileName(const QString& tutorTag, bool examMode) {
+    return QStringLiteral("%1%2_%3.pdf")
+        .arg(examMode ? QStringLiteral("EXAM_") : QString(), tutorTag,
+             QDateTime::currentDateTime().toString(
+                 QStringLiteral("yyyy-MM-dd_HH-mm-ss")));
+}
+
+// QFileDialog's third constructor argument is the starting DIRECTORY.
+// Leaving it empty (or passing a bare file name) falls back to the process
+// working directory, which is "/" when launched from Finder, the install
+// folder on Windows and the mount point for an AppImage. Start in Documents.
+QString DefaultExportDirectory() {
+    const QString documents =
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    if (!documents.isEmpty()) {
+        return documents;
+    }
+    return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+}
+
+const QRegularExpression kCellWhitespace("\\s+");
+
+struct ParsedSymbols {
+    QStringList   list;
+    QSet<QString> set;
+    QSet<QString> duplicates;
+    bool          separatorError = false;
+};
+
+QString NormalizeProductionCell(const QString& cell) {
+    QString normalized = cell.trimmed();
+    normalized.remove(kCellWhitespace);
+    return normalized;
+}
+
+// Accepts "eps" and "epsilon" as EPSILON, unless the grammar defines them
+// as real symbols.
+QString CanonicalizeEpsilonToken(const Grammar& grammar, const QString& token) {
+    if ((token == QStringLiteral("eps") ||
+         token == QStringLiteral("epsilon")) &&
+        !grammar.st_.In(token.toStdString())) {
+        return QString::fromStdString(grammar.st_.EPSILON_);
+    }
+    return token;
+}
+
+QStringList ParseProductionCell(Grammar& grammar, const QString& cell) {
+    const QString trimmed = cell.trimmed();
+    if (trimmed.isEmpty()) {
+        return {};
+    }
+
+    QStringList spacedTokens =
+        trimmed.split(kCellWhitespace, Qt::SkipEmptyParts);
+    if (!spacedTokens.isEmpty()) {
+        bool allKnown = true;
+        for (QString& token : spacedTokens) {
+            token = CanonicalizeEpsilonToken(grammar, token);
+            if (!grammar.st_.In(token.toStdString())) {
+                allKnown = false;
+                break;
+            }
+        }
+
+        if (allKnown) {
+            return spacedTokens;
+        }
+    }
+
+    const QString normalized = NormalizeProductionCell(trimmed);
+    if (normalized.isEmpty()) {
+        return {};
+    }
+
+    QStringList production;
+    for (const std::string& symbol : grammar.Split(normalized.toStdString())) {
+        production.append(QString::fromStdString(symbol));
+    }
+    if (!production.isEmpty()) {
+        return production;
+    }
+
+    return {normalized};
+}
+
+ParsedSymbols ParseSymbolList(const QString& input) {
+    ParsedSymbols parsed;
+    const QString text     = input.trimmed();
+    const bool    hasComma = text.contains(',');
+    parsed.separatorError  = !hasComma && text.contains(' ');
+
+    const QStringList parts = text.split(',', Qt::SkipEmptyParts);
+    for (const QString& part : parts) {
+        const QString cleaned = part.trimmed();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        if (parsed.set.contains(cleaned)) {
+            parsed.duplicates.insert(cleaned);
+        }
+        parsed.set.insert(cleaned);
+        parsed.list.append(cleaned);
+    }
+    return parsed;
+}
+} // namespace
 
 LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
-                             QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
-      ll1(this->grammar), tm(tm) {
+                             QWidget* parent, bool examMode)
+    : QWidget(parent), ui(new Ui::LLTutorWindow), grammar(grammar),
+      ll1(this->grammar), examMode(examMode), tm(tm) {
     // ====== Parser & Grammar Setup ===========================
     ll1.CreateLL1Table();
 #ifdef QT_DEBUG
@@ -37,53 +188,63 @@ LLTutorWindow::LLTutorWindow(const Grammar& grammar, TutorialManager* tm,
 
     // ====== UI Setup ==========================================
     ui->setupUi(this);
+    ui->backButton->setText(tr("Atras"));
 
-    // -- Confirm Button Icon & Shadow
+    // -- Confirm Button Icon
     ui->confirmButton->setIcon(QIcon(":/resources/send.svg"));
-    auto* shadow = new QGraphicsDropShadowEffect;
-    shadow->setBlurRadius(10);
-    shadow->setOffset(0);
-    shadow->setColor(QColor::fromRgb(0, 200, 214));
-    ui->confirmButton->setGraphicsEffect(shadow);
-
-    ui->textEdit->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
 
     // -- User Response Box
-    ui->userResponse->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
-    ui->userResponse->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    // The send button is square and as tall as a one-line answer, so it
+    // follows the box instead of sizing itself.
+    connect(ui->userResponse, &CustomTextEdit::minimumGrowHeightChanged,
+            ui->confirmButton,
+            [this](int height) {
+                ui->confirmButton->setFixedSize(height, height);
+            });
+    ui->userResponse->setAutoGrowLines(1, 4);
     ui->userResponse->setPlaceholderText(tr("Introduce aquí tu respuesta."));
+    ui->confirmButton->setFixedSize(ui->userResponse->minimumGrowHeight(),
+                                    ui->userResponse->minimumGrowHeight());
 
     // -- Chat Font
-    QFont chatFont = QFontDatabase::font("Noto Sans", "Regular", 12);
-    ui->listWidget->setFont(chatFont);
     ui->listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(10);
+    ui->listWidget->viewport()->installEventFilter(this);
 
     // ====== Grammar Display & Formatting ======================
     formattedGrammar = FormatGrammar(this->grammar);
-    ui->gr->setFont(QFontDatabase::font("Noto Sans", "Regular", 14));
-    ui->gr->setText(formattedGrammar);
+    grammarView = new GrammarView(ui->gr);
+    grammarView->setRows(buildGrammarRows(this->grammar));
+    ui->gr->setWidget(grammarView);
+    ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
+    ui->gr->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     sortedNonTerminals =
         stdUnorderedSetToQSet(ll1.gr_.st_.non_terminals_).values();
     std::sort(sortedNonTerminals.begin(), sortedNonTerminals.end(),
               [&grammar](const QString& a, const QString& b) {
-                  if (a.toStdString() == grammar.axiom_)
-                      return true;
-                  if (b.toStdString() == grammar.axiom_)
-                      return false;
-                  return a < b;
+                  return grammar.PresentationLess(a.toStdString(),
+                                                  b.toStdString());
               });
 
     // ====== Progress / State Setup ============================
     ui->cntRight->setText(QString::number(cntRightAnswers));
     ui->cntWrong->setText(QString::number(cntWrongAnswers));
 
+    // In exam mode the live counters would leak feedback; hide them.
+    if (examMode) {
+        ui->tick->hide();
+        ui->cross->hide();
+        ui->cntRight->hide();
+        ui->cntWrong->hide();
+    }
+
     updateProgressPanel();
-    addMessage(tr("La gramática es:\n") + formattedGrammar, false);
+    addGrammarMessage();
 
     currentState = State::A;
-    addMessage(generateQuestion(), false);
+    updatePlaceholder();
+    postQuestion();
 
     ui->userResponse->clear();
 
@@ -100,204 +261,185 @@ LLTutorWindow::~LLTutorWindow() {
     delete ui;
 }
 
+void LLTutorWindow::requestExit(bool applyResults) {
+    emit exitRequested(applyResults, cntRightAnswers, cntWrongAnswers);
+}
+
+bool LLTutorWindow::confirmExitToHome() {
+    QMessageBox msg(this);
+    msg.setWindowTitle(tr("Salir del ejercicio LL(1)"));
+    msg.setTextFormat(Qt::RichText);
+    msg.setText(tr("¿Quieres volver al menú principal? Se perderá el progreso "
+                   "actual."));
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+
+    QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
+    QAbstractButton* noBtn  = msg.button(QMessageBox::No);
+
+    if (yesBtn) {
+        yesBtn->setText(tr("Sí"));
+        yesBtn->setCursor(Qt::PointingHandCursor);
+        yesBtn->setIcon(QIcon());
+        yesBtn->setProperty("role", "primary");
+    }
+
+    if (noBtn) {
+        noBtn->setText(tr("No"));
+        noBtn->setCursor(Qt::PointingHandCursor);
+        noBtn->setIcon(QIcon());
+        noBtn->setProperty("role", "danger");
+    }
+
+    return msg.exec() == QMessageBox::Yes;
+}
+
+QString LLTutorWindow::promptExportFilePath() const {
+#ifdef SYNTAXTUTOR_TESTING
+    if (!nextExportFilePathForTest.isEmpty()) {
+        const QString filePath = nextExportFilePathForTest;
+        nextExportFilePathForTest.clear();
+        return filePath;
+    }
+#endif
+
+    QFileDialog dialog(const_cast<LLTutorWindow*>(this),
+                       examMode ? tr("Guardar informe del examen")
+                                : tr("Guardar conversación"),
+                       DefaultExportDirectory(),
+                       tr("Archivo PDF (*.pdf)"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setDefaultSuffix("pdf");
+    dialog.selectFile(DefaultExportFileName(QStringLiteral("LL1"), examMode));
+    dialog.setObjectName("llTutorExportFileDialog");
+#ifdef SYNTAXTUTOR_TESTING
+    dialog.setOption(QFileDialog::DontUseNativeDialog, true);
+#endif
+    if (dialog.exec() != QDialog::Accepted) {
+        return {};
+    }
+
+    QString filePath = dialog.selectedFiles().value(0);
+    // Native dialogs may ignore the default suffix.
+    if (!filePath.isEmpty() &&
+        !filePath.endsWith(QStringLiteral(".pdf"), Qt::CaseInsensitive)) {
+        filePath += QStringLiteral(".pdf");
+    }
+    return filePath;
+}
+
+void LLTutorWindow::applyTextScale() {
+    // Called by MainWindow right after the scaled style sheet and font are
+    // applied. Doing it as a plain call rather than reacting to StyleChange
+    // keeps the order deterministic: the card is rebuilt first, then measured.
+    if (grammarView != nullptr) {
+        grammarView->refresh();
+        ui->gr->setFixedWidth(grammarView->naturalWidth() + 32);
+    }
+
+    // The chat shows the grammar as a card too; those are separate
+    // GrammarView instances and need the same rebuild.
+    const auto chatCards = ui->listWidget->findChildren<GrammarView*>();
+    for (GrammarView* card : chatCards) {
+        card->refresh();
+    }
+
+    relayoutChatMessages();
+    updateProgressPanel();
+}
+
+void LLTutorWindow::on_backButton_clicked() {
+    if (confirmExitToHome()) {
+        requestExit(false);
+    }
+}
+
 void LLTutorWindow::exportConversationToPdf(const QString& filePath) {
-    QTextDocument doc;
-    QString       html;
-    doc.setDefaultFont(QFontDatabase::font("Noto Sans", "Regular", 12));
-    html += R"(
-        <html>
-        <head>
-        </head>
-        <body>
-    )";
-    html += R"(
-    <style>
-    body {
-        font-family: 'Noto Sans', sans-serif;
-        font-size: 11pt;
-        line-height: 1.6;
-        margin: 20px;
-    }
-
-    h2 {
-        font-size: 16pt;
-        color: #393E46;
-        border-bottom: 2px solid #ccc;
-        padding-bottom: 5px;
-        margin-top: 40px;
-        margin-bottom: 20px;
-    }
-
-    h3 {
-        font-size: 13pt;
-        color: #007B8A;
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }
-
-    .entry {
-        border-left: 4px solid #007B8A;
-        padding: 10px 15px;
-        margin: 15px 0;
-        border-radius: 4px;
-    }
-
-    .entry .role {
-        font-weight: bold;
-        margin-bottom: 6px;
-        color: #2c3e50;
-    }
-
-    ul {
-        padding-left: 20px;
-        margin-bottom: 20px;
-        font-family: 'Noto Sans', sans-serif;
-        font-size: 11pt;
-    }
-    li {
-        margin-bottom: 4px;
-    }
-
-    table {
-        border-collapse: collapse;
-        margin: 0 auto 20px auto;
-        width: auto;
-        font-size: 10.5pt;
-    }
-
-    th, td {
-        border: 1px solid #999;
-        padding: 6px 10px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f0f0f0;
-        font-weight: bold;
-    }
-
-    td {
-        background-color: #fafafa;
-    }
-
-    tr:nth-child(even) td {
-        background-color: #f0f0f0;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-
-    .page-break {
-        page-break-before: always;
-    }
-    </style>
-    )";
-    html += "<div style='text-align: center; font-size: 8pt; color: #888; "
-            "margin-top: 60px;'>";
-    html += tr("Generado automáticamente por SyntaxTutor el ") +
-            QDate::currentDate().toString("dd/MM/yyyy");
-    html += "</div>";
-
-    html += "<h2>" + tr("Conversación") + "</h2>";
-
-    for (auto it = conversationLog.constBegin();
-         it != conversationLog.constEnd(); ++it) {
-        const MessageLog& message = *it;
-        QString           safeText =
-            message.message.toHtmlEscaped().replace("\n", "<br>");
-        html += "<div class='entry'>";
-        html += "<div class='role'>";
-        html += (message.isUser ? tr("Usuario: ") : tr("Tutor: "));
-        html += "</div>";
-        if (!message.isCorrect) {
-            html +=
-                "<span style='background-color:red;'>" + safeText + "</span>";
-        } else {
-            html += safeText;
+    const auto sortedSet = [](const std::unordered_set<std::string>& set) {
+        QStringList symbols;
+        for (const std::string& symbol : set) {
+            symbols << QString::fromStdString(symbol);
         }
-        html += "</div>";
+        symbols.sort();
+        return QStringLiteral("{ %1 }").arg(symbols.join(QStringLiteral(", ")));
+    };
+
+    ConversationPdf pdf(tr("Ejercicio LL(1)"));
+    pdf.addGrammar(sortedGrammar, false);
+
+    QVector<ConversationPdf::Message> messages;
+    for (const MessageLog& message : std::as_const(conversationLog)) {
+        messages.append({message.message, message.isUser, message.isCorrect});
     }
+    pdf.addConversation(messages);
 
-    html += "</body></html>";
-    html += R"(<div class='page-break'></div>)";
-
-    html += "<h2>" + tr("Cabeceras") + "</h2>";
-    for (const auto& nt : std::as_const(sortedNonTerminals)) {
-        const auto& first =
-            stdUnorderedSetToQSet(ll1.first_sets_[nt.toStdString()]).values();
-        html += tr("CAB") + "(" + nt + ") = {";
-        html += first.join(",");
-        html += "}<br>";
+    pdf.addSection(tr("Cabeceras"), true);
+    QVector<QPair<QString, QString>> rows;
+    for (const QString& nt : std::as_const(sortedNonTerminals)) {
+        rows.append({tr("CAB") + "(" + nt + ")",
+                     sortedSet(ll1.first_sets_[nt.toStdString()])});
     }
+    pdf.addDefinitions(rows);
 
-    html += "<h2>" + tr("Siguientes") + "</h2>";
-    for (const auto& nt : std::as_const(sortedNonTerminals)) {
-        const auto& follow =
-            stdUnorderedSetToQSet(ll1.follow_sets_[nt.toStdString()]).values();
-        html += tr("SIG") + "(" + nt + ") = {" + follow.join(',') + "}<br>";
+    pdf.addSection(tr("Siguientes"));
+    rows.clear();
+    for (const QString& nt : std::as_const(sortedNonTerminals)) {
+        rows.append({tr("SIG") + "(" + nt + ")",
+                     sortedSet(ll1.follow_sets_[nt.toStdString()])});
     }
+    pdf.addDefinitions(rows);
 
-    html += "<h2>" + tr("Símbolos directores") + "</h2>";
+    pdf.addSection(tr("Símbolos directores"));
+    rows.clear();
     for (const auto& [nt, production] : std::as_const(sortedGrammar)) {
-        const auto predSymbols =
-            stdUnorderedSetToQSet(
-                ll1.PredictionSymbols(nt.toStdString(),
-                                      qvectorToStdVector(production)))
-                .values();
-        html += "SD(" + nt + " → " + production.join(' ') + ") = {" +
-                predSymbols.join(',') + "}<br>";
+        rows.append({"SD(" + nt + " → " +
+                         QStringList(production.begin(), production.end())
+                             .join(QLatin1Char(' ')) +
+                         ")",
+                     sortedSet(ll1.PredictionSymbols(
+                         nt.toStdString(), qvectorToStdVector(production)))});
     }
-    html += R"(<div class='page-break'></div>)";
-    html +=
-        R"(<div class="container"><table border='1' cellspacing='0' cellpadding='5'>)";
-    html += "<tr><th>" + tr("No terminal / Símbolo") + "</th>";
-    for (const auto& s : ll1.gr_.st_.terminals_) {
-        if (s == ll1.gr_.st_.EPSILON_) {
-            continue;
+    pdf.addDefinitions(rows);
+
+    // Same columns, in the same order, as the table the student filled.
+    QStringList terminals;
+    for (const std::string& symbol : ll1.gr_.st_.terminals_) {
+        if (symbol != ll1.gr_.st_.EPSILON_) {
+            terminals << QString::fromStdString(symbol);
         }
-        html += "<th>" + QString::fromStdString(s) + "</th>";
     }
-    html += "</tr>";
-    for (const auto& nt : std::as_const(sortedNonTerminals)) {
-        html += "<tr><td align='center'>" + nt + "</td>";
-        for (const auto& s : ll1.gr_.st_.terminals_) {
-            if (s == ll1.gr_.st_.EPSILON_) {
-                continue;
-            }
-            html += "<td align='center'>";
-            if (ll1.ll1_t_[nt.toStdString()].contains(s)) {
-                html += stdVectorToQVector(ll1.ll1_t_[nt.toStdString()][s][0])
-                            .join(' ');
-            } else {
-                html += "-";
-            }
-            html += "</td>";
+    terminals.sort();
+
+    pdf.addSection(tr("Tabla LL(1)"), true);
+    QStringList        headers{tr("No terminal / Símbolo")};
+    QVector<QStringList> table;
+    headers += terminals;
+    for (const QString& nt : std::as_const(sortedNonTerminals)) {
+        QStringList row{nt};
+        const auto& entries = ll1.ll1_t_[nt.toStdString()];
+        for (const QString& terminal : std::as_const(terminals)) {
+            const auto cell = entries.find(terminal.toStdString());
+            row << (cell != entries.end()
+                        ? stdVectorToQVector(cell->second[0]).join(' ')
+                        : QString());
         }
-        html += "</tr>";
+        table.append(row);
     }
-    html += "</table></div>";
+    pdf.addTable(headers, table);
 
-    doc.setHtml(html);
-
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(filePath);
-    printer.setPageSize(QPageSize(QPageSize::A4));
-    printer.setPageMargins(QMarginsF(10, 10, 10, 10));
-
-    doc.print(&printer);
+    pdf.print(filePath);
 }
 
 void LLTutorWindow::updateProgressPanel() {
     int scrollPos = ui->textEdit->verticalScrollBar()->value();
 
-    QString html = R"(
+    QString html = QString(R"(
         <html>
-        <body style="font-family: 'Noto Sans'; font-size: 11pt; color: #f0f0f0; background-color: #1e1e1e;">
-    )";
+        <body style="font-size: %1; color: #f0f0f0; background-color: #212526;">
+    )")
+                       .arg(AppTypography::cssSize(
+                           AppTypography::Role::Caption));
 
     // === CABECERAS (First) ===
     html += "<div style='color:#00ADB5; font-weight:bold; margin-top:12px;'>" +
@@ -347,13 +489,13 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     }
 
     QWidget*     messageWidget = new QWidget;
+    messageWidget->setProperty("chatMessage", true);
     QVBoxLayout* mainLayout    = new QVBoxLayout;
     mainLayout->setSpacing(2);
     mainLayout->setContentsMargins(10, 5, 10, 5);
 
     QLabel* header = new QLabel(isUser ? tr("Usuario") : "Tutor");
     header->setAlignment(isUser ? Qt::AlignRight : Qt::AlignLeft);
-    header->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     header->setStyleSheet(isUser ? "font-weight: bold; color: #00ADB5;"
                                  : "font-weight: bold; color: #BBBBBB;");
 
@@ -364,23 +506,29 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     innerLayout->setSpacing(0);
 
     QLabel* label = new QLabel(messageText);
+    label->setProperty("chatBubble", true);
+    label->setProperty("chatText", messageText);
     label->setWordWrap(true);
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-    QFontMetrics fm(label->font());
-    int          textWidth = fm.boundingRect(0, 0, ui->listWidget->width(), 0,
-                                             Qt::TextWordWrap, text)
-                        .width();
+    const int listWidth      = qMax(0, ui->listWidget->viewport()->width());
+    const int bubbleMaxWidth = qMax(180, listWidth - 72);
 
-    int maxWidth      = ui->listWidget->width() * 0.8;
-    int adjustedWidth = qMin(textWidth + 32, maxWidth);
-    label->setMaximumWidth(adjustedWidth);
-    label->setMinimumWidth(300);
+    QFontMetrics fm(label->font());
+    int          textWidth =
+        fm.boundingRect(0, 0, bubbleMaxWidth - kBubbleChrome, 0,
+                        Qt::TextWordWrap, messageText)
+            .width();
+
+    int adjustedWidth = qBound(80, textWidth + kBubbleChrome, bubbleMaxWidth);
+    label->setFixedWidth(adjustedWidth);
 
     if (isUser) {
         if (text.isEmpty()) {
-            label->setFont(QFontDatabase::font("Noto Sans", "Italic", 12));
+            QFont placeholderFont = label->font();
+            placeholderFont.setItalic(true);
+            label->setFont(placeholderFont);
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -392,7 +540,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(0, 0, 0, 0.15);
         )");
         } else {
-            label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
             label->setStyleSheet(R"(
             background-color: #00ADB5;
             color: white;
@@ -405,7 +552,6 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
         )");
         }
     } else {
-        label->setFont(QFontDatabase::font("Noto Sans", "Regular", 12));
         label->setStyleSheet(R"(
             background-color: #2F3542;
             color: #F1F1F1;
@@ -417,11 +563,10 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
             border: 1px solid rgba(255, 255, 255, 0.05);
         )");
     }
-    label->setAlignment(Qt::AlignJustify);
+    label->setAlignment(Qt::AlignLeft);
     label->adjustSize();
 
     QLabel* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
-    timestamp->setFont(QFontDatabase::font("Noto Sans", "Regular", 10));
     timestamp->setStyleSheet("color: gray; margin-left: 5px;");
     timestamp->setAlignment(Qt::AlignRight);
 
@@ -446,7 +591,8 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
     messageWidget->updateGeometry();
 
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    item->setSizeHint(messageWidget->sizeHint());
+    item->setSizeHint(
+        QSize(qMax(0, listWidth - 2), messageWidget->sizeHint().height()));
 
     if (isUser) {
         lastUserMessage = messageWidget;
@@ -454,8 +600,29 @@ void LLTutorWindow::addMessage(const QString& text, bool isUser) {
 
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, messageWidget);
+    relayoutChatMessages();
     ui->listWidget->update();
     ui->listWidget->scrollToBottom();
+}
+
+void LLTutorWindow::connectGuidedMode(LLTableDialog*     dialog,
+                                      const QStringList& colHeaders) {
+    connect(dialog, &LLTableDialog::guidedRequested, this,
+            [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
+                const QVector<QVector<QString>> snapshot = data;
+                auto*                           wizard =
+                    new LLWizard(ll1, sortedNonTerminals, colHeaders, dialog);
+                wizard->setAttribute(Qt::WA_DeleteOnClose);
+                wizard->setWindowModality(Qt::WindowModal);
+                dialog->setGuidedModeActive(true);
+
+                connect(wizard, &QDialog::finished, dialog,
+                        [dialog, snapshot](int) {
+                            dialog->setGuidedModeActive(false);
+                            dialog->setInitialData(snapshot);
+                        });
+                wizard->show();
+            });
 }
 
 void LLTutorWindow::showTableForCPrime() {
@@ -468,43 +635,14 @@ void LLTutorWindow::showTableForCPrime() {
         colHeaders << QString::fromStdString(symbol);
     }
     colHeaders.sort();
-    static const char* darkQss = R"(
-    QDialog, QWidget {
-        background-color: #2b2b2b;
-        color: #e0e0e0;
-    }
-    QTableWidget {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-        gridline-color: #555555;
-    }
-    QHeaderView::section {
-        background-color: #313436;
-        color: #E0E0E0;
-        padding: 4px;
-        border: 1px solid #555555;
-    }
-    QTableWidget::item:selected {
-        background-color: #50575F;
-        color: #ffffff;
-    }
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-    QPushButton:pressed {
-        background-color: #222831;
-    }
-    )";
-    auto*              dialog =
+    auto* dialog =
         new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
-    dialog->setStyleSheet(darkQss);
+    if (examMode) {
+        // The guided walkthrough reveals the answers; not during an exam.
+        dialog->setGuidedButtonVisible(false);
+    }
+
+    connectGuidedMode(dialog, colHeaders);
 
     connect(dialog, &LLTableDialog::submitted, this,
             [this, dialog, colHeaders](const QVector<QVector<QString>>& data) {
@@ -517,19 +655,14 @@ void LLTutorWindow::showTableForCPrime() {
                     const QString& rowHeader = sortedNonTerminals[i];
 
                     for (int j = 0; j < rawTable[i].size(); ++j) {
-                        const QString& colHeader   = colHeaders[j];
-                        QString&       cell        = rawTable[i][j];
-                        cell.remove(kWhitespace);
-                        if (cell.isEmpty()) {
+                        const QString& colHeader = colHeaders[j];
+                        QString& cell = rawTable[i][j];
+                        if (cell.trimmed().isEmpty()) {
                             continue;
                         }
-                        QStringList production = stdVectorToQVector(
-                            ll1.gr_.Split(cell.toStdString()));
-                        if (production.empty()) {
-                            // Split could not process the string
-                            production = {cell};
-                        }
-                            lltable[rowHeader][colHeader] = production;
+                        QStringList production = ParseProductionCell(ll1.gr_, cell);
+                        cell = production.join(" ");
+                        lltable[rowHeader][colHeader] = production;
                     }
                 }
                 on_confirmButton_clicked();
@@ -538,80 +671,11 @@ void LLTutorWindow::showTableForCPrime() {
             });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
-        QMessageBox msg(this);
-        msg.setWindowTitle(tr("Cancelar tabla LL(1)"));
-        msg.setTextFormat(Qt::RichText);
-        msg.setText(tr(
-            "¿Quieres salir del tutor? Esto cancelará el ejercicio."
-            " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
-
-        // 2) Configura los botones
-        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msg.setDefaultButton(QMessageBox::No);
-
-        msg.setStyleSheet(R"(
-            QMessageBox {
-                  background-color: #1F1F1F;
-                      color: #EEEEEE;
-                  font-family: 'Noto Sans';
-                }
-                QMessageBox QLabel {
-              color: #EEEEEE;
-            }
-        )");
-        QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
-        }
-
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
-        }
-
-        int ret = msg.exec();
-        if (ret == QMessageBox::Yes) {
-            this->close();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
+        if (confirmExitToHome()) {
+            rawTable.clear();
+            requestExit(false);
         } else {
             showTable();
         }
@@ -631,44 +695,15 @@ void LLTutorWindow::showTable() {
         colHeaders << QString::fromStdString(symbol);
     }
     colHeaders.sort();
-    static const char* darkQss = R"(
-    QDialog, QWidget {
-        background-color: #2b2b2b;
-        color: #e0e0e0;
-    }
-    QTableWidget {
-        background-color: #1F1F1F;
-        color: #E0E0E0;
-        gridline-color: #555555;
-    }
-    QHeaderView::section {
-        background-color: #313436;
-        color: #E0E0E0;
-        padding: 4px;
-        border: 1px solid #555555;
-    }
-    QTableWidget::item:selected {
-        background-color: #50575F;
-        color: #ffffff;
-    }
-    QPushButton {
-        background-color: #393E46;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-    }
-    QPushButton:hover {
-        background-color: #50575F;
-    }
-    QPushButton:pressed {
-        background-color: #222831;
-    }
-    )";
-    auto*              dialog =
+    auto* dialog =
         new LLTableDialog(sortedNonTerminals, colHeaders, this, &rawTable);
-    dialog->setStyleSheet(darkQss);
     currentDlg = dialog;
+    if (examMode) {
+        // The guided walkthrough reveals the answers; not during an exam.
+        dialog->setGuidedButtonVisible(false);
+    }
+
+    connectGuidedMode(dialog, colHeaders);
 
     connect(dialog, &LLTableDialog::submitted, this,
             [this, colHeaders](const QVector<QVector<QString>>& data) {
@@ -676,80 +711,11 @@ void LLTutorWindow::showTable() {
             });
 
     connect(dialog, &QDialog::rejected, this, [this, dialog]() {
-        rawTable.clear();
-        QMessageBox msg(this);
-        msg.setWindowTitle(tr("Cancelar tabla LL(1)"));
-        msg.setTextFormat(Qt::RichText);
-        msg.setText(tr(
-            "¿Quieres salir del tutor? Esto cancelará el ejercicio."
-            " Si lo que quieres es enviar tu respuesta, pulsa \"Finalizar\"."));
-
-        // 2) Configura los botones
-        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msg.setDefaultButton(QMessageBox::No);
-
-        msg.setStyleSheet(R"(
-            QMessageBox {
-                  background-color: #1F1F1F;
-                      color: #EEEEEE;
-                  font-family: 'Noto Sans';
-                }
-                QMessageBox QLabel {
-              color: #EEEEEE;
-            }
-        )");
-        QAbstractButton* yesBtn = msg.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = msg.button(QMessageBox::No);
-
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
-        }
-
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
-        }
-
-        int ret = msg.exec();
-        if (ret == QMessageBox::Yes) {
-            this->close();
+        // Keep what the user typed so an accidental Esc does not wipe it.
+        rawTable = dialog->getTableData();
+        if (confirmExitToHome()) {
+            rawTable.clear();
+            requestExit(false);
         } else {
             showTable();
         }
@@ -767,14 +733,11 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         const auto& rowH = sortedNonTerminals[i];
         for (int j = 0; j < raw[i].size(); ++j) {
             const auto& colH = colHeaders[j];
-            QString&    cell = rawTable[i][j];
-            cell.remove(kWhitespace);
-            if (cell.isEmpty())
+            QString& cell = rawTable[i][j];
+            if (cell.trimmed().isEmpty())
                 continue;
-            QStringList prod =
-                stdVectorToQVector(ll1.gr_.Split(cell.toStdString()));
-            if (prod.empty())
-                prod = {cell};
+            QStringList prod = ParseProductionCell(ll1.gr_, cell);
+            cell             = prod.join(" ");
             lltable[rowH][colH] = prod;
         }
     }
@@ -782,6 +745,20 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
     ++lltries;
     lastWrongCells.clear();
     bool ok = verifyResponseForC();
+
+    if (examMode) {
+        // Single submission: grade every cell, no highlights or retries.
+        scoreExamTable();
+        if (ok) {
+            ++cntRightAnswers;
+        } else {
+            ++cntWrongAnswers;
+        }
+        currentDlg->accept();
+        on_confirmButton_clicked();
+        currentDlg = nullptr;
+        return;
+    }
 
     if (ok) {
         currentDlg->accept();
@@ -812,6 +789,99 @@ void LLTutorWindow::handleTableSubmission(const QVector<QVector<QString>>& raw,
         on_confirmButton_clicked();
         currentDlg = nullptr;
     }
+}
+
+QString LLTutorWindow::examSolutionText() {
+    auto joinSorted = [](const QSet<QString>& set) {
+        QStringList values = set.values();
+        std::sort(values.begin(), values.end());
+        return values.join(", ");
+    };
+
+    switch (currentState) {
+    case State::A:
+    case State::A_prime:
+        return solutionForA().join(',');
+    case State::A1:
+        return solutionForA1();
+    case State::A2:
+        return solutionForA2();
+    case State::B:
+    case State::B_prime:
+        return joinSorted(solutionForB());
+    case State::B1:
+        return joinSorted(solutionForB1());
+    case State::B2:
+        return joinSorted(solutionForB2());
+    default:
+        return {};
+    }
+}
+
+void LLTutorWindow::scoreExamTable() {
+    const QString emptyCell = tr("(vacía)");
+
+    for (const auto& [nonTerminal, columns] : ll1.ll1_t_) {
+        const QString nt = QString::fromStdString(nonTerminal);
+
+        for (const auto& [terminal, productions] : columns) {
+            const QString t        = QString::fromStdString(terminal);
+            const auto&   expected = productions[0];
+
+            const QStringList entry = lltable.value(nt).value(t);
+            if (expected.empty()) {
+                continue;
+            }
+
+            const QString expectedText =
+                QStringList::fromVector(stdVectorToQVector(expected))
+                    .join(' ');
+            const QString userText =
+                entry.isEmpty() ? emptyCell : entry.join(' ');
+            examSession.record(tr("Tabla LL(1): celda (%1, %2)").arg(nt, t),
+                               userText, expectedText,
+                               expected == qvectorToStdVector(entry));
+        }
+    }
+
+    // Cells the user filled although they must stay empty.
+    for (auto itNT = lltable.cbegin(); itNT != lltable.cend(); ++itNT) {
+        const QString nt      = itNT.key();
+        auto          itSysNT = ll1.ll1_t_.find(nt.toStdString());
+
+        for (auto itT = itNT->cbegin(); itT != itNT->cend(); ++itT) {
+            const QString t = itT.key();
+
+            bool expectedEmpty = true;
+            if (itSysNT != ll1.ll1_t_.end()) {
+                auto itSysT = itSysNT->second.find(t.toStdString());
+                if (itSysT != itSysNT->second.end() &&
+                    !itSysT->second[0].empty()) {
+                    expectedEmpty = false;
+                }
+            }
+            if (expectedEmpty && !itT->isEmpty()) {
+                examSession.record(tr("Tabla LL(1): celda (%1, %2)").arg(nt, t),
+                                   itT->join(' '), emptyCell, false);
+            }
+        }
+    }
+}
+
+void LLTutorWindow::showExamReport() {
+    auto* report = new ExamReportDialog(examSession, tr("Examen LL(1)"),
+                                        sortedGrammar, false, this);
+    report->setAttribute(Qt::WA_DeleteOnClose);
+    report->setWindowModality(Qt::WindowModal);
+    connect(report, &ExamReportDialog::exportRequested, this,
+            [this, report]() {
+                const QString filePath = promptExportFilePath();
+                if (!filePath.isEmpty()) {
+                    report->printReport(filePath);
+                    ReportPdfExportResult(this, filePath);
+                }
+            });
+    report->show();
 }
 
 void LLTutorWindow::wrongAnimation() {
@@ -965,6 +1035,7 @@ void LLTutorWindow::markLastUserIncorrect() {
 void LLTutorWindow::on_confirmButton_clicked() {
     QString userResponse;
     bool    isCorrect;
+    State   prevState = currentState;
     if (currentState != State::C && currentState != State::C_prime) {
         userResponse = ui->userResponse->toPlainText().trimmed();
         addMessage(userResponse, true);
@@ -973,7 +1044,22 @@ void LLTutorWindow::on_confirmButton_clicked() {
         isCorrect = verifyResponseForC();
     }
 
-    if (!isCorrect) {
+    if (examMode) {
+        // No feedback in exam mode: record the real result silently and
+        // advance along the correct path so error states never trigger.
+        // Table answers are recorded cell by cell in handleTableSubmission.
+        if (prevState != State::C && prevState != State::C_prime) {
+            examSession.record(currentQuestionText, userResponse,
+                               examSolutionText(), isCorrect);
+            if (isCorrect) {
+                ++cntRightAnswers;
+            } else {
+                ++cntWrongAnswers;
+            }
+        }
+        lastUserMessage = nullptr;
+        isCorrect       = true;
+    } else if (!isCorrect) {
         ui->cntWrong->setText(QString::number(++cntWrongAnswers));
         animateLabelPop(ui->cross);
         animateLabelColor(ui->cross, QColor::fromRgb(204, 51, 51));
@@ -993,79 +1079,76 @@ void LLTutorWindow::on_confirmButton_clicked() {
     }
     updateState(isCorrect);
 
+    const bool stateChanged = (currentState != prevState);
+    const bool isTableState =
+        (prevState == State::C || prevState == State::C_prime ||
+         currentState == State::C || currentState == State::C_prime);
+
     if (currentState == State::fin) {
-        QMessageBox end(this);
-        end.setWindowTitle(tr("Fin del ejercicio"));
-        end.setText(tr("¿Exportar a PDF?"));
-        end.setInformativeText(
-            tr("Se generará un PDF con toda la conversación, funciones "
-               "calculadas (CAB, SIG, SD) y la tabla LL(1)."));
-        end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        end.setDefaultButton(QMessageBox::No);
+        ui->userResponse->setDisabled(true);
+        ui->confirmButton->setDisabled(true);
 
-        QAbstractButton* yesBtn = end.button(QMessageBox::Yes);
-        QAbstractButton* noBtn  = end.button(QMessageBox::No);
+        auto* actions = new QWidget();
+        auto* layout  = new QHBoxLayout(actions);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(10);
 
-        if (yesBtn) {
-            yesBtn->setText(tr("Sí"));
-            yesBtn->setCursor(Qt::PointingHandCursor);
-            yesBtn->setIcon(QIcon());
-            yesBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #00ADB5;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Noto Sans';
-      }
-      QPushButton:hover {
-        background-color: #00CED1;
-      }
-      QPushButton:pressed {
-        background-color: #007F86;
-      }
-        )");
+        if (examMode) {
+            addMessage(tr("Examen terminado. Consulta tu informe con la "
+                          "calificación y la revisión de tus respuestas."),
+                       false);
+
+            auto* reportBtn = new QPushButton(tr("Ver informe"), actions);
+            reportBtn->setObjectName("llTutorExamReportButton");
+            reportBtn->setCursor(Qt::PointingHandCursor);
+            reportBtn->setProperty("role", "primary");
+            layout->addWidget(reportBtn);
+            connect(reportBtn, &QPushButton::clicked, this,
+                    &LLTutorWindow::showExamReport);
+        } else {
+            addMessage(tr("Ejercicio terminado. ¿Quieres exportar la "
+                          "conversación o salir?"),
+                       false);
+
+            auto* exportBtn = new QPushButton(tr("Exportar PDF"), actions);
+            exportBtn->setObjectName("llTutorExportPdfButton");
+            exportBtn->setCursor(Qt::PointingHandCursor);
+            exportBtn->setProperty("role", "primary");
+            layout->addWidget(exportBtn);
+            connect(exportBtn, &QPushButton::clicked, this, [this]() {
+                const QString filePath = promptExportFilePath();
+                if (!filePath.isEmpty()) {
+                    exportConversationToPdf(filePath);
+                    ReportPdfExportResult(this, filePath);
+                }
+            });
         }
 
-        if (noBtn) {
-            noBtn->setText(tr("No"));
-            noBtn->setCursor(Qt::PointingHandCursor);
-            noBtn->setIcon(QIcon());
-            noBtn->setStyleSheet(R"(
-      QPushButton {
-        background-color: #D9534F;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font: 'Noto Sans';
-        font-weight: bold;
-      }
-      QPushButton:hover {
-        background-color: #E14E50;
-      }
-      QPushButton:pressed {
-        background-color: #C12E2A;
-      }
-    )");
-        }
+        auto* exitBtn = new QPushButton(tr("Salir"), actions);
+        exitBtn->setObjectName("llTutorExitButton");
+        exitBtn->setCursor(Qt::PointingHandCursor);
+        exitBtn->setProperty("role", "danger");
+        layout->addWidget(exitBtn);
+        connect(exitBtn, &QPushButton::clicked, this,
+                [this]() { requestExit(true); });
 
-        int ret = end.exec();
-        if (ret == QMessageBox::Yes) {
-            QString filePath = QFileDialog::getSaveFileName(
-                this, tr("Guardar conversación"), "conver.pdf",
-                tr("Archivo PDF (*.pdf)"));
+        addWidgetMessage(actions);
+        ui->listWidget->scrollToBottom();
 
-            if (!filePath.isEmpty()) {
-                exportConversationToPdf(filePath);
-            }
+        if (examMode) {
+            showExamReport();
         }
-        close();
+        return;
     }
-    ui->userResponse->clear();
-    addMessage(generateQuestion(), false);
+    if (isCorrect || stateChanged || isTableState) {
+        ui->userResponse->clear();
+    }
+    postQuestion();
+}
+
+void LLTutorWindow::postQuestion() {
+    currentQuestionText = generateQuestion();
+    addMessage(currentQuestionText, false);
 }
 
 /************************************************************
@@ -1128,7 +1211,7 @@ QString LLTutorWindow::generateQuestion() {
 
         // ====== C: Mostrar tabla final al alumno =================
     case State::C:
-        addMessage(tr("Rellena la tabla LL(1), en el panel derecho puedes "
+        addMessage(tr("Rellena la tabla LL(1). En el panel derecho puedes "
                       "consultar todos los "
                       "cálculos que has realizado durante el ejercicio."),
                    false);
@@ -1246,11 +1329,115 @@ void LLTutorWindow::updateState(bool isCorrect) {
 
     // ====== Final state: ends the tutor ======
     case State::fin:
-        QMessageBox::information(this, "Fin", "fin");
-        close();
         break;
     }
+    updatePlaceholder();
 }
+
+void LLTutorWindow::updatePlaceholder() {
+    QString text;
+    switch (currentState) {
+    case State::A:
+    case State::A_prime:
+        text = tr("Ejemplo: 4,7");
+        break;
+    case State::A1:
+        text = tr("Ejemplo: 4");
+        break;
+    case State::A2:
+        text = tr("Ejemplo: 7");
+        break;
+    case State::B:
+    case State::B_prime:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::B1:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::B2:
+        text = tr("Ejemplo: a,b,$");
+        break;
+    case State::C:
+    case State::C_prime:
+        text = tr("Completa la tabla en el diálogo");
+        break;
+    case State::fin:
+        text.clear();
+        break;
+    }
+    ui->userResponse->setPlaceholderText(text);
+}
+
+#ifdef SYNTAXTUTOR_TESTING
+QString LLTutorWindow::currentStateForTest() const {
+    switch (currentState) {
+    case State::A:
+        return "A";
+    case State::A1:
+        return "A1";
+    case State::A2:
+        return "A2";
+    case State::A_prime:
+        return "A'";
+    case State::B:
+        return "B";
+    case State::B1:
+        return "B1";
+    case State::B2:
+        return "B2";
+    case State::B_prime:
+        return "B'";
+    case State::C:
+        return "C";
+    case State::C_prime:
+        return "C'";
+    case State::fin:
+        return "fin";
+    }
+
+    return {};
+}
+
+QString LLTutorWindow::currentRuleAntecedentForTest() const {
+    if (static_cast<qsizetype>(currentRule) >= sortedGrammar.size()) {
+        return {};
+    }
+
+    return sortedGrammar.at(currentRule).first;
+}
+
+QStringList LLTutorWindow::currentRuleConsequentForTest() const {
+    if (static_cast<qsizetype>(currentRule) >= sortedGrammar.size()) {
+        return {};
+    }
+
+    QStringList consequent;
+    for (const QString& symbol : sortedGrammar.at(currentRule).second) {
+        consequent.append(symbol);
+    }
+    return consequent;
+}
+
+int LLTutorWindow::rightCountForTest() const {
+    return static_cast<int>(cntRightAnswers);
+}
+
+int LLTutorWindow::wrongCountForTest() const {
+    return static_cast<int>(cntWrongAnswers);
+}
+
+void LLTutorWindow::setAnswerForTest(const QString& text) {
+    ui->userResponse->setPlainText(text);
+}
+
+void LLTutorWindow::submitForTest() {
+    on_confirmButton_clicked();
+}
+
+void LLTutorWindow::setNextExportFilePathForTest(const QString& filePath) {
+    nextExportFilePathForTest = filePath;
+}
+#endif
 
 /************************************************************
  *                  VERIFY USER RESPONSE                    *
@@ -1291,7 +1478,8 @@ bool LLTutorWindow::verifyResponse(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
-    QStringList userResp = userResponse.split(',', Qt::SkipEmptyParts);
+    QString     text     = userResponse.trimmed();
+    QStringList userResp = text.split(',', Qt::KeepEmptyParts);
     if (userResp.size() != 2)
         return false;
     for (QString& part : userResp) {
@@ -1304,41 +1492,47 @@ bool LLTutorWindow::verifyResponseForA(const QString& userResponse) {
 }
 
 bool LLTutorWindow::verifyResponseForA1(const QString& userResponse) {
-    return userResponse == solutionForA1();
+    QString  text = userResponse.trimmed();
+    bool     ok   = false;
+    unsigned val  = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    return val == solutionForA1().toUInt();
 }
 
 bool LLTutorWindow::verifyResponseForA2(const QString& userResponse) {
-    return userResponse == solutionForA2();
+    QString  text = userResponse.trimmed();
+    bool     ok   = false;
+    unsigned val  = text.toUInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    return val == solutionForA2().toUInt();
 }
 
 bool LLTutorWindow::verifyResponseForB(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB();
+    return parsed.set == solutionForB();
 }
 
 bool LLTutorWindow::verifyResponseForB1(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB1();
+    return parsed.set == solutionForB1();
 }
 
 bool LLTutorWindow::verifyResponseForB2(const QString& userResponse) {
-    QStringList userResponseSplitted =
-        userResponse.split(",", Qt::SkipEmptyParts);
-    QSet<QString> userSet;
-    for (const auto& s : std::as_const(userResponseSplitted)) {
-        userSet.insert(s.trimmed());
+    const ParsedSymbols parsed = ParseSymbolList(userResponse);
+    if (parsed.separatorError) {
+        return false;
     }
-    return userSet == solutionForB2();
+    return parsed.set == solutionForB2();
 }
 
 bool LLTutorWindow::verifyResponseForC() {
@@ -1390,9 +1584,7 @@ bool LLTutorWindow::verifyResponseForC() {
 
 QStringList LLTutorWindow::solutionForA() {
     int nt = grammar.st_.non_terminals_.size();
-    int t  = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
-                 ? grammar.st_.terminals_.size() - 1
-                 : grammar.st_.terminals_.size();
+    int t  = grammar.st_.terminals_.size();
     return {QString::number(nt), QString::number(t)};
 }
 
@@ -1403,9 +1595,7 @@ QString LLTutorWindow::solutionForA1() {
 }
 
 QString LLTutorWindow::solutionForA2() {
-    int t = grammar.st_.terminals_.contains(grammar.st_.EPSILON_)
-                ? grammar.st_.terminals_.size() - 2
-                : grammar.st_.terminals_.size() - 1;
+    int t = grammar.st_.terminals_wtho_eol_.size();
 
     QString solution(QString::number(t));
     return solution;
@@ -1487,7 +1677,7 @@ QString LLTutorWindow::feedback() {
 
     // ====== Fallback case ======
     default:
-        return "No feedback provided.";
+        return tr("No se ha generado retroalimentacion.");
     }
 }
 
@@ -1501,73 +1691,94 @@ QString LLTutorWindow::feedbackForA() {
     QString userText = ui->userResponse->toPlainText().trimmed();
 
     if (!userText.isEmpty()) {
-        QStringList resp = userText.split(',', Qt::SkipEmptyParts);
-
-        if (resp.size() == 1 && resp[0] == userText) {
+        if (!userText.contains(',')) {
             return tr("Parece que no has seguido el formato correctamente. "
                       "Debes separar el número "
                       "de "
                       "filas y columnas con una coma.\n") +
                    feedback;
-        } else {
-            if (resp.size() != 2) {
-                return tr("No has seguido el formato correspondiente "
-                          "(filas,columnas).\n") +
+        }
+
+        QStringList resp = userText.split(',', Qt::KeepEmptyParts);
+        if (resp.size() != 2) {
+            return tr("No has seguido el formato correspondiente "
+                      "(filas,columnas).\n") +
+                   feedback;
+        }
+
+        for (QString& part : resp) {
+            part = part.trimmed();
+            if (part.isEmpty()) {
+                return tr("Faltan valores: escribe filas,columnas.\n") +
                        feedback;
-            } else {
-                QStringList sol = solutionForA();
-                if (sol[0] == resp[0] && sol[1] != resp[1]) {
-                    return tr("No has contado bien el número de símbolos "
-                              "terminales.\n") +
-                           feedback;
-                } else if (sol[0] != resp[0] && sol[1] == resp[1]) {
-                    return tr("No has contado bien el número de símbolos no "
-                              "terminales.\n") +
-                           feedback;
-                } else {
-                    return feedback;
-                }
             }
         }
-    } else {
+
+        bool okRows = false;
+        bool okCols = false;
+        resp[0].toUInt(&okRows);
+        resp[1].toUInt(&okCols);
+        if (!okRows || !okCols) {
+            return tr("Formato inválido: ambos valores deben ser enteros.\n") +
+                   feedback;
+        }
+
+        QStringList sol = solutionForA();
+        if (sol[0] == resp[0] && sol[1] != resp[1]) {
+            return tr("No has contado bien el número de símbolos "
+                      "terminales.\n") +
+                   feedback;
+        }
+        if (sol[0] != resp[0] && sol[1] == resp[1]) {
+            return tr("No has contado bien el número de símbolos no "
+                      "terminales.\n") +
+                   feedback;
+        }
         return feedback;
     }
+    return feedback;
 }
 
 QString LLTutorWindow::feedbackForA1() {
     QSet<QString> non_terminals =
         stdUnorderedSetToQSet(grammar.st_.non_terminals_);
     QList<QString> l(non_terminals.begin(), non_terminals.end());
-    return tr("Los NO TERMINALES son los que aparecen como antecedente en "
+    QString        userText = ui->userResponse->toPlainText().trimmed();
+    bool           ok       = false;
+    userText.toUInt(&ok);
+    QString formatMsg;
+    if (!userText.isEmpty() && !ok) {
+        formatMsg = tr("Formato inválido: escribe un número entero.\n");
+    }
+    return formatMsg +
+           tr("Los NO TERMINALES son los que aparecen como antecedente en "
               "alguna regla.\n"
               "En esta gramática: %1")
-        .arg(l.join(", "));
+               .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForA2() {
     QSet<QString> terminals =
         stdUnorderedSetToQSet(grammar.st_.terminals_wtho_eol_);
     QList<QString> l(terminals.begin(), terminals.end());
-
-    if (ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)) {
-        l.removeOne(QString::fromStdString(ll1.gr_.st_.EPSILON_));
-        return tr("Los TERMINALES son todos los símbolos que aparecen en los "
-                  "consecuentes\n"
-                  "y que NO son no terminales, excluyendo el símbolo de fin de "
-                  "entrada ($). La "
-                  "cadena EPSILON, tampoco cuenta como símbolo terminal, pues "
-                  "es un metasímbolo "
-                  "que representa la cadena vacía.\n"
-                  "En esta gramática: %1")
-            .arg(l.join(", "));
-    } else {
-        return tr("Los TERMINALES son todos los símbolos que aparecen en los "
-                  "consecuentes\n"
-                  "y que NO son no terminales, excluyendo el símbolo de fin de "
-                  "entrada ($).\n"
-                  "En esta gramática: %1")
-            .arg(l.join(", "));
+    QString        userText = ui->userResponse->toPlainText().trimmed();
+    bool           ok       = false;
+    userText.toUInt(&ok);
+    QString formatMsg;
+    if (!userText.isEmpty() && !ok) {
+        formatMsg = tr("Formato inválido: escribe un número entero.\n");
     }
+
+    return formatMsg +
+           tr("Los TERMINALES son todos los símbolos que aparecen en los "
+              "consecuentes\n"
+              "y que NO son no terminales, excluyendo el símbolo de fin de "
+              "entrada ($). La "
+              "cadena EPSILON tampoco cuenta como símbolo terminal, pues "
+              "es un metasímbolo "
+              "que representa la cadena vacía.\n"
+              "En esta gramática: %1")
+               .arg(l.join(", "));
 }
 
 QString LLTutorWindow::feedbackForAPrime() {
@@ -1586,23 +1797,21 @@ QString LLTutorWindow::feedbackForB() {
            "en qué columnas debe colocarse la producción en la tabla LL(1).\n"
            "La fórmula es: SD(X → Y) = CAB(Y) - {ε} ∪ SIG(X) si ε ∈ CAB(Y)");
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("Parece que no has separado los símbolos con comas "
                   "correctamente.\n") +
                feedbackBase;
     }
 
-    if (resp.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
+    if (parsed.set.contains(QString::fromStdString(ll1.gr_.st_.EPSILON_))) {
         return tr("Has introducido EPSILON, los símbolos directores no pueden "
                   "contenerlo.\n") +
                feedbackBase;
@@ -1617,6 +1826,10 @@ QString LLTutorWindow::feedbackForB() {
     if (!rest.isEmpty()) {
         msg += tr("Has incluido símbolos que no corresponden: ") +
                QStringList(rest.values()).join(", ") + ".\n";
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
     }
     return msg + feedbackBase;
 }
@@ -1636,6 +1849,17 @@ void LLTutorWindow::feedbackForB1TreeGraphics() {
 QString LLTutorWindow::feedbackForB1() {
     feedbackForB1TreeWidget();
     feedbackForB1TreeGraphics();
+
+    const QString       text   = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed = ParseSymbolList(text);
+    QString             formatMsg;
+    if (!text.isEmpty() && parsed.separatorError) {
+        formatMsg = tr("Recuerda separar los símbolos con comas.\n");
+    }
+    if (!parsed.duplicates.isEmpty()) {
+        formatMsg += tr("Has repetido símbolos: ") +
+                     QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
 
     const auto& consequent_qv = sortedGrammar.at(currentRule).second;
     std::vector<std::string> consequent_vec = qvectorToStdVector(consequent_qv);
@@ -1661,11 +1885,12 @@ QString LLTutorWindow::feedbackForB1() {
         QStringList::fromVector(stdUnorderedSetToQSet(result).values())
             .join(", ");
 
-    return tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
+    return formatMsg +
+           tr("Se calcula CABECERA del consecuente: CAB(%1)\n"
               "Con esto se obtienen los terminales que pueden aparecer al "
               "comenzar a derivar %1.\n"
               "Resultado: { %2 }")
-        .arg(cab, resultSet);
+               .arg(cab, resultSet);
 }
 
 QString LLTutorWindow::feedbackForB2() {
@@ -1675,20 +1900,17 @@ QString LLTutorWindow::feedbackForB2() {
            "los símbolos directores.\n%2")
             .arg(nt, TeachFollow(nt));
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB2();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB2();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo de SIG(%1).\n").arg(nt) +
                feedbackBase;
     }
 
-    if (resp.size() == 1 &&
-        resp[0] == ui->userResponse->toPlainText().trimmed()) {
+    if (parsed.separatorError) {
         return tr("Recuerda separar los símbolos de SIG(%1) con comas.\n")
                    .arg(nt) +
                feedbackBase;
@@ -1704,6 +1926,10 @@ QString LLTutorWindow::feedbackForB2() {
         msg += tr("No forman parte de SIG(%1): %2.\n")
                    .arg(nt, QStringList(rest.values()).join(", "));
     }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
 
     return msg + feedbackBase;
 }
@@ -1717,17 +1943,15 @@ QString LLTutorWindow::feedbackForBPrime() {
             .arg(TeachPredictionSymbols(rule.first,
                                         qvectorToStdVector(rule.second)));
 
-    QStringList resp = ui->userResponse->toPlainText()
-                           .trimmed()
-                           .split(',', Qt::SkipEmptyParts)
-                           .replaceInStrings(kRe, "");
-    QSet<QString> setSol = solutionForB();
-    QSet<QString> setResp(resp.begin(), resp.end());
+    const QString       text    = ui->userResponse->toPlainText().trimmed();
+    const ParsedSymbols parsed  = ParseSymbolList(text);
+    QSet<QString>       setSol  = solutionForB();
+    QSet<QString>       setResp = parsed.set;
 
-    if (resp.isEmpty()) {
+    if (text.isEmpty()) {
         return tr("No has indicado ningún símbolo director.\n") + feedbackBase;
     }
-    if (resp.size() == 1 && resp[0].contains(' ')) {
+    if (parsed.separatorError) {
         return tr("No has seguido el formato indicado (símbolos separados por "
                   "coma).\n") +
                feedbackBase;
@@ -1744,6 +1968,10 @@ QString LLTutorWindow::feedbackForBPrime() {
         msg += tr("Estos no son símbolos directores válidos: ") +
                QStringList(rest.values()).join(", ") + ".\n";
     }
+    if (!parsed.duplicates.isEmpty()) {
+        msg += tr("Has repetido símbolos: ") +
+               QStringList(parsed.duplicates.values()).join(", ") + ".\n";
+    }
     return msg + feedbackBase;
 }
 
@@ -1758,6 +1986,106 @@ QString LLTutorWindow::feedbackForC() {
 
 QString LLTutorWindow::feedbackForCPrime() {
     return TeachLL1Table();
+}
+
+void LLTutorWindow::addGrammarMessage() {
+    conversationLog.emplaceBack(tr("La gramática es:\n") + formattedGrammar,
+                                false);
+
+    auto* messageWidget = new QWidget;
+    auto* mainLayout    = new QVBoxLayout(messageWidget);
+    mainLayout->setSpacing(2);
+    mainLayout->setContentsMargins(10, 5, 10, 5);
+
+    auto* header = new QLabel("Tutor");
+    header->setStyleSheet("font-weight: bold; color: #BBBBBB;");
+
+    auto* bubbleLayout = new QHBoxLayout;
+    bubbleLayout->setSpacing(0);
+
+    auto* innerLayout = new QVBoxLayout;
+    innerLayout->setSpacing(6);
+
+    auto* title = new QLabel(tr("La gramática es:"));
+    title->setStyleSheet("font-weight: bold; color: #F1F1F1;");
+
+    auto* bubble = new GrammarView;
+    bubble->setRows(buildGrammarRows(grammar));
+    bubble->setStyleSheet(R"(
+        QFrame#grammarView {
+            background-color: #2F3542;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-left-radius: 0px;
+            border-top-right-radius: 18px;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+    )");
+
+    auto* timestamp = new QLabel(QTime::currentTime().toString("HH:mm"));
+    timestamp->setStyleSheet("color: gray; margin-left: 5px;");
+    timestamp->setAlignment(Qt::AlignRight);
+
+    innerLayout->addWidget(title);
+    innerLayout->addWidget(bubble);
+    innerLayout->addWidget(timestamp);
+
+    bubbleLayout->addLayout(innerLayout);
+    bubbleLayout->addStretch();
+
+    mainLayout->addWidget(header);
+    mainLayout->addLayout(bubbleLayout);
+
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    const int listWidth = qMax(0, ui->listWidget->viewport()->width());
+    item->setSizeHint(
+        QSize(qMax(0, listWidth - 2), messageWidget->sizeHint().height()));
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item, messageWidget);
+    relayoutChatMessages();
+    ui->listWidget->scrollToBottom();
+}
+
+void LLTutorWindow::relayoutChatMessages() {
+    const int listWidth = ui->listWidget->viewport()->width();
+    if (listWidth <= 0) {
+        return;
+    }
+
+    const int bubbleMaxWidth = qMax(180, listWidth - 72);
+
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        auto* item    = ui->listWidget->item(i);
+        auto* widget  = ui->listWidget->itemWidget(item);
+        if (!widget) {
+            continue;
+        }
+
+        const auto labels = widget->findChildren<QLabel*>();
+        for (auto* label : labels) {
+            if (!label->property("chatBubble").toBool()) {
+                continue;
+            }
+
+            const QString text = label->property("chatText").toString();
+            QFontMetrics   fm(label->font());
+            const int textWidth =
+                fm.boundingRect(0, 0, bubbleMaxWidth - kBubbleChrome, 0,
+                                Qt::TextWordWrap, text)
+                    .width();
+            label->setFixedWidth(
+                qBound(80, textWidth + kBubbleChrome, bubbleMaxWidth));
+        }
+
+        // updateGeometry() only schedules a recalculation, so sizeHint()
+        // right after it still reports the old height and the item ends up
+        // taller than its content - the gap above the bubble that went away
+        // as soon as the window was resized. Activate the layout instead.
+        if (QLayout* bubbleLayout = widget->layout()) {
+            bubbleLayout->activate();
+        }
+        item->setSizeHint(QSize(listWidth - 2, widget->sizeHint().height()));
+    }
 }
 
 void LLTutorWindow::addWidgetMessage(QWidget* widget) {
@@ -1785,7 +2113,7 @@ void LLTutorWindow::feedbackForB1TreeWidget() {
    QTreeWidget {
         background-color: #1F1F1F;
         color: #E0E0E0;
-        font: 10pt "Noto Sans";
+        font: 10pt;
         border: none;
         outline: 0;
     }
@@ -1823,8 +2151,9 @@ void LLTutorWindow::feedbackForB1TreeWidget() {
 QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
     QString                                        result;
     const std::string&                             axiom = grammar.axiom_;
-    std::map<std::string, std::vector<production>> sortedRules(
-        grammar.g_.begin(), grammar.g_.end());
+    // Presentation order, not lexicographic: a user-written grammar keeps
+    // the sequence its rules were typed in.
+    const std::vector<std::string> order = grammar.PresentationOrder();
 
     auto formatProductions = [](const QString&                 lhs,
                                 const std::vector<production>& prods) {
@@ -1857,13 +2186,47 @@ QString LLTutorWindow::FormatGrammar(const Grammar& grammar) {
             formatProductions(QString::fromStdString(axiom), axIt->second);
     }
 
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == axiom)
-            continue;
-        result += formatProductions(QString::fromStdString(lhs), productions);
+    for (const std::string& lhs : order) {
+        result += formatProductions(QString::fromStdString(lhs),
+                                    grammar.g_.at(lhs));
     }
 
     return result;
+}
+
+QVector<GrammarView::Row>
+LLTutorWindow::buildGrammarRows(const Grammar& grammar) const {
+    QVector<GrammarView::Row> rows;
+    const std::string&        axiom = grammar.axiom_;
+    const std::vector<std::string> order = grammar.PresentationOrder();
+
+    auto appendProductions = [&rows](const QString& lhs,
+                                     const std::vector<production>& prods) {
+        for (size_t i = 0; i < prods.size(); ++i) {
+            QString rhs;
+            for (const auto& symbol : prods[i]) {
+                if (!rhs.isEmpty()) {
+                    rhs += ' ';
+                }
+                rhs += QString::fromStdString(symbol);
+            }
+
+            rows.push_back({QString(),
+                            i == 0 ? lhs : QString(),
+                            i == 0 ? QString::fromUtf8("→") : "|", rhs});
+        }
+    };
+
+    auto axIt = grammar.g_.find(axiom);
+    if (axIt != grammar.g_.end()) {
+        appendProductions(QString::fromStdString(axiom), axIt->second);
+    }
+
+    for (const std::string& lhs : order) {
+        appendProductions(QString::fromStdString(lhs), grammar.g_.at(lhs));
+    }
+
+    return rows;
 }
 
 void LLTutorWindow::fillSortedGrammar() {
@@ -1880,11 +2243,8 @@ void LLTutorWindow::fillSortedGrammar() {
         }
     }
     rules.push_back(rule);
-    std::map<std::string, std::vector<production>> sortedRules(
-        grammar.g_.begin(), grammar.g_.end());
-    for (const auto& [lhs, productions] : sortedRules) {
-        if (lhs == grammar.axiom_)
-            continue;
+    for (const std::string& lhs : grammar.PresentationOrder()) {
+        const std::vector<production>& productions = grammar.g_.at(lhs);
         rule = {QString::fromStdString(lhs), {}};
         for (const auto& prod : productions) {
             for (const auto& symbol : prod) {
@@ -1940,37 +2300,6 @@ LLTutorWindow::qsetToStdUnorderedSet(const QSet<QString>& qset) {
     return result;
 }
 
-void LLTutorWindow::on_userResponse_textChanged() {
-    QTextDocument* doc = ui->userResponse->document();
-    QFontMetrics   fm(ui->userResponse->font());
-
-    const int lineHeight = fm.lineSpacing();
-    const int maxLines   = 4;
-    const int minLines   = 1;
-
-    int lineCount = doc->blockCount();
-    lineCount     = std::clamp(lineCount, minLines, maxLines);
-
-    int padding       = 20;
-    int desiredHeight = lineCount * lineHeight + padding;
-
-    // Establecer mínimo fijo (respetado por el layout)
-    const int minHeight = 45;
-    ui->userResponse->setMinimumHeight(minHeight);
-
-    // Animar el cambio de altura real
-    QPropertyAnimation* animation =
-        new QPropertyAnimation(ui->userResponse, "minimumHeight");
-    animation->setDuration(120);
-    animation->setStartValue(ui->userResponse->height());
-    animation->setEndValue(
-        std::max(minHeight, desiredHeight)); // nunca menos de minHeight
-    animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-    // Establece también el máximo para limitar el crecimiento
-    ui->userResponse->setMaximumHeight(maxLines * lineHeight + padding);
-}
-
 void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
                                    std::unordered_set<std::string>& first_set,
                                    int                              depth,
@@ -1989,7 +2318,8 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
                          .arg(QString::fromStdString(current_symbol)));
     parent->addChild(node);
 
-    if (ll1.gr_.st_.IsTerminal(current_symbol)) {
+    if (ll1.gr_.st_.IsTerminal(current_symbol) ||
+        current_symbol == ll1.gr_.st_.EPSILON_) {
         if (current_symbol == ll1.gr_.st_.EPSILON_ &&
             !remaining_symbols.empty()) {
             return;
@@ -1998,8 +2328,7 @@ void LLTutorWindow::TeachFirstTree(const std::vector<std::string>&  symbols,
             node->addChild(
                 new QTreeWidgetItem({tr("Añadir $, se ha llegado al final")}));
         } else {
-            node->addChild(
-                new QTreeWidgetItem({tr("Terminal → Añadir a CAB")}));
+            node->addChild(new QTreeWidgetItem({tr("Añadir a CAB")}));
         }
         return;
     }
@@ -2060,7 +2389,7 @@ std::unique_ptr<LLTutorWindow::TreeNode> LLTutorWindow::buildTreeNode(
             .arg(QString::fromStdString(current))
             .arg(rest.empty() ? "" : " " + stdVectorToQVector(rest).join(' '));
 
-    if (ll1.gr_.st_.IsTerminal(current)) {
+    if (ll1.gr_.st_.IsTerminal(current) || current == ll1.gr_.st_.EPSILON_) {
         if (current == ll1.gr_.st_.EPSILON_ && !rest.empty()) {
             return nullptr;
         }
@@ -2134,7 +2463,7 @@ void LLTutorWindow::drawTree(const std::unique_ptr<TreeNode>& root,
         return;
 
     QGraphicsTextItem* textItem = scene->addText(root->label);
-    QFont              font("Noto Sans", 10);
+    QFont              font = QApplication::font();
     font.setBold(true);
     textItem->setFont(font);
     textItem->setDefaultTextColor(Qt::white);
@@ -2174,6 +2503,10 @@ void LLTutorWindow::drawTree(const std::unique_ptr<TreeNode>& root,
 
 #include <QWheelEvent>
 bool LLTutorWindow::eventFilter(QObject* obj, QEvent* event) {
+    if (obj == ui->listWidget->viewport() && event->type() == QEvent::Resize) {
+        QTimer::singleShot(0, this, [this]() { relayoutChatMessages(); });
+    }
+
     if (auto* view = qobject_cast<QGraphicsView*>(obj)) {
         if (event->type() == QEvent::Wheel) {
             QWheelEvent* wheelEvent = static_cast<QWheelEvent*>(event);
@@ -2216,12 +2549,15 @@ void LLTutorWindow::showTreeGraphics(
     std::unique_ptr<LLTutorWindow::TreeNode> root) {
     QDialog* dialog = new QDialog(this);
     dialog->setWindowTitle(tr("Árbol de derivación CABECERA"));
+    dialog->setObjectName("llTreeDialog");
+    dialog->setProperty("treeViewer", true);
 
     QGraphicsScene* scene = new QGraphicsScene(dialog);
 
     drawTree(root, scene, QPointF(0, 0), 220, 100);
 
     QGraphicsView* view = new QGraphicsView(scene);
+    view->setObjectName("llDerivationTreeView");
     view->setRenderHint(QPainter::Antialiasing);
     view->setMinimumSize(1000, 700);
     view->setAlignment(Qt::AlignCenter);
@@ -2503,9 +2839,7 @@ QString LLTutorWindow::TeachLL1Table() {
                      "cada terminal excepto epsilon más %2 (%3 columnas).\n")
                       .arg(ll1.gr_.st_.non_terminals_.size())
                       .arg(QString::fromStdString(ll1.gr_.st_.EOL_))
-                      .arg(ll1.gr_.st_.terminals_.contains(ll1.gr_.st_.EPSILON_)
-                               ? ll1.gr_.st_.terminals_.size() - 1
-                               : ll1.gr_.st_.terminals_.size());
+                      .arg(ll1.gr_.st_.terminals_.size());
 
         output += tr("5. Coloca α en la celda (A,β) si β ∈ SD(A → α), déjala "
                      "vacía en otro caso.\n");
@@ -2538,18 +2872,19 @@ void LLTutorWindow::setupTutorial() {
     updateProgressPanel();
     ui->userResponse->setDisabled(true);
     ui->confirmButton->setDisabled(true);
-    tm->addStep(this->window(), tr("<h3>Tutor LL(1)</h3>"
-                                   "<p>Esta es la ventana del tutor de "
-                                   "analizadores sintácticos LL(1).</p>"));
+    tm->addStep(this, tr("<h3>Tutor LL(1)</h3>"
+                                    "<p>Esta es la ventana del tutor de "
+                                    "analizadores sintácticos LL(1).</p>"));
 
     tm->addStep(ui->listWidget,
                 tr("<h3>Mensajes</h3>"
                    "<p>Aquí el tutor pregunta y muestra feedback.</p>"
                    "<p>Para enviar tu respuesta pulsa el botón <b>Enviar</b> o "
                    "Enter. Puedes insertar "
-                   "una nueva línea con Ctrl+Enter si el formato lo requiere. "
+                   "una nueva línea con %1 si el formato lo requiere. "
                    "Aunque en el tutor "
-                   "LL(1) no es necesario.</p>"));
+                   "LL(1) no es necesario.</p>")
+                    .arg(CustomTextEdit::newlineShortcutText()));
 
     tm->addStep(ui->listWidget, tr("<h3>Formato de respuesta</h3>"
                                    "<p>El tutor te indicará el formato de "
@@ -2594,7 +2929,7 @@ void LLTutorWindow::setupTutorial() {
                    "equivocas, verás una breve "
                    "animación en el mensaje.</p>"));
 
-    tm->addStep(this->window(),
+    tm->addStep(this,
                 tr("<h3>Finalización</h3>"
                    "<p>Una vez termines el ejercicio entero, podrás exportar "
                    "toda la conversación "

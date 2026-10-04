@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['userlevel_0',['userLevel',['../classMainWindow.html#a982f606d82b1f4947002336aa03ebec2',1,'MainWindow']]]
+  ['growheight_0',['growHeight',['../class_custom_text_edit.html#af9d21878791b7ca98824f2a1b85cdbc4',1,'CustomTextEdit']]]
 ];

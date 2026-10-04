@@ -1,0 +1,7 @@
+<map id="MainWindow::setUserLevel" name="MainWindow::setUserLevel">
+<area shape="rect" id="Node000001" title="Sets the user level, clamping it to the allowed maximum." alt="" coords="5,29,187,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="55,29,48,21,52,11,69,5,96,3,126,5,143,15,138,15,125,11,96,8,70,10,56,15,53,20,60,29"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#abed50644ed307d4ab90a27bd13b30fcf" title="Emitted when the user&#39;s level changes." alt="" coords="235,29,447,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="187,40,222,42,216,42,187,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="300,28,292,21,297,11,314,5,341,3,371,5,388,15,382,15,370,11,341,8,315,10,301,15,298,20,305,30"/>
+</map>

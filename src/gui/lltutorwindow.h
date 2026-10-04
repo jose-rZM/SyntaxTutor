@@ -27,7 +27,6 @@
 #include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include <QListWidgetItem>
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QPainter>
 #include <QPropertyAnimation>
@@ -41,9 +40,12 @@
 #include <QTimer>
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtPrintSupport/QPrinter>
 
+#include "examsession.h"
 #include "grammar.hpp"
+#include "grammarview.h"
 #include "ll1_parser.hpp"
 #include "lltabledialog.h"
 
@@ -76,10 +78,19 @@ enum class State { A, A1, A2, A_prime, B, B1, B2, B_prime, C, C_prime, fin };
  * entries.
  * - Exportable conversation log for grading or review.
  */
-class LLTutorWindow : public QMainWindow {
+class LLTutorWindow : public QWidget {
     Q_OBJECT
 
   public:
+    /**
+     * @brief Re-applies the current text size to this tutor.
+     *
+     * The chat bubbles size themselves from font metrics and the grammar
+     * panel from the card's width, so both have to be recomputed when the
+     * user picks a different text size.
+     */
+    void applyTextScale();
+
     // ====== Derivation Tree (used in TeachFirst) =============
     /**
      * @brief TreeNode structure used to build derivation trees.
@@ -95,10 +106,12 @@ class LLTutorWindow : public QMainWindow {
      * @param grammar The grammar to use during the session.
      * @param tm Optional pointer to the tutorial manager (for help overlays).
      * @param parent Parent widget.
+     * @param examMode When true, all feedback is suppressed: answers are
+     * recorded silently, error sub-questions never trigger, and a graded
+     * report is shown at the end.
      */
-    explicit LLTutorWindow(const Grammar&   grammar,
-                           TutorialManager* tm     = nullptr,
-                           QWidget*         parent = nullptr);
+    explicit LLTutorWindow(const Grammar& grammar, TutorialManager* tm = nullptr,
+                           QWidget* parent = nullptr, bool examMode = false);
     ~LLTutorWindow();
 
     // ====== State Machine & Question Logic ====================
@@ -120,10 +133,12 @@ class LLTutorWindow : public QMainWindow {
      * @return A QString representation.
      */
     QString FormatGrammar(const Grammar& grammar);
+    QVector<GrammarView::Row> buildGrammarRows(const Grammar& grammar) const;
 
     // ====== UI Interaction ====================================
     void addMessage(const QString& text,
                     bool           isUser);           /// < Add text message to chat
+    void addGrammarMessage();
     void addWidgetMessage(QWidget* widget); /// < Add widget (e.g., table, tree)
     void
     exportConversationToPdf(const QString& filePath); /// < Export chat to PDF
@@ -200,12 +215,49 @@ class LLTutorWindow : public QMainWindow {
 
     void handleTableSubmission(const QVector<QVector<QString>>& raw,
                                const QStringList&               colHeaders);
+
+    /**
+     * @brief Hooks the table dialog's guided mode button to the LL wizard.
+     *
+     * Opens the step-by-step LL(1) table assistant when requested, freezing
+     * the table dialog while it is active and restoring the user's snapshot
+     * when it closes.
+     *
+     * @param dialog Table dialog to connect.
+     * @param colHeaders Terminal symbols in the dialog's column order.
+     */
+    void connectGuidedMode(LLTableDialog*     dialog,
+                           const QStringList& colHeaders);
+    void updatePlaceholder();
+    bool confirmExitToHome();
+    QString promptExportFilePath() const;
+
+    // ====== Exam Mode =========================================
+    void    postQuestion();     ///< Shows and remembers the next question.
+    QString examSolutionText(); ///< Expected answer for the current state.
+    void    scoreExamTable();   ///< Grades the LL table cell by cell.
+    void    showExamReport();   ///< Opens the end-of-exam report dialog.
+#ifdef SYNTAXTUTOR_TESTING
+  public:
+    QString     currentStateForTest() const;
+    QString     currentRuleAntecedentForTest() const;
+    QStringList currentRuleConsequentForTest() const;
+    int         rightCountForTest() const;
+    int         wrongCountForTest() const;
+    void        setAnswerForTest(const QString& text);
+    void        submitForTest();
+    void        setNextExportFilePathForTest(const QString& filePath);
+    double      examGradeForTest() const { return examSession.grade(); }
+    int         examTotalForTest() const { return examSession.total(); }
+    int         examRightForTest() const { return examSession.right(); }
+#endif
   private slots:
+    void on_backButton_clicked();
     void on_confirmButton_clicked();
-    void on_userResponse_textChanged();
 
   signals:
     void sessionFinished(int cntRight, int cntWrong);
+    void exitRequested(bool applyResults, int cntRight, int cntWrong);
 
   protected:
     void closeEvent(QCloseEvent* event) override {
@@ -216,6 +268,8 @@ class LLTutorWindow : public QMainWindow {
     bool eventFilter(QObject* obj, QEvent* event) override;
 
   private:
+    void relayoutChatMessages();
+
     // ====== Core Objects ======================================
     Ui::LLTutorWindow* ui;
     Grammar            grammar;
@@ -229,6 +283,11 @@ class LLTutorWindow : public QMainWindow {
     unsigned       lltries            = 0;
     unsigned       cntRightAnswers = 0, cntWrongAnswers = 0;
 
+    // ====== Exam Mode =========================================
+    bool        examMode = false;
+    ExamSession examSession;
+    QString     currentQuestionText;
+
     using Cell = std::pair<QString, QString>;
     std::vector<Cell> lastWrongCells;
     LLTableDialog*    currentDlg = nullptr;
@@ -236,6 +295,7 @@ class LLTutorWindow : public QMainWindow {
     QVector<QString>                          sortedNonTerminals;
     QVector<QPair<QString, QVector<QString>>> sortedGrammar;
     QString                                   formattedGrammar;
+    GrammarView*                              grammarView = nullptr;
 
     QMap<QString, QMap<QString, QVector<QString>>> lltable;
     QVector<QVector<QString>>                      rawTable;
@@ -268,6 +328,7 @@ class LLTutorWindow : public QMainWindow {
     qsetToStdUnorderedSet(const QSet<QString>& qset);
 
     void setupTutorial();
+    void requestExit(bool applyResults);
 
     void
     fillSortedGrammar(); // Populate sortedGrammar from internal representation
@@ -277,6 +338,10 @@ class LLTutorWindow : public QMainWindow {
                  // key
 
     TutorialManager* tm = nullptr;
+
+#ifdef SYNTAXTUTOR_TESTING
+    mutable QString nextExportFilePathForTest;
+#endif
 
     const QRegularExpression kRe{"^\\s+|\\s+$"};
     const QRegularExpression kWhitespace{"\\s+"};

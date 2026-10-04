@@ -1,0 +1,6 @@
+<map id="CustomTextEdit::newlineShortcutText" name="CustomTextEdit::newlineShortcutText">
+<area shape="rect" id="Node000001" title="User&#45;visible name of the newline shortcut for the current platform." alt="" coords="5,29,247,55"/>
+<area shape="rect" id="Node000002" href="$namespace_app_shortcuts.html#a1b887ee39dff49f27bc95d081f4710fb" title="Name of the key behind Qt::ControlModifier on this platform." alt="" coords="295,29,527,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,40,282,42,276,42,247,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="364,28,355,21,360,11,379,5,411,3,447,6,465,16,460,15,445,11,411,8,380,10,364,15,360,20,369,30"/>
+</map>

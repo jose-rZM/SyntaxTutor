@@ -1,6 +1,6 @@
 \doxysection{grammar.\+hpp}
 \label{grammar_8hpp_source}\index{backend/grammar.hpp@{backend/grammar.hpp}}
-\mbox{\hyperlink{grammar_8hpp}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{grammar_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
@@ -34,25 +34,34 @@
 \DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::unordered\_map<std::string,\ std::vector<production>>\&}
 \DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ grammar);}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAxiom(\textcolor{keyword}{const}\ std::string\&\ axiom);}
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasEmptyProduction(\textcolor{keyword}{const}\ std::string\&\ antecedent)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00086\ \ \ \ \ std::vector<std::pair<const\ std::string,\ production>>}
-\DoxyCodeLine{00087\ \ \ \ \ FilterRulesByConsequent(\textcolor{keyword}{const}\ std::string\&\ arg)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ Debug()\ \textcolor{keyword}{const};\ \textcolor{comment}{//\ NOSONAR}}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ AddProduction(\textcolor{keyword}{const}\ std::string\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ antecedent,}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ consequent);}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00123\ \ \ \ \ std::vector<std::string>\ Split(\textcolor{keyword}{const}\ std::string\&\ s);}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00129\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<production>>\ g\_;}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00134\ \ \ \ \ std::string\ axiom\_;}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00139\ \ \ \ \ SymbolTable\ st\_;}
-\DoxyCodeLine{00140\ \};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ PresentationRank(\textcolor{keyword}{const}\ std::string\&\ antecedent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ PresentationLess(\textcolor{keyword}{const}\ std::string\&\ lhs,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00083\ \ \ \ \ std::vector<std::string>\ PresentationOrder()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ SetAxiom(\textcolor{keyword}{const}\ std::string\&\ axiom);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{bool}\ HasEmptyProduction(\textcolor{keyword}{const}\ std::string\&\ antecedent)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00118\ \ \ \ \ std::vector<std::pair<const\ std::string,\ production>>}
+\DoxyCodeLine{00119\ \ \ \ \ FilterRulesByConsequent(\textcolor{keyword}{const}\ std::string\&\ arg)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ Debug()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ AddProduction(\textcolor{keyword}{const}\ std::string\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ antecedent,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::string>\&\ consequent);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00155\ \ \ \ \ std::vector<std::string>\ Split(\textcolor{keyword}{const}\ std::string\&\ s);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00161\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<production>>\ g\_;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00171\ \ \ \ \ std::vector<std::string>\ lhs\_order\_;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00176\ \ \ \ \ std::string\ axiom\_;}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00181\ \ \ \ \ SymbolTable\ st\_;}
+\DoxyCodeLine{00182\ \};}
 
 \end{DoxyCode}

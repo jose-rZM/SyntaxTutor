@@ -1,11 +1,13 @@
 <map id="backend/grammar_factory.hpp" name="backend/grammar_factory.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="106,5,324,33"/>
-<area shape="rect" id="Node000002" href="$grammar__factory_8cpp.html" title=" " alt="" coords="5,81,223,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,45,134,83,130,78,183,40"/>
-<area shape="rect" id="Node000003" href="$mainwindow_8h.html" title=" " alt="" coords="247,81,386,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,40,300,78,297,83,244,45"/>
-<area shape="rect" id="Node000004" href="$main_8cpp.html" title=" " alt="" coords="183,157,293,184"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="293,122,254,158,250,154,290,118"/>
-<area shape="rect" id="Node000005" href="$mainwindow_8cpp.html" title=" " alt="" coords="317,157,471,184"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="343,118,382,154,378,158,340,121"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="219,5,414,31"/>
+<area shape="rect" id="Node000002" href="$grammar__factory_8cpp.html" title=" " alt="" coords="5,79,201,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,38,140,81,138,76,268,34"/>
+<area shape="rect" id="Node000003" href="$grammareditordialog_8cpp.html" title=" " alt="" coords="224,79,408,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="318,44,319,80,314,77,315,49"/>
+<area shape="rect" id="Node000004" href="$mainwindow_8h.html" title=" " alt="" coords="432,79,555,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="361,34,466,78,461,79,360,40"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title=" " alt="" coords="372,153,471,178"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="473,115,435,155,433,150,468,117"/>
+<area shape="rect" id="Node000006" href="$mainwindow_8cpp.html" title=" " alt="" coords="496,153,633,178"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="517,113,555,153,550,151,515,118"/>
 </map>

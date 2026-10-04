@@ -1,0 +1,9 @@
+<map id="SLRTutorWindow::solutionCell" name="SLRTutorWindow::solutionCell">
+<area shape="rect" id="Node000001" title="The correct content of a table cell, as the student writes it (sN, rN, acc, or a state number for a n..." alt="" coords="529,42,729,68"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="236,5,481,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="511,43,481,42,481,36,516,42"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="270,70,447,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="516,67,448,76,447,71,511,67"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="5,5,188,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,26,189,28,188,23,222,25"/>
+</map>

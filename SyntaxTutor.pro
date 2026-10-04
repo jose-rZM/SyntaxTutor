@@ -6,6 +6,12 @@ TRANSLATIONS += translations/st_es.ts \
 
 CONFIG += c++20
 
+OBJECTS_DIR = $$OUT_PWD/.objects
+MOC_DIR = $$OUT_PWD/.moc
+RCC_DIR = $$OUT_PWD/.rcc
+UI_DIR = $$OUT_PWD/.ui
+DESTDIR = $$OUT_PWD/.bin
+
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
@@ -20,11 +26,17 @@ INCLUDEPATH += \
 SOURCES += \
     src/backend/grammar.cpp \
     src/backend/grammar_factory.cpp \
+    src/backend/grammar_parser.cpp \
     src/backend/ll1_parser.cpp \
     src/backend/lr0_item.cpp \
     src/backend/slr1_parser.cpp \
     src/backend/symbol_table.cpp \
+    src/widgets/automatonview.cpp \
     src/widgets/customtextedit.cpp \
+    src/widgets/grammarview.cpp \
+    src/gui/automatonviewerdialog.cpp \
+    src/gui/examreportdialog.cpp \
+    src/gui/grammareditordialog.cpp \
     src/gui/lltabledialog.cpp \
     src/gui/lltutorwindow.cpp \
     src/app/main.cpp \
@@ -38,14 +50,32 @@ HEADERS += \
     src/appversion.h \
     src/backend/grammar.hpp \
     src/backend/grammar_factory.hpp \
+    src/backend/grammar_parser.hpp \
     src/backend/ll1_parser.hpp \
     src/backend/lr0_item.hpp \
     src/backend/slr1_parser.hpp \
     src/backend/state.hpp \
     src/backend/symbol_table.hpp \
+    src/widgets/appfonts.h \
+    src/widgets/apptextscale.h \
+    src/widgets/apptypography.h \
+    src/widgets/appicon.h \
+    src/widgets/applayout.h \
+    src/widgets/apppalette.h \
+    src/widgets/appsettings.h \
+    src/widgets/appshortcuts.h \
+    src/widgets/automatonview.h \
     src/widgets/customtextedit.h \
+    src/widgets/grammarview.h \
+    src/gui/automatonviewerdialog.h \
+    src/gui/conversationpdf.h \
+    src/gui/examreportdialog.h \
+    src/gui/examsession.h \
+    src/gui/grammareditordialog.h \
     src/gui/lltabledialog.h \
     src/gui/lltutorwindow.h \
+    src/gui/llwizard.h \
+    src/gui/llwizardpage.h \
     src/gui/mainwindow.h \
     src/gui/slrtabledialog.h \
     src/gui/slrtutorwindow.h \
@@ -57,6 +87,10 @@ FORMS += \
     src/gui/lltutorwindow.ui \
     src/gui/mainwindow.ui \
     src/gui/slrtutorwindow.ui
+
+win32: RC_ICONS = resources/icon/syntaxtutor.ico
+macx: ICON = resources/icon/syntaxtutor.icns
+macx: QMAKE_TARGET_BUNDLE_PREFIX = me.jram
 
 win32:CONFIG(release, debug|release) {
     msvc {
@@ -84,8 +118,6 @@ unix:!mac:CONFIG(release, debug|release) {
         -s \
         -Wl,--as-needed
 
-    # Tras link: strippear de nuevo por si quedan símbolos
-    QMAKE_POST_LINK += $$QMAKE_STRIP ./$${TARGET}
 }
 
 macx {

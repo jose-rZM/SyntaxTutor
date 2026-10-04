@@ -1,6 +1,9 @@
 <map id="app" name="app">
-<area shape="rect" id="node1" href="dir_d422163b96683743ed3963d4aac17747.html" title="app" alt="" coords="5,5,51,33"/>
-<area shape="rect" id="node2" href="dir_11bc0974ce736ce9a6fadebbeb7a8314.html" title="gui" alt="" coords="7,81,49,109"/>
-<area shape="poly" id="edge1" href="dir_000000_000002.html" alt="" coords="31,34,31,65,25,65,25,34"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000000_000002.html" title="1" alt="" coords="32,54,40,71"/>
+<area shape="rect" id="node1" href="dir_d422163b96683743ed3963d4aac17747.html" title="app" alt="" coords="41,5,83,31"/>
+<area shape="rect" id="node2" href="dir_11bc0974ce736ce9a6fadebbeb7a8314.html" title="gui" alt="" coords="5,79,44,105"/>
+<area shape="poly" id="edge1" href="dir_000000_000002.html" alt="" coords="58,29,40,66,36,64,54,33"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000000_000002.html" title="1" alt="" coords="43,59,50,74"/>
+<area shape="rect" id="node3" href="dir_fc86ce11cfb5284f2928e718eeab9679.html" title="widgets" alt="" coords="67,79,134,105"/>
+<area shape="poly" id="edge2" href="dir_000000_000003.html" alt="" coords="70,29,89,65,84,65,67,34"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000000_000003.html" title="4" alt="" coords="89,51,96,66"/>
 </map>

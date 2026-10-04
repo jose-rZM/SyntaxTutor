@@ -1,0 +1,60 @@
+\doxysection{grammar\+\_\+parser.\+hpp}
+\label{grammar__parser_8hpp_source}\index{backend/grammar\_parser.hpp@{backend/grammar\_parser.hpp}}
+\doxymbox{\hyperlink{grammar__parser_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}grammar.hpp"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }GrammarParseError\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Kind\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ EmptyGrammar,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ MissingArrow,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ MissingEndDot,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ EmptyLeftHandSide,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ MultipleLeftHandSide,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ ExtraArrow,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ ReservedSymbol,}
+\DoxyCodeLine{00052\ \ \ \ \ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \ \ \ \ Kind\ kind;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ line;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \ \ \ \ std::string\ detail;}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{struct\ }GrammarParseResult\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ Grammar\ grammar;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00078\ \ \ \ \ std::vector<GrammarParseError>\ errors;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ Ok()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ errors.empty();\ \}}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{struct\ }GrammarParser\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{static}\ GrammarParseResult\ Parse(\textcolor{keyword}{const}\ std::string\&\ text);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsReservedToken(\textcolor{keyword}{const}\ std::string\&\ token);}
+\DoxyCodeLine{00124\ \};}
+
+\end{DoxyCode}

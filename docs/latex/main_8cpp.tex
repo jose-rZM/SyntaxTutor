@@ -1,15 +1,18 @@
-\doxysection{app/main.cpp File Reference}
+\doxysection{app/\+main.cpp File Reference}
 \label{main_8cpp}\index{app/main.cpp@{app/main.cpp}}
-{\ttfamily \#include "{}appversion.\+h"{}}\newline
-{\ttfamily \#include "{}mainwindow.\+h"{}}\newline
-{\ttfamily \#include $<$QApplication$>$}\newline
-{\ttfamily \#include $<$QFont$>$}\newline
-{\ttfamily \#include $<$QFont\+Database$>$}\newline
-{\ttfamily \#include $<$QImage\+Reader$>$}\newline
-{\ttfamily \#include $<$QSettings$>$}\newline
-{\ttfamily \#include $<$QTranslator$>$}\newline
-Include dependency graph for main.\+cpp\+:
-\nopagebreak
+{\ttfamily \+\#include "{}appversion.\+h"{}}\newline
+{\ttfamily \+\#include "{}appicon.\+h"{}}\newline
+{\ttfamily \+\#include "{}appsettings.\+h"{}}\newline
+{\ttfamily \+\#include "{}apppalette.\+h"{}}\newline
+{\ttfamily \+\#include "{}apptypography.\+h"{}}\newline
+{\ttfamily \+\#include "{}mainwindow.\+h"{}}\newline
+{\ttfamily \+\#include $<$QApplication$>$}\newline
+{\ttfamily \+\#include $<$QDebug$>$}\newline
+{\ttfamily \+\#include $<$QFont\+Database$>$}\newline
+{\ttfamily \+\#include $<$QSettings$>$}\newline
+{\ttfamily \+\#include $<$QStyle\+Hints$>$}\newline
+{\ttfamily \+\#include $<$QTranslator$>$}\newline
+Include dependency graph for main.\+cpp:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,39 +22,51 @@ Include dependency graph for main.\+cpp\+:
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{main_8cpp_a826fbf19d90723d87bf12e226c57d65f}{load\+Fonts}} ()
+void \doxymbox{\hyperlink{main_8cpp_a8f9e1149f67b06f87889db2a280d1615}{apply\+App\+Style}} (QApplication \&app)
 \item 
-int \mbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+int \doxymbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\+[$\,$]\+)
 \end{DoxyCompactItemize}
 
 
-\label{doc-func-members}
+\label{main_8cpp_doc-func-members}
 \doxysubsection{Function Documentation}
-\index{main.cpp@{main.cpp}!loadFonts@{loadFonts}}
-\index{loadFonts@{loadFonts}!main.cpp@{main.cpp}}
-\doxysubsubsection{\texorpdfstring{loadFonts()}{loadFonts()}}
-{\footnotesize\ttfamily \label{main_8cpp_a826fbf19d90723d87bf12e226c57d65f} 
-void load\+Fonts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+\index{main.cpp@{main.cpp}!applyAppStyle@{applyAppStyle}}
+\index{applyAppStyle@{applyAppStyle}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{applyAppStyle()}{applyAppStyle()}}
+{\footnotesize\ttfamily \label{main_8cpp_a8f9e1149f67b06f87889db2a280d1615} 
+void apply\+App\+Style (\begin{DoxyParamCaption}\item[{QApplication \&}]{app}{}\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=184pt]{main_8cpp_a826fbf19d90723d87bf12e226c57d65f_icgraph}
+\includegraphics[width=350pt]{main_8cpp_a8f9e1149f67b06f87889db2a280d1615_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{main_8cpp_a8f9e1149f67b06f87889db2a280d1615_icgraph}
 \end{center}
 \end{figure}
 \index{main.cpp@{main.cpp}!main@{main}}
 \index{main@{main}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily \label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
-int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\+[$\,$]}\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=237pt]{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\includegraphics[width=350pt]{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=81pt]{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_icgraph}
 \end{center}
 \end{figure}
