@@ -1,0 +1,9 @@
+<map id="SLRTutorWindow::showExamReport" name="SLRTutorWindow::showExamReport">
+<area shape="rect" id="Node000001" title="Opens the end&#45;of&#45;exam report." alt="" coords="5,55,203,96"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a1ddc0f3362ec35ccbf7f3a326c50cfb6" title=" " alt="" coords="251,5,456,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,52,282,34,277,36,196,57"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a81410ccd351a369f2198021c717e4f11" title=" " alt="" coords="265,55,442,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,73,252,75,247,76,204,78"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a6f63d2a8ba634d3a23f04eab6aac1158" title=" " alt="" coords="265,120,442,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,94,261,115,256,117,184,99"/>
+</map>

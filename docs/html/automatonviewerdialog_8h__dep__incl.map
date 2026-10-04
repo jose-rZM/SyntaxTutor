@@ -1,0 +1,16 @@
+<map id="gui/automatonviewerdialog.h" name="gui/automatonviewerdialog.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="150,5,336,31"/>
+<area shape="rect" id="Node000002" href="$automatonviewerdialog_8cpp.html" title=" " alt="" coords="5,79,206,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,41,130,81,127,76,208,37"/>
+<area shape="rect" id="Node000003" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="168,153,318,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,45,245,153,240,151,241,48"/>
+<area shape="rect" id="Node000004" href="$slrtutorwindow_8h.html" title=" " alt="" coords="280,79,416,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,37,333,78,328,79,273,43"/>
+<area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="320,112,262,154,259,150,315,115"/>
+<area shape="rect" id="Node000005" href="$mainwindow_8h.html" title=" " alt="" coords="341,153,464,178"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="367,114,396,153,391,152,365,119"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title=" " alt="" coords="281,226,380,252"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="383,188,344,228,342,224,378,190"/>
+<area shape="rect" id="Node000007" href="$mainwindow_8cpp.html" title=" " alt="" coords="405,226,542,252"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="426,187,464,227,459,225,424,192"/>
+</map>

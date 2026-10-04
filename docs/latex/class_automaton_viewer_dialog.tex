@@ -1,0 +1,84 @@
+\doxysection{Automaton\+Viewer\+Dialog Class Reference}
+\label{class_automaton_viewer_dialog}\index{AutomatonViewerDialog@{AutomatonViewerDialog}}
+
+
+Non-\/modal floating window that hosts the LR(0) automaton view.  
+
+
+
+
+{\ttfamily \+\#include $<$automatonviewerdialog.\+h$>$}
+
+
+
+Inheritance diagram for Automaton\+Viewer\+Dialog:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=165pt]{class_automaton_viewer_dialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Automaton\+Viewer\+Dialog:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=165pt]{class_automaton_viewer_dialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_automaton_viewer_dialog_a0dca877c8e4b561bca963d349ae999f2}{Automaton\+Viewer\+Dialog}} (\doxymbox{\hyperlink{class_automaton_view}{Automaton\+View}} \texorpdfstring{$\ast$}{*}view, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Builds the viewer around an existing automaton view. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_automaton_viewer_dialog_a3f97b51cf4fd5b3bbeed62990fb30868}{\texorpdfstring{$\sim$}{\string~}\+Automaton\+Viewer\+Dialog}} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Non-\/modal floating window that hosts the LR(0) automaton view. 
+
+The dialog is a thin shell: it embeds an externally-\/owned \doxylink{class_automaton_view}{Automaton\+View} (so its progressive reveal state is preserved across open/\+close cycles) and adds a toolbar with zoom in/\+out, fit-\/to-\/view and center-\/current actions. It never owns the view: on destruction it reparents the view out so the tutor can keep reusing it. Being non-\/modal, the student can keep it open while continuing the exercise. 
+
+\label{class_automaton_viewer_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{AutomatonViewerDialog@{AutomatonViewerDialog}!AutomatonViewerDialog@{AutomatonViewerDialog}}
+\index{AutomatonViewerDialog@{AutomatonViewerDialog}!AutomatonViewerDialog@{AutomatonViewerDialog}}
+\doxysubsubsection{\texorpdfstring{AutomatonViewerDialog()}{AutomatonViewerDialog()}}
+{\footnotesize\ttfamily \label{class_automaton_viewer_dialog_a0dca877c8e4b561bca963d349ae999f2} 
+Automaton\+Viewer\+Dialog::\+\+Automaton\+Viewer\+Dialog (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_automaton_view}{Automaton\+View}} \texorpdfstring{$\ast$}{*}}]{view}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Builds the viewer around an existing automaton view. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em view} & The automaton view to embed; ownership is not taken. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_viewer_dialog_a0dca877c8e4b561bca963d349ae999f2_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonViewerDialog@{AutomatonViewerDialog}!````~AutomatonViewerDialog@{\texorpdfstring{$\sim$}{\string~}AutomatonViewerDialog}}
+\index{````~AutomatonViewerDialog@{\texorpdfstring{$\sim$}{\string~}AutomatonViewerDialog}!AutomatonViewerDialog@{AutomatonViewerDialog}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}AutomatonViewerDialog()}{\string~AutomatonViewerDialog()}}
+{\footnotesize\ttfamily \label{class_automaton_viewer_dialog_a3f97b51cf4fd5b3bbeed62990fb30868} 
+Automaton\+Viewer\+Dialog::\+\texorpdfstring{$\sim$}{\string~}\+Automaton\+Viewer\+Dialog (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{automatonviewerdialog_8h}{automatonviewerdialog.\+h}}\item 
+gui/\doxymbox{\hyperlink{automatonviewerdialog_8cpp}{automatonviewerdialog.\+cpp}}\end{DoxyCompactItemize}

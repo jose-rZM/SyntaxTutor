@@ -1,0 +1,15 @@
+<map id="SLRTutorWindow::initialItemText" name="SLRTutorWindow::initialItemText">
+<area shape="rect" id="Node000001" title="The grammar&#39;s initial item, e.g. &quot;S &#45;&gt; · A $&quot;." alt="" coords="5,84,219,110"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#adb5aef769d61e9e2d3794ac4106658f3" title=" " alt="" coords="267,5,480,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,81,266,40,295,34,291,36,267,45,148,86"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#abe22ff89a00b192844adc59d064e3a0a" title=" " alt="" coords="267,55,481,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,82,254,80,249,82,220,87"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a79f71a84c1fb6fd18798d9b238384780" title=" " alt="" coords="281,104,466,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,106,268,113,263,114,219,111"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_tutor_window.html#ae12625e4747be634f7acbacb9a5aefcc" title=" " alt="" coords="281,170,466,210"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="146,107,268,154,293,165,287,165,266,159,145,113"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a7f5f278e44249cbde487af1c43dbff3a" title=" " alt="" coords="529,112,741,138"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="467,122,516,125,511,125,467,127"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r_tutor_window.html#aaff00ffe414a36ba668d15716c45479c" title=" " alt="" coords="546,170,724,210"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="467,188,534,190,528,190,467,193"/>
+</map>

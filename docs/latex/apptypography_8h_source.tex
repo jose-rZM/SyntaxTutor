@@ -1,0 +1,164 @@
+\doxysection{apptypography.\+h}
+\label{apptypography_8h_source}\index{widgets/apptypography.h@{widgets/apptypography.h}}
+\doxymbox{\hyperlink{apptypography_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ APPTYPOGRAPHY\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ APPTYPOGRAPHY\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}apptextscale.h"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QFile>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QFont>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QFontInfo>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QGuiApplication>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QLatin1StringView>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QRegularExpression>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <QStringList>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <QtGlobal>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }AppTypography\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{enum\ class}\ Role\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ Micro,\ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ Caption,\ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ Label,\ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ Body,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ BodyLarge,\ \ }
+\DoxyCodeLine{00058\ \ \ \ \ Reading,\ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ Action,\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ Headline,\ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ TitleSmall,\ }
+\DoxyCodeLine{00062\ \ \ \ \ Title,\ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ Hero,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ Display,\ \ \ \ }
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{struct\ }Token\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ Role\ \ \ \ \ \ \ \ \ \ \ \ \ \ role;}
+\DoxyCodeLine{00070\ \ \ \ \ QLatin1StringView\ name;\ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ qreal\ \ \ \ \ \ \ \ \ \ \ \ \ points;\ }
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ Token\ kTokens[]\ =\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \{Role::Micro,\ QLatin1StringView(\textcolor{stringliteral}{"{}micro"{}}),\ 10.0\},}
+\DoxyCodeLine{00084\ \ \ \ \ \{Role::Caption,\ QLatin1StringView(\textcolor{stringliteral}{"{}caption"{}}),\ 11.0\},}
+\DoxyCodeLine{00085\ \ \ \ \ \{Role::Label,\ QLatin1StringView(\textcolor{stringliteral}{"{}label"{}}),\ 12.0\},}
+\DoxyCodeLine{00086\ \ \ \ \ \{Role::Body,\ QLatin1StringView(\textcolor{stringliteral}{"{}body"{}}),\ 13.0\},}
+\DoxyCodeLine{00087\ \ \ \ \ \{Role::BodyLarge,\ QLatin1StringView(\textcolor{stringliteral}{"{}body-\/large"{}}),\ 14.0\},}
+\DoxyCodeLine{00088\ \ \ \ \ \{Role::Reading,\ QLatin1StringView(\textcolor{stringliteral}{"{}reading"{}}),\ 15.0\},}
+\DoxyCodeLine{00089\ \ \ \ \ \{Role::Action,\ QLatin1StringView(\textcolor{stringliteral}{"{}action"{}}),\ 16.0\},}
+\DoxyCodeLine{00090\ \ \ \ \ \{Role::Headline,\ QLatin1StringView(\textcolor{stringliteral}{"{}headline"{}}),\ 20.0\},}
+\DoxyCodeLine{00091\ \ \ \ \ \{Role::TitleSmall,\ QLatin1StringView(\textcolor{stringliteral}{"{}title-\/small"{}}),\ 24.0\},}
+\DoxyCodeLine{00092\ \ \ \ \ \{Role::Title,\ QLatin1StringView(\textcolor{stringliteral}{"{}title"{}}),\ 28.0\},}
+\DoxyCodeLine{00093\ \ \ \ \ \{Role::Hero,\ QLatin1StringView(\textcolor{stringliteral}{"{}hero"{}}),\ 30.0\},}
+\DoxyCodeLine{00094\ \ \ \ \ \{Role::Display,\ QLatin1StringView(\textcolor{stringliteral}{"{}display"{}}),\ 56.0\},}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{inline}\ qreal\ basePoints(Role\ role)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ Token\&\ token\ :\ kTokens)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (token.role\ ==\ role)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ token.points;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ Q\_UNREACHABLE\_RETURN(13.0);}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{inline}\ qreal\ points(Role\ role)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{return}\ basePoints(role)\ *\ AppTextScale::factor();}
+\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{inline}\ QString\ formatPoints(qreal\ points)\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ QString::number(points,\ \textcolor{charliteral}{'g'},\ 6)\ +\ QStringLiteral(\textcolor{stringliteral}{"{}pt"{}});}
+\DoxyCodeLine{00115\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{inline}\ QString\ cssSize(Role\ role)\ \{\ \textcolor{keywordflow}{return}\ formatPoints(points(role));\ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{inline}\ QFont\&\ systemFont()\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{static}\ QFont\ font;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{return}\ font;}
+\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{inline}\ QFont\ applicationFont()\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ QFont\ font\ =\ systemFont();}
+\DoxyCodeLine{00134\ \ \ \ \ font.setPointSizeF(points(Role::Body));}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{return}\ font;}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{inline}\ QFont\ font(Role\ role,\ QFont\ base\ =\ QGuiApplication::font())\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ base.setPointSizeF(points(role));}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ base;}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{inline}\ QString\ resolveStyleSheet(\textcolor{keyword}{const}\ QString\&\ styleSheet,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringList*\ \ \ unresolved\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ QRegularExpression\ tokenRe(}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ QStringLiteral(\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)\$font-\/([a-\/z]+(?:-\/[a-\/z]+)*)"{}}));}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ QString\ \ \ out;}
+\DoxyCodeLine{00156\ \ \ \ \ qsizetype\ last\ =\ 0;}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ it\ \ \ =\ tokenRe.globalMatch(styleSheet);}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{while}\ (it.hasNext())\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QRegularExpressionMatch\ match\ =\ it.next();}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ out\ +=\ styleSheet.mid(last,\ match.capturedStart()\ -\/\ last);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ last\ =\ match.capturedEnd();}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ name\ \ =\ match.captured(1);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ found\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ Token\&\ token\ :\ kTokens)\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (name\ ==\ token.name)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out\ +=\ formatPoints(token.points\ *\ AppTextScale::factor());}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!found)\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ out\ +=\ match.captured(0);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (unresolved\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unresolved-\/>append(name);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ out\ +=\ styleSheet.mid(last);}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00184\ \textcolor{keyword}{inline}\ QString\ loadStyleSheet()\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ QFile\ file(QStringLiteral(\textcolor{stringliteral}{"{}:/resources/styles/app.qss"{}}));}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.open(QFile::ReadOnly\ |\ QFile::Text))\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{return}\ resolveStyleSheet(QString::fromUtf8(file.readAll()));}
+\DoxyCodeLine{00190\ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ lengthForText(\textcolor{keywordtype}{int}\ designPx)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{const}\ QFontInfo\ rendered(QGuiApplication::font());}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{const}\ qreal\ \ \ \ \ textPixels\ =\ rendered.pixelSize()\ >\ 0}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ rendered.pixelSize()}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ basePoints(Role::Body);}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{return}\ qRound(designPx\ *\ textPixels\ /\ basePoints(Role::Body));}
+\DoxyCodeLine{00208\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \}\ \textcolor{comment}{//\ namespace\ AppTypography}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ APPTYPOGRAPHY\_H}}
+
+\end{DoxyCode}

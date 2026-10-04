@@ -1,0 +1,5 @@
+<map id="Lr0Item::Lr0Item" name="Lr0Item::Lr0Item">
+<area shape="rect" id="Node000001" title="Constructs an LR(0) item with the dot at position 0." alt="" coords="190,5,307,31"/>
+<area shape="rect" id="Node000002" href="$struct_lr0_item.html#a21198c89325c73ee25a8d960cff7d1fa" title="Equality operator for comparing two LR(0) items." alt="" coords="5,5,142,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,18,142,21,142,16,177,18"/>
+</map>

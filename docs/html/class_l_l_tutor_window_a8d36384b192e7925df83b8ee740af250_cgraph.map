@@ -1,0 +1,9 @@
+<map id="LLTutorWindow::updateState" name="LLTutorWindow::updateState">
+<area shape="rect" id="Node000001" title="Updates the tutor state after verifying user response." alt="" coords="5,55,195,80"/>
+<area shape="rect" id="Node000002" href="$class_l_l_tutor_window.html#ad444321598f7c59c43a8ba36d05dee82" title=" " alt="" coords="243,5,436,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,51,261,33,256,36,167,57"/>
+<area shape="rect" id="Node000003" href="$class_l_l_tutor_window.html#a4f1547926d1d6034d3d3cd0ba53131a3" title="&lt; Export chat to PDF" alt="" coords="249,55,430,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,65,236,67,230,68,196,70"/>
+<area shape="rect" id="Node000004" href="$class_l_l_tutor_window.html#a0ae4c32d3c142d9488145d0f368a2940" title="Display the full LL(1) table in C&#39; ex." alt="" coords="249,104,430,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="157,78,239,99,234,101,157,84"/>
+</map>

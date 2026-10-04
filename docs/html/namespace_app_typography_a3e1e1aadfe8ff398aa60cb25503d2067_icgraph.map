@@ -1,0 +1,21 @@
+<map id="AppTypography::systemFont" name="AppTypography::systemFont">
+<area shape="rect" id="Node000001" title="The system font as it was before the app touched it." alt="" coords="823,80,1012,106"/>
+<area shape="poly" id="edge11_Node000001_Node000001" title=" " alt="" coords="959,65,947,61,917,59,891,61,877,66,874,71,882,80,876,79,869,71,874,61,890,55,918,53,948,56,965,66"/>
+<area shape="rect" id="Node000002" href="$namespace_app_typography.html#a85c0c1a4f8e63c7429d2dbcec311cc71" title="The application font: the system family at the body size." alt="" coords="568,29,775,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="834,76,737,58,738,53,839,76"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="373,40,422,66"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="805,86,568,70,422,58,422,52,568,65,810,85"/>
+<area shape="rect" id="Node000004" href="$class_conversation_pdf.html#a6eda5b50445d0ae14eb5661f76dab418" title="Prints the document to filePath as an A4 PDF." alt="" coords="596,131,747,156"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="839,109,738,133,737,127,834,110"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="713,15,701,11,672,8,646,10,631,15,628,20,636,30,631,28,623,21,628,11,644,5,672,3,702,5,719,15"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="550,48,423,55,422,49,555,46"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="435,39,446,32,444,26,428,21,397,19,363,22,349,28,349,31,352,35,375,47,370,47,349,39,344,32,345,25,362,16,397,13,429,16,447,22,451,33,438,44"/>
+<area shape="rect" id="Node000005" href="$class_l_l_tutor_window.html#ad327a0a69d7d746652f27d68af18d891" title="&lt; Add widget (e.g., table, tree)" alt="" coords="281,111,514,152"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="578,140,514,139,514,134,583,139"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="275,176,520,217"/>
+<area shape="poly" id="edge9_Node000004_Node000007" title=" " alt="" coords="590,160,506,179,505,173,584,160"/>
+<area shape="rect" id="Node000006" href="$class_l_l_tutor_window.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="5,119,227,144"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="263,132,228,134,227,129,268,131"/>
+<area shape="rect" id="Node000008" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="25,176,207,217"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="256,197,208,199,207,194,262,197"/>
+</map>

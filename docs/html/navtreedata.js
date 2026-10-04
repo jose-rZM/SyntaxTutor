@@ -25,12 +25,30 @@
 var NAVTREE =
 [
   [ "SyntaxTutor", "index.html", [
-    [ "SyntaxTutor: An interactive Tool for Learning Syntax Analysis", "index.html", "index" ],
+    [ "SyntaxTutor: An Interactive Tool for Learning Syntax Analysis", "index.html#autotoc_md0", [
+      [ "🎓 About the Project", "index.html#autotoc_md2", null ],
+      [ "🎯 Key Features", "index.html#autotoc_md4", null ],
+      [ "📖 User Manual", "index.html#autotoc_md6", null ],
+      [ "🖼️ Interface Screenshots", "index.html#autotoc_md8", [
+        [ "🏠 Home", "index.html#autotoc_md9", null ],
+        [ "📘 LL(1) Tutor", "index.html#autotoc_md10", null ],
+        [ "🧠 SLR(1) Tutor", "index.html#autotoc_md11", null ],
+        [ "✍️ Your Own Grammar", "index.html#autotoc_md12", null ],
+        [ "📝 Exam Mode", "index.html#autotoc_md13", null ]
+      ] ],
+      [ "🛠️ Technologies Used", "index.html#autotoc_md15", null ],
+      [ "📦 Downloads", "index.html#autotoc_md17", null ],
+      [ "🛠️ Building from Source", "index.html#autotoc_md19", [
+        [ "📚 Documentation", "index.html#autotoc_md21", null ]
+      ] ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -60,10 +78,12 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"UniqueQueue_8h.html",
-"files.html"
+"_unique_queue_8h.html",
+"class_s_l_r1_parser.html#ada5e4f3519f68c6b1857742b016c0895",
+"grammareditordialog_8h_source.html",
+"struct_l_l_tutor_window_1_1_tree_node.html#af1b18b00420bce09ed3805bf111d9c53"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+const SYNCONMSG = 'click to disable panel synchronization';
+const SYNCOFFMSG = 'click to enable panel synchronization';
+const LISTOFALLMEMBERS = 'List of all members';

@@ -1,0 +1,5 @@
+<map id="Grammar::Split" name="Grammar::Split">
+<area shape="rect" id="Node000001" title="Splits a string into grammar symbols using the current symbol table." alt="" coords="5,5,115,31"/>
+<area shape="rect" id="Node000002" href="$struct_symbol_table.html#a6fc61b8d63539a3a85042874db6c6d6b" title="Checks if a symbol exists in the symbol table." alt="" coords="163,5,278,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,16,150,18,145,18,115,21"/>
+</map>

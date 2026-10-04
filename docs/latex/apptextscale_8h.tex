@@ -1,0 +1,51 @@
+\doxysection{widgets/\+apptextscale.h File Reference}
+\label{apptextscale_8h}\index{widgets/apptextscale.h@{widgets/apptextscale.h}}
+{\ttfamily \+\#include $<$QString$>$}\newline
+{\ttfamily \+\#include $<$Qt\+Global$>$}\newline
+Include dependency graph for apptextscale.\+h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{apptextscale_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{apptextscale_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \doxymbox{\hyperlink{namespace_app_text_scale}{App\+Text\+Scale}}
+\begin{DoxyCompactList}\small\item\em The user\textquotesingle{}s text size preference, as a percentage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{namespace_app_text_scale_a88be99fda47139c5d05fb165ed11df7c}{App\+Text\+Scale::\+clamp\+Percent}} (int percent)
+\begin{DoxyCompactList}\small\item\em Keeps a percentage inside the allowed range. \end{DoxyCompactList}\item 
+int \& \doxymbox{\hyperlink{namespace_app_text_scale_a7709873d381717abe050597c999c4102}{App\+Text\+Scale::\+current\+Percent}} ()
+\begin{DoxyCompactList}\small\item\em The selected size, in percent. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{namespace_app_text_scale_a01feb2d6132cdbe0da4069ea092cf050}{App\+Text\+Scale::\+factor}} ()
+\begin{DoxyCompactList}\small\item\em Multiplier currently in effect. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_text_scale_a29ee2da74f7cfd18283b2bc29e44cd07}{App\+Text\+Scale::\+settings\+Key}} ()
+\begin{DoxyCompactList}\small\item\em Settings key holding the selected size, in percent. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{namespace_app_text_scale_a648948601194d40e3750387608640bf9}{App\+Text\+Scale::\+legacy\+Settings\+Key}} ()
+\begin{DoxyCompactList}\small\item\em Key used by the first version of this setting, which named steps. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{namespace_app_text_scale_a73e5ae40c3e4fa0a0a688bd07083dde3}{App\+Text\+Scale::\+percent\+From\+Legacy\+Value}} (const QString \&value)
+\begin{DoxyCompactList}\small\item\em Percentage matching one of the original named steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_abb10302ab8b58188ee0ebdec5053e13f}{App\+Text\+Scale::\+k\+Min\+Percent}} = 80
+\begin{DoxyCompactList}\small\item\em Smallest text size the user can pick, in percent. \end{DoxyCompactList}\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_ad775e53e88e215072a096e93275d6feb}{App\+Text\+Scale::\+k\+Max\+Percent}} = 200
+\begin{DoxyCompactList}\small\item\em Largest text size the user can pick, in percent. \end{DoxyCompactList}\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_ab99431b6455f8baffd8aeaff3dd0c54b}{App\+Text\+Scale::\+k\+Default\+Percent}} = 100
+\begin{DoxyCompactList}\small\item\em Size used until the user picks one, in percent. \end{DoxyCompactList}\item 
+constexpr int \doxymbox{\hyperlink{namespace_app_text_scale_a04304b70c0ee9998c5c36f4aa2c5e4c2}{App\+Text\+Scale::\+k\+Preset\+Percents}} \+[$\,$] = \{90, 100, 115, 130, 150, 175, 200\}
+\begin{DoxyCompactList}\small\item\em Sizes offered directly in the menu, in percent. \end{DoxyCompactList}\end{DoxyCompactItemize}

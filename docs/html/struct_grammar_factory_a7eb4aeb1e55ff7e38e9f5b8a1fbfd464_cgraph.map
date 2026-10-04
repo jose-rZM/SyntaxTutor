@@ -1,0 +1,5 @@
+<map id="GrammarFactory::NormalizeNonTerminals" name="GrammarFactory::NormalizeNonTerminals">
+<area shape="rect" id="Node000001" title="Replaces all non&#45;terminal symbols in a grammar item with a single target non&#45;terminal." alt="" coords="5,5,192,46"/>
+<area shape="rect" id="Node000002" href="$struct_symbol_table.html#af84e0721003bd24abf542c2b2f1a534c" title="Checks if a symbol is a non&#45;terminal." alt="" coords="240,13,428,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,23,227,25,221,26,192,28"/>
+</map>

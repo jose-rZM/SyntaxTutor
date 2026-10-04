@@ -1,0 +1,52 @@
+<map id="SLR1Parser::SLR1Parser" name="SLR1Parser::SLR1Parser">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,335,177,360"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r1_parser.html#af1f26efc1c4f8826b2bd1477aa44868b" title="Retrieves all LR(0) items in the grammar. This function returns a set of all LR(0) items derived from..." alt="" coords="252,5,400,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,334,102,282,126,205,143,163,165,121,191,82,223,48,244,36,241,40,226,52,195,86,169,124,148,165,131,207,108,283,97,335"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r1_parser.html#a0ff2187985600bff50ff8235543d96fb" title="Computes the closure of a set of LR(0) items." alt="" coords="741,208,887,234"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="145,332,224,314,356,292,459,278,561,265,693,244,740,236,735,238,694,249,562,270,459,283,356,297,225,319,148,336"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r1_parser.html#a00101890c3c4d2871a8c100209abf122" title="Helper function for computing the closure of LR(0) items." alt="" coords="935,208,1100,234"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="94,334,110,295,136,243,174,188,197,164,223,143,257,122,287,109,315,101,342,97,401,95,475,92,585,81,633,83,694,92,776,113,855,141,981,200,975,201,853,146,774,118,693,97,632,88,585,86,475,97,402,101,343,103,316,106,288,114,259,127,226,147,201,168,178,192,141,246,114,298,99,335"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r1_parser.html#af0a486daf0c5083b113e557d68732481" title="Computes the FIRST sets for all non&#45;terminal symbols in the grammar." alt="" coords="481,359,687,384"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="177,349,467,364,464,368,178,354"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r1_parser.html#a02df38d4f96383ea85d23f56472c57a0" title="Calculates the FIRST set for a given production rule in a grammar." alt="" coords="751,435,877,460"/>
+<area shape="poly" id="edge17_Node000001_Node000007" title=" " alt="" coords="105,358,156,403,190,427,226,446,350,496,403,511,454,519,505,521,560,518,693,496,736,483,773,469,778,467,738,488,694,501,561,523,505,526,453,524,402,516,349,501,224,451,187,431,153,407,105,363"/>
+<area shape="rect" id="Node000009" href="$class_s_l_r1_parser.html#a06a9888464cfe48152d72311e25ad79a" title="Computes the FOLLOW sets for all non&#45;terminal symbols in the grammar. The FOLLOW set of a non&#45;termina..." alt="" coords="475,309,693,335"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="177,341,461,326,458,331,178,346"/>
+<area shape="rect" id="Node000010" href="$class_s_l_r1_parser.html#aee48bcbf0a93badeb5271a7299cc458b" title="Computes the GOTO transition ( ) for a given set of LR(0) items and a symbol. This function is equiva..." alt="" coords="260,411,392,436"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="132,358,225,389,270,405,265,406,224,394,133,364"/>
+<area shape="rect" id="Node000012" href="$class_s_l_r1_parser.html#af2549ef0375afbb8fd53fa2abafe60bb" title="Computes the FOLLOW set for a given non&#45;terminal symbol in the grammar." alt="" coords="515,663,653,688"/>
+<area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="95,358,110,406,134,471,151,506,172,540,197,571,226,597,264,611,334,628,502,661,497,662,333,633,262,616,223,602,193,574,168,543,147,508,129,473,105,407,95,363"/>
+<area shape="rect" id="Node000013" href="$class_s_l_r1_parser.html#a95d3b55554e24aa03f6a73d7b895e78b" title="Creates the initial state of the parser&#39;s state machine." alt="" coords="487,107,681,132"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="97,333,116,304,144,265,180,226,223,193,283,164,348,144,412,130,474,123,469,126,413,136,349,149,285,169,226,198,184,230,148,269,120,307,102,336"/>
+<area shape="rect" id="Node000014" href="$class_s_l_r1_parser.html#acdc3a5a98b2ba62767edcf72b2abd0ed" title="Constructs the SLR(1) parsing tables (action and transition tables)." alt="" coords="241,208,411,234"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="106,332,156,292,223,250,259,237,256,241,226,255,159,297,110,336"/>
+<area shape="rect" id="Node000016" href="$class_s_l_r1_parser.html#a95d6f1070a535768c6d7f8f953c2b69d" title="Returns a string representation of a set of LR(0) items." alt="" coords="246,663,406,688"/>
+<area shape="poly" id="edge27_Node000001_Node000016" title=" " alt="" coords="95,358,108,413,131,488,148,530,169,570,195,608,226,641,245,656,240,655,223,646,191,612,165,573,143,532,126,490,103,414,94,364"/>
+<area shape="rect" id="Node000017" href="$class_s_l_r1_parser.html#a6a31a57223b052028c74f5d70db41c16" title="Resolves LR conflicts in a given state." alt="" coords="225,561,427,587"/>
+<area shape="poly" id="edge28_Node000001_Node000017" title=" " alt="" coords="98,358,116,395,143,444,180,496,226,540,249,555,244,555,223,544,176,499,139,447,112,398,98,363"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="887,218,922,220,916,221,888,223"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="983,207,977,199,981,190,995,183,1017,181,1042,184,1056,193,1051,193,1041,189,1017,187,996,189,984,193,982,199,988,208"/>
+<area shape="rect" id="Node000005" href="$struct_symbol_table.html#af84e0721003bd24abf542c2b2f1a534c" title="Checks if a symbol is a non&#45;terminal." alt="" coords="1148,233,1336,259"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="1100,227,1135,233,1130,234,1100,233"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="626,382,761,429,756,430,625,388"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="780,433,773,426,777,416,791,410,814,408,839,411,853,420,848,420,837,416,814,413,793,415,781,420,779,425,785,435"/>
+<area shape="rect" id="Node000008" href="$struct_symbol_table.html#a160522330493cdaff35979ed6d2dfa21" title="Checks if a symbol is a terminal." alt="" coords="935,485,1100,511"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="869,458,951,481,945,481,868,464"/>
+<area shape="poly" id="edge13_Node000009_Node000005" title=" " alt="" coords="693,307,1135,257,1130,260,694,312"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="666,333,695,344,723,361,750,381,794,424,788,423,747,385,720,365,692,349,667,338"/>
+<area shape="poly" id="edge15_Node000010_Node000003" title=" " alt="" coords="391,432,459,438,536,437,617,424,656,412,692,395,731,363,762,324,785,283,801,250,805,246,790,285,766,327,735,367,695,399,658,417,618,430,537,443,458,443,392,438"/>
+<area shape="rect" id="Node000011" href="$struct_lr0_item.html#a485ab0289f3353b47ea38dcee418a0b6" title="Returns the symbol immediately after the dot, or empty if the dot is at the end." alt="" coords="516,460,652,486"/>
+<area shape="poly" id="edge16_Node000010_Node000011" title=" " alt="" coords="391,433,503,456,498,458,392,439"/>
+<area shape="poly" id="edge20_Node000013_Node000003" title=" " alt="" coords="640,130,694,149,741,172,783,199,778,200,738,177,692,154,641,136"/>
+<area shape="poly" id="edge23_Node000014_Node000003" title=" " alt="" coords="390,205,475,193,584,186,694,193,749,203,744,205,693,198,584,191,475,198,393,210"/>
+<area shape="poly" id="edge24_Node000014_Node000006" title=" " alt="" coords="338,231,395,287,434,319,476,345,490,353,485,353,474,350,430,323,391,291,338,237"/>
+<area shape="poly" id="edge25_Node000014_Node000009" title=" " alt="" coords="361,232,537,302,533,304,361,237"/>
+<area shape="poly" id="edge26_Node000014_Node000013" title=" " alt="" coords="351,205,407,178,474,149,520,136,515,139,476,154,409,183,354,209"/>
+<area shape="rect" id="Node000015" href="$struct_lr0_item.html#ac342e279b0a266a84f984b82604532e6" title="Advances the dot one position to the right." alt="" coords="512,208,657,234"/>
+<area shape="poly" id="edge22_Node000014_Node000015" title=" " alt="" coords="411,218,498,220,493,222,412,223"/>
+<area shape="poly" id="edge31_Node000017_Node000008" title=" " alt="" coords="392,585,475,597,585,605,632,604,693,597,770,581,846,559,968,518,973,517,848,564,772,586,694,602,633,610,584,611,475,602,392,590"/>
+<area shape="poly" id="edge32_Node000017_Node000011" title=" " alt="" coords="360,558,533,493,538,491,362,563"/>
+<area shape="poly" id="edge29_Node000017_Node000012" title=" " alt="" coords="381,585,428,604,453,623,476,641,511,658,506,657,474,646,449,627,426,608,381,590"/>
+<area shape="rect" id="Node000018" href="$struct_lr0_item.html#a4db23e1d025750a6ca817aa4998a03f4" title="Checks whether the dot has reached the end of the production." alt="" coords="514,561,654,587"/>
+<area shape="poly" id="edge30_Node000017_Node000018" title=" " alt="" coords="427,572,501,574,496,575,428,577"/>
+</map>

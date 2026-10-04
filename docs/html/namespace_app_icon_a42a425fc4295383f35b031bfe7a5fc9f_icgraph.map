@@ -1,0 +1,7 @@
+<map id="AppIcon::icon" name="AppIcon::icon">
+<area shape="rect" id="Node000001" title="The application icon, with a drawing for each size." alt="" coords="103,29,204,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="173,14,167,10,153,8,141,10,134,14,133,20,136,30,132,28,128,21,130,11,139,5,153,3,169,5,178,15"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="5,29,55,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="85,43,55,45,55,40,90,41"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="49,15,43,10,30,8,18,10,11,14,10,20,13,28,8,30,4,21,7,11,16,5,30,3,45,5,55,14"/>
+</map>

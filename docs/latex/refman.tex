@@ -204,25 +204,20 @@
   \pagenumbering{alph}
 \begin{titlepage}
     \centering
-    \vspace*{1cm}
-    \includegraphics[width=0.25\textwidth]{logouma.png}\\
+    \vspace*{3.5cm}
+    \includegraphics[width=0.62\textwidth]{syntaxtutor-lockup.pdf}\\
+    \vspace{1.6cm}
+    {\Huge\bfseries Developer Manual\\}
     \vspace{0.5cm}
-    {\scshape\Large University of Malaga\\}
-    {\scshape School of Computer Science and Engineering\\}
-    \vspace{1.5cm}
-    {\Huge\bfseries SyntaxTutor\\}
-    \vspace{0.4cm}
-    {\Large Developer Manual\\}
+    {\Large Interactive LL(1) and SLR(1) tutor\\}
     \vspace{1.2cm}
     \rule{0.7\linewidth}{0.5pt}
     \vfill
     \begin{flushright}
-    \textbf{Version:} 1.0.4\\
-    \textbf{Date:} 2025-11-08\\
-    \textbf{Author:} jose-rzm at GitHub
+    \textbf{Version:} 2.0.0\\
+    \textbf{Date:} 2026-10-04\\
+    \textbf{Author:} José R. (github.com/jose-rZM)
     \end{flushright}
-    \vfill
-    \includegraphics[width=0.15\textwidth]{syntaxtutor.png}
 \end{titlepage}
   \clearemptydoublepage
   \pagenumbering{roman}
@@ -247,33 +242,60 @@
 \input{dir_11bc0974ce736ce9a6fadebbeb7a8314}
 \input{dir_fc86ce11cfb5284f2928e718eeab9679}
 \chapter{Namespace Documentation}
-\input{namespaceSyntaxTutor}
-\input{namespaceSyntaxTutor_1_1Version}
+\input{namespace_app_icon}
+\input{namespace_app_layout}
+\input{namespace_app_palette}
+\input{namespace_app_settings}
+\input{namespace_app_shortcuts}
+\input{namespace_app_text_scale}
+\input{namespace_app_typography}
+\input{namespace_syntax_tutor}
+\input{namespace_syntax_tutor_1_1_version}
 \chapter{Class Documentation}
-\input{classCenterAlignDelegate}
-\input{classCustomTextEdit}
-\input{structGrammarFactory_1_1FactoryItem}
-\input{structGrammar}
-\input{structGrammarFactory}
-\input{classLL1Parser}
-\input{classLLTableDialog}
-\input{classLLTutorWindow}
-\input{structLr0Item}
-\input{classMainWindow}
-\input{structSLR1Parser_1_1s__action}
-\input{classSLR1Parser}
-\input{classSLRTableDialog}
-\input{classSLRTutorWindow}
-\input{classSLRWizard}
-\input{classSLRWizardPage}
+\input{struct_automaton_state_info}
+\input{struct_automaton_transition_info}
+\input{class_automaton_view}
+\input{class_automaton_viewer_dialog}
+\input{class_center_align_delegate}
+\input{class_conversation_pdf}
+\input{class_custom_text_edit}
+\input{struct_exam_record}
+\input{class_exam_report_dialog}
+\input{class_exam_session}
+\input{struct_grammar_factory_1_1_factory_item}
+\input{struct_grammar}
+\input{class_grammar_editor_dialog}
+\input{struct_grammar_factory}
+\input{struct_grammar_parse_error}
+\input{struct_grammar_parser}
+\input{struct_grammar_parse_result}
+\input{class_grammar_syntax_highlighter}
+\input{class_grammar_view}
+\input{class_app_layout_1_1_height_for_width_keeper}
+\input{class_l_l1_parser}
+\input{class_l_l_table_dialog}
+\input{class_l_l_tutor_window}
+\input{class_l_l_wizard}
+\input{class_l_l_wizard_page}
+\input{struct_lr0_item}
+\input{class_main_window}
+\input{struct_conversation_pdf_1_1_message}
+\input{struct_grammar_view_1_1_row}
+\input{struct_s_l_r1_parser_1_1s__action}
+\input{class_s_l_r1_parser}
+\input{class_s_l_r_table_dialog}
+\input{class_s_l_r_tutor_window}
+\input{class_s_l_r_wizard}
+\input{class_s_l_r_wizard_page}
 \input{structstate}
-\input{structSymbolTable}
-\input{structLLTutorWindow_1_1TreeNode}
-\input{classTutorialManager}
-\input{structTutorialStep}
-\input{classUniqueQueue}
+\input{struct_symbol_table}
+\input{struct_app_typography_1_1_token}
+\input{struct_l_l_tutor_window_1_1_tree_node}
+\input{class_tutorial_manager}
+\input{struct_tutorial_step}
+\input{class_unique_queue}
 \chapter{File Documentation}
-\input{README_8md}
+\input{_r_e_a_d_m_e_8md}
 \input{main_8cpp}
 \input{appversion_8h}
 \input{appversion_8h_source}
@@ -283,6 +305,9 @@
 \input{grammar__factory_8cpp}
 \input{grammar__factory_8hpp}
 \input{grammar__factory_8hpp_source}
+\input{grammar__parser_8cpp}
+\input{grammar__parser_8hpp}
+\input{grammar__parser_8hpp_source}
 \input{ll1__parser_8cpp}
 \input{ll1__parser_8hpp}
 \input{ll1__parser_8hpp_source}
@@ -297,12 +322,29 @@
 \input{symbol__table_8cpp}
 \input{symbol__table_8hpp}
 \input{symbol__table_8hpp_source}
+\input{automatonviewerdialog_8cpp}
+\input{automatonviewerdialog_8h}
+\input{automatonviewerdialog_8h_source}
+\input{conversationpdf_8h}
+\input{conversationpdf_8h_source}
+\input{examreportdialog_8cpp}
+\input{examreportdialog_8h}
+\input{examreportdialog_8h_source}
+\input{examsession_8h}
+\input{examsession_8h_source}
+\input{grammareditordialog_8cpp}
+\input{grammareditordialog_8h}
+\input{grammareditordialog_8h_source}
 \input{lltabledialog_8cpp}
 \input{lltabledialog_8h}
 \input{lltabledialog_8h_source}
 \input{lltutorwindow_8cpp}
 \input{lltutorwindow_8h}
 \input{lltutorwindow_8h_source}
+\input{llwizard_8h}
+\input{llwizard_8h_source}
+\input{llwizardpage_8h}
+\input{llwizardpage_8h_source}
 \input{mainwindow_8cpp}
 \input{mainwindow_8h}
 \input{mainwindow_8h_source}
@@ -316,11 +358,33 @@
 \input{slrwizard_8h_source}
 \input{slrwizardpage_8h}
 \input{slrwizardpage_8h_source}
-\input{UniqueQueue_8h}
-\input{UniqueQueue_8h_source}
+\input{_unique_queue_8h}
+\input{_unique_queue_8h_source}
+\input{appfonts_8h}
+\input{appfonts_8h_source}
+\input{appicon_8h}
+\input{appicon_8h_source}
+\input{applayout_8h}
+\input{applayout_8h_source}
+\input{apppalette_8h}
+\input{apppalette_8h_source}
+\input{appsettings_8h}
+\input{appsettings_8h_source}
+\input{appshortcuts_8h}
+\input{appshortcuts_8h_source}
+\input{apptextscale_8h}
+\input{apptextscale_8h_source}
+\input{apptypography_8h}
+\input{apptypography_8h_source}
+\input{automatonview_8cpp}
+\input{automatonview_8h}
+\input{automatonview_8h_source}
 \input{customtextedit_8cpp}
 \input{customtextedit_8h}
 \input{customtextedit_8h_source}
+\input{grammarview_8cpp}
+\input{grammarview_8h}
+\input{grammarview_8h_source}
 \input{tutorialmanager_8cpp}
 \input{tutorialmanager_8h}
 \input{tutorialmanager_8h_source}

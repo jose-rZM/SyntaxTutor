@@ -1,6 +1,6 @@
 \doxysection{lltutorwindow.\+h}
 \label{lltutorwindow_8h_source}\index{gui/lltutorwindow.h@{gui/lltutorwindow.h}}
-\mbox{\hyperlink{lltutorwindow_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{lltutorwindow_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
@@ -31,220 +31,265 @@
 \DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QGraphicsTextItem>}}
 \DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QGraphicsView>}}
 \DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QListWidgetItem>}}
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
-\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <QPainter>}}
-\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <QPropertyAnimation>}}
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
-\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <QScrollBar>}}
-\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <QShortcut>}}
-\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
-\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <QTextDocument>}}
-\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <QTextEdit>}}
-\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <QTime>}}
-\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <QTimer>}}
-\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <QTreeWidgetItem>}}
-\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <QPainter>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <QPropertyAnimation>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <QScrollBar>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <QShortcut>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <QTableWidget>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <QTextDocument>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <QTextEdit>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <QTime>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <QTreeWidgetItem>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <QWidget>}}
 \DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <QtPrintSupport/QPrinter>}}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}grammar.hpp"{}}}
-\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}ll1\_parser.hpp"{}}}
-\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}lltabledialog.h"{}}}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }TutorialManager;}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}examsession.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}grammar.hpp"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}grammarview.h"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}ll1\_parser.hpp"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}lltabledialog.h"{}}}
 \DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \textcolor{keyword}{namespace\ }Ui\ \{}
-\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }LLTutorWindow;}
-\DoxyCodeLine{00054\ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{comment}{//\ ======\ LL(1)\ Tutor\ States\ ===================================}}
-\DoxyCodeLine{00057\ \textcolor{keyword}{enum\ class}\ State\ \{\ A,\ A1,\ A2,\ A\_prime,\ B,\ B1,\ B2,\ B\_prime,\ C,\ C\_prime,\ fin\ \};}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \textcolor{comment}{//\ ======\ LL(1)\ Tutor\ Main\ Class\ ===============================}}
-\DoxyCodeLine{00079\ \textcolor{keyword}{class\ }LLTutorWindow\ :\ \textcolor{keyword}{public}\ QMainWindow\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ ======\ Derivation\ Tree\ (used\ in\ TeachFirst)\ =============}}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{struct\ }TreeNode\ \{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label;}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::vector<std::unique\_ptr<TreeNode>>\ children;}
-\DoxyCodeLine{00090\ \ \ \ \ \};}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ ======\ Constructor\ /\ Destructor\ =========================}}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{explicit}\ LLTutorWindow(\textcolor{keyword}{const}\ Grammar\&\ \ \ grammar,}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TutorialManager*\ tm\ \ \ \ \ =\ \textcolor{keyword}{nullptr},}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ parent\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00102\ \ \ \ \ \string~LLTutorWindow();}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ Machine\ \&\ Question\ Logic\ ====================}}
-\DoxyCodeLine{00109\ \ \ \ \ QString\ generateQuestion();}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ updateState(\textcolor{keywordtype}{bool}\ isCorrect);}
+\DoxyCodeLine{00052\ \textcolor{keyword}{class\ }TutorialManager;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }LLTutorWindow;}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ ======\ LL(1)\ Tutor\ States\ ===================================}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{enum\ class}\ State\ \{\ A,\ A1,\ A2,\ A\_prime,\ B,\ B1,\ B2,\ B\_prime,\ C,\ C\_prime,\ fin\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ ======\ LL(1)\ Tutor\ Main\ Class\ ===============================}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }LLTutorWindow\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ applyTextScale();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ ======\ Derivation\ Tree\ (used\ in\ TeachFirst)\ =============}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{struct\ }TreeNode\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ label;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ std::vector<std::unique\_ptr<TreeNode>>\ children;}
+\DoxyCodeLine{00101\ \ \ \ \ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ ======\ Constructor\ /\ Destructor\ =========================}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{explicit}\ LLTutorWindow(\textcolor{keyword}{const}\ Grammar\&\ grammar,\ TutorialManager*\ tm\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ parent\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{bool}\ examMode\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00115\ \ \ \ \ \string~LLTutorWindow();}
 \DoxyCodeLine{00116\ }
-\DoxyCodeLine{00122\ \ \ \ \ QString\ FormatGrammar(\textcolor{keyword}{const}\ Grammar\&\ grammar);}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ Machine\ \&\ Question\ Logic\ ====================}}
+\DoxyCodeLine{00122\ \ \ \ \ QString\ generateQuestion();}
 \DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ ======\ UI\ Interaction\ ====================================}}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ addMessage(\textcolor{keyword}{const}\ QString\&\ text,}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ isUser);\ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ addWidgetMessage(QWidget*\ widget);\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00129\ \ \ \ \ exportConversationToPdf(\textcolor{keyword}{const}\ QString\&\ filePath);\ }
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ showTable();\ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ showTableForCPrime();\ \ }
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ updateProgressPanel();\ \textcolor{comment}{//\ Update\ progress\ panel}}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ ======\ Visual\ Feedback\ /\ Animations\ ======================}}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ animateLabelPop(QLabel*\ label);}
-\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ animateLabelColor(QLabel*\ label,\ \textcolor{keyword}{const}\ QColor\&\ flashColor);}
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ wrongAnimation();\ }
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00139\ \ \ \ \ wrongUserResponseAnimation();\ }
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ markLastUserIncorrect();\ }
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{comment}{//\ ======\ Tree\ Generation\ (TeachFirst\ mode)\ =================}}
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ TeachFirstTree(\textcolor{keyword}{const}\ std::vector<std::string>\&\ \ symbols,}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ first\_set,\ \textcolor{keywordtype}{int}\ depth,}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ processing,}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QTreeWidgetItem*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent);}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \ \ \ \ std::unique\_ptr<TreeNode>}
-\DoxyCodeLine{00149\ \ \ \ \ buildTreeNode(\textcolor{keyword}{const}\ std::vector<std::string>\&\ \ symbols,}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ first\_set,\ \textcolor{keywordtype}{int}\ depth,}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::pair<std::string,\ std::vector<std::string>>>\&}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ active\_derivations);}
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{int}\ \ computeSubtreeWidth(\textcolor{keyword}{const}\ std::unique\_ptr<TreeNode>\&\ node,}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hSpacing);}
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ drawTree(\textcolor{keyword}{const}\ std::unique\_ptr<TreeNode>\&\ root,\ QGraphicsScene*\ scene,}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QPointF\ pos,\ \textcolor{keywordtype}{int}\ hSpacing,\ \textcolor{keywordtype}{int}\ vSpacing);}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ showTreeGraphics(}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ std::unique\_ptr<TreeNode>\ root);\ \textcolor{comment}{//\ Display\ derivation\ tree\ visually}}
-\DoxyCodeLine{00161\ }
-\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ ======\ User\ Response\ Verification\ ========================}}
-\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponse(\textcolor{keyword}{const}\ QString\&\ userResponse);\ \textcolor{comment}{//\ Delegates\ to\ current}}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ state's\ verification}}
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
-\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForC();\ \textcolor{comment}{//\ C\ is\ non-\/textual\ (checks\ internal\ table)}}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ ======\ Expected\ Solutions\ (Auto-\/generated)\ ===============}}
-\DoxyCodeLine{00174\ \ \ \ \ QString\ \ \ \ \ \ \ solution(\textcolor{keyword}{const}\ std::string\&\ state);}
-\DoxyCodeLine{00175\ \ \ \ \ QStringList\ \ \ solutionForA();}
-\DoxyCodeLine{00176\ \ \ \ \ QString\ \ \ \ \ \ \ solutionForA1();}
-\DoxyCodeLine{00177\ \ \ \ \ QString\ \ \ \ \ \ \ solutionForA2();}
-\DoxyCodeLine{00178\ \ \ \ \ QSet<QString>\ solutionForB();}
-\DoxyCodeLine{00179\ \ \ \ \ QSet<QString>\ solutionForB1();}
-\DoxyCodeLine{00180\ \ \ \ \ QSet<QString>\ solutionForB2();}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ \ \ \ \ \textcolor{comment}{//\ ======\ Feedback\ (Corrective\ Explanations)\ ================}}
-\DoxyCodeLine{00183\ \ \ \ \ QString\ feedback();\ \textcolor{comment}{//\ Delegates\ by\ state}}
-\DoxyCodeLine{00184\ \ \ \ \ QString\ feedbackForA();}
-\DoxyCodeLine{00185\ \ \ \ \ QString\ feedbackForA1();}
-\DoxyCodeLine{00186\ \ \ \ \ QString\ feedbackForA2();}
-\DoxyCodeLine{00187\ \ \ \ \ QString\ feedbackForAPrime();}
-\DoxyCodeLine{00188\ \ \ \ \ QString\ feedbackForB();}
-\DoxyCodeLine{00189\ \ \ \ \ QString\ feedbackForB1();}
-\DoxyCodeLine{00190\ \ \ \ \ QString\ feedbackForB2();}
-\DoxyCodeLine{00191\ \ \ \ \ QString\ feedbackForBPrime();}
-\DoxyCodeLine{00192\ \ \ \ \ QString\ feedbackForC();}
-\DoxyCodeLine{00193\ \ \ \ \ QString\ feedbackForCPrime();}
-\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ feedbackForB1TreeWidget();\ \ \ \textcolor{comment}{//\ TreeWidget\ of\ Teach\ (LL1\ TeachFirst)}}
-\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ feedbackForB1TreeGraphics();\ \textcolor{comment}{//\ Show\ derivation\ tree}}
-\DoxyCodeLine{00196\ \ \ \ \ QString\ TeachFollow(\textcolor{keyword}{const}\ QString\&\ nt);}
-\DoxyCodeLine{00197\ \ \ \ \ QString\ TeachPredictionSymbols(\textcolor{keyword}{const}\ QString\&\ \ \ \ ant,}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ production\&\ conseq);}
-\DoxyCodeLine{00199\ \ \ \ \ QString\ TeachLL1Table();}
-\DoxyCodeLine{00200\ }
-\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{void}\ handleTableSubmission(\textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ raw,}
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ colHeaders);}
-\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{private}\ slots:}
-\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_confirmButton\_clicked();}
-\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_userResponse\_textChanged();}
-\DoxyCodeLine{00206\ }
-\DoxyCodeLine{00207\ \ \ signals:}
-\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordtype}{void}\ sessionFinished(\textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
-\DoxyCodeLine{00209\ }
-\DoxyCodeLine{00210\ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{void}\ closeEvent(QCloseEvent*\ event)\textcolor{keyword}{\ override\ }\{}
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ emit\ sessionFinished(cntRightAnswers,\ cntWrongAnswers);}
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ QWidget::closeEvent(event);}
-\DoxyCodeLine{00214\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ updateState(\textcolor{keywordtype}{bool}\ isCorrect);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00135\ \ \ \ \ QString\ FormatGrammar(\textcolor{keyword}{const}\ Grammar\&\ grammar);}
+\DoxyCodeLine{00136\ \ \ \ \ QVector<GrammarView::Row>\ buildGrammarRows(\textcolor{keyword}{const}\ Grammar\&\ grammar)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//\ ======\ UI\ Interaction\ ====================================}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{void}\ addMessage(\textcolor{keyword}{const}\ QString\&\ text,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ isUser);\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ addGrammarMessage();}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ addWidgetMessage(QWidget*\ widget);\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00144\ \ \ \ \ exportConversationToPdf(\textcolor{keyword}{const}\ QString\&\ filePath);\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ showTable();\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ showTableForCPrime();\ \ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ updateProgressPanel();\ \textcolor{comment}{//\ Update\ progress\ panel}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{//\ ======\ Visual\ Feedback\ /\ Animations\ ======================}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{void}\ animateLabelPop(QLabel*\ label);}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ animateLabelColor(QLabel*\ label,\ \textcolor{keyword}{const}\ QColor\&\ flashColor);}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ wrongAnimation();\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00154\ \ \ \ \ wrongUserResponseAnimation();\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{void}\ markLastUserIncorrect();\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{comment}{//\ ======\ Tree\ Generation\ (TeachFirst\ mode)\ =================}}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ TeachFirstTree(\textcolor{keyword}{const}\ std::vector<std::string>\&\ \ symbols,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ first\_set,\ \textcolor{keywordtype}{int}\ depth,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ processing,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QTreeWidgetItem*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ std::unique\_ptr<TreeNode>}
+\DoxyCodeLine{00164\ \ \ \ \ buildTreeNode(\textcolor{keyword}{const}\ std::vector<std::string>\&\ \ symbols,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\&\ first\_set,\ \textcolor{keywordtype}{int}\ depth,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::pair<std::string,\ std::vector<std::string>>>\&}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ active\_derivations);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{int}\ \ computeSubtreeWidth(\textcolor{keyword}{const}\ std::unique\_ptr<TreeNode>\&\ node,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hSpacing);}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ drawTree(\textcolor{keyword}{const}\ std::unique\_ptr<TreeNode>\&\ root,\ QGraphicsScene*\ scene,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QPointF\ pos,\ \textcolor{keywordtype}{int}\ hSpacing,\ \textcolor{keywordtype}{int}\ vSpacing);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ showTreeGraphics(}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ std::unique\_ptr<TreeNode>\ root);\ \textcolor{comment}{//\ Display\ derivation\ tree\ visually}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ ======\ User\ Response\ Verification\ ========================}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponse(\textcolor{keyword}{const}\ QString\&\ userResponse);\ \textcolor{comment}{//\ Delegates\ to\ current}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ state's\ verification}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForA2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB1(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForB2(\textcolor{keyword}{const}\ QString\&\ userResponse);}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{bool}\ verifyResponseForC();\ \textcolor{comment}{//\ C\ is\ non-\/textual\ (checks\ internal\ table)}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{//\ ======\ Expected\ Solutions\ (Auto-\/generated)\ ===============}}
+\DoxyCodeLine{00189\ \ \ \ \ QString\ \ \ \ \ \ \ solution(\textcolor{keyword}{const}\ std::string\&\ state);}
+\DoxyCodeLine{00190\ \ \ \ \ QStringList\ \ \ solutionForA();}
+\DoxyCodeLine{00191\ \ \ \ \ QString\ \ \ \ \ \ \ solutionForA1();}
+\DoxyCodeLine{00192\ \ \ \ \ QString\ \ \ \ \ \ \ solutionForA2();}
+\DoxyCodeLine{00193\ \ \ \ \ QSet<QString>\ solutionForB();}
+\DoxyCodeLine{00194\ \ \ \ \ QSet<QString>\ solutionForB1();}
+\DoxyCodeLine{00195\ \ \ \ \ QSet<QString>\ solutionForB2();}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//\ ======\ Feedback\ (Corrective\ Explanations)\ ================}}
+\DoxyCodeLine{00198\ \ \ \ \ QString\ feedback();\ \textcolor{comment}{//\ Delegates\ by\ state}}
+\DoxyCodeLine{00199\ \ \ \ \ QString\ feedbackForA();}
+\DoxyCodeLine{00200\ \ \ \ \ QString\ feedbackForA1();}
+\DoxyCodeLine{00201\ \ \ \ \ QString\ feedbackForA2();}
+\DoxyCodeLine{00202\ \ \ \ \ QString\ feedbackForAPrime();}
+\DoxyCodeLine{00203\ \ \ \ \ QString\ feedbackForB();}
+\DoxyCodeLine{00204\ \ \ \ \ QString\ feedbackForB1();}
+\DoxyCodeLine{00205\ \ \ \ \ QString\ feedbackForB2();}
+\DoxyCodeLine{00206\ \ \ \ \ QString\ feedbackForBPrime();}
+\DoxyCodeLine{00207\ \ \ \ \ QString\ feedbackForC();}
+\DoxyCodeLine{00208\ \ \ \ \ QString\ feedbackForCPrime();}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ feedbackForB1TreeWidget();\ \ \ \textcolor{comment}{//\ TreeWidget\ of\ Teach\ (LL1\ TeachFirst)}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ feedbackForB1TreeGraphics();\ \textcolor{comment}{//\ Show\ derivation\ tree}}
+\DoxyCodeLine{00211\ \ \ \ \ QString\ TeachFollow(\textcolor{keyword}{const}\ QString\&\ nt);}
+\DoxyCodeLine{00212\ \ \ \ \ QString\ TeachPredictionSymbols(\textcolor{keyword}{const}\ QString\&\ \ \ \ ant,}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ production\&\ conseq);}
+\DoxyCodeLine{00214\ \ \ \ \ QString\ TeachLL1Table();}
 \DoxyCodeLine{00215\ }
-\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{bool}\ eventFilter(QObject*\ obj,\ QEvent*\ event)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ ======\ Core\ Objects\ ======================================}}
-\DoxyCodeLine{00220\ \ \ \ \ Ui::LLTutorWindow*\ ui;}
-\DoxyCodeLine{00221\ \ \ \ \ Grammar\ \ \ \ \ \ \ \ \ \ \ \ grammar;}
-\DoxyCodeLine{00222\ \ \ \ \ LL1Parser\ \ \ \ \ \ \ \ \ \ ll1;}
-\DoxyCodeLine{00223\ }
-\DoxyCodeLine{00224\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ \&\ Grammar\ Tracking\ ==========================}}
-\DoxyCodeLine{00225\ \ \ \ \ State\ \ \ \ \ \ \ \ \ \ currentState;}
-\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ currentRule\ \ \ \ \ \ \ \ =\ 0;}
-\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ kMaxHighlightTries\ =\ 3;}
-\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ kMaxTotalTries\ \ \ \ \ =\ 5;}
-\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ lltries\ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
-\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ cntRightAnswers\ =\ 0,\ cntWrongAnswers\ =\ 0;}
-\DoxyCodeLine{00231\ }
-\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{using\ }Cell\ =\ std::pair<QString,\ QString>;}
-\DoxyCodeLine{00233\ \ \ \ \ std::vector<Cell>\ lastWrongCells;}
-\DoxyCodeLine{00234\ \ \ \ \ LLTableDialog*\ \ \ \ currentDlg\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00235\ }
-\DoxyCodeLine{00236\ \ \ \ \ QVector<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sortedNonTerminals;}
-\DoxyCodeLine{00237\ \ \ \ \ QVector<QPair<QString,\ QVector<QString>>>\ sortedGrammar;}
-\DoxyCodeLine{00238\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formattedGrammar;}
-\DoxyCodeLine{00239\ }
-\DoxyCodeLine{00240\ \ \ \ \ QMap<QString,\ QMap<QString,\ QVector<QString>>>\ lltable;}
-\DoxyCodeLine{00241\ \ \ \ \ QVector<QVector<QString>>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rawTable;}
-\DoxyCodeLine{00242\ \ \ \ \ QSet<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionSet;}
-\DoxyCodeLine{00243\ }
-\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ ======\ Conversation\ Logging\ ==============================}}
-\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{struct\ }MessageLog\ \{}
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ QString\ message;}
-\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isUser;}
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isCorrect\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ MessageLog(\textcolor{keyword}{const}\ QString\&\ message,\ \textcolor{keywordtype}{bool}\ isUser)}
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ :\ message(message),\ isUser(isUser)\ \{\}}
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ toggleIsCorrect()\ \{\ isCorrect\ =\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00252\ \ \ \ \ \};}
-\DoxyCodeLine{00253\ }
-\DoxyCodeLine{00254\ \ \ \ \ QVector<MessageLog>\ conversationLog;}
-\DoxyCodeLine{00255\ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ lastUserMessage\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00256\ \ \ \ \ qsizetype\ \ \ \ \ \ \ \ \ \ \ lastUserMessageLogIdx\ =\ -\/1;}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{void}\ handleTableSubmission(\textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ raw,}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ colHeaders);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{void}\ connectGuidedMode(LLTableDialog*\ \ \ \ \ dialog,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ colHeaders);}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{void}\ updatePlaceholder();}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{bool}\ confirmExitToHome();}
+\DoxyCodeLine{00233\ \ \ \ \ QString\ promptExportFilePath()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{//\ ======\ Exam\ Mode\ =========================================}}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ postQuestion();\ \ \ \ \ }
+\DoxyCodeLine{00237\ \ \ \ \ QString\ examSolutionText();\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ scoreExamTable();\ \ \ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ showExamReport();\ \ \ }
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#ifdef\ SYNTAXTUTOR\_TESTING}}
+\DoxyCodeLine{00241\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00242\ \ \ \ \ QString\ \ \ \ \ currentStateForTest()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00243\ \ \ \ \ QString\ \ \ \ \ currentRuleAntecedentForTest()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00244\ \ \ \ \ QStringList\ currentRuleConsequentForTest()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ rightCountForTest()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ wrongCountForTest()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ setAnswerForTest(\textcolor{keyword}{const}\ QString\&\ text);}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ submitForTest();}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ setNextExportFilePathForTest(\textcolor{keyword}{const}\ QString\&\ filePath);}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ examGradeForTest()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ examSession.grade();\ \}}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ examTotalForTest()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ examSession.total();\ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ examRightForTest()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ examSession.right();\ \}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00254\ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_backButton\_clicked();}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_confirmButton\_clicked();}
 \DoxyCodeLine{00257\ }
-\DoxyCodeLine{00258\ \ \ \ \ QMap<QString,\ QString>\ userCAB;}
-\DoxyCodeLine{00259\ \ \ \ \ QMap<QString,\ QString>\ userSIG;}
-\DoxyCodeLine{00260\ \ \ \ \ QMap<QString,\ QString>\ userSD;}
+\DoxyCodeLine{00258\ \ \ signals:}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordtype}{void}\ sessionFinished(\textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordtype}{void}\ exitRequested(\textcolor{keywordtype}{bool}\ applyResults,\ \textcolor{keywordtype}{int}\ cntRight,\ \textcolor{keywordtype}{int}\ cntWrong);}
 \DoxyCodeLine{00261\ }
-\DoxyCodeLine{00262\ \ \ \ \ \textcolor{comment}{//\ ======\ Helper\ Conversions\ ================================}}
-\DoxyCodeLine{00263\ \ \ \ \ std::vector<std::string>\ qvectorToStdVector(\textcolor{keyword}{const}\ QVector<QString>\&\ qvec);}
-\DoxyCodeLine{00264\ \ \ \ \ QVector<QString>\ stdVectorToQVector(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec);}
-\DoxyCodeLine{00265\ \ \ \ \ QSet<QString>}
-\DoxyCodeLine{00266\ \ \ \ \ stdUnorderedSetToQSet(\textcolor{keyword}{const}\ std::unordered\_set<std::string>\&\ uset);}
-\DoxyCodeLine{00267\ \ \ \ \ std::unordered\_set<std::string>}
-\DoxyCodeLine{00268\ \ \ \ \ qsetToStdUnorderedSet(\textcolor{keyword}{const}\ QSet<QString>\&\ qset);}
+\DoxyCodeLine{00262\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordtype}{void}\ closeEvent(QCloseEvent*\ event)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ emit\ sessionFinished(cntRightAnswers,\ cntWrongAnswers);}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ QWidget::closeEvent(event);}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordtype}{bool}\ eventFilter(QObject*\ obj,\ QEvent*\ event)\ \textcolor{keyword}{override};}
 \DoxyCodeLine{00269\ }
-\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTutorial();}
-\DoxyCodeLine{00271\ }
-\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{void}}
-\DoxyCodeLine{00273\ \ \ \ \ fillSortedGrammar();\ \textcolor{comment}{//\ Populate\ sortedGrammar\ from\ internal\ representation}}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \ \ QPropertyAnimation*\ m\_shakeAnimation\ =}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ For\ interrupting\ userResponse\ animation\ if\ they\ spam\ enter}}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key}}
-\DoxyCodeLine{00278\ }
-\DoxyCodeLine{00279\ \ \ \ \ TutorialManager*\ tm\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00280\ }
-\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{const}\ QRegularExpression\ kRe\{\textcolor{stringliteral}{"{}\string^\(\backslash\)\(\backslash\)s+|\(\backslash\)\(\backslash\)s+\$"{}}\};}
-\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{const}\ QRegularExpression\ kWhitespace\{\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)s+"{}}\};}
-\DoxyCodeLine{00283\ \};}
-\DoxyCodeLine{00284\ }
-\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LLTUTORWINDOW\_H}}
+\DoxyCodeLine{00270\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordtype}{void}\ relayoutChatMessages();}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{comment}{//\ ======\ Core\ Objects\ ======================================}}
+\DoxyCodeLine{00274\ \ \ \ \ Ui::LLTutorWindow*\ ui;}
+\DoxyCodeLine{00275\ \ \ \ \ Grammar\ \ \ \ \ \ \ \ \ \ \ \ grammar;}
+\DoxyCodeLine{00276\ \ \ \ \ LL1Parser\ \ \ \ \ \ \ \ \ \ ll1;}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ ======\ State\ \&\ Grammar\ Tracking\ ==========================}}
+\DoxyCodeLine{00279\ \ \ \ \ State\ \ \ \ \ \ \ \ \ \ currentState;}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ currentRule\ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ kMaxHighlightTries\ =\ 3;}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ kMaxTotalTries\ \ \ \ \ =\ 5;}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ lltries\ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ cntRightAnswers\ =\ 0,\ cntWrongAnswers\ =\ 0;}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{comment}{//\ ======\ Exam\ Mode\ =========================================}}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ examMode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00288\ \ \ \ \ ExamSession\ examSession;}
+\DoxyCodeLine{00289\ \ \ \ \ QString\ \ \ \ \ currentQuestionText;}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keyword}{using\ }Cell\ =\ std::pair<QString,\ QString>;}
+\DoxyCodeLine{00292\ \ \ \ \ std::vector<Cell>\ lastWrongCells;}
+\DoxyCodeLine{00293\ \ \ \ \ LLTableDialog*\ \ \ \ currentDlg\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ QVector<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sortedNonTerminals;}
+\DoxyCodeLine{00296\ \ \ \ \ QVector<QPair<QString,\ QVector<QString>>>\ sortedGrammar;}
+\DoxyCodeLine{00297\ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ formattedGrammar;}
+\DoxyCodeLine{00298\ \ \ \ \ GrammarView*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grammarView\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ QMap<QString,\ QMap<QString,\ QVector<QString>>>\ lltable;}
+\DoxyCodeLine{00301\ \ \ \ \ QVector<QVector<QString>>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rawTable;}
+\DoxyCodeLine{00302\ \ \ \ \ QSet<QString>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solutionSet;}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ ======\ Conversation\ Logging\ ==============================}}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keyword}{struct\ }MessageLog\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ QString\ message;}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isUser;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ isCorrect\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ MessageLog(\textcolor{keyword}{const}\ QString\&\ message,\ \textcolor{keywordtype}{bool}\ isUser)}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ :\ message(message),\ isUser(isUser)\ \{\}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ toggleIsCorrect()\ \{\ isCorrect\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00312\ \ \ \ \ \};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ QVector<MessageLog>\ conversationLog;}
+\DoxyCodeLine{00315\ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ lastUserMessage\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00316\ \ \ \ \ qsizetype\ \ \ \ \ \ \ \ \ \ \ lastUserMessageLogIdx\ =\ -\/1;}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ QMap<QString,\ QString>\ userCAB;}
+\DoxyCodeLine{00319\ \ \ \ \ QMap<QString,\ QString>\ userSIG;}
+\DoxyCodeLine{00320\ \ \ \ \ QMap<QString,\ QString>\ userSD;}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{comment}{//\ ======\ Helper\ Conversions\ ================================}}
+\DoxyCodeLine{00323\ \ \ \ \ std::vector<std::string>\ qvectorToStdVector(\textcolor{keyword}{const}\ QVector<QString>\&\ qvec);}
+\DoxyCodeLine{00324\ \ \ \ \ QVector<QString>\ stdVectorToQVector(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec);}
+\DoxyCodeLine{00325\ \ \ \ \ QSet<QString>}
+\DoxyCodeLine{00326\ \ \ \ \ stdUnorderedSetToQSet(\textcolor{keyword}{const}\ std::unordered\_set<std::string>\&\ uset);}
+\DoxyCodeLine{00327\ \ \ \ \ std::unordered\_set<std::string>}
+\DoxyCodeLine{00328\ \ \ \ \ qsetToStdUnorderedSet(\textcolor{keyword}{const}\ QSet<QString>\&\ qset);}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTutorial();}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordtype}{void}\ requestExit(\textcolor{keywordtype}{bool}\ applyResults);}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00334\ \ \ \ \ fillSortedGrammar();\ \textcolor{comment}{//\ Populate\ sortedGrammar\ from\ internal\ representation}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ QPropertyAnimation*\ m\_shakeAnimation\ =}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ For\ interrupting\ userResponse\ animation\ if\ they\ spam\ enter}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ TutorialManager*\ tm\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#ifdef\ SYNTAXTUTOR\_TESTING}}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{mutable}\ QString\ nextExportFilePathForTest;}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keyword}{const}\ QRegularExpression\ kRe\{\textcolor{stringliteral}{"{}\string^\(\backslash\)\(\backslash\)s+|\(\backslash\)\(\backslash\)s+\$"{}}\};}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keyword}{const}\ QRegularExpression\ kWhitespace\{\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)s+"{}}\};}
+\DoxyCodeLine{00348\ \};}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LLTUTORWINDOW\_H}}
 
 \end{DoxyCode}

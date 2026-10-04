@@ -1,0 +1,6 @@
+<map id="AppLayout::keepHeightForWidth" name="AppLayout::keepHeightForWidth">
+<area shape="rect" id="Node000001" title="Keeps widget at least as tall as its layout needs at its current width." alt="" coords="5,29,182,70"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="49,28,47,19,54,10,70,5,94,3,119,5,136,13,131,14,118,10,93,8,71,10,57,15,52,21,54,29"/>
+<area shape="rect" id="Node000002" href="$class_app_layout_1_1_height_for_width_keeper.html#acfdec3a1b4b808bd81fdb04c818afd1f" title=" " alt="" coords="230,29,432,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,47,217,49,212,50,182,52"/>
+</map>

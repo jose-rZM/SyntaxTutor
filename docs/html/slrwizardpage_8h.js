@@ -1,4 +1,4 @@
 var slrwizardpage_8h =
 [
-    [ "SLRWizardPage", "classSLRWizardPage.html", "classSLRWizardPage" ]
+    [ "SLRWizardPage", "class_s_l_r_wizard_page.html", "class_s_l_r_wizard_page" ]
 ];

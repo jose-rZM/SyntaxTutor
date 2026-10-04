@@ -1,0 +1,7 @@
+<map id="AppPalette::apply" name="AppPalette::apply">
+<area shape="rect" id="Node000001" title="Palette entries the theme needs that app.qss cannot set." alt="" coords="5,29,130,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="36,29,31,21,34,11,47,5,68,3,90,5,103,14,97,14,88,10,67,8,48,10,38,15,36,20,42,29"/>
+<area shape="rect" id="Node000002" href="$namespace_app_palette.html#a12cfc3c823f1a7260007ebdb90a428ec" title="Colour of links in rich text: the teal accent of the theme." alt="" coords="178,29,322,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="130,40,165,42,160,42,130,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="219,28,213,21,217,11,229,5,250,3,272,5,285,15,280,14,270,10,250,8,231,10,221,15,218,20,224,30"/>
+</map>

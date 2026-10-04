@@ -1,6 +1,6 @@
 \doxysection{customtextedit.\+h}
 \label{customtextedit_8h_source}\index{widgets/customtextedit.h@{widgets/customtextedit.h}}
-\mbox{\hyperlink{customtextedit_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{customtextedit_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
@@ -25,18 +25,45 @@
 \DoxyCodeLine{00021\ }
 \DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <QTextEdit>}}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }CustomTextEdit\ :\ \textcolor{keyword}{public}\ QTextEdit\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{explicit}\ CustomTextEdit(QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ signals:}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ sendRequested();}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }QPropertyAnimation;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }CustomTextEdit\ :\ \textcolor{keyword}{public}\ QTextEdit\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00028\ \ \ \ \ Q\_PROPERTY(\textcolor{keywordtype}{int}\ growHeight\ READ\ growHeight\ WRITE\ setGrowHeight)}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{explicit}\ CustomTextEdit(QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
 \DoxyCodeLine{00031\ }
-\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ keyPressEvent(QKeyEvent*\ event)\ \textcolor{keyword}{override};}
-\DoxyCodeLine{00034\ \};}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CUSTOMTEXTEDIT\_H}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ QString\ newlineShortcutText();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ setAutoGrowLines(\textcolor{keywordtype}{int}\ minLines,\ \textcolor{keywordtype}{int}\ maxLines);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ minimumGrowHeight()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ minGrowHeight\_;\ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ signals:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ sendRequested();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ minimumGrowHeightChanged(\textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ showEvent(QShowEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ changeEvent(QEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ keyPressEvent(QKeyEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ \ growHeight()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ setGrowHeight(\textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ updateGrowHeight();}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ refreshGrowBounds();}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ \ heightForLines(\textcolor{keywordtype}{int}\ lines)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chrome\_\ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minGrowLines\_\ \ =\ 0;}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxGrowLines\_\ \ =\ 0;}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minGrowHeight\_\ =\ 0;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxGrowHeight\_\ =\ 0;}
+\DoxyCodeLine{00071\ \ \ \ \ QPropertyAnimation*\ growAnimation\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CUSTOMTEXTEDIT\_H}}
 
 \end{DoxyCode}

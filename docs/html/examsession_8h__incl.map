@@ -1,0 +1,7 @@
+<map id="gui/examsession.h" name="gui/examsession.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="18,5,148,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,71,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,30,56,67,52,64,74,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,79,165,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,29,116,66,111,66,90,34"/>
+</map>

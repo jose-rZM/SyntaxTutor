@@ -1,0 +1,20 @@
+<map id="AppTypography::cssSize" name="AppTypography::cssSize">
+<area shape="rect" id="Node000001" title="Current size of role as a CSS length, for rich text and QSS." alt="" coords="5,67,172,92"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="50,67,43,58,48,48,63,42,89,40,116,43,132,52,127,52,115,48,88,45,64,47,51,52,49,57,55,66"/>
+<area shape="rect" id="Node000002" href="$namespace_app_typography.html#a7ce516481a973e7af6b68624d18afb63" title="A point size written the way CSS and QSS expect it, e.g. 14.5pt." alt="" coords="220,41,413,67"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="171,68,207,66,202,67,172,73"/>
+<area shape="rect" id="Node000003" href="$namespace_app_typography.html#ad9e0d7a05805bae97441da9cf8ae4126" title="Size of role at the current text scale, in points." alt="" coords="461,67,615,92"/>
+<area shape="poly" id="edge12_Node000001_Node000003" title=" " alt="" coords="172,77,446,77,445,82,172,82"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="279,40,272,33,277,23,292,17,316,15,343,17,359,27,353,26,342,22,316,20,293,22,280,27,278,32,284,42"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="413,63,448,69,443,69,413,68"/>
+<area shape="poly" id="edge11_Node000003_Node000003" title=" " alt="" coords="502,65,495,58,499,48,514,42,538,40,565,43,580,52,575,52,563,48,538,45,515,47,503,52,500,57,507,67"/>
+<area shape="rect" id="Node000004" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="663,29,848,55"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="615,64,659,59,664,58,616,69"/>
+<area shape="rect" id="Node000005" href="$namespace_app_text_scale.html#a01feb2d6132cdbe0da4069ea092cf050" title="Multiplier currently in effect." alt="" coords="684,103,827,128"/>
+<area shape="poly" id="edge7_Node000003_Node000005" title=" " alt="" coords="616,90,671,101,666,101,616,95"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="719,28,712,21,717,11,731,5,756,3,782,5,797,15,792,14,781,10,755,8,733,10,720,15,718,20,724,30"/>
+<area shape="poly" id="edge10_Node000005_Node000005" title=" " alt="" coords="719,101,712,94,717,84,731,78,756,76,782,79,797,88,792,87,781,84,755,81,733,83,720,88,718,93,724,103"/>
+<area shape="rect" id="Node000006" href="$namespace_app_text_scale.html#a7709873d381717abe050597c999c4102" title="The selected size, in percent." alt="" coords="896,103,1091,128"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="827,113,883,115,878,116,827,118"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="954,101,946,94,951,84,967,78,993,76,1023,79,1039,89,1034,88,1021,84,993,81,968,83,954,88,952,93,959,103"/>
+</map>

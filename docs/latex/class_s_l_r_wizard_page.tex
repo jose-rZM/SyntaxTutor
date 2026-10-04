@@ -1,0 +1,163 @@
+\doxysection{SLRWizard\+Page Class Reference}
+\label{class_s_l_r_wizard_page}\index{SLRWizardPage@{SLRWizardPage}}
+
+
+A single guided step for constructing the SLR(1) table.  
+
+
+
+
+{\ttfamily \+\#include $<$slrwizardpage.\+h$>$}
+
+
+
+Inheritance diagram for SLRWizard\+Page:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{class_s_l_r_wizard_page__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for SLRWizard\+Page:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{class_s_l_r_wizard_page__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_s_l_r_wizard_page_a9e6bb05bb8b4a05cf97ef71e3f1aeb10}{completion\+Changed}} (bool complete)
+\item 
+void \doxymbox{\hyperlink{class_s_l_r_wizard_page_a1cc1cd5a835662f90efcc6f2eea8dfc9}{submit\+Requested}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_s_l_r_wizard_page_ac06ec88e5ba53403211fff75cf4327b6}{SLRWizard\+Page}} (int state, const QString \&symbol, const QString \&explanation, const QString \&expected, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a page for a specific cell in the SLR(1) table. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{class_s_l_r_wizard_page_a7350e71622eb528c94feae10d1efa2f6}{title\+Text}} () const
+\item 
+bool \doxymbox{\hyperlink{class_s_l_r_wizard_page_ae3500fbaaf2c035c6efa1c77ff1d6384}{is\+Complete}} () const
+\item 
+void \doxymbox{\hyperlink{class_s_l_r_wizard_page_a5c85e483f7e03d39d641b94c711151fe}{focus\+Answer\+Field}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_s_l_r_wizard_page_abf9e03602b63503101b64ce2a36a49d5}{resize\+Event}} (QResize\+Event \texorpdfstring{$\ast$}{*}event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A single guided step for constructing the SLR(1) table. 
+
+This widget presents one (state, symbol) question at a time with a compact explanation card and an answer card. It validates the current input and emits a signal whenever the completion state changes. 
+
+\label{class_s_l_r_wizard_page_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{SLRWizardPage@{SLRWizardPage}!SLRWizardPage@{SLRWizardPage}}
+\index{SLRWizardPage@{SLRWizardPage}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{SLRWizardPage()}{SLRWizardPage()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_ac06ec88e5ba53403211fff75cf4327b6} 
+SLRWizard\+Page::\+\+SLRWizard\+Page (\begin{DoxyParamCaption}\item[{int}]{state}{, }\item[{const QString \&}]{symbol}{, }\item[{const QString \&}]{explanation}{, }\item[{const QString \&}]{expected}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a page for a specific cell in the SLR(1) table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The state ID (row index in the table). \\
+\hline
+{\em symbol} & The grammar symbol (column header). \\
+\hline
+{\em explanation} & A pedagogical explanation shown to the user. \\
+\hline
+{\em expected} & The expected answer (e.\+g., "{}s2"{}, "{}r1"{}, "{}acc"{}, or a state number). \\
+\hline
+{\em parent} & The parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_page_ac06ec88e5ba53403211fff75cf4327b6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_page_ac06ec88e5ba53403211fff75cf4327b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_s_l_r_wizard_page_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{SLRWizardPage@{SLRWizardPage}!completionChanged@{completionChanged}}
+\index{completionChanged@{completionChanged}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{completionChanged}{completionChanged}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_a9e6bb05bb8b4a05cf97ef71e3f1aeb10} 
+void SLRWizard\+Page::\+completion\+Changed (\begin{DoxyParamCaption}\item[{bool}]{complete}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_page_a9e6bb05bb8b4a05cf97ef71e3f1aeb10_icgraph}
+\end{center}
+\end{figure}
+\index{SLRWizardPage@{SLRWizardPage}!focusAnswerField@{focusAnswerField}}
+\index{focusAnswerField@{focusAnswerField}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{focusAnswerField()}{focusAnswerField()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_a5c85e483f7e03d39d641b94c711151fe} 
+void SLRWizard\+Page::\+focus\+Answer\+Field (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{SLRWizardPage@{SLRWizardPage}!isComplete@{isComplete}}
+\index{isComplete@{isComplete}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{isComplete()}{isComplete()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_ae3500fbaaf2c035c6efa1c77ff1d6384} 
+bool SLRWizard\+Page::\+is\+Complete (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{SLRWizardPage@{SLRWizardPage}!resizeEvent@{resizeEvent}}
+\index{resizeEvent@{resizeEvent}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{resizeEvent()}{resizeEvent()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_abf9e03602b63503101b64ce2a36a49d5} 
+void SLRWizard\+Page::\+resize\+Event (\begin{DoxyParamCaption}\item[{QResize\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+\index{SLRWizardPage@{SLRWizardPage}!submitRequested@{submitRequested}}
+\index{submitRequested@{submitRequested}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{submitRequested}{submitRequested}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_a1cc1cd5a835662f90efcc6f2eea8dfc9} 
+void SLRWizard\+Page::\+submit\+Requested (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_s_l_r_wizard_page_a1cc1cd5a835662f90efcc6f2eea8dfc9_icgraph}
+\end{center}
+\end{figure}
+\index{SLRWizardPage@{SLRWizardPage}!titleText@{titleText}}
+\index{titleText@{titleText}!SLRWizardPage@{SLRWizardPage}}
+\doxysubsubsection{\texorpdfstring{titleText()}{titleText()}}
+{\footnotesize\ttfamily \label{class_s_l_r_wizard_page_a7350e71622eb528c94feae10d1efa2f6} 
+QString SLRWizard\+Page::\+title\+Text (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{slrwizardpage_8h}{slrwizardpage.\+h}}\end{DoxyCompactItemize}

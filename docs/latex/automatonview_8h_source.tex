@@ -1,0 +1,147 @@
+\doxysection{automatonview.\+h}
+\label{automatonview_8h_source}\index{widgets/automatonview.h@{widgets/automatonview.h}}
+\doxymbox{\hyperlink{automatonview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ AUTOMATONVIEW\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ AUTOMATONVIEW\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <QGraphicsView>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <QHash>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QSet>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QVector>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }QGraphicsEllipseItem;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }QGraphicsPathItem;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }QGraphicsPolygonItem;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }QGraphicsSimpleTextItem;}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }QGraphicsTextItem;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{struct\ }AutomatonStateInfo\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ id;}
+\DoxyCodeLine{00041\ \ \ \ \ QString\ itemsText;}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{struct\ }AutomatonTransitionInfo\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ from;}
+\DoxyCodeLine{00050\ \ \ \ \ QString\ \ symbol;}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ to;}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{class\ }AutomatonView\ :\ \textcolor{keyword}{public}\ QGraphicsView\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{explicit}\ AutomatonView(QWidget*\ parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ setAutomaton(\textcolor{keyword}{const}\ QVector<AutomatonStateInfo>\&\ \ \ \ \ \ states,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<AutomatonTransitionInfo>\&\ transitions);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ revealState(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ revealTransition(\textcolor{keywordtype}{unsigned}\ from,\ \textcolor{keywordtype}{unsigned}\ to);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ revealAll();}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentState(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ setConflictStates(\textcolor{keyword}{const}\ QSet<unsigned>\&\ ids);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ setReduceStates(\textcolor{keyword}{const}\ QSet<unsigned>\&\ ids);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ clearStateMarks();}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ zoomIn();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ zoomOut();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ fitToView();}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ centerOnCurrentState();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{bool}\ isStateVisible(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{int}\ \ visibleStateCount()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{int}\ \ totalStateCount()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(nodes\_.size());\ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{int}\ \ visibleTransitionCount()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ isFullyRevealed()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{int}\ \ currentStateId()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ currentId\_;\ \}}
+\DoxyCodeLine{00127\ \ \ \ \ QSet<unsigned>\ conflictStates()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ conflictIds\_;\ \}}
+\DoxyCodeLine{00128\ \ \ \ \ QSet<unsigned>\ reduceStates()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ reduceIds\_;\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{int}\ shownStateId()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ shownId\_;\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ showStateDetails(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ hideStateDetails();}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ wheelEvent(QWheelEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ mousePressEvent(QMouseEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ mouseReleaseEvent(QMouseEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ keyPressEvent(QKeyEvent*\ event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{struct\ }Node\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{id}\ =\ 0;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ QPointF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ center;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ QGraphicsEllipseItem*\ \ \ \ circle\ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ QGraphicsSimpleTextItem*\ label\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ QString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ itemsText;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ revealed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00153\ \ \ \ \ \};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{struct\ }Edge\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ from\ =\ 0;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\ \ \ =\ 0;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ QStringList\ \ \ \ \ \ \ \ \ \ \ \ \ \ symbols;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ QGraphicsPathItem*\ \ \ \ \ \ \ path\ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ QGraphicsPolygonItem*\ \ \ \ arrow\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ QGraphicsSimpleTextItem*\ label\ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ revealed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00163\ \ \ \ \ \};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ QHash<unsigned,\ int>}
+\DoxyCodeLine{00166\ \ \ \ \ computeLevels(\textcolor{keyword}{const}\ QVector<AutomatonTransitionInfo>\&\ transitions)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ buildEdgeGeometry(Edge\&\ edge);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ applyNodeStyle(Node\&\ node);}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ setNodeVisible(Node\&\ node,\ \textcolor{keywordtype}{bool}\ visible);}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ setEdgeVisible(Edge\&\ edge,\ \textcolor{keywordtype}{bool}\ visible);}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{void}\ updatePlaceholder();}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{int}\ \ nodeAt(\textcolor{keyword}{const}\ QPoint\&\ viewPos)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ QGraphicsScene*\ \ \ \ \ \ \ scene\_\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00176\ \ \ \ \ QGraphicsTextItem*\ \ \ \ placeholder\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00177\ \ \ \ \ QHash<unsigned,\ Node>\ nodes\_;}
+\DoxyCodeLine{00178\ \ \ \ \ QList<Edge>\ \ \ \ \ \ \ \ \ \ \ edges\_;}
+\DoxyCodeLine{00179\ \ \ \ \ QSet<unsigned>\ \ \ \ \ \ \ \ conflictIds\_;}
+\DoxyCodeLine{00180\ \ \ \ \ QSet<unsigned>\ \ \ \ \ \ \ \ reduceIds\_;}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentId\_\ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fullyRevealed\_\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoom\_\ \ \ \ \ \ \ \ \ \ =\ 1.0;}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{comment}{//\ Items\ of\ the\ clicked\ state,\ drawn\ in\ the\ scene\ next\ to\ its\ node.}}
+\DoxyCodeLine{00186\ \ \ \ \ QGraphicsPathItem*\ details\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shownId\_\ =\ -\/1;}
+\DoxyCodeLine{00188\ \ \ \ \ QPoint\ \ \ \ \ \ \ \ \ \ \ \ \ pressPos\_;}
+\DoxyCodeLine{00189\ \};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AUTOMATONVIEW\_H}}
+
+\end{DoxyCode}

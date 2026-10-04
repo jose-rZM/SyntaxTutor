@@ -1,6 +1,6 @@
 var slrtutorwindow_8h =
 [
-    [ "SLRTutorWindow", "classSLRTutorWindow.html", "classSLRTutorWindow" ],
+    [ "SLRTutorWindow", "class_s_l_r_tutor_window.html", "class_s_l_r_tutor_window" ],
     [ "StateSlr", "slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473d", [
       [ "A", "slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da7fc56270e7a70fa81a5935b72eacbe29", null ],
       [ "A1", "slrtutorwindow_8h.html#a62d8c04e822006d61f10fc42c058473da27f237e6b7f96587b6202ff3607ad88a", null ],

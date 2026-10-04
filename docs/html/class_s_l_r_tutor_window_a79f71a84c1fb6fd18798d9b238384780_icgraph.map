@@ -1,0 +1,9 @@
+<map id="SLRTutorWindow::feedbackForCA" name="SLRTutorWindow::feedbackForCA">
+<area shape="rect" id="Node000001" title=" " alt="" coords="492,35,677,75"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="245,5,430,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="474,42,431,39,431,34,479,42"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#abaecaf3d6c02f272073c801f62486d85" title="The grammar&#39;s initial item, e.g. &quot;S &#45;&gt; · A $&quot;." alt="" coords="231,70,444,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="479,67,445,74,444,68,474,67"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="5,70,183,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="212,83,183,86,183,80,218,83"/>
+</map>

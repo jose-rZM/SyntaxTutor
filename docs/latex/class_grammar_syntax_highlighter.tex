@@ -1,0 +1,91 @@
+\doxysection{Grammar\+Syntax\+Highlighter Class Reference}
+\label{class_grammar_syntax_highlighter}\index{GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}}
+
+
+Lightweight highlighter for user-\/written grammar text.  
+
+
+
+
+{\ttfamily \+\#include $<$grammareditordialog.\+h$>$}
+
+
+
+Inheritance diagram for Grammar\+Syntax\+Highlighter:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{class_grammar_syntax_highlighter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Grammar\+Syntax\+Highlighter:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{class_grammar_syntax_highlighter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_grammar_syntax_highlighter_acf1f253d28f3a70a466397d0e4dda471}{Grammar\+Syntax\+Highlighter}} (QText\+Document \texorpdfstring{$\ast$}{*}parent)
+\item 
+void \doxymbox{\hyperlink{class_grammar_syntax_highlighter_ab225835678bd624958caf99e72deb83d}{set\+Non\+Terminals}} (const QSet$<$ QString $>$ \&non\+Terminals)
+\begin{DoxyCompactList}\small\item\em Updates the set of symbols rendered as non-\/terminals. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_grammar_syntax_highlighter_adeb45749eef5d33a144a9ef105cbb2cb}{highlight\+Block}} (const QString \&text) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Lightweight highlighter for user-\/written grammar text. 
+
+Colors the structural pieces of a grammar (arrows, rule dots and alternative pipes) and renders the currently-\/detected non-\/terminals in the accent color, so the user gets immediate feedback on how their text is being interpreted. 
+
+\label{class_grammar_syntax_highlighter_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}!GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}}
+\index{GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}!GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}}
+\doxysubsubsection{\texorpdfstring{GrammarSyntaxHighlighter()}{GrammarSyntaxHighlighter()}}
+{\footnotesize\ttfamily \label{class_grammar_syntax_highlighter_acf1f253d28f3a70a466397d0e4dda471} 
+Grammar\+Syntax\+Highlighter::\+\+Grammar\+Syntax\+Highlighter (\begin{DoxyParamCaption}\item[{QText\+Document \texorpdfstring{$\ast$}{*}}]{parent}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\label{class_grammar_syntax_highlighter_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}!highlightBlock@{highlightBlock}}
+\index{highlightBlock@{highlightBlock}!GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}}
+\doxysubsubsection{\texorpdfstring{highlightBlock()}{highlightBlock()}}
+{\footnotesize\ttfamily \label{class_grammar_syntax_highlighter_adeb45749eef5d33a144a9ef105cbb2cb} 
+void Grammar\+Syntax\+Highlighter::\+highlight\+Block (\begin{DoxyParamCaption}\item[{const QString \&}]{text}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+\index{GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}!setNonTerminals@{setNonTerminals}}
+\index{setNonTerminals@{setNonTerminals}!GrammarSyntaxHighlighter@{GrammarSyntaxHighlighter}}
+\doxysubsubsection{\texorpdfstring{setNonTerminals()}{setNonTerminals()}}
+{\footnotesize\ttfamily \label{class_grammar_syntax_highlighter_ab225835678bd624958caf99e72deb83d} 
+void Grammar\+Syntax\+Highlighter::\+set\+Non\+Terminals (\begin{DoxyParamCaption}\item[{const QSet$<$ QString $>$ \&}]{non\+Terminals}{}\end{DoxyParamCaption})}
+
+
+
+Updates the set of symbols rendered as non-\/terminals. 
+
+Triggers a rehighlight only when the set actually changes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em non\+Terminals} & Symbols currently classified as non-\/terminals. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{grammareditordialog_8h}{grammareditordialog.\+h}}\item 
+gui/\doxymbox{\hyperlink{grammareditordialog_8cpp}{grammareditordialog.\+cpp}}\end{DoxyCompactItemize}

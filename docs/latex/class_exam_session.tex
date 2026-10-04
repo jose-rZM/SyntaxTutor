@@ -1,0 +1,155 @@
+\doxysection{Exam\+Session Class Reference}
+\label{class_exam_session}\index{ExamSession@{ExamSession}}
+
+
+Accumulates graded answers during an exam-\/mode exercise.  
+
+
+
+
+{\ttfamily \+\#include $<$examsession.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_exam_session_a2290b2f623c48ffae4d650e390876253}{record}} (const QString \&question, const QString \&user\+Answer, const QString \&correct\+Answer, bool correct)
+\begin{DoxyCompactList}\small\item\em Records one graded item. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_exam_session_a017c2844f59b9345d4297010ac523396}{total}} () const
+\begin{DoxyCompactList}\small\item\em Total number of graded items. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_exam_session_a352ba6b2936aedcff5784c565d221949}{right}} () const
+\begin{DoxyCompactList}\small\item\em Number of correct items. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_exam_session_a92327389e787905fc61de25843434c22}{grade}} () const
+\begin{DoxyCompactList}\small\item\em Grade on the Spanish 0-\/10 scale. \end{DoxyCompactList}\item 
+const QVector$<$ \doxymbox{\hyperlink{struct_exam_record}{Exam\+Record}} $>$ \& \doxymbox{\hyperlink{class_exam_session_ad668804f5d0650039e67616c5c93f237}{records}} () const
+\begin{DoxyCompactList}\small\item\em All graded items in exam order. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Accumulates graded answers during an exam-\/mode exercise. 
+
+In exam mode the tutors give no feedback: every answer is recorded here with its real correctness while the exercise advances along the correct path. At the end the session produces the stats and the 0-\/10 grade shown in the exam report. 
+
+\label{class_exam_session_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{ExamSession@{ExamSession}!grade@{grade}}
+\index{grade@{grade}!ExamSession@{ExamSession}}
+\doxysubsubsection{\texorpdfstring{grade()}{grade()}}
+{\footnotesize\ttfamily \label{class_exam_session_a92327389e787905fc61de25843434c22} 
+double Exam\+Session::\+grade (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Grade on the Spanish 0-\/10 scale. 
+
+An empty exam grades 0. Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_session_a92327389e787905fc61de25843434c22_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{class_exam_session_a92327389e787905fc61de25843434c22_icgraph}
+\end{center}
+\end{figure}
+\index{ExamSession@{ExamSession}!record@{record}}
+\index{record@{record}!ExamSession@{ExamSession}}
+\doxysubsubsection{\texorpdfstring{record()}{record()}}
+{\footnotesize\ttfamily \label{class_exam_session_a2290b2f623c48ffae4d650e390876253} 
+void Exam\+Session::\+record (\begin{DoxyParamCaption}\item[{const QString \&}]{question}{, }\item[{const QString \&}]{user\+Answer}{, }\item[{const QString \&}]{correct\+Answer}{, }\item[{bool}]{correct}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Records one graded item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em question} & Question text shown to the student. \\
+\hline
+{\em user\+Answer} & Answer the student gave. \\
+\hline
+{\em correct\+Answer} & Expected answer. \\
+\hline
+{\em correct} & Whether the answer was correct. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_session_a2290b2f623c48ffae4d650e390876253_icgraph}
+\end{center}
+\end{figure}
+\index{ExamSession@{ExamSession}!records@{records}}
+\index{records@{records}!ExamSession@{ExamSession}}
+\doxysubsubsection{\texorpdfstring{records()}{records()}}
+{\footnotesize\ttfamily \label{class_exam_session_ad668804f5d0650039e67616c5c93f237} 
+const QVector$<$ \doxymbox{\hyperlink{struct_exam_record}{Exam\+Record}} $>$ \& Exam\+Session::\+records (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+All graded items in exam order. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_session_ad668804f5d0650039e67616c5c93f237_icgraph}
+\end{center}
+\end{figure}
+\index{ExamSession@{ExamSession}!right@{right}}
+\index{right@{right}!ExamSession@{ExamSession}}
+\doxysubsubsection{\texorpdfstring{right()}{right()}}
+{\footnotesize\ttfamily \label{class_exam_session_a352ba6b2936aedcff5784c565d221949} 
+int Exam\+Session::\+right (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Number of correct items. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{class_exam_session_a352ba6b2936aedcff5784c565d221949_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_session_a352ba6b2936aedcff5784c565d221949_icgraph}
+\end{center}
+\end{figure}
+\index{ExamSession@{ExamSession}!total@{total}}
+\index{total@{total}!ExamSession@{ExamSession}}
+\doxysubsubsection{\texorpdfstring{total()}{total()}}
+{\footnotesize\ttfamily \label{class_exam_session_a017c2844f59b9345d4297010ac523396} 
+int Exam\+Session::\+total (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Total number of graded items. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_session_a017c2844f59b9345d4297010ac523396_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{examsession_8h}{examsession.\+h}}\end{DoxyCompactItemize}

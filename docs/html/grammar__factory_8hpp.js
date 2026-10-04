@@ -1,5 +1,5 @@
 var grammar__factory_8hpp =
 [
-    [ "GrammarFactory", "structGrammarFactory.html", "structGrammarFactory" ],
-    [ "GrammarFactory::FactoryItem", "structGrammarFactory_1_1FactoryItem.html", "structGrammarFactory_1_1FactoryItem" ]
+    [ "GrammarFactory", "struct_grammar_factory.html", "struct_grammar_factory" ],
+    [ "GrammarFactory::FactoryItem", "struct_grammar_factory_1_1_factory_item.html", "struct_grammar_factory_1_1_factory_item" ]
 ];

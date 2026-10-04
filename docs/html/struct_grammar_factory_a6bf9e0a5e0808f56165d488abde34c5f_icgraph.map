@@ -1,0 +1,8 @@
+<map id="GrammarFactory::HasDirectLeftRecursion" name="GrammarFactory::HasDirectLeftRecursion">
+<area shape="rect" id="Node000001" title="Checks if a grammar contains direct left recursion (a non&#45;terminal can produce itself on the left sid..." alt="" coords="526,5,712,46"/>
+<area shape="rect" id="Node000002" href="$struct_grammar_factory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="5,13,232,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="508,22,478,24,280,24,232,25,232,20,280,19,478,19,513,22"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a4f167379fa626f0734d6e99b34b96a54" title="Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its produ..." alt="" coords="280,33,478,74"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="513,38,479,45,478,39,508,39"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="262,41,232,41,232,35,267,41"/>
+</map>

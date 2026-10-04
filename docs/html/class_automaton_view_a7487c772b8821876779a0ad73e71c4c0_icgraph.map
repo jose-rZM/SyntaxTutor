@@ -1,0 +1,11 @@
+<map id="AutomatonView::fitToView" name="AutomatonView::fitToView">
+<area shape="rect" id="Node000001" title="Fits all revealed content within the viewport." alt="" coords="521,70,696,96"/>
+<area shape="rect" id="Node000002" href="$class_automaton_viewer_dialog.html#a0dca877c8e4b561bca963d349ae999f2" title="Builds the viewer around an existing automaton view." alt="" coords="271,5,440,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="531,66,441,48,441,42,537,66"/>
+<area shape="rect" id="Node000003" href="$class_automaton_view.html#a03670fb71e2af147de3538c74bb11a9d" title="Reveals every state and transition (consultation mode)." alt="" coords="270,70,442,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="503,83,442,86,442,80,508,83"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a99036b2796ed0e0d0fe135076c4517d7" title="Syncs the automaton view with the current tutor state." alt="" coords="239,120,473,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="537,99,449,122,448,117,531,100"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="5,120,191,161"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="220,141,191,143,191,138,226,140"/>
+</map>

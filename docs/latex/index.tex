@@ -1,142 +1,184 @@
-\chapter{Syntax\+Tutor\+: An interactive Tool for Learning Syntax Analysis }
-\label{index}\index{SyntaxTutor: An interactive Tool for Learning Syntax Analysis@{SyntaxTutor: An interactive Tool for Learning Syntax Analysis}}
-\label{index_md__2home_2jose_2Documentos_2UMA_2TFG_2SyntaxTutor_2README}%
-\Hypertarget{index_md__2home_2jose_2Documentos_2UMA_2TFG_2SyntaxTutor_2README}%
+\chapter{Syntax\+Tutor }
+\label{index}\index{SyntaxTutor@{SyntaxTutor}}
+\label{index_md__2_users_2jose_2_documents_2cpp_2_syntax_tutor_2_r_e_a_d_m_e}%
+\Hypertarget{index_md__2_users_2jose_2_documents_2cpp_2_syntax_tutor_2_r_e_a_d_m_e}%
+  
+\begin{DoxyInlineImage}%
+\includegraphics[height=\baselineskip,keepaspectratio=true]{syntaxtutor-banner.svg}%Syntax\+Tutor%
+\end{DoxyInlineImage}
+   \hypertarget{index_autotoc_md0}{}\doxysection{\texorpdfstring{Syntax\+Tutor: An Interactive Tool for Learning Syntax Analysis}{Syntax\+Tutor: An Interactive Tool for Learning Syntax Analysis}}\label{index_autotoc_md0}
+\doxylink{namespace_syntax_tutor}{Syntax\+Tutor} is an educational application designed to help compiler students understand LL(1) and SLR(1) parsing algorithms. Through a visual and interactive interface, it guides users step-\/by-\/step through the computation of FIRST, FOLLOW, CLOSURE, GOTO, predictive parsing tables, and LR automata, offering real-\/time pedagogical feedback.
 
-
-\doxylink{namespaceSyntaxTutor}{Syntax\+Tutor} is an educational application designed to help compiler students understand LL(1) and SLR(1) parsing algorithms. Through a visual and interactive interface, it guides users step-\/by-\/step through the computation of FIRST, FOLLOW, CLOSURE, GOTO, predictive parsing tables, and LR automata, offering real-\/time pedagogical feedback.
-
-Rather than acting as a mere calculator, \doxylink{namespaceSyntaxTutor}{Syntax\+Tutor} functions as a learning companion. It explains the reasoning behind each step, highlights common mistakes, and encourages students to engage with the theory behind the algorithms.
+Rather than acting as a mere calculator, \doxylink{namespace_syntax_tutor}{Syntax\+Tutor} functions as a learning companion. It explains the reasoning behind each step, highlights common mistakes, and encourages students to engage with the theory behind the algorithms.
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{🎓 Academic Context}{🎓 Academic Context}}\label{index_autotoc_md2}
-\doxylink{namespaceSyntaxTutor}{Syntax\+Tutor} is part of a Final Degree Project (TFG) developed at the University of Málaga (UMA), in the Computer Engineering program. Its main goal is to offer an educational companion for students learning syntax analysis, going beyond traditional calculators by incorporating guided feedback, visualization, and gamified learning.
+\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{🎓 About the Project}{🎓 About the Project}}\label{index_autotoc_md2}
+\doxylink{namespace_syntax_tutor}{Syntax\+Tutor} 1.\+x was the Final Degree Project "{}\+Interactive Tutorial About Syntax Analyzers"{} (2025). Version 2 is a later extension and redesign, developed independently of that project.
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{🎯 Key Features}{🎯 Key Features}}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md4}{}\doxysubsection{\texorpdfstring{🎯 Key Features}{🎯 Key Features}}\label{index_autotoc_md4}
 
 \begin{DoxyItemize}
-\item {\bfseries{Educational Focus}}\+: built to teach, not just compute.
-\item {\bfseries{Visualization}}\+: derivation trees, intermediate steps, sets, and tables.
-\item {\bfseries{Exportable Results}}\+: useful for reports or coursework.
+\item {\bfseries{Educational focus}}: built to teach, not just compute. Wrong answers branch into smaller questions instead of revealing the result.
+\item {\bfseries{LL(1) and SLR(1) tutors}}: FIRST, FOLLOW and prediction symbols; LR(0) items, closures, transitions and the parsing tables.
+\item {\bfseries{Your own grammars}}: type any grammar, with live validation, or practise with generated ones at three difficulty levels.
+\item {\bfseries{Exam mode}}: no feedback during the exercise and a 0-\/10 grade with a full question-\/by-\/question review.
+\item {\bfseries{LR(0) automaton}}: drawn progressively as you build the states.
+\item {\bfseries{Guided table modes}}: fill in the LL(1) and SLR(1) tables one cell at a time, with hints.
+\item {\bfseries{PDF export}} of the conversation, sets, automaton states, tables and exam reports.
+\item {\bfseries{Spanish and English}}, adjustable text size and gamified progress.
 \end{DoxyItemize}
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md6}{}\doxysection{\texorpdfstring{🖼️ Interface Screenshots}{🖼️ Interface Screenshots}}\label{index_autotoc_md6}
-\hypertarget{index_autotoc_md7}{}\doxysubsection{\texorpdfstring{🏠 Main Menu}{🏠 Main Menu}}\label{index_autotoc_md7}
+\hypertarget{index_autotoc_md6}{}\doxysubsection{\texorpdfstring{📖 User Manual}{📖 User Manual}}\label{index_autotoc_md6}
+
+\begin{DoxyItemize}
+\item 🇬🇧 \href{manual/SyntaxTutor-Manual-EN.pdf}{\texttt{English}}
+\item 🇪🇸 \href{manual/SyntaxTutor-Manual-ES.pdf}{\texttt{Español}}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{🖼️ Interface Screenshots}{🖼️ Interface Screenshots}}\label{index_autotoc_md8}
+\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{🏠 Home}{🏠 Home}}\label{index_autotoc_md9}
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{mainwindow.png}%
-\doxyfigcaption{Main window}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{home.png}%
+\doxyfigcaption{Home screen}%
 \end{DoxyImage}
    
 
-Home screen with gamification, levels, and language options.\hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{📘 LL(1) Learning Mode}{📘 LL(1) Learning Mode}}\label{index_autotoc_md8}
+Pick a tutor, the difficulty, your own grammar or exam mode.\hypertarget{index_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{📘 LL(1) Tutor}{📘 LL(1) Tutor}}\label{index_autotoc_md10}
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ll1_1.png}%
-\doxyfigcaption{LL(1) dialog view}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ll-tutor.png}%
+\doxyfigcaption{LL(1) tutor}%
 \end{DoxyImage}
    
 
-Interactive LL(1) tutor asks questions and provides feedback.
+The tutor asks one question at a time; a wrong answer leads to smaller questions about FIRST and FOLLOW.
 
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ll1_2.png}%
-\doxyfigcaption{LL(1) derivation tree}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ll-table-retry.png}%
+\doxyfigcaption{LL(1) table with a wrong cell}%
 \end{DoxyImage}
    
 
-Derivation tree view showing how FIRST sets are built step-\/by-\/step.
+The LL(1) table, with the wrong cells highlighted after a submission.
 
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ll1_3.png}%
-\doxyfigcaption{LL(1) table task}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{ll-guided.png}%
+\doxyfigcaption{LL(1) guided mode}%
 \end{DoxyImage}
    
 
-Completion of the LL(1) predictive table with visual guidance.\hypertarget{index_autotoc_md9}{}\doxysubsection{\texorpdfstring{🧠 SLR(1) Learning Mode}{🧠 SLR(1) Learning Mode}}\label{index_autotoc_md9}
+Guided mode walks through the table one cell at a time.\hypertarget{index_autotoc_md11}{}\doxysubsubsection{\texorpdfstring{🧠 SLR(1) Tutor}{🧠 SLR(1) Tutor}}\label{index_autotoc_md11}
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr_1.png}%
-\doxyfigcaption{SLR(1) item view}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr-tutor.png}%
+\doxyfigcaption{SLR(1) tutor}%
 \end{DoxyImage}
    
 
-User is asked to identify symbols after the dot in an LR(0) item.
+Building the LR(0) collection: items, symbols after the dot and transitions.
 
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr_2.png}%
-\doxyfigcaption{SLR(1) automaton construction}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr-automaton.png}%
+\doxyfigcaption{LR(0) automaton}%
 \end{DoxyImage}
    
 
-Step-\/by-\/step explanation of the GOTO/closure construction.
+The LR(0) automaton grows as you compute each state and transition.
 
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr_3.png}%
-\doxyfigcaption{SLR(1) table fill-\/in}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr-table.png}%
+\doxyfigcaption{SLR(1) table}%
 \end{DoxyImage}
    
 
-Interactive SLR(1) table to complete, with states and terminals/non-\/terminals.\hypertarget{index_autotoc_md10}{}\doxysubsection{\texorpdfstring{✨ Assisted Mode\+: Guided Table Completion}{✨ Assisted Mode\+: Guided Table Completion}}\label{index_autotoc_md10}
+The SLR(1) parsing table, with {\ttfamily sN}, {\ttfamily rN}, {\ttfamily acc} and goto entries.
+
  
 \begin{DoxyImage}%
-\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr_4.png}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{slr-guided.png}%
 \doxyfigcaption{SLR(1) guided mode}%
 \end{DoxyImage}
    
 
-\doxylink{namespaceSyntaxTutor}{Syntax\+Tutor} walks the student through each cell in the parsing table with hints and context.
+Guided mode for the SLR(1) table.\hypertarget{index_autotoc_md12}{}\doxysubsubsection{\texorpdfstring{✍️ Your Own Grammar}{✍️ Your Own Grammar}}\label{index_autotoc_md12}
+ 
+\begin{DoxyImage}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{grammar-editor.png}%
+\doxyfigcaption{Grammar editor}%
+\end{DoxyImage}
+   
+
+The editor checks the grammar as you type and only accepts LL(1) or SLR(1) grammars, depending on the tutor.\hypertarget{index_autotoc_md13}{}\doxysubsubsection{\texorpdfstring{📝 Exam Mode}{📝 Exam Mode}}\label{index_autotoc_md13}
+ 
+\begin{DoxyImage}%
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{exam-report.png}%
+\doxyfigcaption{Exam report}%
+\end{DoxyImage}
+   
+
+At the end of an exam: the grade and a review of every answer, exportable to PDF.
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md12}{}\doxysection{\texorpdfstring{🛠️ Technologies Used}{🛠️ Technologies Used}}\label{index_autotoc_md12}
+\hypertarget{index_autotoc_md15}{}\doxysubsection{\texorpdfstring{🛠️ Technologies Used}{🛠️ Technologies Used}}\label{index_autotoc_md15}
 
 \begin{DoxyItemize}
-\item {\bfseries{C++}}\+: efficient implementation of parsing algorithms
-\item {\bfseries{Qt6}}\+: modern, cross-\/platform graphical user interface.
-\item {\bfseries{Modular architecture}}\+: clean separation between logic and UI, designed for easy extensibility.
+\item {\bfseries{C++}}: efficient implementation of parsing algorithms
+\item {\bfseries{Qt6}}: modern, cross-\/platform graphical user interface.
+\item {\bfseries{Modular architecture}}: clean separation between logic and UI, designed for easy extensibility.
 \end{DoxyItemize}
 
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md14}{}\doxysection{\texorpdfstring{📦 Downloads}{📦 Downloads}}\label{index_autotoc_md14}
-Precompiled builds of \doxylink{namespaceSyntaxTutor}{Syntax\+Tutor} are available in the Releases tab\+:
+\hypertarget{index_autotoc_md17}{}\doxysubsection{\texorpdfstring{📦 Downloads}{📦 Downloads}}\label{index_autotoc_md17}
+Precompiled builds of \doxylink{namespace_syntax_tutor}{Syntax\+Tutor} are available in the Releases tab:
 \begin{DoxyItemize}
-\item 🐧 Linux (X11)\+: executable App\+Image
-\item 🪟 Windows\+: ZIP archive with the .exe
-\item 🍎 mac\+OS\+: .app bundles for both Apple Silicon (ARM) and Intel
+\item 🐧 Linux: executable App\+Image (Ubuntu 22.\+04, Debian 12 or newer). It runs on X11, and on Wayland desktops through XWayland; to run it natively on Wayland, start it with {\ttfamily QT\+\_\+\+QPA\+\_\+\+PLATFORM=wayland ./\+\+Syntax\+Tutor-\/\texorpdfstring{$<$}{<}version\texorpdfstring{$>$}{>}-\/x86\+\_\+64.\+App\+Image}
+\item 🪟 Windows: ZIP archive with the .exe
+\item 🍎 mac\+OS: .app bundle for Apple Silicon (ARM)
 \end{DoxyItemize}
 
 \begin{DoxyWarning}{Warning}
 The Windows and mac\+OS versions are not digitally signed. Your operating system may display a warning when running the application. You can bypass it manually if you trust the source.
 \end{DoxyWarning}
 \DoxyHorRuler{0}
-\hypertarget{index_autotoc_md16}{}\doxysection{\texorpdfstring{🛠️ Building from Source}{🛠️ Building from Source}}\label{index_autotoc_md16}
-To build \doxylink{namespaceSyntaxTutor}{Syntax\+Tutor} from source, you just need\+:
+\hypertarget{index_autotoc_md19}{}\doxysubsection{\texorpdfstring{🛠️ Building from Source}{🛠️ Building from Source}}\label{index_autotoc_md19}
+To build \doxylink{namespace_syntax_tutor}{Syntax\+Tutor} from source, you need:
 \begin{DoxyItemize}
-\item Qt6 (including {\ttfamily qmake6})
-\item A C++20-\/compliant compiler 
+\item Qt6 (including {\ttfamily qmake6} and the Qt SVG module)
+\item A C++20-\/compliant compiler (GCC 11 or newer works)
+\item \href{https://github.com/google/googletest}{\texttt{Google\+Test}}, only to run the backend tests
+\end{DoxyItemize}
+
+With GNU make, the repository\textquotesingle{}s {\ttfamily GNUmakefile} builds out of tree: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ app\ \ \ \ \ \#\ the\ application,\ in\ build/app}
+\DoxyCodeLine{make\ check\ \ \ \#\ backend\ and\ GUI\ tests}
+
+\end{DoxyCode}
+ To use qmake directly instead, pass {\ttfamily -\/f Makefile}: in the repository root GNU make would otherwise pick up the {\ttfamily GNUmakefile} above. 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{qmake6}
-\DoxyCodeLine{make}
+\DoxyCodeLine{make\ -\/f\ Makefile}
 
 \end{DoxyCode}
  \DoxyHorRuler{0}
-
-\end{DoxyItemize}\hypertarget{index_autotoc_md18}{}\doxysubsection{\texorpdfstring{📚 Documentation}{📚 Documentation}}\label{index_autotoc_md18}
-Full documentation for the source code is available via Doxygen\+:
+\hypertarget{index_autotoc_md21}{}\doxysubsubsection{\texorpdfstring{📚 Documentation}{📚 Documentation}}\label{index_autotoc_md21}
+Full documentation for the source code is available via Doxygen:
 
 
 \begin{DoxyItemize}
-\item {\bfseries{🌐 Online HTML Documentation}}\+: \href{https://jose-rzm.github.io/SyntaxTutor/}{\texttt{https\+://jose-\/rzm.\+github.\+io/\+Syntax\+Tutor/}}
-\item {\bfseries{📄 PDF Reference Manual}}\+: \href{docs/latex/refman.pdf}{\texttt{refman.\+pdf}} (in the {\ttfamily docs/latex/} folder)
+\item {\bfseries{🌐 Online HTML Documentation}}: \href{https://jose-rzm.github.io/SyntaxTutor/}{\texttt{https:\+/\+/\+jose-\/rzm.\+github.\+io/\+\+Syntax\+Tutor/}}
+\item {\bfseries{📄 PDF Developer Manual}}: \href{manual/SyntaxTutor-Developer-Manual.pdf}{\texttt{Syntax\+Tutor-\/\+Developer-\/\+Manual.\+pdf}}
 \end{DoxyItemize}
 
-The documentation includes\+:
+The documentation includes:
 
 
 \begin{DoxyItemize}
@@ -145,7 +187,7 @@ The documentation includes\+:
 \item Descriptions of parsing algorithms and internal logic
 \end{DoxyItemize}
 
-To regenerate it locally, install \href{https://www.doxygen.nl/}{\texttt{Doxygen}} and run\+:
+To regenerate it locally, install \href{https://www.doxygen.nl/}{\texttt{Doxygen}} and run:
 
 
 \begin{DoxyCode}{0}

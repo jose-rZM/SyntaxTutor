@@ -1,0 +1,26 @@
+<map id="SLRWizard::SLRWizard" name="SLRWizard::SLRWizard">
+<area shape="rect" id="Node000001" title="Constructs the SLR(1) guided dialog with all necessary parsing context." alt="" coords="5,209,167,234"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_wizard_page.html#a9e6bb05bb8b4a05cf97ef71e3f1aeb10" title=" " alt="" coords="231,5,420,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,207,109,176,136,135,171,92,213,56,223,52,219,55,216,60,175,96,140,138,113,179,96,210"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_wizard.html#a3830e2e93363d21966bb6ffadfc1e410" title=" " alt="" coords="243,70,408,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="96,207,143,157,177,129,213,106,232,100,228,103,216,111,180,134,147,161,100,210"/>
+<area shape="rect" id="Node000004" href="$namespace_app_layout.html#a2e8c035ca5f53e09369c3b4fc366ab99" title="Keeps widget at least as tall as its layout needs at its current width." alt="" coords="237,144,414,185"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="142,206,225,187,221,191,144,211"/>
+<area shape="rect" id="Node000006" href="$namespace_app_typography.html#aab34468dfba2dbcb811652547ecfaf89" title="A length that has to hold text, grown to how big text renders here." alt="" coords="498,246,697,272"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="167,225,436,244,486,250,480,251,436,250,167,230"/>
+<area shape="rect" id="Node000008" href="$class_s_l_r_wizard_page.html#ac06ec88e5ba53403211fff75cf4327b6" title="Constructs a page for a specific cell in the SLR(1) table." alt="" coords="215,260,436,285"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="150,232,249,254,244,257,150,238"/>
+<area shape="rect" id="Node000009" href="$class_s_l_r_wizard_page.html#a1cc1cd5a835662f90efcc6f2eea8dfc9" title=" " alt="" coords="484,296,711,321"/>
+<area shape="poly" id="edge14_Node000001_Node000009" title=" " alt="" coords="104,232,153,266,183,283,215,295,279,309,344,317,408,319,471,320,465,321,408,325,344,322,278,314,214,300,181,287,150,271,103,238"/>
+<area shape="rect" id="Node000010" href="$class_s_l_r_wizard.html#ada2751317642cb02e08bb1a3575627cd" title="Converts a std::vector&lt;std::string&gt; to QVector&lt;QString&gt; for UI compatibility." alt="" coords="219,361,432,386"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="99,232,147,285,180,314,216,339,248,356,242,355,213,344,176,318,143,289,97,238"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="280,143,278,134,286,125,301,119,325,117,351,120,368,128,363,129,350,125,325,123,302,125,289,129,283,135,285,144"/>
+<area shape="rect" id="Node000005" href="$class_app_layout_1_1_height_for_width_keeper.html#acfdec3a1b4b808bd81fdb04c818afd1f" title=" " alt="" coords="496,144,699,185"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="413,162,483,164,478,165,414,167"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="555,245,548,238,553,228,570,222,598,220,629,222,646,232,641,232,628,227,598,225,571,227,556,232,553,237,560,247"/>
+<area shape="rect" id="Node000007" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="759,246,944,272"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="697,256,746,259,741,259,697,262"/>
+<area shape="poly" id="edge8_Node000007_Node000007" title=" " alt="" coords="809,245,801,238,806,228,823,222,852,220,883,222,900,232,895,232,882,227,851,225,824,227,810,232,807,237,814,247"/>
+<area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="436,264,485,264,480,265,437,270"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="427,283,483,293,478,293,428,288"/>
+</map>

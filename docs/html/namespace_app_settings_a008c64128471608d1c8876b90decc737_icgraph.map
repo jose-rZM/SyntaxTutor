@@ -1,0 +1,11 @@
+<map id="AppSettings::open" name="AppSettings::open">
+<area shape="rect" id="Node000001" title="The app&#39;s settings." alt="" coords="208,78,336,104"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="303,63,293,59,272,57,252,59,241,64,239,69,245,78,240,77,234,70,238,60,251,54,272,52,295,54,308,63"/>
+<area shape="rect" id="Node000002" href="$class_grammar_editor_dialog.html#a69f1b5701d1a93cfec6ebc028ff68aac" title=" " alt="" coords="9,5,156,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,74,144,49,144,44,221,72"/>
+<area shape="rect" id="Node000003" href="$class_grammar_editor_dialog.html#a5d7cbecc4f7a19e02b00943c1f69ba67" title="Constructs the editor for the given exercise kind." alt="" coords="5,71,160,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,92,160,94,159,88,195,90"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="58,160,107,185"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="228,112,109,164,107,160,224,109"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="115,150,114,147,110,143,82,138,61,141,51,146,50,152,60,162,55,163,45,154,47,143,60,135,83,133,112,138,119,144,120,153"/>
+</map>

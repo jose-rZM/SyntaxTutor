@@ -1,0 +1,263 @@
+\doxysection{Main\+Window Class Reference}
+\label{class_main_window}\index{MainWindow@{MainWindow}}
+
+
+Main application window of \doxylink{namespace_syntax_tutor}{Syntax\+Tutor}, managing levels, exercises, and UI state.  
+
+
+
+
+{\ttfamily \+\#include $<$mainwindow.\+h$>$}
+
+
+
+Inheritance diagram for Main\+Window:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{class_main_window__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Main\+Window:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{class_main_window__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_main_window_abed50644ed307d4ab90a27bd13b30fcf}{user\+Level\+Changed}} (unsigned lvl)
+\begin{DoxyCompactList}\small\item\em Emitted when the user\textquotesingle{}s level changes. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a86775822330a07b3884915eb88833954}{user\+Level\+Up}} (unsigned new\+Level)
+\begin{DoxyCompactList}\small\item\em Emitted when the user levels up. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the main window. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{\texorpdfstring{$\sim$}{\string~}\+Main\+Window}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+unsigned \doxymbox{\hyperlink{class_main_window_a5873fede0f60801fad0e4fac382a492d}{threshold\+For}} (unsigned level)
+\begin{DoxyCompactList}\small\item\em Returns the required score threshold to unlock a level. \end{DoxyCompactList}\item 
+unsigned \doxymbox{\hyperlink{class_main_window_a336fbbdf2d2bdc8b4fd39eb9e8b74da7}{user\+Level}} () const
+\begin{DoxyCompactList}\small\item\em Returns the current user level. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_main_window_a3913d62afef85cd18073399c78045041}{set\+User\+Level}} (unsigned lvl)
+\begin{DoxyCompactList}\small\item\em Sets the user level, clamping it to the allowed maximum. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \doxymbox{\hyperlink{class_main_window_a982f606d82b1f4947002336aa03ebec2}{user\+Level}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main application window of \doxylink{namespace_syntax_tutor}{Syntax\+Tutor}, managing levels, exercises, and UI state. 
+
+This class serves as the central hub of the application. It handles level selection, navigation to LL(1) and SLR(1) exercises, tutorial management, settings persistence, and emits signals for user progress. It also includes UI logic for dynamic behavior like unlocking levels and changing language. 
+
+\label{class_main_window_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_a996c5a2b6f77944776856f08ec30858d} 
+Main\+Window::\+\+Main\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Constructs the main window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a996c5a2b6f77944776856f08ec30858d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{class_main_window_a996c5a2b6f77944776856f08ec30858d_icgraph}
+\end{center}
+\end{figure}
+\index{MainWindow@{MainWindow}!````~MainWindow@{\texorpdfstring{$\sim$}{\string~}MainWindow}}
+\index{````~MainWindow@{\texorpdfstring{$\sim$}{\string~}MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}MainWindow()}{\string~MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7} 
+Main\+Window::\+\texorpdfstring{$\sim$}{\string~}\+Main\+Window (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+
+
+\label{class_main_window_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{MainWindow@{MainWindow}!setUserLevel@{setUserLevel}}
+\index{setUserLevel@{setUserLevel}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{setUserLevel()}{setUserLevel()}}
+{\footnotesize\ttfamily \label{class_main_window_a3913d62afef85cd18073399c78045041} 
+void Main\+Window::\+set\+User\+Level (\begin{DoxyParamCaption}\item[{unsigned}]{lvl}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the user level, clamping it to the allowed maximum. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lvl} & New level to assign. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a3913d62afef85cd18073399c78045041_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a3913d62afef85cd18073399c78045041_icgraph}
+\end{center}
+\end{figure}
+\index{MainWindow@{MainWindow}!thresholdFor@{thresholdFor}}
+\index{thresholdFor@{thresholdFor}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{thresholdFor()}{thresholdFor()}}
+{\footnotesize\ttfamily \label{class_main_window_a5873fede0f60801fad0e4fac382a492d} 
+unsigned Main\+Window::\+threshold\+For (\begin{DoxyParamCaption}\item[{unsigned}]{level}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the required score threshold to unlock a level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & The level number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The score needed to unlock the given level. 
+\end{DoxyReturn}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{class_main_window_a5873fede0f60801fad0e4fac382a492d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{class_main_window_a5873fede0f60801fad0e4fac382a492d_icgraph}
+\end{center}
+\end{figure}
+\index{MainWindow@{MainWindow}!userLevel@{userLevel}}
+\index{userLevel@{userLevel}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{userLevel()}{userLevel()}}
+{\footnotesize\ttfamily \label{class_main_window_a336fbbdf2d2bdc8b4fd39eb9e8b74da7} 
+unsigned Main\+Window::\+user\+Level (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the current user level. 
+
+\index{MainWindow@{MainWindow}!userLevelChanged@{userLevelChanged}}
+\index{userLevelChanged@{userLevelChanged}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{userLevelChanged}{userLevelChanged}}
+{\footnotesize\ttfamily \label{class_main_window_abed50644ed307d4ab90a27bd13b30fcf} 
+void Main\+Window::\+user\+Level\+Changed (\begin{DoxyParamCaption}\item[{unsigned}]{lvl}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the user\textquotesingle{}s level changes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lvl} & New user level. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{class_main_window_abed50644ed307d4ab90a27bd13b30fcf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_abed50644ed307d4ab90a27bd13b30fcf_icgraph}
+\end{center}
+\end{figure}
+\index{MainWindow@{MainWindow}!userLevelUp@{userLevelUp}}
+\index{userLevelUp@{userLevelUp}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{userLevelUp}{userLevelUp}}
+{\footnotesize\ttfamily \label{class_main_window_a86775822330a07b3884915eb88833954} 
+void Main\+Window::\+user\+Level\+Up (\begin{DoxyParamCaption}\item[{unsigned}]{new\+Level}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the user levels up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Level} & The new level achieved. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{class_main_window_a86775822330a07b3884915eb88833954_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{class_main_window_a86775822330a07b3884915eb88833954_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_main_window_doc-property-members}
+\doxysubsection{Property Documentation}
+\index{MainWindow@{MainWindow}!userLevel@{userLevel}}
+\index{userLevel@{userLevel}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{userLevel}{userLevel}}
+{\footnotesize\ttfamily \label{class_main_window_a982f606d82b1f4947002336aa03ebec2} 
+unsigned Main\+Window::\+user\+Level\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\item 
+gui/\doxymbox{\hyperlink{mainwindow_8cpp}{mainwindow.\+cpp}}\end{DoxyCompactItemize}

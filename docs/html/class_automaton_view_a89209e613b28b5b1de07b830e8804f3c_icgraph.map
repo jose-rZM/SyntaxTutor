@@ -1,0 +1,5 @@
+<map id="AutomatonView::zoomIn" name="AutomatonView::zoomIn">
+<area shape="rect" id="Node000001" title="Zooms in one step around the view center." alt="" coords="223,13,387,38"/>
+<area shape="rect" id="Node000002" href="$class_automaton_viewer_dialog.html#a0dca877c8e4b561bca963d349ae999f2" title="Builds the viewer around an existing automaton view." alt="" coords="5,5,175,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,26,175,28,175,23,210,25"/>
+</map>

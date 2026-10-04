@@ -1,0 +1,12 @@
+<map id="SLRTutorWindow::solutionForE2" name="SLRTutorWindow::solutionForE2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="741,35,919,75"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#acee95c6fced6c81e46d3987c1717bad0" title="Opens the end&#45;of&#45;exam report." alt="" coords="496,5,693,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="723,42,694,41,694,35,728,42"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="506,70,683,96"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="728,67,684,75,683,70,723,68"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="5,5,191,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="480,28,191,28,191,23,482,23"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#af354f1473076474bef37f1d1c8c57d61" title="Shows and remembers the next question." alt="" coords="239,38,448,64"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="477,38,449,43,448,38,483,37"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="220,39,191,38,191,33,226,38"/>
+</map>

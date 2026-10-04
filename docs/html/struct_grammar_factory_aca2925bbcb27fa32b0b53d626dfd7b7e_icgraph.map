@@ -1,0 +1,10 @@
+<map id="GrammarFactory::GenerateNewNonTerminal" name="GrammarFactory::GenerateNewNonTerminal">
+<area shape="rect" id="Node000001" title="Generates a new non&#45;terminal symbol that is unique in the grammar." alt="" coords="531,27,711,68"/>
+<area shape="rect" id="Node000002" href="$struct_grammar_factory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Performs left factorization. A grammar can be left factorized if it has productions with the same pre..." alt="" coords="280,5,483,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,35,483,33,483,28,518,35"/>
+<area shape="rect" id="Node000004" href="$struct_grammar_factory.html#a4f167379fa626f0734d6e99b34b96a54" title="Removes direct left recursion in a grammar. A grammar has direct left recursion when one of its produ..." alt="" coords="282,55,480,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="518,60,481,67,481,61,513,60"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="5,35,232,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,32,232,37,232,32,267,31"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="264,63,232,62,232,57,269,63"/>
+</map>

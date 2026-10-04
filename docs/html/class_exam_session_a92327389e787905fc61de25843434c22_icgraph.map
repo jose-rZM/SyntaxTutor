@@ -1,0 +1,5 @@
+<map id="ExamSession::grade" name="ExamSession::grade">
+<area shape="rect" id="Node000001" title="Grade on the Spanish 0&#45;10 scale." alt="" coords="266,13,408,38"/>
+<area shape="rect" id="Node000002" href="$class_exam_report_dialog.html#a52aeefab0b780967e473905045fdbb69" title="Builds the report for a finished exam session." alt="" coords="5,5,218,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,26,218,28,218,23,253,26"/>
+</map>

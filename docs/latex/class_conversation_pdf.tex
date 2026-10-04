@@ -1,0 +1,331 @@
+\doxysection{Conversation\+Pdf Class Reference}
+\label{class_conversation_pdf}\index{ConversationPdf@{ConversationPdf}}
+
+
+Builds the PDF of an LL(1) or SLR(1) session.  
+
+
+
+
+{\ttfamily \+\#include $<$conversationpdf.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_conversation_pdf_1_1_message}{Message}}
+\begin{DoxyCompactList}\small\item\em One message of the conversation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \doxymbox{\hyperlink{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f}{Rule}} = QPair$<$QString, QVector$<$QString$>$$>$
+\begin{DoxyCompactList}\small\item\em A grammar rule: antecedent and consequent symbols. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_conversation_pdf_a56e9b7b9a34ec37bd38c2a7f151b6040}{Conversation\+Pdf}} (const QString \&exercise)
+\begin{DoxyCompactList}\small\item\em Starts a document for the exercise named {\ttfamily exercise}. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_ae4376eb49060b27693ad49c51086b4f9}{add\+Grammar}} (const QVector$<$ \doxymbox{\hyperlink{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f}{Rule}} $>$ \&rules, bool numbered)
+\begin{DoxyCompactList}\small\item\em The grammar, one rule per line; numbered when {\ttfamily numbered}. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a859395c05186e7e5866c1850b5a0c551}{add\+Conversation}} (const QVector$<$ \doxymbox{\hyperlink{struct_conversation_pdf_1_1_message}{Message}} $>$ \&messages)
+\begin{DoxyCompactList}\small\item\em The tutor\textquotesingle{}s questions and the student\textquotesingle{}s answers, in order. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a4865ba68204c69f236fdb1f28b2a76c4}{add\+Result}} (const QString \&grade, bool passed, const QString\+List \&lines)
+\begin{DoxyCompactList}\small\item\em The headline of an exam: the 0-\/10 grade beside its summary. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a097bc531a8d76a4ffd9850db3d713a61}{add\+Review}} (const QVector$<$ \doxymbox{\hyperlink{struct_exam_record}{Exam\+Record}} $>$ \&records)
+\begin{DoxyCompactList}\small\item\em Every graded item of an exam, with both answers. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a504eb4cdcf25ef9599954a50fce0b209}{add\+Section}} (const QString \&title, bool new\+Page=false)
+\begin{DoxyCompactList}\small\item\em A heading for the next block; {\ttfamily new\+Page} starts a new page. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_aceb63ae8ede8fd303be84f405b3c5c18}{add\+Definitions}} (const QVector$<$ QPair$<$ QString, QString $>$ $>$ \&rows)
+\begin{DoxyCompactList}\small\item\em Name/\+value pairs, such as FIRST(\+A) = \{ a, b \}. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_aeabef80e3219115470acb1ec8e380a67}{add\+Subheading}} (const QString \&text)
+\begin{DoxyCompactList}\small\item\em A small heading inside a section, such as a state\textquotesingle{}s name. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a8b5aae61f5506d682ce7ec2aea57bc67}{add\+Lines}} (const QString\+List \&lines)
+\begin{DoxyCompactList}\small\item\em Lines in a monospaced block, such as the items of a state. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a4e6f8a22e5cd96432d362ce0f2d5f4fc}{add\+Table}} (const QString\+List \&headers, const QVector$<$ QString\+List $>$ \&rows)
+\begin{DoxyCompactList}\small\item\em A table with a row header column. \end{DoxyCompactList}\item 
+QString \doxymbox{\hyperlink{class_conversation_pdf_a983b60803f4b959adf614c93cd73ec33}{html}} () const
+\begin{DoxyCompactList}\small\item\em The document as HTML, for inspection. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_conversation_pdf_a6eda5b50445d0ae14eb5661f76dab418}{print}} (const QString \&file\+Path) const
+\begin{DoxyCompactList}\small\item\em Prints the document to {\ttfamily file\+Path} as an A4 PDF. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \doxymbox{\hyperlink{class_conversation_pdf_ab376d5bcc34bc0cbddfd465f7df68009}{k\+Max\+Table\+Columns}} = 10
+\begin{DoxyCompactList}\small\item\em Data columns per block before a wide table is split. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Builds the PDF of an LL(1) or SLR(1) session. 
+
+Both tutors describe their exercise -\/ grammar, conversation, sets, table, or the graded review of an exam -\/ and this class lays it out the same way. It only uses the subset of HTML and CSS that QText\+Document supports when printing (tables, backgrounds, fonts), and splits tables too wide for an A4 page into blocks of columns, so grammars typed by the user, however large, stay readable. 
+
+\label{class_conversation_pdf_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\index{ConversationPdf@{ConversationPdf}!Rule@{Rule}}
+\index{Rule@{Rule}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{Rule}{Rule}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f} 
+using \doxymbox{\hyperlink{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f}{Conversation\+Pdf::\+\+Rule}} = QPair$<$QString, QVector$<$QString$>$$>$}
+
+
+
+A grammar rule: antecedent and consequent symbols. 
+
+
+
+\label{class_conversation_pdf_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{ConversationPdf@{ConversationPdf}!ConversationPdf@{ConversationPdf}}
+\index{ConversationPdf@{ConversationPdf}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{ConversationPdf()}{ConversationPdf()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a56e9b7b9a34ec37bd38c2a7f151b6040} 
+Conversation\+Pdf::\+\+Conversation\+Pdf (\begin{DoxyParamCaption}\item[{const QString \&}]{exercise}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Starts a document for the exercise named {\ttfamily exercise}. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a56e9b7b9a34ec37bd38c2a7f151b6040_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_conversation_pdf_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{ConversationPdf@{ConversationPdf}!addConversation@{addConversation}}
+\index{addConversation@{addConversation}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addConversation()}{addConversation()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a859395c05186e7e5866c1850b5a0c551} 
+void Conversation\+Pdf::\+add\+Conversation (\begin{DoxyParamCaption}\item[{const QVector$<$ \doxymbox{\hyperlink{struct_conversation_pdf_1_1_message}{Message}} $>$ \&}]{messages}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The tutor\textquotesingle{}s questions and the student\textquotesingle{}s answers, in order. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a859395c05186e7e5866c1850b5a0c551_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a859395c05186e7e5866c1850b5a0c551_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addDefinitions@{addDefinitions}}
+\index{addDefinitions@{addDefinitions}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addDefinitions()}{addDefinitions()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_aceb63ae8ede8fd303be84f405b3c5c18} 
+void Conversation\+Pdf::\+add\+Definitions (\begin{DoxyParamCaption}\item[{const QVector$<$ QPair$<$ QString, QString $>$ $>$ \&}]{rows}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Name/\+value pairs, such as FIRST(\+A) = \{ a, b \}. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_aceb63ae8ede8fd303be84f405b3c5c18_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addGrammar@{addGrammar}}
+\index{addGrammar@{addGrammar}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addGrammar()}{addGrammar()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_ae4376eb49060b27693ad49c51086b4f9} 
+void Conversation\+Pdf::\+add\+Grammar (\begin{DoxyParamCaption}\item[{const QVector$<$ \doxymbox{\hyperlink{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f}{Rule}} $>$ \&}]{rules}{, }\item[{bool}]{numbered}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The grammar, one rule per line; numbered when {\ttfamily numbered}. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_ae4376eb49060b27693ad49c51086b4f9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_ae4376eb49060b27693ad49c51086b4f9_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addLines@{addLines}}
+\index{addLines@{addLines}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addLines()}{addLines()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a8b5aae61f5506d682ce7ec2aea57bc67} 
+void Conversation\+Pdf::\+add\+Lines (\begin{DoxyParamCaption}\item[{const QString\+List \&}]{lines}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Lines in a monospaced block, such as the items of a state. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a8b5aae61f5506d682ce7ec2aea57bc67_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addResult@{addResult}}
+\index{addResult@{addResult}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addResult()}{addResult()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a4865ba68204c69f236fdb1f28b2a76c4} 
+void Conversation\+Pdf::\+add\+Result (\begin{DoxyParamCaption}\item[{const QString \&}]{grade}{, }\item[{bool}]{passed}{, }\item[{const QString\+List \&}]{lines}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The headline of an exam: the 0-\/10 grade beside its summary. 
+
+{\ttfamily grade} is already formatted; {\ttfamily lines} go under it, in order, and the grade and the last line take the pass or fail colour. \index{ConversationPdf@{ConversationPdf}!addReview@{addReview}}
+\index{addReview@{addReview}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addReview()}{addReview()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a097bc531a8d76a4ffd9850db3d713a61} 
+void Conversation\+Pdf::\+add\+Review (\begin{DoxyParamCaption}\item[{const QVector$<$ \doxymbox{\hyperlink{struct_exam_record}{Exam\+Record}} $>$ \&}]{records}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Every graded item of an exam, with both answers. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a097bc531a8d76a4ffd9850db3d713a61_cgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addSection@{addSection}}
+\index{addSection@{addSection}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addSection()}{addSection()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a504eb4cdcf25ef9599954a50fce0b209} 
+void Conversation\+Pdf::\+add\+Section (\begin{DoxyParamCaption}\item[{const QString \&}]{title}{, }\item[{bool}]{new\+Page}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A heading for the next block; {\ttfamily new\+Page} starts a new page. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a504eb4cdcf25ef9599954a50fce0b209_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addSubheading@{addSubheading}}
+\index{addSubheading@{addSubheading}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addSubheading()}{addSubheading()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_aeabef80e3219115470acb1ec8e380a67} 
+void Conversation\+Pdf::\+add\+Subheading (\begin{DoxyParamCaption}\item[{const QString \&}]{text}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A small heading inside a section, such as a state\textquotesingle{}s name. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_aeabef80e3219115470acb1ec8e380a67_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!addTable@{addTable}}
+\index{addTable@{addTable}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{addTable()}{addTable()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a4e6f8a22e5cd96432d362ce0f2d5f4fc} 
+void Conversation\+Pdf::\+add\+Table (\begin{DoxyParamCaption}\item[{const QString\+List \&}]{headers}{, }\item[{const QVector$<$ QString\+List $>$ \&}]{rows}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A table with a row header column. 
+
+{\ttfamily headers} starts with the corner cell; each row of {\ttfamily rows} starts with its row header. Tables wider than k\+Max\+Table\+Columns data columns are printed as consecutive blocks, each repeating the row headers, and every block repeats its header row on each page it spans. Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a4e6f8a22e5cd96432d362ce0f2d5f4fc_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!html@{html}}
+\index{html@{html}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{html()}{html()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a983b60803f4b959adf614c93cd73ec33} 
+QString Conversation\+Pdf::\+html (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The document as HTML, for inspection. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a983b60803f4b959adf614c93cd73ec33_icgraph}
+\end{center}
+\end{figure}
+\index{ConversationPdf@{ConversationPdf}!print@{print}}
+\index{print@{print}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_a6eda5b50445d0ae14eb5661f76dab418} 
+void Conversation\+Pdf::\+print (\begin{DoxyParamCaption}\item[{const QString \&}]{file\+Path}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prints the document to {\ttfamily file\+Path} as an A4 PDF. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a6eda5b50445d0ae14eb5661f76dab418_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_conversation_pdf_a6eda5b50445d0ae14eb5661f76dab418_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_conversation_pdf_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\index{ConversationPdf@{ConversationPdf}!kMaxTableColumns@{kMaxTableColumns}}
+\index{kMaxTableColumns@{kMaxTableColumns}!ConversationPdf@{ConversationPdf}}
+\doxysubsubsection{\texorpdfstring{kMaxTableColumns}{kMaxTableColumns}}
+{\footnotesize\ttfamily \label{class_conversation_pdf_ab376d5bcc34bc0cbddfd465f7df68009} 
+int Conversation\+Pdf::\+k\+Max\+Table\+Columns = 10\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Data columns per block before a wide table is split. 
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{conversationpdf_8h}{conversationpdf.\+h}}\end{DoxyCompactItemize}

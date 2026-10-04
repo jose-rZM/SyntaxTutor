@@ -1,0 +1,11 @@
+<map id="SLRWizardPage::SLRWizardPage" name="SLRWizardPage::SLRWizardPage">
+<area shape="rect" id="Node000001" title="Constructs a page for a specific cell in the SLR(1) table." alt="" coords="5,55,227,80"/>
+<area shape="rect" id="Node000002" href="$namespace_app_typography.html#aab34468dfba2dbcb811652547ecfaf89" title="A length that has to hold text, grown to how big text renders here." alt="" coords="289,29,488,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,55,276,52,271,53,227,60"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_wizard_page.html#a1cc1cd5a835662f90efcc6f2eea8dfc9" title=" " alt="" coords="275,79,502,104"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="227,75,262,80,257,80,227,80"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="346,28,338,21,343,11,360,5,388,3,420,5,437,15,432,15,418,11,388,8,361,10,347,15,344,20,351,30"/>
+<area shape="rect" id="Node000003" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="550,29,734,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="488,40,537,42,532,42,488,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="600,28,592,21,597,11,614,5,642,3,674,5,691,15,685,15,672,11,642,8,615,10,600,15,597,20,605,30"/>
+</map>

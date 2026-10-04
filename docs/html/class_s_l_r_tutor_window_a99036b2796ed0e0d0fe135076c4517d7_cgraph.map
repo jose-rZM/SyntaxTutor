@@ -1,0 +1,5 @@
+<map id="SLRTutorWindow::updateAutomatonPanel" name="SLRTutorWindow::updateAutomatonPanel">
+<area shape="rect" id="Node000001" title="Syncs the automaton view with the current tutor state." alt="" coords="5,5,240,46"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a7487c772b8821876779a0ad73e71c4c0" title="Fits all revealed content within the viewport." alt="" coords="288,13,463,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,23,275,26,269,26,240,28"/>
+</map>

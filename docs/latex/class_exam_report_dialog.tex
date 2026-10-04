@@ -1,0 +1,121 @@
+\doxysection{Exam\+Report\+Dialog Class Reference}
+\label{class_exam_report_dialog}\index{ExamReportDialog@{ExamReportDialog}}
+
+
+End-\/of-\/exam report: grade, stats and a question-\/by-\/question review.  
+
+
+
+
+{\ttfamily \+\#include $<$examreportdialog.\+h$>$}
+
+
+
+Inheritance diagram for Exam\+Report\+Dialog:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{class_exam_report_dialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Exam\+Report\+Dialog:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{class_exam_report_dialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_exam_report_dialog_aba620a1f85047591376fa2c9fb58c495}{export\+Requested}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the user asks to export the report to PDF. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_exam_report_dialog_a52aeefab0b780967e473905045fdbb69}{Exam\+Report\+Dialog}} (const \doxymbox{\hyperlink{class_exam_session}{Exam\+Session}} \&session, const QString \&exam\+Title, const QVector$<$ \doxymbox{\hyperlink{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f}{Conversation\+Pdf::\+\+Rule}} $>$ \&grammar, bool numbered\+Grammar, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Builds the report for a finished exam session. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_exam_report_dialog_a4f2ca84544eed6870f68a815ac5927ba}{print\+Report}} (const QString \&file\+Path) const
+\begin{DoxyCompactList}\small\item\em Prints the full report to {\ttfamily file\+Path} as a PDF. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+End-\/of-\/exam report: grade, stats and a question-\/by-\/question review. 
+
+Shown when an exam-\/mode exercise finishes. The headline is the 0-\/10 grade; below it a review lists every graded item with the student\textquotesingle{}s answer and the expected one, like a corrected exam sheet. The full report can be exported to PDF through the owning tutor window. 
+
+\label{class_exam_report_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{ExamReportDialog@{ExamReportDialog}!ExamReportDialog@{ExamReportDialog}}
+\index{ExamReportDialog@{ExamReportDialog}!ExamReportDialog@{ExamReportDialog}}
+\doxysubsubsection{\texorpdfstring{ExamReportDialog()}{ExamReportDialog()}}
+{\footnotesize\ttfamily \label{class_exam_report_dialog_a52aeefab0b780967e473905045fdbb69} 
+Exam\+Report\+Dialog::\+\+Exam\+Report\+Dialog (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_exam_session}{Exam\+Session}} \&}]{session}{, }\item[{const QString \&}]{exam\+Title}{, }\item[{const QVector$<$ \doxymbox{\hyperlink{class_conversation_pdf_abf31763c0c9ecf9b5de9ec8443f29e3f}{Conversation\+Pdf::\+\+Rule}} $>$ \&}]{grammar}{, }\item[{bool}]{numbered\+Grammar}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Builds the report for a finished exam session. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em session} & Graded exam data. \\
+\hline
+{\em exam\+Title} & Exercise name shown in the header (e.\+g. "{}\+Examen \+LL(1)"{}). \\
+\hline
+{\em grammar} & \doxylink{struct_grammar}{Grammar} of the exam, printed before the review. \\
+\hline
+{\em numbered\+Grammar} & Whether the printed rules carry their numbers. \\
+\hline
+{\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_report_dialog_a52aeefab0b780967e473905045fdbb69_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_exam_report_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{ExamReportDialog@{ExamReportDialog}!exportRequested@{exportRequested}}
+\index{exportRequested@{exportRequested}!ExamReportDialog@{ExamReportDialog}}
+\doxysubsubsection{\texorpdfstring{exportRequested}{exportRequested}}
+{\footnotesize\ttfamily \label{class_exam_report_dialog_aba620a1f85047591376fa2c9fb58c495} 
+void Exam\+Report\+Dialog::\+export\+Requested (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when the user asks to export the report to PDF. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_exam_report_dialog_aba620a1f85047591376fa2c9fb58c495_icgraph}
+\end{center}
+\end{figure}
+\index{ExamReportDialog@{ExamReportDialog}!printReport@{printReport}}
+\index{printReport@{printReport}!ExamReportDialog@{ExamReportDialog}}
+\doxysubsubsection{\texorpdfstring{printReport()}{printReport()}}
+{\footnotesize\ttfamily \label{class_exam_report_dialog_a4f2ca84544eed6870f68a815ac5927ba} 
+void Exam\+Report\+Dialog::\+print\+Report (\begin{DoxyParamCaption}\item[{const QString \&}]{file\+Path}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prints the full report to {\ttfamily file\+Path} as a PDF. 
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+gui/\doxymbox{\hyperlink{examreportdialog_8h}{examreportdialog.\+h}}\item 
+gui/\doxymbox{\hyperlink{examreportdialog_8cpp}{examreportdialog.\+cpp}}\end{DoxyCompactItemize}

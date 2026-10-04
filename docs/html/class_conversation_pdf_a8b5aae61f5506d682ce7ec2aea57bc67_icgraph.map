@@ -1,0 +1,7 @@
+<map id="ConversationPdf::addLines" name="ConversationPdf::addLines">
+<area shape="rect" id="Node000001" title="Lines in a monospaced block, such as the items of a state." alt="" coords="529,13,707,38"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="236,5,481,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="511,26,481,28,481,23,516,26"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="5,5,188,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,26,188,28,188,23,223,25"/>
+</map>

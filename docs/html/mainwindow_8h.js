@@ -1,4 +1,4 @@
 var mainwindow_8h =
 [
-    [ "MainWindow", "classMainWindow.html", "classMainWindow" ]
+    [ "MainWindow", "class_main_window.html", "class_main_window" ]
 ];

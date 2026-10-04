@@ -1,0 +1,12 @@
+<map id="SLRTutorWindow::solutionForA2" name="SLRTutorWindow::solutionForA2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="494,75,671,115"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a3ffb8f88721e380000a3eeda5dcac060" title="Grades the SLR table per cell." alt="" coords="248,45,446,86"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="476,82,446,81,446,75,481,82"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a154eed8af07ee1947f969745c16109d0" title=" " alt="" coords="258,110,436,136"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="481,107,436,115,436,110,476,108"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="10,5,195,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,47,196,44,196,38,235,46"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="5,94,200,120"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="230,86,183,96,182,91,235,84"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="144,80,131,75,102,73,77,75,62,80,59,85,67,94,62,94,54,86,59,76,75,70,103,68,133,70,149,80"/>
+</map>

@@ -4,6 +4,10 @@ var searchData=
   ['b1_1',['B1',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac9512565ef6194ca664dc41ec0de7a53',1,'lltutorwindow.h']]],
   ['b2_2',['B2',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abbd97b00c539801e32317ab550867ec4',1,'lltutorwindow.h']]],
   ['b_5fprime_3',['B_prime',['../lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abf4117e13eb3260dd9c0659f69d76cb5',1,'lltutorwindow.h']]],
-  ['building_20from_20source_4',['🛠️ Building from Source',['../index.html#autotoc_md16',1,'']]],
-  ['buildtreenode_5',['buildTreeNode',['../classLLTutorWindow.html#acd631fc33e5dbb6197bfc7b3d2b451f2',1,'LLTutorWindow']]]
+  ['basepoints_4',['basePoints',['../namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d',1,'AppTypography']]],
+  ['body_5',['Body',['../namespace_app_typography.html#aa29c8c558387b1ed5c038049e528585eaac101b32dda4448cf13a93fe283dddd8',1,'AppTypography']]],
+  ['bodylarge_6',['BodyLarge',['../namespace_app_typography.html#aa29c8c558387b1ed5c038049e528585ea04b0bee056bf3d988f87c912972bc7a5',1,'AppTypography']]],
+  ['buildgrammarrows_7',['buildGrammarRows',['../class_l_l_tutor_window.html#a640b1b58ce55b7ff49f00f434afc853a',1,'LLTutorWindow::buildGrammarRows()'],['../class_s_l_r_tutor_window.html#ad245be15ddf8194ff4ba179d485c20ae',1,'SLRTutorWindow::buildGrammarRows()']]],
+  ['building_20from_20source_8',['🛠️ Building from Source',['../index.html#autotoc_md19',1,'']]],
+  ['buildtreenode_9',['buildTreeNode',['../class_l_l_tutor_window.html#acd631fc33e5dbb6197bfc7b3d2b451f2',1,'LLTutorWindow']]]
 ];

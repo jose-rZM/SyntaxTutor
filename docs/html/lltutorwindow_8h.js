@@ -1,7 +1,7 @@
 var lltutorwindow_8h =
 [
-    [ "LLTutorWindow", "classLLTutorWindow.html", "classLLTutorWindow" ],
-    [ "LLTutorWindow::TreeNode", "structLLTutorWindow_1_1TreeNode.html", "structLLTutorWindow_1_1TreeNode" ],
+    [ "LLTutorWindow", "class_l_l_tutor_window.html", "class_l_l_tutor_window" ],
+    [ "LLTutorWindow::TreeNode", "struct_l_l_tutor_window_1_1_tree_node.html", "struct_l_l_tutor_window_1_1_tree_node" ],
     [ "State", "lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8", [
       [ "A", "lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a7fc56270e7a70fa81a5935b72eacbe29", null ],
       [ "A1", "lltutorwindow_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a27f237e6b7f96587b6202ff3607ad88a", null ],

@@ -1,0 +1,9 @@
+<map id="SyntaxTutor::Version::current" name="SyntaxTutor::Version::current">
+<area shape="rect" id="Node000001" title=" " alt="" coords="277,35,421,76"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="385,19,373,16,349,14,327,16,313,20,308,26,310,36,305,33,303,25,310,16,326,11,349,9,374,11,390,20"/>
+<area shape="rect" id="Node000002" href="$class_conversation_pdf.html#a56e9b7b9a34ec37bd38c2a7f151b6040" title="Starts a document for the exercise named exercise." alt="" coords="5,5,229,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="259,42,201,34,201,29,264,41"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="92,79,142,104"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="264,69,142,90,142,85,259,69"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="154,75,158,69,154,64,141,59,117,57,89,60,77,66,78,73,94,84,89,84,74,76,73,63,88,55,117,52,142,54,157,59,163,69,157,79"/>
+</map>

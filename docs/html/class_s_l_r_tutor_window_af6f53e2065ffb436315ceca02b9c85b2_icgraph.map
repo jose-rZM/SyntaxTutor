@@ -1,0 +1,9 @@
+<map id="SLRTutorWindow::promptExportFilePath" name="SLRTutorWindow::promptExportFilePath">
+<area shape="rect" id="Node000001" title=" " alt="" coords="301,55,511,96"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#ad245be15ddf8194ff4ba179d485c20ae" title="&lt; Utility for displaying grammar" alt="" coords="5,5,253,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,52,252,46,196,34,196,29,253,41,293,51"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#ab66b870e6d3751dc228688f5addf1e78" title=" " alt="" coords="36,55,222,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="282,76,222,78,222,73,287,75"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="38,120,220,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="305,99,219,122,218,117,299,100"/>
+</map>

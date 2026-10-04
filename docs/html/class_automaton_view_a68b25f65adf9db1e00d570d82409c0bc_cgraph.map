@@ -1,0 +1,23 @@
+<map id="AutomatonView::showStateDetails" name="AutomatonView::showStateDetails">
+<area shape="rect" id="Node000001" title="Shows the items of state id next to its node." alt="" coords="5,95,189,136"/>
+<area shape="rect" id="Node000002" href="$appfonts_8h.html#a84cba25ba11669036df0d2bdaaaa7223" title="Application&#45;wide monospace font." alt="" coords="257,29,392,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,92,236,64,260,59,255,61,237,69,155,97"/>
+<area shape="rect" id="Node000003" href="$namespace_app_typography.html#a1d8837f59d9e412638b5a27be675c948" title="base resized to role, keeping its family and style." alt="" coords="254,103,396,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="189,113,241,115,236,116,190,118"/>
+<area shape="rect" id="Node000008" href="$class_automaton_view.html#a364a8481f47f19cc3e54a65454ce9c9c" title="Hides the items shown by a click, if any." alt="" coords="237,152,413,193"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="180,134,229,148,224,148,180,139"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="289,29,282,21,287,11,301,5,325,3,351,5,366,15,360,15,349,10,325,8,302,10,290,15,288,20,294,29"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="289,102,282,94,287,84,301,78,325,76,351,79,366,88,360,88,349,84,325,81,302,83,290,88,288,93,294,103"/>
+<area shape="rect" id="Node000004" href="$namespace_app_typography.html#ad9e0d7a05805bae97441da9cf8ae4126" title="Size of role at the current text scale, in points." alt="" coords="461,103,615,128"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="396,113,448,115,443,116,396,118"/>
+<area shape="poly" id="edge12_Node000004_Node000004" title=" " alt="" coords="502,101,496,94,500,84,514,78,538,76,564,79,579,88,574,88,563,84,538,81,516,83,504,88,501,93,507,103"/>
+<area shape="rect" id="Node000005" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="663,65,848,91"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="615,100,659,95,664,94,616,105"/>
+<area shape="rect" id="Node000006" href="$namespace_app_text_scale.html#a01feb2d6132cdbe0da4069ea092cf050" title="Multiplier currently in effect." alt="" coords="684,139,827,164"/>
+<area shape="poly" id="edge8_Node000004_Node000006" title=" " alt="" coords="616,126,671,137,666,137,616,131"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="719,64,712,57,717,47,731,41,756,39,782,41,797,51,792,50,781,46,755,44,733,46,720,51,718,56,724,66"/>
+<area shape="poly" id="edge11_Node000006_Node000006" title=" " alt="" coords="719,137,712,130,717,120,731,114,756,112,782,115,797,124,792,123,781,120,755,117,733,119,720,124,718,129,724,139"/>
+<area shape="rect" id="Node000007" href="$namespace_app_text_scale.html#a7709873d381717abe050597c999c4102" title="The selected size, in percent." alt="" coords="896,139,1091,164"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="827,149,883,151,878,152,827,154"/>
+<area shape="poly" id="edge10_Node000007_Node000007" title=" " alt="" coords="954,137,946,130,951,120,967,114,993,112,1023,115,1039,125,1034,124,1021,120,993,117,968,119,954,124,952,129,959,139"/>
+</map>

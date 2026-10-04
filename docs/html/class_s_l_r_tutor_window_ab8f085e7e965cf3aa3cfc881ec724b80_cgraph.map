@@ -1,0 +1,7 @@
+<map id="SLRTutorWindow::applyTextScale" name="SLRTutorWindow::applyTextScale">
+<area shape="rect" id="Node000001" title="Re&#45;applies the current text size to this tutor." alt="" coords="5,5,194,46"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a359abee5231623a1e280c1d7c2497e5c" title=" " alt="" coords="242,5,465,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,23,229,25,223,26,194,28"/>
+<area shape="rect" id="Node000003" href="$struct_lr0_item.html#af04204a80422464f843b7a8ef4a22965" title="Converts the item to a string representation, including the dot position." alt="" coords="513,13,634,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="465,23,500,26,494,26,465,28"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="gui/conversationpdf.h" name="gui/conversationpdf.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="181,5,326,31"/>
+<area shape="rect" id="Node000002" href="$examreportdialog_8h.html" title=" " alt="" coords="177,79,330,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,44,256,80,251,77,252,49"/>
+<area shape="rect" id="Node000004" href="$lltutorwindow_8cpp.html" title=" " alt="" coords="5,153,147,178"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="223,38,167,81,123,120,89,155,85,150,119,116,164,77,219,41"/>
+<area shape="rect" id="Node000005" href="$slrtutorwindow_8cpp.html" title=" " alt="" coords="360,153,509,178"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="286,37,343,77,426,153,420,152,340,81,285,42"/>
+<area shape="rect" id="Node000003" href="$examreportdialog_8cpp.html" title=" " alt="" coords="170,153,336,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,118,256,154,251,151,251,122"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="211,112,107,155,105,150,207,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="299,108,406,152,401,152,298,113"/>
+</map>

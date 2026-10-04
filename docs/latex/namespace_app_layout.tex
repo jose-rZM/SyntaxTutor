@@ -1,0 +1,52 @@
+\doxysection{App\+Layout Namespace Reference}
+\label{namespace_app_layout}\index{AppLayout@{AppLayout}}
+
+
+Layout helpers that keep text from being clipped.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_app_layout_1_1_height_for_width_keeper}{Height\+For\+Width\+Keeper}}
+\begin{DoxyCompactList}\small\item\em Event filter behind \doxylink{namespace_app_layout_a2e8c035ca5f53e09369c3b4fc366ab99}{keep\+Height\+For\+Width}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{namespace_app_layout_a2e8c035ca5f53e09369c3b4fc366ab99}{keep\+Height\+For\+Width}} (QWidget \texorpdfstring{$\ast$}{*}widget)
+\begin{DoxyCompactList}\small\item\em Keeps {\ttfamily widget} at least as tall as its layout needs at its current width. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Layout helpers that keep text from being clipped. 
+
+Qt sizes word-\/wrapped text by height-\/for-\/width, but only some containers honour it. Top-\/level windows and widgets placed directly in a QMain\+Window or a QStacked\+Widget are given the height their layout guesses for an arbitrary width, so a title that wraps to one more line than the guess is cut in half. The effect depends on font, text size and window width, which is why it only shows on some systems. 
+
+\label{namespace_app_layout_doc-func-members}
+\doxysubsection{Function Documentation}
+\index{AppLayout@{AppLayout}!keepHeightForWidth@{keepHeightForWidth}}
+\index{keepHeightForWidth@{keepHeightForWidth}!AppLayout@{AppLayout}}
+\doxysubsubsection{\texorpdfstring{keepHeightForWidth()}{keepHeightForWidth()}}
+{\footnotesize\ttfamily \label{namespace_app_layout_a2e8c035ca5f53e09369c3b4fc366ab99} 
+void App\+Layout::\+keep\+Height\+For\+Width (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{widget}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Keeps {\ttfamily widget} at least as tall as its layout needs at its current width. 
+
+Re-\/evaluated whenever the widget is resized or its layout changes, so it follows the window width, the language and the text size. Use it on windows and on containers whose parent ignores height-\/for-\/width. Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_layout_a2e8c035ca5f53e09369c3b4fc366ab99_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespace_app_layout_a2e8c035ca5f53e09369c3b4fc366ab99_icgraph}
+\end{center}
+\end{figure}

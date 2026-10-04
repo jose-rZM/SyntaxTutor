@@ -1,0 +1,10 @@
+<map id="AppPalette::linkColor" name="AppPalette::linkColor">
+<area shape="rect" id="Node000001" title="Colour of links in rich text: the teal accent of the theme." alt="" coords="276,29,420,55"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="378,14,368,10,348,8,329,10,319,15,317,20,322,30,317,28,311,21,315,11,327,5,348,3,370,5,383,15"/>
+<area shape="rect" id="Node000002" href="$namespace_app_palette.html#a9e865dd8b27759b8f9466d2cd3b6a4f6" title="Palette entries the theme needs that app.qss cannot set." alt="" coords="104,29,228,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="258,42,228,45,228,40,263,42"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="187,14,180,10,166,8,152,10,145,14,143,20,147,30,142,28,138,21,140,11,150,5,166,3,182,5,192,15"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="6,29,56,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="85,43,56,45,56,40,90,41"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="52,15,46,10,31,8,17,10,10,14,8,20,12,28,7,30,3,21,6,11,15,5,31,3,48,5,57,14"/>
+</map>

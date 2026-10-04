@@ -1,0 +1,21 @@
+<map id="ConversationPdf::addSection" name="ConversationPdf::addSection">
+<area shape="rect" id="Node000001" title="A heading for the next block; newPage starts a new page." alt="" coords="840,82,1032,108"/>
+<area shape="rect" id="Node000002" href="$class_conversation_pdf.html#a859395c05186e7e5866c1850b5a0c551" title="The tutor&#39;s questions and the student&#39;s answers, in order." alt="" coords="568,82,792,108"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="822,95,793,98,793,93,827,95"/>
+<area shape="rect" id="Node000003" href="$class_l_l_tutor_window.html#ad327a0a69d7d746652f27d68af18d891" title="&lt; Add widget (e.g., table, tree)" alt="" coords="281,18,514,58"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="901,73,852,46,792,23,719,11,644,8,572,12,507,20,506,14,571,7,644,3,719,6,793,18,854,42,906,74"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="275,83,520,124"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="860,111,793,123,680,128,568,123,521,120,521,115,568,118,680,123,792,118,855,112"/>
+<area shape="rect" id="Node000007" href="$class_conversation_pdf.html#ae4376eb49060b27693ad49c51086b4f9" title="The grammar, one rule per line; numbered when numbered." alt="" coords="580,33,781,59"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="848,79,750,62,751,57,853,79"/>
+<area shape="rect" id="Node000008" href="$class_conversation_pdf.html#a097bc531a8d76a4ffd9850db3d713a61" title="Every graded item of an exam, with both answers." alt="" coords="584,184,776,209"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="900,115,849,143,793,167,736,186,735,180,791,162,847,138,895,116"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="596,79,501,62,501,56,601,78"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="550,99,521,102,520,97,555,98"/>
+<area shape="rect" id="Node000004" href="$class_l_l_tutor_window.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="5,25,227,51"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="263,39,228,40,227,35,268,37"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="25,83,207,124"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="256,104,208,106,207,101,261,102"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="561,43,514,44,514,39,567,42"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="596,63,502,85,501,80,601,62"/>
+</map>

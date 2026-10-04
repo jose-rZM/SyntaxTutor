@@ -1,0 +1,10 @@
+<map id="SLR1Parser::Follow" name="SLR1Parser::Follow">
+<area shape="rect" id="Node000001" title="Computes the FOLLOW set for a given non&#45;terminal symbol in the grammar." alt="" coords="761,5,900,31"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r1_parser.html#af61cf9a5210b5df543a0ffcff96ce295" title=" " alt="" coords="292,5,463,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="743,18,464,21,463,16,748,18"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r1_parser.html#a6a31a57223b052028c74f5d70db41c16" title="Resolves LR conflicts in a given state." alt="" coords="511,31,713,56"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="749,28,714,34,714,29,743,28"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,5,244,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,18,244,21,244,16,279,18"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="493,31,464,30,464,25,498,31"/>
+</map>

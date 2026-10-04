@@ -1,6 +1,6 @@
 \doxysection{slrwizard.\+h}
 \label{slrwizard_8h_source}\index{gui/slrwizard.h@{gui/slrwizard.h}}
-\mbox{\hyperlink{slrwizard_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{slrwizard_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/*}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
@@ -25,134 +25,274 @@
 \DoxyCodeLine{00021\ }
 \DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}slr1\_parser.hpp"{}}}
 \DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}slrwizardpage.h"{}}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <QLabel>}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QLineEdit>}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
-\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QWizard>}}
-\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QWizardPage>}}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }SLRWizard\ :\ \textcolor{keyword}{public}\ QWizard\ \{}
-\DoxyCodeLine{00046\ \ \ \ \ Q\_OBJECT}
-\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00059\ \ \ \ \ SLRWizard(SLR1Parser\&\ parser,\ \textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ rawTable,}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ colHeaders,}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<QPair<QString,\ QVector<QString>>>\&\ sortedGrammar,}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent\ =\ \textcolor{keyword}{nullptr})}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ :\ QWizard(parent)\ \{}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ setWindowTitle(tr(\textcolor{stringliteral}{"{}Ayuda\ interactiva:\ Tabla\ SLR(1)"{}}));}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nTerm\ =}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ parser.gr\_.st\_.terminals\_.contains(parser.gr\_.st\_.EPSILON\_)}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ parser.gr\_.st\_.terminals\_.size()\ -\/\ 1}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ parser.gr\_.st\_.terminals\_.size();}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ SLRWizardPage*\ last\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Generar\ explicación\ y\ páginas}}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rows\ =\ rawTable.size();}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cols\ =\ colHeaders.size();}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ rows;\ ++i)\ \{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ cols;\ ++j)\ \{}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ sym\ =\ colHeaders[j];}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ expected;}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ explanation;}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ <\ nTerm)\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itAct\ =\ parser.actions\_.at(i).find(sym.toStdString());}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SLR1Parser::s\_action\ act\ =}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (itAct\ !=\ parser.actions\_.at(i).end()}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ itAct-\/>second}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ SLR1Parser::s\_action\{nullptr,}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SLR1Parser::Action::Empty\});}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (act.action)\ \{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Shift:\ \{}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ to\ =}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parser.transitions\_.at(i).at(sym.toStdString());}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ QString(\textcolor{stringliteral}{"{}s\%1"{}}).arg(to);}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ existe\ transición\ δ(\%1,\ "{}}}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}'\%2').\ ¿A\ qué\ "{}}}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}estado\ harías\ shift?"{}})}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Reduce:\ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ -\/1;}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ sortedGrammar.size();\ ++k)\ \{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ rule\ =\ sortedGrammar[k];}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rule.first.toStdString()\ ==}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ act.item-\/>antecedent\_\ \&\&}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stdVectorToQVector(act.item-\/>consequent\_)\ ==}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rule.second)\ \{}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ k;}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ QString(\textcolor{stringliteral}{"{}r\%1"{}}).arg(idx);}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ explicación\ con\ FOLLOW}}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<std::string>\ F;}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F\ =\ parser.Follow(act.item-\/>antecedent\_);}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringList\ followList;}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ t\ :\ F)}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ followList\ <<\ QString::fromStdString(t);}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ el\ ítem\ [\%2\ →\ "{}}}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}...·]\ y\ '\%3'\ ∈\ "{}}}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SIG(\%2).\ ¿Qué\ regla\ usas\ para\ "{}}}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}reducir\ (0,\ 1,\ ...)?"{}})}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QString::fromStdString(}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ act.item-\/>antecedent\_))}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(colHeaders[j]);}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Accept:}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ \textcolor{stringliteral}{"{}acc"{}};}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ [S\ →\ A\ ·\ \$].\ "{}}}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}¿Qué\ palabra\ clave\ "{}}}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}usas\ para\ aceptar?"{}})}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i);}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Empty:}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GOTO\ sobre\ no\ terminal}}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ nonT\ =\ sym.toStdString();}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!parser.transitions\_.contains(i))\ \{}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itGo\ =\ parser.transitions\_.at(i).find(nonT);}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (itGo\ !=\ parser.transitions\_.at(i).end())\ \{}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ QString::number(itGo-\/>second);}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ δ(\%1,\ '\%2')\ existe.\ ¿A\ "{}}}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}qué\ estado\ va\ "{}}}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}la\ transición?\ (pon\ solo\ el\ número)"{}})}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SLRWizardPage*\ page\ =}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ SLRWizardPage(i,\ sym,\ explanation,\ expected,\ \textcolor{keyword}{this});}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\ =\ page;}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addPage(page);}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (last)\ \{}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ last-\/>setFinalPage(\textcolor{keyword}{true});}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00166\ \ \ \ \ \}}
-\DoxyCodeLine{00167\ }
-\DoxyCodeLine{00174\ \ \ \ \ QVector<QString>\ stdVectorToQVector(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec)\ \{}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ QVector<QString>\ result;}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ result.reserve(vec.size());}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ str\ :\ vec)\ \{}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ result.push\_back(QString::fromStdString(str));}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
-\DoxyCodeLine{00181\ \ \ \ \ \}}
-\DoxyCodeLine{00182\ \};}
-\DoxyCodeLine{00183\ }
-\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRWIZARD\_H}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QFrame>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QHBoxLayout>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QProgressBar>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}apptypography.h"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}applayout.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <QStackedWidget>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }SLRWizard\ :\ \textcolor{keyword}{public}\ QDialog\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00062\ \ \ \ \ SLRWizard(SLR1Parser\&\ parser,\ \textcolor{keyword}{const}\ QVector<QVector<QString>>\&\ rawTable,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ colHeaders,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QVector<QPair<QString,\ QVector<QString>>>\&\ sortedGrammar,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QWidget*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ :\ QDialog(parent)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ setProperty(\textcolor{stringliteral}{"{}guidedDialog"{}},\ \textcolor{stringliteral}{"{}slr"{}});}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ setWindowTitle(tr(\textcolor{stringliteral}{"{}Completar\ tabla\ SLR"{}}));}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ setWindowFlag(Qt::WindowCloseButtonHint,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ setModal(\textcolor{keyword}{true});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ resize(AppTypography::lengthForText(640),}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AppTypography::lengthForText(440));}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ AppLayout::keepHeightForWidth(\textcolor{keyword}{this});}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ setMinimumSize(AppTypography::lengthForText(560),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AppTypography::lengthForText(400));}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ rootLayout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ rootLayout-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ rootLayout-\/>setSpacing(0);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ panel\ =\ \textcolor{keyword}{new}\ QFrame(\textcolor{keyword}{this});}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ panel-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardPanel"{}});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ panelLayout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(panel);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ panelLayout-\/>setContentsMargins(28,\ 24,\ 28,\ 24);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ panelLayout-\/>setSpacing(20);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ headerLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ headerLayout-\/>setSpacing(12);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ titleColumn\ =\ \textcolor{keyword}{new}\ QVBoxLayout();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ titleColumn-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ titleColumn-\/>setSpacing(6);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ m\_titleLabel\ =\ \textcolor{keyword}{new}\ QLabel(panel);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ m\_titleLabel-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardTitle"{}});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ titleColumn-\/>addWidget(m\_titleLabel);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ m\_stepCounterLabel\ =\ \textcolor{keyword}{new}\ QLabel(panel);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ m\_stepCounterLabel-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardStepCounter"{}});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ titleColumn-\/>addWidget(m\_stepCounterLabel);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ m\_progressBar\ =\ \textcolor{keyword}{new}\ QProgressBar(panel);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardProgress"{}});}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setTextVisible(\textcolor{keyword}{false});}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setRange(0,\ 100);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setFixedHeight(4);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ titleColumn-\/>addWidget(m\_progressBar);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ headerLayout-\/>addLayout(titleColumn,\ 1);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ m\_closeButton\ =\ \textcolor{keyword}{new}\ QPushButton(tr(\textcolor{stringliteral}{"{}Salir"{}}),\ panel);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardCloseButton"{}});}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setAutoDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setCursor(Qt::PointingHandCursor);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ headerLayout-\/>addWidget(m\_closeButton,\ 0,\ Qt::AlignTop);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ panelLayout-\/>addLayout(headerLayout);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ m\_stack\ =\ \textcolor{keyword}{new}\ QStackedWidget(panel);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ m\_stack-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardStack"{}});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ panelLayout-\/>addWidget(m\_stack,\ 1);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ footerLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ footerLayout-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ footerLayout-\/>setSpacing(12);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ footerLayout-\/>addStretch(1);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ m\_nextButton\ =\ \textcolor{keyword}{new}\ QPushButton(panel);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setObjectName(\textcolor{stringliteral}{"{}slrWizardNextButton"{}});}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setProperty(\textcolor{stringliteral}{"{}role"{}},\ \textcolor{stringliteral}{"{}primary"{}});}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setAutoDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ footerLayout-\/>addWidget(m\_nextButton);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ panelLayout-\/>addLayout(footerLayout);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ rootLayout-\/>addWidget(panel);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nTerm\ =\ parser.gr\_.st\_.terminals\_.size();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ rawTable.size();\ ++i)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ colHeaders.size();\ ++j)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ sym\ =\ colHeaders[j];}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ \ \ \ \ \ \ expected;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QString\ \ \ \ \ \ \ explanation;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ <\ nTerm)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itAct\ =\ parser.actions\_.at(i).find(sym.toStdString());}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SLR1Parser::s\_action\ act\ =}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (itAct\ !=\ parser.actions\_.at(i).end()}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ itAct-\/>second}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ SLR1Parser::s\_action\{nullptr,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SLR1Parser::Action::Empty\});}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (act.action)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Shift:\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ to\ =}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parser.transitions\_.at(i).at(sym.toStdString());}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ QString(\textcolor{stringliteral}{"{}s\%1"{}}).arg(to);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ existe\ transición\ δ(\%1,\ "{}}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}'\%2').\ ¿A\ qué\ estado\ harías\ shift?"{}})}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Reduce:\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ -\/1;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ sortedGrammar.size();\ ++k)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ rule\ =\ sortedGrammar[k];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rule.first.toStdString()\ ==}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ act.item-\/>antecedent\_\ \&\&}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stdVectorToQVector(act.item-\/>consequent\_)\ ==}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rule.second)\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ k;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ =\ QString(\textcolor{stringliteral}{"{}r\%1"{}}).arg(idx);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ el\ ítem\ [\%2\ →\ "{}}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}...·]\ y\ '\%3'\ ∈\ SIG(\%2).\ ¿Qué\ regla\ "{}}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}usas\ para\ reducir\ (0,\ 1,\ ...)?"{}})}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(QString::fromStdString(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ act.item-\/>antecedent\_))}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(colHeaders[j]);}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Accept:}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ \textcolor{stringliteral}{"{}acc"{}};}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ contiene\ [S\ →\ A\ ·\ \$].\ "{}}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}¿Qué\ palabra\ clave\ usas\ para\ "{}}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}aceptar?"{}})}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i);}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SLR1Parser::Action::Empty:}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ nonT\ =\ sym.toStdString();}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!parser.transitions\_.contains(i))\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ itGo\ =\ parser.transitions\_.at(i).find(nonT);}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (itGo\ ==\ parser.transitions\_.at(i).end())\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected\ \ \ \ =\ QString::number(itGo-\/>second);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ explanation\ =\ tr(\textcolor{stringliteral}{"{}Estado\ \%1:\ δ(\%1,\ '\%2')\ existe.\ ¿A\ qué\ "{}}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}estado\ va\ la\ transición?\ (pon\ solo\ el\ "{}}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}número)"{}})}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(i)}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(sym);}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ page\ =\ \textcolor{keyword}{new}\ SLRWizardPage(i,\ sym,\ explanation,\ expected,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stack);}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ connect(page,\ \&SLRWizardPage::completionChanged,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&SLRWizard::updateCurrentPage);}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ connect(page,\ \&SLRWizardPage::submitRequested,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&SLRWizard::advance);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stack-\/>addWidget(page);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ connect(m\_closeButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&QDialog::reject);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ connect(m\_nextButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&SLRWizard::advance);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ updateCurrentPage();}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ QTimer::singleShot(0,\ \textcolor{keyword}{this},\ [\textcolor{keyword}{this}]()\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ page\ =\ currentPage())\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ page-\/>focusAnswerField();}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ SLRWizardPage*\ currentPage()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ qobject\_cast<SLRWizardPage*>(m\_stack-\/>currentWidget());}
+\DoxyCodeLine{00243\ \ \ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ QPushButton*\ nextButton()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_nextButton;\ \}}
+\DoxyCodeLine{00246\ \ \ \ \ QPushButton*\ closeButton()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_closeButton;\ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordtype}{bool}\ isOnLastPage()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_stack-\/>count()\ >\ 0\ \&\&}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stack-\/>currentIndex()\ ==\ m\_stack-\/>count()\ -\/\ 1;}
+\DoxyCodeLine{00251\ \ \ \ \ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00259\ \ \ \ \ QVector<QString>\ stdVectorToQVector(\textcolor{keyword}{const}\ std::vector<std::string>\&\ vec)\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ QVector<QString>\ result;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ result.reserve(vec.size());}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ str\ :\ vec)\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ result.push\_back(QString::fromStdString(str));}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordtype}{void}\ advance()\ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ page\ =\ currentPage();}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (page\ ==\ \textcolor{keyword}{nullptr}\ ||\ !page-\/>isComplete())\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isOnLastPage())\ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ accept();}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ m\_stack-\/>setCurrentIndex(m\_stack-\/>currentIndex()\ +\ 1);}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ updateCurrentPage();}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ nextPage\ =\ currentPage())\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ nextPage-\/>focusAnswerField();}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{void}\ updateCurrentPage()\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ page\ =\ currentPage();}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (page\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ m\_titleLabel-\/>setText(tr(\textcolor{stringliteral}{"{}Modo\ guiado"{}}));}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ m\_stepCounterLabel-\/>clear();}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ m\_progressBar-\/>setValue(0);}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ m\_nextButton-\/>setEnabled(\textcolor{keyword}{false});}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ m\_nextButton-\/>setText(tr(\textcolor{stringliteral}{"{}Finalizar"{}}));}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentStep\ =\ m\_stack-\/>currentIndex()\ +\ 1;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ totalSteps\ \ =\ m\_stack-\/>count();}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ m\_titleLabel-\/>setText(page-\/>titleText());}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ m\_stepCounterLabel-\/>setText(}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}Paso\ \%1\ de\ \%2"{}}).arg(currentStep).arg(totalSteps));}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setValue((100\ *\ currentStep)\ /\ qMax(1,\ totalSteps));}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setEnabled(page-\/>isComplete());}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setCursor(page-\/>isComplete()\ ?\ Qt::PointingHandCursor}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Qt::ArrowCursor);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setText(isOnLastPage()\ ?\ tr(\textcolor{stringliteral}{"{}Finalizar"{}})}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ tr(\textcolor{stringliteral}{"{}Continuar"{}}));}
+\DoxyCodeLine{00309\ \ \ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00312\ \ \ \ \ QLabel*\ \ \ \ \ \ \ \ \ m\_titleLabel\ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00313\ \ \ \ \ QLabel*\ \ \ \ \ \ \ \ \ m\_stepCounterLabel\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00314\ \ \ \ \ QProgressBar*\ \ \ m\_progressBar\ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00315\ \ \ \ \ QPushButton*\ \ \ \ m\_closeButton\ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00316\ \ \ \ \ QStackedWidget*\ m\_stack\ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00317\ \ \ \ \ QPushButton*\ \ \ \ m\_nextButton\ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00318\ \};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SLRWIZARD\_H}}
 
 \end{DoxyCode}

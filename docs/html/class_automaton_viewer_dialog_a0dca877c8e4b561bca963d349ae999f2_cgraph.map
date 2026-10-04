@@ -1,0 +1,27 @@
+<map id="AutomatonViewerDialog::AutomatonViewerDialog" name="AutomatonViewerDialog::AutomatonViewerDialog">
+<area shape="rect" id="Node000001" title="Builds the viewer around an existing automaton view." alt="" coords="5,225,175,266"/>
+<area shape="rect" id="Node000002" href="$class_automaton_view.html#a1ad1e4ffd0c7b34177d7c054f4629ffc" title="Centers (and reveals if needed) the currently inspected state." alt="" coords="230,5,448,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,224,115,188,142,142,177,95,221,56,231,51,227,55,224,60,181,99,146,145,120,190,102,226"/>
+<area shape="rect" id="Node000004" href="$class_automaton_view.html#a7487c772b8821876779a0ad73e71c4c0" title="Fits all revealed content within the viewport." alt="" coords="251,70,426,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="103,223,150,164,184,133,221,106,239,100,235,103,224,111,187,137,154,168,107,226"/>
+<area shape="rect" id="Node000005" href="$namespace_app_layout.html#a2e8c035ca5f53e09369c3b4fc366ab99" title="Keeps widget at least as tall as its layout needs at its current width." alt="" coords="251,144,427,185"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="143,222,222,194,247,188,242,191,224,199,145,227"/>
+<area shape="rect" id="Node000007" href="$namespace_app_typography.html#aab34468dfba2dbcb811652547ecfaf89" title="A length that has to hold text, grown to how big text renders here." alt="" coords="240,233,438,258"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="174,243,226,244,222,247,176,248"/>
+<area shape="rect" id="Node000009" href="$namespace_app_shortcuts.html#a1b887ee39dff49f27bc95d081f4710fb" title="Name of the key behind Qt::ControlModifier on this platform." alt="" coords="223,306,455,332"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="161,264,280,300,276,303,161,269"/>
+<area shape="rect" id="Node000010" href="$class_automaton_view.html#a89209e613b28b5b1de07b830e8804f3c" title="Zooms in one step around the view center." alt="" coords="257,356,421,381"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="113,264,162,304,192,325,224,342,244,352,239,352,222,347,189,329,159,309,112,269"/>
+<area shape="rect" id="Node000011" href="$class_automaton_view.html#a5c4cd51058bb1e18394760b9efd65e7d" title="Zooms out one step around the view center." alt="" coords="252,405,426,430"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="104,264,152,328,185,363,224,391,240,401,234,400,221,396,182,367,148,332,102,269"/>
+<area shape="rect" id="Node000003" href="$class_automaton_view.html#ae595a1e972eeecb85ed706fc4092a23e" title="Makes a state node visible." alt="" coords="510,13,698,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="447,23,497,25,492,27,449,28"/>
+<area shape="poly" id="edge6_Node000005_Node000005" title=" " alt="" coords="292,143,290,134,298,125,314,119,339,117,366,120,383,128,378,129,364,125,339,123,315,125,300,129,295,135,297,144"/>
+<area shape="rect" id="Node000006" href="$class_app_layout_1_1_height_for_width_keeper.html#acfdec3a1b4b808bd81fdb04c818afd1f" title=" " alt="" coords="503,144,705,185"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="427,162,490,164,485,165,428,167"/>
+<area shape="poly" id="edge10_Node000007_Node000007" title=" " alt="" coords="297,232,290,224,295,214,311,208,339,206,370,209,387,218,381,219,368,214,339,211,312,214,298,218,295,224,303,233"/>
+<area shape="rect" id="Node000008" href="$namespace_app_typography.html#ac3c097af33e9a619a4c8a41671d5db5d" title="Size of role at a 100% text scale, in points." alt="" coords="512,233,696,258"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="438,243,499,245,494,246,439,248"/>
+<area shape="poly" id="edge9_Node000008_Node000008" title=" " alt="" coords="560,232,552,224,557,214,575,208,604,206,637,209,655,219,650,218,636,214,604,211,576,214,560,218,557,224,565,233"/>
+<area shape="poly" id="edge12_Node000009_Node000009" title=" " alt="" coords="297,305,290,298,295,288,311,282,339,280,370,282,387,292,381,292,368,287,339,285,312,287,298,292,295,297,302,306"/>
+</map>

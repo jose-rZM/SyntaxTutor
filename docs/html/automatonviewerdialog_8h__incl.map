@@ -1,0 +1,7 @@
+<map id="gui/automatonviewerdialog.h" name="gui/automatonviewerdialog.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,192,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="18,79,86,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,30,70,68,66,64,89,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="110,79,183,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,29,133,66,127,66,105,34"/>
+</map>

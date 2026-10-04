@@ -1,0 +1,493 @@
+\doxysection{Automaton\+View Class Reference}
+\label{class_automaton_view}\index{AutomatonView@{AutomatonView}}
+
+
+Progressive LR(0) automaton visualization.  
+
+
+
+
+{\ttfamily \+\#include $<$automatonview.\+h$>$}
+
+
+
+Inheritance diagram for Automaton\+View:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=129pt]{class_automaton_view__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Automaton\+View:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=129pt]{class_automaton_view__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_automaton_view_af91798ef5ac6db94df99e0cc96b243cd}{Automaton\+View}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+void \doxymbox{\hyperlink{class_automaton_view_a56214c511723b5746922f695b261260e}{set\+Automaton}} (const QVector$<$ \doxymbox{\hyperlink{struct_automaton_state_info}{Automaton\+State\+Info}} $>$ \&states, const QVector$<$ \doxymbox{\hyperlink{struct_automaton_transition_info}{Automaton\+Transition\+Info}} $>$ \&transitions)
+\begin{DoxyCompactList}\small\item\em Loads the automaton and computes the layout. Everything starts hidden. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_ae595a1e972eeecb85ed706fc4092a23e}{reveal\+State}} (unsigned id)
+\begin{DoxyCompactList}\small\item\em Makes a state node visible. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a18849d59cd6aa265322d3b38362b2eb4}{reveal\+Transition}} (unsigned from, unsigned to)
+\begin{DoxyCompactList}\small\item\em Makes a transition edge visible, together with both endpoint states. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a03670fb71e2af147de3538c74bb11a9d}{reveal\+All}} ()
+\begin{DoxyCompactList}\small\item\em Reveals every state and transition (consultation mode). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_ad3c719d89cc7b23460c17ca668c36712}{set\+Current\+State}} (int id)
+\begin{DoxyCompactList}\small\item\em Highlights one state as the one being analyzed (-\/1 for none). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_aa175573f1f6faf7a809b1846ff28a79e}{set\+Conflict\+States}} (const QSet$<$ unsigned $>$ \&ids)
+\begin{DoxyCompactList}\small\item\em Marks states that contain an LR(0) conflict. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a161a4b987e96766185e838fdce98f851}{set\+Reduce\+States}} (const QSet$<$ unsigned $>$ \&ids)
+\begin{DoxyCompactList}\small\item\em Marks states that can perform a reduction. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a0a4f9b7a5151637346feaac3f4fa9bfc}{clear\+State\+Marks}} ()
+\begin{DoxyCompactList}\small\item\em Clears conflict and reduce marks. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a89209e613b28b5b1de07b830e8804f3c}{zoom\+In}} ()
+\begin{DoxyCompactList}\small\item\em Zooms in one step around the view center. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a5c4cd51058bb1e18394760b9efd65e7d}{zoom\+Out}} ()
+\begin{DoxyCompactList}\small\item\em Zooms out one step around the view center. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a7487c772b8821876779a0ad73e71c4c0}{fit\+To\+View}} ()
+\begin{DoxyCompactList}\small\item\em Fits all revealed content within the viewport. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a1ad1e4ffd0c7b34177d7c054f4629ffc}{center\+On\+Current\+State}} ()
+\begin{DoxyCompactList}\small\item\em Centers (and reveals if needed) the currently inspected state. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_automaton_view_a9d6796c1c51fb91eef6c98008c429d56}{is\+State\+Visible}} (unsigned id) const
+\item 
+int \doxymbox{\hyperlink{class_automaton_view_a692f53ea0dde899214a81cc544a0aec6}{visible\+State\+Count}} () const
+\item 
+int \doxymbox{\hyperlink{class_automaton_view_a1beff437187d1e4843d4faa55314ce25}{total\+State\+Count}} () const
+\item 
+int \doxymbox{\hyperlink{class_automaton_view_aee6c11401b5f481c1944f85266258eac}{visible\+Transition\+Count}} () const
+\item 
+bool \doxymbox{\hyperlink{class_automaton_view_ae506d76e0818a0b3991ea74ce43e42a1}{is\+Fully\+Revealed}} () const
+\item 
+int \doxymbox{\hyperlink{class_automaton_view_a751d80753b2619bf74acd762407ca175}{current\+State\+Id}} () const
+\item 
+QSet$<$ unsigned $>$ \doxymbox{\hyperlink{class_automaton_view_a83b6a50e4b3e14d46a1d9b2acfb35043}{conflict\+States}} () const
+\item 
+QSet$<$ unsigned $>$ \doxymbox{\hyperlink{class_automaton_view_afb72d59f729d640a4ec1585ae6b8b0f5}{reduce\+States}} () const
+\item 
+int \doxymbox{\hyperlink{class_automaton_view_a5cf7cd287665a38ce386d792d9b122bf}{shown\+State\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Id of the state whose items are shown, or -\/1. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a68b25f65adf9db1e00d570d82409c0bc}{show\+State\+Details}} (unsigned id)
+\begin{DoxyCompactList}\small\item\em Shows the items of state {\ttfamily id} next to its node. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_automaton_view_a364a8481f47f19cc3e54a65454ce9c9c}{hide\+State\+Details}} ()
+\begin{DoxyCompactList}\small\item\em Hides the items shown by a click, if any. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_automaton_view_aa821b9fd889ab2bb991eb652326dedc7}{wheel\+Event}} (QWheel\+Event \texorpdfstring{$\ast$}{*}event) override
+\item 
+void \doxymbox{\hyperlink{class_automaton_view_a8a6fcee2c935c3f57b20cfc476f13f97}{mouse\+Press\+Event}} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\item 
+void \doxymbox{\hyperlink{class_automaton_view_a0bd33dfc63c9e82fd2e6ada788e07961}{mouse\+Release\+Event}} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\item 
+void \doxymbox{\hyperlink{class_automaton_view_a8cb7c68273f24421f94b273a23f78bc7}{key\+Press\+Event}} (QKey\+Event \texorpdfstring{$\ast$}{*}event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Progressive LR(0) automaton visualization. 
+
+QGraphics\+View-\/based panel that renders the LR(0) collection as a graph of state nodes (I0, I1, ...) and labelled transition edges. The full automaton is loaded up front with a deterministic BFS-\/level layout, but every node and edge starts hidden: the SLR tutor reveals them as the student constructs them, so the panel never spoils the construction. Once the collection is complete the tutor calls \doxylink{class_automaton_view_a03670fb71e2af147de3538c74bb11a9d}{reveal\+All()} and the view becomes a stable consultation tool, with optional highlights for the current, conflict and reduce states.
+
+Hovering or clicking a node shows the LR(0) items of that state. The view supports Ctrl+wheel (Cmd+wheel on mac\+OS) zooming and drag scrolling. 
+
+\label{class_automaton_view_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{AutomatonView@{AutomatonView}!AutomatonView@{AutomatonView}}
+\index{AutomatonView@{AutomatonView}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{AutomatonView()}{AutomatonView()}}
+{\footnotesize\ttfamily \label{class_automaton_view_af91798ef5ac6db94df99e0cc96b243cd} 
+Automaton\+View::\+\+Automaton\+View (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\label{class_automaton_view_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{AutomatonView@{AutomatonView}!centerOnCurrentState@{centerOnCurrentState}}
+\index{centerOnCurrentState@{centerOnCurrentState}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{centerOnCurrentState()}{centerOnCurrentState()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a1ad1e4ffd0c7b34177d7c054f4629ffc} 
+void Automaton\+View::\+center\+On\+Current\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Centers (and reveals if needed) the currently inspected state. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a1ad1e4ffd0c7b34177d7c054f4629ffc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a1ad1e4ffd0c7b34177d7c054f4629ffc_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!clearStateMarks@{clearStateMarks}}
+\index{clearStateMarks@{clearStateMarks}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{clearStateMarks()}{clearStateMarks()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a0a4f9b7a5151637346feaac3f4fa9bfc} 
+void Automaton\+View::\+clear\+State\+Marks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Clears conflict and reduce marks. 
+
+\index{AutomatonView@{AutomatonView}!conflictStates@{conflictStates}}
+\index{conflictStates@{conflictStates}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{conflictStates()}{conflictStates()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a83b6a50e4b3e14d46a1d9b2acfb35043} 
+QSet$<$ unsigned $>$ Automaton\+View::\+conflict\+States (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{AutomatonView@{AutomatonView}!currentStateId@{currentStateId}}
+\index{currentStateId@{currentStateId}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{currentStateId()}{currentStateId()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a751d80753b2619bf74acd762407ca175} 
+int Automaton\+View::\+current\+State\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{AutomatonView@{AutomatonView}!fitToView@{fitToView}}
+\index{fitToView@{fitToView}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{fitToView()}{fitToView()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a7487c772b8821876779a0ad73e71c4c0} 
+void Automaton\+View::\+fit\+To\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Fits all revealed content within the viewport. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a7487c772b8821876779a0ad73e71c4c0_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!hideStateDetails@{hideStateDetails}}
+\index{hideStateDetails@{hideStateDetails}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{hideStateDetails()}{hideStateDetails()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a364a8481f47f19cc3e54a65454ce9c9c} 
+void Automaton\+View::\+hide\+State\+Details (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Hides the items shown by a click, if any. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a364a8481f47f19cc3e54a65454ce9c9c_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!isFullyRevealed@{isFullyRevealed}}
+\index{isFullyRevealed@{isFullyRevealed}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{isFullyRevealed()}{isFullyRevealed()}}
+{\footnotesize\ttfamily \label{class_automaton_view_ae506d76e0818a0b3991ea74ce43e42a1} 
+bool Automaton\+View::\+is\+Fully\+Revealed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_ae506d76e0818a0b3991ea74ce43e42a1_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!isStateVisible@{isStateVisible}}
+\index{isStateVisible@{isStateVisible}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{isStateVisible()}{isStateVisible()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a9d6796c1c51fb91eef6c98008c429d56} 
+bool Automaton\+View::\+is\+State\+Visible (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption}) const}
+
+\index{AutomatonView@{AutomatonView}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a8cb7c68273f24421f94b273a23f78bc7} 
+void Automaton\+View::\+key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a8cb7c68273f24421f94b273a23f78bc7_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{mousePressEvent()}{mousePressEvent()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a8a6fcee2c935c3f57b20cfc476f13f97} 
+void Automaton\+View::\+mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+\index{AutomatonView@{AutomatonView}!mouseReleaseEvent@{mouseReleaseEvent}}
+\index{mouseReleaseEvent@{mouseReleaseEvent}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{mouseReleaseEvent()}{mouseReleaseEvent()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a0bd33dfc63c9e82fd2e6ada788e07961} 
+void Automaton\+View::\+mouse\+Release\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a0bd33dfc63c9e82fd2e6ada788e07961_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!reduceStates@{reduceStates}}
+\index{reduceStates@{reduceStates}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{reduceStates()}{reduceStates()}}
+{\footnotesize\ttfamily \label{class_automaton_view_afb72d59f729d640a4ec1585ae6b8b0f5} 
+QSet$<$ unsigned $>$ Automaton\+View::\+reduce\+States (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\index{AutomatonView@{AutomatonView}!revealAll@{revealAll}}
+\index{revealAll@{revealAll}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{revealAll()}{revealAll()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a03670fb71e2af147de3538c74bb11a9d} 
+void Automaton\+View::\+reveal\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reveals every state and transition (consultation mode). 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{class_automaton_view_a03670fb71e2af147de3538c74bb11a9d_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!revealState@{revealState}}
+\index{revealState@{revealState}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{revealState()}{revealState()}}
+{\footnotesize\ttfamily \label{class_automaton_view_ae595a1e972eeecb85ed706fc4092a23e} 
+void Automaton\+View::\+reveal\+State (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Makes a state node visible. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_ae595a1e972eeecb85ed706fc4092a23e_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!revealTransition@{revealTransition}}
+\index{revealTransition@{revealTransition}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{revealTransition()}{revealTransition()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a18849d59cd6aa265322d3b38362b2eb4} 
+void Automaton\+View::\+reveal\+Transition (\begin{DoxyParamCaption}\item[{unsigned}]{from}{, }\item[{unsigned}]{to}{}\end{DoxyParamCaption})}
+
+
+
+Makes a transition edge visible, together with both endpoint states. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a18849d59cd6aa265322d3b38362b2eb4_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!setAutomaton@{setAutomaton}}
+\index{setAutomaton@{setAutomaton}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{setAutomaton()}{setAutomaton()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a56214c511723b5746922f695b261260e} 
+void Automaton\+View::\+set\+Automaton (\begin{DoxyParamCaption}\item[{const QVector$<$ \doxymbox{\hyperlink{struct_automaton_state_info}{Automaton\+State\+Info}} $>$ \&}]{states}{, }\item[{const QVector$<$ \doxymbox{\hyperlink{struct_automaton_transition_info}{Automaton\+Transition\+Info}} $>$ \&}]{transitions}{}\end{DoxyParamCaption})}
+
+
+
+Loads the automaton and computes the layout. Everything starts hidden. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em states} & All LR(0) states. \\
+\hline
+{\em transitions} & All delta transitions. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a56214c511723b5746922f695b261260e_cgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!setConflictStates@{setConflictStates}}
+\index{setConflictStates@{setConflictStates}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{setConflictStates()}{setConflictStates()}}
+{\footnotesize\ttfamily \label{class_automaton_view_aa175573f1f6faf7a809b1846ff28a79e} 
+void Automaton\+View::\+set\+Conflict\+States (\begin{DoxyParamCaption}\item[{const QSet$<$ unsigned $>$ \&}]{ids}{}\end{DoxyParamCaption})}
+
+
+
+Marks states that contain an LR(0) conflict. 
+
+\index{AutomatonView@{AutomatonView}!setCurrentState@{setCurrentState}}
+\index{setCurrentState@{setCurrentState}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{setCurrentState()}{setCurrentState()}}
+{\footnotesize\ttfamily \label{class_automaton_view_ad3c719d89cc7b23460c17ca668c36712} 
+void Automaton\+View::\+set\+Current\+State (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Highlights one state as the one being analyzed (-\/1 for none). 
+
+\index{AutomatonView@{AutomatonView}!setReduceStates@{setReduceStates}}
+\index{setReduceStates@{setReduceStates}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{setReduceStates()}{setReduceStates()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a161a4b987e96766185e838fdce98f851} 
+void Automaton\+View::\+set\+Reduce\+States (\begin{DoxyParamCaption}\item[{const QSet$<$ unsigned $>$ \&}]{ids}{}\end{DoxyParamCaption})}
+
+
+
+Marks states that can perform a reduction. 
+
+\index{AutomatonView@{AutomatonView}!shownStateId@{shownStateId}}
+\index{shownStateId@{shownStateId}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{shownStateId()}{shownStateId()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a5cf7cd287665a38ce386d792d9b122bf} 
+int Automaton\+View::\+shown\+State\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Id of the state whose items are shown, or -\/1. 
+
+\index{AutomatonView@{AutomatonView}!showStateDetails@{showStateDetails}}
+\index{showStateDetails@{showStateDetails}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{showStateDetails()}{showStateDetails()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a68b25f65adf9db1e00d570d82409c0bc} 
+void Automaton\+View::\+show\+State\+Details (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Shows the items of state {\ttfamily id} next to its node. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a68b25f65adf9db1e00d570d82409c0bc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a68b25f65adf9db1e00d570d82409c0bc_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!totalStateCount@{totalStateCount}}
+\index{totalStateCount@{totalStateCount}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{totalStateCount()}{totalStateCount()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a1beff437187d1e4843d4faa55314ce25} 
+int Automaton\+View::\+total\+State\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a1beff437187d1e4843d4faa55314ce25_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!visibleStateCount@{visibleStateCount}}
+\index{visibleStateCount@{visibleStateCount}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{visibleStateCount()}{visibleStateCount()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a692f53ea0dde899214a81cc544a0aec6} 
+int Automaton\+View::\+visible\+State\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_a692f53ea0dde899214a81cc544a0aec6_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!visibleTransitionCount@{visibleTransitionCount}}
+\index{visibleTransitionCount@{visibleTransitionCount}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{visibleTransitionCount()}{visibleTransitionCount()}}
+{\footnotesize\ttfamily \label{class_automaton_view_aee6c11401b5f481c1944f85266258eac} 
+int Automaton\+View::\+visible\+Transition\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_automaton_view_aee6c11401b5f481c1944f85266258eac_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!wheelEvent@{wheelEvent}}
+\index{wheelEvent@{wheelEvent}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{wheelEvent()}{wheelEvent()}}
+{\footnotesize\ttfamily \label{class_automaton_view_aa821b9fd889ab2bb991eb652326dedc7} 
+void Automaton\+View::\+wheel\+Event (\begin{DoxyParamCaption}\item[{QWheel\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+\index{AutomatonView@{AutomatonView}!zoomIn@{zoomIn}}
+\index{zoomIn@{zoomIn}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{zoomIn()}{zoomIn()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a89209e613b28b5b1de07b830e8804f3c} 
+void Automaton\+View::\+zoom\+In (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Zooms in one step around the view center. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{class_automaton_view_a89209e613b28b5b1de07b830e8804f3c_icgraph}
+\end{center}
+\end{figure}
+\index{AutomatonView@{AutomatonView}!zoomOut@{zoomOut}}
+\index{zoomOut@{zoomOut}!AutomatonView@{AutomatonView}}
+\doxysubsubsection{\texorpdfstring{zoomOut()}{zoomOut()}}
+{\footnotesize\ttfamily \label{class_automaton_view_a5c4cd51058bb1e18394760b9efd65e7d} 
+void Automaton\+View::\+zoom\+Out (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Zooms out one step around the view center. 
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{class_automaton_view_a5c4cd51058bb1e18394760b9efd65e7d_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+widgets/\doxymbox{\hyperlink{automatonview_8h}{automatonview.\+h}}\item 
+widgets/\doxymbox{\hyperlink{automatonview_8cpp}{automatonview.\+cpp}}\end{DoxyCompactItemize}

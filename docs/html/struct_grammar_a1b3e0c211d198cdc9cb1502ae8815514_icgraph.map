@@ -1,0 +1,35 @@
+<map id="Grammar::PresentationOrder" name="Grammar::PresentationOrder">
+<area shape="rect" id="Node000001" title="Antecedents other than the axiom, in presentation order." alt="" coords="1684,159,1872,185"/>
+<area shape="rect" id="Node000002" href="$struct_grammar.html#aa201250a002a7d07d398fee189a74427" title=" " alt="" coords="1499,159,1636,185"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1666,172,1636,175,1636,169,1671,172"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a4aa75c7d88bef418639ca3ba5ee3404b" title="Generates a Level 1 grammar." alt="" coords="910,7,1058,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1545,146,1505,105,1479,83,1450,66,1400,47,1348,33,1242,17,1142,13,1059,15,1058,10,1142,7,1242,12,1349,28,1402,42,1452,62,1482,79,1508,101,1550,148"/>
+<area shape="rect" id="Node000007" href="$struct_grammar_factory.html#a5368eb47dd1f9d7de083c41c0250e7e4" title="Generates a Level 2 grammar by combining Level 1 items." alt="" coords="1106,58,1254,83"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="1537,149,1498,123,1450,98,1400,85,1349,76,1255,71,1255,65,1350,71,1402,80,1452,94,1501,118,1542,150"/>
+<area shape="rect" id="Node000008" href="$struct_grammar_factory.html#aa5d138c30fed1776d37e6fa63e1048fc" title="Generates a Level 3 grammar by combining a Level 2 item and a Level 1 item." alt="" coords="1302,108,1451,134"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="1499,154,1427,137,1428,132,1504,155"/>
+<area shape="rect" id="Node000009" href="$struct_grammar_factory.html#a8e3ce26320d4bd74ba47a4f4d5c4ba4f" title="Generates a Level 4 grammar by combining Level 3 and Level 1 items." alt="" coords="1106,159,1254,185"/>
+<area shape="poly" id="edge18_Node000002_Node000009" title=" " alt="" coords="1481,172,1255,175,1254,169,1486,172"/>
+<area shape="rect" id="Node000010" href="$struct_grammar_factory.html#a6c928859881a49c81ec6be76a36c74d7" title="Generates a Level 5 grammar by combining Level 4 and Level 1 items." alt="" coords="910,210,1058,235"/>
+<area shape="poly" id="edge19_Node000002_Node000010" title=" " alt="" coords="1480,180,1059,219,1058,214,1486,179"/>
+<area shape="rect" id="Node000011" href="$struct_grammar_factory.html#a06b08500014ade97db2a3b6fd72096d9" title="Generates a Level 6 grammar by combining Level 5 and Level 1 items." alt="" coords="713,260,862,286"/>
+<area shape="poly" id="edge20_Node000002_Node000011" title=" " alt="" coords="1504,189,1451,203,1287,228,1123,248,863,271,862,266,1123,243,1286,223,1450,197,1499,189"/>
+<area shape="rect" id="Node000012" href="$struct_grammar_factory.html#ae4773738861fc98eb1aff9dc78cf019b" title="Generates a Level 7 grammar by combining Level 6 and Level 1 items." alt="" coords="517,311,665,337"/>
+<area shape="poly" id="edge21_Node000002_Node000012" title=" " alt="" coords="1537,193,1473,234,1388,277,1339,296,1287,312,1235,323,1182,327,982,327,666,327,666,321,982,321,1181,321,1234,317,1286,307,1337,291,1385,272,1471,230,1532,195"/>
+<area shape="rect" id="Node000004" href="$struct_grammar_factory.html#a5c57d8d96992059e78a68e5bd5ec5260" title="Picks a random grammar based on the specified difficulty level (1, 2, or 3)." alt="" coords="292,159,469,185"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="891,10,812,8,716,11,615,25,565,38,518,54,478,77,442,106,393,161,390,157,439,103,475,73,516,50,564,32,614,20,715,6,812,3,897,9"/>
+<area shape="rect" id="Node000005" href="$struct_grammar_factory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="11,134,238,159"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="274,163,239,161,238,155,279,161"/>
+<area shape="rect" id="Node000006" href="$struct_grammar_factory.html#a9d305dd64af208b12d6153e1ab63bc38" title="Generates a SLR(1) random grammar based on the specified difficulty lefel." alt="" coords="5,183,244,209"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="274,183,245,187,244,182,279,181"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="1088,64,975,61,831,63,673,76,594,88,518,105,485,117,453,131,402,161,400,156,451,126,483,112,516,100,593,83,673,70,830,57,975,56,1093,63"/>
+<area shape="poly" id="edge17_Node000008_Node000004" title=" " alt="" coords="1284,122,985,124,786,124,694,128,602,137,449,161,447,156,602,132,694,122,786,119,985,119,1289,121"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="1312,138,1233,161,1232,156,1306,139"/>
+<area shape="poly" id="edge16_Node000009_Node000004" title=" " alt="" coords="1089,174,470,175,469,169,1091,170"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="1115,189,1037,212,1036,207,1110,190"/>
+<area shape="poly" id="edge15_Node000010_Node000004" title=" " alt="" coords="892,219,719,210,517,193,470,188,469,182,517,188,720,205,897,218"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="919,240,841,263,840,257,914,240"/>
+<area shape="poly" id="edge14_Node000011_Node000004" title=" " alt="" coords="695,271,609,264,516,244,452,217,401,188,402,183,454,212,518,239,610,259,700,271"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="723,290,644,313,643,308,717,291"/>
+<area shape="poly" id="edge13_Node000012_Node000004" title=" " alt="" coords="537,304,516,294,478,267,443,238,393,188,395,183,447,234,481,263,518,290,542,305"/>
+</map>

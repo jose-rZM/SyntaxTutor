@@ -1,0 +1,231 @@
+\doxysection{llwizard.\+h}
+\label{llwizard_8h_source}\index{gui/llwizard.h@{gui/llwizard.h}}
+\doxymbox{\hyperlink{llwizard_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SyntaxTutor\ -\/\ Interactive\ Tutorial\ About\ Syntax\ Analyzers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Jose\ R.\ (jose-\/rzm)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ This\ program\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ along\ with\ this\ program.\ \ If\ not,\ see\ <https://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ LLWIZARD\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ LLWIZARD\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}ll1\_parser.hpp"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}llwizardpage.h"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <QFrame>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <QHBoxLayout>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <QProgressBar>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}apptypography.h"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}applayout.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <QStackedWidget>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }LLWizard\ :\ \textcolor{keyword}{public}\ QDialog\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ LLWizard(LL1Parser\&\ parser,\ \textcolor{keyword}{const}\ QStringList\&\ rowHeaders,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QStringList\&\ colHeaders,\ QWidget*\ parent\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ :\ QDialog(parent)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ setProperty(\textcolor{stringliteral}{"{}guidedDialog"{}},\ \textcolor{stringliteral}{"{}ll"{}});}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ setWindowTitle(tr(\textcolor{stringliteral}{"{}Completar\ tabla\ LL(1)"{}}));}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ setWindowFlag(Qt::WindowCloseButtonHint,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ setModal(\textcolor{keyword}{true});}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ resize(AppTypography::lengthForText(640),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AppTypography::lengthForText(440));}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ AppLayout::keepHeightForWidth(\textcolor{keyword}{this});}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ setMinimumSize(AppTypography::lengthForText(560),}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AppTypography::lengthForText(400));}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ rootLayout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ rootLayout-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ rootLayout-\/>setSpacing(0);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ panel\ =\ \textcolor{keyword}{new}\ QFrame(\textcolor{keyword}{this});}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ panel-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardPanel"{}});}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ panelLayout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(panel);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ panelLayout-\/>setContentsMargins(28,\ 24,\ 28,\ 24);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ panelLayout-\/>setSpacing(20);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ headerLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ headerLayout-\/>setSpacing(12);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ titleColumn\ =\ \textcolor{keyword}{new}\ QVBoxLayout();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ titleColumn-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ titleColumn-\/>setSpacing(6);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ m\_titleLabel\ =\ \textcolor{keyword}{new}\ QLabel(panel);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ m\_titleLabel-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardTitle"{}});}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ titleColumn-\/>addWidget(m\_titleLabel);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ m\_stepCounterLabel\ =\ \textcolor{keyword}{new}\ QLabel(panel);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ m\_stepCounterLabel-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardStepCounter"{}});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ titleColumn-\/>addWidget(m\_stepCounterLabel);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ m\_progressBar\ =\ \textcolor{keyword}{new}\ QProgressBar(panel);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardProgress"{}});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setTextVisible(\textcolor{keyword}{false});}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setRange(0,\ 100);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setFixedHeight(4);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ titleColumn-\/>addWidget(m\_progressBar);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ headerLayout-\/>addLayout(titleColumn,\ 1);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ m\_closeButton\ =\ \textcolor{keyword}{new}\ QPushButton(tr(\textcolor{stringliteral}{"{}Salir"{}}),\ panel);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardCloseButton"{}});}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setAutoDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ m\_closeButton-\/>setCursor(Qt::PointingHandCursor);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ headerLayout-\/>addWidget(m\_closeButton,\ 0,\ Qt::AlignTop);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ panelLayout-\/>addLayout(headerLayout);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ m\_stack\ =\ \textcolor{keyword}{new}\ QStackedWidget(panel);}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ m\_stack-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardStack"{}});}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ panelLayout-\/>addWidget(m\_stack,\ 1);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ footerLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout();}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ footerLayout-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ footerLayout-\/>setSpacing(12);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ footerLayout-\/>addStretch(1);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ m\_nextButton\ =\ \textcolor{keyword}{new}\ QPushButton(panel);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setObjectName(\textcolor{stringliteral}{"{}llWizardNextButton"{}});}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setProperty(\textcolor{stringliteral}{"{}role"{}},\ \textcolor{stringliteral}{"{}primary"{}});}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setAutoDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setDefault(\textcolor{keyword}{false});}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ footerLayout-\/>addWidget(m\_nextButton);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ panelLayout-\/>addLayout(footerLayout);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ rootLayout-\/>addWidget(panel);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ QString\&\ nonTerminal\ :\ rowHeaders)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ rowIt\ =\ parser.ll1\_t\_.find(nonTerminal.toStdString());}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rowIt\ ==\ parser.ll1\_t\_.end())\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ QString\&\ symbol\ :\ colHeaders)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ cellIt\ =\ rowIt-\/>second.find(symbol.toStdString());}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellIt\ ==\ rowIt-\/>second.end()\ ||\ cellIt-\/>second.empty()\ ||}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellIt-\/>second[0].empty())\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QStringList\ production;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::string\&\ s\ :\ cellIt-\/>second[0])\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ production.append(QString::fromStdString(s));}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ expected\ =\ production.join(\textcolor{charliteral}{'\ '});}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ explanation\ =}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}La\ celda\ (\%1,\ '\%2')\ no\ está\ vacía:\ existe\ una\ "{}}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}producción\ \%1\ →\ α\ tal\ que\ '\%2'\ ∈\ SD(\%1\ →\ α).\(\backslash\)n"{}}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}¿Qué\ producción\ α\ escribes\ en\ esta\ celda?"{}})}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .arg(nonTerminal,\ symbol);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ page\ =\ \textcolor{keyword}{new}\ LLWizardPage(nonTerminal,\ symbol,\ explanation,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expected,\ m\_stack);}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ connect(page,\ \&LLWizardPage::completionChanged,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&LLWizard::updateCurrentPage);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ connect(page,\ \&LLWizardPage::submitRequested,\ \textcolor{keyword}{this},}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&LLWizard::advance);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stack-\/>addWidget(page);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ connect(m\_closeButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::reject);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ connect(m\_nextButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&LLWizard::advance);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ updateCurrentPage();}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ QTimer::singleShot(0,\ \textcolor{keyword}{this},\ [\textcolor{keyword}{this}]()\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ page\ =\ currentPage())\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ page-\/>focusAnswerField();}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ LLWizardPage*\ currentPage()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ qobject\_cast<LLWizardPage*>(m\_stack-\/>currentWidget());}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ QPushButton*\ nextButton()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_nextButton;\ \}}
+\DoxyCodeLine{00186\ \ \ \ \ QPushButton*\ closeButton()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_closeButton;\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{bool}\ isOnLastPage()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_stack-\/>count()\ >\ 0\ \&\&}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_stack-\/>currentIndex()\ ==\ m\_stack-\/>count()\ -\/\ 1;}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{void}\ advance()\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ page\ =\ currentPage();}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (page\ ==\ \textcolor{keyword}{nullptr}\ ||\ !page-\/>isComplete())\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isOnLastPage())\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ accept();}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ m\_stack-\/>setCurrentIndex(m\_stack-\/>currentIndex()\ +\ 1);}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ updateCurrentPage();}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}*\ nextPage\ =\ currentPage())\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ nextPage-\/>focusAnswerField();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{void}\ updateCurrentPage()\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ page\ =\ currentPage();}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (page\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ m\_titleLabel-\/>setText(tr(\textcolor{stringliteral}{"{}Modo\ guiado"{}}));}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ m\_stepCounterLabel-\/>clear();}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ m\_progressBar-\/>setValue(0);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ m\_nextButton-\/>setEnabled(\textcolor{keyword}{false});}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ m\_nextButton-\/>setText(tr(\textcolor{stringliteral}{"{}Finalizar"{}}));}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentStep\ =\ m\_stack-\/>currentIndex()\ +\ 1;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ totalSteps\ \ =\ m\_stack-\/>count();}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ m\_titleLabel-\/>setText(page-\/>titleText());}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ m\_stepCounterLabel-\/>setText(}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ tr(\textcolor{stringliteral}{"{}Paso\ \%1\ de\ \%2"{}}).arg(currentStep).arg(totalSteps));}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ m\_progressBar-\/>setValue((100\ *\ currentStep)\ /\ qMax(1,\ totalSteps));}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setEnabled(page-\/>isComplete());}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setCursor(page-\/>isComplete()\ ?\ Qt::PointingHandCursor}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Qt::ArrowCursor);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ m\_nextButton-\/>setText(isOnLastPage()\ ?\ tr(\textcolor{stringliteral}{"{}Finalizar"{}})}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ tr(\textcolor{stringliteral}{"{}Continuar"{}}));}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00237\ \ \ \ \ QLabel*\ \ \ \ \ \ \ \ \ m\_titleLabel\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00238\ \ \ \ \ QLabel*\ \ \ \ \ \ \ \ \ m\_stepCounterLabel\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00239\ \ \ \ \ QProgressBar*\ \ \ m\_progressBar\ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00240\ \ \ \ \ QPushButton*\ \ \ \ m\_closeButton\ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00241\ \ \ \ \ QStackedWidget*\ m\_stack\ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00242\ \ \ \ \ QPushButton*\ \ \ \ m\_nextButton\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00243\ \};}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LLWIZARD\_H}}
+
+\end{DoxyCode}

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['interactive_20tool_20for_20learning_20syntax_20analysis_0',['SyntaxTutor: An interactive Tool for Learning Syntax Analysis',['../index.html',1,'']]],
-  ['interface_20screenshots_1',['🖼️ Interface Screenshots',['../index.html#autotoc_md6',1,'']]]
+  ['home_0',['🏠 Home',['../index.html#autotoc_md9',1,'']]]
 ];

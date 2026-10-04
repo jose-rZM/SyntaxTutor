@@ -1,0 +1,13 @@
+<map id="SLRTutorWindow::verifyResponseForA" name="SLRTutorWindow::verifyResponseForA">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,59,257,84"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a15ec4f49b4838b8aa0df2e2226d4627a" title=" " alt="" coords="305,29,557,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,57,292,56,286,56,257,62"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_tutor_window.html#a4f19f7e2d207f0f9ebc89715a0a5ced0" title=" " alt="" coords="319,79,542,120"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="257,81,306,87,301,88,257,86"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a9e1790e9fe3aacc9ba5c932ba565bcd9" title=" " alt="" coords="605,5,857,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="557,29,592,29,587,30,558,35"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#afc86bdaf2c33cd5dfea3a02ca1bac7aa" title=" " alt="" coords="605,55,857,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="558,50,592,55,587,56,558,56"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#a1ddc0f3362ec35ccbf7f3a326c50cfb6" title=" " alt="" coords="905,55,1111,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="858,65,892,67,887,68,858,70"/>
+</map>

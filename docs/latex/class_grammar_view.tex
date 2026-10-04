@@ -1,0 +1,112 @@
+\doxysection{Grammar\+View Class Reference}
+\label{class_grammar_view}\index{GrammarView@{GrammarView}}
+
+
+{\ttfamily \+\#include $<$grammarview.\+h$>$}
+
+
+
+Inheritance diagram for Grammar\+View:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=122pt]{class_grammar_view__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Grammar\+View:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=122pt]{class_grammar_view__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_grammar_view_1_1_row}{Row}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_grammar_view_a4daa0c6bb987225b8aa1dbea3a300148}{Grammar\+View}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+void \doxymbox{\hyperlink{class_grammar_view_a5ac21727ce96d18e20a808ad2a855ced}{set\+Rows}} (const QVector$<$ \doxymbox{\hyperlink{struct_grammar_view_1_1_row}{Row}} $>$ \&rows)
+\item 
+int \doxymbox{\hyperlink{class_grammar_view_afa08279c1be423905cff66fec300d695}{natural\+Width}} () const
+\begin{DoxyCompactList}\small\item\em Width the card needs for its content. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_grammar_view_a7f3a0c9126451289e0a6c8950cbca93d}{refresh}} ()
+\begin{DoxyCompactList}\small\item\em Rebuilds the rows so a new text size takes effect. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{class_grammar_view_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{GrammarView@{GrammarView}!GrammarView@{GrammarView}}
+\index{GrammarView@{GrammarView}!GrammarView@{GrammarView}}
+\doxysubsubsection{\texorpdfstring{GrammarView()}{GrammarView()}}
+{\footnotesize\ttfamily \label{class_grammar_view_a4daa0c6bb987225b8aa1dbea3a300148} 
+Grammar\+View::\+\+Grammar\+View (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_grammar_view_a4daa0c6bb987225b8aa1dbea3a300148_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{class_grammar_view_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{GrammarView@{GrammarView}!naturalWidth@{naturalWidth}}
+\index{naturalWidth@{naturalWidth}!GrammarView@{GrammarView}}
+\doxysubsubsection{\texorpdfstring{naturalWidth()}{naturalWidth()}}
+{\footnotesize\ttfamily \label{class_grammar_view_afa08279c1be423905cff66fec300d695} 
+int Grammar\+View::\+natural\+Width (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Width the card needs for its content. 
+
+Taken from the grid\textquotesingle{}s minimum size rather than size\+Hint(): the scroll area that holds the card gives it a fixed width, and reading a hint that depends on the current width feeds back into itself, shrinking the panel a little more on every text size change. \index{GrammarView@{GrammarView}!refresh@{refresh}}
+\index{refresh@{refresh}!GrammarView@{GrammarView}}
+\doxysubsubsection{\texorpdfstring{refresh()}{refresh()}}
+{\footnotesize\ttfamily \label{class_grammar_view_a7f3a0c9126451289e0a6c8950cbca93d} 
+void Grammar\+View::\+refresh (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Rebuilds the rows so a new text size takes effect. 
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{class_grammar_view_a7f3a0c9126451289e0a6c8950cbca93d_cgraph}
+\end{center}
+\end{figure}
+\index{GrammarView@{GrammarView}!setRows@{setRows}}
+\index{setRows@{setRows}!GrammarView@{GrammarView}}
+\doxysubsubsection{\texorpdfstring{setRows()}{setRows()}}
+{\footnotesize\ttfamily \label{class_grammar_view_a5ac21727ce96d18e20a808ad2a855ced} 
+void Grammar\+View::\+set\+Rows (\begin{DoxyParamCaption}\item[{const QVector$<$ \doxymbox{\hyperlink{struct_grammar_view_1_1_row}{Row}} $>$ \&}]{rows}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{class_grammar_view_a5ac21727ce96d18e20a808ad2a855ced_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+widgets/\doxymbox{\hyperlink{grammarview_8h}{grammarview.\+h}}\item 
+widgets/\doxymbox{\hyperlink{grammarview_8cpp}{grammarview.\+cpp}}\end{DoxyCompactItemize}

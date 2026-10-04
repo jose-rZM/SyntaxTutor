@@ -1,0 +1,7 @@
+<map id="SLRTutorWindow::updateProgressPanel" name="SLRTutorWindow::updateProgressPanel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="290,35,513,75"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#ab8f085e7e965cf3aa3cfc881ec724b80" title="Re&#45;applies the current text size to this tutor." alt="" coords="29,5,218,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,42,218,38,218,33,277,41"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a39d32d1bbff324558de7daeadc1e6189" title="&lt; Render SLR(1) table" alt="" coords="5,70,242,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="272,68,242,74,242,68,277,68"/>
+</map>

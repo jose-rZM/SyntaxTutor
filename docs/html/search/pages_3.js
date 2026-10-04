@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['completion_0',['✨ Assisted Mode: Guided Table Completion',['../index.html#autotoc_md10',1,'']]],
-  ['context_1',['🎓 Academic Context',['../index.html#autotoc_md2',1,'']]]
+  ['documentation_0',['📚 Documentation',['../index.html#autotoc_md21',1,'']]],
+  ['downloads_1',['📦 Downloads',['../index.html#autotoc_md17',1,'']]]
 ];

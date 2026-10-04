@@ -1,0 +1,81 @@
+\doxysection{Grammar\+Parse\+Result Struct Reference}
+\label{struct_grammar_parse_result}\index{GrammarParseResult@{GrammarParseResult}}
+
+
+Outcome of parsing user-\/written grammar text.  
+
+
+
+
+{\ttfamily \+\#include $<$grammar\+\_\+parser.\+hpp$>$}
+
+
+
+Collaboration diagram for Grammar\+Parse\+Result:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{struct_grammar_parse_result__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{struct_grammar_parse_result_a5e321dd6a36e8b58204ef778f9240dfc}{Ok}} () const
+\begin{DoxyCompactList}\small\item\em True when parsing succeeded and {\ttfamily \doxylink{struct_grammar_parse_result_ad218a7c8345d3d8e967af09d8072788b}{grammar}} is usable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_grammar}{Grammar}} \doxymbox{\hyperlink{struct_grammar_parse_result_ad218a7c8345d3d8e967af09d8072788b}{grammar}}
+\begin{DoxyCompactList}\small\item\em Resulting grammar. Only meaningful when {\ttfamily \doxylink{struct_grammar_parse_result_a46793251259c570f93c197d7800cd388}{errors}} is empty. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_grammar_parse_error}{Grammar\+Parse\+Error}} $>$ \doxymbox{\hyperlink{struct_grammar_parse_result_a46793251259c570f93c197d7800cd388}{errors}}
+\begin{DoxyCompactList}\small\item\em All problems found in the text, in source order. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Outcome of parsing user-\/written grammar text. 
+
+When {\ttfamily \doxylink{struct_grammar_parse_result_a46793251259c570f93c197d7800cd388}{errors}} is empty, {\ttfamily \doxylink{struct_grammar_parse_result_ad218a7c8345d3d8e967af09d8072788b}{grammar}} holds a fully-\/built grammar: symbols are classified (non-\/terminals are exactly the left-\/hand sides), the axiom is the left-\/hand side of the first rule, and the grammar has been augmented with a fresh axiom rule {\ttfamily X -\/\texorpdfstring{$>$}{>} \texorpdfstring{$<$}{<}axiom\texorpdfstring{$>$}{>} \$} following the app-\/wide convention. 
+
+\label{struct_grammar_parse_result_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{GrammarParseResult@{GrammarParseResult}!Ok@{Ok}}
+\index{Ok@{Ok}!GrammarParseResult@{GrammarParseResult}}
+\doxysubsubsection{\texorpdfstring{Ok()}{Ok()}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_result_a5e321dd6a36e8b58204ef778f9240dfc} 
+bool Grammar\+Parse\+Result::\+\+Ok (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+True when parsing succeeded and {\ttfamily \doxylink{struct_grammar_parse_result_ad218a7c8345d3d8e967af09d8072788b}{grammar}} is usable. 
+
+
+
+\label{struct_grammar_parse_result_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\index{GrammarParseResult@{GrammarParseResult}!errors@{errors}}
+\index{errors@{errors}!GrammarParseResult@{GrammarParseResult}}
+\doxysubsubsection{\texorpdfstring{errors}{errors}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_result_a46793251259c570f93c197d7800cd388} 
+std::\+vector$<$\doxymbox{\hyperlink{struct_grammar_parse_error}{Grammar\+Parse\+Error}}$>$ Grammar\+Parse\+Result::\+errors}
+
+
+
+All problems found in the text, in source order. 
+
+\index{GrammarParseResult@{GrammarParseResult}!grammar@{grammar}}
+\index{grammar@{grammar}!GrammarParseResult@{GrammarParseResult}}
+\doxysubsubsection{\texorpdfstring{grammar}{grammar}}
+{\footnotesize\ttfamily \label{struct_grammar_parse_result_ad218a7c8345d3d8e967af09d8072788b} 
+\doxymbox{\hyperlink{struct_grammar}{Grammar}} Grammar\+Parse\+Result::\+grammar}
+
+
+
+Resulting grammar. Only meaningful when {\ttfamily \doxylink{struct_grammar_parse_result_a46793251259c570f93c197d7800cd388}{errors}} is empty. 
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+backend/\doxymbox{\hyperlink{grammar__parser_8hpp}{grammar\+\_\+parser.\+hpp}}\end{DoxyCompactItemize}

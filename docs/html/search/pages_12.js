@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📘_20ll_201_20learning_20mode_0',['📘 LL(1) Learning Mode',['../index.html#autotoc_md8',1,'']]]
+  ['✍️_20your_20own_20grammar_0',['✍️ Your Own Grammar',['../index.html#autotoc_md12',1,'']]]
 ];

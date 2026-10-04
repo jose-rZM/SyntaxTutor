@@ -1,0 +1,16 @@
+<map id="SLRTableDialog::SLRTableDialog" name="SLRTableDialog::SLRTableDialog">
+<area shape="rect" id="Node000001" title="Constructs the SLR(1) table dialog." alt="" coords="5,128,186,169"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_table_dialog.html#a5e5ba1b836c93aa1290ca3026718cff9" title="Retrieves the content of the table after user interaction." alt="" coords="246,5,446,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,126,166,82,198,59,233,40,250,35,246,38,235,45,201,64,169,86,119,130"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_table_dialog.html#a17fe3b231aed72646451205d19cdef19" title=" " alt="" coords="234,55,458,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,126,233,90,266,83,261,86,235,95,144,130"/>
+<area shape="rect" id="Node000004" href="$namespace_app_layout.html#a2e8c035ca5f53e09369c3b4fc366ab99" title="Keeps widget at least as tall as its layout needs at its current width." alt="" coords="258,128,434,169"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,146,244,148,239,150,187,151"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_table_dialog.html#aa20290eafe616ab7fa02467426895d84" title="Fills the table with existing data." alt="" coords="246,193,446,219"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="186,167,234,178,273,189,268,190,233,183,186,172"/>
+<area shape="rect" id="Node000007" href="$class_s_l_r_table_dialog.html#a56a2b448edc23e99a52d9a87c3ffd6fb" title=" " alt="" coords="256,243,436,268"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="125,167,175,199,235,229,255,238,249,238,233,234,173,204,124,172"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="299,127,297,118,304,109,321,104,346,102,373,104,390,113,385,113,372,109,346,107,322,109,307,114,302,120,304,129"/>
+<area shape="rect" id="Node000005" href="$class_app_layout_1_1_height_for_width_keeper.html#acfdec3a1b4b808bd81fdb04c818afd1f" title=" " alt="" coords="506,128,708,169"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="434,146,493,148,488,149,435,151"/>
+</map>

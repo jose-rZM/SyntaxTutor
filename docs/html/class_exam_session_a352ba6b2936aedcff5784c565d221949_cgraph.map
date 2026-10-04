@@ -1,0 +1,5 @@
+<map id="ExamSession::right" name="ExamSession::right">
+<area shape="rect" id="Node000001" title="Number of correct items." alt="" coords="5,5,141,31"/>
+<area shape="rect" id="Node000002" href="$class_exam_session.html#a2290b2f623c48ffae4d650e390876253" title="Records one graded item." alt="" coords="189,5,335,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,16,176,18,171,18,141,21"/>
+</map>

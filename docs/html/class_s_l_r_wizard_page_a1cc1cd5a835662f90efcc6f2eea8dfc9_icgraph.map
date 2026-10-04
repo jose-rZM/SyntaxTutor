@@ -1,0 +1,11 @@
+<map id="SLRWizardPage::submitRequested" name="SLRWizardPage::submitRequested">
+<area shape="rect" id="Node000001" title=" " alt="" coords="726,29,954,55"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_wizard.html#a1833672694f25771c1b66c4e2b935610" title="Constructs the SLR(1) guided dialog with all necessary parsing context." alt="" coords="248,29,409,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="708,43,410,45,409,40,713,42"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_wizard_page.html#ac06ec88e5ba53403211fff75cf4327b6" title="Constructs a page for a specific cell in the SLR(1) table." alt="" coords="457,55,678,80"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="713,54,679,60,679,55,708,54"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="5,29,200,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="229,42,200,45,200,40,234,42"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="140,15,129,10,102,8,79,10,66,15,63,20,70,29,64,29,58,21,62,11,77,5,103,3,130,5,146,14"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="439,54,410,53,410,48,444,54"/>
+</map>

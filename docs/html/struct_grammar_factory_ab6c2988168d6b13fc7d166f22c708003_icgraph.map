@@ -1,0 +1,7 @@
+<map id="GrammarFactory::LongestCommonPrefix" name="GrammarFactory::LongestCommonPrefix">
+<area shape="rect" id="Node000001" title="Finds the longest common prefix among a set of productions." alt="" coords="531,5,757,46"/>
+<area shape="rect" id="Node000002" href="$struct_grammar_factory.html#a0248fb175bd5ddaae30e82e7d1b3304c" title="Performs left factorization. A grammar can be left factorized if it has productions with the same pre..." alt="" coords="280,13,483,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,26,484,28,483,23,518,26"/>
+<area shape="rect" id="Node000003" href="$struct_grammar_factory.html#a008edfd357bd31ea6566c4bc0bca6845" title="Generates a LL(1) random grammar based on the specified difficulty level." alt="" coords="5,13,232,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,26,232,28,232,23,266,26"/>
+</map>

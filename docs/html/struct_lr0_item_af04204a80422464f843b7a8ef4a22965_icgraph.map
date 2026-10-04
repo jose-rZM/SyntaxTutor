@@ -1,0 +1,13 @@
+<map id="Lr0Item::ToString" name="Lr0Item::ToString">
+<area shape="rect" id="Node000001" title="Converts the item to a string representation, including the dot position." alt="" coords="583,46,704,72"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#a33405c5d1473d6a244cd22ab7e3aa758" title=" " alt="" coords="290,5,535,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="565,48,535,46,535,41,571,48"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_tutor_window.html#a359abee5231623a1e280c1d7c2497e5c" title=" " alt="" coords="301,71,524,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="565,70,525,78,524,73,571,69"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html#a255a5ab1aeae5b5123df8b271f11a245" title="Generates a new question for the current tutor state." alt="" coords="32,5,215,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="272,27,216,28,215,23,277,25"/>
+<area shape="rect" id="Node000005" href="$class_s_l_r_tutor_window.html#ab8f085e7e965cf3aa3cfc881ec724b80" title="Re&#45;applies the current text size to this tutor." alt="" coords="29,71,218,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="283,92,218,94,218,88,288,90"/>
+<area shape="rect" id="Node000006" href="$class_s_l_r_tutor_window.html#a39d32d1bbff324558de7daeadc1e6189" title="&lt; Render SLR(1) table" alt="" coords="5,136,242,161"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="294,115,193,137,192,132,289,115"/>
+</map>

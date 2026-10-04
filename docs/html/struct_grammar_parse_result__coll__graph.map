@@ -1,0 +1,7 @@
+<map id="GrammarParseResult" name="GrammarParseResult">
+<area shape="rect" id="Node000001" title="Outcome of parsing user&#45;written grammar text." alt="" coords="5,199,153,224"/>
+<area shape="rect" id="Node000002" href="$struct_grammar.html" title="Represents a context&#45;free grammar, including its rules, symbol table, and starting symbol." alt="" coords="41,102,117,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,141,82,199,76,197,77,144"/>
+<area shape="rect" id="Node000003" href="$struct_symbol_table.html" title="Stores and manages grammar symbols, including their classification and special markers." alt="" coords="31,5,127,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,44,82,102,76,101,78,49"/>
+</map>

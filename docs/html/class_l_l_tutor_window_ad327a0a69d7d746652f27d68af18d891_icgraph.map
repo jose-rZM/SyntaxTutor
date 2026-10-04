@@ -1,0 +1,5 @@
+<map id="LLTutorWindow::exportConversationToPdf" name="LLTutorWindow::exportConversationToPdf">
+<area shape="rect" id="Node000001" title="&lt; Add widget (e.g., table, tree)" alt="" coords="275,5,507,46"/>
+<area shape="rect" id="Node000002" href="$class_l_l_tutor_window.html#af2fd68df43d6ce1b4fe3aff2443c8d4e" title="Generates a question for the current state of the tutor." alt="" coords="5,13,227,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,26,227,28,227,23,261,26"/>
+</map>

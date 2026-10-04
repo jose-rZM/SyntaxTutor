@@ -1,0 +1,79 @@
+\doxysection{Grammar\+Parser Struct Reference}
+\label{struct_grammar_parser}\index{GrammarParser@{GrammarParser}}
+
+
+Parses user-\/written grammar text into a \doxylink{struct_grammar}{Grammar} object.  
+
+
+
+
+{\ttfamily \+\#include $<$grammar\+\_\+parser.\+hpp$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{struct_grammar_parse_result}{Grammar\+Parse\+Result}} \doxymbox{\hyperlink{struct_grammar_parser_a2dd4498d4322381376a252819847c3e2}{Parse}} (const std::\+string \&text)
+\begin{DoxyCompactList}\small\item\em Parses grammar text into an augmented \doxylink{struct_grammar}{Grammar}. \end{DoxyCompactList}\item 
+static bool \doxymbox{\hyperlink{struct_grammar_parser_a68e23b76cb083f6acd0a3aaf3e028c1b}{Is\+Reserved\+Token}} (const std::\+string \&token)
+\begin{DoxyCompactList}\small\item\em Checks whether a token cannot be used as a grammar symbol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Parses user-\/written grammar text into a \doxylink{struct_grammar}{Grammar} object. 
+
+Input format, kept deliberately flexible:
+\begin{DoxyItemize}
+\item Each rule is {\ttfamily LHS -\/\texorpdfstring{$>$}{>} SYMBOL SYMBOL ... .} and ends with a dot. Rules may span several lines and several rules may share one line.
+\item Symbols are separated by whitespace; any whitespace-\/free string is a valid symbol, so multi-\/character tokens such as {\ttfamily id} or {\ttfamily function} are supported. {\ttfamily A b} is two symbols while {\ttfamily Ab} is one.
+\item "{}→"{} is accepted as an alias of "{}-\/$>$"{}, with or without surrounding spaces.
+\item Alternatives can be grouped with {\ttfamily \texorpdfstring{$\vert$}{|}}: {\ttfamily A -\/\texorpdfstring{$>$}{>} a \texorpdfstring{$\vert$}{|} b .}
+\item An empty right-\/hand side ({\ttfamily A -\/\texorpdfstring{$>$}{>} .} or an empty {\ttfamily \texorpdfstring{$\vert$}{|}} branch) denotes an epsilon production.
+\item Non-\/terminals are exactly the symbols that appear on a left-\/hand side; every other symbol is a terminal. The first rule defines the axiom. 
+\end{DoxyItemize}
+
+\label{struct_grammar_parser_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{GrammarParser@{GrammarParser}!IsReservedToken@{IsReservedToken}}
+\index{IsReservedToken@{IsReservedToken}!GrammarParser@{GrammarParser}}
+\doxysubsubsection{\texorpdfstring{IsReservedToken()}{IsReservedToken()}}
+{\footnotesize\ttfamily \label{struct_grammar_parser_a68e23b76cb083f6acd0a3aaf3e028c1b} 
+bool Grammar\+Parser::\+\+Is\+Reserved\+Token (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{token}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks whether a token cannot be used as a grammar symbol. 
+
+Reserved tokens are the meta symbols (\$, EPSILON, ε, ·) and any token containing characters used by the tutors as separators or markers (dot, comma, colon, semicolon, pipe or an embedded arrow).
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & Token to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the token is reserved and must be rejected. 
+\end{DoxyReturn}
+\index{GrammarParser@{GrammarParser}!Parse@{Parse}}
+\index{Parse@{Parse}!GrammarParser@{GrammarParser}}
+\doxysubsubsection{\texorpdfstring{Parse()}{Parse()}}
+{\footnotesize\ttfamily \label{struct_grammar_parser_a2dd4498d4322381376a252819847c3e2} 
+\doxymbox{\hyperlink{struct_grammar_parse_result}{Grammar\+Parse\+Result}} Grammar\+Parser::\+\+Parse (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{text}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses grammar text into an augmented \doxylink{struct_grammar}{Grammar}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & User-\/written grammar description. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Parse result with either a ready-\/to-\/use grammar or the list of errors found. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+backend/\doxymbox{\hyperlink{grammar__parser_8hpp}{grammar\+\_\+parser.\+hpp}}\item 
+backend/\doxymbox{\hyperlink{grammar__parser_8cpp}{grammar\+\_\+parser.\+cpp}}\end{DoxyCompactItemize}

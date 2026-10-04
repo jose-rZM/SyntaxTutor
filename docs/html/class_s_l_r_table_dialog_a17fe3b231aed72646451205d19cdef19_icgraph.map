@@ -1,0 +1,9 @@
+<map id="SLRTableDialog::guidedRequested" name="SLRTableDialog::guidedRequested">
+<area shape="rect" id="Node000001" title=" " alt="" coords="476,29,700,55"/>
+<area shape="rect" id="Node000002" href="$class_s_l_r_tutor_window.html#af3fcadd81454b1201d6451ba5b1fc514" title="&lt; Export full interaction" alt="" coords="5,29,200,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="458,39,428,41,248,41,200,42,200,36,248,36,428,36,463,39"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_table_dialog.html#a3a1232ffe9a2226e5692000944058c3f" title="Constructs the SLR(1) table dialog." alt="" coords="248,50,428,90"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="463,56,429,63,428,57,458,57"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="142,15,130,11,102,8,78,10,64,15,61,20,68,29,63,29,56,21,60,11,76,5,103,3,131,5,147,14"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="230,58,200,56,200,51,235,57"/>
+</map>

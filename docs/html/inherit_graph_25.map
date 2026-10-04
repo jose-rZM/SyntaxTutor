@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,80,78,106"/>
+<area shape="rect" id="Node000001" href="$class_l_l_tutor_window.html" title="Main window for the LL(1) interactive tutoring mode in SyntaxTutor." alt="" coords="132,5,244,31"/>
+<area shape="poly" id="edge16_Node000000_Node000001" title=" " alt="" coords="73,69,124,40,151,30,147,33,127,45,76,74"/>
+<area shape="rect" id="Node000002" href="$class_l_l_wizard_page.html" title="A single guided step for constructing the LL(1) table." alt="" coords="135,55,240,80"/>
+<area shape="poly" id="edge17_Node000000_Node000002" title=" " alt="" coords="92,82,137,75,133,78,94,87"/>
+<area shape="rect" id="Node000003" href="$class_s_l_r_tutor_window.html" title="Main window for the SLR(1) interactive tutoring mode in SyntaxTutor." alt="" coords="126,104,250,130"/>
+<area shape="poly" id="edge18_Node000000_Node000003" title=" " alt="" coords="92,99,128,106,123,108,93,104"/>
+<area shape="rect" id="Node000004" href="$class_s_l_r_wizard_page.html" title="A single guided step for constructing the SLR(1) table." alt="" coords="129,153,246,179"/>
+<area shape="poly" id="edge19_Node000000_Node000004" title=" " alt="" coords="76,112,127,140,153,153,147,153,124,145,75,117"/>
+</map>

@@ -1,0 +1,1690 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: graphviz version 16.1.0 (20260904.0139)
+%%Title: AppTypography::formatPoints
+%%Pages: 1
+%%BoundingBox: 36 36 1859 429
+%%EndComments
+save
+%%BeginProlog
+/DotDict 200 dict def
+DotDict begin
+
+/setupLatin1 {
+mark
+/EncodingVector 256 array def
+ EncodingVector 0
+
+ISOLatin1Encoding 0 255 getinterval putinterval
+EncodingVector 45 /hyphen put
+
+% Set up ISO Latin 1 character encoding
+/starnetISO {
+        dup dup findfont dup length dict begin
+        { 1 index /FID ne { def }{ pop pop } ifelse
+        } forall
+        /Encoding EncodingVector def
+        currentdict end definefont
+} def
+/Times-Roman starnetISO def
+/Times-Italic starnetISO def
+/Times-Bold starnetISO def
+/Times-BoldItalic starnetISO def
+/Helvetica starnetISO def
+/Helvetica-Oblique starnetISO def
+/Helvetica-Bold starnetISO def
+/Helvetica-BoldOblique starnetISO def
+/Courier starnetISO def
+/Courier-Oblique starnetISO def
+/Courier-Bold starnetISO def
+/Courier-BoldOblique starnetISO def
+cleartomark
+} bind def
+
+%%BeginResource: procset graphviz 0 0
+/coord-font-family /Times-Roman def
+/default-font-family /Times-Roman def
+/coordfont coord-font-family findfont 8 scalefont def
+
+/InvScaleFactor 1.0 def
+/set_scale {
+       dup 1 exch div /InvScaleFactor exch def
+       scale
+} bind def
+
+% styles
+/solid { [] 0 setdash } bind def
+/dashed { [9 InvScaleFactor mul dup ] 0 setdash } bind def
+/dotted { [1 InvScaleFactor mul 6 InvScaleFactor mul] 0 setdash } bind def
+/invis {/fill {newpath} def /stroke {newpath} def /show {pop newpath} def} bind def
+/bold { 2 setlinewidth } bind def
+/filled { } bind def
+/unfilled { } bind def
+/rounded { } bind def
+/diagonals { } bind def
+/tapered { } bind def
+
+% hooks for setting color 
+/nodecolor { sethsbcolor } bind def
+/edgecolor { sethsbcolor } bind def
+/graphcolor { sethsbcolor } bind def
+/nopcolor {pop pop pop} bind def
+
+/beginpage {	% i j npages
+	/npages exch def
+	/j exch def
+	/i exch def
+	/str 10 string def
+	npages 1 gt {
+		gsave
+			coordfont setfont
+			0 0 moveto
+			(\() show i str cvs show (,) show j str cvs show (\)) show
+		grestore
+	} if
+} bind def
+
+/set_font {
+	findfont exch
+	scalefont setfont
+} def
+
+% draw text fitted to its expected width
+/alignedtext {			% width text
+	/text exch def
+	/width exch def
+	gsave
+		width 0 gt {
+			[] 0 setdash
+			text stringwidth pop width exch sub text length div 0 text ashow
+		} if
+	grestore
+} def
+
+/boxprim {				% xcorner ycorner xsize ysize
+		4 2 roll
+		moveto
+		2 copy
+		exch 0 rlineto
+		0 exch rlineto
+		pop neg 0 rlineto
+		closepath
+} bind def
+
+/ellipse_path {
+	/ry exch def
+	/rx exch def
+	/y exch def
+	/x exch def
+	matrix currentmatrix
+	newpath
+	x y translate
+	rx ry scale
+	0 0 1 0 360 arc
+	setmatrix
+} bind def
+
+/endpage { showpage } bind def
+/showpage { } def
+
+/layercolorseq
+	[	% layer color sequence - darkest to lightest
+		[0 0 0]
+		[.2 .8 .8]
+		[.4 .8 .8]
+		[.6 .8 .8]
+		[.8 .8 .8]
+	]
+def
+
+/layerlen layercolorseq length def
+
+/setlayer {/maxlayer exch def /curlayer exch def
+	layercolorseq curlayer 1 sub layerlen mod get
+	aload pop sethsbcolor
+	/nodecolor {nopcolor} def
+	/edgecolor {nopcolor} def
+	/graphcolor {nopcolor} def
+} bind def
+
+/onlayer { curlayer ne {invis} if } def
+
+/onlayers {
+	/myupper exch def
+	/mylower exch def
+	curlayer mylower lt
+	curlayer myupper gt
+	or
+	{invis} if
+} def
+
+/curlayer 0 def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+14 default-font-family set_font
+% /arrowlength 10 def
+% /arrowwidth 5 def
+
+% make sure pdfmark is harmless for PS-interpreters other than Distiller
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+% make '<<' and '>>' safe on PS Level 1 devices
+/languagelevel where {pop languagelevel}{1} ifelse
+2 lt {
+    userdict (<<) cvn ([) cvn load put
+    userdict (>>) cvn ([) cvn load put
+} if
+
+%%EndSetup
+setupLatin1
+%%Page: 1 1
+%%PageBoundingBox: 36 36 1859 429
+%%PageOrientation: Portrait
+0 0 1 beginpage
+gsave
+36 36 1823 393 boxprim clip newpath
+1 1 set_scale 0 rotate 40 40 translate
+% Node1
+gsave
+0 0 0.6 nodecolor
+newpath 1815.25 150.25 moveto
+1670.25 150.25 lineto
+1670.25 131 lineto
+1815.25 131 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1815.25 150.25 moveto
+1670.25 150.25 lineto
+1670.25 131 lineto
+1815.25 131 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1678.25 136.75 moveto 129 (AppTypography::formatPoints) alignedtext
+grestore
+% Node1->Node1
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1775.365 160.976 moveto
+1771.939 165.207 1761.068 168.25 1742.75 168.25 curveto
+1711.065 168.25 1701.659 159.145 1714.531 150.538 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1778.663 159.791 moveto
+1771.557 151.933 lineto
+1772.212 162.508 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1778.663 159.791 moveto
+1771.557 151.933 lineto
+1772.212 162.508 lineto
+closepath stroke
+grestore
+% Node2
+gsave
+[ /Rect [ 1500.125 171 1624.875 190.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($namespace_app_typography.html#a5c2b3c26731613ad2991e00358243bfb) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1624.875 190.25 moveto
+1500.125 190.25 lineto
+1500.125 171 lineto
+1624.875 171 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1624.875 190.25 moveto
+1500.125 190.25 lineto
+1500.125 171 lineto
+1624.875 171 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1508.125 176.75 moveto 108.75 (AppTypography::cssSize) alignedtext
+grestore
+% Node1->Node2
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1685.654 153.213 moveto
+1660.775 158.796 1631.896 165.277 1608.466 170.535 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1686.302 156.655 moveto
+1695.293 151.05 lineto
+1684.769 149.825 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1686.302 156.655 moveto
+1695.293 151.05 lineto
+1684.769 149.825 lineto
+closepath stroke
+grestore
+% Node13
+gsave
+[ /Rect [ 1490.75 95.375 1634.25 125.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($namespace_app_typography.html#a8ced112c8886506a81b4028ab9c3df37) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1634.25 125.875 moveto
+1490.75 125.875 lineto
+1490.75 95.375 lineto
+1634.25 95.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1634.25 125.875 moveto
+1490.75 125.875 lineto
+1490.75 95.375 lineto
+1634.25 95.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1498.75 112.375 moveto 127.5 (AppTypography::resolveStyle) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+1549.75 101.125 moveto 25.5 (Sheet) alignedtext
+grestore
+% Node1->Node13
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1670.682 128.664 moveto
+1658.809 126.666 1646.49 124.592 1634.615 122.594 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1669.965 132.092 moveto
+1680.407 130.301 lineto
+1671.127 125.19 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1669.965 132.092 moveto
+1680.407 130.301 lineto
+1671.127 125.19 lineto
+closepath stroke
+grestore
+% Node2->Node2
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1595.115 200.976 moveto
+1591.689 205.207 1580.818 208.25 1562.5 208.25 curveto
+1530.815 208.25 1521.409 199.145 1534.281 190.538 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1598.413 199.791 moveto
+1591.307 191.933 lineto
+1591.962 202.508 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1598.413 199.791 moveto
+1591.307 191.933 lineto
+1591.962 202.508 lineto
+closepath stroke
+grestore
+% Node3
+gsave
+[ /Rect [ 1297 180.375 1454.75 210.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#ad7528d4e40e7d041d4ae4049ccf4c222) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1454.75 210.875 moveto
+1297 210.875 lineto
+1297 180.375 lineto
+1454.75 180.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1454.75 210.875 moveto
+1297 210.875 lineto
+1297 180.375 lineto
+1454.75 180.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1305 197.375 moveto 141.75 (LLTutorWindow::updateProgress) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+1363.5 186.125 moveto 24.75 (Panel) alignedtext
+grestore
+% Node2->Node3
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1488.464 186.559 moveto
+1477.459 187.453 1466.072 188.378 1454.966 189.28 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1488.574 190.062 moveto
+1498.257 185.763 lineto
+1488.007 183.085 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1488.574 190.062 moveto
+1498.257 185.763 lineto
+1488.007 183.085 lineto
+closepath stroke
+grestore
+% Node4
+gsave
+[ /Rect [ 1116.75 215.375 1248.25 245.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#aacc2ce021a0c40da4f19b27a787238de) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1248.25 245.875 moveto
+1116.75 245.875 lineto
+1116.75 215.375 lineto
+1248.25 215.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1248.25 245.875 moveto
+1116.75 245.875 lineto
+1116.75 215.375 lineto
+1248.25 215.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1124.75 232.375 moveto 115.5 (LLTutorWindow::applyText) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+1170.125 221.125 moveto 24.75 (Scale) alignedtext
+grestore
+% Node3->Node4
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1285.788 211.918 moveto
+1273.234 214.214 1260.527 216.538 1248.539 218.73 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1286.063 215.426 moveto
+1295.271 210.184 lineto
+1284.804 208.54 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1286.063 215.426 moveto
+1295.271 210.184 lineto
+1284.804 208.54 lineto
+closepath stroke
+grestore
+% Node5
+gsave
+[ /Rect [ 1104 264 1261 283.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#ad15dd9b88144f9123f905900a713026e) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1261 283.25 moveto
+1104 283.25 lineto
+1104 264 lineto
+1261 264 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1261 283.25 moveto
+1104 283.25 lineto
+1104 264 lineto
+1261 264 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1112 269.75 moveto 141 (LLTutorWindow::LLTutorWindow) alignedtext
+grestore
+% Node3->Node5
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1339.145 216.937 moveto
+1317.198 229.311 1288.172 244.421 1261 254.625 curveto
+1251.922 258.034 1242.014 260.999 1232.408 263.509 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1340.75 220.051 moveto
+1347.69 212.046 lineto
+1337.273 213.976 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1340.75 220.051 moveto
+1347.69 212.046 lineto
+1337.273 213.976 lineto
+closepath stroke
+grestore
+% Node12
+gsave
+[ /Rect [ 186.25 237 356 256.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#a60b755f5082fa049eb48d5f1fc15d424) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 356 256.25 moveto
+186.25 256.25 lineto
+186.25 237 lineto
+356 237 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 356 256.25 moveto
+186.25 256.25 lineto
+186.25 237 lineto
+356 237 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+194.25 242.75 moveto 153.75 (LLTutorWindow::updatePlaceholder) alignedtext
+grestore
+% Node3->Node12
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1285.594 192.684 moveto
+1208.619 190.402 1094.497 187.625 995 187.625 curveto
+995 187.625 995 187.625 638.125 187.625 curveto
+516.642 187.625 375.335 219.698 309.477 236.55 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1285.062 196.169 moveto
+1295.162 192.971 lineto
+1285.272 189.173 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1285.062 196.169 moveto
+1295.162 192.971 lineto
+1285.272 189.173 lineto
+closepath stroke
+grestore
+% Node5->Node5
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1216.608 293.976 moveto
+1213.025 298.207 1201.656 301.25 1182.5 301.25 curveto
+1149.365 301.25 1139.528 292.145 1152.989 283.538 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1219.854 292.664 moveto
+1212.621 284.923 lineto
+1213.448 295.486 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1219.854 292.664 moveto
+1212.621 284.923 lineto
+1213.448 295.486 lineto
+closepath stroke
+grestore
+% Node6
+gsave
+[ /Rect [ 920 296.375 1068 326.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#ab7e720930213417b63841d80dcaaf61f) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1068 326.875 moveto
+920 326.875 lineto
+920 296.375 lineto
+1068 296.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1068 326.875 moveto
+920 326.875 lineto
+920 296.375 lineto
+1068 296.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+928 313.375 moveto 132 (LLTutorWindow::promptExport) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+976 302.125 moveto 36 (FilePath) alignedtext
+grestore
+% Node5->Node6
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1121.189 285.914 moveto
+1104.316 289.351 1085.793 293.126 1068.259 296.698 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1121.428 289.437 moveto
+1130.528 284.011 lineto
+1120.031 282.578 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1121.428 289.437 moveto
+1130.528 284.011 lineto
+1120.031 282.578 lineto
+closepath stroke
+grestore
+% Node7
+gsave
+[ /Rect [ 736.75 264 884 283.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#a46d831eda0be47f2cb2f555faef96b38) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 884 283.25 moveto
+736.75 283.25 lineto
+736.75 264 lineto
+884 264 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 884 283.25 moveto
+736.75 283.25 lineto
+736.75 264 lineto
+884 264 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+744.75 269.75 moveto 131.25 (LLTutorWindow::postQuestion) alignedtext
+grestore
+% Node6->Node7
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 908.678 293.983 moveto
+891.881 290.469 874.785 286.892 859.707 283.737 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 907.663 297.346 moveto
+918.168 295.969 lineto
+909.097 290.495 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 907.663 297.346 moveto
+918.168 295.969 lineto
+909.097 290.495 lineto
+closepath stroke
+grestore
+% Node8
+gsave
+[ /Rect [ 577.5 294 700.75 313.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#a68732a0b7ca355349e1cfff4e03665f0) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 700.75 313.25 moveto
+577.5 313.25 lineto
+577.5 294 lineto
+700.75 294 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 700.75 313.25 moveto
+577.5 313.25 lineto
+577.5 294 lineto
+700.75 294 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+585.5 299.75 moveto 107.25 (LLTutorWindow::solution) alignedtext
+grestore
+% Node6->Node8
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 908.626 309.712 moveto
+844.717 308.263 758.421 306.307 701.105 305.007 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 908.294 313.205 moveto
+918.371 309.933 lineto
+908.453 306.207 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 908.294 313.205 moveto
+918.371 309.933 lineto
+908.453 306.207 lineto
+closepath stroke
+grestore
+% Node7->Node5
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 895.873 273.625 moveto
+958.445 273.625 1043.045 273.625 1103.91 273.625 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 895.97 270.125 moveto
+885.97 273.625 lineto
+895.97 277.125 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 895.97 270.125 moveto
+885.97 273.625 lineto
+895.97 277.125 lineto
+closepath stroke
+grestore
+% Node7->Node8
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 741.463 285.663 moveto
+726.749 288.271 711.333 291.003 697.092 293.527 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 741.82 289.154 moveto
+751.056 283.962 lineto
+740.599 282.261 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 741.82 289.154 moveto
+751.056 283.962 lineto
+740.599 282.261 lineto
+closepath stroke
+grestore
+% Node9
+gsave
+[ /Rect [ 392 294 541.5 313.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#aae56758be5ab1d25104df692506b8369) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 541.5 313.25 moveto
+392 313.25 lineto
+392 294 lineto
+541.5 294 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 541.5 313.25 moveto
+392 313.25 lineto
+392 294 lineto
+541.5 294 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+400 299.75 moveto 133.5 (LLTutorWindow::solutionForB2) alignedtext
+grestore
+% Node8->Node9
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 565.645 296.942 moveto
+557.734 296.858 549.673 296.853 541.743 296.927 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 565.53 300.441 moveto
+575.584 297.098 lineto
+565.64 293.442 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 565.53 300.441 moveto
+575.584 297.098 lineto
+565.64 293.442 lineto
+closepath stroke
+grestore
+% Node9->Node8
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 553.144 310.375 moveto
+561.228 310.374 569.309 310.291 577.097 310.128 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 553.273 306.876 moveto
+543.257 310.33 lineto
+553.241 313.876 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 553.273 306.876 moveto
+543.257 310.33 lineto
+553.241 313.876 lineto
+closepath stroke
+grestore
+% Node10
+gsave
+[ /Rect [ 199.375 321.375 342.875 351.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#ac949d35e0528713e92fd7bff0455e117) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 342.875 351.875 moveto
+199.375 351.875 lineto
+199.375 321.375 lineto
+342.875 321.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 342.875 351.875 moveto
+199.375 351.875 lineto
+199.375 321.375 lineto
+342.875 321.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+207.375 338.375 moveto 127.5 (LLTutorWindow::feedbackFor) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+255 327.125 moveto 32.25 (BPrime) alignedtext
+grestore
+% Node9->Node10
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 395.591 315.582 moveto
+378.532 318.49 360.276 321.601 343.176 324.516 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 395.842 319.09 moveto
+405.112 313.96 lineto
+394.666 312.19 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 395.842 319.09 moveto
+405.112 313.96 lineto
+394.666 312.19 lineto
+closepath stroke
+grestore
+% Node9->Node12
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 420.722 290.369 moveto
+385.79 280.086 338.112 266.05 306.279 256.679 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 419.546 293.672 moveto
+430.128 293.138 lineto
+421.523 286.957 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 419.546 293.672 moveto
+430.128 293.138 lineto
+421.523 286.957 lineto
+closepath stroke
+grestore
+% Node10->Node8
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 354.731 335.37 moveto
+408.171 333.81 479.15 330.336 541.5 322.625 curveto
+558.807 320.485 577.661 317.034 594.083 313.656 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 354.674 331.87 moveto
+344.774 335.642 lineto
+354.866 338.867 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 354.674 331.87 moveto
+344.774 335.642 lineto
+354.866 338.867 lineto
+closepath stroke
+grestore
+% Node11
+gsave
+[ /Rect [ 0 348 150.25 367.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_l_l_tutor_window.html#a7aaded0d4be413f66c9468b5ceff3314) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 150.25 367.25 moveto
+0 367.25 lineto
+0 348 lineto
+150.25 348 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 150.25 367.25 moveto
+0 367.25 lineto
+0 348 lineto
+150.25 348 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+8 353.75 moveto 134.25 (LLTutorWindow::feedbackForA) alignedtext
+grestore
+% Node10->Node11
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 187.748 345.542 moveto
+175.384 346.88 162.695 348.254 150.511 349.573 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 187.918 349.044 moveto
+197.483 344.488 lineto
+187.165 342.085 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 187.918 349.044 moveto
+197.483 344.488 lineto
+187.165 342.085 lineto
+closepath stroke
+grestore
+% Node11->Node8
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 161.551 365.309 moveto
+255.993 371.411 411.917 374.361 541.5 342.625 curveto
+569.086 335.869 599.178 322.731 618.327 313.58 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 162.068 361.836 moveto
+151.854 364.653 lineto
+161.595 368.82 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 162.068 361.836 moveto
+151.854 364.653 lineto
+161.595 368.82 lineto
+closepath stroke
+grestore
+% Node11->Node11
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 110.59 377.976 moveto
+106.865 382.207 95.043 385.25 75.125 385.25 curveto
+40.672 385.25 30.444 376.145 44.44 367.538 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 113.786 376.549 moveto
+106.44 368.914 lineto
+107.421 379.463 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 113.786 376.549 moveto
+106.44 368.914 lineto
+107.421 379.463 lineto
+closepath stroke
+grestore
+% Node12->Node5
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 367.492 238.96 moveto
+441.312 233.685 546.134 227.625 638.125 227.625 curveto
+811.375 227.625 811.375 227.625 811.375 227.625 curveto
+926.958 227.625 1061.304 249.989 1132.053 263.53 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 367.606 235.443 moveto
+357.885 239.656 lineto
+368.111 242.425 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 367.606 235.443 moveto
+357.885 239.656 lineto
+368.111 242.425 lineto
+closepath stroke
+grestore
+% Node12->Node8
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 363.127 258.218 moveto
+415.419 265.19 482.276 274.632 541.5 284.625 curveto
+557.178 287.27 574.217 290.501 589.559 293.543 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 363.734 254.768 moveto
+353.361 256.923 lineto
+362.814 261.707 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 363.734 254.768 moveto
+353.361 256.923 lineto
+362.814 261.707 lineto
+closepath stroke
+grestore
+% Node13->Node13
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1592.728 137.578 moveto
+1587.786 141.35 1577.71 143.875 1562.5 143.875 curveto
+1534.688 143.875 1524.041 135.431 1530.56 126.361 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1596.163 138.271 moveto
+1594.212 127.857 lineto
+1589.243 137.214 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1596.163 138.271 moveto
+1594.212 127.857 lineto
+1589.243 137.214 lineto
+closepath stroke
+grestore
+% Node14
+gsave
+[ /Rect [ 1304.125 83 1447.625 102.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#ab9e00263109c4e1ab6b66617ce2f1887) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1447.625 102.25 moveto
+1304.125 102.25 lineto
+1304.125 83 lineto
+1447.625 83 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1447.625 102.25 moveto
+1304.125 102.25 lineto
+1304.125 83 lineto
+1447.625 83 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1312.125 88.75 moveto 127.5 (TutorialManager::hideOverlay) alignedtext
+grestore
+% Node13->Node14
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1479.175 102.599 moveto
+1468.76 101.583 1458.174 100.551 1447.955 99.555 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1478.584 106.058 moveto
+1488.877 103.545 lineto
+1479.264 99.091 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1478.584 106.058 moveto
+1488.877 103.545 lineto
+1479.264 99.091 lineto
+closepath stroke
+grestore
+% Node21
+gsave
+[ /Rect [ 1310.875 7.375 1440.875 37.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($namespace_app_typography.html#a10a1ec42f188b8015dce05b9d8554aab) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1440.875 37.875 moveto
+1310.875 37.875 lineto
+1310.875 7.375 lineto
+1440.875 7.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1440.875 37.875 moveto
+1310.875 37.875 lineto
+1310.875 7.375 lineto
+1440.875 7.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1318.875 24.375 moveto 114 (AppTypography::loadStyle) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+1363.125 13.125 moveto 25.5 (Sheet) alignedtext
+grestore
+% Node13->Node21
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1518.194 89.984 moveto
+1485.09 74.205 1440.145 52.782 1409.907 38.37 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1516.593 93.098 moveto
+1527.126 94.241 lineto
+1519.605 86.779 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1516.593 93.098 moveto
+1527.126 94.241 lineto
+1519.605 86.779 lineto
+closepath stroke
+grestore
+% Node24
+gsave
+[ /Rect [ 1308.625 120 1443.125 139.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_main_window.html#a996c5a2b6f77944776856f08ec30858d) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1443.125 139.25 moveto
+1308.625 139.25 lineto
+1308.625 120 lineto
+1443.125 120 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1443.125 139.25 moveto
+1308.625 139.25 lineto
+1308.625 120 lineto
+1443.125 120 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1316.625 125.75 moveto 118.5 (MainWindow::MainWindow) alignedtext
+grestore
+% Node13->Node24
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1479.044 119.111 moveto
+1467.119 120.338 1454.972 121.588 1443.411 122.778 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1479.289 122.604 moveto
+1488.878 118.099 lineto
+1478.572 115.641 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1479.289 122.604 moveto
+1488.878 118.099 lineto
+1478.572 115.641 lineto
+closepath stroke
+grestore
+% Node15
+gsave
+[ /Rect [ 1113.375 92 1251.625 111.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#ab1a4a56a7150cf6f216a831e09dd7209) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1251.625 111.25 moveto
+1113.375 111.25 lineto
+1113.375 92 lineto
+1251.625 92 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1251.625 111.25 moveto
+1113.375 111.25 lineto
+1113.375 92 lineto
+1251.625 92 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1121.375 97.75 moveto 122.25 (TutorialManager::clearSteps) alignedtext
+grestore
+% Node14->Node15
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1292.581 96.495 moveto
+1278.99 97.134 1265.031 97.791 1251.831 98.412 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1292.55 100.001 moveto
+1302.374 96.035 lineto
+1292.221 93.008 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1292.55 100.001 moveto
+1302.374 96.035 lineto
+1292.221 93.008 lineto
+closepath stroke
+grestore
+% Node16
+gsave
+[ /Rect [ 1117.125 55 1247.875 74.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#aaa497afd5ce20be6249e2660f74b6dc3) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1247.875 74.25 moveto
+1117.125 74.25 lineto
+1117.125 55 lineto
+1247.875 55 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1247.875 74.25 moveto
+1117.125 74.25 lineto
+1117.125 55 lineto
+1247.875 55 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1125.125 60.75 moveto 114.75 (TutorialManager::nextStep) alignedtext
+grestore
+% Node14->Node16
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1330.844 80.397 moveto
+1306.302 75.788 1275.286 71.039 1248.048 67.647 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1330.006 83.799 moveto
+1340.491 82.28 lineto
+1331.347 76.929 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1330.006 83.799 moveto
+1340.491 82.28 lineto
+1331.347 76.929 lineto
+closepath stroke
+grestore
+% Node20
+gsave
+[ /Rect [ 1119.375 129.375 1245.625 159.875 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#a57817e60d063bad9ac188e1cf9c86588) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1245.625 159.875 moveto
+1119.375 159.875 lineto
+1119.375 129.375 lineto
+1245.625 129.375 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1245.625 159.875 moveto
+1119.375 159.875 lineto
+1119.375 129.375 lineto
+1245.625 129.375 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1127.375 146.375 moveto 110.25 (TutorialManager::setRoot) alignedtext
+0 0 0 nodecolor
+10 /Helvetica set_font
+1164.875 135.125 moveto 35.25 (Window) alignedtext
+grestore
+% Node14->Node20
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1318.003 105.326 moveto
+1310.914 107.04 1303.778 108.828 1297 110.625 curveto
+1276.023 116.185 1253.06 122.937 1233.309 128.954 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1318.653 108.769 moveto
+1327.574 103.054 lineto
+1317.036 101.959 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1318.653 108.769 moveto
+1327.574 103.054 lineto
+1317.036 101.959 lineto
+closepath stroke
+grestore
+% Node16->Node14
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1227.914 76.925 moveto
+1250.475 81.151 1278.432 85.49 1303.886 88.785 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1228.62 73.497 moveto
+1218.136 75.021 lineto
+1227.282 80.368 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1228.62 73.497 moveto
+1218.136 75.021 lineto
+1227.282 80.368 lineto
+closepath stroke
+grestore
+% Node17
+gsave
+[ /Rect [ 921.875 55 1066.125 74.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#a43ead2fd97e8b0783026004724988cdf) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1066.125 74.25 moveto
+921.875 74.25 lineto
+921.875 55 lineto
+1066.125 55 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1066.125 74.25 moveto
+921.875 74.25 lineto
+921.875 55 lineto
+1066.125 55 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+929.875 60.75 moveto 128.25 (TutorialManager::slr1Finished) alignedtext
+grestore
+% Node16->Node17
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1105.613 64.625 moveto
+1092.724 64.625 1079.377 64.625 1066.604 64.625 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1105.281 68.125 moveto
+1115.281 64.625 lineto
+1105.281 61.125 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1105.281 68.125 moveto
+1115.281 64.625 lineto
+1105.281 61.125 lineto
+closepath stroke
+grestore
+% Node19
+gsave
+[ /Rect [ 938.375 92 1049.625 111.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#a4fd17560c48c8f8646ef846b8f36bb30) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1049.625 111.25 moveto
+938.375 111.25 lineto
+938.375 92 lineto
+1049.625 92 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1049.625 111.25 moveto
+938.375 111.25 lineto
+938.375 92 lineto
+1049.625 92 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+946.375 97.75 moveto 95.25 (TutorialManager::start) alignedtext
+grestore
+% Node16->Node19
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1119.454 76.934 moveto
+1095.575 81.672 1068.61 87.021 1045.9 91.527 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1119.926 80.409 moveto
+1129.053 75.03 lineto
+1118.563 73.543 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1119.926 80.409 moveto
+1129.053 75.03 lineto
+1118.563 73.543 lineto
+closepath stroke
+grestore
+% Node18
+gsave
+[ /Rect [ 740.5 55 880.25 74.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($class_tutorial_manager.html#afffc44cf7c78c43e9f5c982389284272) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 880.25 74.25 moveto
+740.5 74.25 lineto
+740.5 55 lineto
+880.25 55 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 880.25 74.25 moveto
+740.5 74.25 lineto
+740.5 55 lineto
+880.25 55 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+748.5 60.75 moveto 123.75 (TutorialManager::finishSLR1) alignedtext
+grestore
+% Node17->Node18
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 909.973 64.625 moveto
+900.101 64.625 890.105 64.625 880.456 64.625 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 909.964 68.125 moveto
+919.964 64.625 lineto
+909.964 61.125 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 909.964 68.125 moveto
+919.964 64.625 lineto
+909.964 61.125 lineto
+closepath stroke
+grestore
+% Node21->Node21
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1407.172 49.578 moveto
+1402.055 53.35 1391.623 55.875 1375.875 55.875 curveto
+1347.079 55.875 1336.056 47.431 1342.805 38.361 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1410.605 50.28 moveto
+1408.709 39.856 lineto
+1403.69 49.187 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1410.605 50.28 moveto
+1408.709 39.856 lineto
+1403.69 49.187 lineto
+closepath stroke
+grestore
+% Node22
+gsave
+[ /Rect [ 1143 0 1222 19.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($main_8cpp.html#a8f9e1149f67b06f87889db2a280d1615) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1222 19.25 moveto
+1143 19.25 lineto
+1143 0 lineto
+1222 0 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1222 19.25 moveto
+1143 19.25 lineto
+1143 0 lineto
+1222 0 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+1151 5.75 moveto 63 (applyAppStyle) alignedtext
+grestore
+% Node21->Node22
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1299.483 17.504 moveto
+1273.136 15.714 1244.637 13.778 1222.483 12.273 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1298.893 20.972 moveto
+1309.107 18.157 lineto
+1299.368 13.988 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1298.893 20.972 moveto
+1309.107 18.157 lineto
+1299.368 13.988 lineto
+closepath stroke
+grestore
+% Node22->Node22
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1216.608 29.976 moveto
+1213.025 34.207 1201.656 37.25 1182.5 37.25 curveto
+1149.365 37.25 1139.528 28.145 1152.989 19.538 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1219.854 28.664 moveto
+1212.621 20.923 lineto
+1213.448 31.486 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1219.854 28.664 moveto
+1212.621 20.923 lineto
+1213.448 31.486 lineto
+closepath stroke
+grestore
+% Node23
+gsave
+[ /Rect [ 975.5 0 1012.5 19.25 ]
+  /Border [ 0 0 0 ]
+  /Action << /Subtype /URI /URI ($main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97) >>
+  /Subtype /Link
+/ANN pdfmark
+0 0 1 nodecolor
+newpath 1012.5 19.25 moveto
+975.5 19.25 lineto
+975.5 0 lineto
+1012.5 0 lineto
+closepath fill
+1 setlinewidth
+filled
+0 0 0.4 nodecolor
+newpath 1012.5 19.25 moveto
+975.5 19.25 lineto
+975.5 0 lineto
+1012.5 0 lineto
+closepath stroke
+0 0 0 nodecolor
+10 /Helvetica set_font
+983.5 5.75 moveto 21 (main) alignedtext
+grestore
+% Node22->Node23
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1131.387 9.625 moveto
+1092.106 9.625 1039.725 9.625 1012.737 9.625 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1131.344 13.125 moveto
+1141.344 9.625 lineto
+1131.344 6.125 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1131.344 13.125 moveto
+1141.344 9.625 lineto
+1131.344 6.125 lineto
+closepath stroke
+grestore
+% Node23->Node23
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1022.987 19.697 moveto
+1035.741 28.257 1026.079 37.25 994 37.25 curveto
+955.625 37.25 949.329 24.381 975.112 14.779 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1024.771 16.673 moveto
+1014.248 15.441 lineto
+1021.706 22.967 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1024.771 16.673 moveto
+1014.248 15.441 lineto
+1021.706 22.967 lineto
+closepath stroke
+grestore
+% Node24->Node24
+gsave
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1409.643 149.976 moveto
+1406.097 154.207 1394.84 157.25 1375.875 157.25 curveto
+1343.07 157.25 1333.331 148.145 1346.658 139.538 curveto
+stroke
+0.57255 0.61176 1 edgecolor
+newpath 1412.902 148.693 moveto
+1405.697 140.925 lineto
+1406.486 151.491 lineto
+closepath fill
+1 setlinewidth
+solid
+0.57255 0.61176 1 edgecolor
+newpath 1412.902 148.693 moveto
+1405.697 140.925 lineto
+1406.486 151.491 lineto
+closepath stroke
+grestore
+endpage
+showpage
+grestore
+%%PageTrailer
+%%EndPage: 1
+%%Trailer
+end
+restore
+%%EOF

@@ -1,0 +1,11 @@
+<map id="MainWindow::userLevelChanged" name="MainWindow::userLevelChanged">
+<area shape="rect" id="Node000001" title="Emitted when the user&#39;s level changes." alt="" coords="462,29,674,55"/>
+<area shape="poly" id="edge6_Node000001_Node000001" title=" " alt="" coords="610,15,597,11,568,8,542,10,528,15,525,20,532,30,527,28,520,21,525,11,541,5,568,3,599,5,615,15"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title="Constructs the main window." alt="" coords="5,29,185,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="444,32,414,33,323,30,233,33,185,36,185,31,233,28,323,25,414,28,449,32"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a3913d62afef85cd18073399c78045041" title="Sets the user level, clamping it to the allowed maximum." alt="" coords="233,67,414,92"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="467,58,412,69,412,63,462,58"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="133,15,121,10,95,8,71,10,58,15,55,20,62,29,57,29,50,21,54,11,70,5,95,3,123,5,139,14"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="223,64,178,58,178,53,228,63"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="362,52,350,48,323,45,299,47,286,52,283,57,290,67,285,65,278,58,282,48,298,42,323,40,351,43,367,52"/>
+</map>

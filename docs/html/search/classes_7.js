@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['uniquequeue_0',['UniqueQueue',['../classUniqueQueue.html',1,'']]],
-  ['uniquequeue_3c_20unsigned_20_3e_1',['UniqueQueue&lt; unsigned &gt;',['../classUniqueQueue.html',1,'']]]
+  ['mainwindow_0',['MainWindow',['../class_main_window.html',1,'']]],
+  ['message_1',['Message',['../struct_conversation_pdf_1_1_message.html',1,'ConversationPdf']]]
 ];

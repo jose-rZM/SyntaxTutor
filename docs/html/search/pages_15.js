@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🖼️_20interface_20screenshots_0',['🖼️ Interface Screenshots',['../index.html#autotoc_md6',1,'']]]
+  ['🏠_20home_0',['🏠 Home',['../index.html#autotoc_md9',1,'']]]
 ];

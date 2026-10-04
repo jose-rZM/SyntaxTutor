@@ -1,7 +1,0 @@
-<map id="LLTableDialog::submitted" name="LLTableDialog::submitted">
-<area shape="rect" id="Node000001" title="Signal emitted when the user submits the table." alt="" coords="269,48,453,76"/>
-<area shape="rect" id="Node000002" href="$classLLTutorWindow.html#a2885a07a8cdc6c3c34503ab3c4cc588b" title=" " alt="" coords="5,5,221,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,50,221,45,221,40,254,45"/>
-<area shape="rect" id="Node000003" href="$classLLTutorWindow.html#a76a825d9c56a31849e340be7b45f6674" title=" " alt="" coords="11,75,215,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,80,216,85,215,80,253,75"/>
-</map>

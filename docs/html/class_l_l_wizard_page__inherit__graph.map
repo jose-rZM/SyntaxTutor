@@ -1,0 +1,5 @@
+<map id="LLWizardPage" name="LLWizardPage">
+<area shape="rect" id="Node000001" title="A single guided step for constructing the LL(1) table." alt="" coords="5,79,111,105"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="22,5,94,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,45,61,79,55,78,56,48"/>
+</map>
