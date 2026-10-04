@@ -57,9 +57,13 @@ jobs:
 
           chmod +x "$APP/Contents/MacOS/SyntaxTutor"
 
-          # The .icns ships ready in resources/icon (16 to 1024 px).
-          cp resources/icon/syntaxtutor.icns "$APP/Contents/Resources/SyntaxTutor.icns"
-          chmod 644 "$APP/Contents/Resources/SyntaxTutor.icns"
+          # The .icns ships ready in resources/icon (16 to 1024 px); qmake
+          # already copies it (ICON in the .pro). The name has to match
+          # CFBundleIconFile exactly, case included: the runner's disk is
+          # case-insensitive, so copying it as "SyntaxTutor.icns" kept the
+          # existing lowercase file and the bundle showed no icon.
+          cp resources/icon/syntaxtutor.icns "$APP/Contents/Resources/syntaxtutor.icns"
+          chmod 644 "$APP/Contents/Resources/syntaxtutor.icns"
 
           cat > $APP/Contents/Info.plist << EOF
           <?xml version="1.0" encoding="UTF-8"?>
@@ -78,7 +82,7 @@ jobs:
             <key>CFBundleShortVersionString</key>
             <string>${VERSION}</string>
             <key>CFBundleIconFile</key>
-            <string>SyntaxTutor.icns</string>
+            <string>syntaxtutor.icns</string>
             <key>CFBundlePackageType</key>
             <string>APPL</string>
           </dict>
