@@ -1021,6 +1021,42 @@ void TutorWindowTest::slrUserGrammarKeepsWrittenRuleOrder() {
     QCOMPARE(tutor.wrongCountForTest(), 0);
 }
 
+// -----------------------------------------------------------------------------
+// Case: SLR1-TC-A2-ITEM
+// Summary:
+//   The A2 question shows the grammar's own initial item.
+//
+// Situation:
+//   A grammar typed by the user, whose start symbol is Z: its initial item
+//   is S -> · Z $. The question used to show a fixed S -> · A $, which only
+//   matched the generated grammars, while expecting Z as the answer.
+//
+// Expected:
+//   The question reaching A2 names S -> · Z $.
+// -----------------------------------------------------------------------------
+void TutorWindowTest::slrInitialItemQuestionUsesTheGrammar() {
+    const GrammarParseResult parsed =
+        GrammarParser::Parse("Z -> X Y .\nY -> c .\nX -> a | b .");
+    QVERIFY(parsed.Ok());
+
+    SLRTutorWindow tutor(parsed.grammar, nullptr);
+    tutor.setAnswerForTest(QStringLiteral("x"));
+    tutor.submitForTest();
+    QCOMPARE(tutor.currentStateForTest(), QString("A1"));
+    SlrTutorTestUtils::submitCorrectAnswerForCurrentState(tutor);
+    QCOMPARE(tutor.currentStateForTest(), QString("A2"));
+
+    QString question;
+    for (const QLabel* label : tutor.findChildren<QLabel*>()) {
+        if (label->text().contains(QStringLiteral("Dado el ítem"))) {
+            question = label->text();
+        }
+    }
+    QVERIFY2(question.contains(QStringLiteral("S -&gt; · Z $")) ||
+                 question.contains(QStringLiteral("S -> · Z $")),
+             qPrintable(question));
+}
+
 void TutorWindowTest::slrFinalTableCorrectPathExportsAndExits() {
     forEachSlrNoConflictFixture([](const auto& fixture) {
         const Grammar grammar = fixture.grammar;
